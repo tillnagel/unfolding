@@ -43,6 +43,7 @@ public class MouseHandler extends MapEventBroadcaster {
 					// FIXME Order of events is important: Zoom before Pan does not work.
 					log.debug("mouse: fire panTo + zoomBy");
 
+					// FIXME Pan + Zoom does not work without tweening
 					PanMapEvent panMapEvent = new PanMapEvent(this, map.getId());
 					Location location = map.getLocation(mouseX, mouseY);
 					panMapEvent.setLocation(location);
