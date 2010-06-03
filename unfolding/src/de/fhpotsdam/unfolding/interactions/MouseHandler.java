@@ -2,6 +2,7 @@ package de.fhpotsdam.unfolding.interactions;
 
 import java.awt.event.InputEvent;
 import java.awt.event.MouseEvent;
+import java.util.Arrays;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -18,8 +19,13 @@ public class MouseHandler extends UserInteractionHandler {
 
 	public static Logger log = Logger.getLogger(MouseHandler.class);
 
-	public MouseHandler(PApplet p, List<Map> maps, EventDispatcher eventDispatcher) {
-		super(maps, eventDispatcher);
+	public MouseHandler(PApplet p, EventDispatcher eventDispatcher, Map... maps) {
+		this(p, eventDispatcher, Arrays.asList(maps));
+	}
+
+	public MouseHandler(PApplet p, EventDispatcher eventDispatcher, List<Map> maps) {
+		super(eventDispatcher, maps);
+
 		p.registerMouseEvent(this);
 
 		p.addMouseWheelListener(new java.awt.event.MouseWheelListener() {
@@ -54,16 +60,16 @@ public class MouseHandler extends UserInteractionHandler {
 		for (Map map : maps) {
 			if (map.isHit(mouseX, mouseY)) {
 				log.debug("mouse: fire zoomBy for " + map.getId());
-				
+
 				ZoomMapEvent zoomMapEvent = new ZoomMapEvent(this, map.getId(),
 						ZoomMapEvent.ZOOM_BY);
-				
+
 				if (delta < 0) {
 					zoomMapEvent.setZoomLevelDelta(-1);
 				} else if (delta > 0) {
 					zoomMapEvent.setZoomLevelDelta(1);
 				}
-				
+
 				eventDispatcher.fireMapEvent(zoomMapEvent);
 			}
 		}
@@ -73,7 +79,7 @@ public class MouseHandler extends UserInteractionHandler {
 		for (Map map : maps) {
 			if (map.isHit(mouseX, mouseY)) {
 				log.debug("mouse: fire panTo for " + map.getId());
-				
+
 				Location newLocation = map.getLocation(mouseX, mouseY);
 				Location oldLocation = map.getLocation(pmouseX, pmouseY);
 				oldLocation.sub(newLocation);
@@ -86,7 +92,7 @@ public class MouseHandler extends UserInteractionHandler {
 			}
 		}
 	}
-	
+
 	public void mouseMoved() {
 	}
 
