@@ -33,10 +33,11 @@ public class RSSFeedMarkerApp extends PApplet{
 		smooth();
 				
 		//Creates default mapDisplay
-		map = new Map(this, "map", 0, 0, 800, 600);
+		map = new Map(this, "map", 50, 50, 700, 500);
 		
 		map.zoomToLevel(3);
 		map.panCenterTo(new Location(0, 0));
+		//map.rotate(radians(-30));
 		
 		//Creates default dispatcher
 		eventDispatcher = MapUtils.createDefaultEventDispatcher(this, map);
@@ -63,12 +64,21 @@ public class RSSFeedMarkerApp extends PApplet{
 		background(0);
 		map.draw();
 		
-		
 		//draw the locations
-		fill(255,0,0);
 		for(Location location : rssGeoLocations){
 			PVector p = map.mapDisplay.locationPoint(location);
-			ellipse(p.x, p.y, 5, 5);
+			noStroke();
+			fill(200, 200, 0, 100);
+			ellipse(p.x, p.y, 10, 10);
 		}
 	}
+	
+	public void keyPressed() {
+		if (key == 'r') {
+			map.rotate(-0.1);
+		} else if (key == 'l') {
+			map.rotate(0.1);
+		}
+	}
+
 }
