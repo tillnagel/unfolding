@@ -37,6 +37,11 @@ public abstract class AbstractMapDisplay {
 
 	public float width;
 	public float height;
+	
+	// Offset of the mapDisplay (in world coordinates).
+	public float offsetX;
+	public float offsetY;
+	public float angle;	
 
 	protected AbstractMapProvider provider;
 	protected Hashtable<Coordinate, Runnable> pending = new Hashtable<Coordinate, Runnable>();
@@ -73,8 +78,6 @@ public abstract class AbstractMapDisplay {
 
 	// TODO: leave implementation to used class
 	public abstract PVector locationPoint(Location location);
-
-	public abstract Location pointLocation(PVector point);
 
 	public abstract Location pointLocation(float x, float y);
 

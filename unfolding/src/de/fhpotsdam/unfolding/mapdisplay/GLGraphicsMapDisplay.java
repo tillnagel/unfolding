@@ -30,6 +30,9 @@ public class GLGraphicsMapDisplay extends ProcessingMapDisplay implements PConst
 
 		papplet.pushMatrix();
 		papplet.translate(offsetX, offsetY);
+		papplet.translate(width/2, height/2);
+		papplet.rotate(angle);
+		papplet.translate(-width/2, -height/2);
 
 		papplet.image(pg.getTexture(), 0, 0);
 		papplet.popMatrix();

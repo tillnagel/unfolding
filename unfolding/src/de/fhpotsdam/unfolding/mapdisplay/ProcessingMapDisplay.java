@@ -22,10 +22,6 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 	// Used for loadImage and float maths
 	public PApplet papplet;
 
-	// Offset of the mapDisplay (in world coordinates).
-	protected float offsetX;
-	protected float offsetY;
-
 	/** default to Microsoft Hybrid */
 	public ProcessingMapDisplay(PApplet papplet) {
 		this(papplet, new Microsoft.HybridProvider());
@@ -47,32 +43,13 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 		this.offsetY = offsetY;
 	}
 
-	// PROJECTIONS - using PMatrix2D
-	// REVISIT This seems strange to be in here (duplicate matrices, and such)
-	public PVector locationPoint(Location location) {
-		PMatrix2D m = new PMatrix2D();
-		m.translate(offsetX + width / 2, offsetY + height / 2);
-		m.scale((float) sc);
-		m.translate((float) tx, (float) ty);
-
-		Coordinate coord = provider.locationCoordinate(location).zoomTo(0);
-		float[] out = new float[2];
-		m.mult(new float[] { coord.column * TILE_WIDTH, coord.row * TILE_HEIGHT }, out);
-
-		return new PVector(out[0], out[1]);
-	}
-
-	public Location pointLocation(PVector point) {
-		return pointLocation(point.x, point.y);
-	}
-
 	public Location pointLocation(float x, float y) {
-		// TODO: create this matrix once and keep it around for drawing and
-		// projecting
-		PMatrix2D m = new PMatrix2D();
-		m.translate(offsetX + width / 2, offsetY + height / 2);
-		m.scale((float) sc);
-		m.translate((float) tx, (float) ty);
+
+		float transPoint[] = getTransformedPosition(x, y, true);
+		x = transPoint[0];
+		y = transPoint[1];
+
+		PMatrix2D m = getInternalTransformationMatrix();
 
 		// find top left and bottom right positions of mapDisplay in screenspace:
 		float tl[] = new float[2];
@@ -86,6 +63,67 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 
 		return provider.coordinateLocation(coord);
 	}
+	
+	public PVector locationPoint(Location location) {
+		PMatrix2D m = getInternalTransformationMatrix();
+
+		Coordinate coord = provider.locationCoordinate(location).zoomTo(0);
+		float[] out = new float[2];
+		m.mult(new float[] { coord.column * TILE_WIDTH, coord.row * TILE_HEIGHT }, out);
+
+		out = getTransformedPosition(out[0], out[1], false);
+
+		return new PVector(out[0], out[1]);
+	}
+
+	/**
+	 * Creates the matrix used for tiles and coordinates.
+	 * 
+	 * @return The internal matrix.
+	 */
+	private PMatrix2D getInternalTransformationMatrix() {
+		PMatrix2D m = new PMatrix2D();
+		m.translate(width / 2, height / 2);
+		m.scale((float) sc);
+		m.translate((float) tx, (float) ty);
+		return m;
+	}
+
+	/**
+	 * Calculates offset and rotation for screen canvas position, to be used with the internal
+	 * transformation matrix.
+	 * 
+	 * @param x
+	 *            Cartesian x coordinate.
+	 * @param y
+	 *            Cartesian y coordinate.
+	 * @param pre
+	 *            Indicates pre or post calculation. Is used for pre-render, i.e. point2location, if
+	 *            true, for location2point, otherwise.
+	 * @return An array with x and y.
+	 */
+	private float[] getTransformedPosition(float x, float y, boolean pre) {
+		PMatrix2D m = new PMatrix2D();
+		int preValue = pre ? -1 : 1;
+
+		if (!pre) {
+			m.translate(offsetX, offsetY);
+		}
+
+		m.translate(width / 2, height / 2);
+		m.rotate(angle * preValue);
+		m.translate(-width / 2, -height / 2);
+
+		if (pre) {
+			m.translate(-offsetX, -offsetY);
+		}
+
+		float[] preXY = new float[2];
+		m.mult(new float[] { x, y }, preXY);
+		return preXY;
+	}
+
+	
 
 	protected PGraphics getPG() {
 		return papplet.g;
