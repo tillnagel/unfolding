@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
+
 public class EventDispatcher {
 
 	public java.util.Map<String, List<ScopedListeners>> typedScopedListeners;
@@ -27,6 +28,10 @@ public class EventDispatcher {
 		}
 	}
 
+	public void addBroadcaster(MapEventBroadcaster broadcaster) {
+		broadcaster.setEventDispatcher(this);
+	}
+
 	public void register(MapEventListener listener, String type, String... scopeIds) {
 		List<ScopedListeners> scopedListenersList = typedScopedListeners.get(type);
 
@@ -40,9 +45,9 @@ public class EventDispatcher {
 		if (scopeIds.length == 0) {
 			scopeIds = new String[] { listener.getId() };
 		}
-		
+
 		boolean foundExistingScope = false;
-		
+
 		// Adds listener if ScopedListeners exist for scopeIds to register
 		List<String> scopeIdList = Arrays.asList(scopeIds);
 		for (ScopedListeners scopedListeners : scopedListenersList) {
@@ -67,7 +72,7 @@ public class EventDispatcher {
 		if (scopedListenersList == null) {
 			return;
 		}
-		
+
 		// Removes listener if ScopedListeners exist for scopeIds to unregister
 		List<String> scopeIdList = Arrays.asList(scopeIds);
 		for (ScopedListeners scopedListeners : scopedListenersList) {

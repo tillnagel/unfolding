@@ -17,9 +17,9 @@ import de.fhpotsdam.unfolding.interactions.KeyboardHandler;
 import de.fhpotsdam.unfolding.interactions.MouseHandler;
 import de.fhpotsdam.unfolding.utils.DebugDisplay;
 
-public class MapTestApp extends PApplet {
+public class ComplexMapEventApp extends PApplet {
 	
-	public static Logger log = Logger.getLogger(MapTestApp.class);
+	public static Logger log = Logger.getLogger(ComplexMapEventApp.class);
 	
 	List<Map> maps = new ArrayList<Map>();
 	
@@ -54,8 +54,11 @@ public class MapTestApp extends PApplet {
 		// key-zoom		on map2: zoom map2 (is active) (and zoom map3 via listener)
 		// mouse-drag	on map3: nothing (own default listener was overwritten)
 		
-		MouseHandler mouseHandler = new MouseHandler(this, maps, eventDispatcher);
-		KeyboardHandler keyboardHandler = new KeyboardHandler(this, maps, eventDispatcher);
+		MouseHandler mouseHandler = new MouseHandler(this, maps);
+		KeyboardHandler keyboardHandler = new KeyboardHandler(this, maps);
+		
+		eventDispatcher.addBroadcaster(mouseHandler);
+		eventDispatcher.addBroadcaster(keyboardHandler);
 
 		eventDispatcher.register(map1, "pan");
 		eventDispatcher.register(map1, "zoom");

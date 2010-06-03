@@ -8,14 +8,16 @@ import de.fhpotsdam.unfolding.geo.Location;
 public class PanMapEvent extends MapEvent {
 
 	public static Logger log = Logger.getLogger(PanMapEvent.class);
-
+	
+	public static final String PAN = "pan";
+	
 	public static final String PAN_BY = "panBy";
 	public static final String PAN_TO = "panTo";
 
 	Location location;
 
 	public PanMapEvent(Object source, String mapId) {
-		super(source, "pan", mapId);
+		super(source, PAN, mapId);
 		setSubType(PAN_TO);
 	}
 

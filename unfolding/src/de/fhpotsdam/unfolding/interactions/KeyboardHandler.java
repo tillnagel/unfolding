@@ -8,19 +8,19 @@ import org.apache.log4j.Logger;
 
 import processing.core.PApplet;
 import de.fhpotsdam.unfolding.Map;
-import de.fhpotsdam.unfolding.events.EventDispatcher;
+import de.fhpotsdam.unfolding.events.MapEventBroadcaster;
 import de.fhpotsdam.unfolding.events.ZoomMapEvent;
 
-public class KeyboardHandler extends UserInteractionHandler {
+public class KeyboardHandler extends MapEventBroadcaster {
 
 	public static Logger log = Logger.getLogger(KeyboardHandler.class);
 
-	public KeyboardHandler(PApplet p, EventDispatcher eventDispatcher, Map... maps) {
-		this(p, eventDispatcher, Arrays.asList(maps));
+	public KeyboardHandler(PApplet p, Map... maps) {
+		this(p, Arrays.asList(maps));
 	}
 
-	public KeyboardHandler(PApplet p, EventDispatcher eventDispatcher, List<Map> maps) {
-		super(eventDispatcher, maps);
+	public KeyboardHandler(PApplet p, List<Map> maps) {
+		super(maps);
 
 		p.registerKeyEvent(this);
 	}

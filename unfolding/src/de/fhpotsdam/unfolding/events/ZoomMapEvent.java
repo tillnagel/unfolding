@@ -8,6 +8,7 @@ public class ZoomMapEvent extends MapEvent {
 
 	public static Logger log = Logger.getLogger(ZoomMapEvent.class);
 
+	public static final String ZOOM = "zoom";
 	public static final String ZOOM_BY = "zoomBy";
 	public static final String ZOOM_TO = "zoomTo";
 
@@ -16,7 +17,7 @@ public class ZoomMapEvent extends MapEvent {
 	public int zoomLevelDelta;
 
 	public ZoomMapEvent(Object source, String mapId) {
-		super(source, "zoom", mapId);
+		super(source, ZOOM, mapId);
 	}
 
 	public ZoomMapEvent(Object source, String mapId, String type) {
@@ -24,7 +25,7 @@ public class ZoomMapEvent extends MapEvent {
 	}
 
 	public ZoomMapEvent(Object source, String mapId, String type, int zoom) {
-		super(source, "zoom", mapId);
+		super(source, ZOOM, mapId);
 		setSubType(type);
 		if (ZOOM_BY.equals(type)) {
 			setZoomLevelDelta(zoom);

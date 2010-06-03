@@ -10,21 +10,21 @@ import org.apache.log4j.Logger;
 import processing.core.PApplet;
 import processing.core.PConstants;
 import de.fhpotsdam.unfolding.Map;
-import de.fhpotsdam.unfolding.events.EventDispatcher;
+import de.fhpotsdam.unfolding.events.MapEventBroadcaster;
 import de.fhpotsdam.unfolding.events.PanMapEvent;
 import de.fhpotsdam.unfolding.events.ZoomMapEvent;
 import de.fhpotsdam.unfolding.geo.Location;
 
-public class MouseHandler extends UserInteractionHandler {
+public class MouseHandler extends MapEventBroadcaster {
 
 	public static Logger log = Logger.getLogger(MouseHandler.class);
 
-	public MouseHandler(PApplet p, EventDispatcher eventDispatcher, Map... maps) {
-		this(p, eventDispatcher, Arrays.asList(maps));
+	public MouseHandler(PApplet p, Map... maps) {
+		this(p, Arrays.asList(maps));
 	}
 
-	public MouseHandler(PApplet p, EventDispatcher eventDispatcher, List<Map> maps) {
-		super(eventDispatcher, maps);
+	public MouseHandler(PApplet p, List<Map> maps) {
+		super(maps);
 
 		p.registerMouseEvent(this);
 

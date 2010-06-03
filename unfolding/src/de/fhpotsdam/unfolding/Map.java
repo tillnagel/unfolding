@@ -42,7 +42,7 @@ public class Map implements MapEventListener {
 	protected float width;
 	protected float height;
 
-	protected boolean active;
+	protected boolean active = true;
 
 	/** Indicates whether to smoothly animate between mapDisplay states. */
 	private boolean tweening = DEFAULT_TWEENING;
