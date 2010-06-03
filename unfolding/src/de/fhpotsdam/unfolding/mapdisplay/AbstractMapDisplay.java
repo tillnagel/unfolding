@@ -1,0 +1,135 @@
+package de.fhpotsdam.unfolding.mapdisplay;
+
+import java.util.Comparator;
+import java.util.Hashtable;
+import java.util.Vector;
+
+import processing.core.PVector;
+import de.fhpotsdam.unfolding.core.Coordinate;
+import de.fhpotsdam.unfolding.geo.Location;
+import de.fhpotsdam.unfolding.providers.AbstractMapProvider;
+
+/**
+ * Handles tiles
+ * 
+ */
+public abstract class AbstractMapDisplay {
+
+	public static final int TILE_WIDTH = 256;
+	public static final int TILE_HEIGHT = 256;
+
+	public double tx = -TILE_WIDTH / 2; // half the world width, at zoom 0
+	public double ty = -TILE_HEIGHT / 2; // half the world height, at zoom 0
+	public double sc = 1;
+
+	public int max_pending = 4;
+	public int max_images_to_keep = 256;
+	public int grid_padding = 0; // was: 1
+	public float width;
+	public float height;
+
+	protected AbstractMapProvider provider;
+	protected Hashtable<Coordinate, Runnable> pending = new Hashtable<Coordinate, Runnable>();
+	protected Hashtable<Coordinate, Object> images = new Hashtable<Coordinate, Object>();
+	protected Vector<Coordinate> queue = new Vector<Coordinate>();
+	protected Vector<Object> recent_images = new Vector<Object>();
+
+	protected ZoomComparator zoomComparator = new ZoomComparator();
+	protected QueueSorter queueSorter = new QueueSorter();
+
+	protected AbstractMapDisplay(AbstractMapProvider _provider, float _width, float _height) {
+		provider = _provider;
+		width = _width;
+		height = _height;
+		sc = (float) Math.ceil(Math.min(height / (float) TILE_WIDTH, width / (float) TILE_HEIGHT));
+	}
+
+	public AbstractMapProvider getMapProvider() {
+		return this.provider;
+	}
+
+	public void setMapProvider(AbstractMapProvider provider) {
+		if (this.provider.getClass() != provider.getClass()) {
+			this.provider = provider;
+			images.clear();
+			queue.clear();
+			pending.clear();
+		}
+	}
+
+	public abstract void draw();
+
+	// PROJECTIONS --------------------------------------------------
+
+	// TODO: leave implementation to used class
+	public abstract PVector locationPoint(Location location);
+
+	public abstract Location pointLocation(PVector point);
+
+	public abstract Location pointLocation(float x, float y);
+
+	// TILES --------------------------------------------------------
+
+	public void processQueue() {
+		while (pending.size() < max_pending && queue.size() > 0) {
+			Coordinate coord = (Coordinate) queue.remove(0);
+			TileLoader tileLoader = createTileLoader(coord);
+			pending.put(coord, tileLoader);
+			new Thread(tileLoader).start();
+		}
+	}
+
+	protected abstract TileLoader createTileLoader(Coordinate coord);
+
+	public void grabTile(Coordinate coord) {
+		if (!pending.containsKey(coord) && !queue.contains(coord) && !images.containsKey(coord))
+			queue.add(coord);
+	}
+
+	// TODO: images & pending thread safe?
+	public void tileDone(Coordinate _coord, Object _image) {
+		if (pending.containsKey(_coord) && _image != null) {
+			images.put(_coord, _image);
+			pending.remove(_coord);
+		} else {
+			queue.add(_coord);
+			pending.remove(_coord);
+		}
+	}
+
+	// LOAD SORTING
+	public class QueueSorter implements Comparator<Coordinate> {
+		Coordinate center;
+
+		public void setCenter(Coordinate center) {
+			this.center = center;
+		}
+
+		public int compare(Coordinate c1, Coordinate c2) {
+			if (c1.zoom == center.zoom) {
+				if (c2.zoom == center.zoom) {
+					// only compare squared distances… saves cpu
+					float d1 = (float) Math.pow(c1.column - center.column, 2)
+							+ (float) Math.pow(c1.row - center.row, 2);
+					float d2 = (float) Math.pow(c2.column - center.column, 2)
+							+ (float) Math.pow(c2.row - center.row, 2);
+					return d1 < d2 ? -1 : d1 > d2 ? 1 : 0;
+				} else {
+					return -1;
+				}
+			} else if (c2.zoom == center.zoom) {
+				return 1;
+			} else {
+				float d1 = Math.abs(c1.zoom - center.zoom);
+				float d2 = Math.abs(c2.zoom - center.zoom);
+				return d1 < d2 ? -1 : d1 > d2 ? 1 : 0;
+			}
+		}
+	}
+
+	public class ZoomComparator implements Comparator<Coordinate> {
+		public int compare(Coordinate c1, Coordinate c2) {
+			return c1.zoom < c2.zoom ? -1 : c1.zoom > c2.zoom ? 1 : 0;
+		}
+	}
+}
