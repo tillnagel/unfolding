@@ -4,6 +4,8 @@ import java.util.Comparator;
 import java.util.Hashtable;
 import java.util.Vector;
 
+import org.apache.log4j.Logger;
+
 import processing.core.PVector;
 import de.fhpotsdam.unfolding.core.Coordinate;
 import de.fhpotsdam.unfolding.geo.Location;
@@ -18,6 +20,13 @@ public abstract class AbstractMapDisplay {
 	public static final int TILE_WIDTH = 256;
 	public static final int TILE_HEIGHT = 256;
 
+	// If less than this memory threshold is reached, oldest tile images will be deleted.
+	private static final long MEMORY_THRESHOLD_BYTES = 250000;
+	// Number of tile images to delete.
+	private static final int MEMORY_THRESHOLD_IMAGES = 25;
+
+	public static Logger log = Logger.getLogger(AbstractMapDisplay.class);
+
 	public double tx = -TILE_WIDTH / 2; // half the world width, at zoom 0
 	public double ty = -TILE_HEIGHT / 2; // half the world height, at zoom 0
 	public double sc = 1;
@@ -25,6 +34,7 @@ public abstract class AbstractMapDisplay {
 	public int max_pending = 4;
 	public int max_images_to_keep = 256;
 	public int grid_padding = 0; // was: 1
+
 	public float width;
 	public float height;
 
@@ -130,6 +140,27 @@ public abstract class AbstractMapDisplay {
 	public class ZoomComparator implements Comparator<Coordinate> {
 		public int compare(Coordinate c1, Coordinate c2) {
 			return c1.zoom < c2.zoom ? -1 : c1.zoom > c2.zoom ? 1 : 0;
+		}
+	}
+
+	/**
+	 * Cleans oldest images if too many images exist, or if memory is too full.
+	 * 
+	 * Tiles are added to the recency-based list to allow removing oldest ones from images-array.
+	 * 
+	 * REVISIT Check java.lang.ref.SoftReference for better solution.
+	 */
+	protected void cleanupImageBuffer() {
+		if (recent_images.size() > max_images_to_keep) {
+			log.info("Cleaning image buffer due to MAX_IMAGE reached.");
+			recent_images.subList(0, recent_images.size() - max_images_to_keep).clear();
+			images.values().retainAll(recent_images);
+		} else if (Runtime.getRuntime().freeMemory() < MEMORY_THRESHOLD_BYTES) {
+			log.info("Cleaning image buffer due to MEMORY_THRESHOLD reached.");
+			int imagesToDelete = recent_images.size() > MEMORY_THRESHOLD_IMAGES ? MEMORY_THRESHOLD_IMAGES
+					: recent_images.size();
+			recent_images.subList(0, imagesToDelete).clear();
+			images.values().retainAll(recent_images);
 		}
 	}
 }

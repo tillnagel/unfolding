@@ -17,7 +17,7 @@ import de.fhpotsdam.unfolding.providers.Microsoft;
 
 public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstants {
 
-	private static final boolean debugBorder = false;
+	private static final boolean SHOW_DEBUG_BORDER = false;
 
 	// Used for loadImage and float maths
 	public PApplet papplet;
@@ -138,7 +138,7 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 					float x = coord.column * TILE_WIDTH;
 					float y = coord.row * TILE_HEIGHT;
 
-					if (debugBorder) {
+					if (SHOW_DEBUG_BORDER) {
 						pg.strokeWeight(2);
 						pg.stroke(255, 0, 0, 100);
 						pg.rect(x, y, TILE_WIDTH, TILE_HEIGHT);
@@ -164,19 +164,6 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 		if (smooth) {
 			papplet.smooth();
 		}
-	}
-
-	/**
-	 * Cleans oldest images if too many images exist.
-	 * 
-	 * Tiles are added to the recency-based list to allow removing oldest ones from images-array.
-	 */
-	protected void cleanupImageBuffer() {
-		if (recent_images.size() > max_images_to_keep) {
-			recent_images.subList(0, recent_images.size() - max_images_to_keep).clear();
-			images.values().retainAll(recent_images);
-		}
-
 	}
 
 	protected Vector getVisibleKeys(float minX, float minY, float maxX, float maxY) {
