@@ -39,8 +39,10 @@ public class NaviButtonMapApp extends PApplet{
 		
 		debugDisplay = new DebugDisplay(this, map.mapDisplay, 600, 100, 250, 150);
 		
-		map.zoomToLevel(1);
+		map.zoomToLevel(3);
 		map.panCenterTo(new Location(0, 0));
+		
+		//default dispatcher
 		eventDispatcher = MapUtils.createDefaultEventDispatcher(this, map);
 	}
 	
