@@ -33,11 +33,12 @@ public class KeyboardHandler extends MapEventBroadcaster {
 				if (key == '+') {
 					zoomMapEvent.setSubType(ZoomMapEvent.ZOOM_BY);
 					zoomMapEvent.setZoomLevelDelta(1);
+					eventDispatcher.fireMapEvent(zoomMapEvent);
 				} else if (key == '-') {
 					zoomMapEvent.setSubType(ZoomMapEvent.ZOOM_BY);
 					zoomMapEvent.setZoomLevelDelta(-1);
+					eventDispatcher.fireMapEvent(zoomMapEvent);
 				}
-				eventDispatcher.fireMapEvent(zoomMapEvent);
 
 				// log.debug("fire pan by key");
 				// PanMapEvent panMapEvent = new PanMapEvent(this, mapDisplay.getId());

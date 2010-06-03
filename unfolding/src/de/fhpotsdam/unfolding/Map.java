@@ -124,7 +124,6 @@ public class Map implements MapEventListener {
 	}
 
 	public Location getLocation(int mouseX, int mouseY) {
-		log.debug("mapDisplay.getLocation  " + id + " ");
 		return mapDisplay.pointLocation(mouseX, mouseY);
 	}
 
@@ -371,6 +370,11 @@ public class Map implements MapEventListener {
 		zoomScale(SCALE_DELTA_OUT);
 	}
 
+
+	public void rotate(double diffAngle) {
+		mapDisplay.angle += diffAngle;
+	}
+	
 	/**
 	 * Switches the tweening.
 	 */
@@ -381,5 +385,6 @@ public class Map implements MapEventListener {
 	public void setTweening(boolean tweening) {
 		this.tweening = tweening;
 	}
+
 
 }
