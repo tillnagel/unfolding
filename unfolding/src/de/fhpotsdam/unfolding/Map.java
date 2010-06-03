@@ -22,6 +22,9 @@ public class Map implements MapEventListener {
 	private static final double PAN_DEFAULT_DELTA = TILE_WIDTH / 2;
 
 	public static final boolean DEFAULT_TWEENING = true;
+	
+	public static final Location PRIME_MERIDIAN_EQUATOR_LOCATION = new Location(0, 0);
+	public static final int DEFAULT_ZOOM_LEVEL = 2;
 
 	public static Logger log = Logger.getLogger(Map.class);
 
@@ -73,7 +76,7 @@ public class Map implements MapEventListener {
 	public Map(PApplet p, String id, float x, float y, float width, float height, boolean useMask,
 			boolean useDistortion, AbstractMapProvider provider) {
 		this.p = p;
-		
+
 		this.id = id;
 		this.x = x;
 		this.y = y;
@@ -82,6 +85,8 @@ public class Map implements MapEventListener {
 
 		this.mapDisplay = MapDisplayFactory.getMapDisplay(p, id, x, y, width, height, useMask,
 				useDistortion, provider);
+		
+		panCenterZoomTo(PRIME_MERIDIAN_EQUATOR_LOCATION, DEFAULT_ZOOM_LEVEL);
 	}
 
 	public Location getCenter() {
@@ -223,10 +228,12 @@ public class Map implements MapEventListener {
 		panOriginTo(x, y, tweening);
 	}
 
+	/**
+	 * Pans to location 
+	 * FIXME Works with tweening only if pan before zoom due to scaleIntegrator and mapDisplay.sc.
+	 * 
+	 */
 	public void panCenterZoomTo(Location location, int zoom) {
-		// FIXME Works with tweening only if pan before zoom due to scaleIntegrator and
-		// mapDisplay.sc.
-
 		panCenterTo(location);
 		zoomToLevel(zoom);
 	}
