@@ -45,7 +45,7 @@ public class Map implements MapEventListener {
 	protected boolean active;
 
 	/** Indicates whether to smoothly animate between mapDisplay states. */
-	public boolean tweening = DEFAULT_TWEENING;
+	private boolean tweening = DEFAULT_TWEENING;
 
 	/** Tweens the scale. */
 	private Integrator scaleIntegrator = new Integrator(1);
