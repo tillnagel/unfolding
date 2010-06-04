@@ -1,7 +1,6 @@
 package de.fhpotsdam.unfolding.examples;
 
 import processing.core.PApplet;
-import processing.core.PMatrix2D;
 import codeanticode.glgraphics.GLConstants;
 import de.fhpotsdam.unfolding.Map;
 import de.fhpotsdam.unfolding.geo.Location;
@@ -34,9 +33,9 @@ public class RotatableMapApp extends PApplet {
 	
 	public void keyPressed() {
 		if (key == 'r') {
-			map.rotate(-0.1);
+			map.rotate(-0.1f);
 		} else if (key == 'l') {
-			map.rotate(0.1);
+			map.rotate(0.1f);
 		}
 	}
 

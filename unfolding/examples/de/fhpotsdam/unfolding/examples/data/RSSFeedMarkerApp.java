@@ -1,4 +1,4 @@
-package de.fhpotsdam.unfolding.examples;
+package de.fhpotsdam.unfolding.examples.data;
 
 
 
@@ -75,9 +75,9 @@ public class RSSFeedMarkerApp extends PApplet{
 	
 	public void keyPressed() {
 		if (key == 'r') {
-			map.rotate(-0.1);
+			map.rotate(-0.1f);
 		} else if (key == 'l') {
-			map.rotate(0.1);
+			map.rotate(0.1f);
 		}
 	}
 
