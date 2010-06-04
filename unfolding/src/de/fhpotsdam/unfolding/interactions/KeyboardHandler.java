@@ -7,8 +7,11 @@ import java.util.List;
 import org.apache.log4j.Logger;
 
 import processing.core.PApplet;
+import processing.core.PConstants;
+import processing.core.PVector;
 import de.fhpotsdam.unfolding.Map;
 import de.fhpotsdam.unfolding.events.MapEventBroadcaster;
+import de.fhpotsdam.unfolding.events.PanMapEvent;
 import de.fhpotsdam.unfolding.events.ZoomMapEvent;
 
 public class KeyboardHandler extends MapEventBroadcaster {
@@ -29,15 +32,36 @@ public class KeyboardHandler extends MapEventBroadcaster {
 		for (Map map : maps) {
 			if (map.isActive()) {
 				log.debug("key: fire zoom (" + key + ")");
-				ZoomMapEvent zoomMapEvent = new ZoomMapEvent(this, map.getId());
-				if (key == '+') {
-					zoomMapEvent.setSubType(ZoomMapEvent.ZOOM_BY);
-					zoomMapEvent.setZoomLevelDelta(1);
+				if (key == '+' || key == '-') {
+					ZoomMapEvent zoomMapEvent = new ZoomMapEvent(this, map.getId());
+					if (key == '+') {
+						zoomMapEvent.setSubType(ZoomMapEvent.ZOOM_BY);
+						zoomMapEvent.setZoomLevelDelta(1);
+					} else {
+						zoomMapEvent.setSubType(ZoomMapEvent.ZOOM_BY);
+						zoomMapEvent.setZoomLevelDelta(-1);
+					}
 					eventDispatcher.fireMapEvent(zoomMapEvent);
-				} else if (key == '-') {
-					zoomMapEvent.setSubType(ZoomMapEvent.ZOOM_BY);
-					zoomMapEvent.setZoomLevelDelta(-1);
-					eventDispatcher.fireMapEvent(zoomMapEvent);
+				} else if (key == PConstants.CODED) {
+					if (keyCode == PConstants.LEFT || keyCode == PConstants.RIGHT
+							|| keyCode == PConstants.UP || keyCode == PConstants.DOWN) {
+						PanMapEvent panMapEvent = new PanMapEvent(this, map.getId());
+						switch (keyCode) {
+						case PConstants.LEFT:
+							panMapEvent.setSubType(PanMapEvent.PAN_LEFT);
+							break;
+						case PConstants.RIGHT:
+							panMapEvent.setSubType(PanMapEvent.PAN_RIGHT);
+							break;
+						case PConstants.UP:
+							panMapEvent.setSubType(PanMapEvent.PAN_UP);
+							break;
+						case PConstants.DOWN:
+							panMapEvent.setSubType(PanMapEvent.PAN_DOWN);
+							break;
+						}
+						eventDispatcher.fireMapEvent(panMapEvent);
+					}
 				}
 
 				// log.debug("fire pan by key");
