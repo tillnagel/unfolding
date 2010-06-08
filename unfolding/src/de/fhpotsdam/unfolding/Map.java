@@ -3,6 +3,7 @@ package de.fhpotsdam.unfolding;
 import org.apache.log4j.Logger;
 
 import processing.core.PApplet;
+import processing.core.PVector;
 import de.fhpotsdam.unfolding.core.Coordinate;
 import de.fhpotsdam.unfolding.events.MapEvent;
 import de.fhpotsdam.unfolding.events.MapEventListener;
@@ -22,7 +23,7 @@ public class Map implements MapEventListener {
 	private static final double PAN_DEFAULT_DELTA = TILE_WIDTH / 2;
 
 	public static final boolean DEFAULT_TWEENING = true;
-	
+
 	public static final Location PRIME_MERIDIAN_EQUATOR_LOCATION = new Location(0, 0);
 	public static final int DEFAULT_ZOOM_LEVEL = 2;
 
@@ -85,7 +86,7 @@ public class Map implements MapEventListener {
 
 		this.mapDisplay = MapDisplayFactory.getMapDisplay(p, id, x, y, width, height, useMask,
 				useDistortion, provider);
-		
+
 		panCenterZoomTo(PRIME_MERIDIAN_EQUATOR_LOCATION, DEFAULT_ZOOM_LEVEL);
 	}
 
@@ -123,8 +124,8 @@ public class Map implements MapEventListener {
 		mapEvent.executeManipulationFor(this);
 	}
 
-	public Location getLocation(int mouseX, int mouseY) {
-		return mapDisplay.pointLocation(mouseX, mouseY);
+	public Location getLocation(int x, int y) {
+		return mapDisplay.pointLocation(x, y);
 	}
 
 	/**
@@ -166,9 +167,9 @@ public class Map implements MapEventListener {
 	 * Pans the mapDisplay origin with delta vector.
 	 * 
 	 * @param dx
-	 *            Delta x to pan horizontally.
+	 *            Delta x to pan horizontally in screen pixel.
 	 * @param dy
-	 *            Delta y to pan vertically.
+	 *            Delta y to pan vertically in screen pixel.
 	 * @param tweening
 	 *            Whether to animate the panning.
 	 */
@@ -176,6 +177,10 @@ public class Map implements MapEventListener {
 		float tx = (float) (mapDisplay.tx + (dx / mapDisplay.sc));
 		float ty = (float) (mapDisplay.ty + (dy / mapDisplay.sc));
 		setPosition(tx, ty, tweening);
+	}
+
+	public void panOriginDelta(double dx, double dy) {
+		panOriginDelta(dx, dy, tweening);
 	}
 
 	/**
@@ -228,8 +233,10 @@ public class Map implements MapEventListener {
 	}
 
 	/**
-	 * Pans to location 
-	 * FIXME Works with tweening only if pan before zoom due to scaleIntegrator and mapDisplay.sc.
+	 * Pans to location.
+	 *
+	 * FIXME Works with tweening only if pan before zoom due to scaleIntegrator and
+	 * mapDisplay.sc.
 	 * 
 	 */
 	public void panCenterZoomTo(Location location, int zoom) {
@@ -370,11 +377,28 @@ public class Map implements MapEventListener {
 		zoomScale(SCALE_DELTA_OUT);
 	}
 
-
-	public void rotate(double diffAngle) {
+	public void rotate(float diffAngle, PVector center) {
+		mapDisplay.rotationCenter = center;
 		mapDisplay.angle += diffAngle;
 	}
 	
+	public float getAngle() {
+		return mapDisplay.angle;
+	}
+
+	public void rotateTo(float angle, PVector center) {
+		mapDisplay.rotationCenter = center;
+		mapDisplay.angle = angle;
+	}
+
+	public void rotate(float diffAngle) {
+		rotate(diffAngle, new PVector(width/2, height/2));
+	}
+
+	public void rotateTo(float angle) {
+		rotateTo(angle, new PVector(width/2, height/2));
+	}
+
 	/**
 	 * Switches the tweening.
 	 */
@@ -385,6 +409,5 @@ public class Map implements MapEventListener {
 	public void setTweening(boolean tweening) {
 		this.tweening = tweening;
 	}
-
 
 }
