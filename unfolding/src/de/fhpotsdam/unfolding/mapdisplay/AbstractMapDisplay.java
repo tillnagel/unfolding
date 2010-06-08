@@ -41,6 +41,8 @@ public abstract class AbstractMapDisplay {
 	// Offset of the mapDisplay (in world coordinates).
 	public float offsetX;
 	public float offsetY;
+	
+	public PVector rotationCenter = new PVector();
 	public float angle;	
 
 	protected AbstractMapProvider provider;

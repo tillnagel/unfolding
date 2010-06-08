@@ -6,7 +6,6 @@ import processing.core.PGraphics;
 import codeanticode.glgraphics.GLGraphicsOffScreen;
 import de.fhpotsdam.unfolding.providers.AbstractMapProvider;
 
-
 public class GLGraphicsMapDisplay extends ProcessingMapDisplay implements PConstants {
 
 	protected GLGraphicsOffScreen pg;
@@ -29,10 +28,12 @@ public class GLGraphicsMapDisplay extends ProcessingMapDisplay implements PConst
 		pg.endDraw();
 
 		papplet.pushMatrix();
-		papplet.translate(offsetX, offsetY);
-		papplet.translate(width/2, height/2);
+
+		papplet.translate(rotationCenter.x, rotationCenter.y);
 		papplet.rotate(angle);
-		papplet.translate(-width/2, -height/2);
+		papplet.translate(-rotationCenter.x, -rotationCenter.y);
+
+		papplet.translate(offsetX, offsetY);
 
 		papplet.image(pg.getTexture(), 0, 0);
 		papplet.popMatrix();
