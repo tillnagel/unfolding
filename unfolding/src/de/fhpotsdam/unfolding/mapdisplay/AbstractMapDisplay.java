@@ -42,7 +42,7 @@ public abstract class AbstractMapDisplay {
 	public float offsetX;
 	public float offsetY;
 	
-	public PVector rotationCenter = new PVector();
+	public PVector rotationCenter;
 	public float angle;	
 
 	protected AbstractMapProvider provider;
@@ -58,6 +58,7 @@ public abstract class AbstractMapDisplay {
 		provider = _provider;
 		width = _width;
 		height = _height;
+		rotationCenter = new PVector(width/2, height/2);
 		sc = (float) Math.ceil(Math.min(height / (float) TILE_WIDTH, width / (float) TILE_HEIGHT));
 	}
 

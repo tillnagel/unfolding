@@ -106,17 +106,17 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 		PMatrix2D m = new PMatrix2D();
 		int preValue = pre ? -1 : 1;
 
-		if (!pre) {
-			m.translate(offsetX, offsetY);
-		}
-
-		m.translate(width / 2, height / 2);
-		m.rotate(angle * preValue);
-		m.translate(-width / 2, -height / 2);
-
 		if (pre) {
 			m.translate(-offsetX, -offsetY);
 		}
+
+		m.translate(rotationCenter.x, rotationCenter.y);
+		m.rotate(angle * preValue);
+		m.translate(-rotationCenter.x, -rotationCenter.y);
+
+		if (!pre) {
+		m.translate(offsetX, offsetY);
+	}
 
 		float[] preXY = new float[2];
 		m.mult(new float[] { x, y }, preXY);
