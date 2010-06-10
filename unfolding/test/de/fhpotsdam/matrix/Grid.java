@@ -35,7 +35,7 @@ public class Grid {
 
 	public void draw() {
 		p.pushMatrix();
-		calculateMatrix(centerX, centerY);
+		calculateMatrix();
 		p.applyMatrix(matrix);
 		p.translate(offsetX, offsetY);
 
@@ -51,13 +51,32 @@ public class Grid {
 		p.popMatrix();
 	}
 	
+	public void rotate(float angle) {
+		this.angle += angle;
+		calculateMatrix();
+	}
+
+	public void scale(float scale) {
+		this.scale *= scale;
+		calculateMatrix();
+	}
+	
+	public void setCenter(float cx, float cy) {
+		this.centerX = cx;
+		this.centerY = cy;
+	}
+
+	public void calculateMatrix() {
+		calculateMatrix(centerX, centerY);
+	}
+	
 	protected void calculateMatrix(float x, float y) {
 		// Calculates original position by inverting the current matrix.
 		// As the matrix incorporates that position, it stores every transformation, even though
 		// the matrix is created anew.
 
-		p.fill(255, 0, 0, 100);
-		p.ellipse(x, y, 15, 15);
+//		p.fill(255, 0, 0, 100);
+//		p.ellipse(x, y, 15, 15);
 
 		PMatrix3D invMatrix = new PMatrix3D();
 		invMatrix.apply(matrix);

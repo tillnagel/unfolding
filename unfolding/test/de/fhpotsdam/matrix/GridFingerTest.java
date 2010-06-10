@@ -21,24 +21,26 @@ public class GridFingerTest extends PApplet implements TuioListener {
 	TuioCursor tuioCursor1 = null;
 	TuioCursor tuioCursor2 = null;
 
-//	public static void main(String[] args) {
-//		PApplet.main(new String[] { "--present", "de.fhpotsdam.matrix.GridFingerTest" });
-//	}
+	// public static void main(String[] args) {
+	// PApplet.main(new String[] { "--present", "de.fhpotsdam.matrix.GridFingerTest" });
+	// }
+
+	int frameNumber = 0;
 
 	public void setup() {
 		size(1024, 768, GLConstants.GLGRAPHICS);
 		smooth();
 
-		grid = new Grid(this, 0, 0, 300, 300);
+		grid = new Grid(this, 100, 100, 300, 300);
 		textFont(loadFont("Miso-Light-12.vlw"), 12);
 
 		tuioClient = new TuioClient();
 		tuioClient.addTuioListener(this);
 		tuioClient.connect();
+
 	}
 
 	public void draw() {
-		println("draw: " + frame);
 		background(240);
 
 		if (keyPressed) {
@@ -72,11 +74,11 @@ public class GridFingerTest extends PApplet implements TuioListener {
 	}
 
 	public void updateTuioCursor(TuioCursor tcur) {
-		println("updateTuioCursor");
-		
+		println("update " + tcur.getCursorID());
+
 		if (tuioCursor1 != null && tuioCursor2 != null) {
+
 			float newAngle = getAngleBetween(tuioCursor1, tuioCursor2);
-			println("newAngle=" + degrees(newAngle));
 			float angle = newAngle - oldAngle;
 
 			if (tuioCursor2.getCursorID() == tcur.getCursorID()) {
@@ -91,9 +93,9 @@ public class GridFingerTest extends PApplet implements TuioListener {
 			float newScale = newDist / oldDist;
 			oldDist = newDist;
 
-			grid.scale *= newScale;
-			grid.angle += angle;
-
+			grid.scale(newScale);
+			grid.rotate(angle);
+			
 			oldAngle = newAngle;
 		}
 	}
@@ -125,8 +127,8 @@ public class GridFingerTest extends PApplet implements TuioListener {
 	}
 
 	private float getAngleBetween(TuioCursor tuioCursor1, TuioCursor tuioCursor2) {
-		return getAngleBetween(tuioCursor1.getScreenX(width), tuioCursor1.getScreenY(height), tuioCursor2
-				.getScreenX(width), tuioCursor2.getScreenY(height));
+		return getAngleBetween(tuioCursor1.getScreenX(width), tuioCursor1.getScreenY(height),
+				tuioCursor2.getScreenX(width), tuioCursor2.getScreenY(height));
 	}
 
 	public void drawCursor(TuioCursor tc) {

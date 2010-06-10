@@ -34,7 +34,7 @@ public class GridTest extends PApplet {
 
 		grid.draw();
 	}
-	
+
 	public void mouseMoved() {
 		grid.centerX = mouseX;
 		grid.centerY = mouseY;
@@ -42,5 +42,66 @@ public class GridTest extends PApplet {
 
 	public void mouseDragged() {
 		mouseMoved();
+	}
+
+	int count = 0;
+
+	public void keyPressed() {
+		if (key == ' ') {
+//			count++;
+			
+			
+			grid.setCenter(50, 50);
+			grid.rotate(radians(10));
+
+			grid.centerX = 350;
+			grid.rotate(radians(-10));
+			
+			grid.centerX = 50;
+			grid.rotate(radians(10));
+
+			grid.centerX = 350;
+			grid.rotate(radians(-10));
+
+			grid.centerX = 50;
+			grid.rotate(radians(10));
+
+			grid.centerX = 350;
+			grid.rotate(radians(-10));
+
+			
+			
+			
+			
+			
+			
+		}
+		switch (count) {
+		case 1:
+			grid.centerX = 50;
+			grid.centerY = 50;
+			grid.angle += radians(10);
+			break;
+		case 2:
+			grid.centerX = 350;
+			grid.angle += radians(-10);
+			break;
+		case 3:
+			grid.centerX = 50;
+			grid.angle += radians(10);
+			break;
+		case 4:
+			grid.centerX = 350;
+			grid.angle += radians(-10);
+			break;
+		case 5:
+			grid.centerX = 50;
+			grid.angle += radians(10);
+			break;
+		case 6:
+			grid.centerX = 350;
+			grid.angle += radians(-10);
+			break;
+		}
 	}
 }
