@@ -21,9 +21,9 @@ public class GridFingerTest extends PApplet implements TuioListener {
 	TuioCursor tuioCursor1 = null;
 	TuioCursor tuioCursor2 = null;
 
-	public static void main(String[] args) {
-		PApplet.main(new String[] { "--present", "de.fhpotsdam.matrix.GridFingerTest" });
-	}
+//	public static void main(String[] args) {
+//		PApplet.main(new String[] { "--present", "de.fhpotsdam.matrix.GridFingerTest" });
+//	}
 
 	public void setup() {
 		size(1024, 768, GLConstants.GLGRAPHICS);
@@ -38,6 +38,7 @@ public class GridFingerTest extends PApplet implements TuioListener {
 	}
 
 	public void draw() {
+		println("draw: " + frame);
 		background(240);
 
 		if (keyPressed) {
@@ -71,6 +72,8 @@ public class GridFingerTest extends PApplet implements TuioListener {
 	}
 
 	public void updateTuioCursor(TuioCursor tcur) {
+		println("updateTuioCursor");
+		
 		if (tuioCursor1 != null && tuioCursor2 != null) {
 			float newAngle = getAngleBetween(tuioCursor1, tuioCursor2);
 			println("newAngle=" + degrees(newAngle));
@@ -117,12 +120,13 @@ public class GridFingerTest extends PApplet implements TuioListener {
 	}
 
 	private float getDistance(TuioCursor tuioCursor1, TuioCursor tuioCursor2) {
-		return dist(tuioCursor1.getX(), tuioCursor1.getY(), tuioCursor2.getX(), tuioCursor2.getY());
+		return dist(tuioCursor1.getScreenX(width), tuioCursor1.getScreenY(height), tuioCursor2
+				.getScreenX(width), tuioCursor2.getScreenY(height));
 	}
 
 	private float getAngleBetween(TuioCursor tuioCursor1, TuioCursor tuioCursor2) {
-		return getAngleBetween(tuioCursor1.getX(), tuioCursor1.getY(), tuioCursor2.getX(),
-				tuioCursor2.getY());
+		return getAngleBetween(tuioCursor1.getScreenX(width), tuioCursor1.getScreenY(height), tuioCursor2
+				.getScreenX(width), tuioCursor2.getScreenY(height));
 	}
 
 	public void drawCursor(TuioCursor tc) {
