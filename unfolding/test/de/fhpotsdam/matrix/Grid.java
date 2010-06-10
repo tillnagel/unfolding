@@ -34,6 +34,7 @@ public class Grid {
 	}
 
 	public void draw() {
+		p.pushMatrix();
 		calculateMatrix(centerX, centerY);
 		p.applyMatrix(matrix);
 		p.translate(offsetX, offsetY);
@@ -46,6 +47,8 @@ public class Grid {
 				p.rect(i, j, 10, 10);
 			}
 		}
+		
+		p.popMatrix();
 	}
 	
 	protected void calculateMatrix(float x, float y) {
@@ -53,14 +56,14 @@ public class Grid {
 		// As the matrix incorporates that position, it stores every transformation, even though
 		// the matrix is created anew.
 
+		p.fill(255, 0, 0, 100);
+		p.ellipse(x, y, 15, 15);
+
 		PMatrix3D invMatrix = new PMatrix3D();
 		invMatrix.apply(matrix);
 		invMatrix.invert();
 		float origX = invMatrix.multX(x, y);
 		float origY = invMatrix.multY(x, y);
-
-		p.fill(255, 0, 0, 100);
-		p.ellipse(origX, origY, 15, 15);
 
 		matrix = new PMatrix3D();
 		matrix.translate(x, y);

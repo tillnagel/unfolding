@@ -19,7 +19,7 @@ public class GridTest extends PApplet {
 
 		if (mousePressed) {
 			if (mouseButton == LEFT) {
-				grid.angle += 0.01f;
+				grid.angle += radians(45);
 			} else {
 				grid.angle -= 0.01f;
 			}
@@ -30,7 +30,6 @@ public class GridTest extends PApplet {
 			} else if (key == '-') {
 				grid.scale -= 0.01f;
 			}
-
 		}
 
 		grid.draw();
