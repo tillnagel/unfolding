@@ -42,8 +42,9 @@ public abstract class AbstractMapDisplay {
 	public float offsetX;
 	public float offsetY;
 	
-	public PVector rotationCenter;
+	public PVector transformationCenter;
 	public float angle;	
+	public float scale = 1.0f;
 
 	protected AbstractMapProvider provider;
 	protected Hashtable<Coordinate, Runnable> pending = new Hashtable<Coordinate, Runnable>();
@@ -58,7 +59,7 @@ public abstract class AbstractMapDisplay {
 		provider = _provider;
 		width = _width;
 		height = _height;
-		rotationCenter = new PVector(width/2, height/2);
+		transformationCenter = new PVector(width/2, height/2);
 		sc = (float) Math.ceil(Math.min(height / (float) TILE_WIDTH, width / (float) TILE_HEIGHT));
 	}
 
@@ -84,6 +85,10 @@ public abstract class AbstractMapDisplay {
 
 	public abstract Location pointLocation(float x, float y);
 
+	public abstract float[] getTransformedPosition(float x, float y, boolean pre);
+	
+	public abstract void calculateMatrix();
+	
 	// TILES --------------------------------------------------------
 
 	public void processQueue() {

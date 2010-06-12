@@ -8,6 +8,7 @@ import processing.core.PConstants;
 import processing.core.PGraphics;
 import processing.core.PImage;
 import processing.core.PMatrix2D;
+import processing.core.PMatrix3D;
 import processing.core.PVector;
 import de.fhpotsdam.unfolding.Map;
 import de.fhpotsdam.unfolding.core.Coordinate;
@@ -22,10 +23,36 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 	// Used for loadImage and float maths
 	public PApplet papplet;
 
+	PMatrix3D matrix = new PMatrix3D();
+	
 	/** default to Microsoft Hybrid */
 	public ProcessingMapDisplay(PApplet papplet) {
 		this(papplet, new Microsoft.HybridProvider());
 	}
+
+	
+	public void calculateMatrix(float x, float y) {
+		// Calculates original position by inverting the current matrix.
+		// As the matrix incorporates that position, it stores every transformation, even though
+		// the matrix is created anew.
+
+		PMatrix3D invMatrix = new PMatrix3D();
+		invMatrix.apply(matrix);
+		invMatrix.invert();
+		float origX = invMatrix.multX(x, y);
+		float origY = invMatrix.multY(x, y);
+
+		matrix = new PMatrix3D();
+		matrix.translate(x, y);
+		matrix.scale(scale);
+		matrix.rotate(angle);
+		matrix.translate(-origX, -origY);
+	}
+	
+	public void calculateMatrix() {
+		calculateMatrix(transformationCenter.x, transformationCenter.y);
+	}
+
 
 	/** new mapDisplay using applet width and height, and given provider */
 	public ProcessingMapDisplay(PApplet papplet, AbstractMapProvider provider) {
@@ -63,7 +90,7 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 
 		return provider.coordinateLocation(coord);
 	}
-	
+
 	public PVector locationPoint(Location location) {
 		PMatrix2D m = getInternalTransformationMatrix();
 
@@ -102,7 +129,7 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 	 *            true, for location2point, otherwise.
 	 * @return An array with x and y.
 	 */
-	private float[] getTransformedPosition(float x, float y, boolean pre) {
+	public float[] getTransformedPosition(float x, float y, boolean pre) {
 		PMatrix2D m = new PMatrix2D();
 		int preValue = pre ? -1 : 1;
 
@@ -110,20 +137,18 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 			m.translate(-offsetX, -offsetY);
 		}
 
-		m.translate(rotationCenter.x, rotationCenter.y);
+		m.translate(transformationCenter.x, transformationCenter.y);
 		m.rotate(angle * preValue);
-		m.translate(-rotationCenter.x, -rotationCenter.y);
+		m.translate(-transformationCenter.x, -transformationCenter.y);
 
 		if (!pre) {
-		m.translate(offsetX, offsetY);
-	}
+			m.translate(offsetX, offsetY);
+		}
 
 		float[] preXY = new float[2];
 		m.mult(new float[] { x, y }, preXY);
 		return preXY;
 	}
-
-	
 
 	protected PGraphics getPG() {
 		return papplet.g;

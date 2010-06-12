@@ -28,15 +28,25 @@ public class GLGraphicsMapDisplay extends ProcessingMapDisplay implements PConst
 		pg.endDraw();
 
 		papplet.pushMatrix();
-
-		papplet.translate(rotationCenter.x, rotationCenter.y);
-		papplet.rotate(angle);
-		papplet.translate(-rotationCenter.x, -rotationCenter.y);
-
+		papplet.applyMatrix(matrix);
 		papplet.translate(offsetX, offsetY);
-
 		papplet.image(pg.getTexture(), 0, 0);
 		papplet.popMatrix();
 	}
+
+	// protected void postDraw2() {
+	// pg.endDraw();
+	//
+	// papplet.pushMatrix();
+	//
+	// papplet.translate(offsetX, offsetY);
+	//
+	// papplet.translate(transformationCenter.x, transformationCenter.y);
+	// papplet.rotate(angle);
+	// papplet.translate(-transformationCenter.x, -transformationCenter.y);
+	//
+	// papplet.image(pg.getTexture(), 0, 0);
+	// papplet.popMatrix();
+	// }
 
 }

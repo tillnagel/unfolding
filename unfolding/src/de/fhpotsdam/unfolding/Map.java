@@ -378,8 +378,9 @@ public class Map implements MapEventListener {
 	}
 
 	public void rotate(float diffAngle, PVector center) {
-		mapDisplay.rotationCenter = center;
+		mapDisplay.transformationCenter = center;
 		mapDisplay.angle += diffAngle;
+		mapDisplay.calculateMatrix();
 	}
 	
 	public float getAngle() {
@@ -387,8 +388,9 @@ public class Map implements MapEventListener {
 	}
 
 	public void rotateTo(float angle, PVector center) {
-		mapDisplay.rotationCenter = center;
+		mapDisplay.transformationCenter = center;
 		mapDisplay.angle = angle;
+		mapDisplay.calculateMatrix();
 	}
 
 	public void rotate(float diffAngle) {
