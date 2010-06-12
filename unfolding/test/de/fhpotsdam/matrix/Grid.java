@@ -3,6 +3,10 @@ package de.fhpotsdam.matrix;
 import processing.core.PApplet;
 import processing.core.PMatrix3D;
 
+/**
+ * Simple drawing object. Used instead of a map to solely check transformations.
+ * 
+ */
 public class Grid {
 
 	PApplet p;
@@ -35,7 +39,6 @@ public class Grid {
 
 	public void draw() {
 		p.pushMatrix();
-		calculateMatrix();
 		p.applyMatrix(matrix);
 		p.translate(offsetX, offsetY);
 
@@ -47,10 +50,10 @@ public class Grid {
 				p.rect(i, j, 10, 10);
 			}
 		}
-		
+
 		p.popMatrix();
 	}
-	
+
 	public void rotate(float angle) {
 		this.angle += angle;
 		calculateMatrix();
@@ -60,7 +63,7 @@ public class Grid {
 		this.scale *= scale;
 		calculateMatrix();
 	}
-	
+
 	public void setCenter(float cx, float cy) {
 		this.centerX = cx;
 		this.centerY = cy;
@@ -69,14 +72,11 @@ public class Grid {
 	public void calculateMatrix() {
 		calculateMatrix(centerX, centerY);
 	}
-	
+
 	protected void calculateMatrix(float x, float y) {
 		// Calculates original position by inverting the current matrix.
 		// As the matrix incorporates that position, it stores every transformation, even though
 		// the matrix is created anew.
-
-//		p.fill(255, 0, 0, 100);
-//		p.ellipse(x, y, 15, 15);
 
 		PMatrix3D invMatrix = new PMatrix3D();
 		invMatrix.apply(matrix);
@@ -90,6 +90,5 @@ public class Grid {
 		matrix.rotate(angle);
 		matrix.translate(-origX, -origY);
 	}
-
 
 }

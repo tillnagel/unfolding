@@ -10,6 +10,11 @@ import TUIO.TuioObject;
 import TUIO.TuioTime;
 import codeanticode.glgraphics.GLConstants;
 
+/**
+ * Fully working test app to freely transform an object (Grid). Rotate, Scale (and implicit
+ * transform by the former two) work.
+ * 
+ */
 public class GridFingerTest extends PApplet implements TuioListener {
 
 	public static Logger log = Logger.getLogger(GridFingerTest.class);
@@ -21,11 +26,12 @@ public class GridFingerTest extends PApplet implements TuioListener {
 	TuioCursor tuioCursor1 = null;
 	TuioCursor tuioCursor2 = null;
 
+	float oldAngle;
+	float oldDist;
+
 	// public static void main(String[] args) {
 	// PApplet.main(new String[] { "--present", "de.fhpotsdam.matrix.GridFingerTest" });
 	// }
-
-	int frameNumber = 0;
 
 	public void setup() {
 		size(1024, 768, GLConstants.GLGRAPHICS);
@@ -37,28 +43,16 @@ public class GridFingerTest extends PApplet implements TuioListener {
 		tuioClient = new TuioClient();
 		tuioClient.addTuioListener(this);
 		tuioClient.connect();
-
 	}
 
 	public void draw() {
 		background(240);
-
-		if (keyPressed) {
-			if (key == '+') {
-				grid.scale += 0.01f;
-			} else if (key == '-') {
-				grid.scale -= 0.01f;
-			}
-		}
-
+		
 		grid.draw();
+		
 		drawCursor(tuioCursor1);
 		drawCursor(tuioCursor2);
-		text("sc=" + grid.scale + ", dist=", grid.centerX, grid.centerY);
 	}
-
-	float oldAngle;
-	float oldDist;
 
 	public void addTuioCursor(TuioCursor tcur) {
 		if (tuioCursor1 == null) {
@@ -74,13 +68,7 @@ public class GridFingerTest extends PApplet implements TuioListener {
 	}
 
 	public void updateTuioCursor(TuioCursor tcur) {
-		println("update " + tcur.getCursorID());
-
 		if (tuioCursor1 != null && tuioCursor2 != null) {
-
-			float newAngle = getAngleBetween(tuioCursor1, tuioCursor2);
-			float angle = newAngle - oldAngle;
-
 			if (tuioCursor2.getCursorID() == tcur.getCursorID()) {
 				grid.centerX = tuioCursor1.getScreenX(width);
 				grid.centerY = tuioCursor1.getScreenY(height);
@@ -89,14 +77,16 @@ public class GridFingerTest extends PApplet implements TuioListener {
 				grid.centerY = tuioCursor2.getScreenY(height);
 			}
 
+			float newAngle = getAngleBetween(tuioCursor1, tuioCursor2);
+			float angle = newAngle - oldAngle;
+			oldAngle = newAngle;
+			grid.rotate(angle);
+
 			float newDist = getDistance(tuioCursor1, tuioCursor2);
 			float newScale = newDist / oldDist;
 			oldDist = newDist;
-
 			grid.scale(newScale);
-			grid.rotate(angle);
-			
-			oldAngle = newAngle;
+
 		}
 	}
 

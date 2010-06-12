@@ -7,6 +7,10 @@ import TUIO.TuioListener;
 import TUIO.TuioObject;
 import TUIO.TuioTime;
 
+/**
+ * Simple test to calculate angle between fingers.
+ *
+ */
 public class FingerAngleTest extends PApplet implements TuioListener {
 
 	TuioClient tuioClient;
