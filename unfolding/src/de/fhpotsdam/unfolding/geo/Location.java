@@ -8,6 +8,11 @@ public class Location extends PVector {
 		this.x = lat;
 		this.y = lon;
 	}
+	
+	public Location(Location  location){
+		this.x = location.x;
+		this.y = location.y;
+	}
 
 	public float getLat() {
 		return x;
