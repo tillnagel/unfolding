@@ -32,16 +32,16 @@ public class RotatableMapApp extends PApplet {
 	}
 
 	public void mouseClicked() {
-		//rotateCenter = new PVector(mouseX, mouseY);
+		rotateCenter = new PVector(mouseX, mouseY);
 	}
 
 	public void keyPressed() {
 		rotateCenter = new PVector(mouseX, mouseY);
 		
 		if (key == 'r') {
-			map.rotate(-0.1f, rotateCenter);
+			map.rotate(-PI/8, rotateCenter);
 		} else if (key == 'l') {
-			map.rotate(0.1f, rotateCenter);
+			map.rotate(PI/8, rotateCenter);
 		}
 	}
 

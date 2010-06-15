@@ -73,9 +73,9 @@ public class RSSFeedMarkerApp extends PApplet {
 
 	public void keyPressed() {
 		if (key == 'r') {
-			map.rotate(-0.1f);
+			map.rotate(-PI/8);
 		} else if (key == 'l') {
-			map.rotate(0.1f);
+			map.rotate(PI/8);
 		}
 	}
 

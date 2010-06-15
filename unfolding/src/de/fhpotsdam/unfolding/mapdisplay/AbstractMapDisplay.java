@@ -84,6 +84,8 @@ public abstract class AbstractMapDisplay {
 	public abstract PVector locationPoint(Location location);
 
 	public abstract Location pointLocation(float x, float y);
+	
+	public abstract Location getCenter();
 
 	public abstract float[] getTransformedPosition(float x, float y, boolean pre);
 	

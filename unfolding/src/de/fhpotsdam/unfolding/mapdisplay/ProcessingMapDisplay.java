@@ -69,6 +69,24 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 		this.offsetX = offsetX;
 		this.offsetY = offsetY;
 	}
+	
+	public Location getCenter(){
+		float x = width / 2;
+		float y = height / 2;
+		PMatrix2D m = getInternalTransformationMatrix();
+
+		// find top left and bottom right positions of mapDisplay in screenspace:
+		float tl[] = new float[2];
+		m.mult(new float[] { 0, 0 }, tl);
+		float br[] = new float[2];
+		m.mult(new float[] { TILE_WIDTH, TILE_HEIGHT }, br);
+
+		float col = (x - tl[0]) / (br[0] - tl[0]);
+		float row = (y - tl[1]) / (br[1] - tl[1]);
+		Coordinate coord = new Coordinate(row, col, 0);
+
+		return provider.coordinateLocation(coord);
+	}
 
 	public Location pointLocation(float x, float y) {
 

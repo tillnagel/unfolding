@@ -91,9 +91,11 @@ public class Map implements MapEventListener {
 	}
 
 	public Location getCenter() {
-		return mapDisplay.pointLocation(mapDisplay.width / 2 + x, mapDisplay.height / 2 + y);
+//		return mapDisplay.pointLocation(mapDisplay.width / 2 + x, mapDisplay.height / 2 + y);
+		return mapDisplay.getCenter();
 	}
 
+	// FIXME does not work for rotated maps
 	public boolean isHit(int mouseX, int mouseY) {
 		return (mouseX > x && mouseX < x + width && mouseY > y && mouseY < y + height);
 	}
@@ -394,11 +396,11 @@ public class Map implements MapEventListener {
 	}
 
 	public void rotate(float diffAngle) {
-		rotate(diffAngle, new PVector(width/2, height/2));
+		rotate(diffAngle, new PVector(width/2 + x, height/2 + y));
 	}
 
 	public void rotateTo(float angle) {
-		rotateTo(angle, new PVector(width/2, height/2));
+		rotateTo(angle, new PVector(width/2 + x, height/2 + y));
 	}
 
 	/**
