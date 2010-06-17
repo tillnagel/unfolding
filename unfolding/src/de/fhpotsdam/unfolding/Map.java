@@ -59,7 +59,7 @@ public class Map implements MapEventListener {
 	 * Creates a new full-canvas Map.
 	 */
 	public Map(PApplet p, String id) {
-		this(p, id, 0, 0, p.width, p.height, false, false, null);
+		this(p, id, 0, 0, p.width, p.height, true, false, null);
 	}
 
 	public Map(PApplet p, String id, float x, float y, float width, float height) {
@@ -94,6 +94,13 @@ public class Map implements MapEventListener {
 //		return mapDisplay.pointLocation(mapDisplay.width / 2 + x, mapDisplay.height / 2 + y);
 		return mapDisplay.getCenter();
 	}
+	
+	public PVector getScreenCenter() {
+		return mapDisplay.locationPoint(getCenter());
+		
+		// REVISIT Use directly? (mapDisplay.width / 2 + x, mapDisplay.height / 2 + y)
+	}
+	
 
 	// FIXME does not work for rotated maps
 	public boolean isHit(int mouseX, int mouseY) {
@@ -126,7 +133,7 @@ public class Map implements MapEventListener {
 		mapEvent.executeManipulationFor(this);
 	}
 
-	public Location getLocation(int x, int y) {
+	public Location getLocation(float x, float y) {
 		return mapDisplay.pointLocation(x, y);
 	}
 

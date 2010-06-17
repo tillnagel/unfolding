@@ -9,6 +9,7 @@ import org.apache.log4j.Logger;
 
 import processing.core.PApplet;
 import processing.core.PConstants;
+import processing.core.PVector;
 import de.fhpotsdam.unfolding.Map;
 import de.fhpotsdam.unfolding.events.MapEventBroadcaster;
 import de.fhpotsdam.unfolding.events.PanMapEvent;
@@ -79,16 +80,19 @@ public class MouseHandler extends MapEventBroadcaster {
 			if (map.isHit(mouseX, mouseY)) {
 				log.debug("mouse: fire panTo for " + map.getId());
 
-				
 				// FIXME Zoom 17 and 18 not every mouse coord diff results in location diff.
-				// Might exist in modest maps, already. modestmaps.processing.SimpleMapApp has same error. 
-				Location newLocation = map.getLocation(mouseX, mouseY);
-				Location oldLocation = map.getLocation(pmouseX, pmouseY);
-				oldLocation.sub(newLocation);
-				oldLocation.add(map.getCenter());
+				// Might exist in modest maps, already. modestmaps.processing.SimpleMapApp has same
+				// error.
+
+				PVector center = map.getScreenCenter();
+				PVector mouse = new PVector(mouseX, mouseY);
+				PVector pmouse = new PVector(pmouseX, pmouseY);
+				pmouse.sub(mouse);
+				pmouse.add(center);
+				Location newCenter = map.getLocation(pmouse.x, pmouse.y);
 
 				PanMapEvent panMapEvent = new PanMapEvent(this, map.getId());
-				panMapEvent.setLocation(oldLocation);
+				panMapEvent.setLocation(newCenter);
 				panMapEvent.setTweening(false);
 				eventDispatcher.fireMapEvent(panMapEvent);
 			}
