@@ -81,20 +81,8 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 		calculateMatrix(transformationCenter.x, transformationCenter.y);
 	}
 
-	/**
-	 * Calculates offset and rotation for screen canvas position, to be used with the internal
-	 * transformation matrix.
-	 * 
-	 * @param x
-	 *            Cartesian x coordinate.
-	 * @param y
-	 *            Cartesian y coordinate.
-	 * @param inverse
-	 *            Indicates back and forward matrix calculation. Inverse is used for point2location,
-	 *            otherwise location2point.
-	 * @return An array with x and y.
-	 */
-	protected float[] getTransformedPosition(float x, float y, boolean inverse) {
+	
+	public float[] getTransformedPosition(float x, float y, boolean inverse) {
 		float[] preXY = new float[3];
 		PMatrix3D m = new PMatrix3D();
 		m.apply(matrix);

@@ -80,14 +80,26 @@ public abstract class AbstractMapDisplay {
 
 	// PROJECTIONS --------------------------------------------------
 
-	// TODO: leave implementation to used class
 	public abstract PVector getPointForLocation(Location location);
 
 	public abstract Location getLocationForPoint(float x, float y);
 	
 	public abstract Location getCenterLocation();
-
-	protected abstract float[] getTransformedPosition(float x, float y, boolean pre);
+	
+	/**
+	 * Calculates offset and rotation for screen canvas position, to be used with the internal
+	 * transformation matrix.
+	 * 
+	 * @param x
+	 *            Cartesian x coordinate.
+	 * @param y
+	 *            Cartesian y coordinate.
+	 * @param inverse
+	 *            Indicates back and forward matrix calculation. Inverse is used for point2location,
+	 *            otherwise location2point.
+	 * @return An array with x and y.
+	 */
+	public abstract float[] getTransformedPosition(float x, float y, boolean inverse);
 	
 	public abstract void calculateMatrix();
 	
