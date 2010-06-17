@@ -48,7 +48,7 @@ public class MapDisplayFactory {
 				}
 
 				log.debug("Using MaskedPGraphicsMapDisplay for '" + id + "'");
-				log.warn("no rotation possible");
+				log.warn("no rotation possible (just with OpenGL)");
 				mapDisplay = new MaskedPGraphicsMapDisplay(p, provider, x, y, width, height);
 			}
 		} else {
