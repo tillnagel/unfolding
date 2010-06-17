@@ -13,7 +13,7 @@ public class MaskedPGraphicsMapDisplay extends ProcessingMapDisplay implements P
 	public MaskedPGraphicsMapDisplay(PApplet papplet, AbstractMapProvider provider,
 			float offsetX, float offsetY, float width, float height) {
 		super(papplet, provider, offsetX, offsetY, width, height);
-
+		
 		pg = papplet.createGraphics((int) width, (int) height, P3D);
 	}
 
@@ -26,6 +26,8 @@ public class MaskedPGraphicsMapDisplay extends ProcessingMapDisplay implements P
 		pg.endDraw();
 
 		papplet.pushMatrix();
+		//applyMatrix is not available with this renderer.
+		//papplet.applyMatrix(matrix);
 		papplet.translate(offsetX, offsetY);
 		papplet.image(pg, 0, 0);
 		papplet.popMatrix();
