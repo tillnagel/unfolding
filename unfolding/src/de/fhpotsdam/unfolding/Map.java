@@ -91,13 +91,14 @@ public class Map implements MapEventListener {
 	}
 
 	public PVector getCenterInScreenCoordinates() {
-		// NB: getCenterLocation() does not use outer transformation, thus this is not the same back and forward conversion.
+		// NB: getCenterLocation() does not use outer transformation, thus this is not the same back
+		// and forward conversion.
 		return mapDisplay.getPointForLocation(mapDisplay.getCenterLocation());
 	}
 
-	// FIXME does not work for rotated maps
 	public boolean isHit(int mouseX, int mouseY) {
-		return (mouseX > x && mouseX < x + width && mouseY > y && mouseY < y + height);
+		float[] mp = mapDisplay.getTransformedPosition(mouseX, mouseY, true);
+		return (mp[0] > 0 && mp[0] < width && mp[1] > 0 && mp[1] < height);
 	}
 
 	public boolean isActive() {
