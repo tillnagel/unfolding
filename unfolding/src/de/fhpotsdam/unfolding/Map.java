@@ -13,6 +13,10 @@ import de.fhpotsdam.unfolding.mapdisplay.MapDisplayFactory;
 import de.fhpotsdam.unfolding.providers.AbstractMapProvider;
 import de.fhpotsdam.utils.Integrator;
 
+/**
+ * Handles
+ * 
+ */
 public class Map implements MapEventListener {
 
 	public static final float SCALE_DELTA_IN = 1.05f;
@@ -37,11 +41,6 @@ public class Map implements MapEventListener {
 
 	/** The ID of this map. */
 	protected String id;
-
-	protected float x;
-	protected float y;
-	protected float width;
-	protected float height;
 
 	protected boolean active = true;
 
@@ -77,12 +76,7 @@ public class Map implements MapEventListener {
 	public Map(PApplet p, String id, float x, float y, float width, float height, boolean useMask,
 			boolean useDistortion, AbstractMapProvider provider) {
 		this.p = p;
-
 		this.id = id;
-		this.x = x;
-		this.y = y;
-		this.width = width;
-		this.height = height;
 
 		this.mapDisplay = MapDisplayFactory.getMapDisplay(p, id, x, y, width, height, useMask,
 				useDistortion, provider);
@@ -96,9 +90,18 @@ public class Map implements MapEventListener {
 		return mapDisplay.getPointForLocation(mapDisplay.getCenterLocation());
 	}
 
-	public boolean isHit(int mouseX, int mouseY) {
-		float[] mp = mapDisplay.getTransformedPosition(mouseX, mouseY, true);
-		return (mp[0] > 0 && mp[0] < width && mp[1] > 0 && mp[1] < height);
+	/**
+	 * Checks whether the given screen coordinates are on this Map.
+	 * 
+	 * @param checkX
+	 *            The vertical position to check.
+	 * @param checkY
+	 *            The horizontal position to check.
+	 * @return True if map is hit, false otherwise.
+	 */
+	public boolean isHit(int checkX, int checkY) {
+		float[] check = mapDisplay.getTransformedPosition(checkX, checkY, true);
+		return (check[0] > 0 && check[0] < mapDisplay.width && check[1] > 0 && check[1] < mapDisplay.height);
 	}
 
 	public boolean isActive() {
@@ -114,8 +117,6 @@ public class Map implements MapEventListener {
 	}
 
 	public void draw() {
-		p.rect(x, y, width, height);
-
 		updateMap();
 		mapDisplay.draw();
 	}
@@ -395,13 +396,13 @@ public class Map implements MapEventListener {
 		mapDisplay.calculateMatrix();
 	}
 
-	public void rotate(float diffAngle) {
-		rotate(diffAngle, new PVector(width / 2 + x, height / 2 + y));
-	}
-
-	public void rotateTo(float angle) {
-		rotateTo(angle, new PVector(width / 2 + x, height / 2 + y));
-	}
+	// public void rotate(float diffAngle) {
+	// rotate(diffAngle, new PVector(width / 2 + x, height / 2 + y));
+	// }
+	//
+	// public void rotateTo(float angle) {
+	// rotateTo(angle, new PVector(width / 2 + x, height / 2 + y));
+	// }
 
 	/**
 	 * Switches the tweening.
