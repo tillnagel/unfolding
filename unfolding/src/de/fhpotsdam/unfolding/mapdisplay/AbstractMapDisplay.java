@@ -21,30 +21,36 @@ public abstract class AbstractMapDisplay {
 	public static final int TILE_HEIGHT = 256;
 
 	// If less than this memory threshold is reached, oldest tile images will be deleted.
-	private static final long MEMORY_THRESHOLD_BYTES = 250000;
+	private static final long MEMORY_THRESHOLD_BYTES = 300000;
 	// Number of tile images to delete.
 	private static final int MEMORY_THRESHOLD_IMAGES = 25;
 
 	public static Logger log = Logger.getLogger(AbstractMapDisplay.class);
 
+	// Dimension of this map display
+	public float width;
+	public float height;
+
+	// Map values: Inner position and scale (used for tiles)
 	public double tx = -TILE_WIDTH / 2; // half the world width, at zoom 0
 	public double ty = -TILE_HEIGHT / 2; // half the world height, at zoom 0
 	public double sc = 1;
 
+	// MapDisplay values: Outer position, rotation, and scale
+	/** Vertical offset of this MapDisplay (in world coordinates). */
+	public float offsetX;
+	/** Horizontal offset of this MapDisplay (in world coordinates). */
+	public float offsetY;
+	/** Rotation of this MapDisplay. */
+	public float angle;
+	/** Scale of this MapDisplay. */
+	public float scale = 1.0f;
+	public PVector transformationCenter;
+
+	// Tiles
 	public int max_pending = 4;
 	public int max_images_to_keep = 256;
 	public int grid_padding = 0; // was: 1
-
-	public float width;
-	public float height;
-	
-	// Offset of the mapDisplay (in world coordinates).
-	public float offsetX;
-	public float offsetY;
-	
-	public PVector transformationCenter;
-	public float angle;	
-	public float scale = 1.0f;
 
 	protected AbstractMapProvider provider;
 	protected Hashtable<Coordinate, Runnable> pending = new Hashtable<Coordinate, Runnable>();
@@ -59,7 +65,7 @@ public abstract class AbstractMapDisplay {
 		provider = _provider;
 		width = _width;
 		height = _height;
-		transformationCenter = new PVector(width/2, height/2);
+		transformationCenter = new PVector(width / 2, height / 2);
 		sc = (float) Math.ceil(Math.min(height / (float) TILE_WIDTH, width / (float) TILE_HEIGHT));
 	}
 
@@ -78,14 +84,36 @@ public abstract class AbstractMapDisplay {
 
 	public abstract void draw();
 
-	// PROJECTIONS --------------------------------------------------
+	// TRANSFORMATION --------------------------------------------------
 
+	/**
+	 * Converts world location to screen coordinates.
+	 * 
+	 * e.g. used to place geo-coded marker on the map.
+	 */
 	public abstract PVector getPointForLocation(Location location);
 
+	/**
+	 * Converts screen coordinates to map location.
+	 * 
+	 * This includes both transformation as well as Cartesian to world coordinates conversion.
+	 * 
+	 * e.g. used to pan to mouse position.
+	 */
 	public abstract Location getLocationForPoint(float x, float y);
-	
+
+	/**
+	 * Returns location of the internal map center.
+	 * 
+	 * @return The center location.
+	 */
 	public abstract Location getCenterLocation();
-	
+
+	/**
+	 * Updates the matrix to transform the map with with the current transformation center.
+	 */
+	public abstract void calculateMatrix();
+
 	/**
 	 * Calculates offset and rotation for screen canvas position, to be used with the internal
 	 * transformation matrix.
@@ -96,13 +124,11 @@ public abstract class AbstractMapDisplay {
 	 *            Cartesian y coordinate.
 	 * @param inverse
 	 *            Indicates back and forward matrix calculation. Inverse is used for point2location,
-	 *            otherwise location2point.
-	 * @return An array with x and y.
+	 *            non-inverse for location2point.
+	 * @return An 1d-2elements-array with x and y.
 	 */
 	public abstract float[] getTransformedPosition(float x, float y, boolean inverse);
-	
-	public abstract void calculateMatrix();
-	
+
 	// TILES --------------------------------------------------------
 
 	public void processQueue() {

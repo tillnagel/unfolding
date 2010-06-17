@@ -45,9 +45,16 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 		this.offsetY = offsetY;
 		calculateMatrix();
 	}
-
+	
+	// TRANSFORMATION --------------------------------------------------
+	
 	/**
-	 * Calculates original position by inverting the current matrix.
+	 * Updates the matrix to transform the map with.
+	 * 
+	 * For the rotation the matrix has to be temporarily translated to the transformation center.
+	 * Thus, it has to be reset with the original position, afterwards. Original position is
+	 * calculated by inverting the current matrix. (As the matrix incorporates that position, it
+	 * stores every transformation, even though the matrix is created anew.)
 	 * 
 	 * @param x
 	 *            The transformation center x
@@ -55,9 +62,6 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 	 *            The transformation center y
 	 */
 	public void calculateMatrix(float x, float y) {
-		// As the matrix incorporates that position, it stores every transformation, even though
-		// the matrix is created anew.
-
 		PMatrix3D invMatrix = new PMatrix3D();
 		if (!firstMatrixCalc) {
 			matrix.translate(-offsetX, -offsetY);
@@ -77,11 +81,17 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 		matrix.translate(offsetX, offsetY);
 	}
 
+	/**
+	 * Updates the matrix to transform the map with with the current transformation center.
+	 * 
+	 * @see #calculateMatrix(float, float)
+	 */
+	@Override
 	public void calculateMatrix() {
 		calculateMatrix(transformationCenter.x, transformationCenter.y);
 	}
-
 	
+	@Override
 	public float[] getTransformedPosition(float x, float y, boolean inverse) {
 		float[] preXY = new float[3];
 		PMatrix3D m = new PMatrix3D();
@@ -92,17 +102,13 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 		m.mult(new float[] { x, y, 0 }, preXY);
 		return preXY;
 	}
-
+	
+	@Override
 	public Location getCenterLocation() {
 		return getInternalLocationForPoint(width / 2, height / 2);
 	}
 
-	/**
-	 * Converts screen coordinates to map location. This includes both transformation as well as
-	 * Cartesian to world coordinates conversion.
-	 * 
-	 * Used for instance to pan to mouse position.
-	 */
+	@Override
 	public Location getLocationForPoint(float x, float y) {
 		float transPoint[] = getTransformedPosition(x, y, true);
 		x = transPoint[0];
@@ -126,11 +132,7 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 		return provider.coordinateLocation(coord);
 	}
 
-	/**
-	 * Converts world location to screen coordinates.
-	 * 
-	 * Used for instance to put marker on the map.
-	 */
+	@Override
 	public PVector getPointForLocation(Location location) {
 		PMatrix2D m = getInternalTransformationMatrix();
 
@@ -155,6 +157,8 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 		m.translate((float) tx, (float) ty);
 		return m;
 	}
+	
+	// DRAWING --------------------------------------------------
 
 	protected PGraphics getPG() {
 		return papplet.g;
@@ -164,7 +168,9 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 		// May be implemented in sub-classes.
 	}
 
-	/** draw the mapDisplay on the given PApplet */
+	/**
+	 * Draws the on the PGraphics canvas. 
+	 */
 	public void draw() {
 		PGraphics pg = getPG();
 
@@ -183,8 +189,6 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 		float minY = pg.screenY(0, 0);
 		float maxX = pg.screenX(TILE_WIDTH, TILE_HEIGHT);
 		float maxY = pg.screenY(TILE_WIDTH, TILE_HEIGHT);
-
-		// PApplet.println("min(" + minX + "," + minY + ") max(" + maxX + "," + maxY + ")");
 
 		Vector visibleKeys = getVisibleKeys(minX, minY, maxX, maxY);
 
@@ -229,7 +233,7 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 
 		postDraw();
 
-		// restore smoothing, if needed
+		// Restore smoothing, if needed
 		if (smooth) {
 			papplet.smooth();
 		}

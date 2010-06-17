@@ -6,14 +6,17 @@ import de.fhpotsdam.unfolding.Map;
 import de.fhpotsdam.unfolding.mapdisplay.AbstractMapDisplay;
 
 public class DebugDisplay {
-
+	
+	public static final float WIDTH_DEFAULT = 250;
+	public static final float HEIGHT_DEFAULT = 140;
+	
 	PApplet p;
-	AbstractMapDisplay map;
+	AbstractMapDisplay mapDisplay;
 
 	float x;
 	float y;
-	float width = 250;
-	float height = 100;
+	float width;
+	float height;
 	float padding = 4;
 
 	PFont font;
@@ -34,10 +37,10 @@ public class DebugDisplay {
 	 * @param height
 	 *            Height of the display.
 	 */
-	public DebugDisplay(PApplet p, AbstractMapDisplay map, float x, float y, float width,
+	public DebugDisplay(PApplet p, AbstractMapDisplay mapDisplay, float x, float y, float width,
 			float height) {
 		this.p = p;
-		this.map = map;
+		this.mapDisplay = mapDisplay;
 
 		this.x = x;
 		this.y = y;
@@ -48,19 +51,23 @@ public class DebugDisplay {
 		p.textFont(font);
 	}
 
-	public void draw() {
-		int zoomLevel = Map.getZoomLevelFromScale(map.sc);
-		float zoom = Map.getZoomFromScale(map.sc);
+	public DebugDisplay(PApplet p, AbstractMapDisplay mapDisplay) {
+		this(p, mapDisplay, 10, 10, WIDTH_DEFAULT, HEIGHT_DEFAULT);
+	}
 
-		String infoText = "Scale: " + map.sc + "\n";
+	public void draw() {
+		int zoomLevel = Map.getZoomLevelFromScale(mapDisplay.sc);
+		float zoom = Map.getZoomFromScale(mapDisplay.sc);
+
+		String infoText = "Scale: " + mapDisplay.sc + "\n";
 		infoText += "Zoom: " + zoomLevel + " (" + zoom + ")\n";
-		infoText += "tx: " + PApplet.nf((float) map.tx, 1, 3) + "\n";
-		infoText += "ty: " + PApplet.nf((float) map.ty, 1, 3) + "\n";
+		infoText += "tx: " + PApplet.nf((float) mapDisplay.tx, 1, 3) + "\n";
+		infoText += "ty: " + PApplet.nf((float) mapDisplay.ty, 1, 3) + "\n";
 		// infoText += "CenterCoord: " + mapDisplay.getCenterCoordinate() + "\n";
 		infoText += "Mouse: " + p.mouseX + ", " + p.mouseY + "\n";
-		infoText += "Mouse (Lat,Lng): " + map.getLocationForPoint(p.mouseX, p.mouseY) + "\n";
+		infoText += "Mouse (Lat,Lng): " + mapDisplay.getLocationForPoint(p.mouseX, p.mouseY) + "\n";
 		infoText += "Mouse (Coord): "
-				+ map.getMapProvider().locationCoordinate(map.getLocationForPoint(p.mouseX, p.mouseY))
+				+ mapDisplay.getMapProvider().locationCoordinate(mapDisplay.getLocationForPoint(p.mouseX, p.mouseY))
 						.zoomTo(zoom) + "\n";
 		infoText += "fps: " + Math.round(p.frameRate) + "\n";
 

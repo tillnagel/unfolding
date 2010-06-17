@@ -14,8 +14,8 @@ import de.fhpotsdam.unfolding.providers.AbstractMapProvider;
 import de.fhpotsdam.utils.Integrator;
 
 /**
- * Handles
- * 
+ * An interactive map. Uses the MapDisplay, and handles hit test, active status, as well as all
+ * interactions such as panning, zooming, and rotating (with or without tweening).
  */
 public class Map implements MapEventListener {
 
