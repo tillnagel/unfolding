@@ -79,6 +79,9 @@ public class MouseHandler extends MapEventBroadcaster {
 			if (map.isHit(mouseX, mouseY)) {
 				log.debug("mouse: fire panTo for " + map.getId());
 
+				
+				// FIXME Zoom 17 and 18 not every mouse coord diff results in location diff.
+				// Might exist in modest maps, already. modestmaps.processing.SimpleMapApp has same error. 
 				Location newLocation = map.getLocation(mouseX, mouseY);
 				Location oldLocation = map.getLocation(pmouseX, pmouseY);
 				oldLocation.sub(newLocation);
