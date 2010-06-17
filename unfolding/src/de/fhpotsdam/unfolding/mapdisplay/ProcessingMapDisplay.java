@@ -14,7 +14,6 @@ import de.fhpotsdam.unfolding.Map;
 import de.fhpotsdam.unfolding.core.Coordinate;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.providers.AbstractMapProvider;
-import de.fhpotsdam.unfolding.providers.Microsoft;
 
 public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstants {
 
@@ -23,20 +22,48 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 	// Used for loadImage and float maths
 	public PApplet papplet;
 
-	PMatrix3D matrix = new PMatrix3D();
-	
-	/** default to Microsoft Hybrid */
-	public ProcessingMapDisplay(PApplet papplet) {
-		this(papplet, new Microsoft.HybridProvider());
+	/** The transformation matrix. */
+	protected PMatrix3D matrix = new PMatrix3D();
+	/** Used internally to not subtract the offset translation in first frame. */
+	private boolean firstMatrixCalc = true;
+
+	/**
+	 * Creates a new MapDisplay with full canvas size, and given provider
+	 */
+	public ProcessingMapDisplay(PApplet papplet, AbstractMapProvider provider) {
+		this(papplet, provider, 0, 0, papplet.width, papplet.height);
 	}
 
-	
+	/**
+	 * Creates a new MapDisplay.
+	 */
+	public ProcessingMapDisplay(PApplet papplet, AbstractMapProvider provider, float offsetX,
+			float offsetY, float width, float height) {
+		super(provider, width, height);
+		this.papplet = papplet;
+		this.offsetX = offsetX;
+		this.offsetY = offsetY;
+		calculateMatrix();
+	}
+
+	/**
+	 * Calculates original position by inverting the current matrix.
+	 * 
+	 * @param x
+	 *            The transformation center x
+	 * @param y
+	 *            The transformation center y
+	 */
 	public void calculateMatrix(float x, float y) {
-		// Calculates original position by inverting the current matrix.
 		// As the matrix incorporates that position, it stores every transformation, even though
 		// the matrix is created anew.
 
 		PMatrix3D invMatrix = new PMatrix3D();
+		if (!firstMatrixCalc) {
+			matrix.translate(-offsetX, -offsetY);
+		} else {
+			firstMatrixCalc = false;
+		}
 		invMatrix.apply(matrix);
 		invMatrix.invert();
 		float origX = invMatrix.multX(x, y);
@@ -47,56 +74,58 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 		matrix.scale(scale);
 		matrix.rotate(angle);
 		matrix.translate(-origX, -origY);
+		matrix.translate(offsetX, offsetY);
 	}
-	
+
 	public void calculateMatrix() {
 		calculateMatrix(transformationCenter.x, transformationCenter.y);
 	}
 
+	/**
+	 * Calculates offset and rotation for screen canvas position, to be used with the internal
+	 * transformation matrix.
+	 * 
+	 * @param x
+	 *            Cartesian x coordinate.
+	 * @param y
+	 *            Cartesian y coordinate.
+	 * @param inverse
+	 *            Indicates back and forward matrix calculation. Inverse is used for point2location,
+	 *            otherwise location2point.
+	 * @return An array with x and y.
+	 */
+	protected float[] getTransformedPosition(float x, float y, boolean inverse) {
+		float[] preXY = new float[3];
+		PMatrix3D m = new PMatrix3D();
+		m.apply(matrix);
+		if (inverse) {
+			m.invert();
+		}
+		m.mult(new float[] { x, y, 0 }, preXY);
+		return preXY;
+	}
 
-	/** new mapDisplay using applet width and height, and given provider */
-	public ProcessingMapDisplay(PApplet papplet, AbstractMapProvider provider) {
-		this(papplet, provider, 0, 0, papplet.width, papplet.height);
+	public Location getCenterLocation() {
+		return getInternalLocationForPoint(width / 2, height / 2);
 	}
 
 	/**
-	 * make a new interactive mapDisplay, using the given provider, of the given width and height
+	 * Converts screen coordinates to map location. This includes both transformation as well as
+	 * Cartesian to world coordinates conversion.
+	 * 
+	 * Used for instance to pan to mouse position.
 	 */
-	public ProcessingMapDisplay(PApplet papplet, AbstractMapProvider provider, float offsetX,
-			float offsetY, float width, float height) {
-		super(provider, width, height);
-		this.papplet = papplet;
-		this.offsetX = offsetX;
-		this.offsetY = offsetY;
-	}
-	
-	public Location getCenter(){
-		float x = width / 2;
-		float y = height / 2;
-		PMatrix2D m = getInternalTransformationMatrix();
-
-		// find top left and bottom right positions of mapDisplay in screenspace:
-		float tl[] = new float[2];
-		m.mult(new float[] { 0, 0 }, tl);
-		float br[] = new float[2];
-		m.mult(new float[] { TILE_WIDTH, TILE_HEIGHT }, br);
-
-		float col = (x - tl[0]) / (br[0] - tl[0]);
-		float row = (y - tl[1]) / (br[1] - tl[1]);
-		Coordinate coord = new Coordinate(row, col, 0);
-
-		return provider.coordinateLocation(coord);
-	}
-
-	public Location pointLocation(float x, float y) {
-
+	public Location getLocationForPoint(float x, float y) {
 		float transPoint[] = getTransformedPosition(x, y, true);
 		x = transPoint[0];
 		y = transPoint[1];
+		return getInternalLocationForPoint(x, y);
+	}
 
+	private Location getInternalLocationForPoint(float x, float y) {
 		PMatrix2D m = getInternalTransformationMatrix();
 
-		// find top left and bottom right positions of mapDisplay in screenspace:
+		// Find top left and bottom right positions of mapDisplay in screenspace:
 		float tl[] = new float[2];
 		m.mult(new float[] { 0, 0 }, tl);
 		float br[] = new float[2];
@@ -109,7 +138,12 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 		return provider.coordinateLocation(coord);
 	}
 
-	public PVector locationPoint(Location location) {
+	/**
+	 * Converts world location to screen coordinates.
+	 * 
+	 * Used for instance to put marker on the map.
+	 */
+	public PVector getPointForLocation(Location location) {
 		PMatrix2D m = getInternalTransformationMatrix();
 
 		Coordinate coord = provider.locationCoordinate(location).zoomTo(0);
@@ -132,40 +166,6 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 		m.scale((float) sc);
 		m.translate((float) tx, (float) ty);
 		return m;
-	}
-
-	/**
-	 * Calculates offset and rotation for screen canvas position, to be used with the internal
-	 * transformation matrix.
-	 * 
-	 * @param x
-	 *            Cartesian x coordinate.
-	 * @param y
-	 *            Cartesian y coordinate.
-	 * @param pre
-	 *            Indicates pre or post calculation. Is used for pre-render, i.e. point2location, if
-	 *            true, for location2point, otherwise.
-	 * @return An array with x and y.
-	 */
-	public float[] getTransformedPosition(float x, float y, boolean pre) {
-		PMatrix2D m = new PMatrix2D();
-		int preValue = pre ? -1 : 1;
-
-		if (pre) {
-			m.translate(-offsetX, -offsetY);
-		}
-
-		m.translate(transformationCenter.x, transformationCenter.y);
-		m.rotate(angle * preValue);
-		m.translate(-transformationCenter.x, -transformationCenter.y);
-
-		if (!pre) {
-			m.translate(offsetX, offsetY);
-		}
-
-		float[] preXY = new float[2];
-		m.mult(new float[] { x, y }, preXY);
-		return preXY;
 	}
 
 	protected PGraphics getPG() {

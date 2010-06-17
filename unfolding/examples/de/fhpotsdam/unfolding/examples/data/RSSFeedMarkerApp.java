@@ -64,7 +64,7 @@ public class RSSFeedMarkerApp extends PApplet {
 
 		// draw the locations
 		for (Location location : rssGeoLocations) {
-			PVector p = map.mapDisplay.locationPoint(location);
+			PVector p = map.mapDisplay.getPointForLocation(location);
 			noStroke();
 			fill(200, 200, 0, 100);
 			ellipse(p.x, p.y, 10, 10);
@@ -72,11 +72,14 @@ public class RSSFeedMarkerApp extends PApplet {
 	}
 
 	public void keyPressed() {
+		PVector rotateCenter = new PVector(mouseX, mouseY);
+		
 		if (key == 'r') {
-			map.rotate(-PI/8);
+			map.rotate(-PI/8, rotateCenter);
 		} else if (key == 'l') {
-			map.rotate(PI/8);
+			map.rotate(PI/8, rotateCenter);
 		}
 	}
+
 
 }

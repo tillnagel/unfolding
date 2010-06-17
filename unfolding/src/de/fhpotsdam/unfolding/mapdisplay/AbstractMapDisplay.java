@@ -81,13 +81,13 @@ public abstract class AbstractMapDisplay {
 	// PROJECTIONS --------------------------------------------------
 
 	// TODO: leave implementation to used class
-	public abstract PVector locationPoint(Location location);
+	public abstract PVector getPointForLocation(Location location);
 
-	public abstract Location pointLocation(float x, float y);
+	public abstract Location getLocationForPoint(float x, float y);
 	
-	public abstract Location getCenter();
+	public abstract Location getCenterLocation();
 
-	public abstract float[] getTransformedPosition(float x, float y, boolean pre);
+	protected abstract float[] getTransformedPosition(float x, float y, boolean pre);
 	
 	public abstract void calculateMatrix();
 	

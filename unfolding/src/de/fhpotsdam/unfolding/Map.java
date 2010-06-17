@@ -90,17 +90,10 @@ public class Map implements MapEventListener {
 		panCenterZoomTo(PRIME_MERIDIAN_EQUATOR_LOCATION, DEFAULT_ZOOM_LEVEL);
 	}
 
-	public Location getCenter() {
-//		return mapDisplay.pointLocation(mapDisplay.width / 2 + x, mapDisplay.height / 2 + y);
-		return mapDisplay.getCenter();
+	public PVector getCenterInScreenCoordinates() {
+		// NB: getCenterLocation() does not use outer transformation, thus this is not the same back and forward conversion.
+		return mapDisplay.getPointForLocation(mapDisplay.getCenterLocation());
 	}
-	
-	public PVector getScreenCenter() {
-		return mapDisplay.locationPoint(getCenter());
-		
-		// REVISIT Use directly? (mapDisplay.width / 2 + x, mapDisplay.height / 2 + y)
-	}
-	
 
 	// FIXME does not work for rotated maps
 	public boolean isHit(int mouseX, int mouseY) {
@@ -134,7 +127,7 @@ public class Map implements MapEventListener {
 	}
 
 	public Location getLocation(float x, float y) {
-		return mapDisplay.pointLocation(x, y);
+		return mapDisplay.getLocationForPoint(x, y);
 	}
 
 	/**
@@ -243,9 +236,8 @@ public class Map implements MapEventListener {
 
 	/**
 	 * Pans to location.
-	 *
-	 * FIXME Works with tweening only if pan before zoom due to scaleIntegrator and
-	 * mapDisplay.sc.
+	 * 
+	 * FIXME Works with tweening only if pan before zoom due to scaleIntegrator and mapDisplay.sc.
 	 * 
 	 */
 	public void panCenterZoomTo(Location location, int zoom) {
@@ -277,7 +269,7 @@ public class Map implements MapEventListener {
 	 * @param y
 	 */
 	public void panCenterTo(float x, float y) {
-		Location location = mapDisplay.pointLocation(x, y);
+		Location location = mapDisplay.getLocationForPoint(x, y);
 		panCenterTo(location);
 	}
 
@@ -391,7 +383,7 @@ public class Map implements MapEventListener {
 		mapDisplay.angle += diffAngle;
 		mapDisplay.calculateMatrix();
 	}
-	
+
 	public float getAngle() {
 		return mapDisplay.angle;
 	}
@@ -403,11 +395,11 @@ public class Map implements MapEventListener {
 	}
 
 	public void rotate(float diffAngle) {
-		rotate(diffAngle, new PVector(width/2 + x, height/2 + y));
+		rotate(diffAngle, new PVector(width / 2 + x, height / 2 + y));
 	}
 
 	public void rotateTo(float angle) {
-		rotateTo(angle, new PVector(width/2 + x, height/2 + y));
+		rotateTo(angle, new PVector(width / 2 + x, height / 2 + y));
 	}
 
 	/**

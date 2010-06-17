@@ -84,7 +84,7 @@ public class MouseHandler extends MapEventBroadcaster {
 				// Might exist in modest maps, already. modestmaps.processing.SimpleMapApp has same
 				// error.
 
-				PVector center = map.getScreenCenter();
+				PVector center = map.getCenterInScreenCoordinates();
 				PVector mouse = new PVector(mouseX, mouseY);
 				PVector pmouse = new PVector(pmouseX, pmouseY);
 				pmouse.sub(mouse);

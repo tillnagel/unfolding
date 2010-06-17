@@ -58,9 +58,9 @@ public class DebugDisplay {
 		infoText += "ty: " + PApplet.nf((float) map.ty, 1, 3) + "\n";
 		// infoText += "CenterCoord: " + mapDisplay.getCenterCoordinate() + "\n";
 		infoText += "Mouse: " + p.mouseX + ", " + p.mouseY + "\n";
-		infoText += "Mouse (Lat,Lng): " + map.pointLocation(p.mouseX, p.mouseY) + "\n";
+		infoText += "Mouse (Lat,Lng): " + map.getLocationForPoint(p.mouseX, p.mouseY) + "\n";
 		infoText += "Mouse (Coord): "
-				+ map.getMapProvider().locationCoordinate(map.pointLocation(p.mouseX, p.mouseY))
+				+ map.getMapProvider().locationCoordinate(map.getLocationForPoint(p.mouseX, p.mouseY))
 						.zoomTo(zoom) + "\n";
 		infoText += "fps: " + Math.round(p.frameRate) + "\n";
 
