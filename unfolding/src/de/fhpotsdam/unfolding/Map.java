@@ -1,5 +1,7 @@
 package de.fhpotsdam.unfolding;
 
+import java.util.UUID;
+
 import org.apache.log4j.Logger;
 
 import processing.core.PApplet;
@@ -59,6 +61,13 @@ public class Map implements MapEventListener {
 	 */
 	public Map(PApplet p, String id) {
 		this(p, id, 0, 0, p.width, p.height, true, false, null);
+	}
+
+	/**
+	 * Creates a new full-canvas Map with a generated ID.
+	 */
+	public Map(PApplet p) {
+		this(p, UUID.randomUUID().toString(), 0, 0, p.width, p.height, true, false, null);
 	}
 
 	public Map(PApplet p, String id, float x, float y, float width, float height) {
