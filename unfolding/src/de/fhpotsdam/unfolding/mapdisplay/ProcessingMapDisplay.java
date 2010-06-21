@@ -5,6 +5,7 @@ import java.util.Vector;
 
 import processing.core.PApplet;
 import processing.core.PConstants;
+import processing.core.PFont;
 import processing.core.PGraphics;
 import processing.core.PImage;
 import processing.core.PMatrix2D;
@@ -18,6 +19,7 @@ import de.fhpotsdam.unfolding.providers.AbstractMapProvider;
 public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstants {
 
 	private static final boolean SHOW_DEBUG_BORDER = false;
+	public static final boolean USE_DEBUG_TILES = false;
 
 	// Used for loadImage and float maths
 	public PApplet papplet;
@@ -26,6 +28,8 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 	protected PMatrix3D matrix = new PMatrix3D();
 	/** Used internally to not subtract the offset translation in first frame. */
 	private boolean firstMatrixCalc = true;
+
+	private PFont font;
 
 	/**
 	 * Creates a new MapDisplay with full canvas size, and given provider
@@ -43,11 +47,14 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 		this.papplet = papplet;
 		this.offsetX = offsetX;
 		this.offsetY = offsetY;
+
+		font = papplet.loadFont("Miso-Light-12.vlw");
+
 		calculateMatrix();
 	}
-	
+
 	// TRANSFORMATION --------------------------------------------------
-	
+
 	/**
 	 * Updates the matrix to transform the map with.
 	 * 
@@ -90,7 +97,7 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 	public void calculateMatrix() {
 		calculateMatrix(transformationCenter.x, transformationCenter.y);
 	}
-	
+
 	@Override
 	public float[] getTransformedPosition(float x, float y, boolean inverse) {
 		float[] preXY = new float[3];
@@ -102,7 +109,7 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 		m.mult(new float[] { x, y, 0 }, preXY);
 		return preXY;
 	}
-	
+
 	@Override
 	public Location getCenterLocation() {
 		return getInternalLocationForPoint(width / 2, height / 2);
@@ -157,7 +164,7 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 		m.translate((float) tx, (float) ty);
 		return m;
 	}
-	
+
 	// DRAWING --------------------------------------------------
 
 	protected PGraphics getPG() {
@@ -169,7 +176,7 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 	}
 
 	/**
-	 * Draws the on the PGraphics canvas. 
+	 * Draws the on the PGraphics canvas.
 	 */
 	public void draw() {
 		PGraphics pg = getPG();
@@ -370,18 +377,47 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 
 		public void run() {
 			String[] urls = provider.getTileUrls(coord);
-			// use unknown to let loadImage decide
-			PImage img = papplet.loadImage(urls[0], "unknown");
-			if (img != null) {
-				for (int i = 1; i < urls.length; i++) {
-					PImage img2 = papplet.loadImage(urls[i], "unknown");
-					if (img2 != null) {
-						img.blend(img2, 0, 0, img.width, img.height, 0, 0, img.width, img.height,
-								BLEND);
+
+			PImage img = null;
+
+			if (USE_DEBUG_TILES) {
+				// Create image tile with coordinate information.
+				img = getDebugTile(coord);
+			} else {
+				// Use 'unknown' as content-type to let loadImage decide
+				img = papplet.loadImage(urls[0], "unknown");
+				if (img != null) {
+					for (int i = 1; i < urls.length; i++) {
+						PImage img2 = papplet.loadImage(urls[i], "unknown");
+						if (img2 != null) {
+							img.blend(img2, 0, 0, img.width, img.height, 0, 0, img.width,
+									img.height, BLEND);
+						}
 					}
 				}
 			}
+
 			tileDone(coord, img);
 		}
+
+		private PImage getDebugTile(Coordinate coord) {
+			PGraphics pg = papplet.createGraphics(TILE_WIDTH, TILE_HEIGHT, P2D);
+			pg.beginDraw();
+			pg.textFont(font);
+			pg.background(250);
+			pg.stroke(0);
+			pg.rect(0, 0, pg.width, pg.height);
+			pg.ellipse(pg.width / 2, pg.height / 2, pg.width - 5, pg.height - 5);
+			pg.fill(0);
+			String infoText = coord.column + ", " + coord.row + "\nz: " + coord.zoom;
+			pg.text(infoText, pg.width / 2 - pg.textWidth(infoText) / 2, pg.height / 2 - 10);
+			pg.endDraw();
+			String tempName = coord.column + "-" + coord.row + "-" + coord.zoom + ".png";
+			pg.save(tempName);
+			
+			PImage img = papplet.loadImage(tempName);
+			return img;
+		}
 	}
+
 }
