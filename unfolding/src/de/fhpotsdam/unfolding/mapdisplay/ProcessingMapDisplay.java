@@ -18,8 +18,10 @@ import de.fhpotsdam.unfolding.providers.AbstractMapProvider;
 
 public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstants {
 
-	private static final boolean SHOW_DEBUG_BORDER = false;
-	public static final boolean USE_DEBUG_TILES = false;
+	private static final boolean SHOW_DEBUG_BORDER = true;
+	private static final boolean USE_DEBUG_TILES = true;
+	private static final boolean USE_OFFLINE_MODE = false;
+
 
 	// Used for loadImage and float maths
 	public PApplet papplet;
@@ -187,7 +189,7 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 
 		// translate and scale, from the middle
 		pg.pushMatrix();
-		pg.translate(width / 2, height / 2);
+		pg.translate(width/2, height/2);
 		pg.scale((float) sc);
 		pg.translate((float) tx, (float) ty);
 
@@ -380,12 +382,17 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 
 			PImage img = null;
 
-			if (USE_DEBUG_TILES) {
+			if (USE_OFFLINE_MODE) {
 				// Create image tile with coordinate information.
-				img = getDebugTile(coord);
+				img = getDebugTile(coord, null);
 			} else {
 				// Use 'unknown' as content-type to let loadImage decide
 				img = papplet.loadImage(urls[0], "unknown");
+
+				if (USE_DEBUG_TILES) {
+					img = getDebugTile(coord, img);
+				}
+
 				if (img != null) {
 					for (int i = 1; i < urls.length; i++) {
 						PImage img2 = papplet.loadImage(urls[i], "unknown");
@@ -400,21 +407,27 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 			tileDone(coord, img);
 		}
 
-		private PImage getDebugTile(Coordinate coord) {
+		private PImage getDebugTile(Coordinate coord, PImage tileImage) {
 			PGraphics pg = papplet.createGraphics(TILE_WIDTH, TILE_HEIGHT, P2D);
 			pg.beginDraw();
 			pg.textFont(font);
-			pg.background(250);
-			pg.stroke(0);
-			pg.rect(0, 0, pg.width, pg.height);
-			pg.ellipse(pg.width / 2, pg.height / 2, pg.width - 5, pg.height - 5);
+
+			if (tileImage != null) {
+				pg.image(tileImage, 0, 0);
+			} else {
+				pg.background(250);
+				pg.stroke(0);
+				pg.rect(0, 0, pg.width, pg.height);
+				pg.ellipse(pg.width / 2, pg.height / 2, pg.width - 5, pg.height - 5);
+			}
+
 			pg.fill(0);
 			String infoText = coord.column + ", " + coord.row + "\nz: " + coord.zoom;
 			pg.text(infoText, pg.width / 2 - pg.textWidth(infoText) / 2, pg.height / 2 - 10);
 			pg.endDraw();
 			String tempName = coord.column + "-" + coord.row + "-" + coord.zoom + ".png";
 			pg.save(tempName);
-			
+
 			PImage img = papplet.loadImage(tempName);
 			return img;
 		}
