@@ -55,6 +55,10 @@ public class DebugDisplay {
 		this(p, mapDisplay, 10, 10, WIDTH_DEFAULT, HEIGHT_DEFAULT);
 	}
 
+	public DebugDisplay(PApplet p, Map map) {
+		this(p, map.mapDisplay, 10, 10, WIDTH_DEFAULT, HEIGHT_DEFAULT);
+	}
+
 	public void draw() {
 		int zoomLevel = Map.getZoomLevelFromScale(mapDisplay.sc);
 		float zoom = Map.getZoomFromScale(mapDisplay.sc);
