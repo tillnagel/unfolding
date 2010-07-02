@@ -11,16 +11,23 @@ public class TransformableObject {
 
 	PApplet p;
 
+	/** Offset x. */
 	float offsetX;
+	/** Offset y. */
 	float offsetY;
 
+	/** Width of this object */
 	float width;
+	/** Height of this object */
 	float height;
 
+	/** Transformation center, to rotate and scale around. */
 	float centerX;
 	float centerY;
-
+	
+	/** Rotation angle */
 	float angle = 0;
+	/** Scaling factor */
 	float scale = 1;
 
 	int color;
@@ -71,6 +78,7 @@ public class TransformableObject {
 		p.fill(255);
 		p.rect(0, 0, 50, 20);
 		p.fill(0);
+		p.textSize(12);
 		p.text(">>> ABC >>>", 0, 13);
 	}
 

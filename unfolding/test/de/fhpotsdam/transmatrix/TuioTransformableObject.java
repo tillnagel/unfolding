@@ -1,19 +1,13 @@
 package de.fhpotsdam.transmatrix;
 
-import org.apache.log4j.Logger;
-
 import processing.core.PApplet;
 import TUIO.TuioCursor;
 
 /**
  * Object can be transformed by fingers / TuioCursors.
  * 
- * 
- * 
  */
 public class TuioTransformableObject extends TransformableObject {
-
-	public static Logger log = Logger.getLogger(TuioTransformableObject.class);
 
 	TuioCursor tuioCursor1 = null;
 	TuioCursor tuioCursor2 = null;
@@ -52,7 +46,7 @@ public class TuioTransformableObject extends TransformableObject {
 			oldAngle = getAngleBetween(tuioCursor1, tuioCursor2);
 			oldDist = getDistance(tuioCursor1, tuioCursor2);
 		} else {
-			log.info("Already 2 cursors in use for rotation. Omitting further ones.");
+			PApplet.println("Already 2 cursors in use for rotation. Omitting further ones.");
 		}
 	}
 
@@ -67,8 +61,7 @@ public class TuioTransformableObject extends TransformableObject {
 			if (tuioCursor2 != null) {
 				tuioCursor1 = tuioCursor2;
 				tuioCursor2 = null;
-				// Object should not jump after switching, so a "new" oldPos is stored for diff
-				// calc.
+				// Shall not jump after switching, so a "new" oldPos is stored for diff calc.
 				oldX = tuioCursor1.getScreenX(p.width);
 				oldY = tuioCursor1.getScreenY(p.height);
 			}
