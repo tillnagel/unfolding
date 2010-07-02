@@ -39,12 +39,14 @@ public class TransformableObject {
 		this.centerY = height / 2;
 
 		this.color = p.color(255, 150);
+
+		calculateMatrix();
 	}
 
 	public void draw() {
 		p.pushMatrix();
+//		p.translate(offsetX, offsetY);
 		p.applyMatrix(matrix);
-		p.translate(offsetX, offsetY);
 
 		internalDraw();
 
@@ -55,11 +57,19 @@ public class TransformableObject {
 		p.fill(color);
 		p.stroke(0, 150);
 
-		for (float i = 0; i <= width; i += 10) {
-			for (float j = 0; j <= height; j += 10) {
+		for (float i = 0; i <= width - 10; i += 10) {
+			for (float j = 0; j <= height - 10; j += 10) {
 				p.rect(i, j, 10, 10);
 			}
 		}
+
+		p.fill(255);
+		p.rect(0, 0, 50, 20);
+		p.fill(0);
+		p.text(">>> ABC >>>", 0, 13);
+		
+		p.fill(255, 0, 0, 100);
+		p.ellipse(centerX, centerY, 10, 10);
 	}
 
 	public void setColor(int color) {
@@ -68,14 +78,16 @@ public class TransformableObject {
 
 	public boolean isHit(int checkX, int checkY) {
 		float[] check = getTransformedPosition(checkX, checkY, true);
-		return (check[0] > offsetX && check[0] < offsetX + width && check[1] > offsetY && check[1] < offsetY
-				+ height);
+//		return (check[0] > offsetX && check[0] < offsetX + width && check[1] > offsetY && check[1] < offsetY
+//				+ height);
+		 return (check[0] > 0 && check[0] < 0 + width && check[1] > 0 && check[1] < 0 + height);
 	}
 
 	public float[] getTransformedPosition(float x, float y, boolean inverse) {
 		float[] preXY = new float[3];
 		PMatrix3D m = new PMatrix3D();
 		m.apply(matrix);
+		//m.translate(-offsetX, -offsetY);
 		if (inverse) {
 			m.invert();
 		}
@@ -92,15 +104,17 @@ public class TransformableObject {
 		this.scale *= scale;
 		calculateMatrix();
 	}
-	
-	public void translate(float dx, float dy) {
+
+	public void addOffset(float dx, float dy) {
 		this.offsetX += dx;
 		this.offsetY += dy;
+		calculateMatrix();
 	}
 
 	public void setOffset(float x, float y) {
 		this.offsetX = x;
 		this.offsetY = y;
+		calculateMatrix();
 	}
 
 	public void setCenter(float centerX, float centerY) {
@@ -109,21 +123,69 @@ public class TransformableObject {
 	}
 
 	protected void calculateMatrix() {
-		// Calculates original position by inverting the current matrix.
-		// As the matrix incorporates that position, it stores every transformation, even though
-		// the matrix is created anew.
+		//calculateMatrixWithNewMatrix();
+		
+		calculateMatrixSingleMatrix();
+	}
+	
+	boolean first = true;
+	float oldOffsetX;
+	float oldOffsetY;
+	
+	// 
+	protected void calculateMatrixSingleMatrix() {
+		if (first) {
+			first = false;
+		} else {
+			matrix.translate(-oldOffsetX, -oldOffsetY);
+		}
 
 		PMatrix3D invMatrix = new PMatrix3D();
 		invMatrix.apply(matrix);
 		invMatrix.invert();
-		float originalX = invMatrix.multX(centerX, centerY);
-		float originalY = invMatrix.multY(centerX, centerY);
 
+		float originalCenterX = invMatrix.multX(centerX, centerY);
+		float originalCenterY = invMatrix.multY(centerX, centerY);
+		
 		matrix = new PMatrix3D();
 		matrix.translate(centerX, centerY);
 		matrix.scale(scale);
 		matrix.rotate(angle);
-		matrix.translate(-originalX, -originalY);
+		matrix.translate(-originalCenterX, -originalCenterY);
+		matrix.translate(offsetX, offsetY);
+		
+		oldOffsetX = offsetX;
+		oldOffsetY = offsetY;
+	}
+
+	PMatrix3D matrix2 = new PMatrix3D();
+	
+	protected void calculateMatrixWithNewMatrix() {
+		if (first) {
+			first = false;
+		} else {
+			matrix.translate(-oldOffsetX, -oldOffsetY);
+		}
+
+		PMatrix3D invMatrix = new PMatrix3D();
+		invMatrix.apply(matrix2);
+		invMatrix.invert();
+
+		float originalCenterX = invMatrix.multX(centerX, centerY);
+		float originalCenterY = invMatrix.multY(centerX, centerY);
+		
+		matrix2 = new PMatrix3D();
+		matrix2.translate(centerX, centerY);
+		matrix2.scale(scale);
+		matrix2.rotate(angle);
+		matrix2.translate(-originalCenterX, -originalCenterY);
+		
+		matrix = new PMatrix3D();
+		matrix.translate(offsetX, offsetY);
+		matrix.apply(matrix2);
+		
+		oldOffsetX = offsetX;
+		oldOffsetY = offsetY;
 	}
 
 	protected float getAngleBetween(float x1, float y1, float x2, float y2) {
