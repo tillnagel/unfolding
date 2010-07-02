@@ -27,6 +27,9 @@ public class TransformableObject {
 
 	PMatrix3D matrix = new PMatrix3D();
 
+	// test
+	boolean nonMatrixOffset = true;
+
 	public TransformableObject(PApplet p, float offsetX, float offsetY, float width, float height) {
 		this.p = p;
 
@@ -45,7 +48,9 @@ public class TransformableObject {
 
 	public void draw() {
 		p.pushMatrix();
-//		p.translate(offsetX, offsetY);
+		if (nonMatrixOffset) {
+			p.translate(offsetX, offsetY);
+		}
 		p.applyMatrix(matrix);
 
 		internalDraw();
@@ -67,9 +72,6 @@ public class TransformableObject {
 		p.rect(0, 0, 50, 20);
 		p.fill(0);
 		p.text(">>> ABC >>>", 0, 13);
-		
-		p.fill(255, 0, 0, 100);
-		p.ellipse(centerX, centerY, 10, 10);
 	}
 
 	public void setColor(int color) {
@@ -77,17 +79,18 @@ public class TransformableObject {
 	}
 
 	public boolean isHit(int checkX, int checkY) {
-		float[] check = getTransformedPosition(checkX, checkY, true);
-//		return (check[0] > offsetX && check[0] < offsetX + width && check[1] > offsetY && check[1] < offsetY
-//				+ height);
-		 return (check[0] > 0 && check[0] < 0 + width && check[1] > 0 && check[1] < 0 + height);
+		float[] check = getTransformedPosition(checkX, checkY);
+		return (check[0] > 0 && check[0] < 0 + width && check[1] > 0 && check[1] < 0 + height);
 	}
 
-	public float[] getTransformedPosition(float x, float y, boolean inverse) {
+	public float[] getTransformedPosition(float x, float y) {
+		return getTransformedPositionWithoutOffset(x - offsetX, y - offsetY, true);
+	}
+	
+	public float[] getTransformedPositionWithoutOffset(float x, float y, boolean inverse) {
 		float[] preXY = new float[3];
 		PMatrix3D m = new PMatrix3D();
 		m.apply(matrix);
-		//m.translate(-offsetX, -offsetY);
 		if (inverse) {
 			m.invert();
 		}
@@ -123,16 +126,38 @@ public class TransformableObject {
 	}
 
 	protected void calculateMatrix() {
-		//calculateMatrixWithNewMatrix();
-		
-		calculateMatrixSingleMatrix();
+		if (nonMatrixOffset) {
+			// Matrix does not use offset, is used from outside.
+			calculateMatrixSingleMatrixNoOffset();
+		} else {
+			// Uses offset, but is changed only after other transformations.
+			calculateMatrixSingleMatrix();
+		}
+
+		// Trial with two matrices.
+		// calculateMatrixWithNewMatrix();
 	}
-	
+
+	// 
+	protected void calculateMatrixSingleMatrixNoOffset() {
+		PMatrix3D invMatrix = new PMatrix3D();
+		invMatrix.apply(matrix);
+		invMatrix.invert();
+
+		float originalCenterX = invMatrix.multX(centerX, centerY);
+		float originalCenterY = invMatrix.multY(centerX, centerY);
+
+		matrix = new PMatrix3D();
+		matrix.translate(centerX, centerY);
+		matrix.scale(scale);
+		matrix.rotate(angle);
+		matrix.translate(-originalCenterX, -originalCenterY);
+	}
+
 	boolean first = true;
 	float oldOffsetX;
 	float oldOffsetY;
-	
-	// 
+
 	protected void calculateMatrixSingleMatrix() {
 		if (first) {
 			first = false;
@@ -146,20 +171,20 @@ public class TransformableObject {
 
 		float originalCenterX = invMatrix.multX(centerX, centerY);
 		float originalCenterY = invMatrix.multY(centerX, centerY);
-		
+
 		matrix = new PMatrix3D();
 		matrix.translate(centerX, centerY);
 		matrix.scale(scale);
 		matrix.rotate(angle);
 		matrix.translate(-originalCenterX, -originalCenterY);
 		matrix.translate(offsetX, offsetY);
-		
+
 		oldOffsetX = offsetX;
 		oldOffsetY = offsetY;
 	}
 
 	PMatrix3D matrix2 = new PMatrix3D();
-	
+
 	protected void calculateMatrixWithNewMatrix() {
 		if (first) {
 			first = false;
@@ -173,17 +198,17 @@ public class TransformableObject {
 
 		float originalCenterX = invMatrix.multX(centerX, centerY);
 		float originalCenterY = invMatrix.multY(centerX, centerY);
-		
+
 		matrix2 = new PMatrix3D();
 		matrix2.translate(centerX, centerY);
 		matrix2.scale(scale);
 		matrix2.rotate(angle);
 		matrix2.translate(-originalCenterX, -originalCenterY);
-		
+
 		matrix = new PMatrix3D();
 		matrix.translate(offsetX, offsetY);
 		matrix.apply(matrix2);
-		
+
 		oldOffsetX = offsetX;
 		oldOffsetY = offsetY;
 	}
