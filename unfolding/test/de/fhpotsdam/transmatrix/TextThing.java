@@ -15,7 +15,7 @@ public class TextThing extends TuioTransformableObject {
 		
 		p.fill(0);
 		p.textSize(70);
-		p.text("LŠrm & Krawall", 0, 60);
+		p.text("Kohlrabisuppe", 0, 60);
 	}
 
 }

@@ -9,7 +9,6 @@ import TUIO.TuioCursor;
 import TUIO.TuioListener;
 import TUIO.TuioObject;
 import TUIO.TuioTime;
-import codeanticode.glgraphics.GLConstants;
 
 /**
  * Fully working test app to freely transform multiple independent objects. Rotate, Scale, and
@@ -23,7 +22,7 @@ public class MultiTransObjectApp extends PApplet implements TuioListener {
 	TuioClient tuioClient;
 
 	public void setup() {
-		size(1024, 768, GLConstants.GLGRAPHICS);
+		size(1024, 768, OPENGL);
 		smooth();
 		textFont(loadFont("Miso-Light-12.vlw"), 12);
 
@@ -42,6 +41,9 @@ public class MultiTransObjectApp extends PApplet implements TuioListener {
 		for (TransformableObject transformableObject : transObjects) {
 			transformableObject.draw();
 		}
+		
+		// Display debug information
+		drawCursors();
 	}
 	
 	public void addTuioCursor(TuioCursor tcur) {
@@ -107,4 +109,79 @@ public class MultiTransObjectApp extends PApplet implements TuioListener {
 	public void updateTuioObject(TuioObject arg0) {
 	}
 
+	
+	
+	
+	
+	// Test interactions ----------------------------------
+
+	public void mouseMoved() {
+//		TransformableObject to = transObjects.get(0);
+//		if (to.isHit(mouseX, mouseY)) {
+//			to.setColor(color(255, 0, 0, 100));
+//		} else {
+//			to.setColor(color(255, 100));
+//		}
+	}
+
+	public void keyPressed() {
+		TransformableObject to = transObjects.get(0);
+
+		if (key == 'r') {
+			println("rotate cw");
+			to.rotate(radians(45));
+		}
+		if (key == 'l') {
+			println("rotate ccw");
+			to.rotate(-radians(45));
+		}
+		if (key == 'm') {
+			println("using mouse-pos as center: " + mouseX + "," + mouseY);
+			to.centerX = mouseX - to.offsetX;
+			to.centerY = mouseY - to.offsetY;
+		}
+
+		if (key == 'c') {
+			float[] check = to.getTransformedPositionWithoutOffset(300, 300, false);
+			println("using transPos for center: " + check[0] + "," + check[1]);
+			to.setCenter(check[0], check[1]);
+		}
+		if (key == 'C') {
+			float[] check = to.getTransformedPositionWithoutOffset(0, 0, false);
+			println("using transPos for center: " + check[0] + "," + check[1]);
+			to.setCenter(check[0], check[1]);
+		}
+
+		if (key == CODED) {
+			if (keyCode == LEFT) {
+				println("left");
+				to.addOffset(-100, 0);
+			}
+			if (keyCode == RIGHT) {
+				println("right");
+				to.addOffset(100, 0);
+			}
+		}
+
+		if (key == 's') {
+			to.scale(0.95f);
+		}
+		if (key == 'S') {
+			to.scale(1.05f);
+		}
+
+		if (key == 'i') {
+			float[] check = to.getTransformedPosition(0, 0);
+			println("0,0: " + check[0] + "," + check[1]);
+			println("ctr: " + to.centerX + "," + to.centerY);
+		}
+	}
+
+	public void mouseDragged() {
+		float dx = mouseX - pmouseX;
+		float dy = mouseY - pmouseY;
+		transObjects.get(0).addOffset(dx, dy);
+
+		// transObjects.get(0).setOffset(mouseX, mouseY);
+	}
 }
