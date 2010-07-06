@@ -33,6 +33,12 @@ public class MultiTransObjectApp extends PApplet implements TuioListener {
 		transObjects.add(new TuioTransformableObject(this, 0, 0, 300, 300));
 		transObjects.add(new TuioTransformableObject(this, 500, 200, 300, 300));
 		transObjects.add(new TextThing(this, 600, 50, 340, 70));
+
+		addMouseWheelListener(new java.awt.event.MouseWheelListener() {
+			public void mouseWheelMoved(java.awt.event.MouseWheelEvent evt) {
+				mouseWheel(evt.getWheelRotation());
+			}
+		});
 	}
 
 	public void draw() {
@@ -41,11 +47,11 @@ public class MultiTransObjectApp extends PApplet implements TuioListener {
 		for (TransformableObject transformableObject : transObjects) {
 			transformableObject.draw();
 		}
-		
+
 		// Display debug information
 		drawCursors();
 	}
-	
+
 	public void addTuioCursor(TuioCursor tcur) {
 		// Hit test for all objects: first gets the hit, ordered by creation.
 		// TODO Order by z-index, updated by last activation/usage
@@ -74,7 +80,7 @@ public class MultiTransObjectApp extends PApplet implements TuioListener {
 			}
 		}
 	}
-	
+
 	public void drawCursors() {
 		for (TuioCursor tuioCursor : tuioClient.getTuioCursors()) {
 			drawCursor(tuioCursor);
@@ -109,19 +115,33 @@ public class MultiTransObjectApp extends PApplet implements TuioListener {
 	public void updateTuioObject(TuioObject arg0) {
 	}
 
-	
-	
-	
-	
 	// Test interactions ----------------------------------
 
+	public void mouseWheel(float delta) {
+		TransformableObject to = null;
+		for (TuioTransformableObject ttObj : transObjects) {
+			if (ttObj.isHit(mouseX, mouseY)) {
+				to = ttObj;
+				break;
+			}
+		}
+		if (to != null) {
+			to.setTransformationCenter(mouseX, mouseY);
+			if (delta < 0) {
+				to.scale(0.9f);
+			} else {
+				to.scale(1.1f);
+			}
+		}
+	}
+
 	public void mouseMoved() {
-//		TransformableObject to = transObjects.get(0);
-//		if (to.isHit(mouseX, mouseY)) {
-//			to.setColor(color(255, 0, 0, 100));
-//		} else {
-//			to.setColor(color(255, 100));
-//		}
+		// TransformableObject to = transObjects.get(0);
+		// if (to.isHit(mouseX, mouseY)) {
+		// to.setColor(color(255, 0, 0, 100));
+		// } else {
+		// to.setColor(color(255, 100));
+		// }
 	}
 
 	public void keyPressed() {
@@ -137,19 +157,22 @@ public class MultiTransObjectApp extends PApplet implements TuioListener {
 		}
 		if (key == 'm') {
 			println("using mouse-pos as center: " + mouseX + "," + mouseY);
-			to.centerX = mouseX - to.offsetX;
-			to.centerY = mouseY - to.offsetY;
+			// use world coords
+			to.setTransformationCenter(mouseX, mouseY);
 		}
 
 		if (key == 'c') {
-			float[] check = to.getTransformedPositionWithoutOffset(300, 300, false);
+			// get world coords from object/scene coords
+			float[] check = to.getScreenFromObjectPosition(300, 300);
+			to.setTransformationCenter(check[0], check[1]);
+			
 			println("using transPos for center: " + check[0] + "," + check[1]);
-			to.setCenter(check[0], check[1]);
+			
 		}
 		if (key == 'C') {
-			float[] check = to.getTransformedPositionWithoutOffset(0, 0, false);
+			float[] check = to.getScreenFromObjectPosition(0, 0);
 			println("using transPos for center: " + check[0] + "," + check[1]);
-			to.setCenter(check[0], check[1]);
+			to.setTransformationCenter(check[0], check[1]);
 		}
 
 		if (key == CODED) {
@@ -171,9 +194,10 @@ public class MultiTransObjectApp extends PApplet implements TuioListener {
 		}
 
 		if (key == 'i') {
-			float[] check = to.getTransformedPosition(0, 0);
+			float[] check = to.getScreenFromObjectPosition(0, 0);
 			println("0,0: " + check[0] + "," + check[1]);
-			println("ctr: " + to.centerX + "," + to.centerY);
+			println("ctr: " + to.transCenterX + "," + to.transCenterY);
+			println(mouseX + " " + mouseY);
 		}
 	}
 

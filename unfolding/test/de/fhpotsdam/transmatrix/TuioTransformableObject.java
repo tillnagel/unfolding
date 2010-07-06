@@ -73,11 +73,11 @@ public class TuioTransformableObject extends TransformableObject {
 			// Two fingers: rotate and scale
 
 			if (tuioCursor2.getCursorID() == tcur.getCursorID()) {
-				centerX = tuioCursor1.getScreenX(p.width) - offsetX;
-				centerY = tuioCursor1.getScreenY(p.height) - offsetY;
+				transCenterX = tuioCursor1.getScreenX(p.width) - offsetX;
+				transCenterY = tuioCursor1.getScreenY(p.height) - offsetY;
 			} else {
-				centerX = tuioCursor2.getScreenX(p.width) - offsetX;
-				centerY = tuioCursor2.getScreenY(p.height) - offsetY;
+				transCenterX = tuioCursor2.getScreenX(p.width) - offsetX;
+				transCenterY = tuioCursor2.getScreenY(p.height) - offsetY;
 			}
 
 			float newAngle = getAngleBetween(tuioCursor1, tuioCursor2);
