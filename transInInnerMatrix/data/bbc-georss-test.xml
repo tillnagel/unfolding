@@ -1,0 +1,760 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:gml="http://www.opengis.net/gml" xmlns:media="http://search.yahoo.com/mrss" xmlns:taxo="http://purl.org/rss/1.0/modules/taxonomy/" xmlns:georss="http://www.georss.org/georss" xmlns:geo="http://www.w3.org/2003/01/geo/wgs84_pos#" version="2.0">
+  <channel>
+    <title>BBC News - Home</title>
+    <link>http://www.bbc.co.uk/go/rss/int/news/-/news/</link>
+    <description>The latest stories from the Home section of the BBC News web site.</description>
+    <language>en-gb</language>
+    <copyright>Copyright: (C) British Broadcasting Corporation, see http://news.bbc.co.uk/2/hi/help/rss/4498287.stm for terms and conditions of reuse.</copyright>
+
+    <pubDate>Tue, 31 Aug 2010 12:50:15 GMT</pubDate>
+    <dc:date>2010-08-31T12:50:15Z</dc:date>
+    <dc:language>en-gb</dc:language>
+    <dc:rights>Copyright: (C) British Broadcasting Corporation, see http://news.bbc.co.uk/2/hi/help/rss/4498287.stm for terms and conditions of reuse.</dc:rights>
+    <item>
+      <title>Pakistan stars 'unlikely' to play</title>
+
+      <link>http://news.bbc.co.uk/go/rss/int/news/-/sport1/hi/cricket/england/8953417.stm</link>
+      <description>The Pakistan cricketers under scrutiny for claims of spot-fixing are unlikely to play again on the current England tour, BBC Sport understands.</description>
+      <pubDate>Tue, 31 Aug 2010 12:17:37 GMT</pubDate>
+      <guid isPermaLink="false">http://news.bbc.co.uk/sport1/hi/cricket/england/8953417.stm</guid>
+      <dc:date>2010-08-31T12:17:37Z</dc:date>
+      <geo:lat>30.0</geo:lat>
+
+      <geo:long>70.0</geo:long>
+    </item>
+    <item>
+      <title>Iraq PM hails US troop withdrawal</title>
+      <link>http://www.bbc.co.uk/go/rss/int/news/-/news/world-middle-east-11137269</link>
+      <description>Iraq's prime minister says the country is now "independent", hours before US combat operations are due to end officially.</description>
+      <pubDate>Tue, 31 Aug 2010 12:01:39 GMT</pubDate>
+
+      <guid isPermaLink="false">http://www.bbc.co.uk/news/world-middle-east-11137269</guid>
+      <dc:date>2010-08-31T12:01:39Z</dc:date>
+      <geo:lat>33.0</geo:lat>
+      <geo:long>44.0</geo:long>
+    </item>
+    <item>
+      <title>Miliband battle 'like soap opera'</title>
+
+      <link>http://www.bbc.co.uk/go/rss/int/news/-/news/uk-politics-11134604</link>
+      <description>Labour leadership candidate Ed Balls criticises the "daily episodes" of the "soap opera" surrounding fellow contenders Ed and David Miliband.</description>
+      <pubDate>Tue, 31 Aug 2010 10:58:18 GMT</pubDate>
+      <guid isPermaLink="false">http://www.bbc.co.uk/news/uk-politics-11134604</guid>
+      <dc:date>2010-08-31T10:58:18Z</dc:date>
+    </item>
+
+    <item>
+      <title>Four-year negative equity warning</title>
+      <link>http://www.bbc.co.uk/go/rss/int/news/-/news/business-11132705</link>
+      <description>The National Housing Federation warns that homeowners in England who bought at the peak may face four more years of negative equity.</description>
+      <pubDate>Tue, 31 Aug 2010 11:34:51 GMT</pubDate>
+      <guid isPermaLink="false">http://www.bbc.co.uk/news/business-11132705</guid>
+
+      <dc:date>2010-08-31T11:34:51Z</dc:date>
+      <geo:lat>52.1604545577471</geo:lat>
+      <geo:long>-0.703125</geo:long>
+    </item>
+    <item>
+      <title>Work begins on Chile rescue shaft</title>
+      <link>http://www.bbc.co.uk/go/rss/int/news/-/news/world-latin-america-11133018</link>
+
+      <description>Engineers in Chile begin drilling a rescue shaft to reach the 33 men trapped in a collapsed mine.</description>
+      <pubDate>Tue, 31 Aug 2010 07:12:51 GMT</pubDate>
+      <guid isPermaLink="false">http://www.bbc.co.uk/news/world-latin-america-11133018</guid>
+      <dc:date>2010-08-31T07:12:51Z</dc:date>
+      <geo:lat>-30.0</geo:lat>
+      <geo:long>-71.0</geo:long>
+
+    </item>
+    <item>
+      <title>Afghan attacks kill US soldiers</title>
+      <link>http://www.bbc.co.uk/go/rss/int/news/-/news/world-south-asia-11136507</link>
+      <description>Five American soldiers are killed in three separate bomb attacks in Afghanistan, Nato says.</description>
+      <pubDate>Tue, 31 Aug 2010 11:51:50 GMT</pubDate>
+      <guid isPermaLink="false">http://www.bbc.co.uk/news/world-south-asia-11136507</guid>
+
+      <dc:date>2010-08-31T11:51:50Z</dc:date>
+      <geo:lat>33.0</geo:lat>
+      <geo:long>66.0</geo:long>
+    </item>
+    <item>
+      <title>'Rogue trader' given prison term</title>
+      <link>http://www.bbc.co.uk/go/rss/int/news/-/news/uk-england-london-11139946</link>
+
+      <description>A locksmith who carried out unnecessary work and overcharged vulnerable customers is jailed for four years.</description>
+      <pubDate>Tue, 31 Aug 2010 12:55:48 GMT</pubDate>
+      <guid isPermaLink="false">http://www.bbc.co.uk/news/uk-england-london-11139946</guid>
+      <dc:date>2010-08-31T12:55:48Z</dc:date>
+    </item>
+    <item>
+      <title>Teenagers die in car lake plunge</title>
+
+      <link>http://www.bbc.co.uk/go/rss/int/news/-/news/11135257</link>
+      <description>Two teenagers die and three other young people escape after a car plunges down an embankment into a lake in Ceredigion.</description>
+      <pubDate>Tue, 31 Aug 2010 11:07:35 GMT</pubDate>
+      <guid isPermaLink="false">http://www.bbc.co.uk/news/11135257</guid>
+      <dc:date>2010-08-31T11:07:35Z</dc:date>
+      <geo:lat>52.25</geo:lat>
+
+      <geo:long>-4.0</geo:long>
+    </item>
+    <item>
+      <title>Dutch police quiz US flight pair</title>
+      <link>http://www.bbc.co.uk/go/rss/int/news/-/news/world-europe-11134521</link>
+      <description>Dutch police question two men arriving from Chicago, after the US authorities alerted them to suspicious items in their luggage.</description>
+      <pubDate>Tue, 31 Aug 2010 09:36:58 GMT</pubDate>
+
+      <guid isPermaLink="false">http://www.bbc.co.uk/news/world-europe-11134521</guid>
+      <dc:date>2010-08-31T09:36:58Z</dc:date>
+      <geo:lat>41.850033</geo:lat>
+      <geo:long>-87.6500523</geo:long>
+    </item>
+    <item>
+      <title>Ryanair pulls out of Belfast City</title>
+
+      <link>http://www.bbc.co.uk/go/rss/int/news/-/news/uk-northern-ireland-11139463</link>
+      <description>Ryanair is ceasing services from Belfast City Airport from 31 October, the airline has announced.</description>
+      <pubDate>Tue, 31 Aug 2010 12:21:11 GMT</pubDate>
+      <guid isPermaLink="false">http://www.bbc.co.uk/news/uk-northern-ireland-11139463</guid>
+      <dc:date>2010-08-31T12:21:11Z</dc:date>
+      <geo:lat>54.5833333</geo:lat>
+
+      <geo:long>-5.9333333</geo:long>
+    </item>
+    <item>
+      <title>'Brisk walks' to prevent cancers</title>
+      <link>http://www.bbc.co.uk/go/rss/int/news/-/news/health-11137074</link>
+      <description>About 10,000 cases of breast and bowel cancer could be prevented each year in the UK if people did more brisk walking, claim experts.</description>
+      <pubDate>Tue, 31 Aug 2010 10:42:21 GMT</pubDate>
+
+      <guid isPermaLink="false">http://www.bbc.co.uk/news/health-11137074</guid>
+      <dc:date>2010-08-31T10:42:21Z</dc:date>
+    </item>
+    <item>
+      <title>Author JK Rowling gives £10m for MS centre</title>
+      <link>http://www.bbc.co.uk/go/rss/int/news/-/news/uk-scotland-edinburgh-east-fife-11136654</link>
+      <description>Author JK Rowling donates £10m to set up a multiple sclerosis research centre at Edinburgh University.</description>
+
+      <pubDate>Tue, 31 Aug 2010 09:06:20 GMT</pubDate>
+      <guid isPermaLink="false">http://www.bbc.co.uk/news/uk-scotland-edinburgh-east-fife-11136654</guid>
+      <dc:date>2010-08-31T09:06:20Z</dc:date>
+      <geo:lat>55.95</geo:lat>
+      <geo:long>-3.2</geo:long>
+    </item>
+
+    <item>
+      <title>Fossils from new type of dinosaur found in Romania</title>
+      <link>http://www.bbc.co.uk/go/rss/int/news/-/news/science-environment-11137905</link>
+      <description>Fossils of a new type of dinosaur, which looks like a beefy version of the predatory Velociraptor, have been unearthed in Romania.</description>
+      <pubDate>Tue, 31 Aug 2010 11:24:28 GMT</pubDate>
+      <guid isPermaLink="false">http://www.bbc.co.uk/news/science-environment-11137905</guid>
+
+      <dc:date>2010-08-31T11:24:28Z</dc:date>
+      <geo:lat>46.0</geo:lat>
+      <geo:long>25.0</geo:long>
+    </item>
+    <item>
+      <title>Live - Transfer deadline day</title>
+      <link>http://news.bbc.co.uk/go/rss/int/news/-/sport1/hi/football/8954459.stm</link>
+
+      <description>Clubs are trying to push through some final deals before the summer transfer window slams shut at 1800 BST on Tuesday.</description>
+      <pubDate>Tue, 31 Aug 2010 05:00:51 GMT</pubDate>
+      <guid isPermaLink="false">http://news.bbc.co.uk/sport1/hi/football/8954459.stm</guid>
+      <dc:date>2010-08-31T05:00:51Z</dc:date>
+    </item>
+    <item>
+      <title>Federer strolls into second round</title>
+
+      <link>http://news.bbc.co.uk/go/rss/int/news/-/sport1/hi/tennis/8955186.stm</link>
+      <description>Five-time champion Roger Federer gets his US Open campaign off to a smooth start as he defeats Argentina's Brian Dabul in straight sets.</description>
+      <pubDate>Tue, 31 Aug 2010 03:15:01 GMT</pubDate>
+      <guid isPermaLink="false">http://news.bbc.co.uk/sport1/hi/tennis/8955186.stm</guid>
+      <dc:date>2010-08-31T03:15:01Z</dc:date>
+      <geo:lat>-34.0</geo:lat>
+
+      <geo:long>-64.0</geo:long>
+    </item>
+    <item>
+      <title>Tour legend Fignon dies aged 50</title>
+      <link>http://news.bbc.co.uk/go/rss/int/news/-/sport1/hi/other_sports/cycling/8957337.stm</link>
+      <description>Two-time Tour de France winner Laurent Fignon dies of cancer at the age of 50.</description>
+      <pubDate>Tue, 31 Aug 2010 12:07:30 GMT</pubDate>
+
+      <guid isPermaLink="false">http://news.bbc.co.uk/sport1/hi/other_sports/cycling/8957337.stm</guid>
+      <dc:date>2010-08-31T12:07:30Z</dc:date>
+      <geo:lat>46.0</geo:lat>
+      <geo:long>2.0</geo:long>
+    </item>
+    <item>
+      <title>FA seeks to avoid Cup final clash</title>
+
+      <link>http://news.bbc.co.uk/go/rss/int/news/-/sport1/hi/football/fa_cup/8956524.stm</link>
+      <description>The Football Association is in talks with the Premier League to avoid a fixture clash as the FA Cup final will be played on a regular league Saturday next May.</description>
+      <pubDate>Tue, 31 Aug 2010 12:40:40 GMT</pubDate>
+      <guid isPermaLink="false">http://news.bbc.co.uk/sport1/hi/football/fa_cup/8956524.stm</guid>
+      <dc:date>2010-08-31T12:40:40Z</dc:date>
+    </item>
+
+    <item>
+      <title>England hindered by injury doubts</title>
+      <link>http://news.bbc.co.uk/go/rss/int/news/-/sport1/hi/football/8957271.stm</link>
+      <description>England's preparations for Friday's Euro 2012 qualifier against Bulgaria have been hit by a series of injuries.</description>
+      <pubDate>Tue, 31 Aug 2010 12:40:15 GMT</pubDate>
+      <guid isPermaLink="false">http://news.bbc.co.uk/sport1/hi/football/8957271.stm</guid>
+
+      <dc:date>2010-08-31T12:40:15Z</dc:date>
+      <geo:lat>54.0</geo:lat>
+      <geo:long>-4.0</geo:long>
+    </item>
+    <item>
+      <title>Wanted kick boxer held by police</title>
+      <link>http://www.bbc.co.uk/go/rss/int/news/-/news/uk-england-birmingham-11138247</link>
+
+      <description>A kick boxer from Birmingham wanted over the murder of a US marine is arrested at London's Heathrow Airport.</description>
+      <pubDate>Tue, 31 Aug 2010 10:37:41 GMT</pubDate>
+      <guid isPermaLink="false">http://www.bbc.co.uk/news/uk-england-birmingham-11138247</guid>
+      <dc:date>2010-08-31T10:37:41Z</dc:date>
+      <geo:lat>51.4711455584879</geo:lat>
+      <geo:long>-0.456490516662598</geo:long>
+
+    </item>
+    <item>
+      <title>Coast search resumes for kayaker</title>
+      <link>http://www.bbc.co.uk/go/rss/int/news/-/news/uk-wales-11134976</link>
+      <description>A search resumes for a 53-year-old kayaker who has been missing off Anglesey since Sunday afternoon.</description>
+      <pubDate>Tue, 31 Aug 2010 07:56:21 GMT</pubDate>
+      <guid isPermaLink="false">http://www.bbc.co.uk/news/uk-wales-11134976</guid>
+
+      <dc:date>2010-08-31T07:56:21Z</dc:date>
+      <geo:lat>53.2833333</geo:lat>
+      <geo:long>-4.3333333</geo:long>
+    </item>
+    <item>
+      <title>Report calls for drink price curb</title>
+      <link>http://www.bbc.co.uk/go/rss/int/news/-/news/uk-scotland-11134165</link>
+
+      <description>A UK-wide "floor price" for alcohol should be established to reduce consumption, says a commission set up by Scottish Labour.</description>
+      <pubDate>Tue, 31 Aug 2010 11:56:55 GMT</pubDate>
+      <guid isPermaLink="false">http://www.bbc.co.uk/news/uk-scotland-11134165</guid>
+      <dc:date>2010-08-31T11:56:55Z</dc:date>
+    </item>
+    <item>
+      <title>Gang jailed for £3m cannabis haul</title>
+
+      <link>http://www.bbc.co.uk/go/rss/int/news/-/news/uk-scotland-glasgow-west-11139697</link>
+      <description>Four men involved in one of Scotland's biggest illegal drug operations are jailed after being caught with £3m of cannabis resin.</description>
+      <pubDate>Tue, 31 Aug 2010 11:20:31 GMT</pubDate>
+      <guid isPermaLink="false">http://www.bbc.co.uk/news/uk-scotland-glasgow-west-11139697</guid>
+      <dc:date>2010-08-31T11:20:31Z</dc:date>
+    </item>
+
+    <item>
+      <title>Westlink bomb alert declared hoax</title>
+      <link>http://www.bbc.co.uk/go/rss/int/news/-/news/uk-northern-ireland-11139627</link>
+      <description>A security alert which closed the busy Westlink road in Belfast ends and is declared a hoax.</description>
+      <pubDate>Tue, 31 Aug 2010 12:51:48 GMT</pubDate>
+      <guid isPermaLink="false">http://www.bbc.co.uk/news/uk-northern-ireland-11139627</guid>
+
+      <dc:date>2010-08-31T12:51:48Z</dc:date>
+    </item>
+    <item>
+      <title>Boy struck by boat critically ill</title>
+      <link>http://www.bbc.co.uk/go/rss/int/news/-/news/uk-northern-ireland-11133656</link>
+      <description>A six-year-old boy remains in a critical condition after he was hit by a boat on Monday afternoon.</description>
+      <pubDate>Tue, 31 Aug 2010 12:26:21 GMT</pubDate>
+
+      <guid isPermaLink="false">http://www.bbc.co.uk/news/uk-northern-ireland-11133656</guid>
+      <dc:date>2010-08-31T12:26:21Z</dc:date>
+    </item>
+    <item>
+      <title>First S4C chief Owen Edwards dies</title>
+      <link>http://www.bbc.co.uk/go/rss/int/news/-/news/uk-wales-11138037</link>
+      <description>The first chief executive of Welsh language channel S4C and former BBC Wales controller Owen Edwards has died aged 76.</description>
+
+      <pubDate>Tue, 31 Aug 2010 12:03:38 GMT</pubDate>
+      <guid isPermaLink="false">http://www.bbc.co.uk/news/uk-wales-11138037</guid>
+      <dc:date>2010-08-31T12:03:38Z</dc:date>
+    </item>
+    <item>
+      <title>Lotto £117,944 win goes unclaimed</title>
+      <link>http://www.bbc.co.uk/go/rss/int/news/-/news/uk-wales-south-west-wales-11138188</link>
+
+      <description>A National Lottery ticket holder misses out on £117,944 after failing to claim the prize, and the money goes to charity.</description>
+      <pubDate>Tue, 31 Aug 2010 11:33:54 GMT</pubDate>
+      <guid isPermaLink="false">http://www.bbc.co.uk/news/uk-wales-south-west-wales-11138188</guid>
+      <dc:date>2010-08-31T11:33:54Z</dc:date>
+    </item>
+    <item>
+      <title>South Africa wage offer increased</title>
+
+      <link>http://www.bbc.co.uk/go/rss/int/news/-/news/world-africa-11136354</link>
+      <description>South Africa's government increases its wage offer to more than a million striking public sector workers, but it is below the union's demand.</description>
+      <pubDate>Tue, 31 Aug 2010 10:19:49 GMT</pubDate>
+      <guid isPermaLink="false">http://www.bbc.co.uk/news/world-africa-11136354</guid>
+      <dc:date>2010-08-31T10:19:49Z</dc:date>
+    </item>
+
+    <item>
+      <title>Gaddafi in 'black Europe' warning</title>
+      <link>http://www.bbc.co.uk/go/rss/int/news/-/news/world-europe-11139345</link>
+      <description>Libya's Col Gaddafi says the EU should pay Libya at least 5bn euros a year to stop illegal African immigration and avoid a "black Europe".</description>
+      <pubDate>Tue, 31 Aug 2010 12:47:59 GMT</pubDate>
+      <guid isPermaLink="false">http://www.bbc.co.uk/news/world-europe-11139345</guid>
+
+      <dc:date>2010-08-31T12:47:59Z</dc:date>
+    </item>
+    <item>
+      <title>South Korea offers aid to North</title>
+      <link>http://www.bbc.co.uk/go/rss/int/news/-/news/world-asia-pacific-11134937</link>
+      <description>South Korea makes its first offer of aid to flood-hit North Korea since it accused Pyongyang of sinking a South Korean warship in March.</description>
+      <pubDate>Tue, 31 Aug 2010 08:56:11 GMT</pubDate>
+
+      <guid isPermaLink="false">http://www.bbc.co.uk/news/world-asia-pacific-11134937</guid>
+      <dc:date>2010-08-31T08:56:11Z</dc:date>
+    </item>
+    <item>
+      <title>Chinese court to tackle HIV case</title>
+      <link>http://www.bbc.co.uk/go/rss/int/news/-/news/world-asia-pacific-11139607</link>
+      <description>A Chinese court for the first time accepts a case from a man alleging employment discrimination because he has HIV, state media says.</description>
+
+      <pubDate>Tue, 31 Aug 2010 10:57:51 GMT</pubDate>
+      <guid isPermaLink="false">http://www.bbc.co.uk/news/world-asia-pacific-11139607</guid>
+      <dc:date>2010-08-31T10:57:51Z</dc:date>
+    </item>
+    <item>
+      <title>Anglo Irish Bank in £6.4bn loss</title>
+      <link>http://www.bbc.co.uk/go/rss/int/news/-/news/uk-northern-ireland-11139906</link>
+
+      <description>Nationalised lender Anglo Irish Bank has announced the largest corporate loss in the history of the Republic of Ireland.</description>
+      <pubDate>Tue, 31 Aug 2010 11:49:56 GMT</pubDate>
+      <guid isPermaLink="false">http://www.bbc.co.uk/news/uk-northern-ireland-11139906</guid>
+      <dc:date>2010-08-31T11:49:56Z</dc:date>
+    </item>
+    <item>
+      <title>Seven killed by Bratislava gunman</title>
+
+      <link>http://www.bbc.co.uk/go/rss/int/news/-/news/world-europe-11129844</link>
+      <description>A gunman opens fire in Slovakia's capital, Bratislava, shooting dead seven people and injuring at least 14 before killing himself, police say.</description>
+      <pubDate>Mon, 30 Aug 2010 19:23:08 GMT</pubDate>
+      <guid isPermaLink="false">http://www.bbc.co.uk/news/world-europe-11129844</guid>
+      <dc:date>2010-08-30T19:23:08Z</dc:date>
+    </item>
+
+    <item>
+      <title>Mexico arrests 'drug lord' Valdez</title>
+      <link>http://www.bbc.co.uk/go/rss/int/news/-/news/world-latin-america-11134727</link>
+      <description>Mexican police detain alleged drug trafficker Edgar "Barbie" Valdez, wanted in the US on cocaine charges, the attorney general says.</description>
+      <pubDate>Tue, 31 Aug 2010 09:16:50 GMT</pubDate>
+      <guid isPermaLink="false">http://www.bbc.co.uk/news/world-latin-america-11134727</guid>
+
+      <dc:date>2010-08-31T09:16:50Z</dc:date>
+    </item>
+    <item>
+      <title>Anti-Chavez hunger striker dies</title>
+      <link>http://www.bbc.co.uk/go/rss/int/news/-/news/world-latin-america-11137623</link>
+      <description>A Venezuelan farmer who campaigned against the land-redistribution policies of Hugo Chavez dies after five months on hunger strike.</description>
+      <pubDate>Tue, 31 Aug 2010 09:40:16 GMT</pubDate>
+
+      <guid isPermaLink="false">http://www.bbc.co.uk/news/world-latin-america-11137623</guid>
+      <dc:date>2010-08-31T09:40:16Z</dc:date>
+    </item>
+    <item>
+      <title>Iran paper calls Bruni prostitute</title>
+      <link>http://www.bbc.co.uk/go/rss/int/news/-/news/world-europe-11133178</link>
+      <description>An Iranian newspaper calls France's first lady Carla Bruni a "prostitute" after she condemns Iran's plan to stone a woman to death.</description>
+
+      <pubDate>Mon, 30 Aug 2010 17:32:20 GMT</pubDate>
+      <guid isPermaLink="false">http://www.bbc.co.uk/news/world-europe-11133178</guid>
+      <dc:date>2010-08-30T17:32:20Z</dc:date>
+    </item>
+    <item>
+      <title>Rabbi calls for Abbas to 'vanish'</title>
+      <link>http://www.bbc.co.uk/go/rss/int/news/-/news/world-middle-east-11127409</link>
+
+      <description>An Israeli rabbi says the world would be better without Palestinian leader Mahmoud Abbas, prompting strong criticism from US officials.</description>
+      <pubDate>Mon, 30 Aug 2010 06:59:42 GMT</pubDate>
+      <guid isPermaLink="false">http://www.bbc.co.uk/news/world-middle-east-11127409</guid>
+      <dc:date>2010-08-30T06:59:42Z</dc:date>
+    </item>
+    <item>
+      <title>Google and Skype face India ban</title>
+
+      <link>http://www.bbc.co.uk/go/rss/int/news/-/news/technology-11137647</link>
+      <description>Following tough action against Blackberry, security forces in India turn their attention to Google and Skype.</description>
+      <pubDate>Tue, 31 Aug 2010 11:27:07 GMT</pubDate>
+      <guid isPermaLink="false">http://www.bbc.co.uk/news/technology-11137647</guid>
+      <dc:date>2010-08-31T11:27:07Z</dc:date>
+    </item>
+
+    <item>
+      <title>India growth rate rises to 8.8%</title>
+      <link>http://www.bbc.co.uk/go/rss/int/news/-/news/business-11135197</link>
+      <description>India's economy grows at its fastest rate for more than two years in the last quarter, according to official data.</description>
+      <pubDate>Tue, 31 Aug 2010 11:31:42 GMT</pubDate>
+      <guid isPermaLink="false">http://www.bbc.co.uk/news/business-11135197</guid>
+
+      <dc:date>2010-08-31T11:31:42Z</dc:date>
+    </item>
+    <item>
+      <title>Hurricane hits eastern Caribbean</title>
+      <link>http://www.bbc.co.uk/go/rss/int/news/-/news/world-latin-america-11128738</link>
+      <description>Hurricane Earl strengthens to a category-four storm, causing power outages and dumping heavy rain across the eastern Caribbean.</description>
+      <pubDate>Tue, 31 Aug 2010 12:10:42 GMT</pubDate>
+
+      <guid isPermaLink="false">http://www.bbc.co.uk/news/world-latin-america-11128738</guid>
+      <dc:date>2010-08-31T12:10:42Z</dc:date>
+    </item>
+    <item>
+      <title>Corpse of long-lost climber found</title>
+      <link>http://www.bbc.co.uk/go/rss/int/news/-/news/world-us-canada-11134084</link>
+      <description>Hikers in Canada discover the frozen body of an American ice climber who fell to his death more than two decades ago.</description>
+
+      <pubDate>Mon, 30 Aug 2010 21:03:27 GMT</pubDate>
+      <guid isPermaLink="false">http://www.bbc.co.uk/news/world-us-canada-11134084</guid>
+      <dc:date>2010-08-30T21:03:27Z</dc:date>
+    </item>
+    <item>
+      <title>Pensions 'require funding boost'</title>
+      <link>http://www.bbc.co.uk/go/rss/int/news/-/news/business-11136463</link>
+
+      <description>Workers may need to pay more for their pensions amid a continuing picture of fund deficits, two surveys suggest.</description>
+      <pubDate>Tue, 31 Aug 2010 09:42:29 GMT</pubDate>
+      <guid isPermaLink="false">http://www.bbc.co.uk/news/business-11136463</guid>
+      <dc:date>2010-08-31T09:42:29Z</dc:date>
+    </item>
+    <item>
+      <title>Eurozone joblessness still at 10%</title>
+
+      <link>http://www.bbc.co.uk/go/rss/int/news/-/news/business-11138110</link>
+      <description>Unemployment in the eurozone remained at a record rate of 10% for a fifth month in a row, according to official figures.</description>
+      <pubDate>Tue, 31 Aug 2010 11:06:39 GMT</pubDate>
+      <guid isPermaLink="false">http://www.bbc.co.uk/news/business-11138110</guid>
+      <dc:date>2010-08-31T11:06:39Z</dc:date>
+    </item>
+
+    <item>
+      <title>Japan Airlines slashes workforce</title>
+      <link>http://www.bbc.co.uk/go/rss/int/news/-/news/business-11137805</link>
+      <description>Japan Airlines, which entered bankruptcy protection this year, announces plans to cut 16,000 staff and 40% of its aircraft.</description>
+      <pubDate>Tue, 31 Aug 2010 10:23:37 GMT</pubDate>
+      <guid isPermaLink="false">http://www.bbc.co.uk/news/business-11137805</guid>
+
+      <dc:date>2010-08-31T10:23:37Z</dc:date>
+    </item>
+    <item>
+      <title>Private toll roads 'no solution'</title>
+      <link>http://www.bbc.co.uk/go/rss/int/news/-/news/uk-11132747</link>
+      <description>Private toll roads are not a cost-effective answer to traffic problems, the government is warned by transport campaigners.</description>
+      <pubDate>Tue, 31 Aug 2010 00:36:59 GMT</pubDate>
+
+      <guid isPermaLink="false">http://www.bbc.co.uk/news/uk-11132747</guid>
+      <dc:date>2010-08-31T00:36:59Z</dc:date>
+    </item>
+    <item>
+      <title>Burnham: I can win Labour contest</title>
+      <link>http://www.bbc.co.uk/go/rss/int/news/-/news/uk-politics-11138455</link>
+      <description>Labour leadership candidate Andy Burnham has dismissed suggestions that it is a "two-horse race" between David and Ed Miliband.</description>
+
+      <pubDate>Tue, 31 Aug 2010 10:39:44 GMT</pubDate>
+      <guid isPermaLink="false">http://www.bbc.co.uk/news/uk-politics-11138455</guid>
+      <dc:date>2010-08-31T10:39:44Z</dc:date>
+    </item>
+    <item>
+      <title>By-laws to be easier to abolish</title>
+      <link>http://www.bbc.co.uk/go/rss/int/news/-/news/uk-11133243</link>
+
+      <description>Plans to make it easier for English local authorities to abolish outdated by-laws and create new ones will be outlined later by the government.</description>
+      <pubDate>Tue, 31 Aug 2010 07:34:25 GMT</pubDate>
+      <guid isPermaLink="false">http://www.bbc.co.uk/news/uk-11133243</guid>
+      <dc:date>2010-08-31T07:34:25Z</dc:date>
+    </item>
+    <item>
+      <title>Burnham presses Lib Dems on NHS</title>
+
+      <link>http://www.bbc.co.uk/go/rss/int/news/-/news/health-11137387</link>
+      <description>Shadow health secretary Andy Burnham is urging Lib Dems to unite with Labour against the Government's plan for a radical overhaul of the NHS.</description>
+      <pubDate>Tue, 31 Aug 2010 11:10:39 GMT</pubDate>
+      <guid isPermaLink="false">http://www.bbc.co.uk/news/health-11137387</guid>
+      <dc:date>2010-08-31T11:10:39Z</dc:date>
+    </item>
+
+    <item>
+      <title>Baby died after superbug hit ward</title>
+      <link>http://www.bbc.co.uk/go/rss/int/news/-/news/uk-england-london-11130986</link>
+      <description>A baby died and three others became ill after a superbug resistant to common antibiotics hit a London hospital, it is revealed.</description>
+      <pubDate>Mon, 30 Aug 2010 12:30:45 GMT</pubDate>
+      <guid isPermaLink="false">http://www.bbc.co.uk/news/uk-england-london-11130986</guid>
+
+      <dc:date>2010-08-30T12:30:45Z</dc:date>
+    </item>
+    <item>
+      <title>Pill may 'cut heart failure rate'</title>
+      <link>http://www.bbc.co.uk/go/rss/int/news/-/news/health-11127782</link>
+      <description>A pill costing less than £1.50 a day has the potential to save the lives of thousands of heart failure patients, research suggests.</description>
+      <pubDate>Mon, 30 Aug 2010 08:14:04 GMT</pubDate>
+
+      <guid isPermaLink="false">http://www.bbc.co.uk/news/health-11127782</guid>
+      <dc:date>2010-08-30T08:14:04Z</dc:date>
+    </item>
+    <item>
+      <title>After-school clubs 'too costly'</title>
+      <link>http://www.bbc.co.uk/go/rss/int/news/-/news/education-11110060</link>
+      <description>Nearly two-thirds of UK parents cannot afford after-school activities for their children, a poll for the Save the Children charity suggests.</description>
+
+      <pubDate>Sun, 29 Aug 2010 06:58:03 GMT</pubDate>
+      <guid isPermaLink="false">http://www.bbc.co.uk/news/education-11110060</guid>
+      <dc:date>2010-08-29T06:58:03Z</dc:date>
+    </item>
+    <item>
+      <title>Half of all private pupils get As</title>
+      <link>http://www.bbc.co.uk/go/rss/int/news/-/news/education-11112169</link>
+
+      <description>Half the A-levels taken by pupils at independent schools in the UK were graded A or A* this year, figures from the sector suggest.</description>
+      <pubDate>Sat, 28 Aug 2010 00:28:54 GMT</pubDate>
+      <guid isPermaLink="false">http://www.bbc.co.uk/news/education-11112169</guid>
+      <dc:date>2010-08-28T00:28:54Z</dc:date>
+    </item>
+    <item>
+      <title>Watchdog vets alternative exams</title>
+
+      <link>http://www.bbc.co.uk/go/rss/int/news/-/news/education-11110535</link>
+      <description>England's exams watchdog Ofqual is to compare A-levels and GCSEs with alternative qualifications, including vocational equivalents.</description>
+      <pubDate>Fri, 27 Aug 2010 16:25:11 GMT</pubDate>
+      <guid isPermaLink="false">http://www.bbc.co.uk/news/education-11110535</guid>
+      <dc:date>2010-08-27T16:25:11Z</dc:date>
+    </item>
+
+    <item>
+      <title>Google to relieve e-mail overload</title>
+      <link>http://www.bbc.co.uk/go/rss/int/news/-/news/technology-11133576</link>
+      <description>Google launches priority inbox to help conquer email overload and rank messages that matter most.</description>
+      <pubDate>Tue, 31 Aug 2010 08:49:11 GMT</pubDate>
+      <guid isPermaLink="false">http://www.bbc.co.uk/news/technology-11133576</guid>
+
+      <dc:date>2010-08-31T08:49:11Z</dc:date>
+    </item>
+    <item>
+      <title>Intel to buy German wireless unit</title>
+      <link>http://www.bbc.co.uk/go/rss/int/news/-/news/business-11133418</link>
+      <description>US chipmaker Intel agrees to buy the wireless unit of German counterpart Infineon for $1.4bn, disappointing markets.</description>
+      <pubDate>Mon, 30 Aug 2010 18:03:58 GMT</pubDate>
+
+      <guid isPermaLink="false">http://www.bbc.co.uk/news/business-11133418</guid>
+      <dc:date>2010-08-30T18:03:58Z</dc:date>
+    </item>
+    <item>
+      <title>Billionaire sues hi-tech giants</title>
+      <link>http://www.bbc.co.uk/go/rss/int/news/-/news/technology-11117587</link>
+      <description>Microsoft co-founder Paul Allen is suing several high-tech giants for infringing patents held by a Silicon Valley lab he founded in the 1990s.</description>
+
+      <pubDate>Fri, 27 Aug 2010 23:12:27 GMT</pubDate>
+      <guid isPermaLink="false">http://www.bbc.co.uk/news/technology-11117587</guid>
+      <dc:date>2010-08-27T23:12:27Z</dc:date>
+    </item>
+    <item>
+      <title>Stricter checks for climate body</title>
+      <link>http://www.bbc.co.uk/go/rss/int/news/-/news/science-environment-11131897</link>
+
+      <description>The UN's climate science body needs stricter checks to prevent damage to its credibility, an independent review concludes.</description>
+      <pubDate>Mon, 30 Aug 2010 22:00:12 GMT</pubDate>
+      <guid isPermaLink="false">http://www.bbc.co.uk/news/science-environment-11131897</guid>
+      <dc:date>2010-08-30T22:00:12Z</dc:date>
+    </item>
+    <item>
+      <title>Geneticists crack apple genome</title>
+
+      <link>http://www.bbc.co.uk/go/rss/int/news/-/news/science-environment-11100248</link>
+      <description>A team of 86 global scientists sequence the genetic code of the Golden Delicious apple for the first time.</description>
+      <pubDate>Mon, 30 Aug 2010 08:02:04 GMT</pubDate>
+      <guid isPermaLink="false">http://www.bbc.co.uk/news/science-environment-11100248</guid>
+      <dc:date>2010-08-30T08:02:04Z</dc:date>
+    </item>
+
+    <item>
+      <title>Double strike 'killed dinosaurs'</title>
+      <link>http://www.bbc.co.uk/go/rss/int/news/-/news/science-environment-11112417</link>
+      <description>The dinosaurs were wiped out by at least two space impacts rather than a single strike, say scientists.</description>
+      <pubDate>Fri, 27 Aug 2010 16:36:42 GMT</pubDate>
+      <guid isPermaLink="false">http://www.bbc.co.uk/news/science-environment-11112417</guid>
+
+      <dc:date>2010-08-27T16:36:42Z</dc:date>
+    </item>
+    <item>
+      <title>Mad Men wins third top Emmy prize</title>
+      <link>http://www.bbc.co.uk/go/rss/int/news/-/news/entertainment-arts-11125419</link>
+      <description>Hit US series Mad Men takes its third award Emmy for best drama series, while British stars face disappointment in Los Angeles.</description>
+      <pubDate>Mon, 30 Aug 2010 07:22:59 GMT</pubDate>
+
+      <guid isPermaLink="false">http://www.bbc.co.uk/news/entertainment-arts-11125419</guid>
+      <dc:date>2010-08-30T07:22:59Z</dc:date>
+    </item>
+    <item>
+      <title>Norton replacing Friday with Ross</title>
+      <link>http://www.bbc.co.uk/go/rss/int/news/-/news/entertainment-arts-11135947</link>
+      <description>Graham Norton's chat show is to replace Friday Night with Jonathan Ross, the controller of BBC One has said.</description>
+
+      <pubDate>Tue, 31 Aug 2010 07:47:52 GMT</pubDate>
+      <guid isPermaLink="false">http://www.bbc.co.uk/news/entertainment-arts-11135947</guid>
+      <dc:date>2010-08-31T07:47:52Z</dc:date>
+    </item>
+    <item>
+      <title>Cinema attendance is down in US</title>
+      <link>http://www.bbc.co.uk/go/rss/int/news/-/news/entertainment-arts-11136617</link>
+
+      <description>Box office receipts in the US were up by $100m (£64.9m) this summer, despite the lowest attendance in five years, figures show.</description>
+      <pubDate>Tue, 31 Aug 2010 09:06:09 GMT</pubDate>
+      <guid isPermaLink="false">http://www.bbc.co.uk/news/entertainment-arts-11136617</guid>
+      <dc:date>2010-08-31T09:06:09Z</dc:date>
+    </item>
+    <item>
+      <title>How the Guides knitted and dug for victory</title>
+
+      <link>http://www.bbc.co.uk/go/rss/int/news/-/news/magazine-11005064</link>
+      <description>Girl Guiding during the Second World War was vital to the survival of the country and the international war effort.</description>
+      <pubDate>Mon, 30 Aug 2010 09:05:48 GMT</pubDate>
+      <guid isPermaLink="false">http://www.bbc.co.uk/news/magazine-11005064</guid>
+      <dc:date>2010-08-30T09:05:48Z</dc:date>
+    </item>
+
+    <item>
+      <title>How we construct our reputations</title>
+      <link>http://www.bbc.co.uk/go/rss/int/news/-/news/magazine-11109978</link>
+      <description>While engineers can be judged almost instantly by their work, a longer-term view is required for politicians, says Lisa Jardine.</description>
+      <pubDate>Fri, 27 Aug 2010 17:02:59 GMT</pubDate>
+      <guid isPermaLink="false">http://www.bbc.co.uk/news/magazine-11109978</guid>
+
+      <dc:date>2010-08-27T17:02:59Z</dc:date>
+    </item>
+    <item>
+      <title>Why has studying French lost its élan?</title>
+      <link>http://www.bbc.co.uk/go/rss/int/news/-/news/magazine-11086381</link>
+      <description>Is the big fall in the number of British school children studying French something to be concerned about?</description>
+      <pubDate>Fri, 27 Aug 2010 10:59:22 GMT</pubDate>
+
+      <guid isPermaLink="false">http://www.bbc.co.uk/news/magazine-11086381</guid>
+      <dc:date>2010-08-27T10:59:22Z</dc:date>
+    </item>
+    <item>
+      <title>Hurricane Earl heading for US coast</title>
+      <link>http://www.bbc.co.uk/go/rss/int/news/-/news/world-latin-america-11135307</link>
+      <description>Hurricane Earl is expected to gain more strength before heading towards the US</description>
+
+      <pubDate>Tue, 31 Aug 2010 06:03:58 GMT</pubDate>
+      <guid isPermaLink="false">http://www.bbc.co.uk/news/world-latin-america-11135307</guid>
+      <dc:date>2010-08-31T06:03:58Z</dc:date>
+    </item>
+    <item>
+      <title>Can toll roads solve traffic congestion?</title>
+      <link>http://www.bbc.co.uk/go/rss/int/news/-/news/uk-11134872</link>
+
+      <description>Toll roads are not the economical answer to traffic problems, according to a new report.</description>
+      <pubDate>Tue, 31 Aug 2010 05:36:52 GMT</pubDate>
+      <guid isPermaLink="false">http://www.bbc.co.uk/news/uk-11134872</guid>
+      <dc:date>2010-08-31T05:36:52Z</dc:date>
+    </item>
+    <item>
+      <title>Cairo zoo puts lions on the pill</title>
+
+      <link>http://www.bbc.co.uk/go/rss/int/news/-/news/world-middle-east-11099756</link>
+      <description>Vets at Cairo's Giza Zoo are experimenting with the human birth control pill in an attempt to slow their rapidly expanding population of lions.</description>
+      <pubDate>Tue, 31 Aug 2010 03:52:13 GMT</pubDate>
+      <guid isPermaLink="false">http://www.bbc.co.uk/news/world-middle-east-11099756</guid>
+      <dc:date>2010-08-31T03:52:13Z</dc:date>
+    </item>
+
+    <item>
+      <title>Iraq base for 'forgotten' US troops</title>
+      <link>http://www.bbc.co.uk/go/rss/int/news/-/news/world-middle-east-11138265</link>
+      <description>The US troops who are staying behind in Iraq talk about their new role in the country</description>
+      <pubDate>Tue, 31 Aug 2010 10:34:16 GMT</pubDate>
+      <guid isPermaLink="false">http://www.bbc.co.uk/news/world-middle-east-11138265</guid>
+
+      <dc:date>2010-08-31T10:34:16Z</dc:date>
+    </item>
+    <item>
+      <title>Pakistan faces debris and ruin</title>
+      <link>http://www.bbc.co.uk/go/rss/int/news/-/news/world-11134275</link>
+      <description>Emergency workers in Pakistan say flood waters in some parts of the country have started to recede, one month since torrential rain caused catastrophic flooding across Pakistan</description>
+      <pubDate>Mon, 30 Aug 2010 21:50:25 GMT</pubDate>
+
+      <guid isPermaLink="false">http://www.bbc.co.uk/news/world-11134275</guid>
+      <dc:date>2010-08-30T21:50:25Z</dc:date>
+    </item>
+    <item>
+      <title>'Spiderman' climbs again in Sydney</title>
+      <link>http://www.bbc.co.uk/go/rss/int/news/-/news/world-asia-pacific-11131442</link>
+      <description>A French climber, known as 'Spiderman', is facing charges after scaling a 57-storey building in Australia.</description>
+
+      <pubDate>Mon, 30 Aug 2010 13:14:06 GMT</pubDate>
+      <guid isPermaLink="false">http://www.bbc.co.uk/news/world-asia-pacific-11131442</guid>
+      <dc:date>2010-08-30T13:14:06Z</dc:date>
+    </item>
+    <item>
+      <title>Pakistan anger at cricket scandal</title>
+      <link>http://www.bbc.co.uk/go/rss/int/news/-/news/world-south-asia-11133693</link>
+
+      <description>As most of Pakistan is struggling to cope with the worst floods in decades, the betting scandal surrounding some of the country's cricket team has shaken already low national morale.</description>
+      <pubDate>Mon, 30 Aug 2010 18:27:02 GMT</pubDate>
+      <guid isPermaLink="false">http://www.bbc.co.uk/news/world-south-asia-11133693</guid>
+      <dc:date>2010-08-30T18:27:02Z</dc:date>
+    </item>
+    <item>
+      <title>Thousands flee Indonesia volcano</title>
+
+      <link>http://www.bbc.co.uk/go/rss/int/news/-/news/world-asia-pacific-11123559</link>
+      <description>Thousands of Indonesians have been forced to leave their homes after a volcano erupted on the island of Sumatra.</description>
+      <pubDate>Sun, 29 Aug 2010 10:38:59 GMT</pubDate>
+      <guid isPermaLink="false">http://www.bbc.co.uk/news/world-asia-pacific-11123559</guid>
+      <dc:date>2010-08-29T10:38:59Z</dc:date>
+    </item>
+
+    <item>
+      <title>Shrunken superpower</title>
+      <link>http://www.bbc.co.uk/go/rss/int/news/-/news/world-middle-east-11135500</link>
+      <description>John Simpson on the legacy of America's 'imperial moment'</description>
+      <pubDate>Tue, 31 Aug 2010 09:10:08 GMT</pubDate>
+      <guid isPermaLink="false">http://www.bbc.co.uk/news/world-middle-east-11135500</guid>
+
+      <dc:date>2010-08-31T09:10:08Z</dc:date>
+    </item>
+    <item>
+      <title>Journey planner</title>
+      <link>http://www.bbc.co.uk/go/rss/int/news/-/news/magazine-11109986</link>
+      <description>How do you sum up a life story in two words?</description>
+      <pubDate>Tue, 31 Aug 2010 09:51:57 GMT</pubDate>
+
+      <guid isPermaLink="false">http://www.bbc.co.uk/news/magazine-11109986</guid>
+      <dc:date>2010-08-31T09:51:57Z</dc:date>
+    </item>
+    <item>
+      <title>Who are 4chan?</title>
+      <link>http://www.bbc.co.uk/go/rss/int/news/-/news/magazine-10520487</link>
+      <description>The internet pranksters who helped expose cat bin lady</description>
+
+      <pubDate>Tue, 31 Aug 2010 10:46:58 GMT</pubDate>
+      <guid isPermaLink="false">http://www.bbc.co.uk/news/magazine-10520487</guid>
+      <dc:date>2010-08-31T10:46:58Z</dc:date>
+    </item>
+    <item>
+      <title>Inside job</title>
+      <link>http://www.bbc.co.uk/go/rss/int/news/-/news/magazine-11109195</link>
+
+      <description>How much is real policing like it is on The Bill?</description>
+      <pubDate>Tue, 31 Aug 2010 11:24:09 GMT</pubDate>
+      <guid isPermaLink="false">http://www.bbc.co.uk/news/magazine-11109195</guid>
+      <dc:date>2010-08-31T11:24:09Z</dc:date>
+    </item>
+    <item>
+      <title>In the beginning...</title>
+
+      <link>http://www.bbc.co.uk/go/rss/int/news/-/news/business-10990380</link>
+      <description>Meet Google's first ever employee</description>
+      <pubDate>Mon, 30 Aug 2010 23:01:54 GMT</pubDate>
+      <guid isPermaLink="false">http://www.bbc.co.uk/news/business-10990380</guid>
+      <dc:date>2010-08-30T23:01:54Z</dc:date>
+    </item>
+
+  </channel>
+</rss>
+
