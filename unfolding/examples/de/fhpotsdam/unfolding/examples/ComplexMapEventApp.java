@@ -56,10 +56,15 @@ public class ComplexMapEventApp extends PApplet {
 
 		// Creates default mapDisplay
 		Map map1 = new Map(this, "map1", 10, 10, 400, 400);
+		map1.setTweening(false);
+		map1.setActive(false);
 		maps.add(map1);
 		Map map2 = new Map(this, "map2", 420, 10, 400, 400);
+		map2.setTweening(false);
 		maps.add(map2);
 		Map map3 = new Map(this, "map3", 830, 10, 400, 400);
+		map3.setTweening(false);
+		map3.setActive(false);
 		maps.add(map3);
 
 		debugDisplay = new DebugDisplay(this, map1.mapDisplay, 10, 390, 250, 150);
@@ -103,7 +108,7 @@ public class ComplexMapEventApp extends PApplet {
 			log.debug("programmed: fire panTo + zoomTo");
 			PanMapEvent panMapEvent = new PanMapEvent(this, maps.get(0).getId());
 			Location location = new Location(52.4115f, 13.0516f);
-			panMapEvent.setLocation(location);
+			panMapEvent.setToLocation(location);
 			eventDispatcher.fireMapEvent(panMapEvent);
 			ZoomMapEvent zoomMapEvent = new ZoomMapEvent(this, maps.get(0).getId());
 			zoomMapEvent.setSubType("zoomTo");

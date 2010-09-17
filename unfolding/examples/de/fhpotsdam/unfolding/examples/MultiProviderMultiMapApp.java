@@ -17,9 +17,11 @@ public class MultiProviderMultiMapApp extends PApplet {
 		size(800, 600, GLConstants.GLGRAPHICS);
 
 		map1 = new Map(this, "map1", 10, 10, 385, 580, true, false, new Microsoft.AerialProvider());
+		map1.setTweening(false);
 		map2 = new Map(this, "map2", 405, 10, 385, 580, true, false,
 				new OpenStreetMap.CloudmadeProvider(MapDisplayFactory.OSM_API_KEY,
 						MapDisplayFactory.OSM_STYLE_ID));
+		map2.setTweening(false);
 		MapUtils.createDefaultEventDispatcher(this, map1, map2);
 	}
 

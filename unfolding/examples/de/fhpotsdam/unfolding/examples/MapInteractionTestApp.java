@@ -121,6 +121,7 @@ public class MapInteractionTestApp extends PApplet {
 	public void mouseWheel(float delta) {
 		PVector itc = new PVector(mouseX, mouseY);
 		map.mapDisplay.setInnerTransformationCenter(itc);
+		
 		if (delta < 0) {
 			map.zoomIn();
 		} else if (delta > 0) {

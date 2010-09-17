@@ -19,14 +19,14 @@ public class MultiProviderOverlayMapApp extends PApplet {
 		map1 = new Map(this, "map1", 0, 0, width, height, true, false, new Microsoft.RoadProvider());
 		map1.setTweening(false);
 		map1.zoomAndPanTo(new Location(52.439046f, 13.447266f), 8);
-		MapUtils.createDefaultEventDispatcher(this, map1);
 
 		map2 = new Map(this, "map2", 0, 0, width, height, true, false,
 				new ImmoScout.HeatMapProvider());
 		map2.setTweening(false);
 		map2.zoomToLevel(8);
 		map2.zoomAndPanTo(new Location(52.439046f, 13.447266f), 8);
-		MapUtils.createDefaultEventDispatcher(this, map2);
+
+		MapUtils.createDefaultEventDispatcher(this, map1, map2);
 	}
 
 	public void draw() {
