@@ -2,7 +2,6 @@ package de.fhpotsdam.unfolding.events;
 
 import org.apache.log4j.Logger;
 
-import processing.core.PVector;
 import de.fhpotsdam.unfolding.Map;
 import de.fhpotsdam.unfolding.geo.Location;
 
@@ -19,40 +18,47 @@ public class PanMapEvent extends MapEvent {
 	public static final String PAN_UP = "panUp";
 	public static final String PAN_DOWN = "panDown";
 
-	Location location;
-	PVector delta;
+	protected Location fromLocation;
+	protected Location toLocation;
 
 	public PanMapEvent(Object source, String mapId) {
+		this(source, mapId, PAN_TO);
+	}
+
+	public PanMapEvent(Object source, String mapId, String subType) {
 		super(source, TYPE_PAN, mapId);
-		setSubType(PAN_TO);
+		setSubType(subType);
 	}
 
-	public Location getLocation() {
-		return location;
+	protected Location getFromLocation() {
+		return fromLocation;
 	}
 
-	public void setLocation(Location location) {
-		this.location = location;
+	public void setFromLocation(Location fromLocation) {
+		this.fromLocation = fromLocation;
 	}
 
-	public PVector getDelta() {
-		return delta;
+	protected Location getToLocation() {
+		return toLocation;
 	}
 
-	public void setDelta(PVector delta) {
-		this.delta = delta;
+	public void setToLocation(Location toLocation) {
+		this.toLocation = toLocation;
 	}
 
 	@Override
 	public void executeManipulationFor(Map map) {
-//		if (PAN_BY.equals(getSubType())) {
-//			log.debug("Panning mapDisplay " + map.getId() + " by " + getDelta());
-//			map.pan(getDelta().x, getDelta().y);
-//		} else if (PAN_TO.equals(getSubType())) {
-//			log.debug("Panning mapDisplay " + map.getId() + " to " + getLocation());
-//			map.panCenterTo(getLocation(), isTweening());
-//		} else 
-			
+		if (PAN_BY.equals(getSubType())) {
+			log.debug("Panning mapDisplay " + map.getId() + " from " + fromLocation + " to "
+					+ toLocation);
+			map.pan(fromLocation, toLocation);
+		}
+
+		if (PAN_TO.equals(getSubType())) {
+			log.debug("Panning mapDisplay " + map.getId() + " to " + toLocation);
+			map.panTo(toLocation);
+		}
+
 		if (PAN_LEFT.equals(getSubType())) {
 			map.panLeft();
 		} else if (PAN_RIGHT.equals(getSubType())) {

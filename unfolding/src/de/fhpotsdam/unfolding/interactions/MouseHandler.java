@@ -9,7 +9,6 @@ import org.apache.log4j.Logger;
 
 import processing.core.PApplet;
 import processing.core.PConstants;
-import processing.core.PVector;
 import de.fhpotsdam.unfolding.Map;
 import de.fhpotsdam.unfolding.events.MapEventBroadcaster;
 import de.fhpotsdam.unfolding.events.PanMapEvent;
@@ -41,18 +40,20 @@ public class MouseHandler extends MapEventBroadcaster {
 			if (map.isHit(mouseX, mouseY)) {
 				if (mouseEvent.getClickCount() == 2) {
 
-//					// FIXME Order of events is important: Zoom before Pan does not work.
-//					log.debug("mouse: fire panTo + zoomBy");
-//
 					// FIXME Pan + Zoom does not work without tweening
-//					PanMapEvent panMapEvent = new PanMapEvent(this, map.getId());
-//					Location location = map.getLocation(mouseX, mouseY);
-//					panMapEvent.setLocation(location);
-//					eventDispatcher.fireMapEvent(panMapEvent);
-//
-//					ZoomMapEvent zoomMapEvent = new ZoomMapEvent(this, map.getId(),
-//							ZoomMapEvent.ZOOM_BY, 1);
-//					eventDispatcher.fireMapEvent(zoomMapEvent);
+
+					// Pan + Zoom (order is important)
+
+					PanMapEvent panMapEvent = new PanMapEvent(this, map.getId());
+					Location location = map.mapDisplay
+							.getLocationFromScreenPosition(mouseX, mouseY);
+					panMapEvent.setToLocation(location);
+					eventDispatcher.fireMapEvent(panMapEvent);
+
+					ZoomMapEvent zoomMapEvent = new ZoomMapEvent(this, map.getId(),
+							ZoomMapEvent.ZOOM_BY, 1);
+					zoomMapEvent.setTransformationCenterLocation(location);
+					eventDispatcher.fireMapEvent(zoomMapEvent);
 				}
 			}
 		}
@@ -65,18 +66,17 @@ public class MouseHandler extends MapEventBroadcaster {
 
 				ZoomMapEvent zoomMapEvent = new ZoomMapEvent(this, map.getId(),
 						ZoomMapEvent.ZOOM_BY);
+
+				// Use location as zoom center, so listening maps can zoom correctly
+				Location location = map.mapDisplay.getLocationFromScreenPosition(mouseX, mouseY);
+				zoomMapEvent.setTransformationCenterLocation(location);
+
+				// Zoom in or out
 				if (delta < 0) {
 					zoomMapEvent.setZoomLevelDelta(-1);
 				} else if (delta > 0) {
 					zoomMapEvent.setZoomLevelDelta(1);
 				}
-
-				// Use position for now
-				// REVISIT Use (only in event) location so listening maps do something clever
-//				zoomMapEvent.setTransformationLocation(map.mapDisplay.getLocationForScreenPosition(mouseX,
-//						mouseY));
-				
-				zoomMapEvent.setTransformationCenter(map.mapDisplay.getInnerTransformationCenter());
 
 				eventDispatcher.fireMapEvent(zoomMapEvent);
 			}
@@ -88,24 +88,16 @@ public class MouseHandler extends MapEventBroadcaster {
 			if (map.isHit(mouseX, mouseY)) {
 				log.debug("mouse: fire panTo for " + map.getId());
 
-//				getLocationForScreenPos(mouse);
-//				getLocationForScreenPos(pmouse);
-//				
-//				float km = MapUtils.getDistanceBetweenLocation(locationMouse, locationPMouse);
-//				
-//				getCenterLocation() + vector;
-//
-//				imgObj.addInnerOffset(dx, dy);
+				// Pan between two locations, so other listening maps can pan correctly
 
-				
-//				Location newCenter = map.getLocationFromScreenPosition(mouseX, mouseY);
-//				
-//				log.debug("newCenter=" + newCenter);
-//
-//				PanMapEvent panMapEvent = new PanMapEvent(this, map.getId());
-//				panMapEvent.setLocation(newCenter);
-//				panMapEvent.setTweening(false);
-//				eventDispatcher.fireMapEvent(panMapEvent);
+				Location oldLocation = map.mapDisplay.getLocationFromScreenPosition(pmouseX,
+						pmouseY);
+				Location newLocation = map.mapDisplay.getLocationFromScreenPosition(mouseX, mouseY);
+
+				PanMapEvent panMapEvent = new PanMapEvent(this, map.getId(), PanMapEvent.PAN_BY);
+				panMapEvent.setFromLocation(oldLocation);
+				panMapEvent.setToLocation(newLocation);
+				eventDispatcher.fireMapEvent(panMapEvent);
 			}
 		}
 	}

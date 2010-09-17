@@ -5,7 +5,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
-
 public class EventDispatcher {
 
 	public java.util.Map<String, List<ScopedListeners>> typedScopedListeners;
@@ -32,6 +31,17 @@ public class EventDispatcher {
 		broadcaster.setEventDispatcher(this);
 	}
 
+	/**
+	 * Registers an listener to an event type within one or more event scopes.
+	 * 
+	 * @param listener
+	 *            The listener to register.
+	 * @param type
+	 * @param scopeIds
+	 *            IDs of scopes to register for. If none is provided the scope of the listener is
+	 *            used. Note, that if you provide some scopes the listener's scope is not added,
+	 *            automatically.
+	 */
 	public void register(MapEventListener listener, String type, String... scopeIds) {
 		List<ScopedListeners> scopedListenersList = typedScopedListeners.get(type);
 
@@ -64,6 +74,12 @@ public class EventDispatcher {
 			scopedListeners.scopeIds.addAll(scopeIdList);
 			scopedListeners.listeners.add(listener);
 			scopedListenersList.add(scopedListeners);
+		}
+	}
+
+	public void register(List<MapEventListener> listeners, String type, String... scopeIds) {
+		for (MapEventListener listener : listeners) {
+			register(listener, type, scopeIds);
 		}
 	}
 

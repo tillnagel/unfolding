@@ -4,6 +4,7 @@ import org.apache.log4j.Logger;
 
 import processing.core.PVector;
 import de.fhpotsdam.unfolding.Map;
+import de.fhpotsdam.unfolding.geo.Location;
 
 public class ZoomMapEvent extends MapEvent {
 
@@ -14,11 +15,12 @@ public class ZoomMapEvent extends MapEvent {
 	public static final String ZOOM_BY = "zoomBy";
 	public static final String ZOOM_TO = "zoomTo";
 
-	public int zoomLevel;
+	protected int zoomLevel;
 
-	public int zoomLevelDelta;
-
-	public PVector transformationCenter;
+	protected int zoomLevelDelta;
+	
+	/** Center to zoom around. Will be used as innerTransCenter (innerZoom). */
+	protected Location transformationCenterLocation;
 
 	public ZoomMapEvent(Object source, String mapId) {
 		super(source, TYPE_ZOOM, mapId);
@@ -38,7 +40,7 @@ public class ZoomMapEvent extends MapEvent {
 		}
 	}
 
-	public int getZoomLevel() {
+	protected int getZoomLevel() {
 		return zoomLevel;
 	}
 
@@ -46,7 +48,7 @@ public class ZoomMapEvent extends MapEvent {
 		this.zoomLevel = zoomLevel;
 	}
 
-	public int getZoomLevelDelta() {
+	protected int getZoomLevelDelta() {
 		return zoomLevelDelta;
 	}
 
@@ -54,26 +56,28 @@ public class ZoomMapEvent extends MapEvent {
 		this.zoomLevelDelta = zoomLevelDelta;
 	}
 
-	public PVector getTransformationCenter() {
-		return transformationCenter;
+	protected Location getTransformationCenterLocation() {
+		return transformationCenterLocation;
 	}
 
-	public void setTransformationCenter(PVector transformationCenter) {
-		this.transformationCenter = transformationCenter;
+	public void setTransformationCenterLocation(Location transformationCenterLocation) {
+		this.transformationCenterLocation = transformationCenterLocation;
 	}
 
 	@Override
 	public void executeManipulationFor(Map map) {
-		if (transformationCenter != null) {
-			map.mapDisplay.setInnerTransformationCenter(transformationCenter);
+		if (transformationCenterLocation != null) {
+			float[] xy = map.mapDisplay.getScreenPositionFromLocation(transformationCenterLocation);
+			PVector transCenter = new PVector(xy[0], xy[1]);
+			map.mapDisplay.setInnerTransformationCenter(transCenter);
 		}
 
 		if (ZOOM_BY.equals(getSubType())) {
-			log.debug("Zooming mapDisplay " + map.getId() + " by " + getZoomLevelDelta());
-			map.zoom(getZoomLevelDelta());
+			log.debug("Zooming mapDisplay " + map.getId() + " by " + zoomLevelDelta);
+			map.zoom(zoomLevelDelta);
 		} else {
-			log.debug("Zooming mapDisplay " + map.getId() + " to " + getZoomLevel());
-			map.zoomToLevel(getZoomLevel());
+			log.debug("Zooming mapDisplay " + map.getId() + " to " + zoomLevel);
+			map.zoomToLevel(zoomLevel);
 		}
 	}
 

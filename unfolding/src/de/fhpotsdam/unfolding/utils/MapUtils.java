@@ -1,5 +1,7 @@
 package de.fhpotsdam.unfolding.utils;
 
+import java.util.List;
+
 import processing.core.PApplet;
 import de.fhpotsdam.unfolding.Map;
 import de.fhpotsdam.unfolding.events.EventDispatcher;
@@ -37,4 +39,8 @@ public class MapUtils {
 		return eventDispatcher;
 	}
 
+	public static EventDispatcher createDefaultEventDispatcher(PApplet p, List<Map> maps) {
+		Map[] mapsArray = (maps != null) ? maps.toArray(new Map[0]) : new Map[0];
+		return createDefaultEventDispatcher(p, mapsArray);
+	}
 }
