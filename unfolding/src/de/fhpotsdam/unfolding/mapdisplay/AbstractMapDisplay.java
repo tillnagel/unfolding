@@ -176,6 +176,9 @@ public abstract class AbstractMapDisplay {
 	public abstract float[] getInnerObjectFromLocation(Location location);
 
 	public abstract float[] getScreenPositionFromLocation(Location location);
+	
+	public abstract float[] getObjectFromLocation(Location location);
+	
 
 	public PVector getTransformationCenter() {
 		return transformationCenter;

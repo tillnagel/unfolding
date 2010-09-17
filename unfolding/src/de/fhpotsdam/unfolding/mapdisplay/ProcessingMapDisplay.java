@@ -25,7 +25,7 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 	/** Shows borders around each tile. */
 	private static final boolean SHOW_DEBUG_BORDER = true;
 	/** Shows coordinate infos on real tile, i.e. placed atop of the original tile image. */
-	private static final boolean USE_DEBUG_TILES = true;
+	private static final boolean USE_DEBUG_TILES = false;
 	/** Creates and shows debug tiles, i.e. own images with debug information. */
 	private static final boolean USE_OFFLINE_MODE = false;
 
@@ -59,10 +59,10 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 		this.offsetX = offsetX;
 		this.offsetY = offsetY;
 
-		this.innerOffsetX = width/2 - TILE_WIDTH/2;
-		this.innerOffsetY = height/2 - TILE_HEIGHT/2;
-		
-		setInnerTransformationCenter(new PVector(width/2 + offsetX, height/2 + offsetY));
+		this.innerOffsetX = width / 2 - TILE_WIDTH / 2;
+		this.innerOffsetY = height / 2 - TILE_HEIGHT / 2;
+
+		setInnerTransformationCenter(new PVector(width / 2 + offsetX, height / 2 + offsetY));
 
 		calculateMatrix();
 
@@ -169,6 +169,13 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 		return innerObjectXY;
 	}
 
+	@Override
+	public float[] getObjectFromLocation(Location location) {
+		float[] ixy = getInnerObjectFromLocation(location);
+		float[] xy = getObjectFromInnerObjectPosition(ixy[0], ixy[1]);
+		return xy;
+	}
+
 	private float[] getInnerTransformedPosition(float x, float y, boolean inverse) {
 		if (inverse) {
 			x -= innerOffsetX;
@@ -194,7 +201,7 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 	// Location (instead of innerObj) methods ---------------
 	public Location getLocationFromInnerObjectPosition(float x, float y) {
 		PMatrix3D m = new PMatrix3D(); // matrix;
-		
+
 		PMatrix3D m2 = new PMatrix3D();
 		m2.apply(m);
 
@@ -206,10 +213,10 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 		float col = (x - tl[0]) / (br[0] - tl[0]);
 		float row = (y - tl[1]) / (br[1] - tl[1]);
 		Coordinate coord = new Coordinate(row, col, 0);
-		
+
 		return provider.coordinateLocation(coord);
 	}
-	
+
 	public Location getLocationFromScreenPosition(float x, float y) {
 		float innerObjectXY[] = getInnerObjectFromScreenPosition(x, y);
 		return getLocationFromInnerObjectPosition(innerObjectXY[0], innerObjectXY[1]);
@@ -227,12 +234,11 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 
 		return out;
 	}
-	
+
 	public float[] getScreenPositionFromLocation(Location location) {
 		float innerObjectXY[] = getInnerObjectFromLocation(location);
 		return getScreenFromInnerObjectPosition(innerObjectXY[0], innerObjectXY[1]);
 	}
-	
 
 	// @Override
 	// public Location getCenterLocation() {

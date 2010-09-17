@@ -30,7 +30,7 @@ public class Map implements MapEventListener {
 	public static final int TILE_HEIGHT = 256;
 	private static final float PAN_DEFAULT_DELTA = TILE_WIDTH / 2;
 
-	public static final boolean DEFAULT_TWEENING = true;
+	public static final boolean DEFAULT_TWEENING = false;
 
 	public static final Location PRIME_MERIDIAN_EQUATOR_LOCATION = new Location(0, 0);
 	public static final int DEFAULT_ZOOM_LEVEL = 2;
@@ -276,7 +276,7 @@ public class Map implements MapEventListener {
 	}
 
 	/**
-	 * Pans the distance between two points, given in screen coordinates.
+	 * Pans from point1 to point 2, given in screen coordinates.
 	 */
 	public void pan(float x1, float y1, float x2, float y2) {
 		float[] xy1 = mapDisplay.getObjectFromScreenPosition(x1, y1);
@@ -287,7 +287,22 @@ public class Map implements MapEventListener {
 
 		addInnerOffset(dx, dy);
 	}
+	
+	/**
+	 * Pans from one location to another one.
+	 * @param fromLocation
+	 * @param toLocation
+	 */
+	public void pan(Location fromLocation, Location toLocation) {
+		float[] xy1 = mapDisplay.getObjectFromLocation(fromLocation);
+		float[] xy2 = mapDisplay.getObjectFromLocation(toLocation);
+		
+		float dx = xy2[0] - xy1[0];
+		float dy = xy2[1] - xy1[1];
 
+		addInnerOffset(dx, dy);
+	}
+	
 	public void panLeft() {
 		addInnerOffset(PAN_DEFAULT_DELTA, 0);
 	}
