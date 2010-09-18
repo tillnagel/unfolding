@@ -209,6 +209,16 @@ public class Map implements MapEventListener {
 	}
 
 	/**
+	 * Zooms in or out. Map tiles may be scaled.
+	 * 
+	 * @param scaleDelta
+	 *            The scale to zoom by.
+	 */
+	public void zoom(float scaleDelta) {
+		innerScale(scaleDelta);
+	}
+
+	/**
 	 * Zooms into the map less than a full level. Map tiles will be scaled.
 	 */
 	public void zoomIn() {
@@ -242,7 +252,7 @@ public class Map implements MapEventListener {
 		zoomToLevel(level);
 		panTo(x, y);
 	}
-	
+
 	public void zoomAndPanTo(Location location, int level) {
 		float[] xy = mapDisplay.getScreenPositionFromLocation(location);
 		mapDisplay.setInnerTransformationCenter(new PVector(xy[0], xy[1]));
@@ -287,22 +297,23 @@ public class Map implements MapEventListener {
 
 		addInnerOffset(dx, dy);
 	}
-	
+
 	/**
 	 * Pans from one location to another one.
+	 * 
 	 * @param fromLocation
 	 * @param toLocation
 	 */
 	public void pan(Location fromLocation, Location toLocation) {
 		float[] xy1 = mapDisplay.getObjectFromLocation(fromLocation);
 		float[] xy2 = mapDisplay.getObjectFromLocation(toLocation);
-		
+
 		float dx = xy2[0] - xy1[0];
 		float dy = xy2[1] - xy1[1];
 
 		addInnerOffset(dx, dy);
 	}
-	
+
 	public void panLeft() {
 		addInnerOffset(PAN_DEFAULT_DELTA, 0);
 	}
