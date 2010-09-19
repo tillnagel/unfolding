@@ -64,9 +64,10 @@ public class TuioCursorHandler extends MapEventBroadcaster implements TuioListen
 					// FIXME In very high zoom levels zooming is off. Precision problem?
 					// (float/double)
 
-					// REVISIT Combining zoom and rotate keeps the same location under fingers, but
-					// moves the whole map somewhat unexpected and uncontrollable.
+					// REVISIT Combining (inner) zoom and (outer) rotate keeps the same location
+					// under fingers, but moves the whole map somewhat unexpected and uncontrollable.
 					// TODO Do usability study on this!
+					// Works for inner zoom + inner rotate (but inner rotate is still buggy)
 
 					// Flags to test various combinations
 					boolean zoom = true;
@@ -85,7 +86,7 @@ public class TuioCursorHandler extends MapEventBroadcaster implements TuioListen
 						// 1. pos of last finger
 						map.mapDisplay.setInnerTransformationCenter(transCenter);
 
-						// 2. object center
+						// 2. object center: pinch gesture w/o fixed finger-location connection
 						// float[] objectCenterXY =
 						// map.mapDisplay.getScreenFromObjectPosition(map.mapDisplay.getWidth()/2,
 						// map.mapDisplay.getHeight()/2);
@@ -109,6 +110,7 @@ public class TuioCursorHandler extends MapEventBroadcaster implements TuioListen
 						float angle = newAngle - oldAngle;
 						oldAngle = newAngle;
 						map.rotate(angle);
+						// map.innerRotate(angle); // better interaction, but tile loading broken
 					}
 
 					// TODO Use events (instead of direct map manipulation)
