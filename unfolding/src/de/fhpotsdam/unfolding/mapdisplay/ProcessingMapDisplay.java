@@ -200,15 +200,11 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 
 	// Location (instead of innerObj) methods ---------------
 	public Location getLocationFromInnerObjectPosition(float x, float y) {
-		PMatrix3D m = new PMatrix3D(); // matrix;
-
-		PMatrix3D m2 = new PMatrix3D();
-		m2.apply(m);
-
+		PMatrix3D m = new PMatrix3D();
 		float tl[] = new float[3];
-		m2.mult(new float[] { 0, 0, 0 }, tl);
+		m.mult(new float[] { 0, 0, 0 }, tl);
 		float br[] = new float[3];
-		m2.mult(new float[] { TILE_WIDTH, TILE_HEIGHT, 0 }, br);
+		m.mult(new float[] { TILE_WIDTH, TILE_HEIGHT, 0 }, br);
 
 		float col = (x - tl[0]) / (br[0] - tl[0]);
 		float row = (y - tl[1]) / (br[1] - tl[1]);
@@ -224,14 +220,9 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 
 	public float[] getInnerObjectFromLocation(Location location) {
 		PMatrix3D m = new PMatrix3D();
-
-		PMatrix3D m2 = new PMatrix3D();
-		m2.apply(m);
-
 		Coordinate coord = provider.locationCoordinate(location).zoomTo(0);
 		float[] out = new float[3];
-		m2.mult(new float[] { coord.column * TILE_WIDTH, coord.row * TILE_HEIGHT, 0 }, out);
-
+		m.mult(new float[] { coord.column * TILE_WIDTH, coord.row * TILE_HEIGHT, 0 }, out);
 		return out;
 	}
 
@@ -326,13 +317,7 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 		pg.translate((float) innerOffsetX, (float) innerOffsetY);
 		pg.applyMatrix(innerMatrix);
 
-		// find the bounds of the ur-tile in screen-space:
-		float minX = pg.screenX(0, 0);
-		float minY = pg.screenY(0, 0);
-		float maxX = pg.screenX(TILE_WIDTH, TILE_HEIGHT);
-		float maxY = pg.screenY(TILE_WIDTH, TILE_HEIGHT);
-
-		Vector visibleKeys = getVisibleKeys(minX, minY, maxX, maxY);
+		Vector visibleKeys = getVisibleKeys(pg);
 
 		if (visibleKeys.size() > 0) {
 			Coordinate previous = (Coordinate) visibleKeys.get(0);
@@ -381,9 +366,25 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 		}
 	}
 
-	// TODO Fix tile loading for inner rotate
-	protected Vector getVisibleKeys(float minX, float minY, float maxX, float maxY) {
+	protected Vector getVisibleKeys(PGraphics pg) {
 
+		// FIXME Fix tile loading for inner rotate
+		// 
+
+		// find the bounds of the ur-tile in screen-space:
+		float minX = pg.screenX(0, 0);
+		float minY = pg.screenY(0, 0);
+		float maxX = pg.screenX(TILE_WIDTH, TILE_HEIGHT);
+		float maxY = pg.screenY(TILE_WIDTH, TILE_HEIGHT);
+
+		// float[] minXY = getScreenFromInnerObjectPosition(0, 0);
+		// float[] maxXY = getScreenFromInnerObjectPosition(TILE_WIDTH, TILE_HEIGHT);
+		// minX = minXY[0];
+		// minY = minXY[1];
+		// maxX = maxXY[0];
+		// maxY = maxXY[1];
+		
+		
 		// what power of 2 are we at?
 		// 0 when scale is around 1, 1 when scale is around 2,
 		// 2 when scale is around 4, 3 when scale is around 8, etc.
@@ -404,11 +405,26 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 
 		// TODO: align this, and fix the next bit to work with rotated maps
 
+		if (minX > maxX) {
+			float t = minX;
+			minX = maxX;
+			maxX = t;
+		}
+		if (minY > maxY) {
+			float t = minY;
+			minY = maxY;
+			maxY = t;
+		}
+
+		//log.debug("(" + screenMinX + " - " + minX + ") / (" + maxX + " - " + minX + ")");
+
 		// find start and end columns
 		int minCol = (int) PApplet.floor(cols * (screenMinX - minX) / (maxX - minX));
 		int maxCol = (int) PApplet.ceil(cols * (screenMaxX - minX) / (maxX - minX));
 		int minRow = (int) PApplet.floor(rows * (screenMinY - minY) / (maxY - minY));
 		int maxRow = (int) PApplet.ceil(rows * (screenMaxY - minY) / (maxY - minY));
+
+		//log.debug("col " + minCol + "," + maxCol + "; row " + minRow + "," + maxRow);
 
 		// pad a bit, for luck (well, because we might be zooming out between
 		// zoom levels)
