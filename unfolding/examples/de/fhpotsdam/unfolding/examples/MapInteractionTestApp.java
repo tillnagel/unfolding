@@ -85,7 +85,7 @@ public class MapInteractionTestApp extends PApplet {
 			//map.innerRotate(PI / 20);
 		}
 		if (key == 'l') {
-			map.rotate(PI / 20);
+			map.rotate(-PI / 20);
 			//map.innerRotate(-PI / 20);
 		}
 
