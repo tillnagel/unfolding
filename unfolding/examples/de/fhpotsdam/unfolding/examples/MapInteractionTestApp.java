@@ -52,8 +52,11 @@ public class MapInteractionTestApp extends PApplet {
 
 	public void keyPressed() {
 		if (key == '+') {
+			// TODO Integrate object center as default innerTransCenter in public methods
+			float[] xy = map.mapDisplay.getScreenFromObjectPosition(map.mapDisplay.getWidth()/2, map.mapDisplay.getHeight()/2);
+			PVector transCenter = new PVector(xy[0], xy[1]);
+			map.mapDisplay.setInnerTransformationCenter(transCenter);
 			map.zoomLevelIn();
-			map.mapDisplay.calculateInnerMatrix();
 		}
 		if (key == '-') {
 			map.zoomLevelOut();
@@ -79,9 +82,11 @@ public class MapInteractionTestApp extends PApplet {
 		// rotate
 		if (key == 'r') {
 			map.rotate(PI / 20);
+			//map.innerRotate(PI / 20);
 		}
 		if (key == 'l') {
-			map.rotate(-PI / 20);
+			map.rotate(PI / 20);
+			//map.innerRotate(-PI / 20);
 		}
 
 		if (key == 'o') {
