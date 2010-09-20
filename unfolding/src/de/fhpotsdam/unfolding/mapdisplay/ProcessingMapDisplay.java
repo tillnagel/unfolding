@@ -200,6 +200,11 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 
 	// Location (instead of innerObj) methods ---------------
 	public Location getLocationFromInnerObjectPosition(float x, float y) {
+		Coordinate coord = getCoordinateFromInnerPosition(x, y);
+		return provider.coordinateLocation(coord);
+	}
+	
+	private Coordinate getCoordinateFromInnerPosition(float x, float y) {
 		PMatrix3D m = new PMatrix3D();
 		float tl[] = new float[3];
 		m.mult(new float[] { 0, 0, 0 }, tl);
@@ -209,8 +214,7 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 		float col = (x - tl[0]) / (br[0] - tl[0]);
 		float row = (y - tl[1]) / (br[1] - tl[1]);
 		Coordinate coord = new Coordinate(row, col, 0);
-
-		return provider.coordinateLocation(coord);
+		return coord;
 	}
 
 	public Location getLocationFromScreenPosition(float x, float y) {
@@ -236,65 +240,6 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 		return getScreenFromInnerObjectPosition(innerObjectXY[0], innerObjectXY[1]);
 	}
 
-	// @Override
-	// public Location getCenterLocation() {
-	// Location location = getLocationForObjectPosition(width / 2, height / 2);
-	// return location;
-	// }
-	//
-	// @Override
-	// public Location getLocationForScreenPosition(float x, float y) {
-	// // float objectPosition[] = getObjectFromScreenPosition(x, y);
-	// // return getLocationForObjectPosition(objectPosition[0], objectPosition[1]);
-	//		
-	// float innerObjPos[] = getInnerObjectFromScreenPosition(x, y);
-	// return getLocationForInnerObjectPosition(innerObjPos[0], innerObjPos[1]);
-	// }
-	//
-	// // This is the inverse method for getObjPosForLoc
-	// public Location getLocationForObjectPosition(float x, float y) {
-	// PMatrix3D m = innerMatrix;
-	//
-	// PMatrix3D m2 = new PMatrix3D();
-	// m2.apply(m);
-	// // FIXME innerFix: Remove tx, scale, innerTransCenter
-	// // m2.translate((float) tx, (float) ty);
-	//
-	// // Find top left and bottom right positions of mapDisplay in screenspace:
-	// // REVISIT Above comment: Is this in screenspace?
-	// float tl[] = new float[3];
-	// m2.mult(new float[] { 0, 0, 0 }, tl);
-	// float br[] = new float[3];
-	// m2.mult(new float[] { TILE_WIDTH, TILE_HEIGHT, 0 }, br);
-	//
-	// float col = (x - tl[0]) / (br[0] - tl[0]);
-	// float row = (y - tl[1]) / (br[1] - tl[1]);
-	// Coordinate coord = new Coordinate(row, col, 0);
-	//
-	// return provider.coordinateLocation(coord);
-	// }
-	//
-	// @Override
-	// public PVector getScreenPosForLocation(Location location) {
-	// PVector v = getObjectPosForLocation(location);
-	// float[] out = getScreenFromObjectPosition(v.x, v.y);
-	// return new PVector(out[0], out[1]);
-	// }
-	//
-	// public PVector getObjectPosForLocation(Location location) {
-	// PMatrix3D m = innerMatrix;
-	//
-	// PMatrix3D m2 = new PMatrix3D();
-	// m2.apply(m);
-	// // FIXME innerFix: Remove tx, scale, innerTransCenter
-	// // m2.translate((float) tx, (float) ty);
-	//
-	// Coordinate coord = provider.locationCoordinate(location).zoomTo(0);
-	// float[] out = new float[3];
-	// m2.mult(new float[] { coord.column * TILE_WIDTH, coord.row * TILE_HEIGHT, 0 }, out);
-	//
-	// return new PVector(out[0], out[1]);
-	// }
 
 	// DRAWING --------------------------------------------------
 
@@ -370,65 +315,28 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 			papplet.smooth();
 		}
 	}
-
+	
 	protected Vector getVisibleKeys(PGraphics pg) {
-
-		// FIXME Fix tile loading for inner rotate
-		// 
-
-		// find the bounds of the ur-tile in screen-space:
-		float minX = pg.screenX(0, 0);
-		float minY = pg.screenY(0, 0);
-		float maxX = pg.screenX(TILE_WIDTH, TILE_HEIGHT);
-		float maxY = pg.screenY(TILE_WIDTH, TILE_HEIGHT);
-
-		// float[] minXY = getScreenFromInnerObjectPosition(0, 0);
-		// float[] maxXY = getScreenFromInnerObjectPosition(TILE_WIDTH, TILE_HEIGHT);
-		// minX = minXY[0];
-		// minY = minXY[1];
-		// maxX = maxXY[0];
-		// maxY = maxXY[1];
-
-		// what power of 2 are we at?
-		// 0 when scale is around 1, 1 when scale is around 2,
-		// 2 when scale is around 4, 3 when scale is around 8, etc.
-		// Till: NB Using int zoom levels to use correct tile (between-zoom values are scaled in
-		// Processing)
+		
+		// Gets outer object corner positions in inner object coordinate system
+		// to check which tiles to load: Always uses bounding box.
+		
 		int zoomLevel = Map.getZoomLevelFromScale((float) innerScale);
 
-		// how many columns and rows of tiles at this zoom?
-		// (this is basically (int)sc, but let's derive from zoom to be sure
-		int cols = (int) Map.getScaleFromZoom(zoomLevel);
-		int rows = (int) Map.getScaleFromZoom(zoomLevel);
-
-		// find the biggest box the screen would fit in:, aligned with the mapDisplay:
-		float screenMinX = 0;
-		float screenMinY = 0;
-		float screenMaxX = width - TILE_WIDTH;
-		float screenMaxY = height - TILE_HEIGHT;
-
-		// TODO: align this, and fix the next bit to work with rotated maps
-
-		if (minX > maxX) {
-			float t = minX;
-			minX = maxX;
-			maxX = t;
-		}
-		if (minY > maxY) {
-			float t = minY;
-			minY = maxY;
-			maxY = t;
-		}
-
-		// log.debug("(" + screenMinX + " - " + minX + ") / (" + maxX + " - " + minX + ")");
-
-		// find start and end columns
-		int minCol = (int) PApplet.floor(cols * (screenMinX - minX) / (maxX - minX));
-		int maxCol = (int) PApplet.ceil(cols * (screenMaxX - minX) / (maxX - minX));
-		int minRow = (int) PApplet.floor(rows * (screenMinY - minY) / (maxY - minY));
-		int maxRow = (int) PApplet.ceil(rows * (screenMaxY - minY) / (maxY - minY));
-
-		// log.debug("col " + minCol + "," + maxCol + "; row " + minRow + "," + maxRow);
+		float[] innerTL = getInnerObjectFromObjectPosition(0, 0);
+		float[] innerTR = getInnerObjectFromObjectPosition(getWidth(), 0);
+		float[] innerBR = getInnerObjectFromObjectPosition(getWidth(), getHeight());
+		float[] innerBL = getInnerObjectFromObjectPosition(0, getHeight());
+		
+		Coordinate coordTL = getCoordinateFromInnerPosition(innerTL[0], innerTL[1]).zoomTo(zoomLevel);
+		Coordinate coordTR = getCoordinateFromInnerPosition(innerTR[0], innerTR[1]).zoomTo(zoomLevel);
+		Coordinate coordBR = getCoordinateFromInnerPosition(innerBR[0], innerBR[1]).zoomTo(zoomLevel);
+		Coordinate coordBL = getCoordinateFromInnerPosition(innerBL[0], innerBL[1]).zoomTo(zoomLevel);
+		
+		int minCol = (int) PApplet.min(new float[] {coordTL.column, coordTR.column, coordBR.column, coordBL.column});
+		int maxCol = (int) PApplet.max(new float[] {coordTL.column, coordTR.column, coordBR.column, coordBL.column});
+		int minRow = (int) PApplet.min(new float[] {coordTL.row, coordTR.row, coordBR.row, coordBL.row});
+		int maxRow = (int) PApplet.max(new float[] {coordTL.row, coordTR.row, coordBR.row, coordBL.row});
 
 		// pad a bit, for luck (well, because we might be zooming out between
 		// zoom levels)
@@ -438,10 +346,11 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 		maxRow += grid_padding;
 
 		// we don't wrap around the world yet, so:
-		minCol = PApplet.constrain(minCol, 0, cols);
-		maxCol = PApplet.constrain(maxCol, 0, cols);
-		minRow = PApplet.constrain(minRow, 0, rows);
-		maxRow = PApplet.constrain(maxRow, 0, rows);
+		int numberTiles = (int) Map.getScaleFromZoom(zoomLevel);
+		minCol = PApplet.constrain(minCol, 0, numberTiles);
+		maxCol = PApplet.constrain(maxCol, 0, numberTiles);
+		minRow = PApplet.constrain(minRow, 0, numberTiles);
+		maxRow = PApplet.constrain(maxRow, 0, numberTiles);
 
 		// keep track of what we can see already:
 		Vector visibleKeys = new Vector();

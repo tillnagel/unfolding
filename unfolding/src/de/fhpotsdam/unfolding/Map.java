@@ -134,10 +134,6 @@ public class Map implements MapEventListener {
 		mapEvent.executeManipulationFor(this);
 	}
 
-	// public Location getLocation(float x, float y) {
-	// return mapDisplay.getLocationForScreenPosition(x, y);
-	// }
-
 	/**
 	 * Updates the integrators for tweening. Must be called before {@link AbstractMapDisplay#draw()}
 	 * .
@@ -164,6 +160,19 @@ public class Map implements MapEventListener {
 		return mapDisplay.getLocationFromObjectPosition(mapDisplay.getWidth(), mapDisplay
 				.getHeight());
 	}
+	
+
+	// public Location getLocation(float x, float y) {
+	// return mapDisplay.getLocationForScreenPosition(x, y);
+	// }
+	
+
+	// @Override
+	// public Location getCenterLocation() {
+	// Location location = getLocationForObjectPosition(width / 2, height / 2);
+	// return location;
+	// }
+	//
 
 	// Transformations ----------------------------------------------------
 
@@ -176,11 +185,11 @@ public class Map implements MapEventListener {
 	 *            The angle to rotate the map by.
 	 */
 	public void rotate(float angle) {
-		outerRotate(angle);
+		innerRotate(angle);
 	}
 
 	public void rotateTo(float angle) {
-		setOuterRotate(angle);
+		setInnerRotate(angle);
 	}
 
 	/**
@@ -367,7 +376,12 @@ public class Map implements MapEventListener {
 		mapDisplay.calculateMatrix();
 	}
 
-	protected void innerRotate(float angle) {
+	protected void setInnerRotate(float angle) {
+		mapDisplay.innerAngle = angle;
+		mapDisplay.calculateMatrix();
+	}
+	
+	public void innerRotate(float angle) {
 		mapDisplay.innerAngle += angle;
 		mapDisplay.calculateInnerMatrix();
 	}

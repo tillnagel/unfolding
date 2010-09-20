@@ -19,7 +19,7 @@ public class MapInteractionTestApp extends PApplet {
 	public void setup() {
 		size(800, 600, GLConstants.GLGRAPHICS);
 
-		map = new Map(this, "map1", 0, 0, 800, 600);
+		map = new Map(this, "map1", 50, 50, 700, 500);
 		map.setTweening(false);
 		// MapUtils.createDefaultEventDispatcher(this, map);
 
@@ -39,12 +39,27 @@ public class MapInteractionTestApp extends PApplet {
 
 		map.draw();
 		debugDisplay.draw();
+		
+		noFill();
+		strokeWeight(4);
+		stroke(0, 0, 250, 150);
+		float[] tl = map.mapDisplay.getScreenFromObjectPosition(0, 0);
+		float[] tr = map.mapDisplay.getScreenFromObjectPosition(map.mapDisplay.getWidth(), 0);
+		float[] br = map.mapDisplay.getScreenFromObjectPosition(map.mapDisplay.getWidth(), map.mapDisplay.getHeight());
+		float[] bl = map.mapDisplay.getScreenFromObjectPosition(0, map.mapDisplay.getHeight());
+		beginShape();
+		vertex(tl[0], tl[1]);
+		vertex(tr[0], tr[1]);
+		vertex(br[0], br[1]);
+		vertex(bl[0], bl[1]);
+		endShape(CLOSE);
 
+		noStroke();
 		// Show location from mouse
 		Location location = map.mapDisplay.getLocationFromScreenPosition(mouseX, mouseY);
 		fill(215, 0, 0);
 		text(location + "", mouseX, mouseY);
-
+		
 		// Show marker at location
 		float[] xy = map.mapDisplay.getScreenPositionFromLocation(berlinLocation);
 		ellipse(xy[0], xy[1], 10, 10);
@@ -87,6 +102,13 @@ public class MapInteractionTestApp extends PApplet {
 		if (key == 'l') {
 			map.rotate(-PI / 20);
 			//map.innerRotate(-PI / 20);
+		}
+
+		if (key == 'R') {
+			map.innerRotate(PI / 20);
+		}
+		if (key == 'L') {
+			map.innerRotate(-PI / 20);
 		}
 
 		if (key == 'o') {

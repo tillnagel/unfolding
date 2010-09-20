@@ -64,10 +64,8 @@ public class TuioCursorHandler extends MapEventBroadcaster implements TuioListen
 					// FIXME In very high zoom levels zooming is off. Precision problem?
 					// (float/double)
 
-					// REVISIT Combining (inner) zoom and (outer) rotate keeps the same location
-					// under fingers, but moves the whole map somewhat unexpected and uncontrollable.
-					// TODO Do usability study on this!
-					// Works for inner zoom + inner rotate (but inner rotate is still buggy)
+					// Uses inner zoom and inner rotation, thus fingers are on same location
+					// TODO Do study on usability for different interaction approaches. 
 
 					// Flags to test various combinations
 					boolean zoom = true;
@@ -93,8 +91,7 @@ public class TuioCursorHandler extends MapEventBroadcaster implements TuioListen
 						// PVector objectCenter = new PVector(objectCenterXY[0], objectCenterXY[1]);
 						// map.mapDisplay.setInnerTransformationCenter(objectCenter);
 
-						// 3. middle pos between both fingers
-						// TODO
+						// TODO 3. middle pos between both fingers
 
 						float newDist = getDistance(tuioCursor1, tuioCursor2);
 						float scaleDelta = newDist / oldDist;
