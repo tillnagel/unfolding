@@ -49,13 +49,13 @@ public class PanMapEvent extends MapEvent {
 	@Override
 	public void executeManipulationFor(Map map) {
 		if (PAN_BY.equals(getSubType())) {
-			log.debug("Panning mapDisplay " + map.getId() + " from " + fromLocation + " to "
-					+ toLocation);
+//			log.debug("Panning mapDisplay " + map.getId() + " from " + fromLocation + " to "
+//					+ toLocation);
 			map.pan(fromLocation, toLocation);
 		}
 
 		if (PAN_TO.equals(getSubType())) {
-			log.debug("Panning mapDisplay " + map.getId() + " to " + toLocation);
+//			log.debug("Panning mapDisplay " + map.getId() + " to " + toLocation);
 			map.panTo(toLocation);
 		}
 

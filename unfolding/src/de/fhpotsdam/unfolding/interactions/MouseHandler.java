@@ -73,9 +73,9 @@ public class MouseHandler extends MapEventBroadcaster {
 
 				// Zoom in or out
 				if (delta < 0) {
-					zoomMapEvent.setZoomLevelDelta(-1);
-				} else if (delta > 0) {
 					zoomMapEvent.setZoomLevelDelta(1);
+				} else if (delta > 0) {
+					zoomMapEvent.setZoomLevelDelta(-1);
 				}
 
 				eventDispatcher.fireMapEvent(zoomMapEvent);

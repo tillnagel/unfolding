@@ -2,6 +2,7 @@ package de.fhpotsdam.unfolding.events;
 
 import org.apache.log4j.Logger;
 
+import processing.core.PApplet;
 import processing.core.PVector;
 import de.fhpotsdam.unfolding.Map;
 import de.fhpotsdam.unfolding.geo.Location;
@@ -26,14 +27,14 @@ public class ZoomMapEvent extends MapEvent {
 		super(source, TYPE_ZOOM, mapId);
 	}
 
-	public ZoomMapEvent(Object source, String mapId, String type) {
-		this(source, mapId, type, 1);
+	public ZoomMapEvent(Object source, String mapId, String subType) {
+		this(source, mapId, subType, 1);
 	}
 
-	public ZoomMapEvent(Object source, String mapId, String type, int zoom) {
+	public ZoomMapEvent(Object source, String mapId, String subType, int zoom) {
 		super(source, TYPE_ZOOM, mapId);
-		setSubType(type);
-		if (ZOOM_BY.equals(type)) {
+		setSubType(subType);
+		if (ZOOM_BY.equals(subType)) {
 			setZoomLevelDelta(zoom);
 		} else {
 			setZoomLevel(zoom);
@@ -73,10 +74,8 @@ public class ZoomMapEvent extends MapEvent {
 		}
 
 		if (ZOOM_BY.equals(getSubType())) {
-			log.debug("Zooming mapDisplay " + map.getId() + " by " + zoomLevelDelta);
 			map.zoom(zoomLevelDelta);
 		} else {
-			log.debug("Zooming mapDisplay " + map.getId() + " to " + zoomLevel);
 			map.zoomToLevel(zoomLevel);
 		}
 	}

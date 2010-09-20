@@ -3,7 +3,6 @@ package de.fhpotsdam.unfolding.utils;
 import processing.core.PApplet;
 import processing.core.PFont;
 import processing.core.PMatrix3D;
-import processing.core.PVector;
 import de.fhpotsdam.unfolding.Map;
 import de.fhpotsdam.unfolding.mapdisplay.AbstractMapDisplay;
 
