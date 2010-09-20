@@ -172,6 +172,8 @@ public abstract class AbstractMapDisplay {
 	public abstract Location getLocationFromInnerObjectPosition(float x, float y);
 
 	public abstract Location getLocationFromScreenPosition(float x, float y);
+	
+	public abstract Location getLocationFromObjectPosition(float x, float y);
 
 	public abstract float[] getInnerObjectFromLocation(Location location);
 
@@ -300,4 +302,5 @@ public abstract class AbstractMapDisplay {
 		}
 	}
 
+	
 }

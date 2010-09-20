@@ -154,6 +154,17 @@ public class Map implements MapEventListener {
 		}
 	}
 
+	//  ----------------------------------------------------
+
+	public Location getTopLeftBorder() {
+		return mapDisplay.getLocationFromObjectPosition(0, 0);
+	}
+
+	public Location getBottomRightBorder() {
+		return mapDisplay.getLocationFromObjectPosition(mapDisplay.getWidth(), mapDisplay
+				.getHeight());
+	}
+
 	// Transformations ----------------------------------------------------
 
 	/**

@@ -218,6 +218,11 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 		return getLocationFromInnerObjectPosition(innerObjectXY[0], innerObjectXY[1]);
 	}
 
+	public Location getLocationFromObjectPosition(float x, float y) {
+		float innerObjectXY[] = getInnerObjectFromObjectPosition(x, y);
+		return getLocationFromInnerObjectPosition(innerObjectXY[0], innerObjectXY[1]);
+	}
+	
 	public float[] getInnerObjectFromLocation(Location location) {
 		PMatrix3D m = new PMatrix3D();
 		Coordinate coord = provider.locationCoordinate(location).zoomTo(0);
@@ -383,8 +388,7 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 		// minY = minXY[1];
 		// maxX = maxXY[0];
 		// maxY = maxXY[1];
-		
-		
+
 		// what power of 2 are we at?
 		// 0 when scale is around 1, 1 when scale is around 2,
 		// 2 when scale is around 4, 3 when scale is around 8, etc.
@@ -416,7 +420,7 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 			maxY = t;
 		}
 
-		//log.debug("(" + screenMinX + " - " + minX + ") / (" + maxX + " - " + minX + ")");
+		// log.debug("(" + screenMinX + " - " + minX + ") / (" + maxX + " - " + minX + ")");
 
 		// find start and end columns
 		int minCol = (int) PApplet.floor(cols * (screenMinX - minX) / (maxX - minX));
@@ -424,7 +428,7 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 		int minRow = (int) PApplet.floor(rows * (screenMinY - minY) / (maxY - minY));
 		int maxRow = (int) PApplet.ceil(rows * (screenMaxY - minY) / (maxY - minY));
 
-		//log.debug("col " + minCol + "," + maxCol + "; row " + minRow + "," + maxRow);
+		// log.debug("col " + minCol + "," + maxCol + "; row " + minRow + "," + maxRow);
 
 		// pad a bit, for luck (well, because we might be zooming out between
 		// zoom levels)
@@ -582,5 +586,6 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 			return img;
 		}
 	}
+
 
 }
