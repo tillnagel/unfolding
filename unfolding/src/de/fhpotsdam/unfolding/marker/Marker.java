@@ -1,17 +1,55 @@
 package de.fhpotsdam.unfolding.marker;
 
-import processing.core.PGraphics;
-import processing.core.PVector;
+import de.fhpotsdam.unfolding.Map;
 import de.fhpotsdam.unfolding.geo.Location;
 
+/**
+ * Marker interface for all markers to be drawn on to maps.
+ * 
+ */
 public interface Marker {
-	
-	public Location getLocation();
-	
-	public void draw();
 
-	public void draw(PGraphics pg);
-	
-	public void update(PVector v);
-	
+	/**
+	 * Gets the location of this marker.
+	 * 
+	 * @return The location with lat, lng.
+	 */
+	public Location getLocation();
+
+	/**
+	 * Checks whether given position is inside the map.
+	 * 
+	 * @param map
+	 *            The map to test for.
+	 * @param checkX
+	 *            The x position in screen coordinates.
+	 * @param checkY
+	 *            The y position in screen coordinates.
+	 * @return true if inside, false otherwise.
+	 */
+	public boolean isInside(Map map, float checkX, float checkY);
+
+	/**
+	 * Draws this marker in inner object coordinate system.
+	 * 
+	 * e.g. markers oriented to the tiles
+	 *
+	 * @param map
+	 *            The map to draw on (and use transformation matrix from)
+	 */
+	public void draw(Map map);
+
+	/**
+	 * Draws this marker in outer object coordinate system. 
+	 * 
+	 * e.g. for labels oriented to the map
+	 * 
+	 * @param map
+	 *            The map to draw on (and use transformation matrix from)
+	 */
+	public void drawOuter(Map map);
+
+	// For drawing onto the texture, i.e. after distortion, etc.
+	// public void drawTexture(PGraphics pg);
+
 }

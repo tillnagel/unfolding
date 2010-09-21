@@ -1,21 +1,26 @@
 package de.fhpotsdam.unfolding.marker;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.apache.log4j.Logger;
 
-import processing.core.PGraphics;
-import processing.core.PVector;
-import de.fhpotsdam.unfolding.mapdisplay.AbstractMapDisplay;
+import de.fhpotsdam.unfolding.Map;
 
 public class MarkerManager {
 
 	public static Logger log = Logger.getLogger(MarkerManager.class);
 
+	Map map;
 	List<Marker> markers;
 
-	public MarkerManager(List<Marker> markers) {
+	public MarkerManager(Map map, Marker... markers) {
+		this(map, Arrays.asList(markers));
+	}
+
+	public MarkerManager(Map map, List<Marker> markers) {
+		this.map = map;
 		this.markers = markers;
 	}
 
@@ -29,14 +34,32 @@ public class MarkerManager {
 		}
 		markers.add(marker);
 	}
+	
+	public List<Marker> getMarkers() {
+		return markers;
+	}
 
-	public void draw(AbstractMapDisplay mapDisplay, PGraphics pg) {
+	public Marker isInside(float checkX, float checkY) {
+		Marker foundMarker = null;
 		for (Marker marker : markers) {
-			
-//			PVector v = mapDisplay.getObjectPosForLocation(marker.getLocation());
-//			marker.update(v);
-//			marker.draw(pg);
+			if (marker.isInside(map, checkX, checkY)) {
+				foundMarker = marker;
+				break;
+			}
+		}
+		return foundMarker;
+	}
+
+	public void draw() {
+		for (Marker marker : markers) {
+			marker.draw(map);
 		}
 	}
 
+	public void drawOuter() {
+		for (Marker marker : markers) {
+			marker.drawOuter(map);
+		}
+	}
+	
 }

@@ -18,13 +18,10 @@ public class MaskedPGraphicsMapDisplay extends ProcessingMapDisplay implements P
 	}
 
 	public PGraphics getPG() {
-		pg.beginDraw();
 		return pg;
 	}
 
 	protected void postDraw() {
-		pg.endDraw();
-
 		papplet.pushMatrix();
 		//applyMatrix is not available with this renderer.
 		//papplet.applyMatrix(matrix);

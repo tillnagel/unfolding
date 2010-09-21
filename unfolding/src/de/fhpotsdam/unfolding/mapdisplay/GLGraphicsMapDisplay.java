@@ -20,19 +20,22 @@ public class GLGraphicsMapDisplay extends ProcessingMapDisplay implements PConst
 	}
 
 	public PGraphics getPG() {
-		pg.beginDraw();
 		return pg;
 	}
 
 	protected void postDraw() {
-		
-		pg.endDraw();
+		PGraphics outerPG = getOuterPG();
 
-		papplet.pushMatrix();
-		papplet.translate(offsetX, offsetY);
-		papplet.applyMatrix(matrix);
-		papplet.image(pg.getTexture(), 0, 0);
-		papplet.popMatrix();
+		outerPG.pushMatrix();
+		outerPG.translate(offsetX, offsetY);
+		outerPG.applyMatrix(matrix);
+		outerPG.image(pg.getTexture(), 0, 0);
+
+		if (markerManager != null) {
+			markerManager.drawOuter();
+		}
+
+		outerPG.popMatrix();
 	}
 
 }

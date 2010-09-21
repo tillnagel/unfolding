@@ -10,6 +10,7 @@ import processing.core.PGraphics;
 import processing.core.PVector;
 import de.fhpotsdam.unfolding.core.Coordinate;
 import de.fhpotsdam.unfolding.geo.Location;
+import de.fhpotsdam.unfolding.marker.MarkerManager;
 import de.fhpotsdam.unfolding.providers.AbstractMapProvider;
 
 /**
@@ -52,6 +53,9 @@ public abstract class AbstractMapDisplay {
 
 	// MapDisplay values: Inner stuff
 	protected PVector innerTransformationCenter;
+	
+	// 
+	protected MarkerManager markerManager;
 
 	// Tiles
 	public int max_pending = 4;
@@ -94,38 +98,20 @@ public abstract class AbstractMapDisplay {
 	}
 
 	public abstract PGraphics getPG();
+	
+	public abstract PGraphics getOuterPG();
 
 	public abstract void draw();
+	
+	public void setMarkerManager(MarkerManager markerManager) {
+		this.markerManager = markerManager;
+	}
+
+	public MarkerManager getMarkerManager() {
+		return markerManager;
+	}
 
 	// TRANSFORMATION --------------------------------------------------
-
-	// // TODO Delete this method, only private in ProcessingMapDisplay
-	// public abstract Location getLocationForObjectPosition(float x, float y);
-	//
-	// public abstract PVector getObjectPosForLocation(Location location);
-	//
-	// /**
-	// * Converts world location to screen coordinates.
-	// *
-	// * e.g. used to place geo-coded marker on the map.
-	// */
-	// public abstract PVector getScreenPosForLocation(Location location);
-	//
-	// /**
-	// * Converts screen coordinates to map location.
-	// *
-	// * This includes both transformation as well as Cartesian to world coordinates conversion.
-	// *
-	// * e.g. used to pan to mouse position.
-	// */
-	// public abstract Location getLocationForScreenPosition(float x, float y);
-	//
-	// /**
-	// * Returns location of the internal map center.
-	// *
-	// * @return The center location.
-	// */
-	// public abstract Location getCenterLocation();
 
 	public float getWidth() {
 		return width;

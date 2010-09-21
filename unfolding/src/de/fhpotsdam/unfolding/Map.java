@@ -371,7 +371,7 @@ public class Map implements MapEventListener {
 		mapDisplay.calculateMatrix();
 	}
 
-	protected void outerRotate(float angle) {
+	public void outerRotate(float angle) {
 		mapDisplay.angle += angle;
 		mapDisplay.calculateMatrix();
 	}

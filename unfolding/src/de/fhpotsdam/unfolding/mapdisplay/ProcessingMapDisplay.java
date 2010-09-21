@@ -69,6 +69,7 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 		calculateInnerMatrix();
 	}
 
+	
 	// TRANSFORMATION --------------------------------------------------
 
 	/**
@@ -203,7 +204,7 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 		Coordinate coord = getCoordinateFromInnerPosition(x, y);
 		return provider.coordinateLocation(coord);
 	}
-	
+
 	private Coordinate getCoordinateFromInnerPosition(float x, float y) {
 		PMatrix3D m = new PMatrix3D();
 		float tl[] = new float[3];
@@ -226,7 +227,7 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 		float innerObjectXY[] = getInnerObjectFromObjectPosition(x, y);
 		return getLocationFromInnerObjectPosition(innerObjectXY[0], innerObjectXY[1]);
 	}
-	
+
 	public float[] getInnerObjectFromLocation(Location location) {
 		PMatrix3D m = new PMatrix3D();
 		Coordinate coord = provider.locationCoordinate(location).zoomTo(0);
@@ -240,10 +241,14 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 		return getScreenFromInnerObjectPosition(innerObjectXY[0], innerObjectXY[1]);
 	}
 
-
 	// DRAWING --------------------------------------------------
 
 	public PGraphics getPG() {
+		// NB Always inner graphics, this one not used. Implemented in sub classes.
+		return papplet.g;
+	}
+	
+	public PGraphics getOuterPG() {
 		return papplet.g;
 	}
 
@@ -256,6 +261,7 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 	 */
 	public void draw() {
 		PGraphics pg = getPG();
+		pg.beginDraw();
 
 		// Store and switch off smooth (OpenGL cannot handle it)
 		boolean smooth = papplet.g.smooth;
@@ -304,39 +310,53 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 			}
 			pg.popMatrix();
 		}
+
+		if (markerManager != null) {
+			markerManager.draw();
+		}
+
 		pg.popMatrix();
 
-		cleanupImageBuffer();
-
+		pg.endDraw();
 		postDraw();
+
+		cleanupImageBuffer();
 
 		// Restore smoothing, if needed
 		if (smooth) {
 			papplet.smooth();
 		}
 	}
-	
+
 	protected Vector getVisibleKeys(PGraphics pg) {
-		
+
 		// Gets outer object corner positions in inner object coordinate system
 		// to check which tiles to load: Always uses bounding box.
-		
+
 		int zoomLevel = Map.getZoomLevelFromScale((float) innerScale);
 
 		float[] innerTL = getInnerObjectFromObjectPosition(0, 0);
 		float[] innerTR = getInnerObjectFromObjectPosition(getWidth(), 0);
 		float[] innerBR = getInnerObjectFromObjectPosition(getWidth(), getHeight());
 		float[] innerBL = getInnerObjectFromObjectPosition(0, getHeight());
-		
-		Coordinate coordTL = getCoordinateFromInnerPosition(innerTL[0], innerTL[1]).zoomTo(zoomLevel);
-		Coordinate coordTR = getCoordinateFromInnerPosition(innerTR[0], innerTR[1]).zoomTo(zoomLevel);
-		Coordinate coordBR = getCoordinateFromInnerPosition(innerBR[0], innerBR[1]).zoomTo(zoomLevel);
-		Coordinate coordBL = getCoordinateFromInnerPosition(innerBL[0], innerBL[1]).zoomTo(zoomLevel);
-		
-		int minCol = (int) PApplet.min(new float[] {coordTL.column, coordTR.column, coordBR.column, coordBL.column});
-		int maxCol = (int) PApplet.max(new float[] {coordTL.column, coordTR.column, coordBR.column, coordBL.column});
-		int minRow = (int) PApplet.min(new float[] {coordTL.row, coordTR.row, coordBR.row, coordBL.row});
-		int maxRow = (int) PApplet.max(new float[] {coordTL.row, coordTR.row, coordBR.row, coordBL.row});
+
+		Coordinate coordTL = getCoordinateFromInnerPosition(innerTL[0], innerTL[1]).zoomTo(
+				zoomLevel);
+		Coordinate coordTR = getCoordinateFromInnerPosition(innerTR[0], innerTR[1]).zoomTo(
+				zoomLevel);
+		Coordinate coordBR = getCoordinateFromInnerPosition(innerBR[0], innerBR[1]).zoomTo(
+				zoomLevel);
+		Coordinate coordBL = getCoordinateFromInnerPosition(innerBL[0], innerBL[1]).zoomTo(
+				zoomLevel);
+
+		int minCol = (int) PApplet.min(new float[] { coordTL.column, coordTR.column,
+				coordBR.column, coordBL.column });
+		int maxCol = (int) PApplet.max(new float[] { coordTL.column, coordTR.column,
+				coordBR.column, coordBL.column });
+		int minRow = (int) PApplet.min(new float[] { coordTL.row, coordTR.row, coordBR.row,
+				coordBL.row });
+		int maxRow = (int) PApplet.max(new float[] { coordTL.row, coordTR.row, coordBR.row,
+				coordBL.row });
 
 		// pad a bit, for luck (well, because we might be zooming out between
 		// zoom levels)
@@ -495,6 +515,5 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 			return img;
 		}
 	}
-
 
 }
