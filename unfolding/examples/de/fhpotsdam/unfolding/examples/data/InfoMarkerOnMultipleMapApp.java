@@ -48,14 +48,15 @@ public class InfoMarkerOnMultipleMapApp extends PApplet {
 		map2.outerRotate(-0.2f);
 		eventDispatcher = MapUtils.createDefaultEventDispatcher(this, map1, map2);
 
-		List<Marker> markers = loadMarkers();
+		// Same markers but new instances to allow independent interaction on both maps
+		List<Marker> markers1 = loadMarkers();
+		List<Marker> markers2 = loadMarkers();
 
-		markerManager1 = new MarkerManager(map1, markers);
-		markerManager2 = new MarkerManager(map2, markers);
+		markerManager1 = new MarkerManager(map1, markers1);
+		markerManager2 = new MarkerManager(map2, markers2);
 
 		map1.mapDisplay.setMarkerManager(markerManager1);
 		map2.mapDisplay.setMarkerManager(markerManager2);
-
 	}
 
 	public void draw() {
