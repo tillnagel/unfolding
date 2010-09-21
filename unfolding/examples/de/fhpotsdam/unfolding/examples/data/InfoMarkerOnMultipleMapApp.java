@@ -7,7 +7,6 @@ import org.apache.log4j.Logger;
 
 import processing.core.PApplet;
 import processing.core.PFont;
-import processing.core.PVector;
 import processing.xml.XMLElement;
 import codeanticode.glgraphics.GLConstants;
 import de.fhpotsdam.unfolding.Map;
@@ -27,8 +26,8 @@ public class InfoMarkerOnMultipleMapApp extends PApplet {
 	Map map2;
 	EventDispatcher eventDispatcher;
 
-	MarkerManager markerManager;
-	
+	MarkerManager markerManager1, markerManager2;
+
 	PFont font;
 
 	public void setup() {
@@ -42,31 +41,54 @@ public class InfoMarkerOnMultipleMapApp extends PApplet {
 				new OpenStreetMap.CloudmadeProvider(MapDisplayFactory.OSM_API_KEY, 23058));
 		map1.setTweening(false);
 		map1.rotate(0.3f);
-		
+
 		map2 = new Map(this, "map", 800, 10, 490, 580, true, false,
 				new OpenStreetMap.CloudmadeProvider(MapDisplayFactory.OSM_API_KEY, 23058));
 		map2.setTweening(false);
+		map2.outerRotate(-0.2f);
 		eventDispatcher = MapUtils.createDefaultEventDispatcher(this, map1, map2);
-		
-		log.warn("Does not work! MarkerManager not implemented");
 
-//		List<Marker> markers = loadMarkers();
-//		markerManager = new MarkerManager(markers);
-		//map1.mapDisplay.markerManager = markerManager; 
-		//map2.mapDisplay.markerManager = markerManager; 
-		//log.debug("manager=" + map1.mapDisplay.markerManager);
+		List<Marker> markers = loadMarkers();
+
+		markerManager1 = new MarkerManager(map1, markers);
+		markerManager2 = new MarkerManager(map2, markers);
+
+		map1.mapDisplay.setMarkerManager(markerManager1);
+		map2.mapDisplay.setMarkerManager(markerManager2);
+
 	}
 
 	public void draw() {
 		background(0);
-		
+
 		map1.draw();
 		map2.draw();
 	}
 
+	public void mouseMoved() {
+		checkInsideMarker(map1);
+		checkInsideMarker(map2);
+	}
+
+	public void checkInsideMarker(Map map) {
+		if (map.isHit(mouseX, mouseY)) {
+			MarkerManager mm = map.mapDisplay.getMarkerManager();
+			for (Marker marker : mm.getMarkers()) {
+				LabeledMarker lm = (LabeledMarker) marker;
+				lm.setSelected(false);
+			}
+
+			LabeledMarker marker = (LabeledMarker) mm.isInside(mouseX, mouseY);
+			if (marker != null) {
+				marker.setSelected(true);
+			}
+		}
+
+	}
+
 	protected List<Marker> loadMarkers() {
 		List<Marker> markers = new ArrayList<Marker>();
-		
+
 		String url = "bbc-georss-test.xml";
 		XMLElement rss = new XMLElement(this, url);
 		XMLElement[] itemXMLElements = rss.getChildren("channel/item");
@@ -79,8 +101,8 @@ public class InfoMarkerOnMultipleMapApp extends PApplet {
 				float lon = Float.valueOf(lonXML.getContent());
 
 				Location location = new Location(lat, lon);
-				//LabeledMarker labeledMarker = new LabeledMarker(font, name, location, 20);
-				//markers.add(labeledMarker);
+				LabeledMarker labeledMarker = new LabeledMarker(font, name, location, 20);
+				markers.add(labeledMarker);
 			}
 		}
 		return markers;

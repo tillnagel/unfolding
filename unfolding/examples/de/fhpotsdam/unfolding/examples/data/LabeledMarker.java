@@ -3,7 +3,7 @@ package de.fhpotsdam.unfolding.examples.data;
 import processing.core.PApplet;
 import processing.core.PFont;
 import processing.core.PGraphics;
-import processing.core.PVector;
+import de.fhpotsdam.unfolding.Map;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.marker.Marker;
 
@@ -15,42 +15,28 @@ import de.fhpotsdam.unfolding.marker.Marker;
 public class LabeledMarker implements Marker {
 
 	public String name;
-
 	protected Location location;
+
 	protected float x;
 	protected float y;
 	protected float size;
 
 	public int color = 0;
 	public int highlightColor = -256;
-	
-	boolean selected = false;
 
-	PFont font;
-	PApplet p;
+	protected boolean selected = false;
 
-	public LabeledMarker(PApplet p, Location location, float size) {
-		this.p = p;
+	private PFont font;
+
+	public LabeledMarker(Location location, float size) {
 		this.location = location;
 		this.size = size;
 	}
 
-	public LabeledMarker(PApplet p, PFont font, String name, Location location, float size) {
-		this(p, location, size);
+	public LabeledMarker(PFont font, String name, Location location, float size) {
+		this(location, size);
 		this.name = name;
 		this.font = font;
-	}
-
-	/**
-	 * Two usage/implementation options: - For single map usage, use getScreenPosForLocation and
-	 * draw them in main app (on top of the map) - For other usage, use MarkerManager with
-	 * getObjectPosForLocation
-	 */
-
-	@Override
-	public void update(PVector v) {
-		x = v.x;
-		y = v.y;
 	}
 
 	@Override
@@ -58,12 +44,12 @@ public class LabeledMarker implements Marker {
 		return location;
 	}
 
-	/**
-	 * Draws this marker, if {@link #isVisible()}. Calls {@link #drawHighlight(float, float)} if
-	 * {@link #isHighlighted(float, float)}. All these methods can be overridden in sub-classes for
-	 * own implementations.
-	 */
-	public void draw(PGraphics pg) {
+	public void draw(Map map) {
+		PGraphics pg = map.mapDisplay.getPG();
+		float[] xy = map.mapDisplay.getInnerObjectFromLocation(getLocation());
+		x = xy[0];
+		y = xy[1];
+
 		if (!isVisible()) {
 			return;
 		}
@@ -80,21 +66,19 @@ public class LabeledMarker implements Marker {
 		pg.strokeWeight(2);
 		pg.stroke(color, 100);
 		pg.point(x, y);
-
-		if (selected) {
-			drawLabel(pg);
-		}
 	}
-
-	public void draw() {
-		draw(p.g);
-	}
-
+	
 	/**
 	 * Displays this marker's name in a box.
 	 */
-	protected void drawLabel(PGraphics pg) {
-		if (name != null) {
+	public void drawOuter(Map map) {
+		if (selected && name != null) {
+			PGraphics pg = map.mapDisplay.getOuterPG();
+			
+			float[] xy = map.mapDisplay.getObjectFromLocation(getLocation());
+			float x = xy[0];
+			float y = xy[1];
+			
 			pg.textFont(font);
 			pg.fill(color, 200);
 			pg.noStroke();
@@ -108,8 +92,10 @@ public class LabeledMarker implements Marker {
 	 * Checks whether the given position is in close proximity to this Marker. Used e.g. for
 	 * indicating whether this Marker is selected.
 	 */
-	public boolean isOver(float checkX, float checkY) {
-		selected = PApplet.dist(checkX, checkY, x, y) < size / 2;
+	public boolean isInside(Map map, float checkX, float checkY) {
+		float[] xy = map.mapDisplay.getScreenPositionFromLocation(getLocation());
+
+		selected = PApplet.dist(checkX, checkY, xy[0], xy[1]) < size / 2;
 		return selected;
 	}
 
@@ -127,6 +113,14 @@ public class LabeledMarker implements Marker {
 	 */
 	public boolean isVisible() {
 		return true;
+	}
+
+	public boolean isSelected() {
+		return selected;
+	}
+
+	public void setSelected(boolean selected) {
+		this.selected = selected;
 	}
 
 }

@@ -4,12 +4,12 @@ import processing.core.PApplet;
 import codeanticode.glgraphics.GLConstants;
 import de.fhpotsdam.unfolding.Map;
 import de.fhpotsdam.unfolding.events.EventDispatcher;
-import de.fhpotsdam.unfolding.geo.Location;
-import de.fhpotsdam.unfolding.interactions.KeyboardHandler;
 import de.fhpotsdam.unfolding.interactions.MouseHandler;
 
 /**
- * This Overview + Detail example shows how to setup simple connected map views.
+ * This Overview + Detail example shows how to setup connected map views.
+ * 
+ * 
  * 
  */
 public class OverviewAndDetail2MapApp extends PApplet {
@@ -25,9 +25,9 @@ public class OverviewAndDetail2MapApp extends PApplet {
 		mapOverview = new Map(this, "overview", 605, 10, 185, 185);
 		mapOverview.setActive(false);
 		mapOverview.zoom(-2);
-		
+
 		mapStaticOverview = new Map(this, "overview", 605, 205, 185, 185);
-		
+
 		EventDispatcher eventDispatcher = new EventDispatcher();
 
 		// TODO Add keyboard handler, but listens to too many
@@ -49,16 +49,20 @@ public class OverviewAndDetail2MapApp extends PApplet {
 		mapStaticOverview.draw();
 
 		// Selection box for overview map
-		float[] overviewSB_TL = mapOverview.mapDisplay.getScreenPositionFromLocation(mapDetail.getTopLeftBorder());
-		float[] overviewSB_BR = mapOverview.mapDisplay.getScreenPositionFromLocation(mapDetail.getBottomRightBorder());
+		float[] overviewSB_TL = mapOverview.mapDisplay.getScreenPositionFromLocation(mapDetail
+				.getTopLeftBorder());
+		float[] overviewSB_BR = mapOverview.mapDisplay.getScreenPositionFromLocation(mapDetail
+				.getBottomRightBorder());
 		drawDetailSelectionBox(overviewSB_TL, overviewSB_BR);
-		
+
 		// Selection box for static overview map
-		float[] staticSB_TL = mapStaticOverview.mapDisplay.getScreenPositionFromLocation(mapDetail.getTopLeftBorder());
-		float[] staticSB_BR = mapStaticOverview.mapDisplay.getScreenPositionFromLocation(mapDetail.getBottomRightBorder());
+		float[] staticSB_TL = mapStaticOverview.mapDisplay.getScreenPositionFromLocation(mapDetail
+				.getTopLeftBorder());
+		float[] staticSB_BR = mapStaticOverview.mapDisplay.getScreenPositionFromLocation(mapDetail
+				.getBottomRightBorder());
 		drawDetailSelectionBox(staticSB_TL, staticSB_BR);
 	}
-	
+
 	public void drawDetailSelectionBox(float[] screenTL, float[] screenBR) {
 		noFill();
 		stroke(30, 30, 255, 140);
@@ -66,8 +70,5 @@ public class OverviewAndDetail2MapApp extends PApplet {
 		float h = screenBR[1] - screenTL[1];
 		rect(screenTL[0], screenTL[1], w, h);
 	}
-	
-	
-	
 
 }

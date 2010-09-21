@@ -41,6 +41,9 @@ public class KeyboardHandler extends MapEventBroadcaster {
 					eventDispatcher.fireMapEvent(zoomMapEvent);
 
 				} else if (key == PConstants.CODED) {
+
+					// FIXME Use toLocation instead of panLeft, etc to allow listening maps to pan
+					// correctly.
 					if (keyCode == PConstants.LEFT || keyCode == PConstants.RIGHT
 							|| keyCode == PConstants.UP || keyCode == PConstants.DOWN) {
 						PanMapEvent panMapEvent = new PanMapEvent(this, map.getId());

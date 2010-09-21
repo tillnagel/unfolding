@@ -59,6 +59,7 @@ public class PanMapEvent extends MapEvent {
 			map.panTo(toLocation);
 		}
 
+		// FIXME Use toLocation instead of panLeft, etc to allow listening maps to pan correctly.
 		if (PAN_LEFT.equals(getSubType())) {
 			map.panLeft();
 		} else if (PAN_RIGHT.equals(getSubType())) {
