@@ -23,7 +23,7 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 	public static Logger log = Logger.getLogger(ProcessingMapDisplay.class);
 
 	/** Shows borders around each tile. */
-	private static final boolean SHOW_DEBUG_BORDER = true;
+	private static final boolean SHOW_DEBUG_BORDER = false;
 	/** Shows coordinate infos on real tile, i.e. placed atop of the original tile image. */
 	private static final boolean USE_DEBUG_TILES = false;
 	/** Creates and shows debug tiles, i.e. own images with debug information. */

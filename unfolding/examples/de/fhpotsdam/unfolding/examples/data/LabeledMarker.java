@@ -16,9 +16,6 @@ public class LabeledMarker implements Marker {
 
 	public String name;
 	protected Location location;
-
-	protected float x;
-	protected float y;
 	protected float size;
 
 	public int color = 0;
@@ -43,13 +40,8 @@ public class LabeledMarker implements Marker {
 	public Location getLocation() {
 		return location;
 	}
-
-	public void draw(Map map) {
-		PGraphics pg = map.mapDisplay.getPG();
-		float[] xy = map.mapDisplay.getInnerObjectFromLocation(getLocation());
-		x = xy[0];
-		y = xy[1];
-
+	
+	public void draw(PGraphics pg, float x, float y) {
 		if (!isVisible()) {
 			return;
 		}
@@ -71,14 +63,8 @@ public class LabeledMarker implements Marker {
 	/**
 	 * Displays this marker's name in a box.
 	 */
-	public void drawOuter(Map map) {
+	public void drawOuter(PGraphics pg, float x, float y) {
 		if (selected && name != null) {
-			PGraphics pg = map.mapDisplay.getOuterPG();
-			
-			float[] xy = map.mapDisplay.getObjectFromLocation(getLocation());
-			float x = xy[0];
-			float y = xy[1];
-			
 			pg.textFont(font);
 			pg.fill(color, 200);
 			pg.noStroke();

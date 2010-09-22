@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
+import processing.core.PGraphics;
 import de.fhpotsdam.unfolding.Map;
 
 public class MarkerManager {
@@ -34,7 +35,7 @@ public class MarkerManager {
 		}
 		markers.add(marker);
 	}
-	
+
 	public List<Marker> getMarkers() {
 		return markers;
 	}
@@ -52,14 +53,22 @@ public class MarkerManager {
 
 	public void draw() {
 		for (Marker marker : markers) {
-			marker.draw(map);
+			PGraphics pg = map.mapDisplay.getPG();
+			float[] xy = map.mapDisplay.getInnerObjectFromLocation(marker.getLocation());
+			float x = xy[0];
+			float y = xy[1];
+			marker.draw(pg, x, y);
 		}
 	}
 
 	public void drawOuter() {
 		for (Marker marker : markers) {
-			marker.drawOuter(map);
+			PGraphics pg = map.mapDisplay.getPG();
+			float[] xy = map.mapDisplay.getObjectFromLocation(marker.getLocation());
+			float x = xy[0];
+			float y = xy[1];
+			marker.drawOuter(pg, x, y);
 		}
 	}
-	
+
 }

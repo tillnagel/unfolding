@@ -1,5 +1,6 @@
 package de.fhpotsdam.unfolding.marker;
 
+import processing.core.PGraphics;
 import de.fhpotsdam.unfolding.Map;
 import de.fhpotsdam.unfolding.geo.Location;
 
@@ -33,21 +34,29 @@ public interface Marker {
 	 * Draws this marker in inner object coordinate system.
 	 * 
 	 * e.g. markers oriented to the tiles
-	 *
-	 * @param map
-	 *            The map to draw on (and use transformation matrix from)
+	 * 
+	 * @param pg
+	 *            The PGraphics to draw on
+	 * @param x
+	 *            The x position in inner object coordinates.
+	 * @param y
+	 *            The y position in inner object coordinates.
 	 */
-	public void draw(Map map);
+	public void draw(PGraphics pg, float x, float y);
 
 	/**
-	 * Draws this marker in outer object coordinate system. 
+	 * Draws this marker in outer object coordinate system.
 	 * 
 	 * e.g. for labels oriented to the map
 	 * 
-	 * @param map
-	 *            The map to draw on (and use transformation matrix from)
+	 * @param pg
+	 *            The PGraphics to draw on
+	 * @param x
+	 *            The x position in outer object coordinates.
+	 * @param y
+	 *            The y position in outer object coordinates.
 	 */
-	public void drawOuter(Map map);
+	public void drawOuter(PGraphics pg, float x, float y);
 
 	// For drawing onto the texture, i.e. after distortion, etc.
 	// public void drawTexture(PGraphics pg);
