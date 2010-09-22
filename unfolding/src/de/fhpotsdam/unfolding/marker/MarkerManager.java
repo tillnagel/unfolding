@@ -63,7 +63,7 @@ public class MarkerManager {
 
 	public void drawOuter() {
 		for (Marker marker : markers) {
-			PGraphics pg = map.mapDisplay.getPG();
+			PGraphics pg = map.mapDisplay.getOuterPG();
 			float[] xy = map.mapDisplay.getObjectFromLocation(marker.getLocation());
 			float x = xy[0];
 			float y = xy[1];
