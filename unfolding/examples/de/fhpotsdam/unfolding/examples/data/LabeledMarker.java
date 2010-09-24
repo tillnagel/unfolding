@@ -3,16 +3,15 @@ package de.fhpotsdam.unfolding.examples.data;
 import processing.core.PApplet;
 import processing.core.PFont;
 import processing.core.PGraphics;
-import de.fhpotsdam.unfolding.Map;
 import de.fhpotsdam.unfolding.geo.Location;
-import de.fhpotsdam.unfolding.marker.Marker;
+import de.fhpotsdam.unfolding.marker.AbstractMarker;
 
 /**
  * Marker to show a data point on a plane.
  * 
  * @author tillnagel
  */
-public class LabeledMarker implements Marker {
+public class LabeledMarker extends AbstractMarker {
 
 	public String name;
 	protected Location location;
@@ -40,7 +39,7 @@ public class LabeledMarker implements Marker {
 	public Location getLocation() {
 		return location;
 	}
-	
+
 	public void draw(PGraphics pg, float x, float y) {
 		if (!isVisible()) {
 			return;
@@ -59,7 +58,7 @@ public class LabeledMarker implements Marker {
 		pg.stroke(color, 100);
 		pg.point(x, y);
 	}
-	
+
 	/**
 	 * Displays this marker's name in a box.
 	 */
@@ -78,10 +77,8 @@ public class LabeledMarker implements Marker {
 	 * Checks whether the given position is in close proximity to this Marker. Used e.g. for
 	 * indicating whether this Marker is selected.
 	 */
-	public boolean isInside(Map map, float checkX, float checkY) {
-		float[] xy = map.mapDisplay.getScreenPositionFromLocation(getLocation());
-
-		selected = PApplet.dist(checkX, checkY, xy[0], xy[1]) < size / 2;
+	public boolean isInside(float checkX, float checkY, float x, float y) {
+		selected = PApplet.dist(checkX, checkY, x, y) < size / 2;
 		return selected;
 	}
 
