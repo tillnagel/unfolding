@@ -1,5 +1,7 @@
 package de.fhpotsdam.unfolding.utils;
 
+import de.fhpotsdam.unfolding.geo.Location;
+
 /**
  * Basic geo-spatial utility methods.
  */
@@ -34,8 +36,37 @@ public class GeoUtils {
 						* Math.cos(lat2Rad) * Math.cos(lon2Rad - lon1Rad));
 	}
 
+	public static double getDistance(Location location1, Location location2) {
+		return getDistance(location1.getLat(), location1.getLon(), location2.getLat(), location2
+				.getLon());
+	}
+
+	public static Location getDestinationLocation(Location location, float bearing, float distance) {
+		double lat1 = getRadians(location.getLat());
+		double lon1 = getRadians(location.getLon());
+		double r = EARTH_RADIUS_KM;
+		double b = getRadians(bearing);
+
+		double lat2 = Math.asin(Math.sin(lat1) * Math.cos(distance / r) + Math.cos(lat1)
+				* Math.sin(distance / r) * Math.cos(b));
+		double lon2 = lon1
+				+ Math.atan2(Math.sin(b) * Math.sin(distance / r) * Math.cos(lat1), Math
+						.cos(distance / r)
+						- Math.sin(lat1) * Math.sin(lat2));
+		lon2 = (lon2 + 3 * Math.PI) % (2 * Math.PI) - Math.PI;
+
+		float lat2d = (float) getDegree(lat2);
+		float lon2d = (float) getDegree(lon2);
+
+		return new Location(lat2d, lon2d);
+	}
+
 	public static double getRadians(double angle) {
 		return angle / RAD_CONV;
+	}
+
+	public static double getDegree(double rad) {
+		return rad * RAD_CONV;
 	}
 
 }
