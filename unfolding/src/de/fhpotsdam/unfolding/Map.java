@@ -34,6 +34,11 @@ public class Map implements MapEventListener {
 
 	public static final Location PRIME_MERIDIAN_EQUATOR_LOCATION = new Location(0, 0);
 	public static final int DEFAULT_ZOOM_LEVEL = 2;
+	private static final float DEFAULT_MIN_SCALE = 0;
+	private static final float DEFAULT_MAX_SCALE = 65536; // 2^16
+
+	public float minScale = DEFAULT_MIN_SCALE;
+	public float maxScale = DEFAULT_MAX_SCALE;
 
 	public static Logger log = Logger.getLogger(Map.class);
 
@@ -150,7 +155,7 @@ public class Map implements MapEventListener {
 		}
 	}
 
-	//  ----------------------------------------------------
+	// ----------------------------------------------------
 
 	public Location getTopLeftBorder() {
 		return mapDisplay.getLocationFromObjectPosition(0, 0);
@@ -160,12 +165,10 @@ public class Map implements MapEventListener {
 		return mapDisplay.getLocationFromObjectPosition(mapDisplay.getWidth(), mapDisplay
 				.getHeight());
 	}
-	
 
 	// public Location getLocation(float x, float y) {
 	// return mapDisplay.getLocationForScreenPosition(x, y);
 	// }
-	
 
 	// @Override
 	// public Location getCenterLocation() {
@@ -380,7 +383,7 @@ public class Map implements MapEventListener {
 		mapDisplay.innerAngle = angle;
 		mapDisplay.calculateMatrix();
 	}
-	
+
 	public void innerRotate(float angle) {
 		mapDisplay.innerAngle += angle;
 		mapDisplay.calculateInnerMatrix();
@@ -398,11 +401,14 @@ public class Map implements MapEventListener {
 
 	protected void innerScale(float scale) {
 		mapDisplay.innerScale *= scale;
+		// TODO Check max,min scale in TileProvider, not here in Map
+		mapDisplay.innerScale = PApplet.constrain(mapDisplay.innerScale, minScale, maxScale);
 		mapDisplay.calculateInnerMatrix();
 	}
 
 	protected void setInnerScale(float scale) {
 		mapDisplay.innerScale = scale;
+		mapDisplay.innerScale = PApplet.constrain(mapDisplay.innerScale, minScale, maxScale);
 		mapDisplay.calculateInnerMatrix();
 	}
 
@@ -470,310 +476,5 @@ public class Map implements MapEventListener {
 	public void setTweening(boolean tweening) {
 		this.tweening = tweening;
 	}
-
-	// /**
-	// * Pans the mapDisplay origin to the given position.
-	// *
-	// * @param x
-	// * The x position.
-	// * @param y
-	// * The y position.
-	// */
-	// public void panOriginTo(double x, double y) {
-	// float tx = (float) (x / mapDisplay.innerScale);
-	// float ty = (float) (y / mapDisplay.innerScale);
-	//
-	// setPosition(tx, ty, tweening);
-	// }
-	//
-	// public void panOriginTo(double x, double y, boolean tweening) {
-	// float tx = (float) (x / mapDisplay.innerScale);
-	// float ty = (float) (y / mapDisplay.innerScale);
-	//
-	// log.debug("txty: x:" + tx + " y:" + ty);
-	//
-	// setPosition(tx, ty, tweening);
-	// }
-	//
-	// /**
-	// * Pans the mapDisplay origin with delta vector.
-	// *
-	// * @param dx
-	// * Delta x to pan horizontally in screen pixel.
-	// * @param dy
-	// * Delta y to pan vertically in screen pixel.
-	// * @param tweening
-	// * Whether to animate the panning.
-	// */
-	// public void panOriginDelta(double dx, double dy, boolean tweening) {
-	// float tx = (float) (mapDisplay.innerOffsetX + (dx / mapDisplay.innerScale));
-	// float ty = (float) (mapDisplay.innerOffsetY + (dy / mapDisplay.innerScale));
-	//
-	// setPosition(tx, ty, tweening);
-	// }
-	//
-	// public void panOriginDelta(double dx, double dy) {
-	// panOriginDelta(dx, dy, tweening);
-	// }
-	//
-	// /**
-	// * Internal pan method with optional tweening.
-	// */
-	// private void setPosition(float tx, float ty, boolean tweening) {
-	// if (tweening) {
-	// txIntegrator.target(tx);
-	// tyIntegrator.target(ty);
-	// } else {
-	//
-	// // ------------------------------------------------------
-	// // tx delta w/ zoom > innerTransCenter
-	//
-	// // REVISIT For inner transformation use Location instead of screen pixel
-	// // i.e. similar to getCenterLocation (in screen coordinates)
-	//
-	// // hot fix
-	// // double dtx = tx - mapDisplay.tx;
-	// // double dty = ty - mapDisplay.ty;
-	// // double dInnerTransCenterX = dtx * mapDisplay.sc;
-	// // double dInnerTransCenterY = dty * mapDisplay.sc;
-	// // // log.debug("ditc.x, y = "+ dInnerTransCenterX + "," + dInnerTransCenterY);
-	// // mapDisplay.innerTransformationCenter.x += dInnerTransCenterX;
-	// // mapDisplay.innerTransformationCenter.y += dInnerTransCenterY;
-	//
-	// // end hot fix ----------------------------------------------
-	//
-	// // mapDisplay.oldTx = mapDisplay.tx;
-	// // mapDisplay.oldTx = mapDisplay.ty;
-	// //
-	// mapDisplay.innerOffsetX = tx;
-	// mapDisplay.innerOffsetY = ty;
-	//
-	// mapDisplay.calculateInnerMatrix();
-	//
-	// // Set integrator values to support correct tweening after switch
-	// txIntegrator.target(tx);
-	// txIntegrator.set(tx);
-	// tyIntegrator.target(ty);
-	// tyIntegrator.set(ty);
-	// }
-	// }
-	//
-	// /**
-	// * Pans the mapDisplay by the distance between the two positions. Used for direct panning,
-	// thus
-	// * not using tweening, even if global setting is true.
-	// */
-	// public void pan(double oldX, double oldY, double x, double y) {
-	// double dx = (double) (x - oldX);
-	// double dy = (double) (y - oldY);
-	// panOriginDelta(dx, dy, false);
-	// }
-	//
-	// /**
-	// * Pans the mapDisplay, centers at the coordinate.
-	// *
-	// * @param coord
-	// * The coordinate to center.
-	// */
-	// public void panCenterTo(Coordinate coord) {
-	// panCenterTo(coord, tweening);
-	// }
-	//
-	// public void panCenterTo(Coordinate coord, boolean tweening) {
-	// // Re-set scale from rounded zoom level (in case of floating zoom levels)
-	// float scale = getScaleFromZoom(coord.zoom);
-	// // FIXME Re-Add zooming for tweened zoom levels (but check if 2nd call for calcMatrix works,
-	// // still)
-	// // zoomToScale(scale);
-	//
-	// double x = -TILE_WIDTH * coord.column;
-	// double y = -TILE_HEIGHT * coord.row;
-	// panOriginTo(x, y, tweening);
-	// }
-	//
-	// /**
-	// * Pans to location.
-	// *
-	// * FIXME Works with tweening only if pan before zoom due to scaleIntegrator and mapDisplay.sc.
-	// *
-	// */
-	// public void panCenterZoomTo(Location location, int zoom) {
-	// panCenterTo(location);
-	// zoomToLevel(zoom);
-	// }
-	//
-	// /**
-	// * Pans the mapDisplay, centers at the location.
-	// *
-	// * @param location
-	// * The location to center.
-	// */
-	// public void panCenterTo(Location location) {
-	// panCenterTo(location, tweening);
-	// }
-	//	
-	// // FIXME innerFix: Alternatively, use the last innerTransCenter and not always the visual
-	// center?
-	//	
-	// public void panCenterTo(Location location, boolean tweening) {
-	// //panCenterToUsingZoomStack(location, tweening);
-	// panCenterTo_Original(location, tweening);
-	// }
-	//	
-	// PVector oldItc;
-	// PVector allItcs = new PVector();
-	//	
-	// public void panCenterToUsingZoomStack(Location location, boolean tweening) {
-	// float zoom = getZoomFromScale(mapDisplay.innerScale);
-	// float oldZoom = getZoomFromScale(mapDisplay.oldSc);
-	// float factor = (float) Math.pow(2, zoom - oldZoom) - 1;
-	//		
-	// log.debug("oldZoom=" + oldZoom + ", zoom=" + zoom);
-	// log.debug("diffZoom=" + (zoom-oldZoom) + " : f=" + factor);
-	//
-	// PVector itc = mapDisplay.getInnerTransformationCenter().get();
-	// log.debug("itc    =" + itc);
-	// itc.sub(new PVector(mapDisplay.width / 2, mapDisplay.height / 2));
-	// log.debug("itc-cen=" + itc);
-	// itc.mult(factor);
-	// log.debug("itc*fac=" + itc);
-	//		
-	// if (mapDisplay.itcChanged) {
-	// log.debug("------------               itc has changed");
-	// mapDisplay.itcChanged = false;
-	// itc.sub(allItcs);
-	//			
-	// allItcs = itc;
-	// log.debug("allItcs=" + allItcs);
-	// }
-	//		
-	//	
-	// PVector newCenter = mapDisplay.getObjectPosForLocation(location);
-	// log.debug("orig: location " + location + ", objectPos: " + newCenter);
-	// // newCenter.sub(itc);
-	// // Using combined itcs vector (incl factor)
-	// newCenter.sub(allItcs);
-	// location = mapDisplay.getLocationForObjectPosition(newCenter.x, newCenter.y);
-	// log.debug("sub : location " + location + ", objectPos: " + newCenter);
-	//
-	// Coordinate coordinate = mapDisplay.getMapProvider().locationCoordinate(location).zoomTo(
-	// zoom);
-	// log.debug("coords: x:" + coordinate.column + " y:" + coordinate.row);
-	//
-	// panCenterTo(coordinate, tweening);
-	//		
-	// }
-	//	
-	// public void panCenterToUsingZoomDiff(Location location, boolean tweening) {
-	//		
-	// // innerFix: Using zoomDiff to calculate itc to sub from new location center.
-	// // Works only once, subsequent pans fail
-	//		
-	// float zoom = getZoomFromScale(mapDisplay.innerScale);
-	// float oldZoom = getZoomFromScale(mapDisplay.oldSc);
-	// float factor = (float) Math.pow(2, zoom - oldZoom) - 1;
-	//
-	// log.debug("oldZoom=" + oldZoom + ", zoom=" + zoom);
-	// log.debug("diffZoom=" + (zoom-oldZoom) + " : f=" + factor);
-	//
-	// PVector itc = mapDisplay.getInnerTransformationCenter().get();
-	// log.debug("itc    =" + itc);
-	// itc.sub(new PVector(mapDisplay.width / 2, mapDisplay.height / 2));
-	// log.debug("itc-cen=" + itc);
-	// itc.mult(factor);
-	// log.debug("itc*fac=" + itc);
-	//			
-	// PVector newCenter = mapDisplay.getObjectPosForLocation(location);
-	// log.debug("orig: location " + location + ", objectPos: " + newCenter);
-	// newCenter.sub(itc);
-	// location = mapDisplay.getLocationForObjectPosition(newCenter.x, newCenter.y);
-	// log.debug("sub : location " + location + ", objectPos: " + newCenter);
-	//		
-	//
-	// Coordinate coordinate = mapDisplay.getMapProvider().locationCoordinate(location).zoomTo(
-	// zoom);
-	// log.debug("coords: x:" + coordinate.column + " y:" + coordinate.row);
-	//
-	// panCenterTo(coordinate, tweening);
-	// }
-	//	
-	// public void panCenterTo_Original(Location location, boolean tweening) {
-	// float zoom = getZoomFromScale(mapDisplay.innerScale);
-	// // PVector newCenter = mapDisplay.getObjectPosForLocation(location);
-	// // location = mapDisplay.getLocationForObjectPosition(newCenter.x, newCenter.y);
-	// // log.debug("location1:" + location);
-	// Coordinate coordinate = mapDisplay.getMapProvider().locationCoordinate(location).zoomTo(
-	// zoom);
-	// panCenterTo(coordinate, tweening);
-	// }
-	//
-	// /**
-	// * Pans the mapDisplay, centers at the given canvas position.
-	// *
-	// * @param x
-	// * @param y
-	// */
-	// public void panCenterTo(float x, float y) {
-	// Location location = mapDisplay.getLocationForScreenPosition(x, y);
-	// panCenterTo(location);
-	// }
-	//
-	//
-
-	// /**
-	// * Zooms in or out by changing the scale. Multiplies the scaleDelta with the current scale of
-	// * the mapDisplay.
-	// *
-	// * @param scaleDelta
-	// */
-	// public void zoomScale(double scaleDelta) {
-	// zoomToScale((float) (mapDisplay.innerScale * scaleDelta));
-	// }
-	//
-	// /**
-	// * Internal zoom method with optional tweening.
-	// *
-	// * @param scale
-	// * The scale to zoom to.
-	// */
-	// protected void zoomToScale(float scale) {
-	// if (tweening) {
-	// scaleIntegrator.target(scale);
-	// } else {
-	// mapDisplay.innerScale = scale;
-	//
-	// mapDisplay.calculateInnerMatrix();
-	//
-	// // Also update Integrator to support correct tweening after switch
-	// scaleIntegrator.target(scale);
-	// scaleIntegrator.set(scale);
-	// }
-	// }
-	//
-
-	//
-	// public void rotate(float diffAngle, PVector center) {
-	// mapDisplay.setTransformationCenter(center);
-	// mapDisplay.angle += diffAngle;
-	// mapDisplay.calculateMatrix();
-	// }
-	//
-	// public float getAngle() {
-	// return mapDisplay.angle;
-	// }
-	//
-	// public void rotateTo(float angle, PVector center) {
-	// mapDisplay.setTransformationCenter(center);
-	// mapDisplay.angle = angle;
-	// mapDisplay.calculateMatrix();
-	// }
-
-	// public void rotate(float diffAngle) {
-	// rotate(diffAngle, new PVector(width / 2 + x, height / 2 + y));
-	// }
-	//
-	// public void rotateTo(float angle) {
-	// rotateTo(angle, new PVector(width / 2 + x, height / 2 + y));
-	// }
 
 }
