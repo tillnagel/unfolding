@@ -5,7 +5,11 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 public class EventDispatcher {
+
+	public static final Logger log = Logger.getLogger(EventDispatcher.class);
 
 	public java.util.Map<String, List<ScopedListeners>> typedScopedListeners;
 
@@ -63,7 +67,12 @@ public class EventDispatcher {
 		for (ScopedListeners scopedListeners : scopedListenersList) {
 			if (scopedListeners.scopeIds.size() == scopeIdList.size()
 					&& scopedListeners.scopeIds.containsAll(scopeIdList)) {
-				scopedListeners.listeners.add(listener);
+				if (!scopedListeners.listeners.contains(listener)) {
+					scopedListeners.listeners.add(listener);
+				} else {
+					log.info("Listener not registered anew: '" + listener.getId() + "' already listens to type '" + type
+							+ "' in scopes '" + Arrays.toString(scopeIds) + "'");
+				}
 				foundExistingScope = true;
 			}
 		}
