@@ -30,7 +30,7 @@ public class SimpleMapApp extends PApplet {
 		background(0);
 
 		map.draw();
-		//debugDisplay.draw();
+		debugDisplay.draw();
 
 		// Show location from mouse
 		Location location = map.mapDisplay.getLocationFromScreenPosition(mouseX, mouseY);

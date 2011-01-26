@@ -16,6 +16,10 @@ public class MapWithBarScaleApp extends PApplet {
 
 	public static Logger log = Logger.getLogger(MapWithBarScaleApp.class);
 
+	private static final List<Float> DISPLAY_DISTANCES = Arrays.asList(0.01f, 0.02f, 0.05f, 0.1f,
+			0.2f, 0.5f, 1f, 2f, 5f, 10f, 20f, 50f, 100f, 200f, 500f, 1000f, 2000f, 5000f);
+	private static final float MAX_DISPLAY_DISTANCE = 5000;
+
 	Map map;
 
 	public void setup() {
@@ -33,25 +37,37 @@ public class MapWithBarScaleApp extends PApplet {
 
 		map.draw();
 
-		// Show 100 km bar
+		// Show bar scale at left bottom
 		drawBarScale(20, map.mapDisplay.getHeight() - 20);
 	}
 
+	/**
+	 * Draws a bar scale at given position according to current zoom level.
+	 * 
+	 * Calculates distance at equator (scale is dependent on Latitude). Uses a distance to display
+	 * from fixed set of distance numbers, so length of bar may vary.
+	 * 
+	 * @param x
+	 *            Position to display bar scale
+	 * @param y
+	 *            Position to display bar scale
+	 */
 	public void drawBarScale(float x, float y) {
-		// Scale is dependent on Latitude
-		// Calculates distance at equator, and displays it at given position of map
 
 		// Distance in km, appropriate to current zoom
-		float distance = 5000 / map.mapDisplay.innerScale;
-		distance = getClosestScale(distance);
-
+		float distance = MAX_DISPLAY_DISTANCE / map.mapDisplay.innerScale;
+		distance = getClosestDistance(distance);
+		
+		// Gets destLocation (world center, on equator, with calculated distance) 
 		Location startLocation = new Location(0, 0);
 		Location destLocation = GeoUtils.getDestinationLocation(startLocation, 90f, distance);
+		
+		// Calculates distance between both locations in screen coordinates
 		float[] destXY = map.mapDisplay.getScreenPositionFromLocation(destLocation);
 		float[] startXY = map.mapDisplay.getScreenPositionFromLocation(startLocation);
-
 		float dx = destXY[0] - startXY[0];
 
+		// Display 
 		stroke(30);
 		strokeWeight(1);
 		line(x, y - 3, x, y + 3);
@@ -61,10 +77,15 @@ public class MapWithBarScaleApp extends PApplet {
 		text(nfs(distance, 0, 0) + " km", x + dx + 3, y + 4);
 	}
 
-	public float getClosestScale(float scale) {
-		List<Float> scales = Arrays.asList(0.01f, 0.02f, 0.05f, 0.1f, 0.2f, 0.5f, 1f, 2f, 5f, 10f,
-				20f, 50f, 100f, 200f, 500f, 1000f, 2000f, 5000f);
-		return closest(scale, scales);
+	/**
+	 * Returns the nearest distance to display as well as to use for calculation.
+	 * 
+	 * @param distance
+	 *            The original distance
+	 * @return A distance from the set of {@link DISPLAY_DISTANCES}
+	 */
+	public float getClosestDistance(float distance) {
+		return closest(distance, DISPLAY_DISTANCES);
 	}
 
 	public float closest(float of, List<Float> in) {

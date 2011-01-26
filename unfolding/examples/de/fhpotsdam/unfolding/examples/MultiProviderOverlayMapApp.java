@@ -8,6 +8,11 @@ import de.fhpotsdam.unfolding.providers.ImmoScout;
 import de.fhpotsdam.unfolding.providers.Microsoft;
 import de.fhpotsdam.unfolding.utils.MapUtils;
 
+/**
+ * A two layer map. One map lays atop another one with same size and position.
+ * 
+ * @author tillnagel
+ */
 public class MultiProviderOverlayMapApp extends PApplet {
 
 	Map map1;

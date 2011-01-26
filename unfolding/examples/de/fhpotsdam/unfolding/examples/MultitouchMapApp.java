@@ -31,8 +31,8 @@ public class MultitouchMapApp extends PApplet {
 		tuioCursorHandler = new TuioCursorHandler(this, map);
 		eventDispatcher.addBroadcaster(tuioCursorHandler);
 
-		MouseHandler mouseHandler = new MouseHandler(this, map);
-		eventDispatcher.addBroadcaster(mouseHandler);
+//		MouseHandler mouseHandler = new MouseHandler(this, map);
+//		eventDispatcher.addBroadcaster(mouseHandler);
 
 		eventDispatcher.register(map, "pan");
 

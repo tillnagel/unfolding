@@ -9,7 +9,7 @@ import de.fhpotsdam.unfolding.interactions.MouseHandler;
 /**
  * This Overview + Detail example shows how to setup connected map views.
  * 
- * 
+ * FIXME: If zooming to far out, the mapOverview crashes, sort of.
  * 
  */
 public class OverviewAndDetail2MapApp extends PApplet {
@@ -24,7 +24,6 @@ public class OverviewAndDetail2MapApp extends PApplet {
 		mapDetail = new Map(this, "detail", 10, 10, 585, 580);
 		mapOverview = new Map(this, "overview", 605, 10, 185, 185);
 		mapOverview.setActive(false);
-		mapOverview.zoom(-2);
 
 		mapStaticOverview = new Map(this, "overview", 605, 205, 185, 185);
 
