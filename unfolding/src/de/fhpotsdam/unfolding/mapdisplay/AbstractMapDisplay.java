@@ -60,7 +60,7 @@ public abstract class AbstractMapDisplay {
 	// Tiles
 	public int max_pending = 4;
 	public int max_images_to_keep = 256;
-	public int grid_padding = 0; // was: 1
+	public int grid_padding = 1; // set to 0 for debugging purposes
 
 	protected AbstractMapProvider provider;
 	protected Hashtable<Coordinate, Runnable> pending = new Hashtable<Coordinate, Runnable>();
