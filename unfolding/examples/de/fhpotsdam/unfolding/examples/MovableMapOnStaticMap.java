@@ -33,7 +33,12 @@ public class MovableMapOnStaticMap extends PApplet {
 
 		mapStatic.draw();
 		mapZoom.draw();
-	}
+		
+		noFill();
+		strokeWeight(5);
+		strokeJoin(MITER);
+		stroke(40, 50);
+		rect(mapZoomX, mapZoomY, 150, 150);	}
 
 	public void mouseMoved() {
 		// Move the small map to mouse position, but center it around it
