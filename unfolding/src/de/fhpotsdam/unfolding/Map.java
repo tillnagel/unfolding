@@ -34,8 +34,8 @@ public class Map implements MapEventListener {
 
 	public static final Location PRIME_MERIDIAN_EQUATOR_LOCATION = new Location(0, 0);
 	public static final int DEFAULT_ZOOM_LEVEL = 2;
-	private static final float DEFAULT_MIN_SCALE = 0;
-	private static final float DEFAULT_MAX_SCALE = 65536; // 2^16
+	private static final float DEFAULT_MIN_SCALE = 1;
+	private static final float DEFAULT_MAX_SCALE = 262144; // 2^18
 
 	public float minScale = DEFAULT_MIN_SCALE;
 	public float maxScale = DEFAULT_MAX_SCALE;
@@ -109,7 +109,7 @@ public class Map implements MapEventListener {
 	 *            The horizontal position to check.
 	 * @return True if map is hit, false otherwise.
 	 */
-	public boolean isHit(int checkX, int checkY) {
+	public boolean isHit(float checkX, float checkY) {
 		float[] check = mapDisplay.getObjectFromScreenPosition(checkX, checkY);
 		return (check[0] > 0 && check[0] < mapDisplay.getWidth() && check[1] > 0 && check[1] < mapDisplay
 				.getHeight());
@@ -381,7 +381,7 @@ public class Map implements MapEventListener {
 
 	protected void setInnerRotate(float angle) {
 		mapDisplay.innerAngle = angle;
-		mapDisplay.calculateMatrix();
+		mapDisplay.calculateInnerMatrix();
 	}
 
 	public void innerRotate(float angle) {
