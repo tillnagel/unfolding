@@ -266,7 +266,7 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 		// Store and switch off smooth (OpenGL cannot handle it)
 		boolean smooth = papplet.g.smooth;
 		pg.noSmooth();
-		pg.background(0);
+		pg.background(255);
 
 		// translate and scale, from the middle
 		pg.pushMatrix();
