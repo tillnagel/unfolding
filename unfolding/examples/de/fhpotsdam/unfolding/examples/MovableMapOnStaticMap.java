@@ -6,7 +6,7 @@ import de.fhpotsdam.unfolding.Map;
 import de.fhpotsdam.unfolding.geo.Location;
 
 /**
- * A loupe on a map. The loupe, a small moveable map, always updates its view according to its
+ * A loupe on a map. The loupe, a small movable map, always updates its view according to its
  * position on the large background map.
  * 
  * @author tillnagel
@@ -16,8 +16,8 @@ public class MovableMapOnStaticMap extends PApplet {
 	Map mapStatic;
 	Map mapZoom;
 
-	float mapZoomX;
-	float mapZoomY;
+	float mapZoomX = 100;
+	float mapZoomY = 100;
 
 	public void setup() {
 		size(800, 600, GLConstants.GLGRAPHICS);
@@ -33,12 +33,13 @@ public class MovableMapOnStaticMap extends PApplet {
 
 		mapStatic.draw();
 		mapZoom.draw();
-		
+
 		noFill();
 		strokeWeight(5);
 		strokeJoin(MITER);
 		stroke(40, 50);
-		rect(mapZoomX, mapZoomY, 150, 150);	}
+		rect(mapZoomX, mapZoomY, 150, 150);
+	}
 
 	public void mouseMoved() {
 		// Move the small map to mouse position, but center it around it

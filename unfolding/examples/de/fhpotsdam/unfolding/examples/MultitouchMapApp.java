@@ -6,7 +6,6 @@ import processing.core.PApplet;
 import codeanticode.glgraphics.GLConstants;
 import de.fhpotsdam.unfolding.Map;
 import de.fhpotsdam.unfolding.events.EventDispatcher;
-import de.fhpotsdam.unfolding.interactions.MouseHandler;
 import de.fhpotsdam.unfolding.interactions.TuioCursorHandler;
 import de.fhpotsdam.unfolding.utils.DebugDisplay;
 
@@ -14,10 +13,12 @@ public class MultitouchMapApp extends PApplet {
 
 	public static Logger log = Logger.getLogger(MultitouchMapApp.class);
 
+	public static final boolean DISABLE_ROTATING = true;
+
 	Map map;
 	EventDispatcher eventDispatcher;
 	DebugDisplay debugDisplay;
-	
+
 	TuioCursorHandler tuioCursorHandler;
 
 	public void setup() {
@@ -25,14 +26,11 @@ public class MultitouchMapApp extends PApplet {
 
 		map = new Map(this, "map1", 50, 100, 900, 550);
 		map.setTweening(false);
-		
+
 		eventDispatcher = new EventDispatcher();
-		
+
 		tuioCursorHandler = new TuioCursorHandler(this, map);
 		eventDispatcher.addBroadcaster(tuioCursorHandler);
-
-//		MouseHandler mouseHandler = new MouseHandler(this, map);
-//		eventDispatcher.addBroadcaster(mouseHandler);
 
 		eventDispatcher.register(map, "pan");
 
@@ -42,9 +40,12 @@ public class MultitouchMapApp extends PApplet {
 	public void draw() {
 		background(0);
 
+		if (DISABLE_ROTATING) {
+			map.rotateTo(0);
+		}
 		map.draw();
 		debugDisplay.draw();
-		
+
 		tuioCursorHandler.drawCursors();
 	}
 
