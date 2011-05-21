@@ -13,7 +13,7 @@ public class MultitouchMapApp extends PApplet {
 
 	public static Logger log = Logger.getLogger(MultitouchMapApp.class);
 
-	public static final boolean DISABLE_ROTATING = true;
+	public static final boolean DISABLE_ROTATING = false;
 
 	Map map;
 	EventDispatcher eventDispatcher;

@@ -12,7 +12,7 @@ public class SatelliteProviderMapApp extends PApplet {
 	public void setup() {
 		size(800, 600, GLConstants.GLGRAPHICS);
 
-		map = new Map(this, "map1", 0, 0, width, height, true, false, new Microsoft.AerialProvider());
+		map = new Map(this, 0, 0, width, height, new Microsoft.AerialProvider());
 	}
 
 	public void draw() {

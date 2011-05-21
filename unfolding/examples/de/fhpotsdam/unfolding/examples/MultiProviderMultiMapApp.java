@@ -20,7 +20,7 @@ public class MultiProviderMultiMapApp extends PApplet {
 		map1.setTweening(false);
 		map2 = new Map(this, "map2", 405, 10, 385, 580, true, false,
 				new OpenStreetMap.CloudmadeProvider(MapDisplayFactory.OSM_API_KEY,
-						MapDisplayFactory.OSM_STYLE_ID));
+						30635));
 		map2.setTweening(false);
 		MapUtils.createDefaultEventDispatcher(this, map1, map2);
 	}

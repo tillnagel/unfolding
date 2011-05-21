@@ -19,7 +19,7 @@ public class SimpleMapApp2 extends PApplet {
 	public void setup() {
 		size(800, 600, GLConstants.GLGRAPHICS);
 
-		map = new Map(this, "map1", 50, 50, 700, 500);
+		map = new Map(this, 50, 50, 700, 500);
 		map.setTweening(false);
 		MapUtils.createDefaultEventDispatcher(this, map);
 
@@ -30,16 +30,19 @@ public class SimpleMapApp2 extends PApplet {
 		background(0);
 
 		map.draw();
-		debugDisplay.draw();
 
 		// Show location from mouse
 		Location location = map.mapDisplay.getLocationFromScreenPosition(mouseX, mouseY);
 		fill(215, 0, 0);
 		text(location + "", mouseX, mouseY);
-
-		Location loc = new Location(54f, 13.5f);
+		
+		// Shows marker on Berlin
+		// Simple method: Does work correctly only for full-sized maps (not via marker mechanism)
+		Location loc = new Location(52.5f, 13.4f);
 		float xy[] = map.mapDisplay.getScreenPositionFromLocation(loc);
 		float s = map.mapDisplay.innerScale;
 		ellipse(xy[0], xy[1], s, s);
+
+		debugDisplay.draw();
 	}
 }
