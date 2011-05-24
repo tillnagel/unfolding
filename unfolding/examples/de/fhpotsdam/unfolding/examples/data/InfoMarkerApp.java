@@ -20,7 +20,7 @@ import de.fhpotsdam.unfolding.utils.MapUtils;
 
 public class InfoMarkerApp extends PApplet {
 
-	public static Logger log = Logger.getLogger(InfoMarkerApp.class);
+	public static Logger log = Logger.getLogger(ZoomDependentMarkerApp.class);
 
 	Map map;
 	EventDispatcher eventDispatcher;
@@ -41,7 +41,7 @@ public class InfoMarkerApp extends PApplet {
 
 		eventDispatcher = MapUtils.createDefaultEventDispatcher(this, map);
 
-		loadMarkers();
+		labeledMarkers = loadGeoRSSMarkers(this, "bbc-georss-test.xml", font);
 
 		MarkerManager markerManager = new MarkerManager(map, labeledMarkers);
 
@@ -54,9 +54,10 @@ public class InfoMarkerApp extends PApplet {
 		map.draw();
 	}
 
-	protected void loadMarkers() {
-		String url = "bbc-georss-test.xml";
-		XMLElement rss = new XMLElement(this, url);
+	public static List<Marker> loadGeoRSSMarkers(PApplet p, String url, PFont font) {
+		List<Marker> markers = new ArrayList<Marker>();
+
+		XMLElement rss = new XMLElement(p, url);
 		XMLElement[] itemXMLElements = rss.getChildren("channel/item");
 		for (int i = 0; i < itemXMLElements.length; i++) {
 			String name = itemXMLElements[i].getChild("title").getContent();
@@ -65,11 +66,13 @@ public class InfoMarkerApp extends PApplet {
 			if (latXML != null && latXML.getContent() != null) {
 				float lat = Float.valueOf(latXML.getContent());
 				float lon = Float.valueOf(lonXML.getContent());
+
 				Location location = new Location(lat, lon);
-				LabeledMarker labeledMarker = new LabeledMarker(font, name, location, 20);
-				labeledMarkers.add(labeledMarker);
+				LabeledMarker labeledMarker = new LabeledMarker(font, name, location, 10);
+				markers.add(labeledMarker);
 			}
 		}
+		return markers;
 	}
 
 }

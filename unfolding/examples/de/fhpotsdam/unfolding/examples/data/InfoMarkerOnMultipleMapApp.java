@@ -1,17 +1,14 @@
 package de.fhpotsdam.unfolding.examples.data;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
 
 import processing.core.PApplet;
 import processing.core.PFont;
-import processing.xml.XMLElement;
 import codeanticode.glgraphics.GLConstants;
 import de.fhpotsdam.unfolding.Map;
 import de.fhpotsdam.unfolding.events.EventDispatcher;
-import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.mapdisplay.MapDisplayFactory;
 import de.fhpotsdam.unfolding.marker.Marker;
 import de.fhpotsdam.unfolding.marker.MarkerManager;
@@ -49,8 +46,8 @@ public class InfoMarkerOnMultipleMapApp extends PApplet {
 		eventDispatcher = MapUtils.createDefaultEventDispatcher(this, map1, map2);
 
 		// Same markers but new instances to allow independent interaction on both maps
-		List<Marker> markers1 = loadMarkers();
-		List<Marker> markers2 = loadMarkers();
+		List<Marker> markers1 = InfoMarkerApp.loadGeoRSSMarkers(this, "bbc-georss-test.xml", font);
+		List<Marker> markers2 = InfoMarkerApp.loadGeoRSSMarkers(this, "bbc-georss-test.xml", font);
 
 		markerManager1 = new MarkerManager(map1, markers1);
 		markerManager2 = new MarkerManager(map2, markers2);
@@ -86,27 +83,4 @@ public class InfoMarkerOnMultipleMapApp extends PApplet {
 		}
 
 	}
-
-	protected List<Marker> loadMarkers() {
-		List<Marker> markers = new ArrayList<Marker>();
-
-		String url = "bbc-georss-test.xml";
-		XMLElement rss = new XMLElement(this, url);
-		XMLElement[] itemXMLElements = rss.getChildren("channel/item");
-		for (int i = 0; i < itemXMLElements.length; i++) {
-			String name = itemXMLElements[i].getChild("title").getContent();
-			XMLElement latXML = itemXMLElements[i].getChild("geo:lat");
-			XMLElement lonXML = itemXMLElements[i].getChild("geo:long");
-			if (latXML != null && latXML.getContent() != null) {
-				float lat = Float.valueOf(latXML.getContent());
-				float lon = Float.valueOf(lonXML.getContent());
-
-				Location location = new Location(lat, lon);
-				LabeledMarker labeledMarker = new LabeledMarker(font, name, location, 20);
-				markers.add(labeledMarker);
-			}
-		}
-		return markers;
-	}
-
 }
