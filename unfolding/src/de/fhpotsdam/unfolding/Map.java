@@ -74,7 +74,11 @@ public class Map implements MapEventListener {
 	 * Creates a new full-canvas Map with a generated ID.
 	 */
 	public Map(PApplet p) {
-		this(p, UUID.randomUUID().toString(), 0, 0, p.width, p.height, true, false, null);
+		this(p, generateId(), 0, 0, p.width, p.height, true, false, null);
+	}
+
+	public Map(PApplet p, float x, float y, float width, float height) {
+		this(p, generateId(), x, y, width, height, true, false, null);
 	}
 
 	public Map(PApplet p, String id, float x, float y, float width, float height) {
@@ -84,6 +88,10 @@ public class Map implements MapEventListener {
 	public Map(PApplet p, String id, float x, float y, float width, float height,
 			boolean useDistortion) {
 		this(p, id, x, y, width, height, true, useDistortion, null);
+	}
+	
+	public Map(PApplet p, float x, float y, float width, float height, AbstractMapProvider provider) {
+		this(p, generateId(), x, y, width, height, true, false, provider);
 	}
 
 	/**
@@ -100,6 +108,10 @@ public class Map implements MapEventListener {
 		// panCenterZoomTo(PRIME_MERIDIAN_EQUATOR_LOCATION, DEFAULT_ZOOM_LEVEL);
 	}
 
+	private static String generateId() {
+		return UUID.randomUUID().toString();
+	}
+	
 	/**
 	 * Checks whether the given screen coordinates are on this Map.
 	 * 
@@ -411,7 +423,28 @@ public class Map implements MapEventListener {
 		mapDisplay.innerScale = PApplet.constrain(mapDisplay.innerScale, minScale, maxScale);
 		mapDisplay.calculateInnerMatrix();
 	}
+	
+	public float getZoomLevel() {
+		return getZoomLevelFromScale(mapDisplay.innerScale);
+	}
+	
+	/**
+	 * Sets the range of map scale factors.
+	 */
+	public void setScaleRange(float minScale, float maxScale) {
+		this.minScale = minScale;
+		this.maxScale = maxScale;
+	}
 
+	/**
+	 * Sets the range of map zoom levels.
+	 */
+	public void setZoomRange(float minZoom, float maxZoom) {
+		this.minScale = getScaleFromZoom(minZoom);
+		this.maxScale = getScaleFromZoom(maxZoom);
+	}
+	
+	
 	// Outer and inner offset ---------------------------------------
 
 	/**
