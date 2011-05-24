@@ -55,7 +55,7 @@ public class TextureDistorter {
 		GLGraphics renderer = (GLGraphics) g;
 		renderer.beginGL();
 		meshModel.updateVertices(vertices);
-		meshModel.initTexures(1);
+		meshModel.initTextures(1);
 		meshModel.setTexture(0, texture);
 		meshModel.updateTexCoords(0, texCoords);
 		meshModel.initNormals();
