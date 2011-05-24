@@ -8,6 +8,12 @@ import org.apache.log4j.Logger;
 
 import de.fhpotsdam.unfolding.Map;
 
+/*
+ * Manages marker.
+ * 
+ * TODO If app wants to manage different marker subclasses with same MarkerManager, all lists have to be
+ * Marker only (not subclass-typed) 
+ */
 public class MarkerManager {
 
 	public static Logger log = Logger.getLogger(MarkerManager.class);
@@ -15,13 +21,16 @@ public class MarkerManager {
 	Map map;
 	List<Marker> markers;
 
+	public MarkerManager(Map map) {
+		this.map = map;
+	}
 	public MarkerManager(Map map, Marker... markers) {
 		this(map, Arrays.asList(markers));
 	}
 
 	public MarkerManager(Map map, List<Marker> markers) {
 		this.map = map;
-		
+
 		this.markers = markers;
 	}
 
@@ -34,6 +43,9 @@ public class MarkerManager {
 			markers = new ArrayList<Marker>();
 		}
 		markers.add(marker);
+	}
+	public void addMarkers(List<Marker> markers) {
+		this.markers.addAll(markers);
 	}
 
 	public List<Marker> getMarkers() {
@@ -52,6 +64,8 @@ public class MarkerManager {
 	}
 
 	public void draw() {
+		// REVISIT Why twice? Here and in drawOuter()?
+		
 		for (Marker marker : markers) {
 			marker.draw(map);
 		}

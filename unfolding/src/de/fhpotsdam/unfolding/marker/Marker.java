@@ -18,7 +18,7 @@ public interface Marker {
 	public Location getLocation();
 
 	/**
-	 * Checks whether given position is inside the map.
+	 * Checks whether given position is inside this marker, according to the maps coordinate system.
 	 * 
 	 * @param map
 	 *            The map to draw on.
