@@ -10,7 +10,6 @@ import processing.core.PFont;
 import processing.xml.XMLElement;
 import codeanticode.glgraphics.GLConstants;
 import de.fhpotsdam.unfolding.Map;
-import de.fhpotsdam.unfolding.events.EventDispatcher;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.mapdisplay.MapDisplayFactory;
 import de.fhpotsdam.unfolding.marker.Marker;
@@ -18,40 +17,52 @@ import de.fhpotsdam.unfolding.marker.MarkerManager;
 import de.fhpotsdam.unfolding.providers.OpenStreetMap;
 import de.fhpotsdam.unfolding.utils.MapUtils;
 
+/**
+ * Multiple markers on single map. If mouse hovers over a marker, it is selcted, thus the label is shown.
+ * 
+ * On click the clicked marker is returned from the MarkerManager and printed (debug).
+ */
 public class InfoMarkerApp extends PApplet {
 
 	public static Logger log = Logger.getLogger(ZoomDependentMarkerApp.class);
 
 	Map map;
-	EventDispatcher eventDispatcher;
-
-	List<Marker> labeledMarkers = new ArrayList<Marker>();
-
-	PFont font;
 
 	public void setup() {
 		size(800, 600, GLConstants.GLGRAPHICS);
 		smooth();
 
-		font = loadFont("Miso-Light-12.vlw");
-
 		map = new Map(this, "map", 10, 10, 780, 580, true, false,
 				new OpenStreetMap.CloudmadeProvider(MapDisplayFactory.OSM_API_KEY, 23058));
 		map.setTweening(false);
-
-		eventDispatcher = MapUtils.createDefaultEventDispatcher(this, map);
-
-		labeledMarkers = loadGeoRSSMarkers(this, "bbc-georss-test.xml", font);
-
+		MapUtils.createDefaultEventDispatcher(this, map);
+		
+		PFont font = loadFont("Miso-Light-12.vlw");
+		// Create markers and add them to the MarkerManager
+		List<Marker> labeledMarkers = loadGeoRSSMarkers(this, "bbc-georss-test.xml", font);
 		MarkerManager markerManager = new MarkerManager(map, labeledMarkers);
-
 		map.mapDisplay.setMarkerManager(markerManager);
 	}
 
 	public void draw() {
 		background(0);
-
+		
+		// Draws map, and all markers connected to this map from the MarkerManager 
 		map.draw();
+	}
+	
+	public void mouseMoved() {
+		MarkerManager mm = map.mapDisplay.getMarkerManager();
+		for (Marker marker : mm.getMarkers()) {
+			LabeledMarker lm = (LabeledMarker) marker;
+			lm.isInside(map, mouseX, mouseY);
+		}
+	}
+	
+	public void mouseClicked() {
+		MarkerManager mm = map.mapDisplay.getMarkerManager();
+		LabeledMarker marker = (LabeledMarker) mm.isInside(mouseX, mouseY);
+		println("Marker clicked: " + marker.name + ".");
 	}
 
 	public static List<Marker> loadGeoRSSMarkers(PApplet p, String url, PFont font) {
@@ -69,6 +80,7 @@ public class InfoMarkerApp extends PApplet {
 
 				Location location = new Location(lat, lon);
 				LabeledMarker labeledMarker = new LabeledMarker(font, name, location, 10);
+				// labeledMarker.setVisible(false);
 				markers.add(labeledMarker);
 			}
 		}

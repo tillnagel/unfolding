@@ -7,9 +7,11 @@ import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.marker.AbstractMarker;
 
 /**
- * Marker to show a data point on a plane.
+ * Marker to show a data point on the map as sized circle. This marker has different states, i.e. visible and selected.
+ * It shows a label, if selected.
  * 
- * @author tillnagel
+ * This marker is slightly more complex, as it handles 
+ * 
  */
 public class LabeledMarker extends AbstractMarker {
 
@@ -21,6 +23,7 @@ public class LabeledMarker extends AbstractMarker {
 	public int highlightColor = -256;
 
 	protected boolean selected = false;
+	protected boolean visible = true;
 
 	private PFont font;
 
@@ -45,12 +48,7 @@ public class LabeledMarker extends AbstractMarker {
 			return;
 		}
 
-		if (isHighlighted()) {
-			pg.fill(highlightColor, 100);
-		} else {
-			pg.fill(color, 30);
-		}
-
+		pg.fill(color, 30);
 		pg.stroke(color, 10);
 		pg.strokeWeight(1);
 		pg.ellipse(x, y, size, size);
@@ -77,16 +75,11 @@ public class LabeledMarker extends AbstractMarker {
 	 * Checks whether the given position is in close proximity to this Marker. Used e.g. for
 	 * indicating whether this Marker is selected.
 	 */
-	public boolean isInside(float checkX, float checkY, float x, float y) {
+	protected boolean isInside(float checkX, float checkY, float x, float y) {
+		// FIXME Marker's size is not scaled according to map transformation.
+		
 		selected = PApplet.dist(checkX, checkY, x, y) < size / 2;
 		return selected;
-	}
-
-	/**
-	 * Indicates whether this marker is highlighted.
-	 */
-	public boolean isHighlighted() {
-		return false;
 	}
 
 	/**
@@ -95,7 +88,11 @@ public class LabeledMarker extends AbstractMarker {
 	 * @return true if visible, false otherwise.
 	 */
 	public boolean isVisible() {
-		return true;
+		return visible;
+	}
+	
+	public void setVisible(boolean visible) {
+		this.visible = visible;
 	}
 
 	public boolean isSelected() {
