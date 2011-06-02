@@ -1,7 +1,6 @@
 package de.fhpotsdam.unfolding.marker;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -9,46 +8,47 @@ import org.apache.log4j.Logger;
 import de.fhpotsdam.unfolding.Map;
 
 /*
- * Manages marker.
+ * Manages markers of different types. Is always connected to one map (for location to screen coordinate conversion).
  * 
- * TODO If app wants to manage different marker subclasses with same MarkerManager, all lists have to be
- * Marker only (not subclass-typed) 
  */
-public class MarkerManager {
+public class MarkerManager<E extends Marker> {
 
 	public static Logger log = Logger.getLogger(MarkerManager.class);
 
 	Map map;
-	List<Marker> markers;
+	List<E> markers;
 
 	public MarkerManager(Map map) {
 		this.map = map;
 	}
-	public MarkerManager(Map map, Marker... markers) {
-		this(map, Arrays.asList(markers));
-	}
 
-	public MarkerManager(Map map, List<Marker> markers) {
+	public MarkerManager(Map map, List<E> markers) {
 		this.map = map;
 
 		this.markers = markers;
 	}
 
-	public void setMarkers(List<Marker> markers) {
+	public void setMarkers(List<E> markers) {
 		this.markers = markers;
 	}
 
-	public void addMarker(Marker marker) {
+	public boolean addMarker(E marker) {
 		if (markers == null) {
-			markers = new ArrayList<Marker>();
+			markers = new ArrayList<E>();
 		}
+
+		if (markers.contains(marker))
+			return false;
+
 		markers.add(marker);
+		return true;
 	}
-	public void addMarkers(List<Marker> markers) {
+
+	public void addMarkers(List<E> markers) {
 		this.markers.addAll(markers);
 	}
 
-	public List<Marker> getMarkers() {
+	public List<? extends Marker> getMarkers() {
 		return markers;
 	}
 
@@ -65,7 +65,7 @@ public class MarkerManager {
 
 	public void draw() {
 		// REVISIT Why twice? Here and in drawOuter()?
-		
+
 		for (Marker marker : markers) {
 			marker.draw(map);
 		}

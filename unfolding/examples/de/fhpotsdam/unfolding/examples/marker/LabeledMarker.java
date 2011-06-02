@@ -77,9 +77,7 @@ public class LabeledMarker extends AbstractMarker {
 	 */
 	protected boolean isInside(float checkX, float checkY, float x, float y) {
 		// FIXME Marker's size is not scaled according to map transformation.
-		
-		selected = PApplet.dist(checkX, checkY, x, y) < size / 2;
-		return selected;
+		return PApplet.dist(checkX, checkY, x, y) < size / 2;
 	}
 
 	/**

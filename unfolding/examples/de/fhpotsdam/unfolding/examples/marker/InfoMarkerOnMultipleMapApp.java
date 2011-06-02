@@ -77,9 +77,16 @@ public class InfoMarkerOnMultipleMapApp extends PApplet {
 	public void checkInsideMarker(Map map) {
 		if (map.isHit(mouseX, mouseY)) {
 			MarkerManager mm = map.mapDisplay.getMarkerManager();
-			for (Marker marker : mm.getMarkers()) {
-				LabeledMarker lm = (LabeledMarker) marker;
-				lm.isInside(map, mouseX, mouseY);
+
+			// Deselect all marker
+			for (LabeledMarker lm : (List<LabeledMarker>) mm.getMarkers()) {
+				lm.setSelected(false);
+			}
+
+			// Select hit marker
+			LabeledMarker marker = (LabeledMarker) mm.isInside(mouseX, mouseY);
+			if (marker != null) {
+				marker.setSelected(true);
 			}
 		}
 	}

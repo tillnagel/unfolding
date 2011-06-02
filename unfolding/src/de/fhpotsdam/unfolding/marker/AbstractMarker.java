@@ -29,6 +29,11 @@ public abstract class AbstractMarker implements Marker {
 		drawOuter(pg, x, y);
 	}
 
+	/**
+	 * Checks whether given position is inside this marker, according to the maps coordinate system.
+	 * 
+	 * Uses internal implemented {@link #isInside(float, float, float, float)} of the sub class.
+	 */
 	@Override
 	public boolean isInside(Map map, float checkX, float checkY) {
 		float[] xy = map.mapDisplay.getScreenPositionFromLocation(getLocation());
@@ -76,8 +81,8 @@ public abstract class AbstractMarker implements Marker {
 	 * @param x
 	 *            The x position of this marker in screen coordinates.
 	 * @param y
-	 *            The y position of this marker in inner object coordinates.
+	 *            The y position of this marker in screen coordinates.
 	 * @return true if inside, false otherwise.
 	 */
-	public abstract boolean isInside(float checkX, float checkY, float x, float y);
+	protected abstract boolean isInside(float checkX, float checkY, float x, float y);
 }
