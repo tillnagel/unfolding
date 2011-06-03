@@ -24,8 +24,7 @@ public class MarkerManager<E extends Marker> {
 
 	public MarkerManager(Map map, List<E> markers) {
 		this.map = map;
-
-		this.markers = markers;
+		addMarkers(markers);
 	}
 
 	public void setMarkers(List<E> markers) {
@@ -34,7 +33,7 @@ public class MarkerManager<E extends Marker> {
 
 	public boolean addMarker(E marker) {
 		if (markers == null) {
-			markers = new ArrayList<E>();
+			this.markers = new ArrayList<E>();
 		}
 
 		if (markers.contains(marker))
@@ -45,6 +44,9 @@ public class MarkerManager<E extends Marker> {
 	}
 
 	public void addMarkers(List<E> markers) {
+		if (this.markers == null) {
+			this.markers = new ArrayList<E>();
+		}
 		this.markers.addAll(markers);
 	}
 
