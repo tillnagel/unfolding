@@ -17,5 +17,6 @@
 	<classpathentry kind="lib" path="lib/log4j-1.2.15.jar"/>
 	<classpathentry kind="lib" path="lib/opengl.jar"/>
 	<classpathentry kind="lib" path="lib/libTUIO.jar"/>
+	<classpathentry kind="lib" path="lib/sqlitejdbc-v056.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
