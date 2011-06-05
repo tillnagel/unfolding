@@ -29,6 +29,9 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 	/** Creates and shows debug tiles, i.e. own images with debug information. */
 	private static final boolean USE_OFFLINE_MODE = false;
 
+	/** Uses TileLoader to load from MBTiles SQLite DB. Does not use MapProvider mechanism, yet. */
+	private static final boolean USE_MBTILES_TILELOADER = false;
+
 	// Used for loadImage and float maths
 	public PApplet papplet;
 
@@ -50,8 +53,8 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 	/**
 	 * Creates a new MapDisplay.
 	 */
-	public ProcessingMapDisplay(PApplet papplet, AbstractMapProvider provider, float offsetX,
-			float offsetY, float width, float height) {
+	public ProcessingMapDisplay(PApplet papplet, AbstractMapProvider provider, float offsetX, float offsetY,
+			float width, float height) {
 		super(provider, width, height);
 		this.papplet = papplet;
 		font = papplet.loadFont("Miso-Light-12.vlw");
@@ -69,7 +72,6 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 		calculateInnerMatrix();
 	}
 
-	
 	// TRANSFORMATION --------------------------------------------------
 
 	/**
@@ -105,10 +107,8 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 		invMatrix.apply(innerMatrix);
 		invMatrix.invert();
 
-		float originalCenterX = invMatrix.multX(innerTransformationCenter.x,
-				innerTransformationCenter.y);
-		float originalCenterY = invMatrix.multY(innerTransformationCenter.x,
-				innerTransformationCenter.y);
+		float originalCenterX = invMatrix.multX(innerTransformationCenter.x, innerTransformationCenter.y);
+		float originalCenterY = invMatrix.multY(innerTransformationCenter.x, innerTransformationCenter.y);
 
 		innerMatrix = new PMatrix3D();
 		innerMatrix.translate(innerTransformationCenter.x, innerTransformationCenter.y);
@@ -247,7 +247,7 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 		// NB Always inner graphics, this one not used. Implemented in sub classes.
 		return papplet.g;
 	}
-	
+
 	public PGraphics getOuterPG() {
 		return papplet.g;
 	}
@@ -266,7 +266,9 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 		// Store and switch off smooth (OpenGL cannot handle it)
 		boolean smooth = papplet.g.smooth;
 		pg.noSmooth();
-		pg.background(255);
+		// REVISIT For transparency, do not paint bg
+		// But needed to delete panning off the map (in order to not smudge) 
+		pg.background(0);
 
 		// translate and scale, from the middle
 		pg.pushMatrix();
@@ -300,6 +302,7 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 						pg.rect(x, y, TILE_WIDTH, TILE_HEIGHT);
 						pg.noStroke();
 					}
+					// REVISIT For transparency, do not paint image (why no transparent imgs?)
 					pg.image(tile, x, y, TILE_WIDTH, TILE_HEIGHT);
 
 					if (recent_images.contains(tile)) {
@@ -340,23 +343,15 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 		float[] innerBR = getInnerObjectFromObjectPosition(getWidth(), getHeight());
 		float[] innerBL = getInnerObjectFromObjectPosition(0, getHeight());
 
-		Coordinate coordTL = getCoordinateFromInnerPosition(innerTL[0], innerTL[1]).zoomTo(
-				zoomLevel);
-		Coordinate coordTR = getCoordinateFromInnerPosition(innerTR[0], innerTR[1]).zoomTo(
-				zoomLevel);
-		Coordinate coordBR = getCoordinateFromInnerPosition(innerBR[0], innerBR[1]).zoomTo(
-				zoomLevel);
-		Coordinate coordBL = getCoordinateFromInnerPosition(innerBL[0], innerBL[1]).zoomTo(
-				zoomLevel);
+		Coordinate coordTL = getCoordinateFromInnerPosition(innerTL[0], innerTL[1]).zoomTo(zoomLevel);
+		Coordinate coordTR = getCoordinateFromInnerPosition(innerTR[0], innerTR[1]).zoomTo(zoomLevel);
+		Coordinate coordBR = getCoordinateFromInnerPosition(innerBR[0], innerBR[1]).zoomTo(zoomLevel);
+		Coordinate coordBL = getCoordinateFromInnerPosition(innerBL[0], innerBL[1]).zoomTo(zoomLevel);
 
-		int minCol = (int) PApplet.min(new float[] { coordTL.column, coordTR.column,
-				coordBR.column, coordBL.column });
-		int maxCol = (int) PApplet.max(new float[] { coordTL.column, coordTR.column,
-				coordBR.column, coordBL.column });
-		int minRow = (int) PApplet.min(new float[] { coordTL.row, coordTR.row, coordBR.row,
-				coordBL.row });
-		int maxRow = (int) PApplet.max(new float[] { coordTL.row, coordTR.row, coordBR.row,
-				coordBL.row });
+		int minCol = (int) PApplet.min(new float[] { coordTL.column, coordTR.column, coordBR.column, coordBL.column });
+		int maxCol = (int) PApplet.max(new float[] { coordTL.column, coordTR.column, coordBR.column, coordBL.column });
+		int minRow = (int) PApplet.min(new float[] { coordTL.row, coordTR.row, coordBR.row, coordBL.row });
+		int maxRow = (int) PApplet.max(new float[] { coordTL.row, coordTR.row, coordBR.row, coordBL.row });
 
 		// pad a bit, for luck (well, because we might be zooming out between
 		// zoom levels)
@@ -406,8 +401,7 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 					// or if we have any of the children
 					if (!gotParent) {
 						Coordinate zoomed = coord.zoomBy(1).container();
-						Coordinate[] kids = { zoomed, zoomed.right(), zoomed.down(),
-								zoomed.right().down() };
+						Coordinate[] kids = { zoomed, zoomed.right(), zoomed.down(), zoomed.right().down() };
 						for (int i = 0; i < kids.length; i++) {
 							zoomed = kids[i];
 							// make sure we still have ints:
@@ -434,8 +428,7 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 		queue.retainAll(visibleKeys);
 
 		// sort what's left by distance from center:
-		queueSorter.setCenter(new Coordinate((minRow + maxRow) / 2.0f, (minCol + maxCol) / 2.0f,
-				zoomLevel));
+		queueSorter.setCenter(new Coordinate((minRow + maxRow) / 2.0f, (minCol + maxCol) / 2.0f, zoomLevel));
 		Collections.sort(queue, queueSorter);
 
 		// load up to 4 more things:
@@ -447,11 +440,31 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 	// TILE LOADING ---------------------------------------
 
 	protected TileLoader createTileLoader(Coordinate coord) {
-		return new ProcessingTileLoader(coord);
+		if (USE_MBTILES_TILELOADER) {
+			return new MBTileLoader(coord);
+		} else {
+			return new ProcessingTileLoader(coord);
+		}
+	}
+
+	// REVISIT Integrate into MapProvider architecture.
+	public class MBTileLoader implements TileLoader, Runnable {
+		Coordinate coord;
+
+		MBTileLoader(Coordinate coord) {
+			this.coord = coord;
+		}
+
+		public void run() {
+			float gridSize = PApplet.pow(2, coord.zoom);
+			float negativeRow = gridSize - coord.row - 1;
+			PImage img = MBTilesLoaderUtils.getMBTile((int) coord.column, (int) negativeRow, (int) coord.zoom);
+			tileDone(coord, img);
+		}
 	}
 
 	/**
-	 * for tile loader threads to load PImages
+	 * TileLoader to load images from the local or remote URLs. Uses PImage.load method.
 	 */
 	public class ProcessingTileLoader implements TileLoader, Runnable {
 		Coordinate coord;
@@ -469,10 +482,14 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 				// Create image tile with coordinate information.
 				img = getDebugTile(coord, null);
 			} else {
-				// Use 'unknown' as content-type to let loadImage decide
+
+				// Load image from URL
+				// NB: Use 'unknown' as content-type to let loadImage decide
 				img = papplet.loadImage(urls[0], "unknown");
 
 				if (USE_DEBUG_TILES) {
+					// Create debug tile, locally
+					// Draw debug on top of the loaded image
 					img = getDebugTile(coord, img);
 				}
 
@@ -480,8 +497,7 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 					for (int i = 1; i < urls.length; i++) {
 						PImage img2 = papplet.loadImage(urls[i], "unknown");
 						if (img2 != null) {
-							img.blend(img2, 0, 0, img.width, img.height, 0, 0, img.width,
-									img.height, BLEND);
+							img.blend(img2, 0, 0, img.width, img.height, 0, 0, img.width, img.height, BLEND);
 						}
 					}
 				}

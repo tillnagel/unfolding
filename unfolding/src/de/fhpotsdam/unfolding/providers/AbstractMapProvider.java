@@ -7,8 +7,8 @@ import de.fhpotsdam.unfolding.geo.Location;
 
 public abstract class AbstractMapProvider {
 
-	public static String[] ids = { "MICROSOFT_ROAD", "MICROSOFT_AERIAL", "MICROSOFT_HYBRID",
-		"YAHOO_ROAD", "YAHOO_AERIAL", "YAHOO_HYBRID", "BLUE_MARBLE", "OPEN_STREET_MAP" };
+	public static String[] ids = { "MICROSOFT_ROAD", "MICROSOFT_AERIAL", "MICROSOFT_HYBRID", "YAHOO_ROAD",
+			"YAHOO_AERIAL", "YAHOO_HYBRID", "BLUE_MARBLE", "OPEN_STREET_MAP" };
 
 	public AbstractProjection projection;
 
@@ -16,6 +16,13 @@ public abstract class AbstractMapProvider {
 		this.projection = projection;
 	}
 
+	/**
+	 * Gets tile URLs for coordinate. May return multiple URLs, if provider handles multiple layers.
+	 * 
+	 * @param coordinate
+	 *            The position and zoom to get tile for.
+	 * @return An array with tile URLs (mostly just one)
+	 */
 	public abstract String[] getTileUrls(Coordinate coordinate);
 
 	public abstract int tileWidth();

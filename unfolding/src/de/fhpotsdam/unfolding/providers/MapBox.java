@@ -23,8 +23,29 @@ public class MapBox {
 
 	public static class WorldLightProvider extends MapBoxProvider {
 		public String[] getTileUrls(Coordinate coordinate) {
-			String url = "http://c.tile.mapbox.com/1.0.0/world-light/" + getZoomString(coordinate)
-					+ ".png";
+			String url = "http://c.tile.mapbox.com/mapbox/1.0.0/world-light/" + getZoomString(coordinate) + ".png";
+			return new String[] { url };
+		}
+	}
+
+	public static class ControlRoomProvider extends MapBoxProvider {
+		public String[] getTileUrls(Coordinate coordinate) {
+			String url = "http://c.tile.mapbox.com/mapbox/1.0.0/control-room/" + getZoomString(coordinate) + ".png";
+			return new String[] { url };
+		}
+	}
+
+	public static class MuseDarkStyleProvider extends MapBoxProvider {
+		public String[] getTileUrls(Coordinate coordinate) {
+			String url = "http://localhost:8889/1.0.0/aHR0cDovL2xvY2FsaG9zdDo4ODg5L2FwaS9Qcm9qZWN0L2NvbnRyb2xfcm9vbT8xMzA3MjEwNDEw/"
+					+ getZoomString(coordinate) + ".png";
+			return new String[] { url };
+		}
+	}
+
+	public static class BlankProvider extends MapBoxProvider {
+		public String[] getTileUrls(Coordinate coordinate) {
+			String url = "http://tillnagel.com/transparent255.png";
 			return new String[] { url };
 		}
 	}
