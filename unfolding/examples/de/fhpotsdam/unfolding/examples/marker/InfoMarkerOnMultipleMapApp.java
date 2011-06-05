@@ -84,7 +84,7 @@ public class InfoMarkerOnMultipleMapApp extends PApplet {
 			}
 
 			// Select hit marker
-			LabeledMarker marker = (LabeledMarker) mm.isInside(mouseX, mouseY);
+			LabeledMarker marker = (LabeledMarker) mm.getFirstHitMarker(mouseX, mouseY);
 			if (marker != null) {
 				marker.setSelected(true);
 			}

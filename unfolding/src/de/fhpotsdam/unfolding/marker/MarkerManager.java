@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
+import processing.core.PApplet;
 import de.fhpotsdam.unfolding.Map;
 
 /*
@@ -54,15 +55,38 @@ public class MarkerManager<E extends Marker> {
 		return markers;
 	}
 
+	/**
+	 * @deprecated Replaced by {@link #getFirstHitMarker(float, float)}
+	 */
+	@Deprecated
 	public Marker isInside(float checkX, float checkY) {
+		return getFirstHitMarker(checkX, checkY);
+	}
+
+	public Marker getFirstHitMarker(float checkX, float checkY) {
 		Marker foundMarker = null;
+		// NB: Markers are ordered by size ascending, i.e. big, medium, small
 		for (Marker marker : markers) {
+
+			// NB: If markers are order by size descending, i.e. small, medium, big
+			// for (int i = markers.size() - 1; i >= 0; i--) {
+			// Marker marker = markers.get(i);
 			if (marker.isInside(map, checkX, checkY)) {
 				foundMarker = marker;
 				break;
 			}
 		}
 		return foundMarker;
+	}
+
+	public List<Marker> getHitMarkers(float checkX, float checkY) {
+		List<Marker> hitMarkers = new ArrayList<Marker>();
+		for (Marker marker : markers) {
+			if (marker.isInside(map, checkX, checkY)) {
+				hitMarkers.add(marker);
+			}
+		}
+		return hitMarkers;
 	}
 
 	public void draw() {

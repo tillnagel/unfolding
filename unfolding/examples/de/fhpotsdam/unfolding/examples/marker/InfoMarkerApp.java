@@ -61,7 +61,7 @@ public class InfoMarkerApp extends PApplet {
 		}
 		
 		// Select hit marker
-		LabeledMarker marker = (LabeledMarker) mm.isInside(mouseX, mouseY);
+		LabeledMarker marker = (LabeledMarker) mm.getFirstHitMarker(mouseX, mouseY);
 		if (marker != null) {
 			marker.setSelected(true);
 		}
@@ -70,7 +70,7 @@ public class InfoMarkerApp extends PApplet {
 
 	public void mouseClicked() {
 		MarkerManager mm = map.mapDisplay.getMarkerManager();
-		LabeledMarker marker = (LabeledMarker) mm.isInside(mouseX, mouseY);
+		LabeledMarker marker = (LabeledMarker) mm.getFirstHitMarker(mouseX, mouseY);
 		println("Marker clicked: " + marker.name + ".");
 	}
 
