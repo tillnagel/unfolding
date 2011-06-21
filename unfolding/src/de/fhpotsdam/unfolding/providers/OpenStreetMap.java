@@ -5,16 +5,15 @@ import de.fhpotsdam.unfolding.geo.MercatorProjection;
 import de.fhpotsdam.unfolding.geo.Transformation;
 
 public class OpenStreetMap {
-	public static abstract class GenericOpenStreetMapProvider extends AbstractMapProvider {
+	public static abstract class GenericOpenStreetMapProvider extends AbstractMapTileUrlProvider {
 
 		public GenericOpenStreetMapProvider() {
-			super(new MercatorProjection(26, new Transformation(1.068070779e7f, 0.0f,
-					3.355443185e7f, 0.0f, -1.068070890e7f, 3.355443057e7f)));
+			super(new MercatorProjection(26, new Transformation(1.068070779e7f, 0.0f, 3.355443185e7f, 0.0f,
+					-1.068070890e7f, 3.355443057e7f)));
 		}
 
 		public String getZoomString(Coordinate coordinate) {
-			return (int) coordinate.zoom + "/" + (int) coordinate.column + "/"
-					+ (int) coordinate.row;
+			return (int) coordinate.zoom + "/" + (int) coordinate.column + "/" + (int) coordinate.row;
 		}
 
 		public int tileWidth() {

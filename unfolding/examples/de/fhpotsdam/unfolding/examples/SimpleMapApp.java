@@ -15,11 +15,21 @@ public class SimpleMapApp extends PApplet {
 		map = new Map(this);
 		map.setTweening(false);
 		MapUtils.createDefaultEventDispatcher(this, map);
+		map.zoomToLevel(2);
 	}
 
 	public void draw() {
 		background(0);
 
 		map.draw();
+	}
+	
+	public void keyPressed() {
+		if (key == '*') {
+			map.zoomIn();
+		}
+		if (key == '_') {
+			map.zoomOut();
+		}
 	}
 }

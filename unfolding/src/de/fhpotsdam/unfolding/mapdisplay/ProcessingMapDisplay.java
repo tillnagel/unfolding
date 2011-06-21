@@ -16,6 +16,7 @@ import de.fhpotsdam.unfolding.Map;
 import de.fhpotsdam.unfolding.core.Coordinate;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.providers.AbstractMapProvider;
+import de.fhpotsdam.unfolding.tiles.TileLoader;
 
 @SuppressWarnings("unchecked")
 public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstants {
@@ -28,9 +29,6 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 	private static final boolean USE_DEBUG_TILES = false;
 	/** Creates and shows debug tiles, i.e. own images with debug information. */
 	private static final boolean USE_OFFLINE_MODE = false;
-
-	/** Uses TileLoader to load from MBTiles SQLite DB. Does not use MapProvider mechanism, yet. */
-	private static final boolean USE_MBTILES_TILELOADER = false;
 
 	// Used for loadImage and float maths
 	public PApplet papplet;
@@ -267,7 +265,7 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 		boolean smooth = papplet.g.smooth;
 		pg.noSmooth();
 		// REVISIT For transparency, do not paint bg
-		// But needed to delete panning off the map (in order to not smudge) 
+		// But needed to delete panning off the map (in order to not smudge)
 		pg.background(0);
 
 		// translate and scale, from the middle
@@ -440,96 +438,7 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 	// TILE LOADING ---------------------------------------
 
 	protected TileLoader createTileLoader(Coordinate coord) {
-		if (USE_MBTILES_TILELOADER) {
-			return new MBTileLoader(coord);
-		} else {
-			return new ProcessingTileLoader(coord);
-		}
-	}
-
-	// REVISIT Integrate into MapProvider architecture.
-	public class MBTileLoader implements TileLoader, Runnable {
-		Coordinate coord;
-
-		MBTileLoader(Coordinate coord) {
-			this.coord = coord;
-		}
-
-		public void run() {
-			float gridSize = PApplet.pow(2, coord.zoom);
-			float negativeRow = gridSize - coord.row - 1;
-			PImage img = MBTilesLoaderUtils.getMBTile((int) coord.column, (int) negativeRow, (int) coord.zoom);
-			tileDone(coord, img);
-		}
-	}
-
-	/**
-	 * TileLoader to load images from the local or remote URLs. Uses PImage.load method.
-	 */
-	public class ProcessingTileLoader implements TileLoader, Runnable {
-		Coordinate coord;
-
-		ProcessingTileLoader(Coordinate coord) {
-			this.coord = coord;
-		}
-
-		public void run() {
-			String[] urls = provider.getTileUrls(coord);
-
-			PImage img = null;
-
-			if (USE_OFFLINE_MODE) {
-				// Create image tile with coordinate information.
-				img = getDebugTile(coord, null);
-			} else {
-
-				// Load image from URL
-				// NB: Use 'unknown' as content-type to let loadImage decide
-				img = papplet.loadImage(urls[0], "unknown");
-
-				if (USE_DEBUG_TILES) {
-					// Create debug tile, locally
-					// Draw debug on top of the loaded image
-					img = getDebugTile(coord, img);
-				}
-
-				if (img != null) {
-					for (int i = 1; i < urls.length; i++) {
-						PImage img2 = papplet.loadImage(urls[i], "unknown");
-						if (img2 != null) {
-							img.blend(img2, 0, 0, img.width, img.height, 0, 0, img.width, img.height, BLEND);
-						}
-					}
-				}
-			}
-
-			tileDone(coord, img);
-		}
-
-		private PImage getDebugTile(Coordinate coord, PImage tileImage) {
-			PGraphics pg = papplet.createGraphics(TILE_WIDTH, TILE_HEIGHT, P2D);
-			pg.beginDraw();
-			pg.textFont(font);
-
-			if (tileImage != null) {
-				pg.image(tileImage, 0, 0);
-			} else {
-				pg.background(250);
-				pg.stroke(0);
-				pg.rect(0, 0, pg.width, pg.height);
-				pg.ellipse(pg.width / 2, pg.height / 2, pg.width - 5, pg.height - 5);
-			}
-
-			pg.fill(0);
-			String infoText = coord.column + ", " + coord.row + "\nz: " + coord.zoom;
-			pg.text(infoText, pg.width / 2 - pg.textWidth(infoText) / 2, pg.height / 2 - 10);
-			pg.endDraw();
-			String tempName = coord.column + "-" + coord.row + "-" + coord.zoom + ".png";
-			pg.save(tempName);
-
-			PImage img = papplet.loadImage(tempName);
-			return img;
-		}
+		return new TileLoader(papplet, provider, this, coord);
 	}
 
 }

@@ -7,7 +7,7 @@ import de.fhpotsdam.unfolding.geo.Transformation;
 
 public class GeoMapApp {
 
-	public static abstract class GeoMapAppProvider extends AbstractMapProvider {
+	public static abstract class GeoMapAppProvider extends AbstractMapTileUrlProvider {
 
 		public GeoMapAppProvider() {
 			super(new MercatorProjection(26, new Transformation(1.068070779e7f, 0.0f,

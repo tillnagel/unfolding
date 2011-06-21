@@ -34,7 +34,9 @@ public class MapBox {
 			return new String[] { url };
 		}
 	}
-
+	
+	// For testing non-exported map styles from your local TileMill server.
+	// TODO Mention and explain in tutorial
 	public static class MuseDarkStyleProvider extends MapBoxProvider {
 		public String[] getTileUrls(Coordinate coordinate) {
 			String url = "http://localhost:8889/1.0.0/aHR0cDovL2xvY2FsaG9zdDo4ODg5L2FwaS9Qcm9qZWN0L2NvbnRyb2xfcm9vbT8xMzA3MjEwNDEw/"
@@ -42,7 +44,9 @@ public class MapBox {
 			return new String[] { url };
 		}
 	}
-
+	
+	
+	// REMOVE 
 	public static class BlankProvider extends MapBoxProvider {
 		public String[] getTileUrls(Coordinate coordinate) {
 			String url = "http://tillnagel.com/transparent255.png";

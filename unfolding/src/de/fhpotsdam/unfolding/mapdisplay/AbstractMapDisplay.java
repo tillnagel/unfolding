@@ -12,12 +12,14 @@ import de.fhpotsdam.unfolding.core.Coordinate;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.marker.MarkerManager;
 import de.fhpotsdam.unfolding.providers.AbstractMapProvider;
+import de.fhpotsdam.unfolding.tiles.TileLoader;
+import de.fhpotsdam.unfolding.tiles.TileLoaderListener;
 
 /**
  * Handles tiles
  * 
  */
-public abstract class AbstractMapDisplay {
+public abstract class AbstractMapDisplay implements TileLoaderListener {
 
 	public static final int TILE_WIDTH = 256;
 	public static final int TILE_HEIGHT = 256;
@@ -53,8 +55,8 @@ public abstract class AbstractMapDisplay {
 
 	// MapDisplay values: Inner stuff
 	protected PVector innerTransformationCenter;
-	
-	// 
+
+	//
 	protected MarkerManager markerManager;
 
 	// Tiles
@@ -71,17 +73,16 @@ public abstract class AbstractMapDisplay {
 	protected ZoomComparator zoomComparator = new ZoomComparator();
 	protected QueueSorter queueSorter = new QueueSorter();
 
-	protected AbstractMapDisplay(AbstractMapProvider _provider, float _width, float _height) {
-		provider = _provider;
+	protected AbstractMapDisplay(AbstractMapProvider provider, float width, float height) {
+		this.provider = provider;
 
-		width = _width;
-		height = _height;
+		this.width = width;
+		this.height = height;
 
 		transformationCenter = new PVector(width / 2, height / 2);
 		innerTransformationCenter = new PVector(width / 2, height / 2);
 
-		innerScale = (float) Math.ceil(Math.min(height / (float) TILE_WIDTH, width
-				/ (float) TILE_HEIGHT));
+		innerScale = (float) Math.ceil(Math.min(height / (float) TILE_WIDTH, width / (float) TILE_HEIGHT));
 	}
 
 	public AbstractMapProvider getMapProvider() {
@@ -98,11 +99,11 @@ public abstract class AbstractMapDisplay {
 	}
 
 	public abstract PGraphics getPG();
-	
+
 	public abstract PGraphics getOuterPG();
 
 	public abstract void draw();
-	
+
 	public void setMarkerManager(MarkerManager markerManager) {
 		this.markerManager = markerManager;
 	}
@@ -158,15 +159,14 @@ public abstract class AbstractMapDisplay {
 	public abstract Location getLocationFromInnerObjectPosition(float x, float y);
 
 	public abstract Location getLocationFromScreenPosition(float x, float y);
-	
+
 	public abstract Location getLocationFromObjectPosition(float x, float y);
 
 	public abstract float[] getInnerObjectFromLocation(Location location);
 
 	public abstract float[] getScreenPositionFromLocation(Location location);
-	
+
 	public abstract float[] getObjectFromLocation(Location location);
-	
 
 	public PVector getTransformationCenter() {
 		return transformationCenter;
@@ -195,8 +195,7 @@ public abstract class AbstractMapDisplay {
 	 *            Point in screen coordinates.
 	 */
 	public void setInnerTransformationCenter(PVector innerTransformationCenter) {
-		float[] xy = getObjectFromScreenPosition(innerTransformationCenter.x,
-				innerTransformationCenter.y);
+		float[] xy = getObjectFromScreenPosition(innerTransformationCenter.x, innerTransformationCenter.y);
 
 		this.innerTransformationCenter.x = xy[0] - (float) innerOffsetX;
 		this.innerTransformationCenter.y = xy[1] - (float) innerOffsetY;
@@ -221,13 +220,13 @@ public abstract class AbstractMapDisplay {
 	}
 
 	// TODO: images & pending thread safe?
-	public void tileDone(Coordinate _coord, Object _image) {
-		if (pending.containsKey(_coord) && _image != null) {
-			images.put(_coord, _image);
-			pending.remove(_coord);
+	public void tileLoaded(Coordinate coord, Object image) {
+		if (pending.containsKey(coord) && coord != null) {
+			images.put(coord, image);
+			pending.remove(coord);
 		} else {
-			queue.add(_coord);
-			pending.remove(_coord);
+			queue.add(coord);
+			pending.remove(coord);
 		}
 	}
 
@@ -288,5 +287,4 @@ public abstract class AbstractMapDisplay {
 		}
 	}
 
-	
 }

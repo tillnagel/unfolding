@@ -11,9 +11,11 @@ public class ImmoScout {
 			super();
 		}
 
+		public String getZoomString(Coordinate coordinate) {
+			return "&z=" + (int) coordinate.zoom + "&x=" + (int) coordinate.column + "&y=" + (int) coordinate.row;
+		}
+
 		public int tileWidth() {
-			// REVISIT ImmoScout's tiles are 250x250. But when this is changed accordingly
-			// Processing's image loading throws an exception. But it seems this method never is used.
 			return 256;
 		}
 
@@ -24,9 +26,11 @@ public class ImmoScout {
 
 	public static class HeatMapProvider extends ImmoScoutProvider {
 		public String[] getTileUrls(Coordinate coordinate) {
+			// old:
+			// "http://heatmaps.immobilienscout24.de/geoserver/wmsproxy/KGS22_2009_whg_miete_gg/"
 
-			String url = "http://heatmaps.immobilienscout24.de/geoserver/wmsproxy/KGS22_2009_whg_miete_gg/"
-					+ getZoomString(sourceCoordinate(coordinate)) + ".png";
+			String url = "http://heatmaps.immobilienscout24.de/geoserver/gmwmsproxy?layer=2010_@@@@_whg_miete_gg"
+					+ getZoomString(sourceCoordinate(coordinate));
 			return new String[] { url };
 		}
 	}

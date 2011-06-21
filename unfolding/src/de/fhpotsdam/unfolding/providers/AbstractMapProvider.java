@@ -1,21 +1,26 @@
 package de.fhpotsdam.unfolding.providers;
 
 import processing.core.PApplet;
+import processing.core.PImage;
 import de.fhpotsdam.unfolding.core.Coordinate;
 import de.fhpotsdam.unfolding.geo.AbstractProjection;
 import de.fhpotsdam.unfolding.geo.Location;
 
+/**
+ * Abstract map provider. In combination with the appropriate TileLoader subclasses handle map
+ * tiles.
+ * 
+ */
 public abstract class AbstractMapProvider {
-
-	public static String[] ids = { "MICROSOFT_ROAD", "MICROSOFT_AERIAL", "MICROSOFT_HYBRID", "YAHOO_ROAD",
-			"YAHOO_AERIAL", "YAHOO_HYBRID", "BLUE_MARBLE", "OPEN_STREET_MAP" };
-
+	
 	public AbstractProjection projection;
 
 	public AbstractMapProvider(AbstractProjection projection) {
 		this.projection = projection;
 	}
 
+	public abstract PImage getTile(Coordinate coordinate);
+	
 	/**
 	 * Gets tile URLs for coordinate. May return multiple URLs, if provider handles multiple layers.
 	 * 
@@ -24,7 +29,7 @@ public abstract class AbstractMapProvider {
 	 * @return An array with tile URLs (mostly just one)
 	 */
 	public abstract String[] getTileUrls(Coordinate coordinate);
-
+	
 	public abstract int tileWidth();
 
 	public abstract int tileHeight();
@@ -52,6 +57,7 @@ public abstract class AbstractMapProvider {
 
 		return new Coordinate(wrappedRow, wrappedColumn, coordinate.zoom);
 	}
+
 
 	/** since we're often given four tile servers to pick from */
 	public static float random(int lower, int higher) {
