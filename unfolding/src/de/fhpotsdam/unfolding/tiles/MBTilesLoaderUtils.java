@@ -14,12 +14,19 @@ import processing.core.PConstants;
 import processing.core.PImage;
 
 /**
- * Loads map tile images from a MBTiles SQLite database.  
+ * Loads map tile images from a MBTiles SQLite database.
+ * 
+ * You need to provide the jdbcConnectionString to connect to the database file. e.g.
+ * "./data/my-map.mbtiles"
+ * 
+ * This class is part of the <a href="http://code.google.com/p/unfolding/">Unfolding</a> map
+ * library. See <a href="http://tillnagel.com/2011/06/tilemill-for-processing/">TileMill for
+ * Processing</a> for more information.
  */
 public class MBTilesLoaderUtils {
-	
+
 	public static final String SQLITE_JDBC_DRIVER = "org.sqlite.JDBC";
-	
+
 	/**
 	 * Loads the tile for given parameters as image.
 	 * 
@@ -29,6 +36,8 @@ public class MBTilesLoaderUtils {
 	 *            The row of the tile.
 	 * @param zoomLevel
 	 *            The zoom level of the tile.
+	 * @param jdbcConnectionString
+	 *            The path to the MBTiles database.
 	 * @return The tile as PImage, or null if not found.
 	 */
 	public static PImage getMBTile(int column, int row, int zoomLevel, String jdbcConnectionString) {
@@ -57,7 +66,8 @@ public class MBTilesLoaderUtils {
 	 *            The zoom level of the tile.
 	 * @return The tile as byte array with image information, or an empty array if not found.
 	 */
-	protected static byte[] getMBTileData(int column, int row, int zoomLevel, String jdbcConnectionString) throws Exception {
+	protected static byte[] getMBTileData(int column, int row, int zoomLevel, String jdbcConnectionString)
+			throws Exception {
 		Class.forName(SQLITE_JDBC_DRIVER);
 		Connection conn = DriverManager.getConnection(jdbcConnectionString);
 		Statement stat = conn.createStatement();
