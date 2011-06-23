@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.log4j.Logger;
 
 import processing.core.PApplet;
+import processing.core.PFont;
 import processing.core.PVector;
 import TUIO.TuioClient;
 import TUIO.TuioCursor;
@@ -17,6 +18,8 @@ import de.fhpotsdam.unfolding.events.MapEventBroadcaster;
 import de.fhpotsdam.unfolding.events.PanMapEvent;
 import de.fhpotsdam.unfolding.geo.Location;
 
+// FIXME Implement tuio to map interactions as events!
+// REVISIT Check how to use simpletouch's TuioTransformableObject. For use in events, as in here.
 public class TuioCursorHandler extends MapEventBroadcaster implements TuioListener {
 
 	public static Logger log = Logger.getLogger(TuioCursorHandler.class);
@@ -30,25 +33,41 @@ public class TuioCursorHandler extends MapEventBroadcaster implements TuioListen
 	float oldX, oldY;
 	float oldAngle;
 	float oldDist;
+	PFont font;
 
 	public TuioCursorHandler(PApplet p, Map... maps) {
 		this(p, Arrays.asList(maps));
 	}
 
-	public TuioCursorHandler(PApplet p, List<Map> maps) {
+	public TuioCursorHandler(PApplet p, boolean listenToTuio, Map... maps) {
+		this(p, listenToTuio, Arrays.asList(maps));
+	}
+
+	public TuioCursorHandler(PApplet p, boolean listenToTuio, List<Map> maps) {
 		super(maps);
 
 		this.p = p;
+		this.font = p.createFont("Sans-Serif", 12);
 
 		tuioClient = new TuioClient();
-		tuioClient.addTuioListener(this);
+		if (listenToTuio) {
+			tuioClient.addTuioListener(this);
+		}
 		tuioClient.connect();
 
 		p.registerDispose(this);
 	}
+	
+	public TuioCursorHandler(PApplet p, List<Map> maps) {
+		this(p, true, maps);
+	}
 
 	public void dispose() {
 		tuioClient.disconnect();
+	}
+	
+	public TuioClient getTuioClient() {
+		return tuioClient;
 	}
 
 	public void updateTuioCursor(TuioCursor tcur) {
@@ -107,7 +126,6 @@ public class TuioCursorHandler extends MapEventBroadcaster implements TuioListen
 						float angle = newAngle - oldAngle;
 						oldAngle = newAngle;
 						map.rotate(angle);
-						// map.innerRotate(angle); // better interaction, but tile loading broken
 					}
 
 					// TODO Use events (instead of direct map manipulation)
@@ -153,6 +171,8 @@ public class TuioCursorHandler extends MapEventBroadcaster implements TuioListen
 	public void removeTuioCursor(TuioCursor tuioCursor) {
 		if (tuioCursor2 != null && tuioCursor2.getCursorID() == tuioCursor.getCursorID()) {
 			tuioCursor2 = null;
+			oldX = tuioCursor1.getScreenX(p.width);
+			oldY = tuioCursor1.getScreenY(p.height);
 		}
 
 		if (tuioCursor1 != null && tuioCursor1.getCursorID() == tuioCursor.getCursorID()) {
@@ -219,7 +239,8 @@ public class TuioCursorHandler extends MapEventBroadcaster implements TuioListen
 	public void drawCursor(TuioCursor tc) {
 		if (tc == null)
 			return;
-
+		
+		p.textFont(font);
 		p.stroke(50, 100);
 		p.fill(230, 150);
 		p.ellipse(tc.getScreenX(p.width), tc.getScreenY(p.height), 15, 15);
