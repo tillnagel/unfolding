@@ -18,6 +18,8 @@ public class OverviewAndDetailWithViewportApp extends PApplet {
 	Map mapDetail;
 	Map mapOverviewStatic;
 
+	ViewportRect viewportRect;
+
 	public void setup() {
 		size(800, 600, GLConstants.GLGRAPHICS);
 
@@ -29,6 +31,9 @@ public class OverviewAndDetailWithViewportApp extends PApplet {
 
 		// Static overview map
 		mapOverviewStatic = new Map(this, "overviewStatic", 605, 10, 185, 185);
+		
+		viewportRect = new ViewportRect();
+		viewportRect.setDimension(new float[] {620, 30}, new float[] {640, 50});
 	}
 
 	public void draw() {
@@ -38,25 +43,67 @@ public class OverviewAndDetailWithViewportApp extends PApplet {
 		mapOverviewStatic.draw();
 
 		// Finder box for static overview map
-		float[] tl2 = mapOverviewStatic.mapDisplay.getScreenPositionFromLocation(mapDetail.getTopLeftBorder());
-		float[] br2 = mapOverviewStatic.mapDisplay.getScreenPositionFromLocation(mapDetail.getBottomRightBorder());
-		drawDetailSelectionBox(tl2, br2);
+		float[] tl = mapOverviewStatic.mapDisplay.getScreenPositionFromLocation(mapDetail.getTopLeftBorder());
+		float[] br = mapOverviewStatic.mapDisplay.getScreenPositionFromLocation(mapDetail.getBottomRightBorder());
+		viewportRect.setDimension(tl, br);
+		viewportRect.draw();
 	}
 
-	public void drawDetailSelectionBox(float[] tl, float[] br) {
-		noFill();
-		stroke(30, 30, 255, 140);
-		float w = br[0] - tl[0];
-		float h = br[1] - tl[1];
-		rect(tl[0], tl[1], w, h);
-	}
-
-	public void mouseClicked() {
-		Location newLocation = mapOverviewStatic.mapDisplay.getLocationFromScreenPosition(mouseX, mouseY);
+	public void panDetailMap() {
+		float x = viewportRect.x + viewportRect.w/2;
+		float y = viewportRect.y + viewportRect.h/2;
+		Location newLocation = mapOverviewStatic.mapDisplay.getLocationFromScreenPosition(x, y);
 		mapDetail.panTo(newLocation);
 	}
-	
-	
-	
+
+	class ViewportRect {
+		float x;
+		float y;
+		float w;
+		float h;
+		boolean dragged = false;
+
+		public boolean isOver(float checkX, float checkY) {
+			return checkX > x && checkY > y && checkX < x + w && checkY < y + h;
+		}
+
+		public void setDimension(float[] tl, float[] br) {
+			this.x = tl[0];
+			this.y = tl[1];
+			this.w = br[0] - tl[0];
+			this.h = br[1] - tl[1];
+		}
+
+		public void draw() {
+			noFill();
+			stroke(30, 30, 255, 140);
+			rect(x, y, w, h);
+		}
+
+	}
+
+	float oldX;
+	float oldY;
+
+	public void mousePressed() {
+		if (viewportRect.isOver(mouseX, mouseY)) {
+			viewportRect.dragged = true;
+			oldX = mouseX - viewportRect.x;
+			oldY = mouseY - viewportRect.y;
+		}
+	}
+
+	public void mouseReleased() {
+		viewportRect.dragged = false;
+	}
+
+	public void mouseDragged() {
+		if (viewportRect.dragged) {
+			viewportRect.x = mouseX - oldX;
+			viewportRect.y = mouseY - oldY;
+			
+			panDetailMap();
+		}
+	}
 
 }
