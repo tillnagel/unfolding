@@ -11,13 +11,18 @@ import de.fhpotsdam.unfolding.utils.MapUtils;
  * Two maps are shown: One navigable overview maps, and one navigable detail map. The area in the
  * detail map is shown as viewport (finder rectangle) in the overview maps.
  * 
- * This Overview + Detail example shows how to setup connected map views.
+ * This Overview + Detail example shows how to use custom interaction without relying on Unfolding's
+ * internal event mechanism.
  */
 public class OverviewAndDetailWithViewportApp extends PApplet {
-
+	
+	// Big map showing a detailed area
 	Map mapDetail;
+
+	// Small map showing the overview, i.e. the world
 	Map mapOverviewStatic;
 
+	// Interactive finder box atop the overview map.
 	ViewportRect viewportRect;
 
 	public void setup() {
@@ -31,9 +36,8 @@ public class OverviewAndDetailWithViewportApp extends PApplet {
 
 		// Static overview map
 		mapOverviewStatic = new Map(this, "overviewStatic", 605, 10, 185, 185);
-		
+
 		viewportRect = new ViewportRect();
-		viewportRect.setDimension(new float[] {620, 30}, new float[] {640, 50});
 	}
 
 	public void draw() {
@@ -42,7 +46,7 @@ public class OverviewAndDetailWithViewportApp extends PApplet {
 		mapDetail.draw();
 		mapOverviewStatic.draw();
 
-		// Finder box for static overview map
+		// Viewport is updated by the actual area of the detail map
 		float[] tl = mapOverviewStatic.mapDisplay.getScreenPositionFromLocation(mapDetail.getTopLeftBorder());
 		float[] br = mapOverviewStatic.mapDisplay.getScreenPositionFromLocation(mapDetail.getBottomRightBorder());
 		viewportRect.setDimension(tl, br);
@@ -50,8 +54,8 @@ public class OverviewAndDetailWithViewportApp extends PApplet {
 	}
 
 	public void panDetailMap() {
-		float x = viewportRect.x + viewportRect.w/2;
-		float y = viewportRect.y + viewportRect.h/2;
+		float x = viewportRect.x + viewportRect.w / 2;
+		float y = viewportRect.y + viewportRect.h / 2;
 		Location newLocation = mapOverviewStatic.mapDisplay.getLocationFromScreenPosition(x, y);
 		mapDetail.panTo(newLocation);
 	}
@@ -101,7 +105,7 @@ public class OverviewAndDetailWithViewportApp extends PApplet {
 		if (viewportRect.dragged) {
 			viewportRect.x = mouseX - oldX;
 			viewportRect.y = mouseY - oldY;
-			
+
 			panDetailMap();
 		}
 	}
