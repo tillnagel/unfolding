@@ -7,7 +7,11 @@ import de.fhpotsdam.unfolding.events.EventDispatcher;
 import de.fhpotsdam.unfolding.interactions.MouseHandler;
 
 /**
- * This Overview + Detail example shows how to setup simple connected map views.
+ * Two maps are shown: An overview, and a detail map. The overview is a small-scale map, and
+ * shows the same area as the large-scale detail map.
+ * 
+ * Both maps are interactive, and can be navigated. Each interaction is reflected in both maps. This
+ * Overview + Detail example shows how to setup simple connected map views.
  * 
  */
 public class OverviewAndDetailMapApp extends PApplet {
@@ -20,13 +24,14 @@ public class OverviewAndDetailMapApp extends PApplet {
 
 		mapDetail = new Map(this, "detail", 10, 10, 585, 580);
 		mapOverview = new Map(this, "overview", 605, 10, 185, 185);
-		
+
 		EventDispatcher eventDispatcher = new EventDispatcher();
 
+		// Add mouse interaction to both maps
 		MouseHandler mouseHandler = new MouseHandler(this, mapDetail, mapOverview);
 		eventDispatcher.addBroadcaster(mouseHandler);
-		
-		// Both maps listen to each other
+
+		// Maps listen to each other, i.e. each interaction in one map is reflected in the other
 		eventDispatcher.register(mapDetail, "pan", mapDetail.getId(), mapOverview.getId());
 		eventDispatcher.register(mapDetail, "zoom", mapDetail.getId(), mapOverview.getId());
 		eventDispatcher.register(mapOverview, "pan", mapDetail.getId(), mapOverview.getId());
