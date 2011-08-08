@@ -1,6 +1,7 @@
 package de.fhpotsdam.unfolding.tiles;
 
 import processing.core.PApplet;
+import processing.core.PConstants;
 import processing.core.PImage;
 import de.fhpotsdam.unfolding.core.Coordinate;
 import de.fhpotsdam.unfolding.providers.AbstractMapProvider;
@@ -20,12 +21,16 @@ public class TileLoader implements Runnable {
 	TileLoaderListener listener;
 
 	Coordinate coordinate;
+	
+	private PImage cachedEmpyImage;
 
 	public TileLoader(PApplet p, AbstractMapProvider provider, TileLoaderListener listener, Coordinate coordinate) {
 		this.p = p;
 		this.provider = provider;
 		this.listener = listener;
 		this.coordinate = coordinate;
+		
+		cachedEmpyImage = new PImage(provider.tileWidth(), provider.tileHeight(), PConstants.ARGB);
 	}
 
 	public void run() {
@@ -37,6 +42,10 @@ public class TileLoader implements Runnable {
 			if (urls != null) {
 				img = getTileFromUrl(urls);
 			}
+		}
+		
+		if (img == null) {
+			img = cachedEmpyImage;
 		}
 
 		listener.tileLoaded(coordinate, img);
