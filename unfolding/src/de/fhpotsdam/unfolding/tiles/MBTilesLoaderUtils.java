@@ -100,6 +100,10 @@ public class MBTilesLoaderUtils {
 	 * @return A PImage.
 	 */
 	protected static PImage getAsImage(byte[] bytes) {
+		if (bytes == null || bytes.length == 0) {
+			return null;
+		}
+		
 		try {
 			ByteArrayInputStream bis = new ByteArrayInputStream(bytes);
 			BufferedImage bimg = ImageIO.read(bis);
@@ -110,8 +114,8 @@ public class MBTilesLoaderUtils {
 		} catch (Exception e) {
 			System.err.println("Can't create image from buffer");
 			e.printStackTrace();
+			return null;
 		}
-		return null;
 	}
 
 }
