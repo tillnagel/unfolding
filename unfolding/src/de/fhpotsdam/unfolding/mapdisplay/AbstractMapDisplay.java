@@ -219,7 +219,8 @@ public abstract class AbstractMapDisplay implements TileLoaderListener {
 			queue.add(coord);
 	}
 
-	// TODO: images & pending thread safe?
+	// TODO images & pending thread safe?
+	// TODO Handle null images (if TileLoader/MapProvider returns null tile)  
 	public void tileLoaded(Coordinate coord, Object image) {
 		if (pending.containsKey(coord) && coord != null) {
 			images.put(coord, image);
