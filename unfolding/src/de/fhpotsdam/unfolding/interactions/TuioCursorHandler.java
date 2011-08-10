@@ -241,12 +241,15 @@ public class TuioCursorHandler extends MapEventBroadcaster implements TuioListen
 			return;
 		
 		p.textFont(font);
-		p.stroke(50, 100);
-		p.fill(230, 150);
-		p.ellipse(tc.getScreenX(p.width), tc.getScreenY(p.height), 15, 15);
-		p.fill(10);
+		//p.stroke(0, 20);
+		p.noStroke();
+		p.fill(80, 30);
+		p.ellipse(tc.getScreenX(p.width), tc.getScreenY(p.height), 27, 27);
+		p.fill(80, 80);
+		p.ellipse(tc.getScreenX(p.width), tc.getScreenY(p.height), 25, 25);
+		p.fill(0, 200);
 		p.textSize(12);
-		p.text(tc.getCursorID(), tc.getScreenX(p.width) - 3, tc.getScreenY(p.height) + 4);
+		p.text(tc.getCursorID(), tc.getScreenX(p.width) - 4, tc.getScreenY(p.height) + 4);
 	}
 
 }
