@@ -4,24 +4,43 @@ import processing.core.PApplet;
 import processing.core.PConstants;
 import processing.core.PImage;
 import de.fhpotsdam.unfolding.core.Coordinate;
+import de.fhpotsdam.unfolding.mapdisplay.AbstractMapDisplay;
+import de.fhpotsdam.unfolding.mapdisplay.ProcessingMapDisplay;
 import de.fhpotsdam.unfolding.providers.AbstractMapProvider;
 
 /**
  * Loads tiles from the MapProvider. Will be used in a background thread.
  * 
  * Two kinds of MapProviders are supported:
- * - AbstractMapTileProvider returning an tile image, directly.
- * - AbstractMapTileUrlProvider returning an URL from which this TileLoader loads the tile from. 
+ * <ul>
+ * <li>AbstractMapTileProvider returning a tile image, directly.</li>
+ * <li>AbstractMapTileUrlProvider returning an URL from which this TileLoader loads the tile from.</li>
+ * </ul>
  * 
+ * Tile organization is handled in {@link AbstractMapDisplay} (caching) and
+ * {@link ProcessingMapDisplay} (rendering).
  */
 public class TileLoader implements Runnable {
 
-	PApplet p;
-	AbstractMapProvider provider;
-	TileLoaderListener listener;
+	/** Shows borders around each tile. */
+	private static final boolean SHOW_DEBUG_BORDER = false;
+	/** Shows coordinate information for tile. */
+	private static final boolean SHOW_TILE_COORDINATES = false;
 
-	Coordinate coordinate;
-	
+	/** Shows coordinate information for tile, i.e. placed atop original tile image. */
+	public boolean showDebugBorder = SHOW_DEBUG_BORDER;
+	public boolean showTileCoordinates = SHOW_TILE_COORDINATES;
+
+	/** The parent applet. */
+	protected PApplet p;
+	/** The tile provider. */
+	protected AbstractMapProvider provider;
+	/** The listener to call method after tile has been loaded. */
+	protected TileLoaderListener listener;
+	/** The actual coordinates of the tile to load. */
+	protected Coordinate coordinate;
+
+	/** Empty image in tile dimension to be used as place holder. */
 	private PImage cachedEmpyImage;
 
 	public TileLoader(PApplet p, AbstractMapProvider provider, TileLoaderListener listener, Coordinate coordinate) {
@@ -29,37 +48,52 @@ public class TileLoader implements Runnable {
 		this.provider = provider;
 		this.listener = listener;
 		this.coordinate = coordinate;
-		
+
 		cachedEmpyImage = new PImage(provider.tileWidth(), provider.tileHeight(), PConstants.ARGB);
 	}
 
+	/**
+	 * Gets tile from provider, and calls {@link TileLoaderListener#tileLoaded(Coordinate, Object)}
+	 * afterwards.
+	 */
 	public void run() {
-		PImage img = provider.getTile(coordinate);
 
-		if (img == null) {
-			// If provider does not return an image try to get the URLs and load the tile images.
+		// Gets tile as image directly from provider (e.g. loaded from a database)
+		PImage tileImg = provider.getTile(coordinate);
+
+		if (tileImg == null) {
+			// Loads images via the tile URLs from provider (e.g. from a web map service)
 			String[] urls = provider.getTileUrls(coordinate);
 			if (urls != null) {
-				img = getTileFromUrl(urls);
+				tileImg = getTileFromUrl(urls);
 			}
 		}
-		
-		if (img == null) {
-			img = cachedEmpyImage;
+
+		if (tileImg == null) {
+			// If no tile was provided, use transparent image.
+			tileImg = cachedEmpyImage;
 		}
 
-		listener.tileLoaded(coordinate, img);
+		if (showDebugBorder || showTileCoordinates) {
+			// Shows debug information atop original tile image.
+			tileImg = DebugTileUtils.getDebugTile(coordinate, tileImg, p, showDebugBorder, showTileCoordinates);
+		}
+
+		listener.tileLoaded(coordinate, tileImg);
 	}
 
+	/**
+	 * Loads tile from URL(s) by using Processing's loadImage function. If multiple URLs are
+	 * provided, all tile images are blended into each other.
+	 * 
+	 * @param urls
+	 *            The URLs (local or remote) to load the tiles from.
+	 * @return The tile image.
+	 */
 	protected PImage getTileFromUrl(String[] urls) {
 		// Load image from URL (local file included)
 		// NB: Use 'unknown' as content-type to let loadImage decide
 		PImage img = p.loadImage(urls[0], "unknown");
-
-		// if (OVERLAY_DEBUG_TILES) {
-		// // Create debug tile, and draw it on top of the loaded tile
-		// img = DebugTileUtils.getDebugTile(coord, img, p);
-		// }
 
 		if (img != null) {
 			// If array contains multiple URLs, load all images and blend them together
@@ -72,6 +106,14 @@ public class TileLoader implements Runnable {
 		}
 
 		return img;
+	}
+
+	public void showDebugBorder() {
+		this.showDebugBorder = true;
+	}
+
+	public void showTileCoordinates() {
+		this.showTileCoordinates = true;
 	}
 
 }

@@ -23,13 +23,6 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 
 	public static Logger log = Logger.getLogger(ProcessingMapDisplay.class);
 
-	/** Shows borders around each tile. */
-	private static final boolean SHOW_DEBUG_BORDER = false;
-	/** Shows coordinate infos on real tile, i.e. placed atop of the original tile image. */
-	private static final boolean USE_DEBUG_TILES = false;
-	/** Creates and shows debug tiles, i.e. own images with debug information. */
-	private static final boolean USE_OFFLINE_MODE = false;
-
 	// Used for loadImage and float maths
 	public PApplet papplet;
 
@@ -294,12 +287,6 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 					float x = coord.column * TILE_WIDTH;
 					float y = coord.row * TILE_HEIGHT;
 
-					if (SHOW_DEBUG_BORDER) {
-						pg.strokeWeight(2);
-						pg.stroke(255, 0, 0, 100);
-						pg.rect(x, y, TILE_WIDTH, TILE_HEIGHT);
-						pg.noStroke();
-					}
 					// REVISIT For transparency, do not paint image (why no transparent imgs?)
 					pg.image(tile, x, y, TILE_WIDTH, TILE_HEIGHT);
 
