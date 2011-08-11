@@ -57,7 +57,7 @@ public class Map implements MapEventListener {
 	private boolean tweening = DEFAULT_TWEENING;
 
 	/** Tweens the scale. */
-	private Integrator scaleIntegrator = new Integrator(1);
+	public Integrator scaleIntegrator = new Integrator(1);
 
 	/** Tweens the position. */
 	private Integrator txIntegrator = new Integrator(1);
@@ -77,6 +77,10 @@ public class Map implements MapEventListener {
 		this(p, generateId(), 0, 0, p.width, p.height, true, false, null);
 	}
 
+	public Map(PApplet p, AbstractMapProvider provider) {
+		this(p, generateId(), 0, 0, p.width, p.height, true, false, provider);
+	}
+	
 	public Map(PApplet p, float x, float y, float width, float height) {
 		this(p, generateId(), x, y, width, height, true, false, null);
 	}
@@ -101,7 +105,7 @@ public class Map implements MapEventListener {
 			boolean useDistortion, AbstractMapProvider provider) {
 		this.p = p;
 		this.id = id;
-
+		
 		this.mapDisplay = MapDisplayFactory.getMapDisplay(p, id, x, y, width, height, useMask,
 				useDistortion, provider);
 
@@ -159,11 +163,14 @@ public class Map implements MapEventListener {
 		if (tweening) {
 			scaleIntegrator.update();
 			mapDisplay.innerScale = scaleIntegrator.value;
-
+			/*
 			txIntegrator.update();
 			mapDisplay.innerOffsetX = txIntegrator.value;
 			tyIntegrator.update();
 			mapDisplay.innerOffsetY = tyIntegrator.value;
+			*/
+			
+			mapDisplay.calculateInnerMatrix();
 		}
 	}
 
@@ -188,6 +195,19 @@ public class Map implements MapEventListener {
 	// return location;
 	// }
 	//
+	
+	public Location getLocationFromScreenPosition(float x, float y) {
+		return mapDisplay.getLocationFromScreenPosition(x, y);
+	}
+
+	public float[] getScreenPositionFromLocation(Location location) {
+		return mapDisplay.getScreenPositionFromLocation(location);
+	}
+
+//	public PVector getScreenPositionFromLocation(Location location) {
+//		float[] xy = mapDisplay.getScreenPositionFromLocation(location);
+//		return new PVector(xy[0], xy[1]);
+//	}
 
 	// Transformations ----------------------------------------------------
 
@@ -421,13 +441,19 @@ public class Map implements MapEventListener {
 	protected void setInnerScale(float scale) {
 		mapDisplay.innerScale = scale;
 		mapDisplay.innerScale = PApplet.constrain(mapDisplay.innerScale, minScale, maxScale);
+		// TEST tweening
+		scaleIntegrator.target(scale);
 		mapDisplay.calculateInnerMatrix();
 	}
 	
 	public float getZoomLevel() {
 		return getZoomLevelFromScale(mapDisplay.innerScale);
 	}
-	
+
+	public float getZoom() {
+		return mapDisplay.innerScale;
+	}
+
 	/**
 	 * Sets the range of map scale factors.
 	 */
