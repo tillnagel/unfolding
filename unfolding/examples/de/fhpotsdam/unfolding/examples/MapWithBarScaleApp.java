@@ -3,8 +3,6 @@ package de.fhpotsdam.unfolding.examples;
 import java.util.Arrays;
 import java.util.List;
 
-import org.apache.log4j.Logger;
-
 import processing.core.PApplet;
 import codeanticode.glgraphics.GLConstants;
 import de.fhpotsdam.unfolding.Map;
@@ -14,10 +12,8 @@ import de.fhpotsdam.unfolding.utils.MapUtils;
 
 public class MapWithBarScaleApp extends PApplet {
 
-	public static Logger log = Logger.getLogger(MapWithBarScaleApp.class);
-
-	private static final List<Float> DISPLAY_DISTANCES = Arrays.asList(0.01f, 0.02f, 0.05f, 0.1f,
-			0.2f, 0.5f, 1f, 2f, 5f, 10f, 20f, 50f, 100f, 200f, 500f, 1000f, 2000f, 5000f);
+	private static final List<Float> DISPLAY_DISTANCES = Arrays.asList(0.01f, 0.02f, 0.05f, 0.1f, 0.2f, 0.5f, 1f, 2f,
+			5f, 10f, 20f, 50f, 100f, 200f, 500f, 1000f, 2000f, 5000f);
 	private static final float MAX_DISPLAY_DISTANCE = 5000;
 
 	Map map;
@@ -55,19 +51,19 @@ public class MapWithBarScaleApp extends PApplet {
 	public void drawBarScale(float x, float y) {
 
 		// Distance in km, appropriate to current zoom
-		float distance = MAX_DISPLAY_DISTANCE / map.mapDisplay.innerScale;
+		float distance = MAX_DISPLAY_DISTANCE / map.getZoom();
 		distance = getClosestDistance(distance);
-		
-		// Gets destLocation (world center, on equator, with calculated distance) 
+
+		// Gets destLocation (world center, on equator, with calculated distance)
 		Location startLocation = new Location(0, 0);
 		Location destLocation = GeoUtils.getDestinationLocation(startLocation, 90f, distance);
-		
+
 		// Calculates distance between both locations in screen coordinates
-		float[] destXY = map.mapDisplay.getScreenPositionFromLocation(destLocation);
-		float[] startXY = map.mapDisplay.getScreenPositionFromLocation(startLocation);
+		float[] destXY = map.getScreenPositionFromLocation(destLocation);
+		float[] startXY = map.getScreenPositionFromLocation(startLocation);
 		float dx = destXY[0] - startXY[0];
 
-		// Display 
+		// Display
 		stroke(30);
 		strokeWeight(1);
 		line(x, y - 3, x, y + 3);
