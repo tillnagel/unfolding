@@ -91,6 +91,8 @@ public class MarkerManager<E extends Marker> {
 
 	public void draw() {
 		// REVISIT Why twice? Here and in drawOuter()?
+		// To allow both; markers either implement one or the other.
+		// Off-map cut-off depends on it.
 
 		for (Marker marker : markers) {
 			marker.draw(map);
