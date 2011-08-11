@@ -3,19 +3,19 @@ package de.fhpotsdam.unfolding.examples.overviewdetail;
 import processing.core.PApplet;
 import processing.core.PVector;
 
-public class KiteConnection {
+public class KiteConnection implements OverviewPlusDetailConnection {
 
 	private PApplet p;
 
-	public float width = 150;
-	public float height = 150;
+	protected float width = 150;
+	protected float height = 150;
 
-	public float padding = 10;
+	protected float padding = 6;
 
 	// Destination this connection points to (detail pos)
-	public PVector dest = new PVector();
+	protected PVector dest = new PVector();
 	// Position of the rectangle (zoom map)
-	public PVector pos = new PVector();
+	protected PVector pos = new PVector();
 
 	// Corners of the background rectangle
 	protected PVector tl = new PVector();
@@ -27,6 +27,31 @@ public class KiteConnection {
 		this.p = p;
 	}
 
+	@Override
+	public void setDetailSize(float width, float height) {
+		this.width = width;
+		this.height = height;
+	}
+	
+	public void setOverviewSize(float width, float height) {
+		PApplet.println("KiteConnection only allows single overview/destination points.");
+	}
+
+	@Override
+	public void setPadding(float padding) {
+		this.padding = padding;
+	}
+
+	@Override
+	public void setDetailPosition(float x, float y) {
+		setDestination(x, y);
+	}
+
+	@Override
+	public void setOverviewPosition(float x, float y) {
+		setPosition(x, y);
+	}
+	
 	public void setPosition(float x, float y) {
 		pos.x = x - width / 2;
 		pos.y = y - height / 2;
@@ -139,7 +164,9 @@ public class KiteConnection {
 		p.endShape(PApplet.CLOSE);
 	}
 
-	public void vertex(PVector v) {
+	private void vertex(PVector v) {
 		p.vertex(v.x, v.y);
 	}
+
+	
 }

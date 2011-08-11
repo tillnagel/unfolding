@@ -1,13 +1,14 @@
 package de.fhpotsdam.unfolding.examples.fun;
 
 import processing.core.PApplet;
-import processing.core.PImage;
 import codeanticode.glgraphics.GLConstants;
 import de.fhpotsdam.unfolding.Map;
-import de.fhpotsdam.unfolding.events.EventDispatcher;
 import de.fhpotsdam.unfolding.providers.Microsoft;
 import de.fhpotsdam.unfolding.utils.MapUtils;
 
+/**
+ * Some very simple experiment drawing randomly placed circles in color of the map background.
+ */
 public class GenerativeGraphicMap extends PApplet {
 
 	Map map1;
@@ -33,7 +34,7 @@ public class GenerativeGraphicMap extends PApplet {
 	public void keyPressed() {
 		println("fps:" + frameRate);
 	}
-	
+
 	public void drawPoint() {
 		float pSize = 2.0f + (mouseX / (float) width) * 16.0f;
 		int x = (int) random(width);

@@ -16,7 +16,11 @@ import de.fhpotsdam.unfolding.interactions.MouseHandler;
 import de.fhpotsdam.unfolding.utils.DebugDisplay;
 import de.fhpotsdam.unfolding.utils.MapUtils;
 
-@SuppressWarnings("serial")
+/**
+ * Very simple manual navigation example. The user can press two buttons to jump to specific
+ * locations.
+ * 
+ */
 public class NaviButtonMapApp extends PApplet {
 
 	public static Logger log = Logger.getLogger(NaviButtonMapApp.class);

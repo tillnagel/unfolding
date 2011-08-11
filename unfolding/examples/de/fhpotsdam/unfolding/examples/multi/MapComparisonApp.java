@@ -1,4 +1,4 @@
-package de.fhpotsdam.unfolding.examples;
+package de.fhpotsdam.unfolding.examples.multi;
 
 import java.util.ArrayList;
 import java.util.List;

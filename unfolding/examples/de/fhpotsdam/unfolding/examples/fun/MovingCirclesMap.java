@@ -11,6 +11,9 @@ import de.fhpotsdam.unfolding.events.MapEventListener;
 import de.fhpotsdam.unfolding.providers.Microsoft;
 import de.fhpotsdam.unfolding.utils.MapUtils;
 
+/**
+ * Some simple animated circle experiment.
+ */
 public class MovingCirclesMap extends PApplet implements MapEventListener {
 
 	Map map1;
@@ -26,15 +29,15 @@ public class MovingCirclesMap extends PApplet implements MapEventListener {
 		map1 = new Map(this, "map1", 0, 0, 800, 600, true, false, new Microsoft.AerialProvider());
 		EventDispatcher eventDispatcher = MapUtils.createDefaultEventDispatcher(this, map1);
 		eventDispatcher.register(map1, "pan");
-		//eventDispatcher.register(this, "zoom");
-		
+		// eventDispatcher.register(this, "zoom");
+
 		initCircles(circles);
 	}
 
 	public void draw() {
-		background(0,0,30);
-		
-		//map1.draw();
+		background(0, 0, 30);
+
+		// map1.draw();
 
 		// draw all circles
 		drawCircles(0, circles.size());

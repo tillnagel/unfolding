@@ -1,4 +1,4 @@
-package de.fhpotsdam.unfolding.examples;
+package de.fhpotsdam.unfolding.examples.interaction;
 
 import org.apache.log4j.Logger;
 
@@ -7,7 +7,6 @@ import codeanticode.glgraphics.GLConstants;
 import de.fhpotsdam.unfolding.Map;
 import de.fhpotsdam.unfolding.events.EventDispatcher;
 import de.fhpotsdam.unfolding.interactions.TuioCursorHandler;
-import de.fhpotsdam.unfolding.utils.DebugDisplay;
 
 public class MultitouchMapApp extends PApplet {
 
@@ -17,24 +16,21 @@ public class MultitouchMapApp extends PApplet {
 
 	Map map;
 	EventDispatcher eventDispatcher;
-	DebugDisplay debugDisplay;
 
 	TuioCursorHandler tuioCursorHandler;
 
 	public void setup() {
-		size(1000, 750, GLConstants.GLGRAPHICS);
+		size(400, 400, GLConstants.GLGRAPHICS);
 
-		map = new Map(this, "map1", 50, 100, 900, 550);
+		map = new Map(this);
 		map.setTweening(false);
 
 		eventDispatcher = new EventDispatcher();
 
 		tuioCursorHandler = new TuioCursorHandler(this, map);
 		eventDispatcher.addBroadcaster(tuioCursorHandler);
-
 		eventDispatcher.register(map, "pan");
-
-		debugDisplay = new DebugDisplay(this, map.mapDisplay, 0, 0, 250, 200);
+		eventDispatcher.register(map, "zoom");
 	}
 
 	public void draw() {
@@ -44,7 +40,6 @@ public class MultitouchMapApp extends PApplet {
 			map.rotateTo(0);
 		}
 		map.draw();
-		debugDisplay.draw();
 
 		tuioCursorHandler.drawCursors();
 	}

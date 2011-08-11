@@ -27,7 +27,7 @@ import de.fhpotsdam.unfolding.utils.DebugDisplay;
  * <ul>
  * <li>mouse-drag on map1: pan map1 (and pan map2 + map3 via listener)</li>
  * <li>dbl-click on map1: zoom map1 (and zoom map2 via listener)</li>
- * <li>key-zoom on map1: nothing (key events only for active: map2)</li>
+ * <li>key-zoom on map1: zoom map2 (key events only for active: map2)</li>
  * <li>mouse-drag on map2: pan map2 (and pan map3 via listener)</li>
  * <li>dbl-click on map2: zoom map2 (and zoom map3 via listener)</li>
  * <li>key-zoom on map2: zoom map2 (is active) (and zoom map3 via listener)</li>

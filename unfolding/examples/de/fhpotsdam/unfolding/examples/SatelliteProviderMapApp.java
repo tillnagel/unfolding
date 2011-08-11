@@ -11,9 +11,9 @@ public class SatelliteProviderMapApp extends PApplet {
 	Map map;
 
 	public void setup() {
-		size(800, 600, GLConstants.GLGRAPHICS);
+		size(400, 400, GLConstants.GLGRAPHICS);
 
-		map = new Map(this, 0, 0, width, height, new Microsoft.AerialProvider());
+		map = new Map(this, new Microsoft.AerialProvider());
 		MapUtils.createDefaultEventDispatcher(this, map);
 	}
 
@@ -24,3 +24,4 @@ public class SatelliteProviderMapApp extends PApplet {
 	}
 
 }
+

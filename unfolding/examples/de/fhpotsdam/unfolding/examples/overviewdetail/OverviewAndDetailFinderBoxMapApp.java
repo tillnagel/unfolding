@@ -25,12 +25,14 @@ public class OverviewAndDetailFinderBoxMapApp extends PApplet {
 		mapDetail = new Map(this, "detail", 10, 10, 585, 580);
 		mapDetail.zoomToLevel(4);
 		mapDetail.setZoomRange(4, 10);
+		mapDetail.setTweening(true);
 		EventDispatcher eventDispatcher = MapUtils.createDefaultEventDispatcher(this, mapDetail);
 
 		// Overview map listens to interaction events from the detail map
 		mapOverview = new Map(this, "overview", 605, 10, 185, 185);
 		mapOverview.zoomToLevel(1);
 		mapOverview.setZoomRange(1, 7);
+		mapOverview.setTweening(true);
 		eventDispatcher.register(mapOverview, "pan", mapDetail.getId());
 		eventDispatcher.register(mapOverview, "zoom", mapDetail.getId());
 
@@ -46,17 +48,13 @@ public class OverviewAndDetailFinderBoxMapApp extends PApplet {
 		mapOverviewStatic.draw();
 
 		// Finder box for overview map
-		float[] tl1 = mapOverview.mapDisplay.getScreenPositionFromLocation(mapDetail
-				.getTopLeftBorder());
-		float[] br1 = mapOverview.mapDisplay.getScreenPositionFromLocation(mapDetail
-				.getBottomRightBorder());
+		float[] tl1 = mapOverview.mapDisplay.getScreenPositionFromLocation(mapDetail.getTopLeftBorder());
+		float[] br1 = mapOverview.mapDisplay.getScreenPositionFromLocation(mapDetail.getBottomRightBorder());
 		drawDetailSelectionBox(tl1, br1);
 
 		// Finder box for static overview map
-		float[] tl2 = mapOverviewStatic.mapDisplay.getScreenPositionFromLocation(mapDetail
-				.getTopLeftBorder());
-		float[] br2 = mapOverviewStatic.mapDisplay.getScreenPositionFromLocation(mapDetail
-				.getBottomRightBorder());
+		float[] tl2 = mapOverviewStatic.mapDisplay.getScreenPositionFromLocation(mapDetail.getTopLeftBorder());
+		float[] br2 = mapOverviewStatic.mapDisplay.getScreenPositionFromLocation(mapDetail.getBottomRightBorder());
 		drawDetailSelectionBox(tl2, br2);
 	}
 

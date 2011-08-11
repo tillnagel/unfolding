@@ -5,27 +5,27 @@ import codeanticode.glgraphics.GLConstants;
 
 public class KiteConnectionApp extends PApplet {
 
-	KiteConnection kiteConnection;
+	OverviewPlusDetailConnection connection;
 
 	public void setup() {
 		size(800, 600, GLConstants.GLGRAPHICS);
 
-		kiteConnection = new KiteConnection(this);
+		connection = new KiteConnection(this);
 	}
 
 	public void draw() {
 		background(255);
 
-		kiteConnection.draw();
-		kiteConnection.drawDebug();
+		connection.draw();
+		//kiteConnection.drawDebug();
 	}
 
 	public void mouseMoved() {
-		kiteConnection.setPosition(mouseX, mouseY);
+		connection.setOverviewPosition(mouseX, mouseY);
 	}
 
-	public void mouseClicked() {
-		kiteConnection.setDestination(mouseX, mouseY);
+	public void mouseDragged() {
+		connection.setDetailPosition(mouseX, mouseY);
 	}
 
 }
