@@ -12,25 +12,42 @@ public class DistortedGLGraphicsMapDisplay extends GLGraphicsMapDisplay {
 	public Distorter distorter;
 	TextureDistorter textureDistorter;
 
-	public DistortedGLGraphicsMapDisplay(PApplet papplet, AbstractMapProvider provider,
-			float offsetX, float offsetY, float width, float height) {
+	public DistortedGLGraphicsMapDisplay(PApplet papplet, AbstractMapProvider provider, float offsetX, float offsetY,
+			float width, float height) {
 		super(papplet, provider, offsetX, offsetY, width, height);
 
-		distorter = new LinearInterpolationDistorter(70, 200);
-		textureDistorter = new TextureDistorter(papplet, 800, 600, 10);
+		distorter = new LinearInterpolationDistorter(width / 2, height / 2);
+		textureDistorter = new TextureDistorter(papplet, width, height, 10);
+		textureDistorter.setDistorter(distorter);
+	}
+
+	public DistortedGLGraphicsMapDisplay(PApplet papplet, AbstractMapProvider provider, float offsetX, float offsetY,
+			float width, float height, Distorter distorter) {
+		super(papplet, provider, offsetX, offsetY, width, height);
+
+		this.distorter = distorter;
+		textureDistorter = new TextureDistorter(papplet, width, height, 10);
 		textureDistorter.setDistorter(distorter);
 	}
 
 	protected void postDraw() {
+		PGraphics outerPG = getOuterPG();
+		
+		outerPG.pushMatrix();
+		outerPG.translate(offsetX, offsetY);
+		// REVISIT outer matrix not applied (instead of as in GLGraphicsMapDisplay)
+		
+		textureDistorter.draw(outerPG, pg.getTexture());
+		
+		outerPG.popMatrix();
+	}
+	
+	protected void postDraw2() {
 		PGraphics p = papplet.g;
 		p.pushMatrix();
 		p.translate(offsetX, offsetY);
 		textureDistorter.draw(p, pg.getTexture());
 		p.popMatrix();
-	}
-
-	public void setCenter(float x, float y) {
-		distorter.setCenter(x, y);
 	}
 
 }

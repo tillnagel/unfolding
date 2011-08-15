@@ -5,7 +5,7 @@ import processing.core.PApplet;
 /**
  * Scale interpolation algorithm by [Bogen 2008], Visual Navigation with Schematic Maps
  */
-public class ScaleInterpolationDistorter extends Distorter {
+public class ScaleInterpolationDistorter extends AbstractLensDistorter {
 
 	protected int r0;
 	protected int r1;
