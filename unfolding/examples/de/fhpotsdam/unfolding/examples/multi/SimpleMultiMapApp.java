@@ -12,10 +12,8 @@ public class SimpleMultiMapApp extends PApplet {
 	public void setup() {
 		size(800, 600, GLConstants.GLGRAPHICS);
 
-		map1 = new Map(this, "map1", 10, 10, 385, 580);
-		map1.setTweening(false);
-		map2 = new Map(this, "map2", 405, 10, 385, 580);
-		map2.setTweening(false);
+		map1 = new Map(this, "map1", 0, 0, 300, 290);
+		map2 = new Map(this, "map2", 0, 300, 300, 290);
 	}
 
 	public void draw() {
