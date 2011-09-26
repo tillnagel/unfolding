@@ -18,6 +18,12 @@ public class GLGraphicsMapDisplay extends ProcessingMapDisplay implements PConst
 
 		pg = new GLGraphicsOffScreen(papplet, (int) width, (int) height);
 	}
+	
+	@Override
+	public void resize(float width, float height) {
+		super.resize(width, height);
+		pg = new GLGraphicsOffScreen(papplet, (int) width, (int) height);
+	}
 
 	public PGraphics getPG() {
 		return pg;

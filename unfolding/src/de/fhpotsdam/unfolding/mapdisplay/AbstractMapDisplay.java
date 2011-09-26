@@ -84,7 +84,12 @@ public abstract class AbstractMapDisplay implements TileLoaderListener {
 
 		innerScale = (float) Math.ceil(Math.min(height / (float) TILE_WIDTH, width / (float) TILE_HEIGHT));
 	}
-
+	
+	public void resize(float width, float height) {
+		this.width = width;
+		this.height = height;
+	}
+	
 	public AbstractMapProvider getMapProvider() {
 		return this.provider;
 	}
