@@ -220,7 +220,7 @@ public abstract class AbstractMapDisplay implements TileLoaderListener {
 	}
 
 	// TODO images & pending thread safe?
-	// TODO Handle null images (if TileLoader/MapProvider returns null tile)  
+	// TODO Handle null images (if TileLoader/MapProvider returns null tile)
 	public void tileLoaded(Coordinate coord, Object image) {
 		if (pending.containsKey(coord) && coord != null) {
 			images.put(coord, image);
@@ -286,6 +286,28 @@ public abstract class AbstractMapDisplay implements TileLoaderListener {
 			recent_images.subList(0, imagesToDelete).clear();
 			images.values().retainAll(recent_images);
 		}
+	}
+
+	protected void cleanupImageBuffer(boolean force) {
+		if (force) {
+			images.clear();
+		} else {
+			cleanupImageBuffer();
+		}
+	}
+
+	/**
+	 * Set the map provider, dynamically. The currently selected area, as well as all events etc
+	 * will stay.
+	 * 
+	 * Note that the image buffer will be cleaned, i.e. all tiles need to be loaded anew.
+	 * 
+	 * @param provider
+	 *            The provider to use.
+	 */
+	public void setProvider(AbstractMapProvider provider) {
+		this.provider = provider;
+		cleanupImageBuffer(true);
 	}
 
 }
