@@ -34,6 +34,9 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 	/** Only for debugging */
 	private PFont font;
 
+	// Background color
+	protected int bgColor = 0;
+
 	/**
 	 * Creates a new MapDisplay with full canvas size, and given provider
 	 */
@@ -259,7 +262,7 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 		pg.noSmooth();
 		// REVISIT For transparency, do not paint bg
 		// But needed to delete panning off the map (in order to not smudge)
-		pg.background(0);
+		pg.background(bgColor);
 
 		// translate and scale, from the middle
 		pg.pushMatrix();
@@ -314,6 +317,10 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 		if (smooth) {
 			papplet.smooth();
 		}
+	}
+
+	public void setBackgroundColor(int color) {
+		this.bgColor = color;
 	}
 
 	protected Vector getVisibleKeys(PGraphics pg) {

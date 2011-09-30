@@ -535,5 +535,9 @@ public class Map implements MapEventListener {
 	public void setTweening(boolean tweening) {
 		this.tweening = tweening;
 	}
+	
+	public void setBackgroundColor(int bgColor) {
+		this.mapDisplay.setBackgroundColor(bgColor);
+	}
 
 }
