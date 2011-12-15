@@ -6,6 +6,12 @@ import de.fhpotsdam.unfolding.Map;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.utils.MapUtils;
 
+/**
+ * Stores and restores a snapshot of the current map view. Each snapshot consists of location, zoom
+ * level, and a thumbnail.
+ * 
+ * Press 's' to take a snapshot of the current map. Click on its thumbnail to restore.
+ */
 public class MapSnapshotApp extends PApplet {
 
 	Map map;

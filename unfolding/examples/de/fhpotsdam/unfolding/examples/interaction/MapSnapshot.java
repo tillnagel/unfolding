@@ -13,9 +13,18 @@ public class MapSnapshot {
 
 	private PApplet p;
 
+	/** Stored map location. */
 	public Location location;
+	/** Stored map zoom level. */
 	public int zoomLevel;
+
+	/** Thumbnail image of the map. */
 	public PImage thumbnail;
+	// Position and size of thumbnail.
+	public float x;
+	public float y;
+	public float width;
+	public float height;
 
 	public MapSnapshot(PApplet p, Map map) {
 		this.p = p;
@@ -35,15 +44,31 @@ public class MapSnapshot {
 		}
 	}
 
+	public void set(float x, float y, float width, float height) {
+		this.x = x;
+		this.y = y;
+		this.width = width;
+		this.height = height;
+	}
+
+	public void draw() {
+		draw(x, y, width, height);
+	}
+
 	public void draw(float x, float y) {
 		draw(x, y, thumbnail.width * THUMBNAIL_SCALE, thumbnail.height * THUMBNAIL_SCALE);
 	}
 
-	public void draw(float x, float y, float w, float h) {
+	public void draw(float x, float y, float width, float height) {
+		set(x, y, width, height);
 		p.fill(0, 100);
 		p.noStroke();
-		p.rect(x + 2, y + 2, w, h);
-		p.image(thumbnail, x, y, w, h);
+		p.rect(x + 2, y + 2, width, height);
+		p.image(thumbnail, x, y, width, height);
+	}
+
+	public boolean isInside(float checkX, float checkY) {
+		return checkX > x && checkX < x + width && checkY > y && checkY < y + height;
 	}
 
 }
