@@ -20,7 +20,7 @@ public class MBTilesMapApp extends PApplet {
 
 		map = new Map(this, 0, 0, width, height, new MBTilesMapProvider(JDBC_CONN_STRING_MAC));
 		MapUtils.createDefaultEventDispatcher(this, map);
-		map.setZoomRange(2, 9);
+		map.setZoomRange(2, 8);
 	}
 
 	public void draw() {
