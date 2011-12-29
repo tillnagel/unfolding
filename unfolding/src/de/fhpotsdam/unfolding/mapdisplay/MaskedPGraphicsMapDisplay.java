@@ -27,6 +27,11 @@ public class MaskedPGraphicsMapDisplay extends ProcessingMapDisplay implements P
 		//papplet.applyMatrix(matrix);
 		papplet.translate(offsetX, offsetY);
 		papplet.image(pg, 0, 0);
+		
+		if (markerManager != null) {
+			markerManager.drawOuter();
+		}
+		
 		papplet.popMatrix();
 	}
 
