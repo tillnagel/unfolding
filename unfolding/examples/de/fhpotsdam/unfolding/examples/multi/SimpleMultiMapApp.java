@@ -4,6 +4,11 @@ import processing.core.PApplet;
 import codeanticode.glgraphics.GLConstants;
 import de.fhpotsdam.unfolding.Map;
 
+/**
+ * Shows two independent maps.
+ * 
+ * Press + or - to zoom one of the maps, depending on which you hover the mouse.
+ */
 public class SimpleMultiMapApp extends PApplet {
 
 	Map map1;

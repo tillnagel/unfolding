@@ -10,6 +10,16 @@ import de.fhpotsdam.unfolding.providers.Microsoft;
 import de.fhpotsdam.unfolding.providers.OpenStreetMap;
 import de.fhpotsdam.unfolding.utils.MapUtils;
 
+/**
+ * Enables switching between different tile providers for the same map.
+ * 
+ * After switching the tile cache will be cleared and visible tiles loaded from new provider.
+ * Compare with {@link DynamicMapSwitch}.
+ * 
+ * All map settings are persistent. Current transformations, markers, interactions, etc will stay
+ * the same.
+ */
+
 public class DynamicProviderSwitch extends PApplet {
 
 	Map map;

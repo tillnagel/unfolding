@@ -8,6 +8,9 @@ import de.fhpotsdam.unfolding.providers.Microsoft;
 import de.fhpotsdam.unfolding.providers.OpenStreetMap;
 import de.fhpotsdam.unfolding.utils.MapUtils;
 
+/**
+ * Two independent maps, with own interactions and different providers.
+ */
 public class MultiProviderMultiMapApp extends PApplet {
 
 	Map map1;
@@ -18,9 +21,8 @@ public class MultiProviderMultiMapApp extends PApplet {
 
 		map1 = new Map(this, "map1", 10, 10, 385, 580, true, false, new Microsoft.AerialProvider());
 		map1.setTweening(false);
-		map2 = new Map(this, "map2", 405, 10, 385, 580, true, false,
-				new OpenStreetMap.CloudmadeProvider(MapDisplayFactory.OSM_API_KEY,
-						30635));
+		map2 = new Map(this, "map2", 405, 10, 385, 580, true, false, new OpenStreetMap.CloudmadeProvider(
+				MapDisplayFactory.OSM_API_KEY, 30635));
 		map2.setTweening(false);
 		MapUtils.createDefaultEventDispatcher(this, map1, map2);
 	}
