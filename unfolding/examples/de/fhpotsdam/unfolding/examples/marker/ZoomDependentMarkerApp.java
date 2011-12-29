@@ -15,6 +15,9 @@ import de.fhpotsdam.unfolding.marker.MarkerManager;
 import de.fhpotsdam.unfolding.providers.OpenStreetMap;
 import de.fhpotsdam.unfolding.utils.MapUtils;
 
+/**
+ * Shows different set of markers depending on the zoom level.
+ */
 public class ZoomDependentMarkerApp extends PApplet {
 
 	public static Logger log = Logger.getLogger(InfoMarkerApp.class);
@@ -30,14 +33,13 @@ public class ZoomDependentMarkerApp extends PApplet {
 
 		PFont font = loadFont("Miso-Light-12.vlw");
 
-		map = new Map(this, "map", 10, 10, 780, 580, true, false,
-				new OpenStreetMap.CloudmadeProvider(MapDisplayFactory.OSM_API_KEY, 23058));
+		map = new Map(this, "map", 10, 10, 780, 580, true, false, new OpenStreetMap.CloudmadeProvider(
+				MapDisplayFactory.OSM_API_KEY, 23058));
 		map.setTweening(false);
 		MapUtils.createDefaultEventDispatcher(this, map);
 
 		labeledMarkers = InfoMarkerApp.loadGeoRSSMarkers(this, "bbc-georss-test.xml", font);
-		labeledCountryMarkers = InfoMarkerApp.loadGeoRSSMarkers(this, "bbc-georss-countrytest.xml",
-				font);
+		labeledCountryMarkers = InfoMarkerApp.loadGeoRSSMarkers(this, "bbc-georss-countrytest.xml", font);
 		markerManager = new MarkerManager(map, labeledCountryMarkers);
 		map.mapDisplay.setMarkerManager(markerManager);
 	}

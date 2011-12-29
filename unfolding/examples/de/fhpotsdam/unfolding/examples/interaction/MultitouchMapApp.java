@@ -20,7 +20,7 @@ public class MultitouchMapApp extends PApplet {
 	TuioCursorHandler tuioCursorHandler;
 
 	public void setup() {
-		size(400, 400, GLConstants.GLGRAPHICS);
+		size(800, 600, GLConstants.GLGRAPHICS);
 
 		map = new Map(this);
 		map.setTweening(false);

@@ -14,6 +14,7 @@ public class SimpleMapApp extends PApplet {
 		size(800, 600, GLConstants.GLGRAPHICS);
 
 		map = new Map(this);
+		// map = new Map(this, new OpenStreetMap.StamenTonerProvider());
 		map.zoomAndPanTo(new Location(52.5f, 13.4f), 10);
 
 		MapUtils.createDefaultEventDispatcher(this, map);
