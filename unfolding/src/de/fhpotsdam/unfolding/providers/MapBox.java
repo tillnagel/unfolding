@@ -45,6 +45,15 @@ public class MapBox {
 		}
 	}
 	
+	/** Example for local TileMill usage, for testing purposes. For actual usage tiles should be exported. */
+	public static class PlainUSAProvider extends MapBoxProvider {
+		public String[] getTileUrls(Coordinate coordinate) {
+			String url = "http://localhost:8889/1.0.0/plain-usa/"
+					+ getZoomString(coordinate) + ".png";
+			return new String[] { url };
+		}
+	}
+	
 	
 	// REMOVE 
 	public static class BlankProvider extends MapBoxProvider {

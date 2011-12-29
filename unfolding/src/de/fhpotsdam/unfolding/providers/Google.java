@@ -5,6 +5,11 @@ import de.fhpotsdam.unfolding.core.Coordinate;
 import de.fhpotsdam.unfolding.geo.MercatorProjection;
 import de.fhpotsdam.unfolding.geo.Transformation;
 
+/**
+ * 
+ * Note: This is for informational purpose, only. See Google's Terms of Service for usage
+ * conditions.
+ */
 public class Google {
 	public static abstract class GoogleProvider extends AbstractMapTileUrlProvider {
 
@@ -49,6 +54,38 @@ public class Google {
 			return new String[] { url };
 		}
 	}
+
+	public static class GoogleSimplifiedProvider extends GoogleProvider {
+		public GoogleSimplifiedProvider() {
+		}
+
+		public String[] getTileUrls(Coordinate coordinate) {
+			String url = "http://mt1.googleapis.com/vt?&x=" + (int) coordinate.column + "&y=" + (int) coordinate.row
+					+ "&z=" + (int) coordinate.zoom
+					+ "&apistyle=s.t%3A3|p.v%3Asimplified%2Cs.t%3A2|p.v%3Aoff%2Cs.t%3A81|p.v%3Aoff";
+			return new String[] { url };
+		}
+	}
+
+	public static class GoogleSimplified2Provider extends GoogleProvider {
+		public GoogleSimplified2Provider() {
+		}
+
+		public String[] getTileUrls(Coordinate coordinate) {
+			String url = "http://mt1.googleapis.com/vt?&x=" + (int) coordinate.column
+					+ "&y="
+					+ (int) coordinate.row
+					+ "&z="
+					+ (int) coordinate.zoom
+					// +
+					// "&apistyle=s.t%3A2%7Cp.v%3Aoff%2Cs.t%3A3%7Cs.e%3Al%7Cp.v%3Aoff%2Cs.t%3A1%7Cs.e%3Al%7Cp.v%3Aoff%2Cs.t%3A5%7Cs.e%3Al%7Cp.v%3Aoff%2Cs.t%3A6%7Cs.e%3Al%7Cp.v%3Aoff%2Cs.t%3A6%7Cp.l%3A55%2Cs.t%3A51%7Cp.v%3Aoff%2Cs.t%3A81%7Cp.v%3Aoff%2Cs.t%3A50%7Cp.v%3Asimplified%7Cp.l%3A55%2Cs.t%3A49%7Cp.v%3Asimplified%7Cp.l%3A55%2Cs.t%3A1057%7Cp.v%3Aoff";
+					+ "&apistyle=s.t%3A1%7Cs.e%3Al%7Cp.v%3Aoff%2Cs.t%3A5%7Cs.e%3Al%7Cp.v%3Aoff%2Cs.t%3A2%7Cs.e%3Al%7Cp.v%3Aoff%2Cs.t%3A3%7Cs.e%3Al%7Cp.v%3Aoff%2Cs.t%3A6%7Cs.e%3Al%7Cp.v%3Aoff%2Cs.t%3A3%7Cp.v%3Aoff%2Cs.t%3A5%7Cp.v%3Aoff%2Cs.t%3A2%7Cp.v%3Aoff%2Cs.t%3A4%7Cp.v%3Aoff%2Cs.t%3A5%7Cp.v%3Aoff%7Cp.l%3A50%2Cs.t%3A6%7Cp.l%3A50&s=Ga&style=api%7Csmartmaps";
+			return new String[] { url };
+		}
+	}
+
+	// http://mt1.googleapis.com/vt?lyrs=m@163000000&src=apiv3&hl=en-GB&x=6455&y=4069&z=13&apistyle=s.t%3A1%7Cs.e%3Al%7Cp.v%3Aoff%2Cs.t%3A5%7Cs.e%3Al%7Cp.v%3Aoff%2Cs.t%3A2%7Cs.e%3Al%7Cp.v%3Aoff%2Cs.t%3A3%7Cs.e%3Al%7Cp.v%3Aoff%2Cs.t%3A6%7Cs.e%3Al%7Cp.v%3Aoff%2Cs.t%3A3%7Cp.v%3Aoff%2Cs.t%3A5%7Cp.v%3Aoff%2Cs.t%3A2%7Cp.v%3Aoff%2Cs.t%3A4%7Cp.v%3Aoff%2Cs.t%3A5%7Cp.v%3Aoff%7Cp.l%3A50%2Cs.t%3A6%7Cp.l%3A50&s=Ga&style=api%7Csmartmaps
+	// http://mt0.googleapis.com/vt?lyrs=m@163000000&src=apiv3&hl=en-GB&x=51676&s=&y=32536&z=16&apistyle=s.t%3A2%7Cp.v%3Aoff%2Cs.t%3A3%7Cs.e%3Al%7Cp.v%3Aoff%2Cs.t%3A1%7Cs.e%3Al%7Cp.v%3Aoff%2Cs.t%3A5%7Cs.e%3Al%7Cp.v%3Aoff%2Cs.t%3A6%7Cs.e%3Al%7Cp.v%3Aoff%2Cs.t%3A6%7Cp.l%3A55%2Cs.t%3A51%7Cp.v%3Aoff%2Cs.t%3A81%7Cp.v%3Aoff%2Cs.t%3A50%7Cp.v%3Asimplified%7Cp.l%3A55%2Cs.t%3A49%7Cp.v%3Asimplified%7Cp.l%3A55%2Cs.t%3A1057%7Cp.v%3Aoff&s=Gali&style=api%7Csmartmaps
 
 	public static Coordinate fromGoogle(String s) {
 		// Return column, row, zoom for Microsoft tile string.
