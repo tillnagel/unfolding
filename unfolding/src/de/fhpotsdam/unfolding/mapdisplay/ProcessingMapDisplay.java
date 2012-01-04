@@ -71,10 +71,10 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 	/**
 	 * Updates the matrix to transform the map with.
 	 * 
-	 * For the rotation the matrix has to be temporarily translated to the transformation center.
-	 * Thus, it has to be reset with the original position, afterwards. Original position is
-	 * calculated by inverting the current matrix. (As the matrix incorporates that position, it
-	 * stores every transformation, even though the matrix is created anew.)
+	 * For the rotation the matrix has to be temporarily translated to the transformation center. Thus, it has to be
+	 * reset with the original position, afterwards. Original position is calculated by inverting the current matrix.
+	 * (As the matrix incorporates that position, it stores every transformation, even though the matrix is created
+	 * anew.)
 	 * 
 	 * @param x
 	 *            The transformation center x
@@ -97,18 +97,21 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 	}
 
 	public void calculateInnerMatrix() {
-		PMatrix3D invMatrix = new PMatrix3D();
-		invMatrix.apply(innerMatrix);
-		invMatrix.invert();
+		// Synchronize on this to not interfere with tile loading (see getVisibleKeys)
+		synchronized (this) {
+			PMatrix3D invMatrix = new PMatrix3D();
+			invMatrix.apply(innerMatrix);
+			invMatrix.invert();
 
-		float originalCenterX = invMatrix.multX(innerTransformationCenter.x, innerTransformationCenter.y);
-		float originalCenterY = invMatrix.multY(innerTransformationCenter.x, innerTransformationCenter.y);
+			float originalCenterX = invMatrix.multX(innerTransformationCenter.x, innerTransformationCenter.y);
+			float originalCenterY = invMatrix.multY(innerTransformationCenter.x, innerTransformationCenter.y);
 
-		innerMatrix = new PMatrix3D();
-		innerMatrix.translate(innerTransformationCenter.x, innerTransformationCenter.y);
-		innerMatrix.scale(innerScale);
-		innerMatrix.rotateZ(innerAngle);
-		innerMatrix.translate(-originalCenterX, -originalCenterY);
+			innerMatrix = new PMatrix3D();
+			innerMatrix.translate(innerTransformationCenter.x, innerTransformationCenter.y);
+			innerMatrix.scale(innerScale);
+			innerMatrix.rotateZ(innerAngle);
+			innerMatrix.translate(-originalCenterX, -originalCenterY);
+		}
 	}
 
 	@Override
@@ -223,11 +226,15 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 	}
 
 	public float[] getInnerObjectFromLocation(Location location) {
-		PMatrix3D m = new PMatrix3D();
 		Coordinate coord = provider.locationCoordinate(location).zoomTo(0);
-		float[] out = new float[3];
-		m.mult(new float[] { coord.column * TILE_WIDTH, coord.row * TILE_HEIGHT, 0 }, out);
-		return out;
+		return new float[] { coord.column * TILE_WIDTH, coord.row * TILE_HEIGHT, 0 };
+
+		// PMatrix3D m = new PMatrix3D();
+		// Coordinate coord = provider.locationCoordinate(location).zoomTo(0);
+		// float[] out = new float[3];
+		// m.mult(new float[] { coord.column * TILE_WIDTH, coord.row * TILE_HEIGHT, 0 }, out);
+		// log.debug("getInnerObjectFromLocation. " + (coord.column * TILE_WIDTH) + ", " + out[0]);
+		// return out;
 	}
 
 	public float[] getScreenPositionFromLocation(Location location) {
@@ -323,34 +330,48 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 		this.bgColor = color;
 	}
 
+	// Based on code by ModestMaps, Tom Carden
 	protected Vector getVisibleKeys(PGraphics pg) {
 
-		// Gets outer object corner positions in inner object coordinate system
-		// to check which tiles to load: Always uses bounding box.
+		// Stores IDs of tiles already displayed
+		Vector visibleKeys = new Vector();
+
+		// Grid to load tiles for.
+		int minCol, maxCol, minRow, maxRow;
 
 		int zoomLevel = Map.getZoomLevelFromScale((float) innerScale);
 
-		float[] innerTL = getInnerObjectFromObjectPosition(0, 0);
-		float[] innerTR = getInnerObjectFromObjectPosition(getWidth(), 0);
-		float[] innerBR = getInnerObjectFromObjectPosition(getWidth(), getHeight());
-		float[] innerBL = getInnerObjectFromObjectPosition(0, getHeight());
+		// Synchronize on this to not interfere with tile loading (see getVisibleKeys)
+		// NB External threads can change innerMatrix, innerScale, and other properties while this method is
+		// running, which resulted in incorrect values, and in incorrect tile loading.
+		synchronized (this) {
 
-		Coordinate coordTL = getCoordinateFromInnerPosition(innerTL[0], innerTL[1]).zoomTo(zoomLevel);
-		Coordinate coordTR = getCoordinateFromInnerPosition(innerTR[0], innerTR[1]).zoomTo(zoomLevel);
-		Coordinate coordBR = getCoordinateFromInnerPosition(innerBR[0], innerBR[1]).zoomTo(zoomLevel);
-		Coordinate coordBL = getCoordinateFromInnerPosition(innerBL[0], innerBL[1]).zoomTo(zoomLevel);
+			// Gets outer object corner positions in inner object coordinate system
+			// to check which tiles to load: Always uses bounding box.
+			float[] innerTL = getInnerObjectFromObjectPosition(0, 0);
+			float[] innerTR = getInnerObjectFromObjectPosition(getWidth(), 0);
+			float[] innerBR = getInnerObjectFromObjectPosition(getWidth(), getHeight());
+			float[] innerBL = getInnerObjectFromObjectPosition(0, getHeight());
 
-		int minCol = (int) PApplet.min(new float[] { coordTL.column, coordTR.column, coordBR.column, coordBL.column });
-		int maxCol = (int) PApplet.max(new float[] { coordTL.column, coordTR.column, coordBR.column, coordBL.column });
-		int minRow = (int) PApplet.min(new float[] { coordTL.row, coordTR.row, coordBR.row, coordBL.row });
-		int maxRow = (int) PApplet.max(new float[] { coordTL.row, coordTR.row, coordBR.row, coordBL.row });
+			Coordinate coordTL = getCoordinateFromInnerPosition(innerTL[0], innerTL[1]).zoomTo(zoomLevel);
+			Coordinate coordTR = getCoordinateFromInnerPosition(innerTR[0], innerTR[1]).zoomTo(zoomLevel);
+			Coordinate coordBR = getCoordinateFromInnerPosition(innerBR[0], innerBR[1]).zoomTo(zoomLevel);
+			Coordinate coordBL = getCoordinateFromInnerPosition(innerBL[0], innerBL[1]).zoomTo(zoomLevel);
 
-		// pad a bit, for luck (well, because we might be zooming out between
-		// zoom levels)
+			minCol = (int) PApplet.min(new float[] { coordTL.column, coordTR.column, coordBR.column, coordBL.column });
+			maxCol = (int) PApplet.max(new float[] { coordTL.column, coordTR.column, coordBR.column, coordBL.column });
+			minRow = (int) PApplet.min(new float[] { coordTL.row, coordTR.row, coordBR.row, coordBL.row });
+			maxRow = (int) PApplet.max(new float[] { coordTL.row, coordTR.row, coordBR.row, coordBL.row });
+		}
+
+		// Add tile padding (to pre-load, and because we might be zooming out between zoom levels)
 		minCol -= grid_padding;
 		minRow -= grid_padding;
 		maxCol += grid_padding;
 		maxRow += grid_padding;
+
+		// log.debug("getVisibleKeys: " + minCol + "," + maxCol + "; " + minRow + "," + maxRow);
+		// PApplet.println("getVisibleKeys: " + minCol + "," + maxCol + "; " + minRow + "," + maxRow);
 
 		// we don't wrap around the world yet, so:
 		int numberTiles = (int) Map.getScaleFromZoom(zoomLevel);
@@ -358,9 +379,6 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 		maxCol = PApplet.constrain(maxCol, 0, numberTiles);
 		minRow = PApplet.constrain(minRow, 0, numberTiles);
 		maxRow = PApplet.constrain(maxRow, 0, numberTiles);
-
-		// keep track of what we can see already:
-		Vector visibleKeys = new Vector();
 
 		// grab coords for visible tiles
 		for (int col = minCol; col <= maxCol; col++) {
