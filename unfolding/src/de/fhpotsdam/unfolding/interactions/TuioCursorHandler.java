@@ -57,7 +57,7 @@ public class TuioCursorHandler extends MapEventBroadcaster implements TuioListen
 
 		p.registerDispose(this);
 	}
-	
+
 	public TuioCursorHandler(PApplet p, List<Map> maps) {
 		this(p, true, maps);
 	}
@@ -65,7 +65,7 @@ public class TuioCursorHandler extends MapEventBroadcaster implements TuioListen
 	public void dispose() {
 		tuioClient.disconnect();
 	}
-	
+
 	public TuioClient getTuioClient() {
 		return tuioClient;
 	}
@@ -84,7 +84,7 @@ public class TuioCursorHandler extends MapEventBroadcaster implements TuioListen
 					// (float/double)
 
 					// Uses inner zoom and inner rotation, thus fingers are on same location
-					// TODO Do study on usability for different interaction approaches. 
+					// TODO Do study on usability for different interaction approaches.
 
 					// Flags to test various combinations
 					boolean zoom = true;
@@ -135,17 +135,18 @@ public class TuioCursorHandler extends MapEventBroadcaster implements TuioListen
 				} else if (tuioCursor1 != null) {
 					// One finger: pan
 
-					Location fromLocation = map.mapDisplay
-							.getLocationFromScreenPosition(oldX, oldY);
-					Location toLocation = map.mapDisplay.getLocationFromScreenPosition(x, y);
+					if (tuioCursor1.getCursorID() == tcur.getCursorID()) {
+						Location fromLocation = map.mapDisplay.getLocationFromScreenPosition(oldX, oldY);
+						Location toLocation = map.mapDisplay.getLocationFromScreenPosition(x, y);
 
-					PanMapEvent panMapEvent = new PanMapEvent(this, map.getId(), PanMapEvent.PAN_BY);
-					panMapEvent.setFromLocation(fromLocation);
-					panMapEvent.setToLocation(toLocation);
-					eventDispatcher.fireMapEvent(panMapEvent);
+						PanMapEvent panMapEvent = new PanMapEvent(this, map.getId(), PanMapEvent.PAN_BY);
+						panMapEvent.setFromLocation(fromLocation);
+						panMapEvent.setToLocation(toLocation);
+						eventDispatcher.fireMapEvent(panMapEvent);
 
-					oldX = x;
-					oldY = y;
+						oldX = x;
+						oldY = y;
+					}
 				}
 			}
 		}
@@ -239,9 +240,9 @@ public class TuioCursorHandler extends MapEventBroadcaster implements TuioListen
 	public void drawCursor(TuioCursor tc) {
 		if (tc == null)
 			return;
-		
+
 		p.textFont(font);
-		//p.stroke(0, 20);
+		// p.stroke(0, 20);
 		p.noStroke();
 		p.fill(80, 30);
 		p.ellipse(tc.getScreenX(p.width), tc.getScreenY(p.height), 27, 27);
