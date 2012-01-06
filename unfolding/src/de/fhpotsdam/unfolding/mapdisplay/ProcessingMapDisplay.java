@@ -82,18 +82,20 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 	 *            The transformation center y
 	 */
 	public void calculateMatrix() {
-		PMatrix3D invMatrix = new PMatrix3D();
-		invMatrix.apply(matrix);
-		invMatrix.invert();
+		synchronized (this) {
+			PMatrix3D invMatrix = new PMatrix3D();
+			invMatrix.apply(matrix);
+			invMatrix.invert();
 
-		float originalCenterX = invMatrix.multX(transformationCenter.x, transformationCenter.y);
-		float originalCenterY = invMatrix.multY(transformationCenter.x, transformationCenter.y);
+			float originalCenterX = invMatrix.multX(transformationCenter.x, transformationCenter.y);
+			float originalCenterY = invMatrix.multY(transformationCenter.x, transformationCenter.y);
 
-		matrix = new PMatrix3D();
-		matrix.translate(transformationCenter.x, transformationCenter.y);
-		matrix.scale(scale);
-		matrix.rotateZ(angle);
-		matrix.translate(-originalCenterX, -originalCenterY);
+			matrix = new PMatrix3D();
+			matrix.translate(transformationCenter.x, transformationCenter.y);
+			matrix.scale(scale);
+			matrix.rotateZ(angle);
+			matrix.translate(-originalCenterX, -originalCenterY);
+		}
 	}
 
 	public void calculateInnerMatrix() {
@@ -216,8 +218,12 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 	}
 
 	public Location getLocationFromScreenPosition(float x, float y) {
-		float innerObjectXY[] = getInnerObjectFromScreenPosition(x, y);
-		return getLocationFromInnerObjectPosition(innerObjectXY[0], innerObjectXY[1]);
+		synchronized (this) {
+			float innerObjectXY[] = getInnerObjectFromScreenPosition(x, y);
+			return getLocationFromInnerObjectPosition(innerObjectXY[0], innerObjectXY[1]);
+
+		}
+
 	}
 
 	public Location getLocationFromObjectPosition(float x, float y) {
@@ -238,8 +244,10 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 	}
 
 	public float[] getScreenPositionFromLocation(Location location) {
-		float innerObjectXY[] = getInnerObjectFromLocation(location);
-		return getScreenFromInnerObjectPosition(innerObjectXY[0], innerObjectXY[1]);
+		synchronized (this) {
+			float innerObjectXY[] = getInnerObjectFromLocation(location);
+			return getScreenFromInnerObjectPosition(innerObjectXY[0], innerObjectXY[1]);
+		}
 	}
 
 	// DRAWING --------------------------------------------------
