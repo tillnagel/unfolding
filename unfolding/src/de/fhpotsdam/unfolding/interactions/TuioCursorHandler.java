@@ -12,6 +12,7 @@ import TUIO.TuioClient;
 import TUIO.TuioCursor;
 import TUIO.TuioListener;
 import TUIO.TuioObject;
+import TUIO.TuioPoint;
 import TUIO.TuioTime;
 import de.fhpotsdam.unfolding.Map;
 import de.fhpotsdam.unfolding.events.MapEventBroadcaster;
@@ -30,7 +31,6 @@ public class TuioCursorHandler extends MapEventBroadcaster implements TuioListen
 
 	TuioCursor tuioCursor1;
 	TuioCursor tuioCursor2;
-	float oldX, oldY;
 	float oldAngle;
 	float oldDist;
 	PFont font;
@@ -136,16 +136,14 @@ public class TuioCursorHandler extends MapEventBroadcaster implements TuioListen
 					// One finger: pan
 
 					if (tuioCursor1.getCursorID() == tcur.getCursorID()) {
-						Location fromLocation = map.mapDisplay.getLocationFromScreenPosition(oldX, oldY);
-						Location toLocation = map.mapDisplay.getLocationFromScreenPosition(x, y);
+						TuioPoint oldTuioPoint = tcur.getPath().get(tcur.getPath().size() - 2);
+						Location fromLocation = map.mapDisplay.getLocationFromScreenPosition(oldTuioPoint.getScreenX(p.width), oldTuioPoint.getScreenY(p.height));
+						Location toLocation = map.mapDisplay.getLocationFromScreenPosition(tuioCursor1.getScreenX(p.width), tuioCursor1.getScreenY(p.height));
 
 						PanMapEvent panMapEvent = new PanMapEvent(this, map.getId(), PanMapEvent.PAN_BY);
 						panMapEvent.setFromLocation(fromLocation);
 						panMapEvent.setToLocation(toLocation);
 						eventDispatcher.fireMapEvent(panMapEvent);
-
-						oldX = x;
-						oldY = y;
 					}
 				}
 			}
@@ -155,10 +153,6 @@ public class TuioCursorHandler extends MapEventBroadcaster implements TuioListen
 	public void addTuioCursor(TuioCursor tuioCursor) {
 		if (tuioCursor1 == null) {
 			tuioCursor1 = tuioCursor;
-
-			oldX = tuioCursor1.getScreenX(p.width);
-			oldY = tuioCursor1.getScreenY(p.height);
-
 		} else if (tuioCursor2 == null) {
 			tuioCursor2 = tuioCursor;
 
@@ -172,8 +166,6 @@ public class TuioCursorHandler extends MapEventBroadcaster implements TuioListen
 	public void removeTuioCursor(TuioCursor tuioCursor) {
 		if (tuioCursor2 != null && tuioCursor2.getCursorID() == tuioCursor.getCursorID()) {
 			tuioCursor2 = null;
-			oldX = tuioCursor1.getScreenX(p.width);
-			oldY = tuioCursor1.getScreenY(p.height);
 		}
 
 		if (tuioCursor1 != null && tuioCursor1.getCursorID() == tuioCursor.getCursorID()) {
@@ -182,9 +174,6 @@ public class TuioCursorHandler extends MapEventBroadcaster implements TuioListen
 			if (tuioCursor2 != null) {
 				tuioCursor1 = tuioCursor2;
 				tuioCursor2 = null;
-				// Shall not jump after switching, so a "new" oldPos is stored for diff calc.
-				oldX = tuioCursor1.getScreenX(p.width);
-				oldY = tuioCursor1.getScreenY(p.height);
 			}
 		}
 	}
