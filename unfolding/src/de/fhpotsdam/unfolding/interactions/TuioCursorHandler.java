@@ -2,6 +2,7 @@ package de.fhpotsdam.unfolding.interactions;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Stack;
 
 import org.apache.log4j.Logger;
 
@@ -31,6 +32,9 @@ public class TuioCursorHandler extends MapEventBroadcaster implements TuioListen
 
 	TuioCursor tuioCursor1;
 	TuioCursor tuioCursor2;
+
+	Stack<TuioCursor> unusedTuioCursorStack = new Stack<TuioCursor>();
+
 	float oldAngle;
 	float oldDist;
 	PFont font;
@@ -137,8 +141,10 @@ public class TuioCursorHandler extends MapEventBroadcaster implements TuioListen
 
 					if (tuioCursor1.getCursorID() == tcur.getCursorID()) {
 						TuioPoint oldTuioPoint = tcur.getPath().get(tcur.getPath().size() - 2);
-						Location fromLocation = map.mapDisplay.getLocationFromScreenPosition(oldTuioPoint.getScreenX(p.width), oldTuioPoint.getScreenY(p.height));
-						Location toLocation = map.mapDisplay.getLocationFromScreenPosition(tuioCursor1.getScreenX(p.width), tuioCursor1.getScreenY(p.height));
+						Location fromLocation = map.mapDisplay.getLocationFromScreenPosition(
+								oldTuioPoint.getScreenX(p.width), oldTuioPoint.getScreenY(p.height));
+						Location toLocation = map.mapDisplay.getLocationFromScreenPosition(
+								tuioCursor1.getScreenX(p.width), tuioCursor1.getScreenY(p.height));
 
 						PanMapEvent panMapEvent = new PanMapEvent(this, map.getId(), PanMapEvent.PAN_BY);
 						panMapEvent.setFromLocation(fromLocation);
@@ -159,23 +165,52 @@ public class TuioCursorHandler extends MapEventBroadcaster implements TuioListen
 			oldAngle = getAngleBetween(tuioCursor1, tuioCursor2);
 			oldDist = getDistance(tuioCursor1, tuioCursor2);
 		} else {
-			PApplet.println("Already 2 cursors in use for rotation. Omitting further ones.");
+			//PApplet.println("Already 2 cursors in use. Adding further ones to stack.");
+			unusedTuioCursorStack.add(tuioCursor);
 		}
 	}
 
 	public void removeTuioCursor(TuioCursor tuioCursor) {
 		if (tuioCursor2 != null && tuioCursor2.getCursorID() == tuioCursor.getCursorID()) {
 			tuioCursor2 = null;
-		}
 
+			if (!unusedTuioCursorStack.isEmpty()) {
+				tuioCursor2 = unusedTuioCursorStack.pop();
+				oldAngle = getAngleBetween(tuioCursor1, tuioCursor2);
+				oldDist = getDistance(tuioCursor1, tuioCursor2);
+			}
+
+		}
+		
 		if (tuioCursor1 != null && tuioCursor1.getCursorID() == tuioCursor.getCursorID()) {
 			tuioCursor1 = null;
 			// If second still is on object, switch cursors
 			if (tuioCursor2 != null) {
 				tuioCursor1 = tuioCursor2;
-				tuioCursor2 = null;
+
+				if (!unusedTuioCursorStack.isEmpty()) {
+					tuioCursor2 = unusedTuioCursorStack.pop();
+					oldAngle = getAngleBetween(tuioCursor1, tuioCursor2);
+					oldDist = getDistance(tuioCursor1, tuioCursor2);
+				} else {
+					tuioCursor2 = null;
+				}
 			}
 		}
+		
+		
+		// TODO check only if the other were no hits
+		TuioCursor toRemoveTC = null;
+		for (TuioCursor unusedTuioCursor : unusedTuioCursorStack) {
+			if (tuioCursor.getCursorID() == unusedTuioCursor.getCursorID()) {
+				toRemoveTC = tuioCursor;
+				break;
+			}
+		}
+		if (toRemoveTC != null) {
+			unusedTuioCursorStack.remove(toRemoveTC);
+		}
+		
 	}
 
 	protected float getDistance(TuioCursor tuioCursor1, TuioCursor tuioCursor2) {

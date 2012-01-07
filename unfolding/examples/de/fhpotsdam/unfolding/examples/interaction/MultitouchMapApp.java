@@ -14,13 +14,20 @@ public class MultitouchMapApp extends PApplet {
 
 	public static final boolean DISABLE_ROTATING = false;
 
+	// For fullscreen start as application
+	public static final boolean FULLSCREEN = false;
+
 	Map map;
 	EventDispatcher eventDispatcher;
 
 	TuioCursorHandler tuioCursorHandler;
 
 	public void setup() {
-		size(800, 600, GLConstants.GLGRAPHICS);
+		if (FULLSCREEN) {
+			size(1920, 1080, GLConstants.GLGRAPHICS);
+		} else {
+			size(800, 600, GLConstants.GLGRAPHICS);
+		}
 
 		map = new Map(this);
 		map.setTweening(false);
@@ -42,6 +49,12 @@ public class MultitouchMapApp extends PApplet {
 		map.draw();
 
 		tuioCursorHandler.drawCursors();
+	}
+
+	public static void main(String[] args) {
+		String[] params = new String[] { "--present", "--bgcolor=#000000", "--hide-stop", "--exclusive",
+				"de.fhpotsdam.unfolding.examples.interaction.MultitouchMapApp" };
+		PApplet.main(params);
 	}
 
 }
