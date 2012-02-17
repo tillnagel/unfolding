@@ -12,14 +12,14 @@ import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.mapdisplay.AbstractMapDisplay;
 import de.fhpotsdam.unfolding.mapdisplay.MapDisplayFactory;
 import de.fhpotsdam.unfolding.providers.AbstractMapProvider;
+import de.fhpotsdam.unfolding.utils.GeoUtils;
 import de.fhpotsdam.utils.Integrator;
 
 /**
- * An interactive map. Uses the MapDisplay, and handles hit test, active status, as well as all
- * interactions such as panning, zooming, and rotating (with or without tweening).
+ * An interactive map. Uses the MapDisplay, and handles hit test, active status, as well as all interactions such as
+ * panning, zooming, and rotating (with or without tweening).
  * 
- * Acts as facade for the map interactions, e.g. using innerScale for zooming, and outerRotate for
- * rotating.
+ * Acts as facade for the map interactions, e.g. using innerScale for zooming, and outerRotate for rotating.
  */
 public class Map implements MapEventListener {
 
@@ -39,6 +39,11 @@ public class Map implements MapEventListener {
 
 	public float minScale = DEFAULT_MIN_SCALE;
 	public float maxScale = DEFAULT_MAX_SCALE;
+
+	/** The center location of the restricted pan area. */
+	protected Location restrictedPanLocation = null;
+	/** The maximum distance to the center location of the restricted pan area. */
+	protected float maxPanningDistance;
 
 	public static Logger log = Logger.getLogger(Map.class);
 
@@ -80,7 +85,7 @@ public class Map implements MapEventListener {
 	public Map(PApplet p, AbstractMapProvider provider) {
 		this(p, generateId(), 0, 0, p.width, p.height, true, false, provider);
 	}
-	
+
 	public Map(PApplet p, float x, float y, float width, float height) {
 		this(p, generateId(), x, y, width, height, true, false, null);
 	}
@@ -89,11 +94,10 @@ public class Map implements MapEventListener {
 		this(p, id, x, y, width, height, true, false, null);
 	}
 
-	public Map(PApplet p, String id, float x, float y, float width, float height,
-			boolean useDistortion) {
+	public Map(PApplet p, String id, float x, float y, float width, float height, boolean useDistortion) {
 		this(p, id, x, y, width, height, true, useDistortion, null);
 	}
-	
+
 	public Map(PApplet p, float x, float y, float width, float height, AbstractMapProvider provider) {
 		this(p, generateId(), x, y, width, height, true, false, provider);
 	}
@@ -105,9 +109,8 @@ public class Map implements MapEventListener {
 			boolean useDistortion, AbstractMapProvider provider) {
 		this.p = p;
 		this.id = id;
-		
-		this.mapDisplay = MapDisplayFactory.getMapDisplay(p, id, x, y, width, height, useMask,
-				useDistortion, provider);
+
+		this.mapDisplay = MapDisplayFactory.getMapDisplay(p, id, x, y, width, height, useMask, useDistortion, provider);
 
 		// panCenterZoomTo(PRIME_MERIDIAN_EQUATOR_LOCATION, DEFAULT_ZOOM_LEVEL);
 	}
@@ -115,7 +118,7 @@ public class Map implements MapEventListener {
 	private static String generateId() {
 		return UUID.randomUUID().toString();
 	}
-	
+
 	/**
 	 * Checks whether the given screen coordinates are on this Map.
 	 * 
@@ -127,8 +130,7 @@ public class Map implements MapEventListener {
 	 */
 	public boolean isHit(float checkX, float checkY) {
 		float[] check = mapDisplay.getObjectFromScreenPosition(checkX, checkY);
-		return (check[0] > 0 && check[0] < mapDisplay.getWidth() && check[1] > 0 && check[1] < mapDisplay
-				.getHeight());
+		return (check[0] > 0 && check[0] < mapDisplay.getWidth() && check[1] > 0 && check[1] < mapDisplay.getHeight());
 	}
 
 	public boolean isActive() {
@@ -146,6 +148,7 @@ public class Map implements MapEventListener {
 	public void draw() {
 		updateMap();
 		mapDisplay.draw();
+		restrictMapToArea();
 	}
 
 	/**
@@ -156,20 +159,17 @@ public class Map implements MapEventListener {
 	}
 
 	/**
-	 * Updates the integrators for tweening. Must be called before {@link AbstractMapDisplay#draw()}
-	 * .
+	 * Updates the integrators for tweening. Must be called before {@link AbstractMapDisplay#draw()} .
 	 */
-	private void updateMap() {
+	public void updateMap() {
 		if (tweening) {
 			scaleIntegrator.update();
 			mapDisplay.innerScale = scaleIntegrator.value;
 			/*
-			txIntegrator.update();
-			mapDisplay.innerOffsetX = txIntegrator.value;
-			tyIntegrator.update();
-			mapDisplay.innerOffsetY = tyIntegrator.value;
-			*/
-			
+			 * txIntegrator.update(); mapDisplay.innerOffsetX = txIntegrator.value; tyIntegrator.update();
+			 * mapDisplay.innerOffsetY = tyIntegrator.value;
+			 */
+
 			mapDisplay.calculateInnerMatrix();
 		}
 	}
@@ -181,8 +181,11 @@ public class Map implements MapEventListener {
 	}
 
 	public Location getBottomRightBorder() {
-		return mapDisplay.getLocationFromObjectPosition(mapDisplay.getWidth(), mapDisplay
-				.getHeight());
+		return mapDisplay.getLocationFromObjectPosition(mapDisplay.getWidth(), mapDisplay.getHeight());
+	}
+
+	public Location getCenter() {
+		return mapDisplay.getLocationFromObjectPosition(mapDisplay.getWidth() / 2, mapDisplay.getHeight() / 2);
 	}
 
 	// public Location getLocation(float x, float y) {
@@ -195,7 +198,7 @@ public class Map implements MapEventListener {
 	// return location;
 	// }
 	//
-	
+
 	public Location getLocationFromScreenPosition(float x, float y) {
 		return mapDisplay.getLocationFromScreenPosition(x, y);
 	}
@@ -204,10 +207,10 @@ public class Map implements MapEventListener {
 		return mapDisplay.getScreenPositionFromLocation(location);
 	}
 
-//	public PVector getScreenPositionFromLocation(Location location) {
-//		float[] xy = mapDisplay.getScreenPositionFromLocation(location);
-//		return new PVector(xy[0], xy[1]);
-//	}
+	// public PVector getScreenPositionFromLocation(Location location) {
+	// float[] xy = mapDisplay.getScreenPositionFromLocation(location);
+	// return new PVector(xy[0], xy[1]);
+	// }
 
 	// Transformations ----------------------------------------------------
 
@@ -235,6 +238,11 @@ public class Map implements MapEventListener {
 	 */
 	public void zoomToLevel(int level) {
 		float scale = getScaleFromZoom(level);
+		setInnerScale(scale);
+	}
+
+	public void zoomTo(float zoom) {
+		float scale = getScaleFromZoom(zoom);
 		setInnerScale(scale);
 	}
 
@@ -290,8 +298,8 @@ public class Map implements MapEventListener {
 	/**
 	 * Zooms in around position, and pans to it.
 	 * 
-	 * After the pan the center still is at the same location. (As innerTransformationCenter is in
-	 * object coordinates, thus stays at same inner position.)
+	 * After the pan the center still is at the same location. (As innerTransformationCenter is in object coordinates,
+	 * thus stays at same inner position.)
 	 * 
 	 * @param x
 	 *            X position to zoom around and pan to (in screen coordinates).
@@ -367,6 +375,11 @@ public class Map implements MapEventListener {
 		float dy = xy2[1] - xy1[1];
 
 		addInnerOffset(dx, dy);
+	}
+
+	public void panBy(float dx, float dy) {
+		float[] dxy = mapDisplay.getObjectFromScreenPosition(dx, dy);
+		addInnerOffset(dxy[0], dxy[1]);
 	}
 
 	public void panLeft() {
@@ -445,8 +458,8 @@ public class Map implements MapEventListener {
 		scaleIntegrator.target(scale);
 		mapDisplay.calculateInnerMatrix();
 	}
-	
-	public float getZoomLevel() {
+
+	public int getZoomLevel() {
 		return getZoomLevelFromScale(mapDisplay.innerScale);
 	}
 
@@ -465,12 +478,52 @@ public class Map implements MapEventListener {
 	/**
 	 * Sets the range of map zoom levels.
 	 */
-	public void setZoomRange(float minZoom, float maxZoom) {
-		this.minScale = getScaleFromZoom(minZoom);
-		this.maxScale = getScaleFromZoom(maxZoom);
+	public void setZoomRange(float minZoomLevel, float maxZoomLevel) {
+		this.minScale = getScaleFromZoom(minZoomLevel);
+		this.maxScale = getScaleFromZoom(maxZoomLevel);
 	}
-	
-	
+
+	/**
+	 * Sets a bounding box as panning range of the map.
+	 * 
+	 * @param location
+	 *            topLeft corner of the box.
+	 * @param location2
+	 *            bottomRight corner of the box.
+	 */
+	// TODO Implement setPanningRange
+	// public void setPanningRange(Location location, Location location2) {
+	// }
+
+	/**
+	 * Restricts the area this map can pan to in a radial fashion.
+	 * 
+	 * @param location
+	 *            The center location of the circular restriction area.
+	 * @param maxPanningDistance
+	 *            The radius of the circular restriction area in kilometers.
+	 */
+	public void setPanningRestriction(Location location, float maxPanningDistance) {
+		this.restrictedPanLocation = location;
+		this.maxPanningDistance = maxPanningDistance;
+	}
+
+	private void restrictMapToArea() {
+		if (restrictedPanLocation == null) {
+			return;
+		}
+
+		Location mapCenter = getCenter();
+		double dist = GeoUtils.getDistance(restrictedPanLocation, mapCenter);
+		if (dist > maxPanningDistance) {
+			float angle = PApplet.degrees((float) GeoUtils.getAngleBetween(restrictedPanLocation, mapCenter));
+			float backDist = maxPanningDistance - (float) dist;
+			// Pan back, with same angle but negative distance
+			Location newLocation = GeoUtils.getDestinationLocation(mapCenter, angle, backDist);
+			panTo(newLocation);
+		}
+	}
+
 	// Outer and inner offset ---------------------------------------
 
 	/**
@@ -535,7 +588,7 @@ public class Map implements MapEventListener {
 	public void setTweening(boolean tweening) {
 		this.tweening = tweening;
 	}
-	
+
 	public void setBackgroundColor(int bgColor) {
 		this.mapDisplay.setBackgroundColor(bgColor);
 	}

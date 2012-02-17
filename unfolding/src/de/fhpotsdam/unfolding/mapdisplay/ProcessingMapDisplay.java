@@ -227,8 +227,10 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 	}
 
 	public Location getLocationFromObjectPosition(float x, float y) {
-		float innerObjectXY[] = getInnerObjectFromObjectPosition(x, y);
-		return getLocationFromInnerObjectPosition(innerObjectXY[0], innerObjectXY[1]);
+		synchronized (this) {
+			float innerObjectXY[] = getInnerObjectFromObjectPosition(x, y);
+			return getLocationFromInnerObjectPosition(innerObjectXY[0], innerObjectXY[1]);
+		}
 	}
 
 	public float[] getInnerObjectFromLocation(Location location) {
