@@ -48,7 +48,7 @@ public class LabeledMarker extends AbstractMarker {
 			return;
 		}
 
-		pg.fill(color, 30);
+		pg.fill(color, 200);
 		pg.stroke(color, 10);
 		pg.strokeWeight(1);
 		pg.ellipse(x, y, size, size);

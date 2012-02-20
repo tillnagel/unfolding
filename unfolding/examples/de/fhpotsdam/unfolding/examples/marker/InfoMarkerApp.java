@@ -68,12 +68,6 @@ public class InfoMarkerApp extends PApplet {
 
 	}
 
-	public void mouseClicked() {
-		MarkerManager mm = map.mapDisplay.getMarkerManager();
-		LabeledMarker marker = (LabeledMarker) mm.getFirstHitMarker(mouseX, mouseY);
-		println("Marker clicked: " + marker.name + ".");
-	}
-
 	public static List<Marker> loadGeoRSSMarkers(PApplet p, String url, PFont font) {
 		List<Marker> markers = new ArrayList<Marker>();
 
