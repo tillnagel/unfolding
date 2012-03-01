@@ -31,9 +31,6 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 
 	protected PMatrix3D innerMatrix = new PMatrix3D();
 
-	/** Only for debugging */
-	private PFont font;
-
 	// Background color
 	protected int bgColor = 0;
 
@@ -51,7 +48,6 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 			float width, float height) {
 		super(provider, width, height);
 		this.papplet = papplet;
-		font = papplet.loadFont("Miso-Light-12.vlw");
 
 		this.offsetX = offsetX;
 		this.offsetY = offsetY;
