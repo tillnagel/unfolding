@@ -10,6 +10,7 @@ import processing.core.PGraphics;
 import processing.core.PVector;
 import de.fhpotsdam.unfolding.core.Coordinate;
 import de.fhpotsdam.unfolding.geo.Location;
+import de.fhpotsdam.unfolding.marker.Marker;
 import de.fhpotsdam.unfolding.marker.MarkerManager;
 import de.fhpotsdam.unfolding.providers.AbstractMapProvider;
 import de.fhpotsdam.unfolding.tiles.TileLoader;
@@ -57,11 +58,12 @@ public abstract class AbstractMapDisplay implements TileLoaderListener {
 	protected PVector innerTransformationCenter;
 
 	//
-	protected MarkerManager markerManager;
+	protected MarkerManager<Marker> markerManager;
 
 	// Tiles
 	public int max_pending = 4;
 	public int max_images_to_keep = 256;
+	// public int max_images_to_keep = 1024;
 	public int grid_padding = 1; // set to 0 for debugging purposes
 
 	protected AbstractMapProvider provider;

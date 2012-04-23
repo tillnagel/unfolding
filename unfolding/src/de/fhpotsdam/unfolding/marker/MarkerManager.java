@@ -5,8 +5,8 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
-import processing.core.PApplet;
 import de.fhpotsdam.unfolding.Map;
+import de.fhpotsdam.unfolding.utils.GeoUtils;
 
 /*
  * Manages markers of different types. Is always connected to one map (for location to screen coordinate conversion).
@@ -51,7 +51,7 @@ public class MarkerManager<E extends Marker> {
 		this.markers.addAll(markers);
 	}
 
-	public List<? extends Marker> getMarkers() {
+	public List<E> getMarkers() {
 		return markers;
 	}
 
@@ -63,14 +63,28 @@ public class MarkerManager<E extends Marker> {
 		return getFirstHitMarker(checkX, checkY);
 	}
 
-	public Marker getFirstHitMarker(float checkX, float checkY) {
-		Marker foundMarker = null;
-		// NB: Markers are ordered by size ascending, i.e. big, medium, small
-		for (Marker marker : markers) {
+	public E getNearestMarker(float checkX, float checkY) {
+		E foundMarker = null;
+		double minDist = 30000;
+		for (E marker : markers) {
+			double dist = GeoUtils.getDistance(marker.getLocation(), map.getLocationFromScreenPosition(checkX, checkY));
+			if (minDist > dist) {
+				minDist = dist;
+				foundMarker = marker;
+			}
+		}
+		return foundMarker;
+	}
+
+	public E getFirstHitMarker(float checkX, float checkY) {
+		E foundMarker = null;
+		// NB: Markers should be ordered, e.g. by size ascending, i.e. big, medium, small
+		for (E marker : markers) {
 
 			// NB: If markers are order by size descending, i.e. small, medium, big
 			// for (int i = markers.size() - 1; i >= 0; i--) {
 			// Marker marker = markers.get(i);
+
 			if (marker.isInside(map, checkX, checkY)) {
 				foundMarker = marker;
 				break;
@@ -79,9 +93,9 @@ public class MarkerManager<E extends Marker> {
 		return foundMarker;
 	}
 
-	public List<Marker> getHitMarkers(float checkX, float checkY) {
-		List<Marker> hitMarkers = new ArrayList<Marker>();
-		for (Marker marker : markers) {
+	public List<E> getHitMarkers(float checkX, float checkY) {
+		List<E> hitMarkers = new ArrayList<E>();
+		for (E marker : markers) {
 			if (marker.isInside(map, checkX, checkY)) {
 				hitMarkers.add(marker);
 			}
@@ -89,11 +103,12 @@ public class MarkerManager<E extends Marker> {
 		return hitMarkers;
 	}
 
-	public void draw() {
-		// REVISIT Why twice? Here and in drawOuter()?
-		// To allow both; markers either implement one or the other.
-		// Off-map cut-off depends on it.
+	
+	// draw and drawOuter to allow both; markers either implement one or the other.
+	// Differences: Off-map cut-off, size-dependencies, ...
 
+	
+	public void draw() {
 		for (Marker marker : markers) {
 			marker.draw(map);
 		}
