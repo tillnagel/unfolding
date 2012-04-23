@@ -10,7 +10,7 @@ import de.fhpotsdam.unfolding.texture.TextureDistorter;
 public class DistortedGLGraphicsMapDisplay extends GLGraphicsMapDisplay {
 
 	public Distorter distorter;
-	TextureDistorter textureDistorter;
+	public TextureDistorter textureDistorter;
 
 	public DistortedGLGraphicsMapDisplay(PApplet papplet, AbstractMapProvider provider, float offsetX, float offsetY,
 			float width, float height) {
@@ -35,10 +35,12 @@ public class DistortedGLGraphicsMapDisplay extends GLGraphicsMapDisplay {
 		
 		outerPG.pushMatrix();
 		outerPG.translate(offsetX, offsetY);
-		// REVISIT outer matrix not applied (instead of as in GLGraphicsMapDisplay)
+		// FIXME outer matrix not applied (instead of as in GLGraphicsMapDisplay)
+		
+		// TODO Delete test grid in ProcessingMapDisplay
 		
 		textureDistorter.draw(outerPG, pg.getTexture());
-		
+
 		outerPG.popMatrix();
 	}
 	
