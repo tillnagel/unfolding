@@ -19,7 +19,7 @@ public class TweenMap extends PApplet {
 		map.zoomAndPanTo(new Location(52.5f, 13.4f), 10);
 		
 		// FIXME Tweening does not work for panning, at the moment!
-		map.setTweening(false);
+		map.setTweening(true);
 
 		MapUtils.createDefaultEventDispatcher(this, map);
 	}
