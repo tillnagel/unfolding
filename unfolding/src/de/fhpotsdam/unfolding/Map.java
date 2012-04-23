@@ -147,8 +147,8 @@ public class Map implements MapEventListener {
 
 	public void draw() {
 		updateMap();
-		mapDisplay.draw();
 		restrictMapToArea();
+		mapDisplay.draw();
 	}
 
 	/**
@@ -165,10 +165,11 @@ public class Map implements MapEventListener {
 		if (tweening) {
 			scaleIntegrator.update();
 			mapDisplay.innerScale = scaleIntegrator.value;
-			/*
-			 * txIntegrator.update(); mapDisplay.innerOffsetX = txIntegrator.value; tyIntegrator.update();
-			 * mapDisplay.innerOffsetY = tyIntegrator.value;
-			 */
+			
+//			txIntegrator.update();
+//			mapDisplay.innerOffsetX = txIntegrator.value;
+//			tyIntegrator.update();
+//			mapDisplay.innerOffsetY = tyIntegrator.value;
 
 			mapDisplay.calculateInnerMatrix();
 		}
