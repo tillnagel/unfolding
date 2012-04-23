@@ -39,7 +39,20 @@ public class LinearInterpolationDistorter extends AbstractLensDistorter {
 
 	public void setRadius(int r) {
 		r0 = r;
-		r1 = r * 2;
+		r1 = r * zoom;
+	}
+
+	public void setOuterRadius(int r) {
+		r0 = r;
+	}
+
+	public void setInnerRadius(int r) {
+		r1 = r;
+	}
+
+	public void setZoom(float zoom) {
+		this.zoom = zoom;
+		this.s1 = 1 / zoom;
 	}
 
 }

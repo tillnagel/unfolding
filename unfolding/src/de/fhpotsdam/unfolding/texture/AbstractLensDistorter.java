@@ -20,7 +20,8 @@ public abstract class AbstractLensDistorter implements Distorter {
 		center.set(x, y + HOTFIX, 0);
 	}
 
-	public void distort(PVector origCoord, PVector distCoord) {
+	@Override
+	public void distort(PVector origCoord, PVector distCoord, int value) {
 		float origRadius = PVector.dist(center, origCoord);
 		float newRadius = interpolateRadius(origRadius);
 
@@ -28,12 +29,8 @@ public abstract class AbstractLensDistorter implements Distorter {
 		PVector.sub(origCoord, center, orgFromCenter);
 		float n = PApplet.map(newRadius, 0, origRadius, 0, 1);
 		orgFromCenter.mult(n);
-		
-		PVector.add(orgFromCenter, center, distCoord);
-	}
 
-	@Override
-	public void distort(PVector origCoord, PVector distCoord, int col) {
+		PVector.add(orgFromCenter, center, distCoord);
 	}
 
 	protected abstract float interpolateRadius(float radius);

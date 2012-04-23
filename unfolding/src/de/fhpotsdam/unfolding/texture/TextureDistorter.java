@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import processing.core.PApplet;
 import processing.core.PConstants;
 import processing.core.PGraphics;
-import processing.core.PImage;
 import processing.core.PVector;
 import codeanticode.glgraphics.GLGraphics;
 import codeanticode.glgraphics.GLModel;
@@ -13,8 +12,11 @@ import codeanticode.glgraphics.GLTexture;
 
 public class TextureDistorter {
 
-	boolean rotateIn3D = true;
-	
+	public boolean mouse3DRotate = false;
+	public boolean osc3DRotate = false;
+	public float lightX;
+	public float lightY;
+
 	GLModel meshModel;
 
 	// Mesh parameters
@@ -22,7 +24,7 @@ public class TextureDistorter {
 	protected int meshHeight;
 	protected int meshStep;
 
-	protected Distorter distorter;
+	public Distorter distorter;
 
 	// 2D grid (for 2D mesh), but each point can be 3D
 	protected int uSteps;
@@ -60,9 +62,13 @@ public class TextureDistorter {
 
 	public void draw(PGraphics g, GLTexture texture) {
 		frameCount++;
-
-		//distortGridByTexture(texture);
-		distortGrid();
+		
+		// REVISIT 
+		// Distort by texture to extrude by pixel brightness
+		distortGridByTexture(texture);
+		
+		//distortGrid();
+		
 		distortMesh();
 
 		// createMesh(distortedGrid);
@@ -77,31 +83,37 @@ public class TextureDistorter {
 		meshModel.initNormals();
 		meshModel.updateNormals(normals);
 
-		if (rotateIn3D) {
-			// Simple 3D lighting
-			// PApplet p = PAppletFactory.getInstance();
-			// float dirX = (p.mouseX / (float) p.width - 0.5f) * 2f;
-			// float dirY = (p.mouseY / (float) p.height - 0.5f) * 2f;
-			float dirX = -1f;
-			float dirY = -1f;
-			renderer.directionalLight(204, 204, 204, -dirX, -dirY, -1);
+		if (mouse3DRotate || osc3DRotate) {
+			PApplet p = PAppletFactory.getInstance();
+
+			if (showLight) {
+				// Simple 3D lighting
+				renderer.directionalLight(204, 204, 204, lightX, lightY, -1);
+			}
 
 			renderer.translate(400, 300, 0);
-			// renderer.rotateX(frameCount * 0.04f);
-			PApplet p = PAppletFactory.getInstance();
-			float rotX = (p.mouseX / (float) p.width - 0.5f) * 2f * PApplet.PI;
-			float rotZ = (p.mouseY / (float) p.height - 0.5f) * 2f * PApplet.PI;
-			// renderer.rotateX(rotX);
-			// renderer.rotateZ(rotZ);
 
-			renderer.rotateX(PApplet.PI / 8);
+			if (mouse3DRotate) {
+				float rotX = (p.mouseX / (float) p.width - 0.5f) * 2f * PApplet.PI;
+				float rotZ = (p.mouseY / (float) p.height - 0.5f) * 2f * PApplet.PI;
+				renderer.rotateX(rotX);
+				renderer.rotateZ(rotZ);
+			} else if (osc3DRotate) {
+				renderer.rotateX(rotX);
+				renderer.rotateY(rotY);
+				renderer.rotateZ(rotZ);
+			}
+
 			renderer.translate(-400, -300, 0);
 		}
-		
+
 		renderer.model(meshModel);
 
 		renderer.endGL();
 	}
+
+	public float rotX, rotY, rotZ;
+	public boolean showLight;
 
 	protected void initGrids() {
 		origGrid = new PVector[uSteps][vSteps];
@@ -116,12 +128,13 @@ public class TextureDistorter {
 	}
 
 	protected void distortGridByTexture(GLTexture texture) {
+		texture.updateTexture();
 		for (int u = 0; u < uSteps; u++) {
 			for (int v = 0; v < vSteps; v++) {
 				int x = u * meshStep;
 				int y = v * meshStep;
 				int col = texture.get(x, y);
-				PApplet.println(x + "," + y + ": " + col);
+				// PApplet.println(x + "," + y + ": " + col);
 				distorter.distort(origGrid[u][v], distortedGrid[u][v], col);
 			}
 		}
@@ -131,7 +144,10 @@ public class TextureDistorter {
 		for (int u = 0; u < uSteps; u++) {
 			for (int v = 0; v < vSteps; v++) {
 				// distortedGrid[u][v] = distorter.distort(origGrid[u][v]);
-				distorter.distort(origGrid[u][v], distortedGrid[u][v]);
+				
+				// FIXME Test distorting a single grid vector
+				int value = (u > 30 && u < 40 && v == 21) ? 1 : 0;				
+				distorter.distort(origGrid[u][v], distortedGrid[u][v], value);
 			}
 		}
 	}
