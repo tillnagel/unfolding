@@ -9,7 +9,7 @@ import de.fhpotsdam.unfolding.utils.MapUtils;
 
 /**
  * Shows a great circle connection between two locations. A great circle connection is an approximation of the shortest
- * route between two places on earth.
+ * route between two places on earth. Displayed as curves in a Mercator projection (as used in Unfolding).
  * 
  * Mouse move and SHIFT or CTRL to move the locations.
  */

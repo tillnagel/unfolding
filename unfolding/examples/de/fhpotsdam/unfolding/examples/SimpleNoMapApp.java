@@ -6,7 +6,7 @@ import de.fhpotsdam.unfolding.Map;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.utils.MapUtils;
 
-public class SimpleMapApp extends PApplet {
+public class SimpleNoMapApp extends PApplet {
 
 	Map map;
 
@@ -15,17 +15,17 @@ public class SimpleMapApp extends PApplet {
 
 		map = new Map(this);
 		map.zoomAndPanTo(new Location(52.5f, 13.4f), 10);
-
 		MapUtils.createDefaultEventDispatcher(this, map);
 	}
 
 	public void draw() {
 		background(0);
-		map.draw();
-	}
+		map.updateMap();
+		// map.draw();
 
-	public static void main(String[] args) {
-		PApplet.main(new String[] { "de.fhpotsdam.unfolding.examples.SimpleMapApp" });
+		Location loc = new Location(52.5f, 13.4f);
+		float xy[] = map.getScreenPositionFromLocation(loc);
+		ellipse(xy[0], xy[1], 20, 20);
 	}
 
 }
