@@ -19,6 +19,13 @@ public class MapBox {
 
 			return (int) coordinate.zoom + "/" + (int) coordinate.column + "/" + (int) negativeRow;
 		}
+
+		public String getPositiveZoomString(Coordinate coordinate) {
+			// Rows are numbered from bottom to top (opposite to OSM)
+			float gridSize = PApplet.pow(2, coordinate.zoom);
+
+			return (int) coordinate.zoom + "/" + (int) coordinate.column + "/" + (int) coordinate.row;
+		}
 	}
 
 	public static class WorldLightProvider extends MapBoxProvider {
@@ -34,7 +41,14 @@ public class MapBox {
 			return new String[] { url };
 		}
 	}
-	
+
+	public static class LacquerProvider extends MapBoxProvider {
+		public String[] getTileUrls(Coordinate coordinate) {
+			String url = "http://c.tiles.mapbox.com/v3/mapbox.mapbox-lacquer/" + getPositiveZoomString(coordinate) + ".png";
+			return new String[] { url };
+		}
+	}
+
 	// For testing non-exported map styles from your local TileMill server.
 	// TODO Mention and explain in tutorial
 	public static class MuseDarkStyleProvider extends MapBoxProvider {
