@@ -9,9 +9,9 @@ import de.fhpotsdam.unfolding.utils.MapUtils;
 public class MBTilesMapApp extends PApplet {
 
 	// Connection to SQLite/MBTiles in distribution (outside of the jar)
-	public static final String JDBC_CONN_STRING_TABLE = "jdbc:sqlite:./data/muse-dark-2-8.mbtiles";
-	// Connection to SQLite/MBTiles in dev environemtn (link to the project)
-	public static final String JDBC_CONN_STRING_MAC = "jdbc:sqlite:../../unfolding/data/muse-dark-2-8.mbtiles";
+	public static final String JDBC_CONN_STRING_TABLE = "jdbc:sqlite:./data/muse-dark-2-4.mbtiles";
+	// Connection to SQLite/MBTiles in dev environment (link to the project)
+	public static final String JDBC_CONN_STRING_MAC = "jdbc:sqlite:../../unfolding/data/muse-dark-2-4.mbtiles";
 
 	Map map;
 
