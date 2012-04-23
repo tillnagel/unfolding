@@ -1,0 +1,6 @@
+<filter name="Mask">
+    <description>masks a source texture with a mask texture</description>
+    <fragment>Mask.glsl</fragment>
+    <textures input="2" output="1"></textures>
+    <parameter type="float" name="mask_factor" label="Mask factor">0</parameter>
+</filter>
