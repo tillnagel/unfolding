@@ -457,6 +457,12 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 
 	protected TileLoader createTileLoader(Coordinate coord) {
 		return new TileLoader(papplet, provider, this, coord);
+
+		// TODO Make showDebug etc public.
+//		TileLoader tl = new TileLoader(papplet, provider, this, coord);
+//		tl.showDebugBorder();
+//		tl.showTileCoordinates();
+//		return tl;
 	}
 
 }
