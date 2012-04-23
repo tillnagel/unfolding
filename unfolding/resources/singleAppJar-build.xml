@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project default="create_run_jar" name="Create Runnable Jar for Project unfolding">
+    <!--this file was created by Eclipse Runnable JAR Export Wizard-->
+    <!--ANT 1.7 is required                                        -->
+    <target name="create_run_jar">
+        <jar destfile="/Users/tillnagel/Sandbox/multitouchmap-dist/MultitouchMap.jar" filesetmanifest="mergewithoutmain">
+            <manifest>
+                <attribute name="Main-Class" value="de.fhpotsdam.unfolding.examples.interaction.MultitouchMapApp"/>
+                <attribute name="Class-Path" value="."/>
+            </manifest>
+            <fileset dir="/Users/tillnagel/PhD/workspace/unfolding/bin">
+				<exclude name="*.mbtiles"/>
+			</fileset>
+            <zipfileset excludes="META-INF/*.SF" src="/Users/tillnagel/PhD/workspace/unfolding/lib/core.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="/Users/tillnagel/PhD/workspace/unfolding/lib/glgraphics.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="/Users/tillnagel/PhD/workspace/unfolding/lib/gluegen-rt.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="/Users/tillnagel/PhD/workspace/unfolding/lib/jogl.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="/Users/tillnagel/PhD/workspace/unfolding/lib/log4j-1.2.15.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="/Users/tillnagel/PhD/workspace/unfolding/lib/opengl.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="/Users/tillnagel/PhD/workspace/unfolding/lib/libTUIO.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="/Users/tillnagel/PhD/workspace/unfolding/lib/sqlitejdbc-v056.jar"/>
+        </jar>
+    </target>
+</project>
