@@ -18,8 +18,11 @@ public class MapWithBarScaleApp extends PApplet {
 
 	Map map;
 
+	// If false it uses the screen center, resulting in a bar scale depending on the north/south position of the map.
+	boolean showDistanceAtEquator = true;
+
 	public void setup() {
-		size(400, 300, GLConstants.GLGRAPHICS);
+		size(800, 600, GLConstants.GLGRAPHICS);
 
 		map = new Map(this, "map");
 		map.setTweening(false);
@@ -40,8 +43,8 @@ public class MapWithBarScaleApp extends PApplet {
 	/**
 	 * Draws a bar scale at given position according to current zoom level.
 	 * 
-	 * Calculates distance at equator (scale is dependent on Latitude). Uses a distance to display
-	 * from fixed set of distance numbers, so length of bar may vary.
+	 * Calculates distance at equator (scale is dependent on Latitude). Uses a distance to display from fixed set of
+	 * distance numbers, so length of bar may vary.
 	 * 
 	 * @param x
 	 *            Position to display bar scale
@@ -54,10 +57,16 @@ public class MapWithBarScaleApp extends PApplet {
 		float distance = MAX_DISPLAY_DISTANCE / map.getZoom();
 		distance = getClosestDistance(distance);
 
-		// Gets destLocation (world center, on equator, with calculated distance)
-		Location startLocation = new Location(0, 0);
-		Location destLocation = GeoUtils.getDestinationLocation(startLocation, 90f, distance);
-
+		Location startLocation = null;
+		Location destLocation = null;
+		if (showDistanceAtEquator) {
+			// Gets destLocation (world center, on equator, with calculated distance)
+			startLocation = new Location(0, 0);
+			destLocation = GeoUtils.getDestinationLocation(startLocation, 90f, distance);
+		} else {
+			startLocation = map.getLocationFromScreenPosition(width / 2, height / 2);
+			destLocation = GeoUtils.getDestinationLocation(startLocation, 90f, distance);
+		}
 		// Calculates distance between both locations in screen coordinates
 		float[] destXY = map.getScreenPositionFromLocation(destLocation);
 		float[] startXY = map.getScreenPositionFromLocation(startLocation);
