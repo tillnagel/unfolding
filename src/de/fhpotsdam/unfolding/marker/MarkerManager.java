@@ -8,9 +8,9 @@ import org.apache.log4j.Logger;
 import de.fhpotsdam.unfolding.Map;
 import de.fhpotsdam.unfolding.utils.GeoUtils;
 
-/*
- * Manages markers of different types. Is always connected to one map (for location to screen coordinate conversion).
- * 
+/**
+ * Manages markers of different types.
+ * Is always connected to one map (for location to screen coordinate conversion).
  */
 public class MarkerManager<E extends Marker> {
 
