@@ -128,7 +128,7 @@ public class MapComparisonApp extends PApplet {
 		PanMapEvent panMapEvent = new PanMapEvent(this, mapOSM.getId());
 		panMapEvent.setToLocation(location);
 		eventDispatcher.fireMapEvent(panMapEvent);
-		ZoomMapEvent zoomMapEvent = new ZoomMapEvent(this, mapOSM.getId(), ZoomMapEvent.ZOOM_TO);
+		ZoomMapEvent zoomMapEvent = new ZoomMapEvent(this, mapOSM.getId(), ZoomMapEvent.ZOOM_TO_LEVEL);
 		zoomMapEvent.setTransformationCenterLocation(location);
 		zoomMapEvent.setZoomLevel(10);
 		eventDispatcher.fireMapEvent(zoomMapEvent);

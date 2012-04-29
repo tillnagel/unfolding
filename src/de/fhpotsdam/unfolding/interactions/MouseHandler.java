@@ -51,7 +51,7 @@ public class MouseHandler extends MapEventBroadcaster {
 					eventDispatcher.fireMapEvent(panMapEvent);
 
 					ZoomMapEvent zoomMapEvent = new ZoomMapEvent(this, map.getId(),
-							ZoomMapEvent.ZOOM_BY, 1);
+							ZoomMapEvent.ZOOM_BY_LEVEL, 1);
 					zoomMapEvent.setTransformationCenterLocation(location);
 					eventDispatcher.fireMapEvent(zoomMapEvent);
 				}
@@ -65,7 +65,7 @@ public class MouseHandler extends MapEventBroadcaster {
 				//log.debug("mouse: fire zoomBy for " + map.getId());
 
 				ZoomMapEvent zoomMapEvent = new ZoomMapEvent(this, map.getId(),
-						ZoomMapEvent.ZOOM_BY);
+						ZoomMapEvent.ZOOM_BY_LEVEL);
 
 				// Use location as zoom center, so listening maps can zoom correctly
 				Location location = map.mapDisplay.getLocationFromScreenPosition(mouseX, mouseY);

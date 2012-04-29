@@ -125,7 +125,7 @@ public class TuioCursorHandler extends MapEventBroadcaster implements TuioListen
 						float newDist = getDistance(tuioCursor1, tuioCursor2);
 						float scaleDelta = newDist / oldDist;
 						oldDist = newDist;
-						zoomMapEvent.setZoomLevelDelta((int)scaleDelta);
+						zoomMapEvent.setZoomDelta(scaleDelta);
 
 						eventDispatcher.fireMapEvent(zoomMapEvent);
 					}

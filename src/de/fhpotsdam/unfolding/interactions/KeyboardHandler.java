@@ -32,7 +32,7 @@ public class KeyboardHandler extends MapEventBroadcaster {
 			if (map.isActive()) {
 				if (key == '+' || key == '-') {
 					ZoomMapEvent zoomMapEvent = new ZoomMapEvent(this, map.getId());
-					zoomMapEvent.setSubType(ZoomMapEvent.ZOOM_BY);
+					zoomMapEvent.setSubType(ZoomMapEvent.ZOOM_BY_LEVEL);
 					if (key == '+') {
 						zoomMapEvent.setZoomLevelDelta(1);
 					} else {

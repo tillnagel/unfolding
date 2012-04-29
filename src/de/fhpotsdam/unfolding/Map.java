@@ -165,11 +165,11 @@ public class Map implements MapEventListener {
 		if (tweening) {
 			scaleIntegrator.update();
 			mapDisplay.innerScale = scaleIntegrator.value;
-			
-//			txIntegrator.update();
-//			mapDisplay.innerOffsetX = txIntegrator.value;
-//			tyIntegrator.update();
-//			mapDisplay.innerOffsetY = tyIntegrator.value;
+
+			// txIntegrator.update();
+			// mapDisplay.innerOffsetX = txIntegrator.value;
+			// tyIntegrator.update();
+			// mapDisplay.innerOffsetY = tyIntegrator.value;
 
 			mapDisplay.calculateInnerMatrix();
 		}
@@ -253,9 +253,19 @@ public class Map implements MapEventListener {
 	 * @param levelDelta
 	 *            The number of levels to zoom in or out.
 	 */
-	public void zoom(int levelDelta) {
+	public void zoomLevel(int levelDelta) {
 		int newLevel = getZoomLevelFromScale(mapDisplay.innerScale) + levelDelta;
 		zoomToLevel(newLevel);
+	}
+
+	/**
+	 * @deprecated Replaced by {@link #zoomLevel(int)}
+	 * @param levelDelta
+	 *            The number of levels to zoom in or out.
+	 */
+	@Deprecated
+	public void zoom(int levelDelta) {
+		zoomLevel(levelDelta);
 	}
 
 	/**
