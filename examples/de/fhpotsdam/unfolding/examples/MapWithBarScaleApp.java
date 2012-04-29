@@ -19,7 +19,7 @@ public class MapWithBarScaleApp extends PApplet {
 	Map map;
 
 	// If false it uses the screen center, resulting in a bar scale depending on the north/south position of the map.
-	boolean showDistanceAtEquator = true;
+	boolean showDistanceAtEquator = false;
 
 	public void setup() {
 		size(800, 600, GLConstants.GLGRAPHICS);
