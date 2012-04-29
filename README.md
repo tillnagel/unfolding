@@ -1,8 +1,8 @@
 # Unfolding
 Create interactive thematic maps and geovisualizations.
 
-<http://unfoldingmaps.org/>
-<https://github.com/tillnagel/unfolding>
+* <http://unfoldingmaps.org/>
+* <https://github.com/tillnagel/unfolding>
 
 ## About
 ### Interaction Events
