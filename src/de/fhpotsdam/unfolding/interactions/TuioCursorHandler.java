@@ -18,6 +18,7 @@ import TUIO.TuioTime;
 import de.fhpotsdam.unfolding.Map;
 import de.fhpotsdam.unfolding.events.MapEventBroadcaster;
 import de.fhpotsdam.unfolding.events.PanMapEvent;
+import de.fhpotsdam.unfolding.events.ZoomMapEvent;
 import de.fhpotsdam.unfolding.geo.Location;
 
 // FIXME Implement tuio to map interactions as events!
@@ -104,8 +105,13 @@ public class TuioCursorHandler extends MapEventBroadcaster implements TuioListen
 					}
 
 					if (zoom) {
+						ZoomMapEvent zoomMapEvent = new ZoomMapEvent(
+								this, map.getId(), ZoomMapEvent.ZOOM_BY);
+
 						// 1. pos of last finger
-						map.mapDisplay.setInnerTransformationCenter(transCenter);
+						//map.mapDisplay.setInnerTransformationCenter(transCenter);
+						Location centerLocation = map.getLocationFromScreenPosition(transCenter.x, transCenter.y);
+						zoomMapEvent.setTransformationCenterLocation(centerLocation);
 
 						// 2. object center: pinch gesture w/o fixed finger-location connection
 						// float[] objectCenterXY =
@@ -119,7 +125,9 @@ public class TuioCursorHandler extends MapEventBroadcaster implements TuioListen
 						float newDist = getDistance(tuioCursor1, tuioCursor2);
 						float scaleDelta = newDist / oldDist;
 						oldDist = newDist;
-						map.zoom(scaleDelta);
+						zoomMapEvent.setZoomLevelDelta((int)scaleDelta);
+
+						eventDispatcher.fireMapEvent(zoomMapEvent);
 					}
 
 					if (rotate) {
