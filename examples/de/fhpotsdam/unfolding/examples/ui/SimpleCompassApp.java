@@ -10,14 +10,14 @@ import de.fhpotsdam.unfolding.utils.MapUtils;
 public class SimpleCompassApp extends PApplet {
 
 	Map map;
-	Compass compass;
+	CompassUI compass;
 
 	public void setup() {
 		size(800, 600, GLConstants.GLGRAPHICS);
 
 		map = new Map(this);
 		map.zoomAndPanTo(new Location(52.5f, 13.4f), 10);
-		compass = new Compass(this,map);
+		compass = new CompassUI(this,map);
 
 		MapUtils.createDefaultEventDispatcher(this, map);
 	}
@@ -27,6 +27,11 @@ public class SimpleCompassApp extends PApplet {
 		map.draw();
 		compass.draw();
 	}
+	
+	public void keyPressed() {
+		if (key == 'a') map.rotate(0.1f);
+		if (key == 'd') map.rotate(-0.1f);
+		}
 
 	public static void main(String[] args) {
 		PApplet.main(new String[] { "de.fhpotsdam.unfolding.examples.SimpleCompassApp" });
