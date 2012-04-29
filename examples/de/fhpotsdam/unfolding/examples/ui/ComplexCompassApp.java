@@ -13,6 +13,7 @@ public class ComplexCompassApp extends PApplet {
 
 	Map map;
 	CompassUI compass;
+	PImage compassImg;
 
 	public void setup() {
 		size(800, 600, GLConstants.GLGRAPHICS);
@@ -21,8 +22,8 @@ public class ComplexCompassApp extends PApplet {
 		map.zoomAndPanTo(new Location(52.5f, 13.4f), 10);
 		compass = new CompassUI(this,map);
 		
-		PImage compassImg = loadImage("compass_grey.png");
-		compass = new CompassUI(this, map.mapDisplay, compassImg, 700, 100, 70);
+		compassImg = loadImage("compass_grey.png");
+		compass = new CompassUI(this, map.mapDisplay, compassImg, 700, 100);
 	}
 
 	public void draw() {
@@ -34,6 +35,7 @@ public class ComplexCompassApp extends PApplet {
 	public void keyPressed() {
 		if (key == 'a') map.rotate(0.1f);
 		if (key == 'd') map.rotate(-0.1f);
+		if (key == ' ') compass.scale*=0.95;
 		}
 
 	public static void main(String[] args) {

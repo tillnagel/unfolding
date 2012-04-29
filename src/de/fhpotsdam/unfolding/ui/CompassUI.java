@@ -7,7 +7,6 @@ import processing.core.PFont;
 import processing.core.PImage;
 
 public class CompassUI {
-	public static final float SIZE_DEFAULT = 75;
 	public static final float X_DEFAULT = 100;
 	public static final float Y_DEFAULT = 100;
 	public static final String IMG_DEFAULT = "compass_white.png";
@@ -17,15 +16,13 @@ public class CompassUI {
 
 	public float x;
 	public float y;
-	private float size;
 	public float scale;
 	private PImage img;
 
 	public CompassUI(PApplet p, AbstractMapDisplay mapDisplay, PImage img,
-		float x, float y, float size) {
+		float x, float y) {
 		this.p = p;
 		this.mapDisplay = mapDisplay;
-		this.size = size;
 		this.x = x;
 		this.y = y;
 		this.img = img;
@@ -33,13 +30,11 @@ public class CompassUI {
 	}
 
 	public CompassUI(PApplet p, AbstractMapDisplay mapDisplay) {
-		this(p, mapDisplay, p.loadImage(IMG_DEFAULT), X_DEFAULT, Y_DEFAULT,
-				SIZE_DEFAULT);
+		this(p, mapDisplay, p.loadImage(IMG_DEFAULT), X_DEFAULT, Y_DEFAULT);
 	}
 
 	public CompassUI(PApplet p, Map map) {
-		this(p, map.mapDisplay, p.loadImage(IMG_DEFAULT), X_DEFAULT, Y_DEFAULT,
-				SIZE_DEFAULT);
+		this(p, map.mapDisplay, p.loadImage(IMG_DEFAULT), X_DEFAULT, Y_DEFAULT);
 	}
 	public void draw() {
 		// int zoomLevel = Map.getZoomLevelFromScale(mapDisplay.innerScale);
