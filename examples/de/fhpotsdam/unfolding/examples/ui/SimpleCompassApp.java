@@ -1,7 +1,6 @@
 package de.fhpotsdam.unfolding.examples.ui;
 
 import processing.core.PApplet;
-import codeanticode.glgraphics.GLConstants;
 import de.fhpotsdam.unfolding.Map;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.ui.*;
@@ -13,7 +12,7 @@ public class SimpleCompassApp extends PApplet {
 	CompassUI compass;
 
 	public void setup() {
-		size(800, 600, GLConstants.GLGRAPHICS);
+		size(800, 600);
 
 		map = new Map(this);
 		map.zoomAndPanTo(new Location(52.5f, 13.4f), 10);
