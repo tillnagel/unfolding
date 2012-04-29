@@ -82,7 +82,9 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 			PMatrix3D invMatrix = new PMatrix3D();
 			invMatrix.apply(matrix);
 			invMatrix.invert();
-
+			
+			
+			
 			float originalCenterX = invMatrix.multX(transformationCenter.x, transformationCenter.y);
 			float originalCenterY = invMatrix.multY(transformationCenter.x, transformationCenter.y);
 

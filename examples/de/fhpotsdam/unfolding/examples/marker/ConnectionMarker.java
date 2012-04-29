@@ -34,19 +34,14 @@ public class ConnectionMarker extends AbstractMarker {
 
 	@Override
 	public void draw(PGraphics pg, float x, float y) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void drawOuter(PGraphics pg, float x, float y) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	protected boolean isInside(float checkX, float checkY, float x, float y) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
