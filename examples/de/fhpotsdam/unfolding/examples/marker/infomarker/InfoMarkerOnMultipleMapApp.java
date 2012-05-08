@@ -58,8 +58,8 @@ public class InfoMarkerOnMultipleMapApp extends PApplet {
 		markerManager1 = new MarkerManager(map1, markers1);
 		markerManager2 = new MarkerManager(map2, markers2);
 
-		map1.mapDisplay.setMarkerManager(markerManager1);
-		map2.mapDisplay.setMarkerManager(markerManager2);
+		map1.mapDisplay.addMarkerManager(markerManager1);
+		map2.mapDisplay.addMarkerManager(markerManager2);
 	}
 
 	public void draw() {
@@ -76,7 +76,7 @@ public class InfoMarkerOnMultipleMapApp extends PApplet {
 
 	public void checkInsideMarker(Map map) {
 		if (map.isHit(mouseX, mouseY)) {
-			MarkerManager mm = map.mapDisplay.getMarkerManager();
+			MarkerManager mm = map.mapDisplay.getLastMarkerManager();
 
 			// Deselect all marker
 			for (LabeledMarker lm : (List<LabeledMarker>) mm.getMarkers()) {

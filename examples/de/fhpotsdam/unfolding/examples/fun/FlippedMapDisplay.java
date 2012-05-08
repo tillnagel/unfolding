@@ -4,6 +4,8 @@ import codeanticode.glgraphics.GLTexture;
 import processing.core.PApplet;
 import processing.core.PGraphics;
 import de.fhpotsdam.unfolding.mapdisplay.GLGraphicsMapDisplay;
+import de.fhpotsdam.unfolding.marker.Marker;
+import de.fhpotsdam.unfolding.marker.MarkerManager;
 import de.fhpotsdam.unfolding.providers.AbstractMapProvider;
 
 public class FlippedMapDisplay extends GLGraphicsMapDisplay {
@@ -26,8 +28,8 @@ public class FlippedMapDisplay extends GLGraphicsMapDisplay {
 		outerPG.translate(-width, 0);
 		outerPG.image(map, 0, 0);
 		
-		if (markerManager != null) {
-			markerManager.drawOuter();
+		for (MarkerManager<Marker> mm : managerManagerList){
+			mm.drawOuter();
 		}
 
 		outerPG.popMatrix();

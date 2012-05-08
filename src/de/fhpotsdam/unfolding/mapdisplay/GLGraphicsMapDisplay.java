@@ -39,7 +39,7 @@ public class GLGraphicsMapDisplay extends ProcessingMapDisplay implements PConst
 		outerPG.applyMatrix(matrix);
 		outerPG.image(pg.getTexture(), 0, 0);
 
-		for (MarkerManager<Marker> mm : managerList){
+		for (MarkerManager<Marker> mm : managerManagerList){
 			mm.drawOuter();
 		}
 

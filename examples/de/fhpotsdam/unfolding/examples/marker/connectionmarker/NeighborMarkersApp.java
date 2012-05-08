@@ -53,7 +53,7 @@ public class NeighborMarkersApp extends PApplet {
 
 		MarkerManager markerManager = new MarkerManager(map, markers);
 		markerManager.addMarkers(connectionMarkers);
-		map.mapDisplay.setMarkerManager(markerManager);
+		map.mapDisplay.addMarkerManager(markerManager);
 	}
 
 	public void draw() {

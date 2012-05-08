@@ -61,7 +61,7 @@ public abstract class AbstractMapDisplay implements TileLoaderListener {
 	protected PVector innerTransformationCenter;
 
 	// List of MarkerManager with one default MarkerManager
-	protected List<MarkerManager<Marker>> managerList;
+	protected List<MarkerManager<Marker>> managerManagerList;
 
 	// Tiles
 	public int max_pending = 4;
@@ -89,7 +89,7 @@ public abstract class AbstractMapDisplay implements TileLoaderListener {
 
 		innerScale = (float) Math.ceil(Math.min(height / (float) TILE_WIDTH, width / (float) TILE_HEIGHT));
 		
-		managerList = new ArrayList<MarkerManager<Marker>>();
+		managerManagerList = new ArrayList<MarkerManager<Marker>>();
 	}
 
 	public void resize(float width, float height) {
@@ -118,16 +118,30 @@ public abstract class AbstractMapDisplay implements TileLoaderListener {
 
 	public abstract void setBackgroundColor(int color);
 
-	public void addMarkerManager(MarkerManager markerManager) {
-		managerList.add(markerManager);
+	// MarkerManagement -----------------------------------------------
+	
+	public void addMarkerManager(MarkerManager<Marker> markerManager) {
+		managerManagerList.add(markerManager);
 	}
 	
-	/**
-	 * 
-	 * @return default MarkerManager
-	 */
-	public MarkerManager getMarkerManager() {//TODO rename
-		return managerList.get(0);
+	public MarkerManager<Marker> getLastMarkerManager() {
+		return managerManagerList.get(managerManagerList.size()-1);
+	}
+	
+	public MarkerManager<Marker> getDefaultMarkerManager(){
+		return getMarkerManager(0);
+	}
+	
+	public MarkerManager<Marker> getMarkerManager(int index){
+		return managerManagerList.get(index);
+	}
+	
+	public void addMarker(Marker marker){
+		getDefaultMarkerManager().addMarker(marker);
+	}
+	
+	public void addMarkers(List<Marker> markers){
+		getDefaultMarkerManager().addMarkers(markers);
 	}
 
 	// TRANSFORMATION --------------------------------------------------
@@ -329,7 +343,7 @@ public abstract class AbstractMapDisplay implements TileLoaderListener {
 	}
 	
 	protected void createDefaultMarkerManager(Map map) {
-		managerList.add(new MarkerManager<Marker>(map));
+		managerManagerList.add(new MarkerManager<Marker>(map));
 	}
 
 }

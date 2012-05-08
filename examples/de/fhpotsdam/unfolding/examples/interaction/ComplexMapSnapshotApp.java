@@ -38,7 +38,7 @@ public class ComplexMapSnapshotApp extends PApplet {
 			marker.setLocation(random(30, 60), random(-10, 30));
 			markerManager.addMarker(marker);
 		}
-		map.mapDisplay.setMarkerManager(markerManager);
+		map.mapDisplay.addMarkerManager(markerManager);
 	}
 
 	public void draw() {

@@ -3,6 +3,8 @@ package de.fhpotsdam.unfolding.mapdisplay;
 import processing.core.PApplet;
 import processing.core.PConstants;
 import processing.core.PGraphics;
+import de.fhpotsdam.unfolding.marker.Marker;
+import de.fhpotsdam.unfolding.marker.MarkerManager;
 import de.fhpotsdam.unfolding.providers.AbstractMapProvider;
 
 
@@ -28,8 +30,8 @@ public class MaskedPGraphicsMapDisplay extends ProcessingMapDisplay implements P
 		papplet.translate(offsetX, offsetY);
 		papplet.image(pg, 0, 0);
 		
-		if (markerManager != null) {
-			markerManager.drawOuter();
+		for (MarkerManager<Marker> mm : managerManagerList){
+			mm.drawOuter();
 		}
 		
 		papplet.popMatrix();

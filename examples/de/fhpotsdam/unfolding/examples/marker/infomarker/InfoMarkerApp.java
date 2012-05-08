@@ -42,7 +42,7 @@ public class InfoMarkerApp extends PApplet {
 		// Create markers and add them to the MarkerManager
 		List<Marker> labeledMarkers = GeoRSSLoader.loadGeoRSSMarkers(this, "bbc-georss-test.xml", font);
 		MarkerManager markerManager = new MarkerManager(map, labeledMarkers);
-		map.mapDisplay.setMarkerManager(markerManager);
+		map.mapDisplay.addMarkerManager(markerManager);
 	}
 
 	public void draw() {
@@ -53,7 +53,7 @@ public class InfoMarkerApp extends PApplet {
 	}
 
 	public void mouseMoved() {
-		MarkerManager<LabeledMarker> mm = map.mapDisplay.getMarkerManager();
+		MarkerManager mm = map.mapDisplay.getLastMarkerManager();
 		
 		// Deselect all marker
 		for (LabeledMarker lm : (List<LabeledMarker>) mm.getMarkers()) {

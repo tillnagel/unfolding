@@ -21,8 +21,6 @@ public class MarkerManagerApp extends PApplet {
 
 	Map map;
 
-	List<Marker> markers = new ArrayList<Marker>();
-
 	public void setup() {
 		size(800, 600, GLConstants.GLGRAPHICS);
 		
@@ -34,10 +32,7 @@ public class MarkerManagerApp extends PApplet {
 		map.panTo(new Location(40f, 20f));
 		MapUtils.createDefaultEventDispatcher(this, map);
 
-		markers = createMarkers();
-
-		MarkerManager markerManager = new MarkerManager(map, markers);
-		map.mapDisplay.setMarkerManager(markerManager);
+		map.mapDisplay.addMarkers(createMarkers());
 	}
 
 	public void draw() {
