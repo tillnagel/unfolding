@@ -21,6 +21,7 @@ public class MarkerManager<E extends Marker> {
 
 	public MarkerManager(Map map) {
 		this.map = map;
+		this.markers = new ArrayList<E>();
 	}
 
 	public MarkerManager(Map map, List<E> markers) {
