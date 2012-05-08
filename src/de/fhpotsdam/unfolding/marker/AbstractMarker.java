@@ -11,6 +11,8 @@ import de.fhpotsdam.unfolding.geo.Location;
  */
 public abstract class AbstractMarker implements Marker {
 
+	protected Location location;
+	
 	@Override
 	public void draw(Map map) {
 		PGraphics pg = map.mapDisplay.getPG();
@@ -41,7 +43,19 @@ public abstract class AbstractMarker implements Marker {
 	}
 
 	@Override
-	public abstract Location getLocation();
+	public Location getLocation(){
+		return location;
+	}
+	
+	@Override
+	public void setLocation(Location location) {
+		this.location = location;
+	}
+	
+	@Override
+	public void setLocation(float lat, float lon) {
+		setLocation(new Location(lat, lon));
+	}
 
 	/**
 	 * Draws this marker in inner object coordinate system.
