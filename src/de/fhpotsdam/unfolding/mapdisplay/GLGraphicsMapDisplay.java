@@ -4,6 +4,8 @@ import processing.core.PApplet;
 import processing.core.PConstants;
 import processing.core.PGraphics;
 import codeanticode.glgraphics.GLGraphicsOffScreen;
+import de.fhpotsdam.unfolding.marker.Marker;
+import de.fhpotsdam.unfolding.marker.MarkerManager;
 import de.fhpotsdam.unfolding.providers.AbstractMapProvider;
 
 public class GLGraphicsMapDisplay extends ProcessingMapDisplay implements PConstants {
@@ -37,8 +39,8 @@ public class GLGraphicsMapDisplay extends ProcessingMapDisplay implements PConst
 		outerPG.applyMatrix(matrix);
 		outerPG.image(pg.getTexture(), 0, 0);
 
-		if (markerManager != null) {
-			markerManager.drawOuter();
+		for (MarkerManager<Marker> mm : managerList){
+			mm.drawOuter();
 		}
 
 		outerPG.popMatrix();

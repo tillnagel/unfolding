@@ -15,6 +15,8 @@ import processing.core.PVector;
 import de.fhpotsdam.unfolding.Map;
 import de.fhpotsdam.unfolding.core.Coordinate;
 import de.fhpotsdam.unfolding.geo.Location;
+import de.fhpotsdam.unfolding.marker.Marker;
+import de.fhpotsdam.unfolding.marker.MarkerManager;
 import de.fhpotsdam.unfolding.providers.AbstractMapProvider;
 import de.fhpotsdam.unfolding.tiles.TileLoader;
 
@@ -317,8 +319,8 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 			pg.popMatrix();
 		}
 
-		if (markerManager != null) {
-			markerManager.draw();
+		for (MarkerManager<Marker> mm : managerList){
+			mm.draw();
 		}
 
 		pg.popMatrix();

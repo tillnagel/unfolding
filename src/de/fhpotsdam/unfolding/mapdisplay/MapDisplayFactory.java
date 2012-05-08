@@ -5,6 +5,7 @@ import org.apache.log4j.Logger;
 import processing.core.PApplet;
 import processing.opengl.PGraphicsOpenGL;
 import codeanticode.glgraphics.GLGraphics;
+import de.fhpotsdam.unfolding.Map;
 import de.fhpotsdam.unfolding.providers.AbstractMapProvider;
 import de.fhpotsdam.unfolding.providers.OpenStreetMap;
 
@@ -19,14 +20,14 @@ public class MapDisplayFactory {
 	public static Logger log = Logger.getLogger(MapDisplayFactory.class);
 
 	public static AbstractMapDisplay getMapDisplay(PApplet p, String id, float x, float y,
-			float width, float height, AbstractMapProvider provider) {
+			float width, float height, AbstractMapProvider provider, Map map) {
 		return getMapDisplay(p, id, x, y, width, height, DEFAULT_USE_MASK, DEFAULT_USE_DISTORTION,
-				provider);
+				provider, map);
 	}
 
 	public static AbstractMapDisplay getMapDisplay(PApplet p, String id, float x, float y,
 			float width, float height, boolean useMask, boolean useDistortion,
-			AbstractMapProvider provider) {
+			AbstractMapProvider provider, Map map) {
 		AbstractMapDisplay mapDisplay;
 		
 		if (provider == null) {
@@ -56,6 +57,8 @@ public class MapDisplayFactory {
 			mapDisplay = new ProcessingMapDisplay(p, provider, x, y, width, height);
 		}
 
+		
+		mapDisplay.createDefaultMarkerManager(map);
 		return mapDisplay;
 	}
 

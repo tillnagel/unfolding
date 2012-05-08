@@ -110,7 +110,7 @@ public class Map implements MapEventListener {
 		this.p = p;
 		this.id = id;
 
-		this.mapDisplay = MapDisplayFactory.getMapDisplay(p, id, x, y, width, height, useMask, useDistortion, provider);
+		this.mapDisplay = MapDisplayFactory.getMapDisplay(p, id, x, y, width, height, useMask, useDistortion, provider,this);
 
 		// panCenterZoomTo(PRIME_MERIDIAN_EQUATOR_LOCATION, DEFAULT_ZOOM_LEVEL);
 	}

@@ -1,13 +1,16 @@
 package de.fhpotsdam.unfolding.mapdisplay;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Hashtable;
+import java.util.List;
 import java.util.Vector;
 
 import org.apache.log4j.Logger;
 
 import processing.core.PGraphics;
 import processing.core.PVector;
+import de.fhpotsdam.unfolding.Map;
 import de.fhpotsdam.unfolding.core.Coordinate;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.marker.Marker;
@@ -57,8 +60,8 @@ public abstract class AbstractMapDisplay implements TileLoaderListener {
 	// MapDisplay values: Inner stuff
 	protected PVector innerTransformationCenter;
 
-	//
-	protected MarkerManager<Marker> markerManager;
+	// List of MarkerManager with one default MarkerManager
+	protected List<MarkerManager<Marker>> managerList;
 
 	// Tiles
 	public int max_pending = 4;
@@ -85,6 +88,8 @@ public abstract class AbstractMapDisplay implements TileLoaderListener {
 		innerTransformationCenter = new PVector(width / 2, height / 2);
 
 		innerScale = (float) Math.ceil(Math.min(height / (float) TILE_WIDTH, width / (float) TILE_HEIGHT));
+		
+		managerList = new ArrayList<MarkerManager<Marker>>();
 	}
 
 	public void resize(float width, float height) {
@@ -113,12 +118,16 @@ public abstract class AbstractMapDisplay implements TileLoaderListener {
 
 	public abstract void setBackgroundColor(int color);
 
-	public void setMarkerManager(MarkerManager markerManager) {
-		this.markerManager = markerManager;
+	public void addMarkerManager(MarkerManager markerManager) {
+		managerList.add(markerManager);
 	}
-
-	public MarkerManager getMarkerManager() {
-		return markerManager;
+	
+	/**
+	 * 
+	 * @return default MarkerManager
+	 */
+	public MarkerManager getMarkerManager() {//TODO rename
+		return managerList.get(0);
 	}
 
 	// TRANSFORMATION --------------------------------------------------
@@ -251,7 +260,7 @@ public abstract class AbstractMapDisplay implements TileLoaderListener {
 		public int compare(Coordinate c1, Coordinate c2) {
 			if (c1.zoom == center.zoom) {
 				if (c2.zoom == center.zoom) {
-					// only compare squared distancesÉ saves cpu
+					// only compare squared distancesï¿½ saves cpu
 					float d1 = (float) Math.pow(c1.column - center.column, 2)
 							+ (float) Math.pow(c1.row - center.row, 2);
 					float d2 = (float) Math.pow(c2.column - center.column, 2)
@@ -317,6 +326,10 @@ public abstract class AbstractMapDisplay implements TileLoaderListener {
 	public void setProvider(AbstractMapProvider provider) {
 		this.provider = provider;
 		cleanupImageBuffer(true);
+	}
+	
+	protected void createDefaultMarkerManager(Map map) {
+		managerList.add(new MarkerManager<Marker>(map));
 	}
 
 }
