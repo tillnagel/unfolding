@@ -2,4 +2,4 @@
   Helper functions and classes for Unfolding.
  */
 
-package de.fhpotsdam.unfolding.utils
+package de.fhpotsdam.unfolding.utils;
