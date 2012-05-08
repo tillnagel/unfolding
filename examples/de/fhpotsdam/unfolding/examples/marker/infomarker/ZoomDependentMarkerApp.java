@@ -23,9 +23,8 @@ public class ZoomDependentMarkerApp extends PApplet {
 	public static Logger log = Logger.getLogger(InfoMarkerApp.class);
 
 	Map map;
-	List<Marker> labeledMarkers = new ArrayList<Marker>();
-	List<Marker> labeledCountryMarkers = new ArrayList<Marker>();
-	MarkerManager markerManager = null;
+	MarkerManager<Marker> labeledMarkerManager;
+	MarkerManager<Marker> labeledCountryMarkerManager;
 
 	public void setup() {
 		size(800, 600, GLConstants.GLGRAPHICS);
@@ -38,10 +37,12 @@ public class ZoomDependentMarkerApp extends PApplet {
 		map.setTweening(false);
 		MapUtils.createDefaultEventDispatcher(this, map);
 
-		labeledMarkers = GeoRSSLoader.loadGeoRSSMarkers(this, "bbc-georss-test.xml", font);
-		labeledCountryMarkers = GeoRSSLoader.loadGeoRSSMarkers(this, "bbc-georss-countrytest.xml", font);
-		markerManager = new MarkerManager(map, labeledCountryMarkers);
-		map.mapDisplay.addMarkerManager(markerManager);
+		List<Marker> labeledMarkers = GeoRSSLoader.loadGeoRSSMarkers(this, "bbc-georss-test.xml", font);
+		List<Marker>labeledCountryMarkers = GeoRSSLoader.loadGeoRSSMarkers(this, "bbc-georss-countrytest.xml", font);
+		labeledCountryMarkerManager = new MarkerManager<Marker>(map, labeledCountryMarkers);
+		labeledMarkerManager = new MarkerManager<Marker>(map, labeledMarkers);
+		map.mapDisplay.addMarkerManager(labeledCountryMarkerManager);
+		map.mapDisplay.addMarkerManager(labeledMarkerManager);
 	}
 
 	float oldZoomLevel = 0;
@@ -49,18 +50,20 @@ public class ZoomDependentMarkerApp extends PApplet {
 	public void draw() {
 		background(0);
 
-		map.draw();
-
 		float zoomLevel = map.getZoomLevel();
 		if (oldZoomLevel != zoomLevel) {
 			if (zoomLevel > 3) {
-				markerManager.setMarkers(labeledMarkers);
+				labeledMarkerManager.enableDrawing();
+				labeledCountryMarkerManager.disableDrawing();
 			} else {
-				markerManager.setMarkers(labeledCountryMarkers);
+				labeledMarkerManager.disableDrawing();
+				labeledCountryMarkerManager.enableDrawing();
 			}
 
 			oldZoomLevel = zoomLevel;
 		}
+
+		map.draw();
 	}
 
 }

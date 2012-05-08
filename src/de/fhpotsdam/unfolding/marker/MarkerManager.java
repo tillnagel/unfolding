@@ -18,19 +18,37 @@ public class MarkerManager<E extends Marker> {
 
 	Map map;
 	List<E> markers;
+	protected boolean bEnableDrawing;
 
 	public MarkerManager(Map map) {
 		this.map = map;
-		this.markers = new ArrayList<E>();
+		markers = new ArrayList<E>();
+		bEnableDrawing = true;
 	}
 
 	public MarkerManager(Map map, List<E> markers) {
-		this.map = map;
+		this(map);
 		addMarkers(markers);
 	}
 
 	public void setMarkers(List<E> markers) {
 		this.markers = markers;
+	}
+	
+	public boolean isDrawingEnabled(){
+		return bEnableDrawing;
+	}
+	
+	public void enableDrawing(){
+		bEnableDrawing = true;
+	}
+	
+	public void disableDrawing(){
+		bEnableDrawing = false;
+	}
+	
+	public void toggleDrawing(){
+		bEnableDrawing = !bEnableDrawing;
 	}
 
 	public boolean addMarker(E marker) {
@@ -104,21 +122,24 @@ public class MarkerManager<E extends Marker> {
 		return hitMarkers;
 	}
 
-	
 	// draw and drawOuter to allow both; markers either implement one or the other.
 	// Differences: Off-map cut-off, size-dependencies, ...
-
 	
 	public void draw() {
+		if(!bEnableDrawing)
+			return;
 		for (Marker marker : markers) {
 			marker.draw(map);
 		}
 	}
 
 	public void drawOuter() {
+		if(!bEnableDrawing)
+			return;
 		for (Marker marker : markers) {
 			marker.drawOuter(map);
 		}
 	}
+	
 
 }
