@@ -3,6 +3,7 @@ package de.fhpotsdam.unfolding.examples.marker;
 import processing.core.PApplet;
 import codeanticode.glgraphics.GLConstants;
 import de.fhpotsdam.unfolding.Map;
+import de.fhpotsdam.unfolding.examples.marker.infomarker.InfoMarkerApp;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.utils.MapUtils;
 
@@ -13,7 +14,7 @@ import de.fhpotsdam.unfolding.utils.MapUtils;
  * Note, that this simple mechanism only works for full-sized maps (i.e. the markers are shown
  * off-map, too). For usage of MarkerManager look into other examples, e.g. {@link InfoMarkerApp}.
  */
-public class SimpleMarkerApp extends PApplet {
+public class NonMarkerManagerApp extends PApplet {
 	
 	Map map;
 	

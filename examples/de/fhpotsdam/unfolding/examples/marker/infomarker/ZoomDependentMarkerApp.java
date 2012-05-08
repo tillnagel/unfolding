@@ -1,4 +1,4 @@
-package de.fhpotsdam.unfolding.examples.marker;
+package de.fhpotsdam.unfolding.examples.marker.infomarker;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,8 +38,8 @@ public class ZoomDependentMarkerApp extends PApplet {
 		map.setTweening(false);
 		MapUtils.createDefaultEventDispatcher(this, map);
 
-		labeledMarkers = InfoMarkerApp.loadGeoRSSMarkers(this, "bbc-georss-test.xml", font);
-		labeledCountryMarkers = InfoMarkerApp.loadGeoRSSMarkers(this, "bbc-georss-countrytest.xml", font);
+		labeledMarkers = GeoRSSLoader.loadGeoRSSMarkers(this, "bbc-georss-test.xml", font);
+		labeledCountryMarkers = GeoRSSLoader.loadGeoRSSMarkers(this, "bbc-georss-countrytest.xml", font);
 		markerManager = new MarkerManager(map, labeledCountryMarkers);
 		map.mapDisplay.setMarkerManager(markerManager);
 	}

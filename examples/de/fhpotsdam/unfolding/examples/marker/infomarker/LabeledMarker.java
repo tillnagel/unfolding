@@ -1,4 +1,4 @@
-package de.fhpotsdam.unfolding.examples.marker;
+package de.fhpotsdam.unfolding.examples.marker.infomarker;
 
 import processing.core.PApplet;
 import processing.core.PFont;

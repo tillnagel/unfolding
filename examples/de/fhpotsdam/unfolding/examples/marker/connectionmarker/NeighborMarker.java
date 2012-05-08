@@ -1,4 +1,4 @@
-package de.fhpotsdam.unfolding.examples.marker;
+package de.fhpotsdam.unfolding.examples.marker.connectionmarker;
 
 import processing.core.PGraphics;
 import de.fhpotsdam.unfolding.geo.Location;

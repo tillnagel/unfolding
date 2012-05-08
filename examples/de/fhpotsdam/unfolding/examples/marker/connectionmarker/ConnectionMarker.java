@@ -1,4 +1,4 @@
-package de.fhpotsdam.unfolding.examples.marker;
+package de.fhpotsdam.unfolding.examples.marker.connectionmarker;
 
 import processing.core.PGraphics;
 import processing.core.PVector;

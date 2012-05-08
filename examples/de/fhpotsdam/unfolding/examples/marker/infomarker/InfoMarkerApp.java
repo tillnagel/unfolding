@@ -1,4 +1,4 @@
-package de.fhpotsdam.unfolding.examples.marker;
+package de.fhpotsdam.unfolding.examples.marker.infomarker;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,7 +40,7 @@ public class InfoMarkerApp extends PApplet {
 
 		PFont font = loadFont("Miso-Light-12.vlw");
 		// Create markers and add them to the MarkerManager
-		List<Marker> labeledMarkers = loadGeoRSSMarkers(this, "bbc-georss-test.xml", font);
+		List<Marker> labeledMarkers = GeoRSSLoader.loadGeoRSSMarkers(this, "bbc-georss-test.xml", font);
 		MarkerManager markerManager = new MarkerManager(map, labeledMarkers);
 		map.mapDisplay.setMarkerManager(markerManager);
 	}
@@ -66,28 +66,6 @@ public class InfoMarkerApp extends PApplet {
 			marker.setSelected(true);
 		}
 
-	}
-
-	public static List<Marker> loadGeoRSSMarkers(PApplet p, String url, PFont font) {
-		List<Marker> markers = new ArrayList<Marker>();
-
-		XMLElement rss = new XMLElement(p, url);
-		XMLElement[] itemXMLElements = rss.getChildren("channel/item");
-		for (int i = 0; i < itemXMLElements.length; i++) {
-			String name = itemXMLElements[i].getChild("title").getContent();
-			XMLElement latXML = itemXMLElements[i].getChild("geo:lat");
-			XMLElement lonXML = itemXMLElements[i].getChild("geo:long");
-			if (latXML != null && latXML.getContent() != null) {
-				float lat = Float.valueOf(latXML.getContent());
-				float lon = Float.valueOf(lonXML.getContent());
-
-				Location location = new Location(lat, lon);
-				LabeledMarker labeledMarker = new LabeledMarker(font, name, location, 10);
-				// labeledMarker.setVisible(false);
-				markers.add(labeledMarker);
-			}
-		}
-		return markers;
 	}
 
 }

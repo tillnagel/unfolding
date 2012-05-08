@@ -1,4 +1,4 @@
-package de.fhpotsdam.unfolding.examples.marker;
+package de.fhpotsdam.unfolding.examples.marker.connectionmarker;
 
 import java.util.ArrayList;
 import java.util.List;

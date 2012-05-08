@@ -7,7 +7,7 @@ import processing.core.PApplet;
 import processing.xml.XMLElement;
 import codeanticode.glgraphics.GLConstants;
 import de.fhpotsdam.unfolding.Map;
-import de.fhpotsdam.unfolding.examples.marker.InfoMarkerApp;
+import de.fhpotsdam.unfolding.examples.marker.infomarker.InfoMarkerApp;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.utils.MapUtils;
 

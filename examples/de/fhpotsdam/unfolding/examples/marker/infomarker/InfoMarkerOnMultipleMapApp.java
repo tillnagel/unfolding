@@ -1,4 +1,4 @@
-package de.fhpotsdam.unfolding.examples.marker;
+package de.fhpotsdam.unfolding.examples.marker.infomarker;
 
 import java.util.List;
 
@@ -52,8 +52,8 @@ public class InfoMarkerOnMultipleMapApp extends PApplet {
 		eventDispatcher = MapUtils.createDefaultEventDispatcher(this, map1, map2);
 
 		// Same markers but new instances to allow independent interaction on both maps
-		List<Marker> markers1 = InfoMarkerApp.loadGeoRSSMarkers(this, "bbc-georss-test.xml", font);
-		List<Marker> markers2 = InfoMarkerApp.loadGeoRSSMarkers(this, "bbc-georss-test.xml", font);
+		List<Marker> markers1 = GeoRSSLoader.loadGeoRSSMarkers(this, "bbc-georss-test.xml", font);
+		List<Marker> markers2 = GeoRSSLoader.loadGeoRSSMarkers(this, "bbc-georss-test.xml", font);
 
 		markerManager1 = new MarkerManager(map1, markers1);
 		markerManager2 = new MarkerManager(map2, markers2);
