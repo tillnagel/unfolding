@@ -11,7 +11,7 @@ import de.fhpotsdam.unfolding.geo.Location;
  */
 public abstract class AbstractMarker implements Marker {
 
-	protected Location location;
+	public Location location;
 	
 	@Override
 	public void draw(Map map) {
@@ -21,7 +21,7 @@ public abstract class AbstractMarker implements Marker {
 		float y = xy[1];
 		draw(pg, x, y);
 	}
-
+	
 	@Override
 	public void drawOuter(Map map) {
 		PGraphics pg = map.mapDisplay.getOuterPG();
