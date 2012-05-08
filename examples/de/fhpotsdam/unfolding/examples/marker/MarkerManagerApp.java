@@ -48,14 +48,14 @@ public class MarkerManagerApp extends PApplet {
 	private List<Marker> createMarkers() {
 		List<Marker> markers = new ArrayList<Marker>();
 
-		PlaceMarker marker = new PlaceMarker();
+		DrawOuterMarker marker = new DrawOuterMarker();
 		// Berlin
-		marker.location = new Location(52.5f, 13.4f);
+		marker.setLocation(52.5f, 13.4f);
 		markers.add(marker);
 
-		PlaceMarker marker2 = new PlaceMarker();
+		DrawOuterMarker marker2 = new DrawOuterMarker();
 		// Mexiko City
-		marker2.location = new Location(19.4f, -99.1f);
+		marker2.setLocation(19.4f, -99.1f);
 		markers.add(marker2);
 
 		return markers;
