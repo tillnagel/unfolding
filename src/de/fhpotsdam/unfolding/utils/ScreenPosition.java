@@ -10,4 +10,9 @@ public class ScreenPosition {
 		this.x = x;
 		this.y = y;
 	}
+	
+	public ScreenPosition(float[] xy) {
+		this.x = Math.round(xy[0]);
+		this.y = Math.round(xy[1]);
+	}
 }

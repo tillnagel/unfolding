@@ -15,6 +15,7 @@ import de.fhpotsdam.unfolding.marker.MarkerManager;
 import de.fhpotsdam.unfolding.providers.AbstractMapProvider;
 import de.fhpotsdam.unfolding.tiles.TileLoader;
 import de.fhpotsdam.unfolding.tiles.TileLoaderListener;
+import de.fhpotsdam.unfolding.utils.ScreenPosition;
 
 /**
  * Handles tiles
@@ -173,7 +174,9 @@ public abstract class AbstractMapDisplay implements TileLoaderListener {
 
 	public abstract float[] getInnerObjectFromLocation(Location location);
 
+	@Deprecated
 	public abstract float[] getScreenPositionFromLocation(Location location);
+	public abstract ScreenPosition getScreenPosition(Location location);
 
 	public abstract float[] getObjectFromLocation(Location location);
 
@@ -251,7 +254,7 @@ public abstract class AbstractMapDisplay implements TileLoaderListener {
 		public int compare(Coordinate c1, Coordinate c2) {
 			if (c1.zoom == center.zoom) {
 				if (c2.zoom == center.zoom) {
-					// only compare squared distancesÉ saves cpu
+					// only compare squared distancesï¿½ saves cpu
 					float d1 = (float) Math.pow(c1.column - center.column, 2)
 							+ (float) Math.pow(c1.row - center.row, 2);
 					float d2 = (float) Math.pow(c2.column - center.column, 2)
