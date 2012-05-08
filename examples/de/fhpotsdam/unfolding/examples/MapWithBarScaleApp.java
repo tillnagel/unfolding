@@ -10,6 +10,9 @@ import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.utils.GeoUtils;
 import de.fhpotsdam.unfolding.utils.MapUtils;
 
+/**
+ * Draws a scale bar at he bottom left.
+ */
 public class MapWithBarScaleApp extends PApplet {
 
 	private static final List<Float> DISPLAY_DISTANCES = Arrays.asList(0.01f, 0.02f, 0.05f, 0.1f, 0.2f, 0.5f, 1f, 2f,
@@ -109,4 +112,8 @@ public class MapWithBarScaleApp extends PApplet {
 		return closest;
 	}
 
+	public static void main(String[] args) {
+		// Here we start the actual Unfolding part
+		PApplet.main(new String[] { "de.fhpotsdam.unfolding.examples.MapWithBarScaleApp" });
+	}
 }

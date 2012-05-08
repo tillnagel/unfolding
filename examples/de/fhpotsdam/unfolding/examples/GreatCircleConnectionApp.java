@@ -8,8 +8,9 @@ import de.fhpotsdam.unfolding.utils.GeoUtils;
 import de.fhpotsdam.unfolding.utils.MapUtils;
 
 /**
- * Shows a great circle connection between two locations. A great circle connection is an approximation of the shortest
- * route between two places on earth. Displayed as curves in a Mercator projection (as used in Unfolding).
+ * Shows a great circle connection between two locations. A great circle
+ * connection is an approximation of the shortest route between two places on
+ * earth. Displayed as curves in a Mercator projection (as used in Unfolding).
  * 
  * Mouse move and SHIFT or CTRL to move the locations.
  */
@@ -42,7 +43,8 @@ public class GreatCircleConnectionApp extends PApplet {
 		float[] targetPos = map.getScreenPositionFromLocation(sourceLocation);
 		ellipse(targetPos[0], targetPos[1], 10, 10);
 
-		double bearing = GeoUtils.getAngleBetween(targetLocation, sourceLocation);
+		double bearing = GeoUtils.getAngleBetween(targetLocation,
+				sourceLocation);
 		double dist = GeoUtils.getDistance(targetLocation, sourceLocation);
 
 		noFill();
@@ -50,8 +52,8 @@ public class GreatCircleConnectionApp extends PApplet {
 		stroke(0, 100);
 		beginShape();
 		for (float d = 0; d < dist; d += 100) {
-			Location tweenLocation = GeoUtils.getDestinationLocation(targetLocation, degrees((float) bearing),
-					(float) d);
+			Location tweenLocation = GeoUtils.getDestinationLocation(
+					targetLocation, degrees((float) bearing), (float) d);
 			float[] tweenPos = map.getScreenPositionFromLocation(tweenLocation);
 			vertex(tweenPos[0], tweenPos[1]);
 		}
@@ -61,12 +63,18 @@ public class GreatCircleConnectionApp extends PApplet {
 	public void mouseMoved() {
 		if (keyPressed && key == CODED) {
 			if (keyCode == SHIFT) {
-				targetLocation = map.getLocationFromScreenPosition(mouseX, mouseY);
+				targetLocation = map.getLocationFromScreenPosition(mouseX,
+						mouseY);
 			}
 			if (keyCode == CONTROL) {
-				sourceLocation = map.getLocationFromScreenPosition(mouseX, mouseY);
+				sourceLocation = map.getLocationFromScreenPosition(mouseX,
+						mouseY);
 			}
 		}
 	}
 
+	public static void main(String[] args) {
+		// Here we start the actual Unfolding part
+		PApplet.main(new String[] { "de.fhpotsdam.unfolding.examples.GreatCircleConnectionApp" });
+	}
 }

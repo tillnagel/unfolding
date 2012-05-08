@@ -9,7 +9,7 @@ import de.fhpotsdam.unfolding.utils.MapUtils;
 /**
  * Simple map app showing how to convert screen position to geo-location, and vice versa.
  */
-public class SimpleConversionMapApp extends PApplet {
+public class SimplePositionConversionMapApp extends PApplet {
 
 	Map map;
 
@@ -36,6 +36,13 @@ public class SimpleConversionMapApp extends PApplet {
 		Location loc = new Location(52.5f, 13.4f);
 		float xy[] = map.getScreenPositionFromLocation(loc);
 		ellipse(xy[0], xy[1], 20, 20);
+		String berlinDescription = "Berlin at pixel (" + (int)xy[0] + "/" + (int)xy[1] + ")"; 
+		text(berlinDescription, xy[0], xy[1]);
+	}
+	
+	public static void main(String[] args) {
+		// Here we start the actual Unfolding part
+		PApplet.main(new String[] { "de.fhpotsdam.unfolding.examples.SimplePositionConversionMapApp" });
 	}
 
 }

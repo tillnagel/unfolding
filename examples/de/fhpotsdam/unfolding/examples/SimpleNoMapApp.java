@@ -28,4 +28,8 @@ public class SimpleNoMapApp extends PApplet {
 		ellipse(xy[0], xy[1], 20, 20);
 	}
 
+	public static void main(String[] args) {
+		// Here we start the actual Unfolding part
+		PApplet.main(new String[] { "de.fhpotsdam.unfolding.examples.SimpleNoMapApp" });
+	}
 }

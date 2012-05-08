@@ -116,5 +116,9 @@ public class ComplexMapEventApp extends PApplet {
 			eventDispatcher.fireMapEvent(zoomMapEvent);
 		}
 	}
-
+	
+	public static void main(String[] args) {
+		// Here we start the actual Unfolding part
+		PApplet.main(new String[] { "de.fhpotsdam.unfolding.examples.ComplexMapEventApp" });
+	}
 }

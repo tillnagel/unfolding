@@ -9,9 +9,9 @@ import de.fhpotsdam.unfolding.utils.DebugDisplay;
 import de.fhpotsdam.unfolding.utils.MapUtils;
 
 /**
- * Application to compare the two different map rotation styles. Inner-rotate transforms the map
- * itself, and works with all renderers. Outer-rotate the map container, and works with GLGraphics,
- * only.
+ * Application to compare the two different map rotation styles.
+ * - Inner-rotate transforms the map itself, and works with all renderers.
+ * - Outer-rotate transforms the map container, and works with GLGraphics only.
  * 
  * Use r and l to inner rotate clock-wise (right), and counter-clock-wise (left), and R and L to
  * outer rotate.
@@ -73,5 +73,9 @@ public class RotatableMapApp extends PApplet {
 			map.outerRotate(PI / 8);
 		}
 	}
-
+	
+	public static void main(String[] args) {
+		// Here we start the actual Unfolding part
+		PApplet.main(new String[] { "de.fhpotsdam.unfolding.examples.RotatableMapApp" });
+	}
 }
