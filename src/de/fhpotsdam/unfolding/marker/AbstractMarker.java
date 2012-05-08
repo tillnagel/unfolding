@@ -5,53 +5,66 @@ import de.fhpotsdam.unfolding.Map;
 import de.fhpotsdam.unfolding.geo.Location;
 
 /**
- * Marker handling location to appropriate coordinate system. Also it provides the correct
- * PGraphics.
+ * Marker handling location to appropriate coordinate system. Also it provides
+ * the correct PGraphics.
  * 
  */
 public abstract class AbstractMarker implements Marker {
 
 	public Location location;
-	
+
 	@Override
 	public void draw(Map map) {
 		PGraphics pg = map.mapDisplay.getPG();
 		float[] xy = map.mapDisplay.getInnerObjectFromLocation(getLocation());
 		float x = xy[0];
 		float y = xy[1];
-		draw(pg, x, y);
+		draw(pg, x, y, map);
 	}
-	
+
 	@Override
 	public void drawOuter(Map map) {
 		PGraphics pg = map.mapDisplay.getOuterPG();
 		float[] xy = map.mapDisplay.getObjectFromLocation(getLocation());
 		float x = xy[0];
 		float y = xy[1];
-		drawOuter(pg, x, y);
+		drawOuter(pg, x, y, map);
+	}
+
+	
+	/* override these methods to draw your marker dependent of map attributes */
+	protected void draw(PGraphics pg, float x, float y, Map map) {
+		draw(pg,x,y);
+	}
+
+	protected void drawOuter(PGraphics pg, float x, float y, Map map) {
+		drawOuter(pg,x,y);
 	}
 
 	/**
-	 * Checks whether given position is inside this marker, according to the maps coordinate system.
+	 * Checks whether given position is inside this marker, according to the
+	 * maps coordinate system.
 	 * 
-	 * Uses internal implemented {@link #isInside(float, float, float, float)} of the sub class.
+	 * Uses internal implemented {@link #isInside(float, float, float, float)}
+	 * of the sub class.
 	 */
 	@Override
 	public boolean isInside(Map map, float checkX, float checkY) {
-		float[] xy = map.mapDisplay.getScreenPositionFromLocation(getLocation());
+		float[] xy = map.mapDisplay
+				.getScreenPositionFromLocation(getLocation());
 		return isInside(checkX, checkY, xy[0], xy[1]);
 	}
 
 	@Override
-	public Location getLocation(){
+	public Location getLocation() {
 		return location;
 	}
-	
+
 	@Override
 	public void setLocation(Location location) {
 		this.location = location;
 	}
-	
+
 	@Override
 	public void setLocation(float lat, float lon) {
 		setLocation(new Location(lat, lon));
@@ -98,5 +111,6 @@ public abstract class AbstractMarker implements Marker {
 	 *            The y position of this marker in screen coordinates.
 	 * @return true if inside, false otherwise.
 	 */
-	protected abstract boolean isInside(float checkX, float checkY, float x, float y);
+	protected abstract boolean isInside(float checkX, float checkY, float x,
+			float y);
 }
