@@ -6,6 +6,7 @@ import de.fhpotsdam.unfolding.Map;
 import de.fhpotsdam.unfolding.events.EventDispatcher;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.utils.MapUtils;
+import de.fhpotsdam.unfolding.utils.ScreenPosition;
 
 /**
  * Two maps are shown: One navigable overview maps, and one navigable detail map. The area in the
@@ -47,8 +48,8 @@ public class OverviewAndDetailWithViewportApp extends PApplet {
 		mapOverviewStatic.draw();
 
 		// Viewport is updated by the actual area of the detail map
-		float[] tl = mapOverviewStatic.mapDisplay.getScreenPositionFromLocation(mapDetail.getTopLeftBorder());
-		float[] br = mapOverviewStatic.mapDisplay.getScreenPositionFromLocation(mapDetail.getBottomRightBorder());
+		ScreenPosition tl = mapOverviewStatic.mapDisplay.getScreenPosition(mapDetail.getTopLeftBorder());
+		ScreenPosition br = mapOverviewStatic.mapDisplay.getScreenPosition(mapDetail.getBottomRightBorder());
 		viewportRect.setDimension(tl, br);
 		viewportRect.draw();
 	}
@@ -71,11 +72,11 @@ public class OverviewAndDetailWithViewportApp extends PApplet {
 			return checkX > x && checkY > y && checkX < x + w && checkY < y + h;
 		}
 
-		public void setDimension(float[] tl, float[] br) {
-			this.x = tl[0];
-			this.y = tl[1];
-			this.w = br[0] - tl[0];
-			this.h = br[1] - tl[1];
+		public void setDimension(ScreenPosition tl, ScreenPosition br) {
+			this.x = tl.x;
+			this.y = tl.y;
+			this.w = br.x - tl.x;
+			this.h = br.y - tl.y;
 		}
 
 		public void draw() {
