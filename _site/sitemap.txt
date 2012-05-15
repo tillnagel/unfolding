@@ -1,0 +1,10 @@
+
+/archive.html
+/atom.xml
+/categories.html
+/index.html
+/pages.html
+/sitemap.txt
+/tags.html
+
+/lessons/2011/12/29/jekyll-introduction.html
