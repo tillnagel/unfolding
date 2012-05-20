@@ -17,7 +17,14 @@ public abstract class MapEvent extends EventObject {
 		this.scopeId = scopeId;
 	}
 
-	protected String getType() {
+	/**
+	 * Returns the type of this event.
+	 * 
+	 * NB This is not an Enum to allow simple extension.
+	 * 
+	 * @return The id/name of this type.
+	 */
+	public String getType() {
 		return type;
 	}
 

@@ -84,6 +84,7 @@ public class InfoMarkerApp extends PApplet {
 				Location location = new Location(lat, lon);
 				LabeledMarker labeledMarker = new LabeledMarker(font, name, location, 10);
 				// labeledMarker.setVisible(false);
+				labeledMarker.color = p.color(255, 0, 0);
 				markers.add(labeledMarker);
 			}
 		}
