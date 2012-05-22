@@ -1,8 +1,7 @@
 ---
 layout: page
-title: Pages 
+title: Pages
 header: Pages
-group: navigation
 ---
 {% include JB/setup %}
 

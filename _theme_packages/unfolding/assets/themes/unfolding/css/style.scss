@@ -1,0 +1,56 @@
+@import url(http://fonts.googleapis.com/css?family=Rokkitt:400,700);
+
+
+$iconSpritePath:          url("../bootstrap/images/glyphicons-halflings.png");
+$iconWhiteSpritePath:     url("../bootstrap/images/glyphicons-halflings-white.png");
+
+$serifFontFamily: "Rokkitt", Georgia, "Times New Roman", Times, serif;
+$baseFontSize: 15px;
+$baseLineHeight: 19px;
+$bodyBackground: #fff;
+
+$topDividerColor: rgba(0,0,0,0.05);
+$bottomDividerColor: rgba(255,255,255,0.5);
+@import "../bootstrap/stylesheets/_bootstrap.scss";
+
+body{
+	background: none;
+	@include gradient-radial(#efefef, #ccc);
+}
+
+.container{
+	border-top: $topDividerColor solid 1px;
+	border-bottom: $bottomDividerColor solid 1px;
+	>*:first-child,
+	>*:last-child{
+		margin-top: $baseLineHeight;
+	}
+}
+
+.thumbnail{
+	@extend .well;
+}
+
+.icon, .icon-white{
+	margin-right: 5px;
+}
+
+h1, h2, h3, h4{
+	font-family: $serifFontFamily;
+	font-weight: 700;
+	&h1{
+		font-weight: 400;
+	}
+	&h3{
+		text-transform: uppercase;
+	}
+}
+
+.btn {
+	font-size: $baseFontSize - 4px;
+	text-transform: uppercase;
+	letter-spacing: 1;
+	&.btn.btn-primary{
+		@extend .btn-inverse;
+	}
+}

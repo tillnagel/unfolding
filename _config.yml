@@ -11,7 +11,7 @@ pygments: true
 #
 title : Unfolding
 tagline: Site Tagline
-author : tillnagel
+author :
   name : Till Nagel
   email : mail@tillnagel.com
   github : tillnagel

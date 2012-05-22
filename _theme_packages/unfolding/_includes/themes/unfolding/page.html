@@ -1,0 +1,80 @@
+
+
+<div class="row">
+  <div class="span8">
+    <div id="myCarousel" class="carousel">
+      <!-- Carousel items -->
+      <div class="carousel-inner">
+          <div class="active item">
+            <img src="http://placehold.it/520x180" alt="">
+          </div>
+          <div class="active item">
+            <img src="http://placehold.it/520x180" alt="">
+          </div>
+          <div class="active item">
+            <img src="http://placehold.it/520x180" alt="">
+          </div>
+
+      </div>
+      <!-- Carousel nav -->
+      <a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
+      <a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
+    </div>
+    <h2>{{ page.title }}</h2>
+    {% if page.tagline %}
+      <p>{{ page.tagline }}</p>
+    {% endif %}<p>
+
+  </div>
+  <div class="span4">
+    <div class="well">
+      <h3>Download</h3>
+      <p><a href="#">Download</a> Unfodling from GitHub and go to the <a href="#">Getting Startet Tutorial</a> and learn how to make your own map in minutes in the next step</p>
+      <p><a class="btn btn-primary"><i class="icon-download icon-white"></i>Download</a>
+      </p>
+    </div>
+    <div class="well">
+      <h3>Your Map in 5 Minutes</h3>
+      <p><a href="#">Download</a> Unfodling from GitHub and go to the <a href="#">Getting Startet Tutorial</a> and learn how to make your own map in minutes in the next step</p>
+      <p><a class="btn btn-primary"><i class="icon-book icon-white"></i>To The Tutorial</a>
+      </p>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="span9">
+    <h2>{{ page.title }}</h2>
+    {% if page.tagline %}
+      <p>{{ page.tagline }}</p>
+    {% endif %}
+    {{ content }}
+  </div>
+</div>
+
+<div class="row">
+  <div class="span9">
+    <h2 class="well"><a href="http://unfoldingmaps.org/">Download the Unfolding libary via GitHub</a></h2>
+  </div>
+</div>
+
+<div class="row">
+  <div class="span4">
+    <h3>Interaction Events</h3>
+    <p>Unfolding enables you to rapidly create interactive maps. Basic interactions
+    such as Zoom n' Pan are included. Other functionality such as Overview+Detail,
+    or multitouch gestures can be easily added.</p>
+  </div>
+  <div class="span4">
+    <h3>Data Visualization</h3>
+    <p>Simply create geo-positioned markers to display data on a map. The visual style
+    can be adapted freely. The library supports any user-defined shapes, such as
+    points, lines, or polygons.</p>
+  </div>
+  <div class="span4">
+    <h3>Styled Maps</h3>
+    <p>Unfolding is a tile-based map library. Map tiles can have various geographic
+    features, and come in all kind of styles. It comes with various map providers,
+    such as OpenStreetMap or TileMill.</p>
+  </div>
+</div>

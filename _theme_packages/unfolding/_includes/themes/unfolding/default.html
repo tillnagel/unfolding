@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>{{ page.title }}</title>
+    {% if page.description %}<meta name="description" content="{{ page.description }}">{% endif %}
+    <meta name="author" content="{{ site.author.name }}">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    <!-- <link href="{{ ASSET_PATH }}/bootstrap/css/bootstrap.min.css" rel="stylesheet"> -->
+    <link href="{{ ASSET_PATH }}/css/style.css?body=1" rel="stylesheet" type="text/css" media="all"/>
+    <script src="{{ ASSET_PATH }}/js/jquery.js"></script>
+    <script src="{{ ASSET_PATH }}/bootstrap/javascripts/bootstrap.js"></script>
+    <script src="{{ ASSET_PATH }}/bootstrap/javascripts/bootstrap-carousel.js"></script>
+    <script src="{{ ASSET_PATH }}/js/script.js"></script>
+    <!-- Le fav and touch icons -->
+  <!-- Update these with your own images
+    <link rel="shortcut icon" href="images/favicon.ico">
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+  -->
+  </head>
+
+  <body>
+
+    <header class="container">
+      <div class="row">
+        <div class="span4">
+          <h1><a class="brand" href="{{ HOME_PATH }}">{{ site.title }}</a></h1>
+        </div>
+        <div class="span8">
+          <div class="navbar">
+            <div class="navbar-inner">
+                <ul class="nav">
+                  {% assign pages_list = site.pages %}
+                  {% assign group = 'navigation' %}
+                  {% include JB/pages_list %}
+                </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+
+
+    <section class="container">
+      {{ content }}
+    </section>
+
+    <footer class="container">
+      <div class="row">
+        <div class="span12">
+          <p>&copy; {{ site.author.name }} 2012 – Developed at Interaction Design Lab, FH Potsdam and KU Leuven.
+            with help from <a href="http://jekyllbootstrap.com" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll Bootstrap</a>
+            and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    {% include JB/analytics %}
+  </body>
+</html>

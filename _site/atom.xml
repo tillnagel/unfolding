@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
  
- <title></title>
- <link href="/atom.xml" rel="self"/>
- <link href=""/>
- <updated>2012-05-15T12:24:56+02:00</updated>
- <id></id>
+ <title>Unfolding</title>
+ <link href="http://github.com/tillnagel/unfolding/atom.xml" rel="self"/>
+ <link href="http://github.com/tillnagel/unfolding"/>
+ <updated>2012-05-22T10:32:45+02:00</updated>
+ <id>http://github.com/tillnagel/unfolding</id>
  <author>
-   <name></name>
-   <email></email>
+   <name>Till Nagel</name>
+   <email>mail@tillnagel.com</email>
  </author>
 
  
  <entry>
    <title>Jekyll Introduction</title>
-   <link href="/lessons/2011/12/29/jekyll-introduction.html"/>
+   <link href="http://github.com/tillnagel/unfolding/lessons/2011/12/29/jekyll-introduction"/>
    <updated>2011-12-29T00:00:00+01:00</updated>
-   <id>/lessons/2011/12/29/jekyll-introduction</id>
+   <id>http://github.com/tillnagel/unfolding/lessons/2011/12/29/jekyll-introduction</id>
    <content type="html">&lt;p&gt;This Jekyll introduction will outline specifically what Jekyll is and why you would want to use it. Directly following the intro we&amp;#8217;ll learn exactly &lt;em&gt;how&lt;/em&gt; Jekyll does what it does.&lt;/p&gt;
 
 &lt;h2 id='overview'&gt;Overview&lt;/h2&gt;

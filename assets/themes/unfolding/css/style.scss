@@ -1,0 +1,79 @@
+@import url(http://fonts.googleapis.com/css?family=Bitter:400,700,400italic);
+
+@import "../bootstrap/stylesheets/_bootstrap.scss";
+
+$iconSpritePath:          url("../bootstrap/images/glyphicons-halflings.png");
+$iconWhiteSpritePath:     url("../bootstrap/images/glyphicons-halflings-white.png");
+$bodyBackground: #F2F1EB;
+$linkColor: #802A30;
+$linkColorHover: #8C0303;
+$serifFontFamily: "Bitter", Georgia, "Times New Roman", Times, serif;
+$sansFontFamily: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+$baseFontSize: 15px;
+$baseLineHeight: 19px;
+$bodyBackground: #f6f6f6;
+$topDividerColor: rgba(0,0,0,.05);
+$bottomDividerColor: rgba(255,255,255,.5);
+
+@import "../bootstrap/stylesheets/_bootstrap.scss";
+
+body{
+	//background: url(http://farm3.staticflickr.com/2700/4099289155_cc308d17fa.jpg) repeat 0 0;
+	// @include gradient-radial(rgba(0,0,0,0.05), rgba(0,0,0,0.1));
+}
+
+
+
+.outer-container{
+	border-top: $topDividerColor solid 1px;
+	border-bottom: $bottomDividerColor solid 1px;
+	width:100%;
+	margin:0;
+	padding:0;
+}
+.container{
+	&:first-child{
+		margin-top:$baseLineHeight;
+	}
+}
+
+.page-section1{
+	// background: rgba(0,0,0,0.2);
+	// @include gradient-vertical(#efefef, #f6f6f6);
+	@include translucent-background(#BFB9A4,.2);
+}
+
+.span4{
+	// border-left: 1px solid #000000;
+	// @include box-sizing(border-box);
+}
+
+.thumbnail{
+	@extend .well;
+	img{margin:0}
+}
+
+.icon, .icon-white{
+	margin-right: 5px;
+}
+
+h1, h2, h3, h4{
+	// font-family: $serifFontFamily;
+	font-weight: 400;
+	&h3{
+		text-transform: uppercase;
+	}
+}
+
+p{
+	margin-bottom: $baseLineHeight;
+}
+
+.btn {
+	font-size: $baseFontSize - 4px;
+	text-transform: uppercase;
+	letter-spacing: 1;
+	&.btn.btn-primary{
+		@extend .btn-inverse;
+	}
+}
