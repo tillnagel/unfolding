@@ -82,6 +82,10 @@ public class ZoomMapEvent extends MapEvent {
 	protected Location getTransformationCenterLocation() {
 		return transformationCenterLocation;
 	}
+	
+	public Location getCenter() {
+		return getTransformationCenterLocation();
+	}
 
 	public void setTransformationCenterLocation(Location transformationCenterLocation) {
 		this.transformationCenterLocation = transformationCenterLocation;
