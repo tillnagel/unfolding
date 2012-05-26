@@ -26,12 +26,6 @@ public class ConnectionMarker extends AbstractMultiMarker {
 	}
 	
 	@Override
-	public Location getLocation() {
-		return getLocation(0);
-	}
-
-
-	@Override
 	protected boolean isInside(float checkX, float checkY, float x, float y) {
 		return false;
 	}

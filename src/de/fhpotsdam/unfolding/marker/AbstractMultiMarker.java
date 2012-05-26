@@ -11,6 +11,7 @@ import de.fhpotsdam.unfolding.geo.Location;
 
 public abstract class AbstractMultiMarker extends AbstractMarker{
 	
+	//temp inner class
 	public class ObjectPosition extends PVector{
 		public ObjectPosition() {
 		}
@@ -52,7 +53,6 @@ public abstract class AbstractMultiMarker extends AbstractMarker{
 		locations.remove(index);
 	}
 	
-	//REVISIT rethink visibility of draw(Map)
 	public void draw(Map map) {
 		super.draw(map);
 		
