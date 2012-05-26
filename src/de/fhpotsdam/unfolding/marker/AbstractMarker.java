@@ -3,6 +3,7 @@ package de.fhpotsdam.unfolding.marker;
 import processing.core.PGraphics;
 import de.fhpotsdam.unfolding.Map;
 import de.fhpotsdam.unfolding.geo.Location;
+import de.fhpotsdam.unfolding.utils.GeoUtils;
 
 /**
  * Marker handling location to appropriate coordinate system. Also it provides
@@ -14,6 +15,7 @@ public abstract class AbstractMarker implements Marker {
 	public Location location;
 
 	@Override
+	//REVISIT rethink visibility of draw(Map)
 	public void draw(Map map) {
 		PGraphics pg = map.mapDisplay.getPG();
 		float[] xy = map.mapDisplay.getInnerObjectFromLocation(getLocation());
@@ -68,6 +70,12 @@ public abstract class AbstractMarker implements Marker {
 	@Override
 	public void setLocation(float lat, float lon) {
 		setLocation(new Location(lat, lon));
+	}
+	
+
+	@Override
+	public double getDistanceTo(Location location) {
+		return GeoUtils.getDistance(getLocation(), location);
 	}
 
 	/**

@@ -33,6 +33,15 @@ public interface Marker {
 	public void setLocation(Location location);
 
 	/**
+	 * Calculate distance to location
+	 * 
+	 * @param location
+	 * @return distance to location
+	 * 
+	 */
+	public double getDistanceTo(Location location);
+	
+	/**
 	 * Checks whether given position is inside this marker, according to the maps coordinate system.
 	 * 
 	 * @param map
