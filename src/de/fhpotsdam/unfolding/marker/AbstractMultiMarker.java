@@ -54,6 +54,8 @@ public abstract class AbstractMultiMarker extends AbstractMarker{
 	
 	//REVISIT rethink visibility of draw(Map)
 	public void draw(Map map) {
+		super.draw(map);
+		
 		PGraphics pg = map.mapDisplay.getPG();
 		
 		List<ObjectPosition> objPositions = new ArrayList<ObjectPosition>();
@@ -68,6 +70,8 @@ public abstract class AbstractMultiMarker extends AbstractMarker{
 
 	@Override
 	public void drawOuter(Map map) {
+		super.drawOuter(map);
+		
 		PGraphics pg = map.mapDisplay.getOuterPG();
 		
 		List<ObjectPosition> objPositions = new ArrayList<ObjectPosition>();

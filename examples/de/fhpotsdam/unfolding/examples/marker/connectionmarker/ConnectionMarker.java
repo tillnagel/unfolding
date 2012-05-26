@@ -35,5 +35,4 @@ public class ConnectionMarker extends AbstractMultiMarker {
 	protected boolean isInside(float checkX, float checkY, float x, float y) {
 		return false;
 	}
-
 }
