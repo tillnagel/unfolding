@@ -20,10 +20,10 @@ public class ConnectionMarker extends AbstractMultiMarker {
 
 	@Override
 	public void drawOuter(Map map) {
-		PGraphics pg = map.mapDisplay.getPG();
-		float[] xy1 = map.mapDisplay.getScreenPositionFromLocation(getLocation(0));
+		PGraphics pg = map.mapDisplay.getOuterPG();
+		float[] xy1 = map.mapDisplay.getObjectFromLocation(getLocation(0));
 		PVector v1 = new PVector(xy1[0], xy1[1]);
-		float[] xy2 = map.mapDisplay.getScreenPositionFromLocation(getLocation(1));
+		float[] xy2 = map.mapDisplay.getObjectFromLocation(getLocation(1));
 		PVector v2 = new PVector(xy2[0], xy2[1]);
 		pg.line(v1.x, v1.y, v2.x, v2.y);
 	}
