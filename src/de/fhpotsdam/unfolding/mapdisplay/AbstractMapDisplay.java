@@ -132,6 +132,16 @@ public abstract class AbstractMapDisplay implements TileLoaderListener {
 		return getMarkerManager(0);
 	}
 	
+	@Deprecated
+	public void setMarkerManager(MarkerManager<Marker> markerManager){
+		managerManagerList.set(0, markerManager);
+	}
+
+	@Deprecated
+	public MarkerManager<Marker> getMarkerManager(){
+		return getDefaultMarkerManager();
+	}
+	
 	public MarkerManager<Marker> getMarkerManager(int index){
 		return managerManagerList.get(index);
 	}
