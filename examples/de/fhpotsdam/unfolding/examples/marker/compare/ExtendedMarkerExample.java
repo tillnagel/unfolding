@@ -10,12 +10,12 @@ import processing.core.PApplet;
 import processing.core.PVector;
 
 @SuppressWarnings("serial")
-public class MarkerManagerExample extends PApplet {
+public class ExtendedMarkerExample extends PApplet {
 
 	Map map;
 	
 	SimpleMarker markerBerlin;
-	SimpleMarker markerLondon;
+	RectangularMarker markerLondon;
 	
 	public void setup() {
 		size(800,400,GLConstants.GLGRAPHICS);
@@ -31,9 +31,10 @@ public class MarkerManagerExample extends PApplet {
 		markerBerlin.setColor(0, 200, 0, 100);
 		markerBerlin.setRadius(2);
 		
-		markerLondon = new SimpleMarker();
+		markerLondon = new RectangularMarker();
 		markerLondon.location = new Location(51.5f, 0f);
 		markerLondon.setColor(200, 0, 0, 100);
+		markerLondon.setRadius(2);
 		
 		map.addMarker(markerBerlin);
 		map.addMarker(markerLondon);
