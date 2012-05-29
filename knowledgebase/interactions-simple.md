@@ -11,7 +11,7 @@ finalsrc: #someurlatgithub
 
 As you have seen in the Getting Started tutorial every map you create is already interactive. Users directly can double-click to zoom in around that location, and dragging pans the map. 
 
-arrow keys to pan the map in four directions, while plus and minus keys zoom in or out
+Use arrow keys to pan the map in four directions, while plus and minus keys zoom in or out
 
 ![Lala](/assets/images/Unfolding-GIF-Test.gif)
 
