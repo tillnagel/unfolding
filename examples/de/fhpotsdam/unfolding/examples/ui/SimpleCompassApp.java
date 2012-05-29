@@ -33,7 +33,7 @@ public class SimpleCompassApp extends PApplet {
 		}
 
 	public static void main(String[] args) {
-		PApplet.main(new String[] { "de.fhpotsdam.unfolding.examples.SimpleCompassApp" });
+		PApplet.main(new String[] { "de.fhpotsdam.unfolding.examples.ui.SimpleCompassApp" });
 	}
 
 }

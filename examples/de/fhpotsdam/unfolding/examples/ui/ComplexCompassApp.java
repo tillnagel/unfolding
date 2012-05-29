@@ -39,7 +39,7 @@ public class ComplexCompassApp extends PApplet {
 		}
 
 	public static void main(String[] args) {
-		PApplet.main(new String[] { "de.fhpotsdam.unfolding.examples.ComplexCompassApp" });
+		PApplet.main(new String[] { "de.fhpotsdam.unfolding.examples.ui.ComplexCompassApp" });
 	}
 
 }
