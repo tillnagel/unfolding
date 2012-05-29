@@ -6,6 +6,7 @@ import de.fhpotsdam.unfolding.Map;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.marker.AbstractMarker;
 import de.fhpotsdam.unfolding.marker.Marker;
+import de.fhpotsdam.unfolding.utils.ScreenPosition;
 
 public class ConnectionMarker extends AbstractMarker {
 
@@ -20,11 +21,10 @@ public class ConnectionMarker extends AbstractMarker {
 	@Override
 	public void drawOuter(Map map) {
 		PGraphics pg = map.mapDisplay.getPG();
-		float[] xy1 = map.mapDisplay.getScreenPositionFromLocation(fromMarker.getLocation());
-		PVector v1 = new PVector(xy1[0], xy1[1]);
-		float[] xy2 = map.mapDisplay.getScreenPositionFromLocation(toMarker.getLocation());
-		PVector v2 = new PVector(xy2[0], xy2[1]);
-		pg.line(v1.x, v1.y, v2.x, v2.y);
+
+		ScreenPosition pos1 = map.mapDisplay.getScreenPosition(fromMarker.getLocation());
+		ScreenPosition pos2 = map.mapDisplay.getScreenPosition(toMarker.getLocation());
+		pg.line(pos1.x, pos1.y, pos2.x, pos2.y);
 	}
 
 	@Override

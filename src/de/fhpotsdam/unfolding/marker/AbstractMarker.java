@@ -3,6 +3,7 @@ package de.fhpotsdam.unfolding.marker;
 import processing.core.PGraphics;
 import de.fhpotsdam.unfolding.Map;
 import de.fhpotsdam.unfolding.geo.Location;
+import de.fhpotsdam.unfolding.utils.ScreenPosition;
 
 /**
  * Marker handling location to appropriate coordinate system. Also it provides the correct
@@ -36,8 +37,8 @@ public abstract class AbstractMarker implements Marker {
 	 */
 	@Override
 	public boolean isInside(Map map, float checkX, float checkY) {
-		float[] xy = map.mapDisplay.getScreenPositionFromLocation(getLocation());
-		return isInside(checkX, checkY, xy[0], xy[1]);
+		ScreenPosition pos = map.mapDisplay.getScreenPosition(getLocation());
+		return isInside(checkX, checkY, pos.x, pos.y);
 	}
 
 	@Override

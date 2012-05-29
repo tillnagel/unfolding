@@ -10,6 +10,7 @@ import de.fhpotsdam.unfolding.Map;
 import de.fhpotsdam.unfolding.examples.marker.InfoMarkerApp;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.utils.MapUtils;
+import de.fhpotsdam.unfolding.utils.ScreenPosition;
 
 /**
  * Displays earthquake markers from an RSS feed. Geo-locations are read, and mapped manually
@@ -59,21 +60,21 @@ public class GeoRSSMarkerApp extends PApplet {
 		map.draw();
 
 		for (Location location : rssGeoLocations) {
-			float xy[] = map.getScreenPositionFromLocation(location);
-			drawEarthquakeMarker(xy[0], xy[1]);
+			ScreenPosition pos = map.getScreenPosition(location);
+			drawEarthquakeMarker(pos);
 		}
 	}
 
-	public void drawEarthquakeMarker(float x, float y) {
+	public void drawEarthquakeMarker(ScreenPosition pos) {
 		noStroke();
 		fill(200, 200, 0, 100);
-		ellipse(x, y, 40, 40);
+		ellipse(pos.x, pos.y, 40, 40);
 		fill(255, 100);
-		ellipse(x, y, 30, 30);
+		ellipse(pos.x, pos.y, 30, 30);
 		fill(200, 200, 0, 100);
-		ellipse(x, y, 20, 20);
+		ellipse(pos.x, pos.y, 20, 20);
 		fill(255, 200);
-		ellipse(x, y, 10, 10);
+		ellipse(pos.x, pos.y, 10, 10);
 	}
 	// map = new Map(this, "map", 50, 50, 700, 500);
 

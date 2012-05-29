@@ -5,6 +5,7 @@ import org.apache.log4j.Logger;
 import processing.core.PVector;
 import de.fhpotsdam.unfolding.Map;
 import de.fhpotsdam.unfolding.geo.Location;
+import de.fhpotsdam.unfolding.utils.ScreenPosition;
 
 public class ZoomMapEvent extends MapEvent {
 
@@ -94,8 +95,8 @@ public class ZoomMapEvent extends MapEvent {
 	@Override
 	public void executeManipulationFor(Map map) {
 		if (transformationCenterLocation != null) {
-			float[] xy = map.mapDisplay.getScreenPositionFromLocation(transformationCenterLocation);
-			PVector transCenter = new PVector(xy[0], xy[1]);
+			ScreenPosition pos = map.mapDisplay.getScreenPosition(transformationCenterLocation);
+			PVector transCenter = new PVector(pos.x, pos.y);
 			map.mapDisplay.setInnerTransformationCenter(transCenter);
 		}
 

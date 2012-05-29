@@ -6,6 +6,7 @@ import de.fhpotsdam.unfolding.Map;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.utils.GeoUtils;
 import de.fhpotsdam.unfolding.utils.MapUtils;
+import de.fhpotsdam.unfolding.utils.ScreenPosition;
 
 /**
  * Shows a great circle connection between two locations. A great circle
@@ -36,12 +37,12 @@ public class GreatCircleConnectionApp extends PApplet {
 		map.draw();
 
 		fill(0, 0, 255);
-		float[] sourcePos = map.getScreenPositionFromLocation(targetLocation);
-		ellipse(sourcePos[0], sourcePos[1], 10, 10);
+		ScreenPosition sourcePos = map.getScreenPosition(targetLocation);
+		ellipse(sourcePos.x, sourcePos.y, 10, 10);
 
 		fill(255, 0, 0);
-		float[] targetPos = map.getScreenPositionFromLocation(sourceLocation);
-		ellipse(targetPos[0], targetPos[1], 10, 10);
+		ScreenPosition targetPos = map.getScreenPosition(sourceLocation);
+		ellipse(targetPos.x, targetPos.y, 10, 10);
 
 		double bearing = GeoUtils.getAngleBetween(targetLocation,
 				sourceLocation);
@@ -54,8 +55,8 @@ public class GreatCircleConnectionApp extends PApplet {
 		for (float d = 0; d < dist; d += 100) {
 			Location tweenLocation = GeoUtils.getDestinationLocation(
 					targetLocation, degrees((float) bearing), (float) d);
-			float[] tweenPos = map.getScreenPositionFromLocation(tweenLocation);
-			vertex(tweenPos[0], tweenPos[1]);
+			ScreenPosition tweenPos = map.getScreenPosition(tweenLocation);
+			vertex(tweenPos.x, tweenPos.y);
 		}
 		endShape();
 	}

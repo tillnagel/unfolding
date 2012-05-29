@@ -13,6 +13,7 @@ import de.fhpotsdam.unfolding.mapdisplay.AbstractMapDisplay;
 import de.fhpotsdam.unfolding.mapdisplay.MapDisplayFactory;
 import de.fhpotsdam.unfolding.providers.AbstractMapProvider;
 import de.fhpotsdam.unfolding.utils.GeoUtils;
+import de.fhpotsdam.unfolding.utils.ScreenPosition;
 import de.fhpotsdam.utils.Integrator;
 
 /**
@@ -204,9 +205,15 @@ public class Map implements MapEventListener {
 		return mapDisplay.getLocationFromScreenPosition(x, y);
 	}
 
+	@Deprecated
 	public float[] getScreenPositionFromLocation(Location location) {
 		return mapDisplay.getScreenPositionFromLocation(location);
 	}
+
+	public ScreenPosition getScreenPosition(Location location) {
+		return mapDisplay.getScreenPosition(location);
+	}
+
 
 	// public PVector getScreenPositionFromLocation(Location location) {
 	// float[] xy = mapDisplay.getScreenPositionFromLocation(location);
@@ -328,8 +335,8 @@ public class Map implements MapEventListener {
 	}
 
 	public void zoomAndPanTo(Location location, int level) {
-		float[] xy = mapDisplay.getScreenPositionFromLocation(location);
-		mapDisplay.setInnerTransformationCenter(new PVector(xy[0], xy[1]));
+		ScreenPosition pos = mapDisplay.getScreenPosition(location);
+		mapDisplay.setInnerTransformationCenter(new PVector(pos.x, pos.y));
 		zoomToLevel(level);
 		panTo(location);
 	}

@@ -5,6 +5,7 @@ import codeanticode.glgraphics.GLConstants;
 import de.fhpotsdam.unfolding.Map;
 import de.fhpotsdam.unfolding.events.EventDispatcher;
 import de.fhpotsdam.unfolding.utils.MapUtils;
+import de.fhpotsdam.unfolding.utils.ScreenPosition;
 
 /**
  * 
@@ -29,7 +30,8 @@ public class ConvexHullConnectedMapOnStaticMap extends PApplet {
 		mapOverview = new Map(this, "overview", 10, 10, 585, 580);
 		mapOverview.zoomToLevel(1);
 		mapOverview.setZoomRange(1, 7);
-		EventDispatcher eventDispatcher = MapUtils.createDefaultEventDispatcher(this, mapOverview);
+		EventDispatcher eventDispatcher = MapUtils
+				.createDefaultEventDispatcher(this, mapOverview);
 
 		mapDetail = new Map(this, "detail", 605, 10, 150, 150);
 		mapDetail.setTweening(false);
@@ -48,7 +50,7 @@ public class ConvexHullConnectedMapOnStaticMap extends PApplet {
 		background(0);
 
 		mapOverview.draw();
-		
+
 		updateConnection();
 		connection.draw();
 
@@ -57,14 +59,14 @@ public class ConvexHullConnectedMapOnStaticMap extends PApplet {
 
 	public void updateConnection() {
 		// Finder box for overview map
-		float[] tl = mapOverview.mapDisplay.getScreenPositionFromLocation(mapDetail
+		ScreenPosition tl = mapOverview.mapDisplay.getScreenPosition(mapDetail
 				.getTopLeftBorder());
-		float[] br = mapOverview.mapDisplay.getScreenPositionFromLocation(mapDetail
+		ScreenPosition br = mapOverview.mapDisplay.getScreenPosition(mapDetail
 				.getBottomRightBorder());
-		float w = br[0] - tl[0];
-		float h = br[1] - tl[1];
+		float w = br.x - tl.x;
+		float h = br.y - tl.y;
 		connection.setOverviewSize(w, h);
-		connection.setOverviewPosition(tl[0], tl[1]);
+		connection.setOverviewPosition(tl.x, tl.y);
 	}
 
 }
