@@ -12,10 +12,14 @@ http://github.com/tillnagel/unfolding/exhibition/lid.html
 http://github.com/tillnagel/unfolding/exhibition/max-planck-research-network.html
 http://github.com/tillnagel/unfolding/exhibition/venice-unfolding.html
 http://github.com/tillnagel/unfolding/index.html
-http://github.com/tillnagel/unfolding/knowledgebase/getting-started.html
-http://github.com/tillnagel/unfolding/knowledgebase/index.html
 http://github.com/tillnagel/unfolding/pages.html
 http://github.com/tillnagel/unfolding/sitemap.txt
 http://github.com/tillnagel/unfolding/tags.html
+http://github.com/tillnagel/unfolding/tutorials/getting-started-in-eclipse.html
+http://github.com/tillnagel/unfolding/tutorials/getting-started-in-processing.html
+http://github.com/tillnagel/unfolding/tutorials/index.html
+http://github.com/tillnagel/unfolding/tutorials/markup.html
+http://github.com/tillnagel/unfolding/tutorials/sample-advanced-tutorial.html
+http://github.com/tillnagel/unfolding/tutorials/sample-beginner-tutorial.html
 
 http://github.com/tillnagel/unfolding/lessons/2011/12/29/jekyll-introduction

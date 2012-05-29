@@ -1,0 +1,87 @@
+{% case pages_teasers_template %}
+{% when 'grid' %}
+
+  <ul class="pages-teasers pages-teasers-list thumbnails">
+    {% for node in pages_teasers %}
+      {% if node.title != null %}
+        {% if group == null or group == node.group %}
+          <li class="span4">
+
+            {% if node.link %}
+              {% assign linkto = {{node.link}} %}
+            {% else %}
+              {% assign linkto =  {{node.url}} %}
+            {% endif %}
+            <a href="{{ linkto }}" class="thumbnail" title="Go to {{ node.title }}">
+              <img src="{{ node.thumbnail }}" alt="{{ node.title }}"/>
+            </a>
+            <h3><a href="{{ linkto }}">{{ node.title }}</a></h3>
+            <p>
+              {{ node.description }}
+              {% if node.author %}
+                </br>
+                <strong><i class="icon-user"> </i> Author:</strong> {{ node.author }}
+              {% endif %}
+              {% if node.released %}
+                </br>
+                <strong><i class="icon-time"> </i> Released:</strong> {{ node.released | date: "%M %Y"}}
+              {% endif %}
+            </p>
+            {% assign linkto =  nil %}
+
+          </li>
+        {% endif %}
+      {% endif %}
+    {% endfor %}
+  </ul>
+
+{% when 'list' %}
+
+  <ul class="pages-teasers pages-teasers-list thumbnails">
+    {% for node in pages_teasers %}
+      {% if node.title != null %}
+        {% if group == null or group == node.group %}
+          {% if node.link %}
+            {% assign linkto = {{node.link}} %}
+          {% else %}
+            {% assign linkto =  {{node.url}} %}
+          {% endif %}
+          <li class="span8">
+
+            {% if node.link %}
+              {% assign linkto = {{node.link}} %}
+            {% else %}
+              {% assign linkto =  {{node.url}} %}
+            {% endif %}
+            <a href="{{ linkto }}" class="thumbnail pull-left" title="Go to {{ node.title }}">
+              <img src="{{ node.thumbnail }}" alt="{{ node.title }}" width="140px" height="90px"/>
+            </a>
+            <h3><a href="{{ linkto }}">{{ node.title }}</a></h3>
+            <p>
+              {{ node.description }}
+              {% if node.author %}
+                </br>
+                <strong><i class="icon-user"> </i> Author:</strong> {{ node.author }}
+              {% endif %}
+              {% if node.released %}
+                </br>
+                <strong><i class="icon-time"> </i> Released:</strong> {{ node.released | date: "%M %Y"}}
+              {% endif %}
+            </p>
+            {% assign linkto =  nil %}
+
+          </li>
+        {% endif %}
+      {% endif %}
+    {% endfor %}
+  </ul>
+
+{% else %}
+
+  <p>Please specify a template</p>
+
+{% endcase %}
+
+{% assign pages_teasers_template = nil %}
+{% assign pages_teasers = nil %}
+{% assign group = nil %}
