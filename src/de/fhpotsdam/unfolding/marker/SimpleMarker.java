@@ -1,6 +1,7 @@
 package de.fhpotsdam.unfolding.marker;
 
 import processing.core.PGraphics;
+import processing.core.PVector;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.marker.AbstractMarker;
 
@@ -10,11 +11,23 @@ import de.fhpotsdam.unfolding.marker.AbstractMarker;
  */
 
 public class SimpleMarker extends AbstractMarker {
+	
+	public float radius;
+	public float r,g,b,a;
 
+	
+	public SimpleMarker(){
+		radius = 1.f;
+		r = 203;
+		g = 79;
+		b = 91;
+		a = 200;
+	}
+	
 	public void draw(PGraphics pg, float x, float y) {
-		pg.fill(203, 79, 91, 200);
+		pg.fill(r, g, b, a);
 		pg.stroke(0, 50);
-		pg.ellipse(x, y, 1, 1);
+		pg.ellipse(x, y, radius, radius);
 	}
 
 	public void drawOuter(PGraphics pg, float x, float y) {
@@ -23,6 +36,17 @@ public class SimpleMarker extends AbstractMarker {
 
 	public boolean isInside(float checkX, float checkY, float x, float y) {
 		return false;
+	}
+	
+	public void setColor(float _r, float _g, float _b, float _a){
+		r = _r;
+		g = _g;
+		b = _b;
+		a = _a;
+	}
+	
+	public void setRadius(float _radius){
+		radius = _radius;
 	}
 
 }
