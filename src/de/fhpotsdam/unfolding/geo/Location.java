@@ -2,13 +2,25 @@ package de.fhpotsdam.unfolding.geo;
 
 import processing.core.*;
 
+/**
+ * The Location represents a geo location defined by latitude and longitude.
+ */
 public class Location extends PVector {
 
+	/**
+	 * Create a Location.
+	 * @param lat latitude of the location.
+	 * @param lon longitude of the location
+	 */
 	public Location(float lat, float lon) {
 		this.x = lat;
 		this.y = lon;
 	}
 	
+	/**
+	 * Create a Location
+	 * @param location location to use.
+	 */
 	public Location(Location  location){
 		this.x = location.x;
 		this.y = location.y;
