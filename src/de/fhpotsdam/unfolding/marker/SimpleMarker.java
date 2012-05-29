@@ -4,6 +4,7 @@ import processing.core.PGraphics;
 import processing.core.PVector;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.marker.AbstractMarker;
+import de.fhpotsdam.unfolding.utils.GeoUtils;
 
 /**
  * Simple marker, implementing only the main draw method. The given x,y coordinates are already
@@ -27,7 +28,7 @@ public class SimpleMarker extends AbstractMarker {
 	public void draw(PGraphics pg, float x, float y) {
 		pg.fill(r, g, b, a);
 		pg.stroke(0, 50);
-		pg.ellipse(x, y, radius, radius);
+		pg.ellipse(x, y, radius, radius);//TODO use radius in km and convert to px
 	}
 
 	public void drawOuter(PGraphics pg, float x, float y) {

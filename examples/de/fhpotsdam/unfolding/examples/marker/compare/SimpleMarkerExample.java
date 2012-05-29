@@ -26,7 +26,7 @@ public class SimpleMarkerExample extends PApplet {
 		map.panTo(new Location(40f, 8f));
 		MapUtils.createDefaultEventDispatcher(this, map);
 		
-		markerBerlin = new SimpleMarker();
+		markerBerlin = new SimpleMarker();//TODO const
 		markerBerlin.location = new Location(52.5f, 13.4f);
 		
 		markerLondon = new SimpleMarker();
@@ -43,6 +43,7 @@ public class SimpleMarkerExample extends PApplet {
 		
 		// Fixed-size marker
 		PVector posBerlin = markerBerlin.getScreenPosition(map);
+//				map.getScreenPositionFromLocation(markerBerlin.getLocation());
 		fill(0, 200, 0, 100);
 		ellipse(posBerlin.x, posBerlin.y, 20, 20);
 		//REVISIT
