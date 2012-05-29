@@ -6955,7 +6955,7 @@ a.label:hover, a.badge:hover {
   visibility: hidden; }
 
 .outer-container {
-  border-top: rgba(0, 0, 0, 0.05) solid 1px;
+  border-top: rgba(0, 0, 0, 0.06) solid 1px;
   border-bottom: rgba(255, 255, 255, 0.5) solid 1px;
   width: 100%;
   margin: 0;
