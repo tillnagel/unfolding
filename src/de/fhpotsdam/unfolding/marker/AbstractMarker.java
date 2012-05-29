@@ -1,6 +1,7 @@
 package de.fhpotsdam.unfolding.marker;
 
 import processing.core.PGraphics;
+import processing.core.PVector;
 import de.fhpotsdam.unfolding.Map;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.utils.GeoUtils;
@@ -13,7 +14,11 @@ import de.fhpotsdam.unfolding.utils.GeoUtils;
 public abstract class AbstractMarker implements Marker {
 
 	public Location location;
-
+	
+	public AbstractMarker(){
+		location = new Location(0,0);
+	}
+	
 	@Override
 	//REVISIT rethink visibility of draw(Map)
 	public void draw(Map map) {
@@ -55,6 +60,11 @@ public abstract class AbstractMarker implements Marker {
 		float[] xy = map.mapDisplay
 				.getScreenPositionFromLocation(getLocation());
 		return isInside(checkX, checkY, xy[0], xy[1]);
+	}
+	
+	public PVector getScreenPosition(Map map){
+		float []xy = map.mapDisplay.getScreenPositionFromLocation(getLocation());
+		return new PVector(xy[0],xy[1]);
 	}
 
 	@Override
