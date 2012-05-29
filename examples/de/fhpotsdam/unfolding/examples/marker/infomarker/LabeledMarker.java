@@ -16,7 +16,6 @@ import de.fhpotsdam.unfolding.marker.AbstractMarker;
 public class LabeledMarker extends AbstractMarker {
 
 	public String name;
-	protected Location location;
 	protected float size;
 
 	public int color = 0;
@@ -36,11 +35,6 @@ public class LabeledMarker extends AbstractMarker {
 		this(location, size);
 		this.name = name;
 		this.font = font;
-	}
-
-	@Override
-	public Location getLocation() {
-		return location;
 	}
 
 	public void draw(PGraphics pg, float x, float y) {

@@ -35,7 +35,8 @@ public class SimpleMarker extends AbstractMarker {
 	}
 
 	public boolean isInside(float checkX, float checkY, float x, float y) {
-		return false;
+		PVector pos = new PVector(x, y);
+		return pos.dist(new PVector(checkX, checkY)) < radius; //FIXME must be zoom dependent
 	}
 	
 	public void setColor(float _r, float _g, float _b, float _a){

@@ -57,9 +57,8 @@ public abstract class AbstractMarker implements Marker {
 	 */
 	@Override
 	public boolean isInside(Map map, float checkX, float checkY) {
-		float[] xy = map.mapDisplay
-				.getScreenPositionFromLocation(getLocation());
-		return isInside(checkX, checkY, xy[0], xy[1]);
+		PVector pos = getScreenPosition(map);
+		return isInside(checkX, checkY, pos.x, pos.y);
 	}
 	
 	public PVector getScreenPosition(Map map){

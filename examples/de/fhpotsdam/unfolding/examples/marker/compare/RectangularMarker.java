@@ -10,7 +10,7 @@ import de.fhpotsdam.unfolding.marker.SimpleMarker;
 public class RectangularMarker extends SimpleMarker {
 
 	public void draw(PGraphics pg, float x, float y) {
-		pg.pushStyle();
+		pg.pushStyle();//REVISIT move to abstractMarker.draw(map)?
 		pg.fill(r, g, b, a);
 		pg.stroke(0, 50);
 		pg.rectMode(PApplet.CENTER);

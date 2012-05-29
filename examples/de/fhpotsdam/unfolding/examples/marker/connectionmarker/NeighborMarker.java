@@ -6,12 +6,6 @@ import de.fhpotsdam.unfolding.marker.AbstractMarker;
 
 public class NeighborMarker extends AbstractMarker {
 
-	public Location location;
-
-	public Location getLocation() {
-		return location;
-	}
-
 	public void draw(PGraphics pg, float x, float y) {
 	}
 
