@@ -5,7 +5,7 @@ description: Tangible geo-visualization to explore architectural projects in Ven
 group: exhibition
 author: Interaction Design Lab, FH Potsdam
 released: 2012-12-31 24:59:59
-thumbnail: http://placehold.it/330x250
+thumbnail: http://lorempixel.com/320/250/technics/4
 link: http://idl.fh-potsdam.de/projects/venice-unfolding/
 ---
 {% include JB/setup %}

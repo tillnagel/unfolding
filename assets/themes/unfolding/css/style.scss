@@ -3,7 +3,7 @@
 // ================
 
 @import url(http://fonts.googleapis.com/css?family=Bitter:400,700,400italic);
-
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,400,600,700,300);
 
 
 
@@ -18,11 +18,32 @@ $bodyBackground: #f6f6f6;
 $linkColor: #802A30;
 $linkColorHover: #8C0303;
 $serifFontFamily: "Bitter", Georgia, "Times New Roman", Times, serif;
-$sansFontFamily: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-$baseFontSize: 14px;
-$baseLineHeight: 19px;
+$sansFontFamily: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+$baseFontSize: 15px;
+$baseLineHeight: 22px;
 $topDividerColor: rgba(0,0,0,.05);
 $bottomDividerColor: rgba(255,255,255,.5);
+
+// $navbarHeight:                    40px !default;
+// $navbarBackground:                $grayLighter;
+// $navbarBackgroundHighlight:       $white;
+//
+// $navbarText:                      $grayLight !default;
+// $navbarLinkColor:                 $grayLight !default;
+// $navbarLinkColorHover:            $white !default;
+// $navbarLinkColorActive:           $navbarLinkColorHover !default;
+// $navbarLinkBackgroundHover:       transparent !default;
+// $navbarLinkBackgroundActive:      $navbarBackground !default;
+//
+// $navbarSearchBackground:          lighten($navbarBackground, 25%) !default;
+// $navbarSearchBackgroundFocus:     $white !default;
+// $navbarSearchBorder:              darken($navbarSearchBackground, 30%) !default;
+// $navbarSearchPlaceholderColor:    #ccc !default;
+// $navbarBrandColor:                $navbarLinkColor !default;
+
+
+
+
 @import "../bootstrap/stylesheets/_bootstrap.scss";
 
 
@@ -58,7 +79,8 @@ $bottomDividerColor: rgba(255,255,255,.5);
 // ================================================
 
 h1, h2, h3, h4{
-    font-family: $serifFontFamily;
+    // font-family: $serifFontFamily;
+    font-family: "Open Sans";
     font-weight: 400;
     &h3{
         text-transform: uppercase;
@@ -89,6 +111,11 @@ p{
         }
     }
     &.pages-teasers-grid{
-
+        .thumbnail {
+            margin-bottom: $baseLineHeight/2;
+        }
+        li{
+            height: 400px;
+        }
     }
 }

@@ -1,7 +1,7 @@
 {% case pages_teasers_template %}
 {% when 'grid' %}
 
-  <ul class="pages-teasers pages-teasers-list thumbnails">
+  <ul class="pages-teasers pages-teasers-grid thumbnails">
     {% for node in pages_teasers %}
       {% if node.title != null %}
         {% if group == null or group == node.group %}
@@ -20,12 +20,12 @@
               {{ node.description }}
               {% if node.author %}
                 </br>
-                <strong><i class="icon-user"> </i> Author:</strong> {{ node.author }}
+                <i class="icon-user"> </i> {{ node.author }}
               {% endif %}
-              {% if node.released %}
+              <!-- {% if node.released %}
                 </br>
-                <strong><i class="icon-time"> </i> Released:</strong> {{ node.released | date: "%M %Y"}}
-              {% endif %}
+                <i class="icon-time"> </i> {{ node.released | date: "%M %Y"}}
+              {% endif %} -->
             </p>
             {% assign linkto =  nil %}
 
@@ -61,11 +61,11 @@
               {{ node.description }}
               {% if node.author %}
                 </br>
-                <strong><i class="icon-user"> </i> Author:</strong> {{ node.author }}
+                <i class="icon-user"> </i> Author: {{ node.author }}
               {% endif %}
               {% if node.released %}
-                </br>
-                <strong><i class="icon-time"> </i> Released:</strong> {{ node.released | date: "%M %Y"}}
+                <!-- </br>
+                <i class="icon-time"> </i> {{ node.released | date: "%M %Y"}} -->
               {% endif %}
             </p>
             {% assign linkto =  nil %}

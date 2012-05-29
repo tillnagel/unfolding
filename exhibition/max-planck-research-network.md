@@ -5,7 +5,7 @@ description: Multitouch installation showing how Max Planck institutes collabora
 group: exhibition
 author: Moritz Stefaner and Onformative
 released: 2012-12-31 24:59:59
-thumbnail: http://placehold.it/330x250
+thumbnail: http://lorempixel.com/320/250/technics/1
 link: http://www.max-planck-research-networks.net/
 ---
 
