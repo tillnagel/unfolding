@@ -1,5 +1,6 @@
 package de.fhpotsdam.unfolding;
 
+import java.util.List;
 import java.util.UUID;
 
 import org.apache.log4j.Logger;
@@ -11,6 +12,8 @@ import de.fhpotsdam.unfolding.events.MapEventListener;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.mapdisplay.AbstractMapDisplay;
 import de.fhpotsdam.unfolding.mapdisplay.MapDisplayFactory;
+import de.fhpotsdam.unfolding.marker.Marker;
+import de.fhpotsdam.unfolding.marker.MarkerManager;
 import de.fhpotsdam.unfolding.providers.AbstractMapProvider;
 import de.fhpotsdam.unfolding.utils.GeoUtils;
 import de.fhpotsdam.utils.Integrator;
@@ -421,8 +424,33 @@ public class Map implements MapEventListener {
 		setOffset(x, y);
 	}
 
-	// --------------------------------------------------------------
-
+	// MarkerManagement -----------------------------------------------
+	
+	public void addMarkerManager(MarkerManager<Marker> markerManager) {
+		mapDisplay.addMarkerManager(markerManager);
+	}
+	
+	public MarkerManager<Marker> getLastMarkerManager() {
+		return mapDisplay.getLastMarkerManager();
+	}
+	
+	public MarkerManager<Marker> getDefaultMarkerManager(){
+		return mapDisplay.getDefaultMarkerManager();
+	}
+	
+	public MarkerManager<Marker> getMarkerManager(int index){
+		return mapDisplay.getMarkerManager(index);
+	}
+	
+	public void addMarker(Marker marker){
+		mapDisplay.addMarker(marker);
+	}
+	
+	public void addMarkers(List<Marker> markers){
+		mapDisplay.addMarkers(markers);
+	}
+	
+	
 	// Transformations ------------------------------------
 
 	protected void setOuterRotate(float angle) {
