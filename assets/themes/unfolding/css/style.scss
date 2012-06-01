@@ -14,13 +14,13 @@
 @import "../bootstrap/stylesheets/_bootstrap.scss";
 $iconSpritePath:          url("../bootstrap/images/glyphicons-halflings.png");
 $iconWhiteSpritePath:     url("../bootstrap/images/glyphicons-halflings-white.png");
-$bodyBackground: #f6f6f6;
+$bodyBackground: #F5F5F5;
 $linkColor: #B92F2F;
 $linkColorHover: #B92F2F;
 $serifFontFamily: "Bitter", Georgia, "Times New Roman", Times, serif;
 $sansFontFamily: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
-$baseFontSize: 15px;
-$baseLineHeight: 22px;
+$baseFontSize: 14px;
+$baseLineHeight: 21px;
 $topDividerColor: rgba(0,0,0,.06);
 $bottomDividerColor: rgba(255,255,255,.5);
 
@@ -59,6 +59,8 @@ $bottomDividerColor: rgba(255,255,255,.5);
     width:100%;
     margin:0;
     padding:0;
+
+    
 }
 
 .container{
@@ -68,7 +70,8 @@ $bottomDividerColor: rgba(255,255,255,.5);
 }
 
 .page-section1{
-    @include translucent-background(#BFB9A4,.2);
+    //@include translucent-background(#BFB9A4,.2);
+    background:#FFFFFF;
 }
 
 
@@ -104,6 +107,64 @@ p{
 // = Custom Classes =
 // ==================
 
+.logo {
+  position: relative;
+
+  background-image: url("../../../images/logo.png");
+  background-repeat: no-repeat;
+  top: -14px;
+  padding-left: 139px;
+  
+  padding-top: 22px;
+  
+  overflow: visible;
+  position: relative;
+  height: 39px;
+  
+  h1 {
+    font-size: 20px;
+    float:left;
+  }  
+}
+
+.menu {
+  float: right;
+  margin: 0;
+  padding: 0 0 15px;
+  list-style: none;
+  
+  li {
+    float: left; 
+    a {
+      padding: 10px 15px;
+      text-decoration: none; 
+      border-right: thin dotted #BCBCBC;
+    }
+  }
+  li:last-child {
+    a {
+      border-right: none;
+    }
+    
+  }    
+}
+
+
+
+footer {
+    opacity: 0.8;
+    color: white;
+    background: black;
+    margin-top:40px;
+}
+
+h3 {
+    font-size: 20px;
+    line-height: 39px;
+}
+
+
+
 .pages-teasers {
     &.pages-teasers-list{
         .thumbnail {
@@ -115,7 +176,9 @@ p{
             margin-bottom: $baseLineHeight/2;
         }
         li{
-            height: 400px;
+            min-height: 370px;
         }
     }
 }
+
+

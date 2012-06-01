@@ -3078,9 +3078,6 @@ button.btn, input[type="submit"].btn {
   padding: 4px;
   line-height: 1;
   border: 1px solid #ddd;
-  -webkit-border-radius: 4px;
-  -moz-border-radius: 4px;
-  border-radius: 4px;
   -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075);
   -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075);
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075); }
@@ -3563,10 +3560,10 @@ textarea {
 body {
   margin: 0;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 15px;
-  line-height: 22px;
+  font-size: 14px;
+  line-height: 21px;
   color: #333333;
-  background-color: #f6f6f6; }
+  background-color: #f5f5f5; }
 
 a {
   color: #b92f2f;
@@ -3743,19 +3740,19 @@ a:hover {
     clear: both; }
 
 p {
-  margin: 0 0 11px;
+  margin: 0 0 10.5px;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 15px;
-  line-height: 22px; }
+  font-size: 14px;
+  line-height: 21px; }
   p small {
-    font-size: 13px;
+    font-size: 12px;
     color: #999999; }
 
 .lead {
-  margin-bottom: 22px;
+  margin-bottom: 21px;
   font-size: 20px;
   font-weight: 200;
-  line-height: 33px; }
+  line-height: 31.5px; }
 
 h1, h2, h3, h4, h5, h6 {
   margin: 0;
@@ -3769,24 +3766,24 @@ h1, h2, h3, h4, h5, h6 {
 
 h1 {
   font-size: 30px;
-  line-height: 44px; }
+  line-height: 42px; }
   h1 small {
     font-size: 18px; }
 
 h2 {
   font-size: 24px;
-  line-height: 44px; }
+  line-height: 42px; }
   h2 small {
     font-size: 18px; }
 
 h3 {
   font-size: 18px;
-  line-height: 33px; }
+  line-height: 31.5px; }
   h3 small {
     font-size: 14px; }
 
 h4, h5, h6 {
-  line-height: 22px; }
+  line-height: 21px; }
 
 h4 {
   font-size: 14px; }
@@ -3802,8 +3799,8 @@ h6 {
   text-transform: uppercase; }
 
 .page-header {
-  padding-bottom: 21px;
-  margin: 22px 0;
+  padding-bottom: 20px;
+  margin: 21px 0;
   border-bottom: 1px solid #eeeeee; }
 
 .page-header h1 {
@@ -3811,7 +3808,7 @@ h6 {
 
 ul, ol {
   padding: 0;
-  margin: 0 0 11px 25px; }
+  margin: 0 0 10.5px 25px; }
 
 ul ul, ul ol, ol ol, ol ul {
   margin-bottom: 0; }
@@ -3823,24 +3820,24 @@ ol {
   list-style: decimal; }
 
 li {
-  line-height: 22px; }
+  line-height: 21px; }
 
 ul.unstyled, ol.unstyled {
   margin-left: 0;
   list-style: none; }
 
 dl {
-  margin-bottom: 22px; }
+  margin-bottom: 21px; }
 
 dt, dd {
-  line-height: 22px; }
+  line-height: 21px; }
 
 dt {
   font-weight: bold;
-  line-height: 21px; }
+  line-height: 20px; }
 
 dd {
-  margin-left: 11px; }
+  margin-left: 10.5px; }
 
 .dl-horizontal dt {
   float: left;
@@ -3854,7 +3851,7 @@ dd {
   margin-left: 130px; }
 
 hr {
-  margin: 22px 0;
+  margin: 21px 0;
   border: 0;
   border-top: 1px solid #eeeeee;
   border-bottom: 1px solid white; }
@@ -3878,16 +3875,16 @@ abbr.initialism {
 
 blockquote {
   padding: 0 0 0 15px;
-  margin: 0 0 22px;
+  margin: 0 0 21px;
   border-left: 5px solid #eeeeee; }
   blockquote p {
     margin-bottom: 0;
     font-size: 16px;
     font-weight: 300;
-    line-height: 27.5px; }
+    line-height: 26.25px; }
   blockquote small {
     display: block;
-    line-height: 22px;
+    line-height: 21px;
     color: #999999; }
     blockquote small:before {
       content: '\2014 \00A0'; }
@@ -3905,9 +3902,9 @@ q:before, q:after, blockquote:before, blockquote:after {
 
 address {
   display: block;
-  margin-bottom: 22px;
+  margin-bottom: 21px;
   font-style: normal;
-  line-height: 22px; }
+  line-height: 21px; }
 
 small {
   font-size: 100%; }
@@ -3918,7 +3915,7 @@ cite {
 code, pre {
   padding: 0 3px 2px;
   font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
-  font-size: 14px;
+  font-size: 13px;
   color: #333333;
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
@@ -3932,10 +3929,10 @@ code {
 
 pre {
   display: block;
-  padding: 10.5px;
-  margin: 0 0 11px;
-  font-size: 13.875px;
-  line-height: 22px;
+  padding: 10px;
+  margin: 0 0 10.5px;
+  font-size: 12.95px;
+  line-height: 21px;
   word-break: break-all;
   word-wrap: break-word;
   white-space: pre;
@@ -3947,7 +3944,7 @@ pre {
   -moz-border-radius: 4px;
   border-radius: 4px; }
   pre.prettyprint {
-    margin-bottom: 22px; }
+    margin-bottom: 21px; }
   pre code {
     padding: 0;
     color: inherit;
@@ -3959,7 +3956,7 @@ pre {
   overflow-y: scroll; }
 
 form {
-  margin: 0 0 22px; }
+  margin: 0 0 21px; }
 
 fieldset {
   padding: 0;
@@ -3970,20 +3967,20 @@ legend {
   display: block;
   width: 100%;
   padding: 0;
-  margin-bottom: 33px;
-  font-size: 22.5px;
-  line-height: 44px;
+  margin-bottom: 31.5px;
+  font-size: 21px;
+  line-height: 42px;
   color: #333333;
   border: 0;
   border-bottom: 1px solid #eee; }
   legend small {
-    font-size: 16.5px;
+    font-size: 15.75px;
     color: #999999; }
 
 label, input, button, select, textarea {
-  font-size: 15px;
+  font-size: 14px;
   font-weight: normal;
-  line-height: 22px; }
+  line-height: 21px; }
 
 input, button, select, textarea {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; }
@@ -3996,11 +3993,11 @@ label {
 input, textarea, select, .uneditable-input {
   display: inline-block;
   width: 210px;
-  height: 22px;
+  height: 21px;
   padding: 4px;
   margin-bottom: 9px;
-  font-size: 15px;
-  line-height: 22px;
+  font-size: 14px;
+  line-height: 21px;
   color: #555555;
   background-color: white;
   border: 1px solid #cccccc;
@@ -4249,9 +4246,9 @@ input:focus:required:invalid, textarea:focus:required:invalid, select:focus:requ
     box-shadow: 0 0 6px #f8b9b7; }
 
 .form-actions {
-  padding: 21px 20px 22px;
-  margin-top: 22px;
-  margin-bottom: 22px;
+  padding: 20px 20px 21px;
+  margin-top: 21px;
+  margin-bottom: 21px;
   background-color: #f5f5f5;
   border-top: 1px solid #ddd;
   *zoom: 1; }
@@ -4282,7 +4279,7 @@ input:focus:required:invalid, textarea:focus:required:invalid, select:focus:requ
 
 .help-block {
   display: block;
-  margin-bottom: 11px; }
+  margin-bottom: 10.5px; }
 
 .help-inline {
   display: inline-block;
@@ -4309,11 +4306,11 @@ input:focus:required:invalid, textarea:focus:required:invalid, select:focus:requ
   .input-prepend .add-on, .input-append .add-on {
     display: inline-block;
     width: auto;
-    height: 22px;
+    height: 21px;
     min-width: 16px;
     padding: 4px 5px;
     font-weight: normal;
-    line-height: 22px;
+    line-height: 21px;
     text-align: center;
     text-shadow: 0 1px 0 white;
     vertical-align: middle;
@@ -4399,14 +4396,14 @@ input:focus:required:invalid, textarea:focus:required:invalid, select:focus:requ
   margin-left: 0; }
 
 .control-group {
-  margin-bottom: 11px; }
+  margin-bottom: 10.5px; }
 
 legend + .control-group {
-  margin-top: 22px;
+  margin-top: 21px;
   -webkit-margin-top-collapse: separate; }
 
 .form-horizontal .control-group {
-  margin-bottom: 22px;
+  margin-bottom: 21px;
   *zoom: 1; }
   .form-horizontal .control-group:before, .form-horizontal .control-group:after {
     display: table;
@@ -4426,7 +4423,7 @@ legend + .control-group {
   .form-horizontal .controls:first-child {
     *padding-left: 160px; }
 .form-horizontal .help-block {
-  margin-top: 11px;
+  margin-top: 10.5px;
   margin-bottom: 0; }
 .form-horizontal .form-actions {
   padding-left: 160px; }
@@ -4439,10 +4436,10 @@ table {
 
 .table {
   width: 100%;
-  margin-bottom: 22px; }
+  margin-bottom: 21px; }
   .table th, .table td {
     padding: 8px;
-    line-height: 22px;
+    line-height: 21px;
     text-align: left;
     vertical-align: top;
     border-top: 1px solid #dddddd; }
@@ -5038,7 +5035,7 @@ table .span12 {
   .dropdown-menu .divider {
     *width: 100%;
     height: 1px;
-    margin: 10px 1px;
+    margin: 9.5px 1px;
     *margin: -5px 0 5px;
     overflow: hidden;
     background-color: #e5e5e5;
@@ -5048,7 +5045,7 @@ table .span12 {
     padding: 3px 15px;
     clear: both;
     font-weight: normal;
-    line-height: 22px;
+    line-height: 21px;
     color: #333333;
     white-space: nowrap; }
 
@@ -5138,7 +5135,7 @@ table .span12 {
   float: right;
   font-size: 20px;
   font-weight: bold;
-  line-height: 22px;
+  line-height: 21px;
   color: black;
   text-shadow: 0 1px 0 white;
   opacity: 0.2;
@@ -5164,8 +5161,8 @@ button.close {
   *zoom: 1;
   padding: 4px 10px 4px;
   margin-bottom: 0;
-  font-size: 15px;
-  line-height: 22px;
+  font-size: 14px;
+  line-height: 21px;
   *line-height: 20px;
   color: #333333;
   text-align: center;
@@ -5241,7 +5238,7 @@ button.close {
 
 .btn-large {
   padding: 9px 14px;
-  font-size: 17px;
+  font-size: 16px;
   line-height: normal;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
@@ -5252,16 +5249,16 @@ button.close {
 
 .btn-small {
   padding: 5px 9px;
-  font-size: 13px;
-  line-height: 20px; }
+  font-size: 12px;
+  line-height: 19px; }
 
 .btn-small [class^="icon-"] {
   margin-top: -1px; }
 
 .btn-mini {
   padding: 2px 6px;
-  font-size: 13px;
-  line-height: 18px; }
+  font-size: 12px;
+  line-height: 17px; }
 
 .btn-primary, .btn-primary:hover, .btn-warning, .btn-warning:hover, .btn-danger, .btn-danger:hover, .btn-success, .btn-success:hover, .btn-info, .btn-info:hover, .btn-inverse, .btn.btn-primary, .btn-inverse:hover, .btn.btn-primary:hover {
   color: white;
@@ -5426,8 +5423,8 @@ button.btn, input[type="submit"].btn {
   margin-left: 5px; }
 
 .btn-toolbar {
-  margin-top: 11px;
-  margin-bottom: 11px; }
+  margin-top: 10.5px;
+  margin-bottom: 10.5px; }
   .btn-toolbar .btn-group {
     display: inline-block;
     *display: inline;
@@ -5555,7 +5552,7 @@ button.btn, input[type="submit"].btn {
 
 .alert {
   padding: 8px 35px 8px 14px;
-  margin-bottom: 22px;
+  margin-bottom: 21px;
   text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
   background-color: #fcf8e3;
   border: 1px solid #fbeed5;
@@ -5600,7 +5597,7 @@ button.btn, input[type="submit"].btn {
 
 .nav {
   margin-left: 0;
-  margin-bottom: 22px;
+  margin-bottom: 21px;
   list-style: none; }
 
 .nav > li > a {
@@ -5618,7 +5615,7 @@ button.btn, input[type="submit"].btn {
   padding: 3px 15px;
   font-size: 11px;
   font-weight: bold;
-  line-height: 22px;
+  line-height: 21px;
   color: #999999;
   text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
   text-transform: uppercase; }
@@ -5650,7 +5647,7 @@ button.btn, input[type="submit"].btn {
 .nav-list .divider {
   *width: 100%;
   height: 1px;
-  margin: 10px 1px;
+  margin: 9.5px 1px;
   *margin: -5px 0 5px;
   overflow: hidden;
   background-color: #e5e5e5;
@@ -5682,7 +5679,7 @@ button.btn, input[type="submit"].btn {
 .nav-tabs > li > a {
   padding-top: 8px;
   padding-bottom: 8px;
-  line-height: 22px;
+  line-height: 21px;
   border: 1px solid transparent;
   -webkit-border-radius: 4px 4px 0 0;
   -moz-border-radius: 4px 4px 0 0;
@@ -5872,7 +5869,7 @@ button.btn, input[type="submit"].btn {
   *position: relative;
   *z-index: 2;
   overflow: visible;
-  margin-bottom: 22px; }
+  margin-bottom: 21px; }
 
 .navbar-inner {
   min-height: 40px;
@@ -6032,7 +6029,7 @@ button.btn, input[type="submit"].btn {
   display: inline-block;
   padding: 4px 10px 4px;
   margin: 9px 5px 10px;
-  line-height: 22px; }
+  line-height: 21px; }
 
 .navbar .btn-group {
   margin: 0;
@@ -6160,7 +6157,7 @@ button.btn, input[type="submit"].btn {
 
 .breadcrumb {
   padding: 7px 14px;
-  margin: 0 0 22px;
+  margin: 0 0 21px;
   list-style: none;
   background-color: #fbfbfb;
   background-image: -moz-linear-gradient(top, white, #f5f5f5);
@@ -6191,8 +6188,8 @@ button.btn, input[type="submit"].btn {
     color: #333333; }
 
 .pagination {
-  height: 44px;
-  margin: 22px 0; }
+  height: 42px;
+  margin: 21px 0; }
 
 .pagination ul {
   display: inline-block;
@@ -6214,7 +6211,7 @@ button.btn, input[type="submit"].btn {
 .pagination a {
   float: left;
   padding: 0 14px;
-  line-height: 42px;
+  line-height: 40px;
   text-decoration: none;
   border: 1px solid #ddd;
   border-left-width: 0; }
@@ -6250,7 +6247,7 @@ button.btn, input[type="submit"].btn {
 
 .pager {
   margin-left: 0;
-  margin-bottom: 22px;
+  margin-bottom: 21px;
   list-style: none;
   text-align: center;
   *zoom: 1; }
@@ -6543,9 +6540,9 @@ button.btn, input[type="submit"].btn {
 
 .thumbnails > li {
   float: left;
-  margin: 0 0 22px 20px;
+  margin: 0 0 21px 20px;
   float: left;
-  margin-bottom: 22px;
+  margin-bottom: 21px;
   margin-left: 20px; }
 
 .thumbnail {
@@ -6553,9 +6550,6 @@ button.btn, input[type="submit"].btn {
   padding: 4px;
   line-height: 1;
   border: 1px solid #ddd;
-  -webkit-border-radius: 4px;
-  -moz-border-radius: 4px;
-  border-radius: 4px;
   -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075);
   -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075);
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075); }
@@ -6576,7 +6570,7 @@ a.thumbnail:hover {
   padding: 9px; }
 
 .label, .badge {
-  font-size: 12.69px;
+  font-size: 11.844px;
   font-weight: bold;
   line-height: 14px;
   color: white;
@@ -6817,7 +6811,7 @@ a.label:hover, a.badge:hover {
   background-image: linear-gradient(-45deg, rgba(255, 255, 255, 0.15) 25%, rgba(255, 255, 255, 0) 25%, rgba(255, 255, 255, 0) 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, rgba(255, 255, 255, 0) 75%, rgba(255, 255, 255, 0)); }
 
 .accordion {
-  margin-bottom: 22px; }
+  margin-bottom: 21px; }
 
 .accordion-group {
   margin-bottom: 2px;
@@ -6842,7 +6836,7 @@ a.label:hover, a.badge:hover {
 
 .carousel {
   position: relative;
-  margin-bottom: 22px;
+  margin-bottom: 21px;
   line-height: 1; }
 
 .carousel-inner {
@@ -6936,7 +6930,7 @@ a.label:hover, a.badge:hover {
   .hero-unit p {
     font-size: 18px;
     font-weight: 200;
-    line-height: 33px;
+    line-height: 31.5px;
     color: inherit; }
 
 .pull-right {
@@ -6962,10 +6956,10 @@ a.label:hover, a.badge:hover {
   padding: 0; }
 
 .container:first-child {
-  margin-top: 22px; }
+  margin-top: 21px; }
 
 .page-section1 {
-  background-color: rgba(191, 185, 164, 0.2); }
+  background: #FFFFFF; }
 
 h1, h2, h3, h4 {
   font-family: "Open Sans";
@@ -6974,11 +6968,49 @@ h1, h2, h3, h4 {
     text-transform: uppercase; }
 
 p {
-  margin-bottom: 22px; }
+  margin-bottom: 21px; }
+
+.logo {
+  position: relative;
+  background-image: url("../../../images/logo.png");
+  background-repeat: no-repeat;
+  top: -14px;
+  padding-left: 139px;
+  padding-top: 22px;
+  overflow: visible;
+  position: relative;
+  height: 39px; }
+  .logo h1 {
+    font-size: 20px;
+    float: left; }
+
+.menu {
+  float: right;
+  margin: 0;
+  padding: 0 0 15px;
+  list-style: none; }
+  .menu li {
+    float: left; }
+    .menu li a {
+      padding: 10px 15px;
+      text-decoration: none;
+      border-right: thin dotted #BCBCBC; }
+  .menu li:last-child a {
+    border-right: none; }
+
+footer {
+  opacity: 0.8;
+  color: white;
+  background: black;
+  margin-top: 40px; }
+
+h3 {
+  font-size: 20px;
+  line-height: 39px; }
 
 .pages-teasers.pages-teasers-list .thumbnail {
   margin-right: 20px; }
 .pages-teasers.pages-teasers-grid .thumbnail {
-  margin-bottom: 11px; }
+  margin-bottom: 10.5px; }
 .pages-teasers.pages-teasers-grid li {
-  height: 400px; }
+  min-height: 370px; }
