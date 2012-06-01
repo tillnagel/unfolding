@@ -6983,6 +6983,10 @@ p {
   .logo h1 {
     font-size: 20px;
     float: left; }
+    .logo h1 a {
+      color: #000000; }
+    .logo h1 a:hover {
+      text-decoration: none; }
 
 .menu {
   float: right;
