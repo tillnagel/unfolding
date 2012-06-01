@@ -7002,6 +7002,12 @@ p {
   .menu li:last-child a {
     border-right: none; }
 
+.btn {
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 11px;
+  line-height: 16px; }
+
 footer {
   opacity: 0.8;
   color: white;
