@@ -14,14 +14,14 @@
 @import "../bootstrap/stylesheets/_bootstrap.scss";
 $iconSpritePath:          url("../bootstrap/images/glyphicons-halflings.png");
 $iconWhiteSpritePath:     url("../bootstrap/images/glyphicons-halflings-white.png");
-$bodyBackground: #F5F5F5;
-$linkColor: #B92F2F;
-$linkColorHover: #B92F2F;
+$bodyBackground: #f6f6f6;
+$linkColor: #802A30;
+$linkColorHover: #8C0303;
 $serifFontFamily: "Bitter", Georgia, "Times New Roman", Times, serif;
 $sansFontFamily: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
-$baseFontSize: 14px;
-$baseLineHeight: 21px;
-$topDividerColor: rgba(0,0,0,.06);
+$baseFontSize: 15px;
+$baseLineHeight: 22px;
+$topDividerColor: rgba(0,0,0,.05);
 $bottomDividerColor: rgba(255,255,255,.5);
 
 // $navbarHeight:                    40px !default;
@@ -59,8 +59,6 @@ $bottomDividerColor: rgba(255,255,255,.5);
     width:100%;
     margin:0;
     padding:0;
-
-    
 }
 
 .container{
@@ -70,8 +68,7 @@ $bottomDividerColor: rgba(255,255,255,.5);
 }
 
 .page-section1{
-    //@include translucent-background(#BFB9A4,.2);
-    background:#FFFFFF;
+    @include translucent-background(#BFB9A4,.2);
 }
 
 
@@ -84,7 +81,7 @@ $bottomDividerColor: rgba(255,255,255,.5);
 h1, h2, h3, h4{
     // font-family: $serifFontFamily;
     font-family: "Open Sans";
-    font-weight: 600;
+    font-weight: 400;
     &h3{
         text-transform: uppercase;
     }
@@ -107,78 +104,6 @@ p{
 // = Custom Classes =
 // ==================
 
-.logo {
-  position: relative;
-
-  background-image: url("../../../images/logo.png");
-  background-repeat: no-repeat;
-  top: -14px;
-  padding-left: 139px;
-  
-  padding-top: 22px;
-  
-  overflow: visible;
-  position: relative;
-  height: 39px;
-  
-  h1 {
-    font-size: 20px;
-    float:left;
-    a {
-      color:#000000;
-    }
-    a:hover {
-      text-decoration: none;
-    }
-  }  
-}
-
-.menu {
-  float: right;
-  margin: 0;
-  padding: 0 0 15px;
-  list-style: none;
-  
-  li {
-    float: left; 
-    a {
-      padding: 10px 15px;
-      text-decoration: none; 
-      border-right: thin dotted #BCBCBC;
-    }
-  }
-  li:last-child {
-    a {
-      border-right: none;
-    }
-    
-  }    
-}
-
-.btn {
-
-  text-transform: uppercase;
-  font-weight: bold;
-  font-size: 11px;
-  line-height: 16px;
-}
-
-
-
-footer {
-    opacity: 0.8;
-    color: white;
-    background: black;
-    margin-top: 55px!important;
-}
-
-h3 {
-    font-size: 20px;
-    line-height: 39px;
-}
-
-
-
 .pages-teasers {
     &.pages-teasers-list{
         .thumbnail {
@@ -190,9 +115,7 @@ h3 {
             margin-bottom: $baseLineHeight/2;
         }
         li{
-            min-height: 370px;
+            height: 400px;
         }
     }
 }
-
-

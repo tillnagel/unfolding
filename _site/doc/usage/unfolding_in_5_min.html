@@ -1,0 +1,297 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Unfolding: Unfolding in 5 Minutes</title>
+    
+        <meta name="description" content="Mapping Library For Processing And Java">
+    
+    <meta name="author" content="Till Nagel">
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link href="/assets/themes/unfolding/css/style.css?body=1" rel="stylesheet" type="text/css" media="all"/>
+    <script src="/assets/themes/unfolding/js/jquery.js"></script>
+    <script src="/assets/themes/unfolding/bootstrap/javascripts/bootstrap-transition.js"></script>
+    <script src="/assets/themes/unfolding/bootstrap/javascripts/bootstrap-alert.js"></script>
+    <script src="/assets/themes/unfolding/bootstrap/javascripts/bootstrap-button.js"></script>
+    <script src="/assets/themes/unfolding/bootstrap/javascripts/bootstrap-carousel.js"></script>
+    <script src="/assets/themes/unfolding/bootstrap/javascripts/bootstrap-collapse.js"></script>
+    <script src="/assets/themes/unfolding/bootstrap/javascripts/bootstrap-dropdown.js"></script>
+    <script src="/assets/themes/unfolding/bootstrap/javascripts/bootstrap-modal.js"></script>
+    <script src="/assets/themes/unfolding/bootstrap/javascripts/bootstrap-scrollspy.js"></script>
+    <script src="/assets/themes/unfolding/bootstrap/javascripts/bootstrap-tab.js"></script>
+    <script src="/assets/themes/unfolding/bootstrap/javascripts/bootstrap-tooltip.js"></script>
+    <script src="/assets/themes/unfolding/bootstrap/javascripts/bootstrap-popover.js"></script>
+    <script src="/assets/themes/unfolding/bootstrap/javascripts/bootstrap-typeahead.js"></script>
+    <script src="/assets/themes/unfolding/js/script.js"></script>
+    <!-- Le fav and touch icons -->
+    <!-- Update these with your own images
+    <link rel="shortcut icon" href="images/favicon.ico">
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+  -->
+  </head>
+
+  <body>
+    <header class="outer-container page-header">
+      <div class="container">
+        <div class="row">
+          <div class="span8">
+            <div class="navbar">
+              <div class="navbar-inner">
+                  <a class="brand" href="/">Unfolding</a>
+                  <ul class="nav">
+                    
+                    
+                    
+
+
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/exhibition/index.html">Exhibition</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/tutorials/index.html">Tutorials</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+
+
+
+                    <li>
+                      <a href="https://github.com/tillnagel/unfolding" target="_blank">GitHub</a>
+                    </li>
+                  </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+    
+<section class="outer-container page-section1">
+  <div class="container">
+    <div class="row">
+      <div class="span8">
+        <h1>Unfolding in 5 Minutes</h1>
+        <p></p>
+        <!--  -->
+        
+      </div>
+      <div class="span4">
+        
+        
+      </div
+    </div>
+  </div>
+</section>
+<section class="outer-container page-section2">
+  <div class="container">
+    <div class="row">
+      <div class="span8">
+        <p>Description: This documents gives a short overview about how to use Unfolding for very simple applications.</p>
+
+<p>Target audience: Everybody who wants to get a first impression of Unfolding.</p>
+
+<p>Prerequisites: We assume you are familiar with Java and Processing.</p>
+
+<h1 id='content'>Content</h1>
+
+<p>We are going to write a really simple application that uses Unfolding to display a map. Furthermore we can move around in the map. This document basically describes SimpleMapApp.java</p>
+
+<p>TODO: add image of the app here</p>
+
+<p>To create an Unfolding app our class needs to inherit from PApplet:</p>
+
+<pre><code>public class SimpleMapApp extends PApplet {
+	...
+}</code></pre>
+
+<p>Furthermore we need to implement two functions:</p>
+
+<ol>
+<li><code>public void setup()</code>: initialize all our Unfolding stuff.</li>
+
+<li><code>public void draw()</code>: gets called periodically and should update our map.</li>
+</ol>
+
+<p>First of all we tell the PApllet how big the screen should be:</p>
+
+<pre><code>public void setup() {
+	size(800, 600);
+}</code></pre>
+
+<p>Now we want a map, so let&#8217;s create one as a member variable of <code>SimpleMapApp</code>:</p>
+
+<pre><code>public class SimpleMapApp extends PApplet {
+	Map map;
+	...</code></pre>
+
+<p>In <code>setup()</code> we initialize the map and pass this so the map knows where to draw on:</p>
+
+<pre><code>public void setup() {
+	size(800, 600);
+	map = new Map(this);</code></pre>
+
+<p>Map is the main concept in Unfolding. Map represents a map and offers lots of functionality like zooming, panning, translation of coordinates and much more. To demonstrate this let&#8217;s pan to a certain location on the map.</p>
+
+<pre><code>map.zoomAndPanTo(new Location(52.5f, 13.4f), 10);</code></pre>
+
+<p>Location is a helper class which represents locations on the map. They are specified by longitude and latitude. The &#8220;10&#8221; in the line above represents the zoom level of the map. Zoom levels can be between XXX and XXX.</p>
+
+<p>In order to get the behavior that we expect from a map (moving with mouse and keyboard, etc.) we call the following:</p>
+
+<pre><code>MapUtils.createDefaultEventDispatcher(this, map);</code></pre>
+
+<p>This basically activates the expected behavior. Under the hood a lot more is happening, but that shouldn&#8217;t concern us yet :)</p>
+
+<p>We are basically done. We only need to implement <code>draw()</code> which is pretty simple</p>
+
+<pre><code>public void draw() {
+	map.draw(); // draw the map
+}</code></pre>
+
+<p>and start the aplication:</p>
+
+<pre><code>public static void main(String[] args) {
+	PApplet.main(new String[] { &quot;de.fhpotsdam.unfolding.examples.SimpleMapApp&quot; });
+}</code></pre>
+
+<p>That&#8217;s it. We wrote our first Unfolding application which only 15 lines of code including class definition etc.</p>
+
+<p>Here is the complete code for the sake of completeness:</p>
+
+<p>Liquid error: No such file or directory - posix_spawnp</p>
+
+<h1 id='reference'>Reference</h1>
+
+<ul>
+<li>See examples.de.fhpotsdam.unfolding.examples.SimpleMapApp.java</li>
+</ul>
+      </div>
+      <div class="span4">
+      </div>
+    </div>
+   </div>
+</section>
+
+    <footer class="outer-container page-footer">
+      <div class="container">
+        <div class="row">
+          <div class="span8">
+            <p>&copy; Till Nagel 2012 – Developed at Interaction Design Lab, FH Potsdam and KU Leuven.
+              <!-- with help from <a href="http://jekyllbootstrap.com" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll Bootstrap</a>
+              and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a> -->
+            </p>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    
+  </body>
+</html>
+

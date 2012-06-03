@@ -2,7 +2,7 @@
   <div class="container">
     <div class="row">
       <div class="span8">
-        <h2>{{ page.title }}</h2>
+        <h1>{{ page.title }}</h1>
         <p>{{ page.description }}</p>
         <!-- {% if page.group == "navigation"%}
           <a href="#" class="thumbnail">
@@ -18,35 +18,25 @@
       <div class="span4">
         {% if page.group == "navigation"%}
           {% if page.title == "Exhibition"%}
-            <h6>Exhibition</h6>
-            <ul>
-              {% assign pages_list = site.pages %}
-              {% assign group = "exhibition" %}
-              {% include JB/pages_list %}
-            </ul>
+            <div class="submit-exhibition-box">
+              <h3>Submit a Project</h3>
+              <p>We are always welcome users taking the initiative. If you want to submit a Project, please send us a mail containg title, description, credits and an attachment containing images we can choose from.</p>
+              <p><a href="mailto: exhibition@unfolding.org" class="btn btn-primary"><i class="icon-white icon-envelope"> </i> Send us a Mail</a></p>
+            </div>
           {% endif %}
-          {% if page.title == "Knowledgebase"%}
-            <h6>Knowledgebase</h6>
-            <ul>
-              {% assign pages_list = site.pages %}
-              {% assign group = "knowledgebase" %}
-              {% include JB/pages_list %}
-            </ul>
+          {% if page.title == "Tutorials"%}
+            <div class="submit-tutorial-box">
+              <h3>Submit a Tutorial</h3>
+              <p>We are always welcome users taking the initiative. If you want to submit a tutorial, please send us a mail with an attachment containing markdownfile, codefiles and selected images</p>
+              <p><a href="mailto: tutorials@unfolding.org" class="btn btn-primary"><i class="icon-white icon-envelope"> </i> Send us a Mail</a></p>
+            </div>
           {% endif %}
         {% endif %}
-        {% if page.group != "navigation"%}
-          <h6>{{page.group}}</h6>
-          <ul>
-            {% assign pages_list = site.pages %}
-            {% assign group = page.group %}
-            {% include JB/pages_list %}
-          </ul>
-        {% endif %}
-        {% if page.group == "knowledgebase"%}
+        {% if page.group == "tutorials-starter" or page.group == "tutorials-beginner" or page.group == "tutorials-advanced"%}
           <div class="download-box">
             <h3>Download Tutorial Files </h3>
-            <p>Download all Files for the "{{ page.title }}" Ttorial as processing sketch.</p>
-            <p><a href="{{page.src}}" class="btn btn-primary"><i class="icon-download icon-white"></i>Download Tutorial Files</a></p>
+            <p>Download all Files for the "{{ page.title }}" Tutorial as processing sketch.</p>
+            <p><a href="{{page.finalfiles}}" class="btn btn-primary"><i class="icon-download icon-white"> </i> Download Tutorial Files</a></p>
           </div>
         {% endif %}
       </div
@@ -60,7 +50,6 @@
         {{ content }}
       </div>
       <div class="span4">
-
       </div>
     </div>
    </div>

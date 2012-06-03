@@ -2,23 +2,22 @@
 layout: page
 title: Interactions 1
 description: How to set up simple user interactions
-group: knowledgebase
+group: tutorials-beginner
 finalimage: http://placehold.it/610x390&text=Bild+2+610x390
-finalsrc: #someurlatgithub
-finalsrc: #someurlatgithub
+finalfile: #someurlatgithub
 ---
 {% include JB/setup %}
 
-As you have seen in the Getting Started tutorial every map you create is already interactive. Users directly can double-click to zoom in around that location, and dragging pans the map. 
+As you have seen in the Getting Started tutorial every map you create is already interactive. Users directly can double-click to zoom in around that location, and dragging pans the map.
 
-arrow keys to pan the map in four directions, while plus and minus keys zoom in or out
+Use arrow keys to pan the map in four directions, while plus and minus keys zoom in or out
 
 ![Lala](/assets/images/Unfolding-GIF-Test.gif)
 
 ## Handling interactions
 
 If you want your users to only be able to use the mouse you can disable the keyboard input.
-	
+
 	map.disableKeyboard();
 
 Analogous, you can also disable mouse interactions
@@ -28,7 +27,7 @@ Analogous, you can also disable mouse interactions
 
 ## Restricting the map
 
-In order to allow only some zoom levels you can restrict the range of the map. 
+In order to allow only some zoom levels you can restrict the range of the map.
 
 	void setup() {
 		size(800, 600, GLConstants.GLGRAPHICS);
@@ -49,8 +48,8 @@ If you want to create a map for a specific area, you can restrict the panning.
 		map = new Map(this);
 		Location location = new Location(1.359f, 103.816f);
 		float maxPanningDistance = 30; // in km
-		map.setPanningRestriction(location, maxPanningDistance); 
+		map.setPanningRestriction(location, maxPanningDistance);
 	}
-	
+
 Define the center location and the radius of the maximum panning.
 
