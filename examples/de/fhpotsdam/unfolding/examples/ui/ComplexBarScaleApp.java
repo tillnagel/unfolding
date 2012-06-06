@@ -22,7 +22,6 @@ public class ComplexBarScaleApp extends PApplet {
 	
 		PFont myFont = createFont("Monospaced", 12);
 		barScale.setStyle(color(60,120),6,-2, myFont);
-		
 		MapUtils.createDefaultEventDispatcher(this, map);
 	}
 
