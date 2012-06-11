@@ -442,8 +442,9 @@ public class Map implements MapEventListener {
 		return mapDisplay.getMarkerManager(index);
 	}
 	
-	public void addMarker(Marker marker){
-		mapDisplay.addMarker(marker);
+	public void addMarkers(Marker ... marker){
+		for(Marker m : marker)
+			mapDisplay.addMarker(m);
 	}
 	
 	public void addMarkers(List<Marker> markers){
