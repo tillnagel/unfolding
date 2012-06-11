@@ -36,8 +36,14 @@ public abstract class AbstractMultiMarker extends AbstractMarker{
 		return locations;
 	}
 	
-	public void addLocation(Location location){
-		locations.add(location);
+	public void addLocations(Location ... locations){
+		for(Location loc : locations){
+			this.locations.add(loc);
+		}
+	}
+	
+	public void addLocations(List<Location> locations){
+		this.locations.addAll(locations);
 	}
 	
 	public Location getLocation(int index){
