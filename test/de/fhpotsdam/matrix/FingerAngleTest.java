@@ -37,7 +37,7 @@ public class FingerAngleTest extends PApplet implements TuioListener {
 		rect(100, 100, 600, 600);
 		
 		fill(0);
-		text(degrees(oldAngle) + "¡", 100, 100);
+		text(degrees(oldAngle) + "deg", 100, 100);
 		
 		text(degrees(getAngleBetween(600, 600, 100, 100)), 200, 100);
 
