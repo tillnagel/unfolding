@@ -10,8 +10,8 @@ import de.fhpotsdam.unfolding.marker.Marker;
 public class ConnectionMarker extends AbstractMultiMarker {
 
 	public ConnectionMarker(Marker fromMarker, Marker toMarker) {
-		addLocation(fromMarker.getLocation());
-		addLocation(toMarker.getLocation());
+		addLocations(fromMarker.getLocation());
+		addLocations(toMarker.getLocation());
 	}
 
 	@Override

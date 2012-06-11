@@ -35,8 +35,8 @@ public class MarkerManagerExample extends PApplet {
 		markerLondon.location = new Location(51.5f, 0f);
 		markerLondon.setColor(200, 0, 0, 100);
 		
-		map.addMarker(markerBerlin);
-		map.addMarker(markerLondon);
+		map.addMarkers(markerBerlin);
+		map.addMarkers(markerLondon);
 	}
 	
 
