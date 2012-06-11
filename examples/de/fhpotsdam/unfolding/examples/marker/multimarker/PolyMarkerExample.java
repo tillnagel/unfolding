@@ -1,0 +1,33 @@
+package de.fhpotsdam.unfolding.examples.marker.multimarker;
+
+import processing.core.PApplet;
+import codeanticode.glgraphics.GLConstants;
+import de.fhpotsdam.unfolding.Map;
+import de.fhpotsdam.unfolding.geo.Location;
+import de.fhpotsdam.unfolding.utils.MapUtils;
+
+@SuppressWarnings("serial")
+public class PolyMarkerExample extends PApplet {
+
+	Map map;
+	
+	public void setup() {
+		size(800, 600, GLConstants.GLGRAPHICS);
+
+		map = new Map(this, 0, 0, 800, 500);
+		map.zoomToLevel(3);
+		map.panTo(new Location(40f, 8f));
+		MapUtils.createDefaultEventDispatcher(this, map);
+
+		GLLinesMarker area = new GLLinesMarker();
+		area.addLocations(new Location(52.5f, 13.4f+0.5f));
+		area.addLocations(new Location(51.5f, 0.0f));
+		area.addLocations(new Location(48.f, 5f));
+		area.addLocations(new Location(52.5f, 13.4f+0.5f));
+		map.addMarkers(area);
+	}
+	
+	public void draw(){
+		map.draw();
+	}
+}
