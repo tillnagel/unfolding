@@ -68,31 +68,3 @@ public class InfoMarkerApp extends PApplet {
 
 	}
 }
-
-//<<<<<<< HEAD:examples/de/fhpotsdam/unfolding/examples/marker/infomarker/InfoMarkerApp.java
-//=======
-//	public static List<Marker> loadGeoRSSMarkers(PApplet p, String url, PFont font) {
-//		List<Marker> markers = new ArrayList<Marker>();
-//
-//		XMLElement rss = new XMLElement(p, url);
-//		XMLElement[] itemXMLElements = rss.getChildren("channel/item");
-//		for (int i = 0; i < itemXMLElements.length; i++) {
-//			String name = itemXMLElements[i].getChild("title").getContent();
-//			XMLElement latXML = itemXMLElements[i].getChild("geo:lat");
-//			XMLElement lonXML = itemXMLElements[i].getChild("geo:long");
-//			if (latXML != null && latXML.getContent() != null) {
-//				float lat = Float.valueOf(latXML.getContent());
-//				float lon = Float.valueOf(lonXML.getContent());
-//
-//				Location location = new Location(lat, lon);
-//				LabeledMarker labeledMarker = new LabeledMarker(font, name, location, 10);
-//				// labeledMarker.setVisible(false);
-//				labeledMarker.color = p.color(255, 0, 0);
-//				markers.add(labeledMarker);
-//			}
-//		}
-//		return markers;
-//	}
-//
-//>>>>>>> develop:examples/de/fhpotsdam/unfolding/examples/marker/InfoMarkerApp.java
-//}
