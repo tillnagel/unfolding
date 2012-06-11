@@ -28,7 +28,7 @@ public class FlippedMapDisplay extends GLGraphicsMapDisplay {
 		outerPG.translate(-width, 0);
 		outerPG.image(map, 0, 0);
 		
-		for (MarkerManager<Marker> mm : managerManagerList){
+		for (MarkerManager<Marker> mm : markerManagerList){
 			mm.drawOuter();
 		}
 

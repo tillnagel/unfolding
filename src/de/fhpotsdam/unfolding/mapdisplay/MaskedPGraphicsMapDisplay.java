@@ -30,7 +30,7 @@ public class MaskedPGraphicsMapDisplay extends ProcessingMapDisplay implements P
 		papplet.translate(offsetX, offsetY);
 		papplet.image(pg, 0, 0);
 		
-		for (MarkerManager<Marker> mm : managerManagerList){
+		for (MarkerManager<Marker> mm : markerManagerList){
 			mm.drawOuter();
 		}
 		

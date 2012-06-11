@@ -319,7 +319,7 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 			pg.popMatrix();
 		}
 
-		for (MarkerManager<Marker> mm : managerManagerList){
+		for (MarkerManager<Marker> mm : markerManagerList){
 			mm.draw();
 		}
 

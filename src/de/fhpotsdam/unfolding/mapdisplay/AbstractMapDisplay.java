@@ -61,7 +61,7 @@ public abstract class AbstractMapDisplay implements TileLoaderListener {
 	protected PVector innerTransformationCenter;
 
 	// List of MarkerManager with one default MarkerManager
-	protected List<MarkerManager<Marker>> managerManagerList;
+	protected List<MarkerManager<Marker>> markerManagerList;
 
 	// Tiles
 	public int max_pending = 4;
@@ -89,7 +89,7 @@ public abstract class AbstractMapDisplay implements TileLoaderListener {
 
 		innerScale = (float) Math.ceil(Math.min(height / (float) TILE_WIDTH, width / (float) TILE_HEIGHT));
 		
-		managerManagerList = new ArrayList<MarkerManager<Marker>>();
+		markerManagerList = new ArrayList<MarkerManager<Marker>>();
 	}
 
 	public void resize(float width, float height) {
@@ -121,11 +121,11 @@ public abstract class AbstractMapDisplay implements TileLoaderListener {
 	// MarkerManagement -----------------------------------------------
 	
 	public void addMarkerManager(MarkerManager<Marker> markerManager) {
-		managerManagerList.add(markerManager);
+		markerManagerList.add(markerManager);
 	}
 	
 	public MarkerManager<Marker> getLastMarkerManager() {
-		return managerManagerList.get(managerManagerList.size()-1);
+		return markerManagerList.get(markerManagerList.size()-1);
 	}
 	
 	public MarkerManager<Marker> getDefaultMarkerManager(){
@@ -133,7 +133,7 @@ public abstract class AbstractMapDisplay implements TileLoaderListener {
 	}
 	
 	public MarkerManager<Marker> getMarkerManager(int index){
-		return managerManagerList.get(index);
+		return markerManagerList.get(index);
 	}
 	
 	public void addMarker(Marker marker){
@@ -343,7 +343,7 @@ public abstract class AbstractMapDisplay implements TileLoaderListener {
 	}
 	
 	protected void createDefaultMarkerManager(Map map) {
-		managerManagerList.add(new MarkerManager<Marker>(map));
+		markerManagerList.add(new MarkerManager<Marker>(map));
 	}
 
 }
