@@ -7,7 +7,6 @@ import org.apache.log4j.Logger;
 
 import processing.core.PApplet;
 import processing.core.PConstants;
-import processing.core.PFont;
 import processing.core.PGraphics;
 import processing.core.PImage;
 import processing.core.PMatrix3D;
@@ -19,6 +18,7 @@ import de.fhpotsdam.unfolding.marker.Marker;
 import de.fhpotsdam.unfolding.marker.MarkerManager;
 import de.fhpotsdam.unfolding.providers.AbstractMapProvider;
 import de.fhpotsdam.unfolding.tiles.TileLoader;
+import de.fhpotsdam.unfolding.utils.ScreenPosition;
 
 @SuppressWarnings("unchecked")
 public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstants {
@@ -245,6 +245,16 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 		// return out;
 	}
 
+	@Override
+	public ScreenPosition getScreenPosition(Location location) {
+		// TODO Auto-generated method stub
+		synchronized (this) {
+			float innerObjectXY[] = getInnerObjectFromLocation(location);
+			return new ScreenPosition(getScreenFromInnerObjectPosition(innerObjectXY[0], innerObjectXY[1]));
+		}
+	}
+
+	@Deprecated
 	public float[] getScreenPositionFromLocation(Location location) {
 		synchronized (this) {
 			float innerObjectXY[] = getInnerObjectFromLocation(location);

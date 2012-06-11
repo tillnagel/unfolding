@@ -6,6 +6,7 @@ import de.fhpotsdam.unfolding.Map;
 import de.fhpotsdam.unfolding.examples.marker.infomarker.InfoMarkerApp;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.utils.MapUtils;
+import de.fhpotsdam.unfolding.utils.ScreenPosition;
 
 /**
  * Displays two markers, by simply updating their position based on their locations. The locations
@@ -41,15 +42,15 @@ public class NonMarkerManagerApp extends PApplet {
 		// Draws locations on screen positions according to their geo-locations.
 		
 		// Fixed-size marker
-		float xyBerlin[] = map.getScreenPositionFromLocation(locationBerlin);
+		ScreenPosition xyBerlin = map.getScreenPosition(locationBerlin);
 		fill(0, 200, 0, 100);
-		ellipse(xyBerlin[0], xyBerlin[1], 20, 20);
+		ellipse(xyBerlin.x, xyBerlin.y, 20, 20);
 
 		// Zoom dependent marker size
-		float xyLondon[] = map.getScreenPositionFromLocation(locationLondon);
+		ScreenPosition xyLondon = map.getScreenPosition(locationLondon);
 		fill(200, 0, 0, 100);
 		float s = map.getZoom();
-		ellipse(xyLondon[0], xyLondon[1], s, s);
+		ellipse(xyLondon.x, xyLondon.y, s, s);
 	}
 
 }

@@ -5,28 +5,28 @@ import java.util.List;
 
 import javax.media.opengl.GL;
 
-import com.sun.opengl.util.BufferUtil;
-
+import processing.core.PGraphics;
 import codeanticode.glgraphics.GLGraphicsOffScreen;
 
-import processing.core.PConstants;
-import processing.core.PGraphics;
+import com.sun.opengl.util.BufferUtil;
+
 import de.fhpotsdam.unfolding.marker.AbstractMultiMarker;
+import de.fhpotsdam.unfolding.utils.MapPosition;
 
 public class GLLinesMarker extends AbstractMultiMarker {
 
 	@Override
-	public void draw(PGraphics pg, List<ObjectPosition> objectPositions) {
+	public void draw(PGraphics pg, List<MapPosition> mapPositions) {
 		GL gl = ((GLGraphicsOffScreen) pg).beginGL();
-		int n = objectPositions.size();
+		int n = mapPositions.size();
 
 		//REVISIT reuse buffers and update if loations.size() changes
 		FloatBuffer vertices = BufferUtil.newFloatBuffer(n * 2 * 2);
 		FloatBuffer colors = BufferUtil.newFloatBuffer(n * 3 * 2);
 
-		ObjectPosition last = objectPositions.get(0);
-		for (int i = 1; i < objectPositions.size(); ++i) {
-			ObjectPosition op = objectPositions.get(i);
+		MapPosition last = mapPositions.get(0);
+		for (int i = 1; i < mapPositions.size(); ++i) {
+			MapPosition op = mapPositions.get(i);
 			vertices.put(last.x);
 			vertices.put(last.y);
 			vertices.put(op.x);
@@ -52,7 +52,7 @@ public class GLLinesMarker extends AbstractMultiMarker {
 	}
 
 	@Override
-	public void drawOuter(PGraphics pg, List<ObjectPosition> objectPositions) {
+	public void drawOuter(PGraphics pg, List<MapPosition> objectPositions) {
 		// TODO Auto-generated method stub
 
 	}

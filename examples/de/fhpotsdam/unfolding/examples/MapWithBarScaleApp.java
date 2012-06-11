@@ -9,6 +9,7 @@ import de.fhpotsdam.unfolding.Map;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.utils.GeoUtils;
 import de.fhpotsdam.unfolding.utils.MapUtils;
+import de.fhpotsdam.unfolding.utils.ScreenPosition;
 
 /**
  * Draws a scale bar at he bottom left.
@@ -70,10 +71,11 @@ public class MapWithBarScaleApp extends PApplet {
 			startLocation = map.getLocationFromScreenPosition(width / 2, height / 2);
 			destLocation = GeoUtils.getDestinationLocation(startLocation, 90f, distance);
 		}
+		
 		// Calculates distance between both locations in screen coordinates
-		float[] destXY = map.getScreenPositionFromLocation(destLocation);
-		float[] startXY = map.getScreenPositionFromLocation(startLocation);
-		float dx = destXY[0] - startXY[0];
+		ScreenPosition dest = map.getScreenPosition(destLocation);
+		ScreenPosition start = map.getScreenPosition(startLocation);
+		float dx = dest.x - start.x;
 
 		// Display
 		stroke(30);
