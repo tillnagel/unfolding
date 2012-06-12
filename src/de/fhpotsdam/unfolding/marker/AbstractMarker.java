@@ -1,5 +1,7 @@
 package de.fhpotsdam.unfolding.marker;
 
+import java.util.HashMap;
+
 import processing.core.PGraphics;
 import de.fhpotsdam.unfolding.Map;
 import de.fhpotsdam.unfolding.geo.Location;
@@ -14,9 +16,18 @@ import de.fhpotsdam.unfolding.utils.ScreenPosition;
 public abstract class AbstractMarker implements Marker {
 
 	public Location location;
+	public HashMap<String, String> properties; 
 	
 	public AbstractMarker(){
 		location = new Location(0,0);
+	}
+	
+	public void setProps(HashMap<String,String> props){
+		this.properties = props;
+	}
+	
+	public HashMap<String,String> getProps(){
+		return properties;
 	}
 	
 	@Override
