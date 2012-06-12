@@ -1,2 +1,4 @@
 bin/*
 .classpath
+build/
+dist/
