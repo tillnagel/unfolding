@@ -3,10 +3,10 @@ package de.fhpotsdam.unfolding.utils;
 
 public class ScreenPosition {
 	
-	public int x;
-	public int y;
+	public float x;
+	public float y;
 	
-	public ScreenPosition(int x, int y) {
+	public ScreenPosition(float x, float y) {
 		this.x = x;
 		this.y = y;
 	}
