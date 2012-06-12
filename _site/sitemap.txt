@@ -24,5 +24,6 @@ http://github.com/tillnagel/unfolding/tutorials/markup.html
 http://github.com/tillnagel/unfolding/tutorials/multi-maps.html
 http://github.com/tillnagel/unfolding/tutorials/sample-advanced-tutorial.html
 http://github.com/tillnagel/unfolding/tutorials/sample-beginner-tutorial.html
+http://github.com/tillnagel/unfolding/tutorials/tutorial-template.html
 
 http://github.com/tillnagel/unfolding/lessons/2011/12/29/jekyll-introduction
