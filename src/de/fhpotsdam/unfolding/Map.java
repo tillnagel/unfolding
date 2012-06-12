@@ -213,7 +213,7 @@ public class Map implements MapEventListener {
 	// return location;
 	// }
 	//
-
+	@Deprecated
 	public Location getLocationFromScreenPosition(float x, float y) {
 		return mapDisplay.getLocationFromScreenPosition(x, y);
 	}
