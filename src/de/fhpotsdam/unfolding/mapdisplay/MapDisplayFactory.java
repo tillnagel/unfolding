@@ -40,7 +40,7 @@ public class MapDisplayFactory {
 					mapDisplay = new DistortedGLGraphicsMapDisplay(p, provider, x, y, width, height);
 				} else {
 					log.debug("Using GLGraphicsMapDisplay for '" + id + "'");
-					mapDisplay = new GLGraphicsMapDisplay(p, provider, x, y, width, height);
+					mapDisplay = new MaskedGLGraphicsMapDisplay(p, provider, x, y, width, height);
 				}
 			} else {
 				if (p.g instanceof PGraphicsOpenGL) {

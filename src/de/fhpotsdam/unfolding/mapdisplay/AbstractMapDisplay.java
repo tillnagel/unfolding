@@ -6,6 +6,8 @@ import java.util.Vector;
 
 import org.apache.log4j.Logger;
 
+import codeanticode.glgraphics.GLGraphicsOffScreen;
+
 import processing.core.PGraphics;
 import processing.core.PVector;
 import de.fhpotsdam.unfolding.core.Coordinate;
@@ -106,6 +108,10 @@ public abstract class AbstractMapDisplay implements TileLoaderListener {
 	}
 
 	public abstract PGraphics getPG();
+	
+	public GLGraphicsOffScreen getMask(){
+		return null;
+	}
 
 	public abstract PGraphics getOuterPG();
 
