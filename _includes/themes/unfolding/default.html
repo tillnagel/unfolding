@@ -37,6 +37,8 @@
   </head>
 
   <body>
+    
+    <!--
     <header class="outer-container page-header">
       <div class="container">
         <div class="row">
@@ -58,6 +60,34 @@
         </div>
       </div>
     </header>
+    -->
+    
+    
+    <header class="outer-container page-header">
+      <div class="container">
+      <div class="row">
+    
+          <div class="logo">
+            <h1><a href="{{ HOME_PATH }}">{{ site.title }}</a></h1>
+            
+            <ul class="menu">
+              {% assign pages_list = site.pages %}
+              {% assign group = 'navigation' %}
+              {% include JB/pages_list %}
+              <li>
+                <a href="https://github.com/tillnagel/unfolding" target="_blank">GitHub</a>
+              </li>
+
+            </ul>
+          </div>
+    
+      </div>
+      </div>
+    </header>
+
+
+
+    
     {{ content }}
     <footer class="outer-container page-footer">
       <div class="container">
