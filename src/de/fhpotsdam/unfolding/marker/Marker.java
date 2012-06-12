@@ -1,5 +1,7 @@
 package de.fhpotsdam.unfolding.marker;
 
+import java.util.HashMap;
+
 import de.fhpotsdam.unfolding.Map;
 import de.fhpotsdam.unfolding.geo.Location;
 
@@ -40,6 +42,11 @@ public interface Marker {
 	 * 
 	 */
 	public double getDistanceTo(Location location);
+	
+	//TODO Documentation
+	public void setProps(HashMap<String,String> props);
+	
+	public HashMap<String,String> getProps();
 	
 	/**
 	 * Checks whether given position is inside this marker, according to the maps coordinate system.
