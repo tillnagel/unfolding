@@ -122,7 +122,7 @@ public class Map implements MapEventListener {
 
 	/**
 	 * Checks whether the given screen coordinates are on this Map.
-	 * 
+	 *
 	 * @param checkX
 	 *            The vertical position to check.
 	 * @param checkY
@@ -131,6 +131,19 @@ public class Map implements MapEventListener {
 	 */
 	public boolean isHit(float checkX, float checkY) {
 		float[] check = mapDisplay.getObjectFromScreenPosition(checkX, checkY);
+		return (check[0] > 0 && check[0] < mapDisplay.getWidth() && check[1] > 0 && check[1] < mapDisplay.getHeight());
+	}
+
+	/**
+	 * Checks whether the given screen coordinates are on this Map.
+	 *
+	 * @param screenPosition
+	 *            The position to check.
+	 * @return True if map is hit, false otherwise.
+	 */
+	public boolean isHit(ScreenPosition screenPosition) {
+		float[] check = mapDisplay.getObjectFromScreenPosition(
+				screenPosition.x, screenPosition.y);
 		return (check[0] > 0 && check[0] < mapDisplay.getWidth() && check[1] > 0 && check[1] < mapDisplay.getHeight());
 	}
 
@@ -203,6 +216,11 @@ public class Map implements MapEventListener {
 
 	public Location getLocationFromScreenPosition(float x, float y) {
 		return mapDisplay.getLocationFromScreenPosition(x, y);
+	}
+
+	public Location getLocation(ScreenPosition screenPosition) {
+		return mapDisplay.getLocationFromScreenPosition(
+				screenPosition.x, screenPosition.y);
 	}
 
 	@Deprecated
@@ -515,7 +533,7 @@ public class Map implements MapEventListener {
 
 	/**
 	 * Restricts the area this map can pan to in a radial fashion.
-	 * 
+	 *
 	 * @param location
 	 *            The center location of the circular restriction area.
 	 * @param maxPanningDistance
