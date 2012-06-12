@@ -36,8 +36,8 @@ public class ExtendedMarkerExample extends PApplet {
 		markerLondon.setColor(200, 0, 0, 100);
 		markerLondon.setRadius(2);
 		
-		map.addMarker(markerBerlin);
-		map.addMarker(markerLondon);
+		map.addMarkers(markerBerlin);
+		map.addMarkers(markerLondon);
 	}
 	
 

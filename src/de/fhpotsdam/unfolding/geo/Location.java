@@ -1,6 +1,7 @@
 package de.fhpotsdam.unfolding.geo;
 
-import processing.core.*;
+import processing.core.PApplet;
+import processing.core.PVector;
 
 /**
  * The Location represents a geo location defined by latitude and longitude.

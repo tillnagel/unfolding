@@ -1,10 +1,10 @@
 package de.fhpotsdam.unfolding.marker;
 
 import processing.core.PGraphics;
-import processing.core.PVector;
 import de.fhpotsdam.unfolding.Map;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.utils.GeoUtils;
+import de.fhpotsdam.unfolding.utils.ScreenPosition;
 
 /**
  * Marker handling location to appropriate coordinate system. Also it provides
@@ -57,13 +57,12 @@ public abstract class AbstractMarker implements Marker {
 	 */
 	@Override
 	public boolean isInside(Map map, float checkX, float checkY) {
-		PVector pos = getScreenPosition(map);
+		ScreenPosition pos = getScreenPosition(map);
 		return isInside(checkX, checkY, pos.x, pos.y);
 	}
 	
-	public PVector getScreenPosition(Map map){
-		float []xy = map.mapDisplay.getScreenPositionFromLocation(getLocation());
-		return new PVector(xy[0],xy[1]);
+	public ScreenPosition getScreenPosition(Map map){
+		return map.mapDisplay.getScreenPosition(getLocation());
 	}
 
 	@Override

@@ -18,6 +18,7 @@ import de.fhpotsdam.unfolding.marker.MarkerManager;
 import de.fhpotsdam.unfolding.providers.AbstractMapProvider;
 import de.fhpotsdam.unfolding.tiles.TileLoader;
 import de.fhpotsdam.unfolding.tiles.TileLoaderListener;
+import de.fhpotsdam.unfolding.utils.ScreenPosition;
 
 /**
  * Handles tiles
@@ -192,7 +193,9 @@ public abstract class AbstractMapDisplay implements TileLoaderListener {
 
 	public abstract float[] getScreenFromInnerObjectPosition(float x, float y);
 
+	@Deprecated
 	public abstract float[] getInnerObjectFromScreenPosition(float x, float y);
+	public abstract float[] getInnerObject(ScreenPosition screenPosition);
 
 	public abstract float[] getScreenFromObjectPosition(float x, float y);
 
@@ -200,13 +203,17 @@ public abstract class AbstractMapDisplay implements TileLoaderListener {
 
 	public abstract Location getLocationFromInnerObjectPosition(float x, float y);
 
+	@Deprecated
 	public abstract Location getLocationFromScreenPosition(float x, float y);
+	public abstract Location getLocation(ScreenPosition screenPosition);
 
 	public abstract Location getLocationFromObjectPosition(float x, float y);
 
 	public abstract float[] getInnerObjectFromLocation(Location location);
 
+	@Deprecated
 	public abstract float[] getScreenPositionFromLocation(Location location);
+	public abstract ScreenPosition getScreenPosition(Location location);
 
 	public abstract float[] getObjectFromLocation(Location location);
 

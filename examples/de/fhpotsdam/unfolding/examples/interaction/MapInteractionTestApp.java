@@ -8,6 +8,7 @@ import codeanticode.glgraphics.GLConstants;
 import de.fhpotsdam.unfolding.Map;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.utils.DebugDisplay;
+import de.fhpotsdam.unfolding.utils.ScreenPosition;
 
 /**
  * Various map interactions are applied.
@@ -70,8 +71,8 @@ public class MapInteractionTestApp extends PApplet {
 		text(location + "", mouseX, mouseY);
 
 		// Show marker at location
-		float[] xy = map.mapDisplay.getScreenPositionFromLocation(berlinLocation);
-		ellipse(xy[0], xy[1], 10, 10);
+		ScreenPosition pos = map.mapDisplay.getScreenPosition(berlinLocation);
+		ellipse(pos.x, pos.y, 10, 10);
 	}
 
 	public void keyPressed() {

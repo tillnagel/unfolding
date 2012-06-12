@@ -7,6 +7,7 @@ import de.fhpotsdam.unfolding.Map;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.utils.DebugDisplay;
 import de.fhpotsdam.unfolding.utils.MapUtils;
+import de.fhpotsdam.unfolding.utils.ScreenPosition;
 
 /**
  * Application to compare the two different map rotation styles.
@@ -49,10 +50,10 @@ public class RotatableMapApp extends PApplet {
 		map.draw();
 		debugDisplay.draw();
 
-		float[] xy = map.mapDisplay.getScreenPositionFromLocation(location);
+		ScreenPosition pos = map.mapDisplay.getScreenPosition(location);
 		stroke(255, 0, 0);
 		noFill();
-		ellipse(xy[0], xy[1], 10, 10);
+		ellipse(pos.x, pos.y, 10, 10);
 	}
 
 	public void keyPressed() {

@@ -10,6 +10,7 @@ import de.fhpotsdam.unfolding.events.EventDispatcher;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.utils.DebugDisplay;
 import de.fhpotsdam.unfolding.utils.MapUtils;
+import de.fhpotsdam.unfolding.utils.ScreenPosition;
 
 /**
  * Interactive test app for the current transformation bug.
@@ -58,14 +59,14 @@ public class PanToCenterBugApp extends PApplet {
 
 		noFill();
 		// red: London
-		float[] pLondon = map.mapDisplay.getScreenPositionFromLocation(locLondon);
+		ScreenPosition pLondon = map.mapDisplay.getScreenPosition(locLondon);
 		stroke(255, 0, 0);
-		ellipse(pLondon[0], pLondon[1], 12, 12);
+		ellipse(pLondon.x, pLondon.y, 12, 12);
 		
 		// blue: Quito
-		float[] pQuito = map.mapDisplay.getScreenPositionFromLocation(locQuito);
+		ScreenPosition pQuito = map.mapDisplay.getScreenPosition(locQuito);
 		stroke(0, 0, 255);
-		ellipse(pQuito[0], pQuito[1], 12, 12);
+		ellipse(pQuito.x, pQuito.y, 12, 12);
 	}
 	
 	public void keyPressed() {
@@ -78,5 +79,4 @@ public class PanToCenterBugApp extends PApplet {
 			map.panTo(locQuito);
 		}
 	}
-	
 }

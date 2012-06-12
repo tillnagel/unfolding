@@ -6,6 +6,7 @@ import de.fhpotsdam.unfolding.examples.SimpleMapApp;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.marker.SimpleMarker;
 import de.fhpotsdam.unfolding.utils.MapUtils;
+import de.fhpotsdam.unfolding.utils.ScreenPosition;
 import processing.core.PApplet;
 import processing.core.PVector;
 
@@ -42,7 +43,7 @@ public class SimpleMarkerExample extends PApplet {
 		// Draws locations on screen positions according to their geo-locations.
 		
 		// Fixed-size marker
-		PVector posBerlin = markerBerlin.getScreenPosition(map);
+		ScreenPosition posBerlin = markerBerlin.getScreenPosition(map);
 //				map.getScreenPositionFromLocation(markerBerlin.getLocation());
 		fill(0, 200, 0, 100);
 		ellipse(posBerlin.x, posBerlin.y, 20, 20);
@@ -50,7 +51,7 @@ public class SimpleMarkerExample extends PApplet {
 //		markerBerlin.drawNOW(map);
 		
 		// Zoom dependent marker size
-		PVector posLondon = markerLondon.getScreenPosition(map);
+		ScreenPosition posLondon = markerLondon.getScreenPosition(map);
 		fill(200, 0, 0, 100);
 		float s = map.getZoom();
 		ellipse(posLondon.x, posLondon.y, s, s);

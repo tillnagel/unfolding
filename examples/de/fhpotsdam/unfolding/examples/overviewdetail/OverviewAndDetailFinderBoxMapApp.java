@@ -5,6 +5,7 @@ import codeanticode.glgraphics.GLConstants;
 import de.fhpotsdam.unfolding.Map;
 import de.fhpotsdam.unfolding.events.EventDispatcher;
 import de.fhpotsdam.unfolding.utils.MapUtils;
+import de.fhpotsdam.unfolding.utils.ScreenPosition;
 
 /**
  * Three maps are shown: Two overview maps, and one navigable detail map. The currently selected
@@ -48,22 +49,21 @@ public class OverviewAndDetailFinderBoxMapApp extends PApplet {
 		mapOverviewStatic.draw();
 
 		// Finder box for overview map
-		float[] tl1 = mapOverview.mapDisplay.getScreenPositionFromLocation(mapDetail.getTopLeftBorder());
-		float[] br1 = mapOverview.mapDisplay.getScreenPositionFromLocation(mapDetail.getBottomRightBorder());
+		ScreenPosition tl1 = mapOverview.mapDisplay.getScreenPosition(mapDetail.getTopLeftBorder());
+		ScreenPosition br1 = mapOverview.mapDisplay.getScreenPosition(mapDetail.getBottomRightBorder());
 		drawDetailSelectionBox(tl1, br1);
 
 		// Finder box for static overview map
-		float[] tl2 = mapOverviewStatic.mapDisplay.getScreenPositionFromLocation(mapDetail.getTopLeftBorder());
-		float[] br2 = mapOverviewStatic.mapDisplay.getScreenPositionFromLocation(mapDetail.getBottomRightBorder());
+		ScreenPosition tl2 = mapOverviewStatic.mapDisplay.getScreenPosition(mapDetail.getTopLeftBorder());
+		ScreenPosition br2 = mapOverviewStatic.mapDisplay.getScreenPosition(mapDetail.getBottomRightBorder());
 		drawDetailSelectionBox(tl2, br2);
 	}
 
-	public void drawDetailSelectionBox(float[] tl, float[] br) {
+	public void drawDetailSelectionBox(ScreenPosition tl, ScreenPosition br) {
 		noFill();
 		stroke(30, 30, 255, 140);
-		float w = br[0] - tl[0];
-		float h = br[1] - tl[1];
-		rect(tl[0], tl[1], w, h);
+		float w = br.x - tl.x;
+		float h = br.y - tl.y;
+		rect(tl.x, tl.y, w, h);
 	}
-
 }
