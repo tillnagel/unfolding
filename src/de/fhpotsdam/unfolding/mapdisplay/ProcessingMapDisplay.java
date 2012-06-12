@@ -163,13 +163,19 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 		return screenXY;
 	}
 
+	@Deprecated
 	public float[] getInnerObjectFromScreenPosition(float x, float y) {
 		float objectXY[] = getObjectFromScreenPosition(x, y);
 		float innerObjectXY[] = getInnerObjectFromObjectPosition(objectXY[0], objectXY[1]);
 		return innerObjectXY;
 	}
 
-	@Override
+	public float[] getInnerObject(ScreenPosition screenPosition) {
+		float objectXY[] = getObjectFromScreenPosition(screenPosition.x, screenPosition.y);
+		float innerObjectXY[] = getInnerObjectFromObjectPosition(objectXY[0], objectXY[1]);
+		return innerObjectXY;
+	}
+
 	public float[] getObjectFromLocation(Location location) {
 		float[] ixy = getInnerObjectFromLocation(location);
 		float[] xy = getObjectFromInnerObjectPosition(ixy[0], ixy[1]);
@@ -217,15 +223,24 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 		return coord;
 	}
 
+	@Deprecated @Override
 	public Location getLocationFromScreenPosition(float x, float y) {
 		synchronized (this) {
 			float innerObjectXY[] = getInnerObjectFromScreenPosition(x, y);
 			return getLocationFromInnerObjectPosition(innerObjectXY[0], innerObjectXY[1]);
-
 		}
-
 	}
 
+	@Override
+	public Location getLocation(ScreenPosition screenPosition) {
+		synchronized (this) {
+			float innerObjectXY[] = getInnerObjectFromScreenPosition(
+					screenPosition.x, screenPosition.y);
+			return getLocationFromInnerObjectPosition(innerObjectXY[0], innerObjectXY[1]);
+		}
+	}
+
+	@Override
 	public Location getLocationFromObjectPosition(float x, float y) {
 		synchronized (this) {
 			float innerObjectXY[] = getInnerObjectFromObjectPosition(x, y);
@@ -247,7 +262,6 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 
 	@Override
 	public ScreenPosition getScreenPosition(Location location) {
-		// TODO Auto-generated method stub
 		synchronized (this) {
 			float innerObjectXY[] = getInnerObjectFromLocation(location);
 			return new ScreenPosition(getScreenFromInnerObjectPosition(innerObjectXY[0], innerObjectXY[1]));

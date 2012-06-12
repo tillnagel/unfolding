@@ -193,7 +193,9 @@ public abstract class AbstractMapDisplay implements TileLoaderListener {
 
 	public abstract float[] getScreenFromInnerObjectPosition(float x, float y);
 
+	@Deprecated
 	public abstract float[] getInnerObjectFromScreenPosition(float x, float y);
+	public abstract float[] getInnerObject(ScreenPosition screenPosition);
 
 	public abstract float[] getScreenFromObjectPosition(float x, float y);
 
@@ -201,7 +203,9 @@ public abstract class AbstractMapDisplay implements TileLoaderListener {
 
 	public abstract Location getLocationFromInnerObjectPosition(float x, float y);
 
+	@Deprecated
 	public abstract Location getLocationFromScreenPosition(float x, float y);
+	public abstract Location getLocation(ScreenPosition screenPosition);
 
 	public abstract Location getLocationFromObjectPosition(float x, float y);
 

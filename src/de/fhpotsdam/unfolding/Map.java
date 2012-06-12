@@ -125,7 +125,7 @@ public class Map implements MapEventListener {
 
 	/**
 	 * Checks whether the given screen coordinates are on this Map.
-	 * 
+	 *
 	 * @param checkX
 	 *            The vertical position to check.
 	 * @param checkY
@@ -134,6 +134,19 @@ public class Map implements MapEventListener {
 	 */
 	public boolean isHit(float checkX, float checkY) {
 		float[] check = mapDisplay.getObjectFromScreenPosition(checkX, checkY);
+		return (check[0] > 0 && check[0] < mapDisplay.getWidth() && check[1] > 0 && check[1] < mapDisplay.getHeight());
+	}
+
+	/**
+	 * Checks whether the given screen coordinates are on this Map.
+	 *
+	 * @param screenPosition
+	 *            The position to check.
+	 * @return True if map is hit, false otherwise.
+	 */
+	public boolean isHit(ScreenPosition screenPosition) {
+		float[] check = mapDisplay.getObjectFromScreenPosition(
+				screenPosition.x, screenPosition.y);
 		return (check[0] > 0 && check[0] < mapDisplay.getWidth() && check[1] > 0 && check[1] < mapDisplay.getHeight());
 	}
 
@@ -203,9 +216,14 @@ public class Map implements MapEventListener {
 	// return location;
 	// }
 	//
-
+	@Deprecated
 	public Location getLocationFromScreenPosition(float x, float y) {
 		return mapDisplay.getLocationFromScreenPosition(x, y);
+	}
+
+	public Location getLocation(ScreenPosition screenPosition) {
+		return mapDisplay.getLocationFromScreenPosition(
+				screenPosition.x, screenPosition.y);
 	}
 
 	@Deprecated
@@ -331,12 +349,41 @@ public class Map implements MapEventListener {
 	 */
 	public void zoomAndPanTo(float x, float y, int level) {
 		// Works only when first zoom around pos, then pan to pos
-
 		mapDisplay.setInnerTransformationCenter(new PVector(x, y));
 		zoomToLevel(level);
 		panTo(x, y);
 	}
 
+	/**
+	 * Zooms in around position, and pans to it.
+	 * 
+	 * After the pan the center still is at the same location. (As innerTransformationCenter is in object coordinates,
+	 * thus stays at same inner position.)
+	 * 
+	 * @param screenPosition
+	 *            ScreenPosition to zoom around and pan to.
+	 * @param level
+	 *            Zoom level to zoom to.
+	 */
+	public void zoomAndPanTo(ScreenPosition screenPosition, int level) {
+		// Works only when first zoom around pos, then pan to pos
+		mapDisplay.setInnerTransformationCenter(
+				new PVector(screenPosition.x, screenPosition.y));
+		zoomToLevel(level);
+		panTo(screenPosition.x, screenPosition.y);
+	}
+
+	/**
+	 * Zooms in around position, and pans to it.
+	 * 
+	 * After the pan the center still is at the same location. (As innerTransformationCenter is in object coordinates,
+	 * thus stays at same inner position.)
+	 * 
+	 * @param location
+	 *            The Location to zoom around and pan to.
+	 * @param level
+	 *            Zoom level to zoom to.
+	 */
 	public void zoomAndPanTo(Location location, int level) {
 		ScreenPosition pos = mapDisplay.getScreenPosition(location);
 		mapDisplay.setInnerTransformationCenter(new PVector(pos.x, pos.y));
@@ -357,6 +404,17 @@ public class Map implements MapEventListener {
 		panObjectPositionToObjectCenter(objectXY[0], objectXY[1]);
 	}
 
+	/**
+	 * Pans to the given screen position. The position will be centered.
+	 * 
+	 * @param screenPosition the position to pan to.
+	 */
+	public void panTo(ScreenPosition screenPosition) {
+		float[] objectXY = mapDisplay.getObjectFromScreenPosition(
+				screenPosition.x, screenPosition.y);
+		panObjectPositionToObjectCenter(objectXY[0], objectXY[1]);
+	}
+	
 	/**
 	 * Pans to the given Location. The position of the location will be centered.
 	 * 
@@ -381,7 +439,20 @@ public class Map implements MapEventListener {
 
 		addInnerOffset(dx, dy);
 	}
+	/**
+	 * Pans between two ScreenPosition.
+	 * @param from ScreenPo	sition to start from.
+	 * @param to ScreenPosition to pan to.
+	 */
+	public void pan(ScreenPosition from, ScreenPosition to) {
+		float[] xy1 = mapDisplay.getObjectFromScreenPosition(from.x, from.y);
+		float[] xy2 = mapDisplay.getObjectFromScreenPosition(to.x, to.y);
 
+		float dx = xy2[0] - xy1[0];
+		float dy = xy2[1] - xy1[1];
+
+		addInnerOffset(dx, dy);
+	}
 	/**
 	 * Pans from one location to another one.
 	 * 
@@ -429,6 +500,14 @@ public class Map implements MapEventListener {
 	 */
 	public void move(float x, float y) {
 		setOffset(x, y);
+	}
+	
+	/**
+	 * Moves the map to the given ScreenPosition.
+	 * @param screenPosition the ScreenPosition to move to.
+	 */
+	public void move(ScreenPosition screenPosition) {
+		setOffset(screenPosition.x, screenPosition.y);
 	}
 
 	// MarkerManagement -----------------------------------------------
@@ -544,7 +623,7 @@ public class Map implements MapEventListener {
 
 	/**
 	 * Restricts the area this map can pan to in a radial fashion.
-	 * 
+	 *
 	 * @param location
 	 *            The center location of the circular restriction area.
 	 * @param maxPanningDistance
