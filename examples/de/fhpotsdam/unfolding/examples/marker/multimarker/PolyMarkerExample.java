@@ -1,13 +1,9 @@
 package de.fhpotsdam.unfolding.examples.marker.multimarker;
 
-import javax.swing.text.html.HTMLEditorKit.Parser;
-
 import processing.core.PApplet;
 import codeanticode.glgraphics.GLConstants;
 import de.fhpotsdam.unfolding.Map;
 import de.fhpotsdam.unfolding.geo.Location;
-import de.fhpotsdam.unfolding.marker.Marker;
-import de.fhpotsdam.unfolding.marker.MarkerManager;
 import de.fhpotsdam.unfolding.utils.MapUtils;
 
 @SuppressWarnings("serial")
