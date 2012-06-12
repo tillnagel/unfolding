@@ -14,23 +14,21 @@ import de.fhpotsdam.unfolding.marker.SimpleLinesMarker;
 import de.fhpotsdam.unfolding.marker.SimpleMarker;
 import de.fhpotsdam.unfolding.marker.SimplePolyMarker;
 
+//TODO @PETE usefull error msg if no or incorrect filepath 
 public class GeoJsonParser {
 
-	public PApplet p;
-	public String filePath;
-	public ArrayList<Marker> markers = new ArrayList<Marker>();
-
-	public void parseFromJSON() {
+	public static ArrayList<Marker> parseFromJSON(PApplet p, String filename)
+			throws JSONException {
+		ArrayList<Marker> markers = new ArrayList<Marker>();
 
 		// variables
-		if (filePath == null) {
+		if (filename == null) {
 			PApplet.println("Please set a file path to your geo.json file using the function FeatureManager.setFilePath(String filePath)");
 		}
 
 		try {
 			JSONObject geoJson = new JSONObject(PApplet.join(
-					p.loadStrings(filePath),
-					""));
+					p.loadStrings(filename), ""));
 			JSONArray allFeatures = geoJson.getJSONArray("features");
 
 			for (int i = 0; i < allFeatures.length(); i++) {
@@ -46,13 +44,13 @@ public class GeoJsonParser {
 						JSONArray currJSONObjGeometries = currJSONObjGeometry
 								.getJSONArray("geometries");
 						for (int j = 0; j < currJSONObjGeometries.length(); j++) {
-							getLocationByType(
+							markers.add(getMarkerByType(
 									currJSONObjGeometries.getJSONObject(j),
-									currJSONObjProperties);
+									currJSONObjProperties));
 						}
 					} else {
-						getLocationByType(currJSONObjGeometry,
-								currJSONObjProperties);
+						markers.add(getMarkerByType(currJSONObjGeometry,
+								currJSONObjProperties));
 					}
 				}
 			}
@@ -61,11 +59,14 @@ public class GeoJsonParser {
 			// message
 
 			PApplet.println(e.toString());
+			throw e;
 		}
+		return markers;
 	}
 
 	// die properties m�ssen hier empfangen werden
-	public void getLocationByType(JSONObject geometry, JSONObject properties) {
+	private static Marker getMarkerByType(JSONObject geometry,
+			JSONObject properties) {
 		// println(geometry.getString("type"));
 
 		Marker marker = null;
@@ -86,8 +87,6 @@ public class GeoJsonParser {
 
 				pointMarker.setLocation(currPos);
 				// println(currPos.toString());
-
-				markers.add(pointMarker);
 
 			} catch (JSONException e) {
 				PApplet.println(e.toString());
@@ -118,7 +117,6 @@ public class GeoJsonParser {
 
 					lineMarker.addLocations(currLoc);
 				}
-				markers.add(lineMarker);
 
 			} catch (JSONException e) {
 				PApplet.println(e.toString());
@@ -160,7 +158,6 @@ public class GeoJsonParser {
 
 				// polyMarker.setShapes(shapes);
 				// polyMarker.setType(featureType);
-				markers.add(polyMarker);
 			} catch (JSONException e) {
 				PApplet.println(e.toString());
 			}
@@ -221,17 +218,18 @@ public class GeoJsonParser {
 		// hier einf�gen.
 
 		parseProps(marker, properties);
+		return marker;
 	}
 
-	public void parseProps(Marker marker, JSONObject properties) {
+	private static void parseProps(Marker marker, JSONObject properties) {
 
 		JSONArray keys = properties.names();
-		HashMap<String,String> props = new HashMap<String,String>();
+		HashMap<String, String> props = new HashMap<String, String>();
 
 		for (int i = 0; i < keys.length(); i++) {
 			try {
 				props.put((String) keys.get(i),
-						(String)properties.get((String) keys.get(i)));
+						(String) properties.get((String) keys.get(i)));
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
