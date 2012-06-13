@@ -18,5 +18,6 @@
 	<classpathentry kind="lib" path="lib/opengl.jar"/>
 	<classpathentry kind="lib" path="lib/libTUIO.jar"/>
 	<classpathentry kind="lib" path="lib/sqlitejdbc-v056.jar"/>
+	<classpathentry kind="lib" path="lib/json4processing.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
