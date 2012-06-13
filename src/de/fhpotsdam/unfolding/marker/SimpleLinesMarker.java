@@ -1,61 +1,37 @@
 package de.fhpotsdam.unfolding.marker;
 
-import java.nio.FloatBuffer;
 import java.util.List;
 
-import javax.media.opengl.GL;
-
+import processing.core.PConstants;
 import processing.core.PGraphics;
-import codeanticode.glgraphics.GLGraphicsOffScreen;
-
-import com.sun.opengl.util.BufferUtil;
-
-import de.fhpotsdam.unfolding.marker.AbstractMultiMarker;
 import de.fhpotsdam.unfolding.utils.MapPosition;
 
-public class SimpleLinesMarker extends AbstractMultiMarker {
+public class SimpleLinesMarker extends AbstractMultiMarker{
 
-	//TODO modify to simple marker
 	@Override
 	public void draw(PGraphics pg, List<MapPosition> mapPositions) {
-		GL gl = ((GLGraphicsOffScreen) pg).beginGL();
-		int n = mapPositions.size();
-
-		//REVISIT reuse buffers and update if loations.size() changes
-		FloatBuffer vertices = BufferUtil.newFloatBuffer(n * 2 * 2);
-		FloatBuffer colors = BufferUtil.newFloatBuffer(n * 3 * 2);
-
+		pg.pushStyle();
+		pg.fill(100,90,240,100);
+		pg.stroke(50,50,50,200);
+		
+		pg.beginShape(PConstants.LINES);
+		//TODO this way its equal to LINE_STRIP but LINE_STRIP doesnt work
 		MapPosition last = mapPositions.get(0);
-		for (int i = 1; i < mapPositions.size(); ++i) {
-			MapPosition op = mapPositions.get(i);
-			vertices.put(last.x);
-			vertices.put(last.y);
-			vertices.put(op.x);
-			vertices.put(op.y);
-			last = op;
-			for(int j=0;j<6;++j){
-				colors.put(0);
-			}
+		for(int i=1;i<mapPositions.size();++i){
+			MapPosition mp = mapPositions.get(i);
+			pg.vertex(last.x,last.y);
+			pg.vertex(mp.x, mp.y);
+			
+			last = mp;
 		}
-		
-		
-		gl.glEnableClientState(GL.GL_VERTEX_ARRAY);
-		vertices.rewind();
-		gl.glVertexPointer(2, GL.GL_FLOAT, 0, vertices);
-		
-		gl.glEnableClientState(GL.GL_COLOR_ARRAY);
-		colors.rewind();
-		gl.glColorPointer(3, GL.GL_FLOAT, 0, colors);
-		
-		
-		gl.glDrawArrays(GL.GL_LINES, 0, n*2);
-		((GLGraphicsOffScreen) pg).endGL();
+		pg.endShape();
+		pg.popStyle();
 	}
 
 	@Override
-	public void drawOuter(PGraphics pg, List<MapPosition> objectPositions) {
+	public void drawOuter(PGraphics pg, List<MapPosition> mapPositions) {
 		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override

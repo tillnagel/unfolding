@@ -44,13 +44,17 @@ public class GeoJsonParser {
 						JSONArray currJSONObjGeometries = currJSONObjGeometry
 								.getJSONArray("geometries");
 						for (int j = 0; j < currJSONObjGeometries.length(); j++) {
-							markers.add(getMarkerByType(
+							Marker marker = getMarkerByType(
 									currJSONObjGeometries.getJSONObject(j),
-									currJSONObjProperties));
+									currJSONObjProperties);
+							if (marker != null)
+								markers.add(marker);
 						}
 					} else {
-						markers.add(getMarkerByType(currJSONObjGeometry,
-								currJSONObjProperties));
+						Marker marker = getMarkerByType(currJSONObjGeometry,
+								currJSONObjProperties);
+						if (marker != null)
+							markers.add(marker);
 					}
 				}
 			}
@@ -216,8 +220,9 @@ public class GeoJsonParser {
 
 		// Property setting cool funktion um die Props zu parsen
 		// hier einf�gen.
+		if (marker != null)
+			parseProps(marker, properties);
 
-		parseProps(marker, properties);
 		return marker;
 	}
 
@@ -228,8 +233,8 @@ public class GeoJsonParser {
 
 		for (int i = 0; i < keys.length(); i++) {
 			try {
-				props.put((String) keys.get(i),
-						(String) properties.get((String) keys.get(i)));
+				String key = String.valueOf(keys.get(i));
+				props.put(key, String.valueOf(properties.get(key)));
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
