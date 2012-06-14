@@ -1,4 +1,4 @@
-package de.fhpotsdam.unfolding.examples.marker.infomarker;
+package de.fhpotsdam.unfolding.examples.marker.labelmarker;
 
 import processing.core.PApplet;
 import processing.core.PFont;
@@ -6,7 +6,6 @@ import processing.core.PGraphics;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.marker.AbstractMarker;
 
-//TO BE DELETED! See labelmarker.* examples for how to do this now.
 public class LabeledMarker extends AbstractMarker {
 
 	public String name;
@@ -32,39 +31,42 @@ public class LabeledMarker extends AbstractMarker {
 	}
 
 	public void draw(PGraphics pg, float x, float y) {
-		if (!isVisible()) {
-			return;
-		}
-
-		pg.fill(color, 200);
-		pg.stroke(color, 10);
-		pg.strokeWeight(1);
-		pg.ellipse(x, y, size, size);
-		pg.strokeWeight(2);
-		pg.stroke(color, 100);
-		pg.point(x, y);
 	}
 
 	/**
 	 * Displays this marker's name in a box.
 	 */
 	public void drawOuter(PGraphics pg, float x, float y) {
+		if (!isVisible()) {
+			return;
+		}
+
+		// point
+		int pointColor = (selected) ? highlightColor : color;
+		pg.fill(pointColor, 200);
+		pg.stroke(pointColor, 10);
+		pg.strokeWeight(1);
+		pg.ellipse(x, y, size, size);
+		pg.strokeWeight(2);
+		pg.stroke(pointColor, 100);
+		pg.point(x, y);
+
+		// label
 		if (selected && name != null) {
 			pg.textFont(font);
 			pg.fill(color, 200);
 			pg.noStroke();
-			pg.rect(x + 1, y - 15, pg.textWidth(name) + 2, 12);
+			pg.rect(x - pg.textWidth(name) / 2 - 2, y - pg.textSize, pg.textWidth(name) + 4, pg.textSize);
 			pg.fill(highlightColor, 200);
-			pg.text(name, x + 2, y - 5);
+			pg.text(name, (int) (x - pg.textWidth(name) / 2), (int) (y - 2));
 		}
 	}
 
 	/**
-	 * Checks whether the given position is in close proximity to this Marker. Used e.g. for
-	 * indicating whether this Marker is selected.
+	 * Checks whether the given position is in close proximity to this Marker. Used e.g. for indicating whether this
+	 * Marker is selected.
 	 */
 	protected boolean isInside(float checkX, float checkY, float x, float y) {
-		// FIXME Marker's size is not scaled according to map transformation.
 		return PApplet.dist(checkX, checkY, x, y) < size / 2;
 	}
 
@@ -76,7 +78,7 @@ public class LabeledMarker extends AbstractMarker {
 	public boolean isVisible() {
 		return visible;
 	}
-	
+
 	public void setVisible(boolean visible) {
 		this.visible = visible;
 	}

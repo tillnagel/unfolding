@@ -12,11 +12,7 @@ import de.fhpotsdam.unfolding.marker.Marker;
 import de.fhpotsdam.unfolding.marker.MarkerManager;
 import de.fhpotsdam.unfolding.utils.MapUtils;
 
-/**
- * Multiple markers on single map. If mouse hovers over a marker, it is selcted, thus the label is shown.
- * 
- * On click the clicked marker is returned from the MarkerManager and printed (debug).
- */
+//TO BE DELETED! See labelmarker.* examples for how to do this now.
 public class InfoMarkerApp extends PApplet {
 
 	public static Logger log = Logger.getLogger(ZoomDependentMarkerApp.class);

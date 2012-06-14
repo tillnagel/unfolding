@@ -24,10 +24,23 @@ public class Feature {
 		return properties;
 	}
 
+	public Object getProperty(String key) {
+		return properties.get(key);
+	}
+
+	public String getStringProperty(String key) {
+		Object value = properties.get(key);
+		if (value != null && value instanceof String) {
+			return (String) value;
+		} else {
+			return null;
+		}
+	}
+
 	public void setProperties(HashMap<String, Object> properties) {
 		this.properties = properties;
 	}
-	
+
 	public void putProperty(String key, Object value) {
 		properties.put(key, value);
 	}

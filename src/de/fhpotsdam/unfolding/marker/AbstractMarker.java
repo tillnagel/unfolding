@@ -16,6 +16,7 @@ public abstract class AbstractMarker implements Marker {
 
 	public Location location;
 	public HashMap<String, Object> properties;
+	public boolean selected;
 
 	public AbstractMarker() {
 		this(new Location(0, 0));
@@ -138,4 +139,15 @@ public abstract class AbstractMarker implements Marker {
 	 * @return true if inside, false otherwise.
 	 */
 	protected abstract boolean isInside(float checkX, float checkY, float x, float y);
+
+	/**
+	 * Changes the select status of this marker. Sub-classes need to use the selection status.
+	 * 
+	 * @param selected
+	 *            Whether this marker is selected or not.
+	 */
+	public void setSelected(boolean selected) {
+		this.selected = selected;
+	}
+
 }

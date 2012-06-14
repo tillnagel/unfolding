@@ -84,6 +84,8 @@ public interface Marker {
 	 */
 	public void drawOuter(Map map);
 
+	public void setSelected(boolean selected);
+
 	// For drawing onto the texture, i.e. after distortion, etc.
 	// public void drawTexture(PGraphics pg);
 

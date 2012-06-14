@@ -16,14 +16,23 @@ public class GeoRSSReader {
 		// Get all items
 		XMLElement[] itemXMLElements = rss.getChildren("channel/item");
 		for (int i = 0; i < itemXMLElements.length; i++) {
-			// Adds lat,lon as locations for each item
+			// Sets lat,lon as locations for each item
 			XMLElement latXML = itemXMLElements[i].getChild("geo:lat");
 			XMLElement lonXML = itemXMLElements[i].getChild("geo:long");
-			float lat = Float.valueOf(latXML.getContent());
-			float lon = Float.valueOf(lonXML.getContent());
+			if (latXML != null && latXML.getContent() != null) {
+				float lat = Float.valueOf(latXML.getContent());
+				float lon = Float.valueOf(lonXML.getContent());
 
-			Location location = new Location(lat, lon);
-			features.add(new PointFeature(location));
+				Location location = new Location(lat, lon);
+				PointFeature pointFeature = new PointFeature(location);
+				features.add(pointFeature);
+
+				// Sets title if existing
+				XMLElement titleXML = itemXMLElements[i].getChild("title");
+				if (titleXML != null && titleXML.getContent() != null) {
+					pointFeature.putProperty("title", titleXML.getContent());
+				}
+			}
 		}
 
 		return features;

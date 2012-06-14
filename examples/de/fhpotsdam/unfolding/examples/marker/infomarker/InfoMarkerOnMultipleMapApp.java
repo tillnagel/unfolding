@@ -15,12 +15,7 @@ import de.fhpotsdam.unfolding.marker.MarkerManager;
 import de.fhpotsdam.unfolding.providers.OpenStreetMap;
 import de.fhpotsdam.unfolding.utils.MapUtils;
 
-/**
- * Multiple markers on multiple maps.
- * 
- * Check various interactions to see, how the labels behave. The left map is rotated, but the labels
- * are not. The right map is innerRotated, thus the labels are too.
- */
+//TO BE DELETED! See labelmarker.* examples for how to do this now.
 public class InfoMarkerOnMultipleMapApp extends PApplet {
 
 	public static Logger log = Logger.getLogger(InfoMarkerOnMultipleMapApp.class);

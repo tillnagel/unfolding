@@ -16,6 +16,9 @@ import de.fhpotsdam.unfolding.providers.OpenStreetMap;
 import de.fhpotsdam.unfolding.utils.MapUtils;
 
 /**
+ * TODO Implement with new mechanism.
+ * // TO BE DELETED! See labelmarker.* examples for how to do this now.
+ * 
  * Shows different set of markers depending on the zoom level.
  */
 public class ZoomDependentMarkerApp extends PApplet {
