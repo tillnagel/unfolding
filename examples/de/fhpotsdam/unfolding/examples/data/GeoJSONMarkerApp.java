@@ -11,7 +11,7 @@ import de.fhpotsdam.unfolding.marker.Marker;
 import de.fhpotsdam.unfolding.utils.MapUtils;
 
 /**
- * Displays earthquake markers from an RSS feed.
+ * Displays countries of the world as simple polygons. Read from a GeoJSON file.
  */
 public class GeoJSONMarkerApp extends PApplet {
 
@@ -25,9 +25,9 @@ public class GeoJSONMarkerApp extends PApplet {
 		map.zoomToLevel(2);
 		MapUtils.createDefaultEventDispatcher(this, map);
 
-		List<Feature> features = GeoJSONReader.loadData(this, "countries.geo.json");
-		List<Marker> markers = MapUtils.createSimpleMarkers(features);
-		map.addMarkers(markers);
+		List<Feature> countries = GeoJSONReader.loadData(this, "countries.geo.json");
+		List<Marker> countryMarkers = MapUtils.createSimpleMarkers(countries);
+		map.addMarkers(countryMarkers);
 	}
 
 	public void draw() {
