@@ -6,6 +6,10 @@ public class PointFeature extends Feature {
 
 	public Location location;
 
+	public PointFeature() {
+		super(FeatureType.POINT);
+	}
+	
 	public PointFeature(Location location) {
 		super(FeatureType.POINT);
 		this.location = location;

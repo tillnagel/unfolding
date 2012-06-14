@@ -8,18 +8,33 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import processing.core.PApplet;
+import de.fhpotsdam.unfolding.data.GeoJSONReader;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.marker.Marker;
 import de.fhpotsdam.unfolding.marker.SimpleLinesMarker;
 import de.fhpotsdam.unfolding.marker.SimpleMarker;
 import de.fhpotsdam.unfolding.marker.SimplePolygonMarker;
 
-//TODO @PETE usefull error msg if no or incorrect filepath 
+//TODO @PETE usefull error msg if no or incorrect filepath
 public class GeoJsonParser {
 
-	public static ArrayList<Marker> parseFromJSON(PApplet p, String filename)
-			throws JSONException {
+	/**
+	 * ---- ATTENTION! ------------------------------------------
+	 *
+	 * Do not use and extend this class. Work on GeoJSONREader, instead!
+	 *
+	 * ---- ATTENTION! ------------------------------------------
+	 * 
+	 * @deprecated Use {@link GeoJSONReader#loadData(PApplet, String)} instead.
+	 */
+	public static ArrayList<Marker> parseFromJSON(PApplet p, String filename) throws JSONException {
 		ArrayList<Marker> markers = new ArrayList<Marker>();
+
+		// ---- ATTENTION! ------------------------------------------
+		//
+		// Do not use and extend this class. Work on GeoJSONREader, instead!
+		//
+		// ---- ATTENTION! ------------------------------------------
 
 		// variables
 		if (filename == null) {
@@ -27,32 +42,25 @@ public class GeoJsonParser {
 		}
 
 		try {
-			JSONObject geoJson = new JSONObject(PApplet.join(
-					p.loadStrings(filename), ""));
+			JSONObject geoJson = new JSONObject(PApplet.join(p.loadStrings(filename), ""));
 			JSONArray allFeatures = geoJson.getJSONArray("features");
 
 			for (int i = 0; i < allFeatures.length(); i++) {
 
-				JSONObject currJSONObjGeometry = allFeatures.getJSONObject(i)
-						.getJSONObject("geometry");
-				JSONObject currJSONObjProperties = allFeatures.getJSONObject(i)
-						.getJSONObject("properties");
+				JSONObject currJSONObjGeometry = allFeatures.getJSONObject(i).getJSONObject("geometry");
+				JSONObject currJSONObjProperties = allFeatures.getJSONObject(i).getJSONObject("properties");
 
 				if (currJSONObjGeometry != null) {
-					if (currJSONObjGeometry.getString("type").equals(
-							"GeometryCollection")) {
-						JSONArray currJSONObjGeometries = currJSONObjGeometry
-								.getJSONArray("geometries");
+					if (currJSONObjGeometry.getString("type").equals("GeometryCollection")) {
+						JSONArray currJSONObjGeometries = currJSONObjGeometry.getJSONArray("geometries");
 						for (int j = 0; j < currJSONObjGeometries.length(); j++) {
-							Marker marker = getMarkerByType(
-									currJSONObjGeometries.getJSONObject(j),
+							Marker marker = getMarkerByType(currJSONObjGeometries.getJSONObject(j),
 									currJSONObjProperties);
 							if (marker != null)
 								markers.add(marker);
 						}
 					} else {
-						Marker marker = getMarkerByType(currJSONObjGeometry,
-								currJSONObjProperties);
+						Marker marker = getMarkerByType(currJSONObjGeometry, currJSONObjProperties);
 						if (marker != null)
 							markers.add(marker);
 					}
@@ -69,8 +77,7 @@ public class GeoJsonParser {
 	}
 
 	// die properties m�ssen hier empfangen werden
-	private static Marker getMarkerByType(JSONObject geometry,
-			JSONObject properties) {
+	private static Marker getMarkerByType(JSONObject geometry, JSONObject properties) {
 		// println(geometry.getString("type"));
 
 		Marker marker = null;
@@ -99,8 +106,7 @@ public class GeoJsonParser {
 
 		if (featureType.equals("MultiPoint")) {
 
-			PApplet.println("Donot knfeaturesow what to do with type: "
-					+ geometry.getString("type"));
+			PApplet.println("Donot knfeaturesow what to do with type: " + geometry.getString("type"));
 		}
 
 		if (featureType.equals("LineString")) {
@@ -129,8 +135,7 @@ public class GeoJsonParser {
 
 		if (featureType.equals("MultiLineString")) {
 
-			PApplet.println("Donot know what to do with type: "
-					+ geometry.getString("type"));
+			PApplet.println("Donot know what to do with type: " + geometry.getString("type"));
 		}
 
 		if (featureType.equals("Polygon")) {
@@ -148,10 +153,8 @@ public class GeoJsonParser {
 
 				for (int l = 0; l < coords.getJSONArray(0).length(); l++) {
 
-					double y = coords.getJSONArray(0).getJSONArray(l)
-							.getDouble(0);
-					double x = coords.getJSONArray(0).getJSONArray(l)
-							.getDouble(1);
+					double y = coords.getJSONArray(0).getJSONArray(l).getDouble(0);
+					double x = coords.getJSONArray(0).getJSONArray(l).getDouble(1);
 
 					Location currLoc = new Location((float) x, (float) y);
 

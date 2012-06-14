@@ -1,8 +1,5 @@
 package de.fhpotsdam.unfolding.data;
 
-import java.util.List;
-
-import processing.core.PApplet;
 
 /**
  * 
@@ -11,6 +8,6 @@ import processing.core.PApplet;
  */
 public interface GeoDataReader {
 
-	public List<Feature> loadData(PApplet p, String fileName);
+	// public List<Feature> loadData(PApplet p, String fileName);
 
 }
