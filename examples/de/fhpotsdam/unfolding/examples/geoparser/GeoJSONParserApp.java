@@ -23,34 +23,35 @@ public class GeoJSONParserApp extends PApplet {
 	MarkerManager<Marker> transitLines;
 	Map map;
 
-	public void setup(){
-		
-		size(800,600,GLConstants.GLGRAPHICS);
-		
+	public void setup() {
+
+		size(800, 600, GLConstants.GLGRAPHICS);
+
 		map = new Map(this);
 		MapUtils.createDefaultEventDispatcher(this, map);
-		
-		contries =  new MarkerManager<Marker>(map);
+
+		contries = new MarkerManager<Marker>(map);
 		transitLines = new MarkerManager<Marker>(map);
-		
-		try{
+
+		try {
 			contries.addMarkers(GeoJsonParser.parseFromJSON(this, "countries.geo.json"));
 			transitLines.addMarkers(GeoJsonParser.parseFromJSON(this, "MBTARapidTransitLines.json"));
-		}catch(JSONException e){
+		} catch (JSONException e) {
+			println("Could not load data from JSON");
 			e.printStackTrace();
 		}
-		
+
 		map.addMarkerManager(contries);
 		map.addMarkerManager(transitLines);
-		
-		//TODO @Pete - added this additional marker to show that SimpleLinesMarkers are working
-		//but there is a problem with transitLines - cant see them
+
+		// TODO @Pete - added this additional marker to show that SimpleLinesMarkers are working
+		// but there is a problem with transitLines - cant see them
 		SimpleLinesMarker area = new SimpleLinesMarker();
-		area.addLocations(new Location(52.5f, 13.4f+0.5f));
+		area.addLocations(new Location(52.5f, 13.4f + 0.5f));
 		area.addLocations(new Location(51.5f, 0.0f));
 		area.addLocations(new Location(48.f, 5f));
-		area.addLocations(new Location(52.5f, 13.4f+0.5f));
-		
+		area.addLocations(new Location(52.5f, 13.4f + 0.5f));
+
 		transitLines.addMarker(area);
 	}
 
@@ -60,12 +61,11 @@ public class GeoJSONParserApp extends PApplet {
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		if(e.getKeyChar()=='c'){
+		if (e.getKeyChar() == 'c') {
 			contries.toggleDrawing();
-		}else if(e.getKeyChar()=='t'){
+		} else if (e.getKeyChar() == 't') {
 			transitLines.toggleDrawing();
 		}
 	}
-	
-	
+
 }

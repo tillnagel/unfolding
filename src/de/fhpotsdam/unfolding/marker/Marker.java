@@ -18,19 +18,22 @@ public interface Marker {
 	 * @return The location with lat, lng.
 	 */
 	public Location getLocation();
-	
+
 	/**
 	 * Set the location for this marker.
 	 * 
-	 * @param lat latitude
-	 * @param lng longitude
+	 * @param lat
+	 *            latitude
+	 * @param lng
+	 *            longitude
 	 */
 	public void setLocation(float lat, float lng);
-	
+
 	/**
 	 * Set the location for this marker.
 	 * 
-	 * @param location Location with lat, lng
+	 * @param location
+	 *            Location with lat, lng
 	 */
 	public void setLocation(Location location);
 
@@ -42,12 +45,12 @@ public interface Marker {
 	 * 
 	 */
 	public double getDistanceTo(Location location);
-	
-	//TODO Documentation
-	public void setProps(HashMap<String,String> props);
-	
-	public HashMap<String,String> getProps();
-	
+
+	// TODO Documentation
+	public void setProps(HashMap<String, Object> props);
+
+	public HashMap<String, Object> getProps();
+
 	/**
 	 * Checks whether given position is inside this marker, according to the maps coordinate system.
 	 * 

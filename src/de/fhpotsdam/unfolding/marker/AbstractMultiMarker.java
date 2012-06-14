@@ -1,6 +1,7 @@
 package de.fhpotsdam.unfolding.marker;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import processing.core.PGraphics;
@@ -13,7 +14,11 @@ public abstract class AbstractMultiMarker extends AbstractMarker {
 	protected List<Location> locations;
 
 	public AbstractMultiMarker() {
-		locations = new ArrayList<Location>();
+		this(new ArrayList<Location>());
+	}
+
+	public AbstractMultiMarker(List<Location> locations) {
+		this.locations = locations;
 	}
 
 	public void setLocations(List<Location> locations) {
@@ -58,7 +63,7 @@ public abstract class AbstractMultiMarker extends AbstractMarker {
 			mapPositions.add(new MapPosition(xy));
 		}
 
-		draw(pg, mapPositions, map);
+		draw(pg, mapPositions, properties, map);
 	}
 
 	@Override
@@ -74,16 +79,15 @@ public abstract class AbstractMultiMarker extends AbstractMarker {
 			mapPositions.add(new MapPosition(xy));
 		}
 
-		drawOuter(pg, mapPositions, map);
+		drawOuter(pg, mapPositions, properties, map);
 	}
 
-	/* override these methods to draw your marker dependent of map attributes */
-	protected void draw(PGraphics pg, List<MapPosition> mapPositions, Map map) {
+	/* override these methods to draw your marker dependent of properties and map attributes */
+	protected void draw(PGraphics pg, List<MapPosition> mapPositions, HashMap<String, Object> properties, Map map) {
 		draw(pg, mapPositions);
 	}
 
-	protected void drawOuter(PGraphics pg, List<MapPosition> mapPositions,
-			Map map) {
+	protected void drawOuter(PGraphics pg, List<MapPosition> mapPositions, HashMap<String, Object> properties, Map map) {
 		drawOuter(pg, mapPositions);
 	}
 
@@ -110,8 +114,7 @@ public abstract class AbstractMultiMarker extends AbstractMarker {
 	 * @param objectPositions
 	 *            The positions in outer object coordinates.
 	 */
-	public abstract void drawOuter(PGraphics pg,
-			List<MapPosition> objectPositions);
+	public abstract void drawOuter(PGraphics pg, List<MapPosition> objectPositions);
 
 	// REVISIT default behavior for getLocation(), draw(location),
 	// drawOuter(location)?

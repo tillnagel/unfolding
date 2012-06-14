@@ -4,17 +4,23 @@ import java.util.List;
 
 import processing.core.PApplet;
 import de.fhpotsdam.unfolding.Map;
+import de.fhpotsdam.unfolding.data.Feature;
+import de.fhpotsdam.unfolding.data.MarkerFactory;
+import de.fhpotsdam.unfolding.data.SimpleMarkerFactory;
 import de.fhpotsdam.unfolding.events.EventDispatcher;
 import de.fhpotsdam.unfolding.events.PanMapEvent;
 import de.fhpotsdam.unfolding.events.ZoomMapEvent;
 import de.fhpotsdam.unfolding.interactions.KeyboardHandler;
 import de.fhpotsdam.unfolding.interactions.MouseHandler;
+import de.fhpotsdam.unfolding.marker.Marker;
 
 public class MapUtils {
 
+	private static MarkerFactory markerFactory;
+
 	/**
-	 * Initializes default events, i.e. all given maps handle mouse and keyboard interactions. No
-	 * cross-listening between maps.
+	 * Initializes default events, i.e. all given maps handle mouse and keyboard interactions. No cross-listening
+	 * between maps.
 	 * 
 	 * @param p
 	 *            The PApplet needed for mouse and key user interactions.
@@ -43,4 +49,12 @@ public class MapUtils {
 		Map[] mapsArray = (maps != null) ? maps.toArray(new Map[0]) : new Map[0];
 		return createDefaultEventDispatcher(p, mapsArray);
 	}
+
+	public static List<Marker> createSimpleMarkers(List<Feature> features) {
+		if (markerFactory == null) {
+			markerFactory = new SimpleMarkerFactory();
+		}
+		return markerFactory.createMarkers(features);
+	}
+
 }

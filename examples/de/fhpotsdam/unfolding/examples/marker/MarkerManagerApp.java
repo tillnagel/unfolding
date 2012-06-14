@@ -9,30 +9,30 @@ import de.fhpotsdam.unfolding.Map;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.mapdisplay.MapDisplayFactory;
 import de.fhpotsdam.unfolding.marker.Marker;
-import de.fhpotsdam.unfolding.marker.MarkerManager;
+import de.fhpotsdam.unfolding.marker.SimpleMarker;
 import de.fhpotsdam.unfolding.providers.OpenStreetMap;
 import de.fhpotsdam.unfolding.utils.MapUtils;
 
 /**
- * Simple example with two markers, managed by the MarkerManager. The markers are cut-off at the
- * border of the map.
+ * Displays own marker on a map. 
  */
 public class MarkerManagerApp extends PApplet {
 
 	Map map;
 
+	Location berlinLocation = new Location(52.5f, 13.4f);
+	Location mexicoCityLocation = new Location(19.4f, -99.1f);
+
 	public void setup() {
 		size(800, 600, GLConstants.GLGRAPHICS);
-		
-		println("test");
 
-		map = new Map(this, "map", 50, 50, 700, 500, true, false,
-				new OpenStreetMap.CloudmadeProvider(MapDisplayFactory.OSM_API_KEY, 23058));
+		map = new Map(this, "map", 50, 50, 700, 500, true, false, new OpenStreetMap.CloudmadeProvider(
+				MapDisplayFactory.OSM_API_KEY, 23058));
 		map.zoomToLevel(2);
 		map.panTo(new Location(40f, 20f));
 		MapUtils.createDefaultEventDispatcher(this, map);
 
-		map.mapDisplay.addMarkers(createMarkers());
+		map.addMarkers(createMarkers());
 	}
 
 	public void draw() {
@@ -43,14 +43,10 @@ public class MarkerManagerApp extends PApplet {
 	private List<Marker> createMarkers() {
 		List<Marker> markers = new ArrayList<Marker>();
 
-		DrawOuterMarker marker = new DrawOuterMarker();
-		// Berlin
-		marker.setLocation(52.5f, 13.4f);
+		DrawOuterMarker marker = new DrawOuterMarker(berlinLocation);
 		markers.add(marker);
 
-		DrawOuterMarker marker2 = new DrawOuterMarker();
-		// Mexiko City
-		marker2.setLocation(19.4f, -99.1f);
+		DrawOuterMarker marker2 = new DrawOuterMarker(mexicoCityLocation);
 		markers.add(marker2);
 
 		return markers;

@@ -12,7 +12,7 @@ import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.marker.Marker;
 import de.fhpotsdam.unfolding.marker.SimpleLinesMarker;
 import de.fhpotsdam.unfolding.marker.SimpleMarker;
-import de.fhpotsdam.unfolding.marker.SimplePolyMarker;
+import de.fhpotsdam.unfolding.marker.SimplePolygonMarker;
 
 //TODO @PETE usefull error msg if no or incorrect filepath 
 public class GeoJsonParser {
@@ -136,8 +136,8 @@ public class GeoJsonParser {
 		if (featureType.equals("Polygon")) {
 			JSONArray coords = geometry.getJSONArray("coordinates");
 
-			marker = new SimplePolyMarker();
-			SimplePolyMarker polyMarker = (SimplePolyMarker) marker;
+			marker = new SimplePolygonMarker();
+			SimplePolygonMarker polyMarker = (SimplePolygonMarker) marker;
 
 			try {
 
@@ -229,12 +229,12 @@ public class GeoJsonParser {
 	private static void parseProps(Marker marker, JSONObject properties) {
 
 		JSONArray keys = properties.names();
-		HashMap<String, String> props = new HashMap<String, String>();
+		HashMap<String, Object> props = new HashMap<String, Object>();
 
 		for (int i = 0; i < keys.length(); i++) {
 			try {
 				String key = String.valueOf(keys.get(i));
-				props.put(key, String.valueOf(properties.get(key)));
+				props.put(key, properties.get(key));
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
