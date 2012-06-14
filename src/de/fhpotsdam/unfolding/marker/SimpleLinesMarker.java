@@ -17,6 +17,16 @@ public class SimpleLinesMarker extends AbstractMultiMarker {
 		super(locations);
 	}
 
+	/**
+	 * Convenient method to create a marker with a single line.
+	 * 
+	 * @param startLocation
+	 * @param endLocation
+	 */
+	public SimpleLinesMarker(Location startLocation, Location endLocation) {
+		addLocations(startLocation, endLocation);
+	}
+
 	@Override
 	public void draw(PGraphics pg, List<MapPosition> mapPositions) {
 		pg.pushStyle();

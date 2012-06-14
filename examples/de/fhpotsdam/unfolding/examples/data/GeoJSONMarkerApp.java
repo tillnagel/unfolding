@@ -11,7 +11,7 @@ import de.fhpotsdam.unfolding.marker.Marker;
 import de.fhpotsdam.unfolding.utils.MapUtils;
 
 /**
- * Displays countries of the world as simple polygons. Read from a GeoJSON file.
+ * Displays countries of the world as simple polygons. Reads from a GeoJSON file.
  */
 public class GeoJSONMarkerApp extends PApplet {
 

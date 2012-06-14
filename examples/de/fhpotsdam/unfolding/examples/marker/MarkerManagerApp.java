@@ -26,8 +26,7 @@ public class MarkerManagerApp extends PApplet {
 	public void setup() {
 		size(800, 600, GLConstants.GLGRAPHICS);
 
-		map = new Map(this, "map", 50, 50, 700, 500, true, false, new OpenStreetMap.CloudmadeProvider(
-				MapDisplayFactory.OSM_API_KEY, 23058));
+		map = new Map(this, "map", 50, 50, 700, 500);
 		map.zoomToLevel(2);
 		map.panTo(new Location(40f, 20f));
 		MapUtils.createDefaultEventDispatcher(this, map);
