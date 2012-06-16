@@ -15,7 +15,7 @@ import de.fhpotsdam.unfolding.utils.ScreenPosition;
  * Note, that this simple mechanism only works for full-sized maps (i.e. the markers are shown off-map, too). For usage
  * of MarkerManager look into other examples, e.g. {@link InfoMarkerApp}.
  */
-public class NonMarkerManagerApp extends PApplet {
+public class SimpleNonMarkerApp extends PApplet {
 
 	Map map;
 
@@ -33,20 +33,18 @@ public class NonMarkerManagerApp extends PApplet {
 		MapUtils.createDefaultEventDispatcher(this, map);
 	}
 
-	// ...
-
 	public void draw() {
 		background(0);
 		map.draw();
 
 		// Draws locations on screen positions according to their geo-locations.
 
-		// Fixed-size marker
+		// Fixed-size element
 		ScreenPosition xyBerlin = map.getScreenPosition(locationBerlin);
 		fill(0, 200, 0, 100);
 		ellipse(xyBerlin.x, xyBerlin.y, 20, 20);
 
-		// Zoom dependent marker size
+		// Zoom dependent element size
 		ScreenPosition xyLondon = map.getScreenPosition(locationLondon);
 		fill(200, 0, 0, 100);
 		float s = map.getZoom();

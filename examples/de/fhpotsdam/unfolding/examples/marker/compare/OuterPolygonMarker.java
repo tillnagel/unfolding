@@ -1,25 +1,20 @@
-package de.fhpotsdam.unfolding.marker;
+package de.fhpotsdam.unfolding.examples.marker.compare;
 
 import java.util.List;
 
 import processing.core.PConstants;
 import processing.core.PGraphics;
-import de.fhpotsdam.unfolding.geo.Location;
+import de.fhpotsdam.unfolding.marker.AbstractMultiMarker;
 import de.fhpotsdam.unfolding.utils.MapPosition;
 
-public class SimplePolygonMarker extends AbstractMultiMarker {
-
-	public SimplePolygonMarker() {
-		super();
-	}
-
-	public SimplePolygonMarker(List<Location> locations) {
-		super(locations);
-	}
+public class OuterPolygonMarker extends AbstractMultiMarker {
 
 	@Override
 	public void draw(PGraphics pg, List<MapPosition> mapPositions) {
-		// REVISIT move to abstractMarker.draw(map)?
+	}
+
+	@Override
+	public void drawOuter(PGraphics pg, List<MapPosition> mapPositions) {
 		pg.pushStyle();
 		pg.fill(100, 90, 240, 100);
 		pg.stroke(50, 50, 50, 200);
@@ -29,10 +24,6 @@ public class SimplePolygonMarker extends AbstractMultiMarker {
 		}
 		pg.endShape(PConstants.CLOSE);
 		pg.popStyle();
-	}
-
-	@Override
-	public void drawOuter(PGraphics pg, List<MapPosition> mapPositions) {
 	}
 
 	@Override

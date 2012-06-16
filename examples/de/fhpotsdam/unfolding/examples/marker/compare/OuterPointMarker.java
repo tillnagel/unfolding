@@ -1,4 +1,4 @@
-package de.fhpotsdam.unfolding.examples.marker;
+package de.fhpotsdam.unfolding.examples.marker.compare;
 
 import processing.core.PGraphics;
 import de.fhpotsdam.unfolding.geo.Location;
@@ -9,9 +9,11 @@ import de.fhpotsdam.unfolding.marker.AbstractMarker;
  * the drawOuter method instead of the main draw method. The given x,y coordinates are already converted into the local
  * coordinate system, so no need for further conversion.
  */
-public class DrawOuterMarker extends AbstractMarker {
+public class OuterPointMarker extends AbstractMarker {
 
-	public DrawOuterMarker(Location location) {
+	private int radius;
+
+	public OuterPointMarker(Location location) {
 		super(location);
 	}
 
@@ -21,11 +23,15 @@ public class DrawOuterMarker extends AbstractMarker {
 	public void drawOuter(PGraphics pg, float x, float y) {
 		pg.fill(203, 79, 91, 200);
 		pg.stroke(0, 50);
-		pg.ellipse(x, y, 10, 10);
+		pg.ellipse(x, y, radius, radius);
 	}
 
 	public boolean isInside(float checkX, float checkY, float x, float y) {
 		return false;
+	}
+
+	public void setRadius(int radius) {
+		this.radius = radius;
 	}
 
 }

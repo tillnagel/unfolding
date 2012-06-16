@@ -27,7 +27,10 @@ public class SimpleMarkerManagerApp extends PApplet {
 		MapUtils.createDefaultEventDispatcher(this, map);
 
 		SimpleMarker berlinMarker = new SimpleMarker(berlinLocation);
+		berlinMarker.setColor(0, 200, 0, 100);
+		berlinMarker.setRadius(4);
 		SimpleMarker mexicoCityMarker = new SimpleMarker(mexicoCityLocation);
+		mexicoCityMarker.setColor(200, 0, 0, 100);
 		SimpleLinesMarker connectionMarker = new SimpleLinesMarker(berlinLocation, mexicoCityLocation);
 		map.addMarkers(berlinMarker, mexicoCityMarker, connectionMarker);
 	}
