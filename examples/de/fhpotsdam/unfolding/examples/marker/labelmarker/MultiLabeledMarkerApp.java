@@ -17,7 +17,12 @@ import de.fhpotsdam.unfolding.utils.MapUtils;
 /**
  * Displays markers for news items, read from an (archived) BBC RSS stream.
  * 
- * Shows news titles as labels on mouse over. Creates own markers from the data features.
+ * Shows news titles as labels. Hover over a marker to show labels.
+ * 
+ * This example creates own markers from the data features. If you want to prevent label overlapping, you either need to
+ * re-sort the markers, or create two marker sets, one for the dots, and one for the labels.
+ * 
+ * TODO till: Create example with two markers for same item (dot plus label)
  * 
  */
 public class MultiLabeledMarkerApp extends PApplet {
@@ -42,7 +47,6 @@ public class MultiLabeledMarkerApp extends PApplet {
 		map.draw();
 	}
 
-	
 	public void mouseMoved() {
 		MarkerManager<Marker> mm = map.mapDisplay.getLastMarkerManager();
 

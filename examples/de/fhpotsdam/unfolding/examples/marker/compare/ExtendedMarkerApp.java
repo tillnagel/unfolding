@@ -60,6 +60,10 @@ public class ExtendedMarkerApp extends PApplet {
 		outerAreaMarker.addLocations(areaLocation1, areaLocation2, areaLocation3);
 		outerLabelMarker = new OuterLabelMarker(pointLocation);
 		addMarkerToMaps(mapsWithOuter, outerPointMarker, outerAreaMarker, outerLabelMarker);
+		
+		// zoom and rotate maps
+		changeMaps(mapsWithInner);
+		changeMaps(mapsWithOuter);
 	}
 
 	private void addMarkerToMaps(List<Map> maps, Marker pointMarker, Marker areaMarker, Marker labelMarker) {
