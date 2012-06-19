@@ -11,7 +11,10 @@ import de.fhpotsdam.unfolding.marker.Marker;
 import de.fhpotsdam.unfolding.utils.MapUtils;
 
 /**
- * Displays countries of the world as simple polygons. Reads from a GeoJSON file.
+ * Displays countries of the world as simple polygons. Reads from a GeoJSON file, and uses default marker creation (i.e.
+ * features are represented by simple markers).
+ * 
+ * Press SPACE to toggle visibility of the lines.
  */
 public class GeoJSONMarkerApp extends PApplet {
 
@@ -33,6 +36,12 @@ public class GeoJSONMarkerApp extends PApplet {
 	public void draw() {
 		background(160);
 		map.draw();
+	}
+
+	public void keyPressed() {
+		if (key == ' ') {
+			map.getDefaultMarkerManager().toggleDrawing();
+		}
 	}
 
 }

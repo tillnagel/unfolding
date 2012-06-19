@@ -11,15 +11,14 @@ import de.fhpotsdam.unfolding.data.GeoJSONReader;
 import de.fhpotsdam.unfolding.data.MultiFeature;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.marker.Marker;
-import de.fhpotsdam.unfolding.marker.MarkerManager;
 import de.fhpotsdam.unfolding.marker.SimpleLinesMarker;
 import de.fhpotsdam.unfolding.utils.MapUtils;
 
 /**
- * Displays subway lines of Boston, read from a GeoJSON file. Press SPACE to toggle display of the lines.
+ * Displays subway lines of Boston, read from a GeoJSON file.
  * 
- * This example shows how to load data features and create markers manually in order to map specific properties, here
- * the colors according to the MBTA schema.
+ * This example shows how to load data features and create markers manually in order to map specific properties, in this
+ * case the colors according to the MBTA schema.
  */
 public class TransitLinesMarkerApp extends PApplet {
 
@@ -27,15 +26,15 @@ public class TransitLinesMarkerApp extends PApplet {
 
 	Map map;
 
-	MarkerManager<Marker> transitLinesManager;
-
 	public void setup() {
 		size(800, 600, GLConstants.GLGRAPHICS);
 		smooth();
 
-		map = new Map(this, 50, 50, 700, 500);
+		map = new Map(this);
 		map.zoomToLevel(11);
 		map.panTo(bostonLocation);
+		map.setZoomRange(9, 17); // prevent zooming too far out
+		map.setPanningRestriction(bostonLocation, 50);
 		MapUtils.createDefaultEventDispatcher(this, map);
 
 		List<Feature> transitLines = GeoJSONReader.loadData(this, "MBTARapidTransitLines.json");
@@ -69,20 +68,12 @@ public class TransitLinesMarkerApp extends PApplet {
 			transitMarkers.add(m);
 		}
 
-		transitLinesManager = new MarkerManager<Marker>();
-		transitLinesManager.setMarkers(transitMarkers);
-		map.addMarkerManager(transitLinesManager);
+		map.addMarkers(transitMarkers);
 	}
 
 	public void draw() {
 		background(160);
 		map.draw();
-	}
-
-	public void keyPressed() {
-		if (key == ' ') {
-			transitLinesManager.toggleDrawing();
-		}
 	}
 
 }
