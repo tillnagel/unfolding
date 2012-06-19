@@ -14,7 +14,7 @@ import de.fhpotsdam.unfolding.geo.Location;
 public class SimpleMarker extends AbstractMarker {
 
 	public float radius;
-	public float r, g, b, a;
+	public float r, g, b, a; //TODO fxlange use processing's type color
 
 	public SimpleMarker() {
 		this(null,null);

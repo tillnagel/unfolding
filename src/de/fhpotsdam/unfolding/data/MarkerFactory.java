@@ -83,38 +83,29 @@ public class MarkerFactory {
 		Class markerClass = featureMarkerMap.get(feature.getType());
 		Marker marker = null;
 		try {
-			Constructor markerConstructor = markerClass.getDeclaredConstructor(
-					Location.class, HashMap.class);
-			marker = (Marker) markerConstructor.newInstance(
-					feature.getLocation(), feature.getProperties());
+			Constructor markerConstructor = markerClass.getDeclaredConstructor(Location.class, HashMap.class);
+			marker = (Marker) markerConstructor.newInstance(feature.getLocation(), feature.getProperties());
 		} catch (NoSuchMethodException e) {
-			Constructor markerConstructor = markerClass
-					.getDeclaredConstructor(Location.class);
-			marker = (Marker) markerConstructor.newInstance(
-					feature.getLocation(), feature.getProperties());
+			Constructor markerConstructor = markerClass.getDeclaredConstructor(Location.class);
+			marker = (Marker) markerConstructor.newInstance(feature.getLocation(), feature.getProperties());
 		}
 		return marker;
 	}
 
 	protected Marker createLinesMarker(MultiFeature feature) throws Exception {
 		Class markerClass = featureMarkerMap.get(feature.getType());
-		Constructor markerConstructor = markerClass.getDeclaredConstructor(
-				List.class, HashMap.class);
-		Marker marker = (Marker) markerConstructor.newInstance(
-				feature.getLocations(), feature.getProperties());
+		Constructor markerConstructor = markerClass.getDeclaredConstructor(List.class, HashMap.class);
+		Marker marker = (Marker) markerConstructor.newInstance(feature.getLocations(), feature.getProperties());
 		return marker;
 	}
 
 	protected Marker createPolygonMarker(MultiFeature feature) throws Exception {
-		// Marker marker = (Marker)
-		// featureMarkerMap.get(feature.getType()).newInstance();
+		// Marker marker = (Marker) featureMarkerMap.get(feature.getType()).newInstance();
 		// ((AbstractMultiMarker)marker).setLocations(feature.getLocations());
 		// marker.setProps(feature.getProperties());
 		Class markerClass = featureMarkerMap.get(feature.getType());
-		Constructor markerConstructor = markerClass.getDeclaredConstructor(
-				List.class, HashMap.class);
-		Marker marker = (Marker) markerConstructor.newInstance(
-				feature.getLocations(), feature.getProperties());
+		Constructor markerConstructor = markerClass.getDeclaredConstructor(List.class, HashMap.class);
+		Marker marker = (Marker) markerConstructor.newInstance(feature.getLocations(), feature.getProperties());
 		return marker;
 	}
 }

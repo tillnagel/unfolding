@@ -17,9 +17,9 @@ public class SimplePolygonMarker extends AbstractMultiMarker {
 	public SimplePolygonMarker(List<Location> locations) {
 		super(locations);
 	}
-	
+
 	public SimplePolygonMarker(List<Location> locations, HashMap<String, Object> properties) {
-		super(locations,properties);
+		super(locations, properties);
 	}
 
 	@Override

@@ -19,13 +19,13 @@ public abstract class AbstractMarker implements Marker {
 	public boolean selected;
 
 	public AbstractMarker() {
-		this(new Location(0, 0),null);
+		this(new Location(0, 0), null);
 	}
 
 	public AbstractMarker(Location location) {
 		this(location, null);
 	}
-	
+
 	public AbstractMarker(Location location, HashMap<String, Object> props) {
 		this.location = location;
 		setProps(props);
