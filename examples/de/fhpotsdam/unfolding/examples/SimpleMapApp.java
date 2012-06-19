@@ -9,7 +9,7 @@ import de.fhpotsdam.unfolding.utils.MapUtils;
 public class SimpleMapApp extends PApplet {
 
 	Map map;
-
+	
 	public void setup() {
 		size(800, 600, GLConstants.GLGRAPHICS);
 
