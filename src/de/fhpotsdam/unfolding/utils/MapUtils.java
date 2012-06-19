@@ -6,7 +6,7 @@ import processing.core.PApplet;
 import de.fhpotsdam.unfolding.Map;
 import de.fhpotsdam.unfolding.data.Feature;
 import de.fhpotsdam.unfolding.data.MarkerFactory;
-import de.fhpotsdam.unfolding.data.SimpleMarkerFactory;
+import de.fhpotsdam.unfolding.data.MarkerFactory;
 import de.fhpotsdam.unfolding.events.EventDispatcher;
 import de.fhpotsdam.unfolding.events.PanMapEvent;
 import de.fhpotsdam.unfolding.events.ZoomMapEvent;
@@ -67,7 +67,7 @@ public class MapUtils {
 
 	public static List<Marker> createSimpleMarkers(List<Feature> features) {
 		if (markerFactory == null) {
-			markerFactory = new SimpleMarkerFactory();
+			markerFactory = new MarkerFactory();
 		}
 		return markerFactory.createMarkers(features);
 	}

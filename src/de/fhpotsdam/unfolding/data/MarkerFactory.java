@@ -1,12 +1,27 @@
 package de.fhpotsdam.unfolding.data;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
+import de.fhpotsdam.unfolding.data.Feature.FeatureType;
+import de.fhpotsdam.unfolding.marker.AbstractMultiMarker;
 import de.fhpotsdam.unfolding.marker.Marker;
+import de.fhpotsdam.unfolding.marker.SimpleLinesMarker;
+import de.fhpotsdam.unfolding.marker.SimpleMarker;
+import de.fhpotsdam.unfolding.marker.SimplePolygonMarker;
 
-public abstract class MarkerFactory {
-
+public class MarkerFactory {
+	
+	HashMap<FeatureType, Class> featureMarkerMap;
+	
+	public MarkerFactory(){
+		featureMarkerMap = new HashMap<Feature.FeatureType, Class>();
+		featureMarkerMap.put(FeatureType.POINT, SimpleMarker.class);
+		featureMarkerMap.put(FeatureType.LINES, SimpleLinesMarker.class);
+		featureMarkerMap.put(FeatureType.POLYGON, SimplePolygonMarker.class);
+	}
+	
 	/**
 	 * Creates a marker for each feature. Marker depends on feature type.
 	 * 
@@ -18,17 +33,25 @@ public abstract class MarkerFactory {
 		List<Marker> markers = new ArrayList<Marker>();
 
 		for (Feature feature : features) {
+			
 			Marker marker = null;
+			
+			try{
+				marker = (Marker) featureMarkerMap.get(feature.getType()).newInstance();
+			}catch(Exception e){
+				e.printStackTrace();
+				return null;
+			}
 
 			switch (feature.getType()) {
 			case POINT:
-				marker = createPointMarker((PointFeature) feature);
+				PointFeature pointF = (PointFeature)feature;
+				marker.setLocation(pointF.getLocation());
 				break;
 			case LINES:
-				marker = createLinesMarker((MultiFeature) feature);
-				break;
 			case POLYGON:
-				marker = createPolygonMarker((MultiFeature) feature);
+				MultiFeature multiF = (MultiFeature) feature;
+				((AbstractMultiMarker)marker).setLocations(multiF.getLocations());
 				break;
 			}
 
@@ -38,10 +61,16 @@ public abstract class MarkerFactory {
 		return markers;
 	}
 
-	protected abstract Marker createPolygonMarker(MultiFeature feature);
+	protected Marker createPolygonMarker(MultiFeature feature) {
+		return new SimplePolygonMarker(feature.getLocations());
+	}
 
-	protected abstract Marker createPointMarker(PointFeature feature);
+	protected Marker createPointMarker(PointFeature feature) {
+		return new SimpleMarker(feature.getLocation());
+	}
 
-	protected abstract Marker createLinesMarker(MultiFeature feature);
+	protected Marker createLinesMarker(MultiFeature feature) {
+		return new SimpleLinesMarker(feature.getLocations());
+	}
 
 }
