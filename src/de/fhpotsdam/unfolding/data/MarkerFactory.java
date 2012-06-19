@@ -94,18 +94,27 @@ public class MarkerFactory {
 
 	protected Marker createLinesMarker(MultiFeature feature) throws Exception {
 		Class markerClass = featureMarkerMap.get(feature.getType());
-		Constructor markerConstructor = markerClass.getDeclaredConstructor(List.class, HashMap.class);
-		Marker marker = (Marker) markerConstructor.newInstance(feature.getLocations(), feature.getProperties());
+		Marker marker = null;
+		try {
+			Constructor markerConstructor = markerClass.getDeclaredConstructor(List.class, HashMap.class);
+			marker = (Marker) markerConstructor.newInstance(feature.getLocations(), feature.getProperties());
+		} catch (NoSuchMethodException e) {
+			Constructor markerConstructor = markerClass.getDeclaredConstructor(List.class);
+			marker = (Marker) markerConstructor.newInstance(feature.getLocations(), feature.getProperties());
+		}
 		return marker;
 	}
 
 	protected Marker createPolygonMarker(MultiFeature feature) throws Exception {
-		// Marker marker = (Marker) featureMarkerMap.get(feature.getType()).newInstance();
-		// ((AbstractMultiMarker)marker).setLocations(feature.getLocations());
-		// marker.setProps(feature.getProperties());
 		Class markerClass = featureMarkerMap.get(feature.getType());
-		Constructor markerConstructor = markerClass.getDeclaredConstructor(List.class, HashMap.class);
-		Marker marker = (Marker) markerConstructor.newInstance(feature.getLocations(), feature.getProperties());
+		Marker marker = null;
+		try {
+			Constructor markerConstructor = markerClass.getDeclaredConstructor(List.class, HashMap.class);
+			marker = (Marker) markerConstructor.newInstance(feature.getLocations(), feature.getProperties());
+		} catch (NoSuchMethodException e) {
+			Constructor markerConstructor = markerClass.getDeclaredConstructor(List.class);
+			marker = (Marker) markerConstructor.newInstance(feature.getLocations(), feature.getProperties());
+		}
 		return marker;
 	}
 }
