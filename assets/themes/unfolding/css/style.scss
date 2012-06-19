@@ -63,6 +63,10 @@ $bottomDividerColor: rgba(255,255,255,.5);
     
 }
 
+.span8 .thumbnail {
+	margin-top: 8px;
+}
+
 .container{
     &:first-child{
         margin-top:$baseLineHeight;
