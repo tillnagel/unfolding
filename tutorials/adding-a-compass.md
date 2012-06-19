@@ -15,7 +15,7 @@ finalfiles: #someurlatgithub
 To test the compass you can rotate the map via **a** and **d**.
 
 
-![compass](https://http://tillnagel.github.com/unfolding/assets/images/compass.png)
+![compass](http://tillnagel.github.com/unfolding/assets/images/tutorials/compass.png)
 
 ## Simple
 Check out the [SimpleCompassApp.java](https://github.com/tillnagel/unfolding/blob/compass/examples/de/fhpotsdam/unfolding/examples/ui/SimpleCompassApp.java).
