@@ -51,28 +51,27 @@ So now we are really starting to use the library. First thing we want to do is l
 	ToponymSearchCriteria searchCriteria = new ToponymSearchCriteria(); // the object we need for our search
 	                                                                                                                           
 
-  void setup() {
-	size(800,600);
+	void setup() {
+		size(800,600);
 
-	WebService.setUserName("username"); // add your username here    
+		WebService.setUserName("username"); // add your username here    
 	     
-	searchCriteria.setQ(searchName); // setup the main search term, in our case "berlin"
+		searchCriteria.setQ(searchName); // setup the main search term, in our case "berlin"
 	
-		if (searchEvent == true) {
-			try {
-				ToponymSearchResult searchResult = WebService.search(searchCriteria); // a toponym search result as returned by the geonames webservice.
+				try {
+					ToponymSearchResult searchResult = WebService.search(searchCriteria); // a toponym search result as returned by the geonames webservice.
 
-				for (Toponym toponym : searchResult.getToponyms()) {
-					println(toponym.getName() + " " + toponym.getCountryName()
+					for (Toponym toponym : searchResult.getToponyms()) {
+						println(toponym.getName() + " " + toponym.getCountryName()
 								+ " " + toponym.getLongitude() + " "
 								+ toponym.getLatitude()); // prints the search results. We have access on certain get-Functions. In our Case the Name, Country, Longitude and Latitude
-				}
+							}
 
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}                                                                         
-    }
+							} catch (Exception e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+					}                                                                         
+    	}
 
 The code now prints out all the search results we get by our searchCriteria. 
 
@@ -84,15 +83,73 @@ The Geonames Java Library already brings some interesting functions with it. One
 	searchCriteria.setMaxRows(1); // setup the maximum amount of rows for your search results
 	…
 
-### Switch Between SearchName
-Now lets get a little bit further. Of course we don't want to lookup just one static String. In the next step we are going to build a basic switch on keyPress(); to switch between two different SearchCriteria.
+## Step 3: Make A Simple Switch For Our Search Criteria
+Now lets get a little bit further. Of course we don't want to lookup just one static String. In the next step we are going to build a basic switch on keyPressed(); to switch between two different SearchCriteria.
 
 So first we need a boolean to preserve the programm of constant looking up. Of course we could handle this with a threading method but first let's stay basic.
 
 	…
 	String searchName = "berlin"; // the string we want to lookup in geonames database
 	ToponymSearchCriteria searchCriteria = new ToponymSearchCriteria(); // the object we need for our search
+	
 	boolean searchEvent = true; // we need this for our searchEvent
 	…
+	
+In the next step lets bring our SearchEvent to the draw() method.
 
+###### in **geodata/GeoNamesBasicLookup.java**
+	
+	import org.geonames.*;    
+	
+	String searchName = "berlin"; // the string we want to lookup in geonames database
+	ToponymSearchCriteria searchCriteria = new ToponymSearchCriteria(); // the object we need for our search
+	                                                                                                                           
+
+	void setup() {
+		size(800,600);
+
+		WebService.setUserName("username"); // add your username here    
+	                                                                       
+    	}
+
+	void draw(){
+		
+		searchCriteria.setQ(searchName); // setup the main search term, in our case "berlin"
+			if(searchEvent == true){
+				try {
+					ToponymSearchResult searchResult = WebService.search(searchCriteria); // a toponym search result as returned by the geonames webservice.
+
+					for (Toponym toponym : searchResult.getToponyms()) {
+						println(toponym.getName() + " " + toponym.getCountryName()
+								+ " " + toponym.getLongitude() + " "
+								+ toponym.getLatitude()); // prints the search results. We have access on certain get-Functions. In our Case the Name, Country, Longitude and Latitude
+							}
+
+							} catch (Exception e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+					}
+					searchEvent = false;
+					}
+		
+	}
+	
+	
+The last thing we need to do is defining the keyPressed(); function for our search.
+
+	public void keyPressed() {
+
+		switch (key) {
+		case 'a':
+			searchName = "berlin";
+			searchEvent = true;
+			break;
+
+		case 's':
+			searchName = "monaco";
+			searchEvent = true;
+			break;
+
+		}
+	}
 
