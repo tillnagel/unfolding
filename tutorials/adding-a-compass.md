@@ -5,7 +5,6 @@ description: This little Tutorial will explain how to add a simple compass to yo
 group: tutorials-beginner
 author: Christopher Pietsch & 
 thumbnail: http://placehold.it/330x250
-finalimage: http://placehold.it/610x390&text=Bild+2+610x390
 finalfiles: #someurlatgithub
 ---
 
@@ -16,7 +15,7 @@ finalfiles: #someurlatgithub
 To test the compass you can rotate the map via **a** and **d**.
 
 
-![compass](https://github.com/tillnagel/unfolding/raw/compass/web/screenshots/compass.png)
+![compass](https://http://tillnagel.github.com/unfolding/assets/images/compass.png)
 
 ## Simple
 Check out the [SimpleCompassApp.java](https://github.com/tillnagel/unfolding/blob/compass/examples/de/fhpotsdam/unfolding/examples/ui/SimpleCompassApp.java).
