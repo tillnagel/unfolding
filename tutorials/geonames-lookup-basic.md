@@ -74,7 +74,7 @@ So now we are really starting to use the library. First thing we want to do is l
 				}                                                                         
     }
 
-	The code now prints out all the search results we get by our searchCriteria. 
+The code now prints out all the search results we get by our searchCriteria. 
 
 ### Specify The Max Rows Of Search Results
 The Geonames Java Library already brings some interesting functions with it. One important function you will need for sure is the specification of the maximum amount of rows you want to get as a search result.
@@ -85,5 +85,14 @@ The Geonames Java Library already brings some interesting functions with it. One
 	  …
 
 ### Switch Between SearchName
-Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+Now lets get a little bit further. Of course we don't want to lookup just one static String. In the next step we are going to build a basic switch on keyPress(); to switch between two different SearchCriteria.
+
+So first we need a boolean to preserve the programm of constant looking up. Of course we could handle this with a threading method but first let's stay basic.
+
+		…
+	  String searchName = "berlin"; // the string we want to lookup in geonames database
+	  ToponymSearchCriteria searchCriteria = new ToponymSearchCriteria(); // the object we need for our search
+	  boolean searchEvent = true; // we need this for our searchEvent
+		…
+
 
