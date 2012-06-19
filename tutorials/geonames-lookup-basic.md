@@ -40,7 +40,7 @@ In the first step we need to import the geonames library and setup the WebServic
 	  WebService.setUserName("username"); // add your username here                                                                                  
     }
 
-## Step 2: Make A Basic/Static Lookup
+## Step 2: Make A Static Lookup
 So now we are really starting to use the library. First thing we want to do is looking up all results for a basic string. In our example we will use "berlin" as the searchCriteria. For this lookup we already need a try/catch - statement do handle exceptions (more infos http://processing.org/reference/try.html).
 
 ###### in **geodata/GeoNamesBasicLookup.java**
@@ -85,7 +85,6 @@ The Geonames Java Library already brings some interesting functions with it. One
 
 ## Step 3: Make A Simple Switch For Our Search Criteria
 Now lets get a little bit further. Of course we don't want to lookup just one static String. In the next step we are going to build a basic switch on keyPressed(); to switch between two different SearchCriteria.
-
 So first we need a boolean to preserve the programm of constant looking up. Of course we could handle this with a threading method but first let's stay basic.
 
 	…
@@ -135,7 +134,7 @@ In the next step lets bring our SearchEvent to the draw() method.
 	}
 	
 	
-The last thing we need to do is defining the keyPressed(); function for our search.
+The last thing we need to do is defining the keyPressed(); function for our lookup.
 
 	public void keyPressed() {
 
@@ -152,4 +151,5 @@ The last thing we need to do is defining the keyPressed(); function for our sear
 
 		}
 	}
-
+	
+So now we are able to switch the searchCriteria by pressing the certain key. If you are running the code now it will print the certain searchresults for either "berlin" (key: a) or "monaco" (key: s).
