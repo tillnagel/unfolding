@@ -1,5 +1,7 @@
 package de.fhpotsdam.unfolding.marker;
 
+import java.util.HashMap;
+
 import de.fhpotsdam.unfolding.Map;
 import de.fhpotsdam.unfolding.geo.Location;
 
@@ -16,19 +18,22 @@ public interface Marker {
 	 * @return The location with lat, lng.
 	 */
 	public Location getLocation();
-	
+
 	/**
 	 * Set the location for this marker.
 	 * 
-	 * @param lat latitude
-	 * @param lng longitude
+	 * @param lat
+	 *            latitude
+	 * @param lng
+	 *            longitude
 	 */
 	public void setLocation(float lat, float lng);
-	
+
 	/**
 	 * Set the location for this marker.
 	 * 
-	 * @param location Location with lat, lng
+	 * @param location
+	 *            Location with lat, lng
 	 */
 	public void setLocation(Location location);
 
@@ -40,7 +45,12 @@ public interface Marker {
 	 * 
 	 */
 	public double getDistanceTo(Location location);
-	
+
+	// TODO Documentation
+	public void setProps(HashMap<String, Object> props);
+
+	public HashMap<String, Object> getProps();
+
 	/**
 	 * Checks whether given position is inside this marker, according to the maps coordinate system.
 	 * 
@@ -73,6 +83,8 @@ public interface Marker {
 	 *            The map to draw on.
 	 */
 	public void drawOuter(Map map);
+
+	public void setSelected(boolean selected);
 
 	// For drawing onto the texture, i.e. after distortion, etc.
 	// public void drawTexture(PGraphics pg);

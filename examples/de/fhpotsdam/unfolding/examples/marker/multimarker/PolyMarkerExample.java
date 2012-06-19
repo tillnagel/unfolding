@@ -1,13 +1,9 @@
 package de.fhpotsdam.unfolding.examples.marker.multimarker;
 
-import javax.swing.text.html.HTMLEditorKit.Parser;
-
 import processing.core.PApplet;
 import codeanticode.glgraphics.GLConstants;
 import de.fhpotsdam.unfolding.Map;
 import de.fhpotsdam.unfolding.geo.Location;
-import de.fhpotsdam.unfolding.marker.Marker;
-import de.fhpotsdam.unfolding.marker.MarkerManager;
 import de.fhpotsdam.unfolding.utils.MapUtils;
 
 @SuppressWarnings("serial")
@@ -23,13 +19,12 @@ public class PolyMarkerExample extends PApplet {
 		map.panTo(new Location(40f, 8f));
 		MapUtils.createDefaultEventDispatcher(this, map);
 
-		GLLinesMarker area = new GLLinesMarker();
-		area.addLocations(new Location(52.5f, 13.4f+0.5f));
-		area.addLocations(new Location(51.5f, 0.0f));
-		area.addLocations(new Location(48.f, 5f));
-		area.addLocations(new Location(52.5f, 13.4f+0.5f));
+		GLLinesMarker linesMarker = new GLLinesMarker();
+		linesMarker.addLocations(new Location(52.5f, 13.4f+0.5f));
+		linesMarker.addLocations(new Location(51.5f, 0.0f));
+		linesMarker.addLocations(new Location(48.f, 5f));
 		
-		map.addMarkers(area);
+		map.addMarkers(linesMarker);
 		
 //		MarkerManager<Marker> fluesse;
 //		MarkerManager<Marker> strassen;

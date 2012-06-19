@@ -6,7 +6,7 @@ import java.util.List;
 import processing.core.PApplet;
 import codeanticode.glgraphics.GLConstants;
 import de.fhpotsdam.unfolding.Map;
-import de.fhpotsdam.unfolding.examples.data.GPXUtils;
+import de.fhpotsdam.unfolding.examples.data.manual.GPXUtils;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.utils.MapUtils;
 

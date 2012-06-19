@@ -6,16 +6,14 @@ import processing.core.PApplet;
 import codeanticode.glgraphics.GLConstants;
 import de.fhpotsdam.unfolding.Map;
 import de.fhpotsdam.unfolding.data.Feature;
-import de.fhpotsdam.unfolding.data.GeoRSSReader;
+import de.fhpotsdam.unfolding.data.GeoJSONReader;
 import de.fhpotsdam.unfolding.marker.Marker;
 import de.fhpotsdam.unfolding.utils.MapUtils;
 
 /**
- * Displays earthquake markers from an RSS feed.
+ * Displays countries of the world as simple polygons. Reads from a GeoJSON file.
  */
-public class GeoRSSMarkerApp extends PApplet {
-
-	String earthquakesURL = "http://earthquake.usgs.gov/earthquakes/catalogs/eqs7day-M5.xml";
+public class GeoJSONMarkerApp extends PApplet {
 
 	Map map;
 
@@ -27,13 +25,13 @@ public class GeoRSSMarkerApp extends PApplet {
 		map.zoomToLevel(2);
 		MapUtils.createDefaultEventDispatcher(this, map);
 
-		List<Feature> features = GeoRSSReader.loadData(this, earthquakesURL);
-		List<Marker> markers = MapUtils.createSimpleMarkers(features);
-		map.addMarkers(markers);
+		List<Feature> countries = GeoJSONReader.loadData(this, "countries.geo.json");
+		List<Marker> countryMarkers = MapUtils.createSimpleMarkers(countries);
+		map.addMarkers(countryMarkers);
 	}
 
 	public void draw() {
-		background(0);
+		background(160);
 		map.draw();
 	}
 

@@ -1,5 +1,7 @@
 package de.fhpotsdam.unfolding.marker;
 
+import java.util.HashMap;
+
 import processing.core.PGraphics;
 import de.fhpotsdam.unfolding.Map;
 import de.fhpotsdam.unfolding.geo.Location;
@@ -7,20 +9,33 @@ import de.fhpotsdam.unfolding.utils.GeoUtils;
 import de.fhpotsdam.unfolding.utils.ScreenPosition;
 
 /**
- * Marker handling location to appropriate coordinate system. Also it provides
- * the correct PGraphics.
+ * Marker handling location to appropriate coordinate system. Also it provides the correct PGraphics.
  * 
  */
 public abstract class AbstractMarker implements Marker {
 
 	public Location location;
-	
-	public AbstractMarker(){
-		location = new Location(0,0);
+	public HashMap<String, Object> properties;
+	public boolean selected;
+
+	public AbstractMarker() {
+		this(new Location(0, 0));
 	}
-	
+
+	public AbstractMarker(Location location) {
+		this.location = location;
+	}
+
+	public void setProps(HashMap<String, Object> props) {
+		this.properties = props;
+	}
+
+	public HashMap<String, Object> getProps() {
+		return properties;
+	}
+
 	@Override
-	//REVISIT rethink visibility of draw(Map)
+	// REVISIT rethink visibility of draw(Map)
 	public void draw(Map map) {
 		PGraphics pg = map.mapDisplay.getPG();
 		float[] xy = map.mapDisplay.getInnerObjectFromLocation(getLocation());
@@ -38,30 +53,27 @@ public abstract class AbstractMarker implements Marker {
 		drawOuter(pg, x, y, map);
 	}
 
-	
 	/* override these methods to draw your marker dependent of map attributes */
 	protected void draw(PGraphics pg, float x, float y, Map map) {
-		draw(pg,x,y);
+		draw(pg, x, y);
 	}
 
 	protected void drawOuter(PGraphics pg, float x, float y, Map map) {
-		drawOuter(pg,x,y);
+		drawOuter(pg, x, y);
 	}
 
 	/**
-	 * Checks whether given position is inside this marker, according to the
-	 * maps coordinate system.
+	 * Checks whether given position is inside this marker, according to the maps coordinate system.
 	 * 
-	 * Uses internal implemented {@link #isInside(float, float, float, float)}
-	 * of the sub class.
+	 * Uses internal implemented {@link #isInside(float, float, float, float)} of the sub class.
 	 */
 	@Override
 	public boolean isInside(Map map, float checkX, float checkY) {
 		ScreenPosition pos = getScreenPosition(map);
 		return isInside(checkX, checkY, pos.x, pos.y);
 	}
-	
-	public ScreenPosition getScreenPosition(Map map){
+
+	public ScreenPosition getScreenPosition(Map map) {
 		return map.mapDisplay.getScreenPosition(getLocation());
 	}
 
@@ -79,7 +91,6 @@ public abstract class AbstractMarker implements Marker {
 	public void setLocation(float lat, float lon) {
 		setLocation(new Location(lat, lon));
 	}
-	
 
 	@Override
 	public double getDistanceTo(Location location) {
@@ -127,6 +138,16 @@ public abstract class AbstractMarker implements Marker {
 	 *            The y position of this marker in screen coordinates.
 	 * @return true if inside, false otherwise.
 	 */
-	protected abstract boolean isInside(float checkX, float checkY, float x,
-			float y);
+	protected abstract boolean isInside(float checkX, float checkY, float x, float y);
+
+	/**
+	 * Changes the select status of this marker. Sub-classes need to use the selection status.
+	 * 
+	 * @param selected
+	 *            Whether this marker is selected or not.
+	 */
+	public void setSelected(boolean selected) {
+		this.selected = selected;
+	}
+
 }

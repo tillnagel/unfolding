@@ -1,4 +1,4 @@
-package de.fhpotsdam.unfolding.examples.data;
+package de.fhpotsdam.unfolding.examples.data.speed;
 
 import java.util.List;
 
@@ -6,15 +6,19 @@ import processing.core.PApplet;
 import codeanticode.glgraphics.GLConstants;
 import de.fhpotsdam.unfolding.Map;
 import de.fhpotsdam.unfolding.data.Feature;
-import de.fhpotsdam.unfolding.data.GPXReader;
+import de.fhpotsdam.unfolding.data.MarkerFactory;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.marker.Marker;
 import de.fhpotsdam.unfolding.utils.MapUtils;
 
 /**
- * Displays a track loaded from a GPX file containing a bike tour in Berlin. 
+ * Loads a GPX file containing a bike tour in Berlin, and displays each segment with speed mapped to color.
+ * 
+ * This example shows a more complex usage of own data loading and special markers.
+ * 
+ * TODO tillnagel: Is still rather complex to extend this feature/marker mechanism.
  */
-public class GPXTrackApp extends PApplet {
+public class GPXSpeedTrackApp extends PApplet {
 
 	Map map;
 
@@ -25,10 +29,11 @@ public class GPXTrackApp extends PApplet {
 
 		map = new Map(this);
 		MapUtils.createDefaultEventDispatcher(this, map);
-		map.zoomAndPanTo(startLocation, 13);
+		map.zoomAndPanTo(startLocation, 14);
 
-		List<Feature> features = GPXReader.loadData(this, "bike-tour.gpx");
-		List<Marker> markers = MapUtils.createSimpleMarkers(features);
+		List<Feature> features = GPXSpeedReader.loadData(this, "bike-tour.gpx");
+		MarkerFactory markerFactory = new ColoredLinesMarkerFactory();
+		List<Marker> markers = markerFactory.createMarkers(features);
 		map.addMarkers(markers);
 	}
 

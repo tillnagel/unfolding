@@ -51,9 +51,9 @@ public class NeighborMarkersApp extends PApplet {
 			}
 		}
 
-		MarkerManager markerManager = new MarkerManager(map, markers);
+		MarkerManager markerManager = new MarkerManager(markers);
 		markerManager.addMarkers(connectionMarkers);
-		map.mapDisplay.addMarkerManager(markerManager);
+		map.addMarkerManager(markerManager);
 	}
 
 	public void draw() {

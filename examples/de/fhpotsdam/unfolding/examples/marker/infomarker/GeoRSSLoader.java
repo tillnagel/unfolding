@@ -9,6 +9,7 @@ import processing.xml.XMLElement;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.marker.Marker;
 
+// TO BE DELETED! See labelmarker.* examples for how to do this now.
 public class GeoRSSLoader {
 
 	public static List<Marker> loadGeoRSSMarkers(PApplet p, String url, PFont font) {
