@@ -11,6 +11,7 @@ import de.fhpotsdam.unfolding.marker.SimpleLinesMarker;
 import de.fhpotsdam.unfolding.marker.SimpleMarker;
 import de.fhpotsdam.unfolding.marker.SimplePolygonMarker;
 
+@SuppressWarnings("rawtypes")
 public class MarkerFactory {
 	
 	HashMap<FeatureType, Class> featureMarkerMap;
@@ -32,45 +33,51 @@ public class MarkerFactory {
 	public List<Marker> createMarkers(List<Feature> features) {
 		List<Marker> markers = new ArrayList<Marker>();
 
-		for (Feature feature : features) {
+		try{
 			
-			Marker marker = null;
+			for (Feature feature : features) {
+				
+				Marker marker = null;
+				
+				switch (feature.getType()) {
+				case POINT:
+					marker = createPointMarker((PointFeature) feature);
+					break;
+				case LINES:
+					marker = createLinesMarker((MultiFeature) feature);
+					break;
+				case POLYGON:
+					marker = createPolygonMarker((MultiFeature) feature);
+					break;
+				}
+	
+				markers.add(marker);
+			}
 			
-			try{
-				marker = (Marker) featureMarkerMap.get(feature.getType()).newInstance();
-			}catch(Exception e){
-				e.printStackTrace();
-				return null;
-			}
-
-			switch (feature.getType()) {
-			case POINT:
-				PointFeature pointF = (PointFeature)feature;
-				marker.setLocation(pointF.getLocation());
-				break;
-			case LINES:
-			case POLYGON:
-				MultiFeature multiF = (MultiFeature) feature;
-				((AbstractMultiMarker)marker).setLocations(multiF.getLocations());
-				break;
-			}
-
-			markers.add(marker);
+		}catch(Exception e){
+			e.printStackTrace();
+			return null;
 		}
 
 		return markers;
 	}
 
-	protected Marker createPolygonMarker(MultiFeature feature) {
-		return new SimplePolygonMarker(feature.getLocations());
+	protected Marker createPolygonMarker(MultiFeature feature) throws Exception{
+		Marker marker = (Marker) featureMarkerMap.get(feature.getType()).newInstance();
+		((AbstractMultiMarker)marker).setLocations(feature.getLocations());
+		return marker;
 	}
 
-	protected Marker createPointMarker(PointFeature feature) {
-		return new SimpleMarker(feature.getLocation());
+	protected Marker createPointMarker(PointFeature feature) throws Exception{
+		Marker marker = (Marker) featureMarkerMap.get(feature.getType()).newInstance();
+		marker.setLocation(feature.getLocation());
+		return marker;
 	}
 
-	protected Marker createLinesMarker(MultiFeature feature) {
-		return new SimpleLinesMarker(feature.getLocations());
+	protected Marker createLinesMarker(MultiFeature feature) throws Exception{
+		Marker marker = (Marker) featureMarkerMap.get(feature.getType()).newInstance();
+		((AbstractMultiMarker)marker).setLocations(feature.getLocations());
+		return marker;
 	}
 
 }
