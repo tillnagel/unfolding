@@ -1,10 +1,12 @@
 package de.fhpotsdam.unfolding.data;
 
+import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 import de.fhpotsdam.unfolding.data.Feature.FeatureType;
+import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.marker.AbstractMultiMarker;
 import de.fhpotsdam.unfolding.marker.Marker;
 import de.fhpotsdam.unfolding.marker.SimpleLinesMarker;
@@ -63,41 +65,44 @@ public class MarkerFactory {
 	}
 	
 	
-	void setPointClass(Class pointMarkerClass){
+	public void setPointClass(Class pointMarkerClass){
 		featureMarkerMap.remove(FeatureType.POINT);
 		featureMarkerMap.put(FeatureType.POINT, pointMarkerClass);
 	}
 	
-	void setLineClass(Class lineMarkerClass){
+	public void setLineClass(Class lineMarkerClass){
 		featureMarkerMap.remove(FeatureType.LINES);
 		featureMarkerMap.put(FeatureType.LINES, lineMarkerClass);
 	}
 	
-	void setPolygonClass(Class polygonMarkerClass){
+	public void setPolygonClass(Class polygonMarkerClass){
 		featureMarkerMap.remove(FeatureType.POLYGON);
 		featureMarkerMap.put(FeatureType.POLYGON, polygonMarkerClass);
 	}
 	
 
-	protected Marker createPolygonMarker(MultiFeature feature) throws Exception{
-		Marker marker = (Marker) featureMarkerMap.get(feature.getType()).newInstance();
-		((AbstractMultiMarker)marker).setLocations(feature.getLocations());
-		marker.setProps(feature.getProperties());
-		return marker;
-	}
 
 	protected Marker createPointMarker(PointFeature feature) throws Exception{
-		Marker marker = (Marker) featureMarkerMap.get(feature.getType()).newInstance();
-		marker.setLocation(feature.getLocation());
-		marker.setProps(feature.getProperties());
+		Class markerClass = featureMarkerMap.get(feature.getType());
+		Constructor markerConstructor = markerClass.getDeclaredConstructor(Location.class,HashMap.class);
+		Marker marker =  (Marker)markerConstructor.newInstance(feature.getLocation(),feature.getProperties());
 		return marker;
 	}
 
 	protected Marker createLinesMarker(MultiFeature feature) throws Exception{
-		Marker marker = (Marker) featureMarkerMap.get(feature.getType()).newInstance();
-		((AbstractMultiMarker)marker).setLocations(feature.getLocations());
-		marker.setProps(feature.getProperties());
+		Class markerClass = featureMarkerMap.get(feature.getType());
+		Constructor markerConstructor = markerClass.getDeclaredConstructor(List.class,HashMap.class);
+		Marker marker =  (Marker)markerConstructor.newInstance(feature.getLocations(),feature.getProperties());
 		return marker;
 	}
 
+	protected Marker createPolygonMarker(MultiFeature feature) throws Exception{
+//		Marker marker = (Marker) featureMarkerMap.get(feature.getType()).newInstance();
+//		((AbstractMultiMarker)marker).setLocations(feature.getLocations());
+//		marker.setProps(feature.getProperties());
+		Class markerClass = featureMarkerMap.get(feature.getType());
+		Constructor markerConstructor = markerClass.getDeclaredConstructor(List.class,HashMap.class);
+		Marker marker =  (Marker)markerConstructor.newInstance(feature.getLocations(),feature.getProperties());
+		return marker;
+	}
 }

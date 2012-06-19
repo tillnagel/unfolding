@@ -32,7 +32,8 @@ public class GPXSpeedTrackApp extends PApplet {
 		map.zoomAndPanTo(startLocation, 14);
 
 		List<Feature> features = GPXSpeedReader.loadData(this, "bike-tour.gpx");
-		MarkerFactory markerFactory = new ColoredLinesMarkerFactory();
+		MarkerFactory markerFactory = new MarkerFactory();
+		markerFactory.setLineClass(ColoredLinesMarker.class);
 		List<Marker> markers = markerFactory.createMarkers(features);
 		map.addMarkers(markers);
 	}

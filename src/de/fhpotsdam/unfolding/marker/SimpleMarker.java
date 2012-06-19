@@ -1,5 +1,7 @@
 package de.fhpotsdam.unfolding.marker;
 
+import java.util.HashMap;
+
 import processing.core.PGraphics;
 import processing.core.PVector;
 import de.fhpotsdam.unfolding.geo.Location;
@@ -15,11 +17,15 @@ public class SimpleMarker extends AbstractMarker {
 	public float r, g, b, a;
 
 	public SimpleMarker() {
-		this(null);
+		this(null,null);
 	}
 	
 	public SimpleMarker(Location location) {
-		super(location);
+		this(location,null);
+	}
+	
+	public SimpleMarker(Location location, HashMap<String, Object> properties){
+		super(location,properties);
 		
 		radius = 1.f;
 		r = 203;

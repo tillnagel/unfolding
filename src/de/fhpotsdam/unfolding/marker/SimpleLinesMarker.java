@@ -1,5 +1,6 @@
 package de.fhpotsdam.unfolding.marker;
 
+import java.util.HashMap;
 import java.util.List;
 
 import processing.core.PConstants;
@@ -15,6 +16,10 @@ public class SimpleLinesMarker extends AbstractMultiMarker {
 
 	public SimpleLinesMarker(List<Location> locations) {
 		super(locations);
+	}
+	
+	public SimpleLinesMarker(List<Location> locations, HashMap<String, Object> properties){
+		super(locations,properties);
 	}
 
 	/**

@@ -14,11 +14,16 @@ public abstract class AbstractMultiMarker extends AbstractMarker {
 	protected List<Location> locations;
 
 	public AbstractMultiMarker() {
-		this(new ArrayList<Location>());
+		this(new ArrayList<Location>(),null);
 	}
 
 	public AbstractMultiMarker(List<Location> locations) {
+		this(locations,null);
+	}
+	
+	public AbstractMultiMarker(List<Location> locations, HashMap<String, Object> properties) {
 		this.locations = locations;
+		setProps(properties);
 	}
 
 	public void setLocations(List<Location> locations) {
