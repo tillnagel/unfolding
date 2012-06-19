@@ -31,18 +31,20 @@ public class GeoJSONReader {
 
 					if (currJSONObjGeometry.getString("type").equals("GeometryCollection")) {
 						// Collection of multiple geometries
+						// Creates independent features, and copies properties of collection to each one.
 						JSONArray currJSONObjGeometries = currJSONObjGeometry.getJSONArray("geometries");
 						for (int j = 0; j < currJSONObjGeometries.length(); j++) {
-
 							feature = getFeatureByType(currJSONObjGeometries.getJSONObject(j), currJSONObjProperties);
+							if (feature != null)
+								features.add(feature);
 						}
 					} else {
 						// Single geometry
 						feature = getFeatureByType(currJSONObjGeometry, currJSONObjProperties);
+						if (feature != null)
+							features.add(feature);
 					}
 
-					if (feature != null)
-						features.add(feature);
 				}
 			}
 		} catch (JSONException e) {
@@ -75,6 +77,7 @@ public class GeoJSONReader {
 			MultiFeature lineFeature = (MultiFeature) feature;
 
 			JSONArray coordsArray = geometry.getJSONArray("coordinates");
+			PApplet.println("Parsing " + coordsArray.length());
 			for (int i = 0; i < coordsArray.length(); i++) {
 				JSONArray coords = coordsArray.getJSONArray(i);
 				double lat = coords.getDouble(1);
@@ -174,6 +177,9 @@ public class GeoJSONReader {
 		for (int i = 0; i < keys.length(); i++) {
 			try {
 				String key = String.valueOf(keys.get(i));
+				if (key.equals("LINE")) {
+					PApplet.println(jsonProperties.get(key) + " for " + feature.getType());
+				}
 				properties.put(key, jsonProperties.get(key));
 			} catch (JSONException e) {
 				e.printStackTrace();

@@ -9,7 +9,10 @@ import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.utils.MapPosition;
 
 public class SimpleLinesMarker extends AbstractMultiMarker {
-
+	
+	protected int color;
+	protected int strokeWeight = 1;
+	
 	public SimpleLinesMarker() {
 		super();
 	}
@@ -35,8 +38,9 @@ public class SimpleLinesMarker extends AbstractMultiMarker {
 	@Override
 	public void draw(PGraphics pg, List<MapPosition> mapPositions) {
 		pg.pushStyle();
-		pg.fill(100, 90, 240, 100);
-		pg.stroke(50, 50, 50, 200);
+		pg.stroke(color);
+		pg.strokeWeight(strokeWeight);
+		pg.smooth();
 
 		pg.beginShape(PConstants.LINES);
 		// TODO this way its equal to LINE_STRIP but LINE_STRIP doesnt work
@@ -61,4 +65,12 @@ public class SimpleLinesMarker extends AbstractMultiMarker {
 		return false;
 	}
 
+	public void setColor(int color) {
+		this.color = color;
+	}
+
+	public void setStrokeWeight(int strokeWeight) {
+		this.strokeWeight = strokeWeight;
+	}
+	
 }
