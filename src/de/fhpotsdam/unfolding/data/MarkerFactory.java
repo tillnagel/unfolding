@@ -61,22 +61,42 @@ public class MarkerFactory {
 
 		return markers;
 	}
+	
+	
+	void setPointClass(Class pointMarkerClass){
+		featureMarkerMap.remove(FeatureType.POINT);
+		featureMarkerMap.put(FeatureType.POINT, pointMarkerClass);
+	}
+	
+	void setLineClass(Class lineMarkerClass){
+		featureMarkerMap.remove(FeatureType.LINES);
+		featureMarkerMap.put(FeatureType.LINES, lineMarkerClass);
+	}
+	
+	void setPolygonClass(Class polygonMarkerClass){
+		featureMarkerMap.remove(FeatureType.POLYGON);
+		featureMarkerMap.put(FeatureType.POLYGON, polygonMarkerClass);
+	}
+	
 
 	protected Marker createPolygonMarker(MultiFeature feature) throws Exception{
 		Marker marker = (Marker) featureMarkerMap.get(feature.getType()).newInstance();
 		((AbstractMultiMarker)marker).setLocations(feature.getLocations());
+		marker.setProps(feature.getProperties());
 		return marker;
 	}
 
 	protected Marker createPointMarker(PointFeature feature) throws Exception{
 		Marker marker = (Marker) featureMarkerMap.get(feature.getType()).newInstance();
 		marker.setLocation(feature.getLocation());
+		marker.setProps(feature.getProperties());
 		return marker;
 	}
 
 	protected Marker createLinesMarker(MultiFeature feature) throws Exception{
 		Marker marker = (Marker) featureMarkerMap.get(feature.getType()).newInstance();
 		((AbstractMultiMarker)marker).setLocations(feature.getLocations());
+		marker.setProps(feature.getProperties());
 		return marker;
 	}
 
