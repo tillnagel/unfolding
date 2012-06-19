@@ -86,9 +86,6 @@ public class FadeTwoMapsApp extends PApplet {
 			fadeOnce = false;
 			break;
 		}
-		/*if(key == '1' && fadeOnce == false){
-			fadeOnce = true;
-		}*/
 	}
 	
 	
