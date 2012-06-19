@@ -1,6 +1,82 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<project default="javadoc">
-    <target name="javadoc">
-        <javadoc access="public" author="true" classpath="lib/libTUIO.jar:lib/glgraphics.jar:lib/core.jar:lib/jogl.jar:lib/opengl.jar:lib/sqlitejdbc-v056.jar:lib/log4j-1.2.15.jar:lib/gluegen-rt.jar" destdir="doc" doctitle="UNFOLDING" nodeprecated="false" nodeprecatedlist="false" noindex="false" nonavbar="false" notree="false" packagenames="de.fhpotsdam.unfolding.events,de.fhpotsdam.unfolding.examples.interaction,de.fhpotsdam.utils,de.fhpotsdam.unfolding.examples.fun,de.fhpotsdam.unfolding.examples.multi,de.fhpotsdam.unfolding.examples.data,de.fhpotsdam.transmatrix,de.fhpotsdam.unfolding.interactions,de.fhpotsdam.unfolding.marker,de.fhpotsdam.unfolding.providers,de.fhpotsdam.unfolding.geo,de.fhpotsdam.unfolding.texture,de.fhpotsdam.unfolding.core,de.fhpotsdam.unfolding.examples,de.fhpotsdam.matrix,de.fhpotsdam.unfolding.mapdisplay,de.fhpotsdam.unfolding.examples.marker,de.fhpotsdam.unfolding.examples.overviewdetail,de.fhpotsdam.unfolding.masks,de.fhpotsdam.unfolding.tiles,de.fhpotsdam.unfolding.utils" source="1.6" sourcefiles="src/de/fhpotsdam/unfolding/MapContainer.java,src/de/fhpotsdam/unfolding/package-info.java,test/de/fhpotsdam/unfolding/MBTileTestApp.java,test/de/fhpotsdam/unfolding/PrecisePositionsApp.java,src/de/fhpotsdam/unfolding/Map.java" sourcepath="config:data:examples:test:src" splitindex="true" use="true" version="true"/>
-    </target>
+<project name="UNFOLDING" default="main" basedir=".">
+	<!-- Sets variables which can later be used. -->
+	<!-- The value of a property is accessed via ${} -->
+	<property name="src.dir" location="src" />
+	<property name="build.dir" location="build" />
+	<property name="dist.dir" location="dist" />
+	<property name="docs.dir" location="doc" />
+	<property name="lib.dir" location="lib" />
+
+	<!-- Variables used for JUnit testin -->
+	<property name="test.dir" location="test" />
+	<property name="test.report.dir" location="testreport" />
+	
+	<!--
+		Create a classpath container which can be later used in the ant task
+	-->
+	<path id="build.classpath">
+		<fileset dir="${lib.dir}">
+			<include name="**.jar" />
+		</fileset>
+	</path>
+
+	<!-- Define the classpath which includes the junit.jar and the classes after compiling-->
+	<path id="junit.class.path">
+		<pathelement location="lib/junit-4.10.jar" />
+		<pathelement location="${build.dir}" />
+	</path>
+	
+	<!-- Deletes the existing build, docs and dist directory-->
+	<target name="clean">
+		<delete dir="${build.dir}" />
+		<delete dir="${docs.dir}" />
+		<delete dir="${dist.dir}" />
+		<delete dir="${test.report.dir}" />
+	</target>
+
+	<!-- Creates the  build, docs and dist directory-->
+	<target name="makedir">
+		<mkdir dir="${build.dir}" />
+		<mkdir dir="${docs.dir}" />
+		<mkdir dir="${dist.dir}" />
+		<mkdir dir="${test.report.dir}" />
+	</target>
+
+	<!-- Compiles the java code (including the usage of library for JUnit -->
+	<target name="compile" depends="clean, makedir">
+		<javac srcdir="${src.dir};${test.dir}" destdir="${build.dir}" >
+			<classpath refid="build.classpath" />
+			<classpath refid="junit.class.path" />
+		</javac>
+	</target>
+	
+	<!-- Run the JUnit Tests -->
+	<!-- Output is XML, could also be plain-->
+	<target name="junit" depends="compile">
+		<junit printsummary="on" fork="false" haltonfailure="yes">
+			<classpath refid="junit.class.path" />
+			<formatter type="xml" />
+			<batchtest todir="${test.report.dir}">
+				<fileset dir="${build.dir}">
+					<include name="**/*Test*.class" />
+				</fileset>
+			</batchtest>
+		</junit>
+	</target>
+	
+	<!-- Creates Javadoc -->
+	<target name="docs" depends="compile">
+		<javadoc packagenames="src" sourcepath="${src.dir}" destdir="${docs.dir}" classpathref="build.classpath">
+			<!-- Define which files / directory should get included, we include all -->
+			<fileset dir="${src.dir}">
+				<include name="**" />
+			</fileset>
+		</javadoc>
+	</target>
+
+	<target name="main" depends="compile, docs">
+		<description>Main target</description>
+	</target>
+
 </project>

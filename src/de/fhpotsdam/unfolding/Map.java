@@ -158,6 +158,7 @@ public class Map implements MapEventListener {
 		this.active = active;
 	}
 
+	@Override
 	public String getId() {
 		return id;
 	}
@@ -171,6 +172,7 @@ public class Map implements MapEventListener {
 	/**
 	 * Listens to mapDisplay events.
 	 */
+	@Override
 	public void onManipulation(MapEvent mapEvent) {
 		mapEvent.executeManipulationFor(this);
 	}
@@ -414,7 +416,7 @@ public class Map implements MapEventListener {
 				screenPosition.x, screenPosition.y);
 		panObjectPositionToObjectCenter(objectXY[0], objectXY[1]);
 	}
-	
+
 	/**
 	 * Pans to the given Location. The position of the location will be centered.
 	 * 
@@ -501,7 +503,7 @@ public class Map implements MapEventListener {
 	public void move(float x, float y) {
 		setOffset(x, y);
 	}
-	
+
 	/**
 	 * Moves the map to the given ScreenPosition.
 	 * @param screenPosition the ScreenPosition to move to.
@@ -511,34 +513,35 @@ public class Map implements MapEventListener {
 	}
 
 	// MarkerManagement -----------------------------------------------
-	
+
 	public void addMarkerManager(MarkerManager<Marker> markerManager) {
 		markerManager.setMap(this);
 		mapDisplay.addMarkerManager(markerManager);
 	}
-	
+
 	public MarkerManager<Marker> getLastMarkerManager() {
 		return mapDisplay.getLastMarkerManager();
 	}
-	
+
 	public MarkerManager<Marker> getDefaultMarkerManager(){
 		return mapDisplay.getDefaultMarkerManager();
 	}
-	
+
 	public MarkerManager<Marker> getMarkerManager(int index){
 		return mapDisplay.getMarkerManager(index);
 	}
-	
+
 	public void addMarkers(Marker ... marker){
-		for(Marker m : marker)
+		for(Marker m : marker) {
 			mapDisplay.addMarker(m);
+		}
 	}
-	
+
 	public void addMarkers(List<Marker> markers){
 		mapDisplay.addMarkers(markers);
 	}
-	
-	
+
+
 	// Transformations ------------------------------------
 
 	protected void setOuterRotate(float angle) {
@@ -702,7 +705,7 @@ public class Map implements MapEventListener {
 	}
 
 	public static int getZoomLevelFromScale(double scale) {
-		return (int) Math.round(getZoomFromScale(scale));
+		return Math.round(getZoomFromScale(scale));
 	}
 
 	/**

@@ -8,7 +8,6 @@ import de.fhpotsdam.unfolding.geo.Location;
 public class GeoUtils {
 
 	private static final double EARTH_RADIUS_KM = 6371.01;
-	private static final double RAD_CONV = 180 / Math.PI;
 
 	/**
 	 * Get distance in kilometers between two points on the earth. Using the great-circle distance formula with the
@@ -25,10 +24,10 @@ public class GeoUtils {
 	 * @return Distance in kilometers.
 	 */
 	public static double getDistance(double lat1, double lon1, double lat2, double lon2) {
-		double lat1Rad = getRadians(lat1);
-		double lon1Rad = getRadians(lon1);
-		double lat2Rad = getRadians(lat2);
-		double lon2Rad = getRadians(lon2);
+		double lat1Rad = Math.toRadians(lat1);
+		double lon1Rad = Math.toRadians(lon1);
+		double lat2Rad = Math.toRadians(lat2);
+		double lon2Rad = Math.toRadians(lon2);
 
 		double r = EARTH_RADIUS_KM;
 		return r
@@ -62,10 +61,10 @@ public class GeoUtils {
 	 * @return The destination location.
 	 */
 	public static Location getDestinationLocation(Location location, float bearing, float distance) {
-		double lat1 = getRadians(location.getLat());
-		double lon1 = getRadians(location.getLon());
+		double lat1 = Math.toRadians(location.getLat());
+		double lon1 = Math.toRadians(location.getLon());
 		double r = EARTH_RADIUS_KM;
-		double b = getRadians(bearing);
+		double b = Math.toRadians(bearing);
 
 		double lat2 = Math.asin(Math.sin(lat1) * Math.cos(distance / r) + Math.cos(lat1) * Math.sin(distance / r)
 				* Math.cos(b));
@@ -74,8 +73,8 @@ public class GeoUtils {
 						Math.cos(distance / r) - Math.sin(lat1) * Math.sin(lat2));
 		lon2 = (lon2 + 3 * Math.PI) % (2 * Math.PI) - Math.PI;
 
-		float lat2d = (float) getDegree(lat2);
-		float lon2d = (float) getDegree(lon2);
+		float lat2d = (float) Math.toDegrees(lat2);
+		float lon2d = (float) Math.toDegrees(lon2);
 
 		return new Location(lat2d, lon2d);
 	}
@@ -100,13 +99,4 @@ public class GeoUtils {
 
 		return angle;
 	}
-
-	public static double getRadians(double angle) {
-		return angle / RAD_CONV;
-	}
-
-	public static double getDegree(double rad) {
-		return rad * RAD_CONV;
-	}
-
 }

@@ -14,6 +14,11 @@ import de.fhpotsdam.unfolding.interactions.KeyboardHandler;
 import de.fhpotsdam.unfolding.interactions.MouseHandler;
 import de.fhpotsdam.unfolding.marker.Marker;
 
+/**
+ * Utility functions for the map.
+ *
+ * So far only the creation of defaultEventDispatcher is offered.
+ */
 public class MapUtils {
 
 	private static MarkerFactory markerFactory;
@@ -45,6 +50,16 @@ public class MapUtils {
 		return eventDispatcher;
 	}
 
+	/**
+	 * Initializes default events, i.e. all given maps handle mouse and keyboard interactions. No
+	 * cross-listening between maps.
+	 *
+	 * @param p
+	 *            The PApplet needed for mouse and key user interactions.
+	 * @param maps
+	 *            One or many maps.
+	 * @return The EventDispatcher to use for additional event handling.
+	 */
 	public static EventDispatcher createDefaultEventDispatcher(PApplet p, List<Map> maps) {
 		Map[] mapsArray = (maps != null) ? maps.toArray(new Map[0]) : new Map[0];
 		return createDefaultEventDispatcher(p, mapsArray);
