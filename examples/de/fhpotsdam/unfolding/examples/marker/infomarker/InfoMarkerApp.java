@@ -29,8 +29,8 @@ public class InfoMarkerApp extends PApplet {
 		PFont font = loadFont("Miso-Light-12.vlw");
 		// Create markers and add them to the MarkerManager
 		List<Marker> labeledMarkers = GeoRSSLoader.loadGeoRSSMarkers(this, "bbc-georss-test.xml", font);
-		MarkerManager markerManager = new MarkerManager(map, labeledMarkers);
-		map.mapDisplay.addMarkerManager(markerManager);
+		MarkerManager markerManager = new MarkerManager(labeledMarkers);
+		map.addMarkerManager(markerManager);
 	}
 
 	public void draw() {

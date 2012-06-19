@@ -20,17 +20,20 @@ public class MarkerManager<E extends Marker> {
 	List<E> markers;
 	protected boolean bEnableDrawing;
 
-	public MarkerManager(Map map) {
-		this.map = map;
+	public MarkerManager() {
 		markers = new ArrayList<E>();
 		bEnableDrawing = true;
 	}
-
-	public MarkerManager(Map map, List<E> markers) {
-		this(map);
+	
+	public MarkerManager(List<E> markers) {
+		this();
 		addMarkers(markers);
 	}
 
+	public void setMap(Map map) {
+		this.map = map;
+	}
+	
 	public void setMarkers(List<E> markers) {
 		this.markers = markers;
 	}

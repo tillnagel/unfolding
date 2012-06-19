@@ -42,10 +42,10 @@ public class ZoomDependentMarkerApp extends PApplet {
 
 		List<Marker> labeledMarkers = GeoRSSLoader.loadGeoRSSMarkers(this, "bbc-georss-test.xml", font);
 		List<Marker>labeledCountryMarkers = GeoRSSLoader.loadGeoRSSMarkers(this, "bbc-georss-countrytest.xml", font);
-		labeledCountryMarkerManager = new MarkerManager<Marker>(map, labeledCountryMarkers);
-		labeledMarkerManager = new MarkerManager<Marker>(map, labeledMarkers);
-		map.mapDisplay.addMarkerManager(labeledCountryMarkerManager);
-		map.mapDisplay.addMarkerManager(labeledMarkerManager);
+		labeledCountryMarkerManager = new MarkerManager<Marker>(labeledCountryMarkers);
+		labeledMarkerManager = new MarkerManager<Marker>(labeledMarkers);
+		map.addMarkerManager(labeledCountryMarkerManager);
+		map.addMarkerManager(labeledMarkerManager);
 	}
 
 	float oldZoomLevel = 0;

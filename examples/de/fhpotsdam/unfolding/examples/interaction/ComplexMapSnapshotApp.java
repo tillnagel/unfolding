@@ -32,13 +32,13 @@ public class ComplexMapSnapshotApp extends PApplet {
 		MapUtils.createDefaultEventDispatcher(this, map);
 
 		// Add random markers
-		MarkerManager<Marker> markerManager = new MarkerManager<Marker>(map);
+		MarkerManager<Marker> markerManager = new MarkerManager<Marker>();
 		for (int i = 0; i < 100; i++) {
 			SimpleMarker marker = new SimpleMarker();
 			marker.setLocation(random(30, 60), random(-10, 30));
 			markerManager.addMarker(marker);
 		}
-		map.mapDisplay.addMarkerManager(markerManager);
+		map.addMarkerManager(markerManager);
 	}
 
 	public void draw() {

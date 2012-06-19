@@ -513,6 +513,7 @@ public class Map implements MapEventListener {
 	// MarkerManagement -----------------------------------------------
 	
 	public void addMarkerManager(MarkerManager<Marker> markerManager) {
+		markerManager.setMap(this);
 		mapDisplay.addMarkerManager(markerManager);
 	}
 	

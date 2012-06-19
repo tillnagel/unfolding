@@ -50,11 +50,11 @@ public class InfoMarkerOnMultipleMapApp extends PApplet {
 		List<Marker> markers1 = GeoRSSLoader.loadGeoRSSMarkers(this, "bbc-georss-test.xml", font);
 		List<Marker> markers2 = GeoRSSLoader.loadGeoRSSMarkers(this, "bbc-georss-test.xml", font);
 
-		markerManager1 = new MarkerManager(map1, markers1);
-		markerManager2 = new MarkerManager(map2, markers2);
+		markerManager1 = new MarkerManager(markers1);
+		markerManager2 = new MarkerManager(markers2);
 
-		map1.mapDisplay.addMarkerManager(markerManager1);
-		map2.mapDisplay.addMarkerManager(markerManager2);
+		map1.addMarkerManager(markerManager1);
+		map2.addMarkerManager(markerManager2);
 	}
 
 	public void draw() {

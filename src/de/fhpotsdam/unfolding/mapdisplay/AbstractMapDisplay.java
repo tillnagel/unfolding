@@ -121,6 +121,9 @@ public abstract class AbstractMapDisplay implements TileLoaderListener {
 
 	// MarkerManagement -----------------------------------------------
 	
+	/**
+	 * You need to set the map of the given MarkerManager before using.
+	 */
 	public void addMarkerManager(MarkerManager<Marker> markerManager) {
 		markerManagerList.add(markerManager);
 	}
@@ -133,6 +136,9 @@ public abstract class AbstractMapDisplay implements TileLoaderListener {
 		return getMarkerManager(0);
 	}
 	
+	/**
+	 * Use {@link #addMarkerManager(MarkerManager)} instead.
+	 */
 	@Deprecated
 	public void setMarkerManager(MarkerManager<Marker> markerManager){
 		markerManagerList.set(0, markerManager);
@@ -360,7 +366,9 @@ public abstract class AbstractMapDisplay implements TileLoaderListener {
 	}
 	
 	protected void createDefaultMarkerManager(Map map) {
-		markerManagerList.add(new MarkerManager<Marker>(map));
+		MarkerManager mm = new MarkerManager<Marker>();
+		mm.setMap(map);
+		markerManagerList.add(mm);
 	}
 
 }
