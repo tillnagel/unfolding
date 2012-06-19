@@ -37,7 +37,6 @@ public class TransitLinesMarkerApp extends PApplet {
 		List<Feature> transitLines = GeoJSONReader.loadData(this, "MBTARapidTransitLines.json");
 		List<Marker> transitMarkers = MapUtils.createSimpleMarkers(transitLines);
 		
-		// TODO @felix: Why connect manager to map twice?
 		transitLinesManager = new MarkerManager<Marker>();
 		transitLinesManager.setMarkers(transitMarkers);
 		map.addMarkerManager(transitLinesManager);
