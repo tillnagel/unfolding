@@ -50,11 +50,12 @@ public interface Marker {
 	public double getDistanceTo(Location location);
 
 	/**
-	 * Sets the properties.
+	 * Sets the additional properties of this marker.
 	 * 
-	 * @param props
+	 * @param properties
+	 *            The properties to set.
 	 */
-	public void setProperties(HashMap<String, Object> props);
+	public void setProperties(HashMap<String, Object> properties);
 
 	public HashMap<String, Object> getProperties();
 

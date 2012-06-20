@@ -32,6 +32,7 @@ public class GeoJSONReader {
 					if (currJSONObjGeometry.getString("type").equals("GeometryCollection")) {
 						// Collection of multiple geometries
 						// Creates independent features, and copies properties of collection to each one.
+						// TODO till: Create MultiFeature with GeometryCollections?
 						JSONArray currJSONObjGeometries = currJSONObjGeometry.getJSONArray("geometries");
 						for (int j = 0; j < currJSONObjGeometries.length(); j++) {
 							feature = getFeatureByType(currJSONObjGeometries.getJSONObject(j), currJSONObjProperties);
@@ -93,51 +94,25 @@ public class GeoJSONReader {
 		if (featureType.equals("Polygon")) {
 			feature = new ShapeFeature(FeatureType.POLYGON);
 			ShapeFeature polygonFeature = (ShapeFeature) feature;
-			JSONArray coords = geometry.getJSONArray("coordinates");
-
-			for (int l = 0; l < coords.getJSONArray(0).length(); l++) {
-				double lon = coords.getJSONArray(0).getJSONArray(l).getDouble(0);
-				double lat = coords.getJSONArray(0).getJSONArray(l).getDouble(1);
-				polygonFeature.addLocation(new Location((float) lat, (float) lon));
-			}
+			
+			// Creates a single polygon feature
+			JSONArray coordinates = geometry.getJSONArray("coordinates").getJSONArray(0);
+			populatePolygonFeature(polygonFeature, coordinates);
 		}
 
 		if (featureType.equals("MultiPolygon")) {
-			/*
-			feature = new MultiFeature(FeatureType.POLYGON);
-			MultiFeature polygonFeature = (MultiFeature) feature;
-			// FeatureMultiPolygon currFeatureMultiPolygon = (FeatureMultiPolygon) feature;
-
-			JSONArray coords = geometry.getJSONArray("coordinates");
-
-			ArrayList<ArrayList> shapes = new ArrayList<ArrayList>();
-
-			for (int i = 0; i < coords.length(); i++) {
-
-				ArrayList<ArrayList> shape = new ArrayList<ArrayList>();
-
-				for (int l = 0; l < coords.getJSONArray(i).length(); l++) {
-
-					ArrayList currShape = new ArrayList<Location>();
-
-					for (int k = 0; k < coords.getJSONArray(i).getJSONArray(l).length(); k++) {
-
-						double lon = coords.getJSONArray(i).getJSONArray(l).getJSONArray(k).getDouble(0);
-						double lat = coords.getJSONArray(i).getJSONArray(l).getJSONArray(k).getDouble(1);
-
-						polygonFeature.addLocation(new Location((float) lat, (float) lon));
-						//currShape.add(thisCoord);
-					}
-					//shape.add(currShape);
-
-				}
-				//shapes.add(shape);
-
+			feature = new MultiFeature();
+			MultiFeature multiFeature = (MultiFeature) feature;
+			
+			// Creates multiple polygon features
+			JSONArray polygons = geometry.getJSONArray("coordinates");
+			for (int i = 0; i < polygons.length(); i++) {
+				JSONArray coordinates = polygons.getJSONArray(i).getJSONArray(0);
+				
+				ShapeFeature polygonFeature = new ShapeFeature(FeatureType.POLYGON);
+				populatePolygonFeature(polygonFeature, coordinates);
+				multiFeature.addFeature(polygonFeature);
 			}
-//			currFeatureMultiPolygon.setShapes(shapes);
-//			currFeatureMultiPolygon.setType(geometry.getString("type"));
-//			features.add(currFeatureMultiPolygon);
-			 */
 		}
 
 		if (feature != null) {
@@ -145,6 +120,14 @@ public class GeoJSONReader {
 		}
 
 		return feature;
+	}
+
+	private static void populatePolygonFeature(ShapeFeature polygonFeature, JSONArray coordinates) throws JSONException {
+		for (int i = 0; i < coordinates.length(); i++) {
+			double lon = coordinates.getJSONArray(i).getDouble(0);
+			double lat = coordinates.getJSONArray(i).getDouble(1);
+			polygonFeature.addLocation(new Location((float) lat, (float) lon));
+		}
 	}
 
 	private static void setProperties(Feature feature, JSONObject jsonProperties) {

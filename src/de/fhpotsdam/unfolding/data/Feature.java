@@ -8,7 +8,7 @@ import java.util.HashMap;
 public class Feature {
 
 	public static enum FeatureType {
-		POINT, LINES, POLYGON
+		POINT, LINES, POLYGON, MULTI
 	}
 
 	private FeatureType type;
@@ -29,7 +29,7 @@ public class Feature {
 	public FeatureType getType() {
 		return type;
 	}
-
+	
 	public HashMap<String, Object> getProperties() {
 		return properties;
 	}

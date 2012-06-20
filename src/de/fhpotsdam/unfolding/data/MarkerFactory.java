@@ -8,6 +8,7 @@ import java.util.List;
 import de.fhpotsdam.unfolding.data.Feature.FeatureType;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.marker.Marker;
+import de.fhpotsdam.unfolding.marker.MultiMarker;
 import de.fhpotsdam.unfolding.marker.SimpleLinesMarker;
 import de.fhpotsdam.unfolding.marker.SimpleMarker;
 import de.fhpotsdam.unfolding.marker.SimplePolygonMarker;
@@ -35,23 +36,8 @@ public class MarkerFactory {
 		List<Marker> markers = new ArrayList<Marker>();
 
 		try {
-
 			for (Feature feature : features) {
-
-				Marker marker = null;
-
-				switch (feature.getType()) {
-				case POINT:
-					marker = createPointMarker((PointFeature) feature);
-					break;
-				case LINES:
-					marker = createLinesMarker((ShapeFeature) feature);
-					break;
-				case POLYGON:
-					marker = createPolygonMarker((ShapeFeature) feature);
-					break;
-				}
-
+				Marker marker = createMarker(feature);
 				markers.add(marker);
 			}
 
@@ -61,6 +47,27 @@ public class MarkerFactory {
 		}
 
 		return markers;
+	}
+
+	private Marker createMarker(Feature feature) throws Exception {
+		Marker marker = null;
+
+		switch (feature.getType()) {
+		case POINT:
+			marker = createPointMarker((PointFeature) feature);
+			break;
+		case LINES:
+			marker = createLinesMarker((ShapeFeature) feature);
+			break;
+		case POLYGON:
+			marker = createPolygonMarker((ShapeFeature) feature);
+			break;
+		case MULTI:
+			marker = createMultiMarker((MultiFeature) feature);
+			break;
+		}
+
+		return marker;
 	}
 
 	public void setPointClass(Class pointMarkerClass) {
@@ -118,5 +125,17 @@ public class MarkerFactory {
 			marker.setProperties(feature.getProperties());
 		}
 		return marker;
+	}
+
+	private Marker createMultiMarker(MultiFeature multiFeature) throws Exception {
+		MultiMarker multiMarker = new MultiMarker();
+		multiMarker.setProperties(multiFeature.getProperties());
+
+		for (Feature feature : multiFeature.getFeatures()) {
+			Marker marker = createMarker(feature);
+			multiMarker.addMarkers(marker);
+		}
+
+		return multiMarker;
 	}
 }
