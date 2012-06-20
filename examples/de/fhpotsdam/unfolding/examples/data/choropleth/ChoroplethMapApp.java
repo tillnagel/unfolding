@@ -50,27 +50,20 @@ public class ChoroplethMapApp extends PApplet {
 	}
 
 	public void shadeCountries() {
-		float maxValue = 0;
-		float minValue = 1142;
 		for (Marker marker : countryMarkers) {
 			// TODO Use MarkerManager<E extends Marker> to avoid casting
 			SimplePolygonMarker spMarker = (SimplePolygonMarker) marker;
 			String countryName = (String) spMarker.getProperties().get("name");
 			DataEntry dataEntry = dataEntriesMap.get(countryName);
 			if (dataEntry != null && dataEntry.value != null) {
-				float saturation = map(dataEntry.value, 0, 700, 10, 255);
-				spMarker.setColor(color(255, 0, 0, saturation));
-
-				minValue = min(minValue, dataEntry.value);
-				maxValue = max(maxValue, dataEntry.value);
-
+				// Encode value as brightness (values range: 0-1000)
+				float transparency = map(dataEntry.value, 0, 700, 10, 255);
+				spMarker.setColor(color(255, 0, 0, transparency));
 			} else {
 				// No value available
 				spMarker.setColor(color(100, 120));
 			}
 		}
-
-		println("minValue:" + minValue + ", maxValue:" + maxValue);
 	}
 
 	public HashMap<String, DataEntry> loadPopulationDensityFromCSV(String fileName) {
@@ -78,6 +71,7 @@ public class ChoroplethMapApp extends PApplet {
 
 		String[] rows = loadStrings(fileName);
 		for (String row : rows) {
+			// Reads country name and population density value from CSV row
 			String[] columns = row.split(";");
 			if (columns.length >= 3) {
 				DataEntry dataEntry = new DataEntry();
@@ -95,6 +89,8 @@ public class ChoroplethMapApp extends PApplet {
 		Integer year;
 		Float value;
 	}
+
+	// ------------------------------------------
 
 	/**
 	 * Test loading method to load from original XML file from WorldBank.

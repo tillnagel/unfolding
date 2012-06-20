@@ -56,15 +56,13 @@ public class MultiMarker implements Marker {
 	}
 
 	@Override
-	public void setProperties(HashMap<String, Object> props) {
-		// TODO Auto-generated method stub
-
+	public void setProperties(HashMap<String, Object> properties) {
+		this.properties = properties;
 	}
 
 	@Override
 	public HashMap<String, Object> getProperties() {
-		// TODO Auto-generated method stub
-		return null;
+		return properties;
 	}
 
 	/**
