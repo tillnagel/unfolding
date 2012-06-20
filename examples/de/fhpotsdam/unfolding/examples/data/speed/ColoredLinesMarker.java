@@ -14,7 +14,7 @@ public class ColoredLinesMarker extends AbstractShapeMarker {
 
 	public ColoredLinesMarker(List<Location> locations, HashMap<String, Object> properties) {
 		super(locations);
-		setProps(properties);
+		setProperties(properties);
 	}
 
 	@Override

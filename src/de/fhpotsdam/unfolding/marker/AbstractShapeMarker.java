@@ -25,7 +25,7 @@ public abstract class AbstractShapeMarker extends AbstractMarker {
 
 	public AbstractShapeMarker(List<Location> locations, HashMap<String, Object> properties) {
 		this.locations = locations;
-		setProps(properties);
+		setProperties(properties);
 	}
 
 	public void setLocations(List<Location> locations) {

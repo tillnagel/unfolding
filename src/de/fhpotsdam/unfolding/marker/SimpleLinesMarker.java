@@ -7,11 +7,13 @@ import processing.core.PConstants;
 import processing.core.PGraphics;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.utils.MapPosition;
+import de.fhpotsdam.unfolding.utils.StyleConstants;
 
 public class SimpleLinesMarker extends AbstractShapeMarker {
 
-	protected int color;
-	protected int strokeWeight = 1;
+	protected int color = StyleConstants.DEFAULT_STROKE_COLOR;
+	protected int highlightColor = StyleConstants.HIGHLIGHTED_STROKE_COLOR;
+	protected int strokeWeight = StyleConstants.DEFAULT_STROKE_WEIGHT;
 
 	public SimpleLinesMarker() {
 		super();
@@ -38,7 +40,12 @@ public class SimpleLinesMarker extends AbstractShapeMarker {
 	@Override
 	public void draw(PGraphics pg, List<MapPosition> mapPositions) {
 		pg.pushStyle();
-		pg.stroke(color);
+		pg.noFill();
+		if (isSelected()) {
+			pg.stroke(highlightColor);
+		} else {
+			pg.stroke(color);
+		}
 		pg.strokeWeight(strokeWeight);
 		pg.smooth();
 
@@ -66,6 +73,10 @@ public class SimpleLinesMarker extends AbstractShapeMarker {
 
 	public void setStrokeWeight(int strokeWeight) {
 		this.strokeWeight = strokeWeight;
+	}
+
+	public void setHighlightColor(int highlightColor) {
+		this.highlightColor = highlightColor;
 	}
 
 }

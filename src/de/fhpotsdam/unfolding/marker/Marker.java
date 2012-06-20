@@ -8,7 +8,7 @@ import de.fhpotsdam.unfolding.geo.Location;
 /**
  * Marker interface for all markers to be drawn on to maps.
  * 
- * Must handle location to appropriate coordinate system by itself.
+ * A marker has at least one location, and properties. A marker can be drawn, selected, and tested if hit.
  */
 public interface Marker {
 
@@ -49,10 +49,14 @@ public interface Marker {
 	 */
 	public double getDistanceTo(Location location);
 
-	// TODO Documentation
-	public void setProps(HashMap<String, Object> props);
+	/**
+	 * Sets the properties.
+	 * 
+	 * @param props
+	 */
+	public void setProperties(HashMap<String, Object> props);
 
-	public HashMap<String, Object> getProps();
+	public HashMap<String, Object> getProperties();
 
 	/**
 	 * Checks whether given position is inside this marker, according to the maps coordinate system.
@@ -88,7 +92,7 @@ public interface Marker {
 	public void drawOuter(Map map);
 
 	public void setSelected(boolean selected);
-	
+
 	public boolean isSelected();
 
 	// For drawing onto the texture, i.e. after distortion, etc.

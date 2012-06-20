@@ -242,6 +242,6 @@ public class GeoJsonParser {
 				e.printStackTrace();
 			}
 		}
-		marker.setProps(props);
+		marker.setProperties(props);
 	}
 }

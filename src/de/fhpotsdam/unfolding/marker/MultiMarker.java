@@ -7,10 +7,14 @@ import java.util.List;
 import de.fhpotsdam.unfolding.Map;
 import de.fhpotsdam.unfolding.geo.Location;
 
+/**
+ * A MultiMarker enables handling of multiple, logically grouped markers. Properties and display states are the same for
+ * all its markers.
+ */
 public class MultiMarker implements Marker {
 
 	protected List<Marker> markers = new ArrayList<Marker>();
-
+	public HashMap<String, Object> properties;
 	protected boolean selected;
 
 	public void setMarkers(List<Marker> markers) {
@@ -52,13 +56,13 @@ public class MultiMarker implements Marker {
 	}
 
 	@Override
-	public void setProps(HashMap<String, Object> props) {
+	public void setProperties(HashMap<String, Object> props) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public HashMap<String, Object> getProps() {
+	public HashMap<String, Object> getProperties() {
 		// TODO Auto-generated method stub
 		return null;
 	}

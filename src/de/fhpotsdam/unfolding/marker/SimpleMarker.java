@@ -6,16 +6,20 @@ import processing.core.PApplet;
 import processing.core.PGraphics;
 import processing.core.PVector;
 import de.fhpotsdam.unfolding.geo.Location;
+import de.fhpotsdam.unfolding.utils.StyleConstants;
 
 /**
- * Simple marker, implementing only the main draw method. The given x,y coordinates are already converted into the local
- * coordinate system, so no need for further conversion.
+ * Simple marker, implementing only the main draw method.
  */
 
 public class SimpleMarker extends AbstractMarker {
 
-	public float radius;
-	public float r, g, b, a; // TODO fxlange use processing's type color
+	protected int color = StyleConstants.DEFAULT_FILL_COLOR;
+	protected int strokeColor = StyleConstants.DEFAULT_STROKE_COLOR;
+	protected int highlightColor = StyleConstants.HIGHLIGHTED_FILL_COLOR;
+	protected int highlightStrokeColor = StyleConstants.HIGHLIGHTED_STROKE_COLOR;
+
+	public float radius = 1f;
 
 	public SimpleMarker() {
 		this(null, null);
@@ -27,18 +31,19 @@ public class SimpleMarker extends AbstractMarker {
 
 	public SimpleMarker(Location location, HashMap<String, Object> properties) {
 		super(location, properties);
-
-		radius = 1.f;
-		r = 203;
-		g = 79;
-		b = 91;
-		a = 200;
 	}
 
 	public void draw(PGraphics pg, float x, float y) {
-		pg.fill(r, g, b, a);
-		pg.stroke(0, 50);
+		pg.pushStyle();
+		if (isSelected()) {
+			pg.fill(highlightColor);
+			pg.stroke(highlightStrokeColor);
+		} else {
+			pg.fill(color);
+			pg.stroke(strokeColor);
+		}
 		pg.ellipse(x, y, radius, radius);// TODO use radius in km and convert to px
+		pg.popStyle();
 	}
 
 	public void drawOuter(PGraphics pg, float x, float y) {
@@ -51,15 +56,16 @@ public class SimpleMarker extends AbstractMarker {
 		return pos.dist(new PVector(checkX, checkY)) < radius; // FIXME must be zoom dependent
 	}
 
-	public void setColor(float _r, float _g, float _b, float _a) {
-		r = _r;
-		g = _g;
-		b = _b;
-		a = _a;
+	public void setRadius(float radius) {
+		this.radius = radius;
 	}
 
-	public void setRadius(float _radius) {
-		radius = _radius;
+	public void setColor(int color) {
+		this.color = color;
+	}
+
+	public void setStrokeColor(int strokeColor) {
+		this.strokeColor = strokeColor;
 	}
 
 }

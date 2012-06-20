@@ -6,12 +6,15 @@ import java.util.List;
 import processing.core.PConstants;
 import processing.core.PGraphics;
 import de.fhpotsdam.unfolding.geo.Location;
+import de.fhpotsdam.unfolding.utils.StyleConstants;
 import de.fhpotsdam.unfolding.utils.MapPosition;
 
 public class SimplePolygonMarker extends AbstractShapeMarker {
 
-	protected int color = 1684300900;
-	protected int strokeColor;
+	protected int color = StyleConstants.DEFAULT_FILL_COLOR;
+	protected int strokeColor = StyleConstants.DEFAULT_STROKE_COLOR;
+	protected int highlightColor = StyleConstants.HIGHLIGHTED_FILL_COLOR;
+	protected int highlightStrokeColor = StyleConstants.HIGHLIGHTED_STROKE_COLOR;
 
 	public SimplePolygonMarker() {
 		super();
@@ -30,13 +33,12 @@ public class SimplePolygonMarker extends AbstractShapeMarker {
 		// REVISIT move to abstractMarker.draw(map)?
 		pg.pushStyle();
 		if (isSelected()) {
-			pg.fill(255, 0, 0);
-
+			pg.fill(highlightColor);
+			pg.stroke(highlightStrokeColor);
 		} else {
 			pg.fill(color);
-
+			pg.stroke(strokeColor);
 		}
-		pg.stroke(strokeColor);
 		pg.beginShape();
 		for (MapPosition op : mapPositions) {
 			pg.vertex(op.x, op.y);
@@ -55,6 +57,14 @@ public class SimplePolygonMarker extends AbstractShapeMarker {
 
 	public void setStrokeColor(int strokeColor) {
 		this.strokeColor = strokeColor;
+	}
+
+	public void setHighlightColor(int highlightColor) {
+		this.highlightColor = highlightColor;
+	}
+
+	public void setHighlightStrokeColor(int highlightStrokeColor) {
+		this.highlightStrokeColor = highlightStrokeColor;
 	}
 
 }

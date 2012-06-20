@@ -55,7 +55,7 @@ public class ChoroplethMapApp extends PApplet {
 		for (Marker marker : countryMarkers) {
 			// TODO Use MarkerManager<E extends Marker> to avoid casting
 			SimplePolygonMarker spMarker = (SimplePolygonMarker) marker;
-			String countryName = (String) spMarker.getProps().get("name");
+			String countryName = (String) spMarker.getProperties().get("name");
 			DataEntry dataEntry = dataEntriesMap.get(countryName);
 			if (dataEntry != null && dataEntry.value != null) {
 				float saturation = map(dataEntry.value, 0, 700, 10, 255);

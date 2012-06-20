@@ -12,6 +12,8 @@ import de.fhpotsdam.unfolding.utils.ScreenPosition;
 /**
  * Marker handling location to appropriate coordinate system. Also it provides the correct PGraphics.
  * 
+ * The given x,y coordinates are already converted into the local coordinate system, so no need for further conversion.
+ * 
  */
 public abstract class AbstractMarker implements Marker {
 
@@ -29,14 +31,14 @@ public abstract class AbstractMarker implements Marker {
 
 	public AbstractMarker(Location location, HashMap<String, Object> props) {
 		this.location = location;
-		setProps(props);
+		setProperties(props);
 	}
 
-	public void setProps(HashMap<String, Object> props) {
+	public void setProperties(HashMap<String, Object> props) {
 		this.properties = props;
 	}
 
-	public HashMap<String, Object> getProps() {
+	public HashMap<String, Object> getProperties() {
 		return properties;
 	}
 
@@ -108,6 +110,7 @@ public abstract class AbstractMarker implements Marker {
 	 * Draws this marker in inner object coordinate system.
 	 * 
 	 * e.g. markers oriented to the tiles
+	 * 
 	 * 
 	 * @param pg
 	 *            The PGraphics to draw on

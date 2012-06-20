@@ -9,7 +9,9 @@ import de.fhpotsdam.unfolding.marker.SimpleMarker;
 import de.fhpotsdam.unfolding.utils.MapUtils;
 
 /**
- * Simple example with three markers, managed by the MarkerManager. The markers are cut-off at the border of the map.
+ * Simple example with three markers, managed by the MarkerManager. Displays two point markers, and one line marker.
+ * 
+ * Managing and drawing the markers is handled internally, with all markers cut-off at the border of the map.
  */
 public class SimpleMarkerManagerApp extends PApplet {
 
@@ -27,10 +29,10 @@ public class SimpleMarkerManagerApp extends PApplet {
 		MapUtils.createDefaultEventDispatcher(this, map);
 
 		SimpleMarker berlinMarker = new SimpleMarker(berlinLocation);
-		berlinMarker.setColor(0, 200, 0, 100);
+		berlinMarker.setColor(color(0, 200, 0, 100));
 		berlinMarker.setRadius(4);
 		SimpleMarker mexicoCityMarker = new SimpleMarker(mexicoCityLocation);
-		mexicoCityMarker.setColor(200, 0, 0, 100);
+		mexicoCityMarker.setColor(color(200, 0, 0, 100));
 		SimpleLinesMarker connectionMarker = new SimpleLinesMarker(berlinLocation, mexicoCityLocation);
 		map.addMarkers(berlinMarker, mexicoCityMarker, connectionMarker);
 	}

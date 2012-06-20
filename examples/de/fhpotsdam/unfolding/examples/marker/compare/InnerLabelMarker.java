@@ -13,8 +13,8 @@ public class InnerLabelMarker extends SimpleMarker {
 
 	public void draw(PGraphics pg, float x, float y) {
 		pg.pushStyle();
-		pg.fill(r, g, b, a);
-		pg.stroke(0, 50);
+		pg.fill(color);
+		pg.stroke(strokeColor);
 		pg.rectMode(PApplet.CENTER);
 		pg.rect(x, y, 10, 5);
 		pg.popStyle();

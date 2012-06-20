@@ -18,8 +18,8 @@ public class OuterLabelMarker extends SimpleMarker {
 	@Override
 	public void drawOuter(PGraphics pg, float x, float y) {
 		pg.pushStyle(); 
-		pg.fill(r, g, b, a);
-		pg.stroke(0, 50);
+		pg.fill(color);
+		pg.stroke(strokeColor);
 		pg.rectMode(PApplet.CENTER);
 		pg.rect(x, y, 50, 20);
 		pg.popStyle();
