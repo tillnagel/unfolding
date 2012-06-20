@@ -11,8 +11,8 @@ import de.fhpotsdam.unfolding.utils.ScreenPosition;
 /**
  * Simple marker display, without the use of MarkerManager.
  * 
- * Conversion between geo-location and screen position is done automatically, but drawing the markers is done by this
- * app.
+ * Conversion between geo-location and screen position is done via the marker, but drawing the markers is done by this
+ * application itself. Easiest way of drawing own styled markers.
  * 
  */
 @SuppressWarnings("serial")

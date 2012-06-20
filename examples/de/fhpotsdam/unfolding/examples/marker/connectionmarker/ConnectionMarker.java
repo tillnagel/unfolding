@@ -7,6 +7,10 @@ import de.fhpotsdam.unfolding.marker.AbstractShapeMarker;
 import de.fhpotsdam.unfolding.marker.Marker;
 import de.fhpotsdam.unfolding.utils.MapPosition;
 
+/**
+ * A special marker to connect two markers. This is very similar to a SimpleLinesMarker, only that it uses the locations
+ * of two given markers.
+ */
 public class ConnectionMarker extends AbstractShapeMarker {
 
 	public ConnectionMarker(Marker fromMarker, Marker toMarker) {
@@ -25,8 +29,4 @@ public class ConnectionMarker extends AbstractShapeMarker {
 		pg.line(from.x, from.y, to.x, to.y);
 	}
 
-	@Override
-	protected boolean isInside(float checkX, float checkY, float x, float y) {
-		return false;
-	}
 }

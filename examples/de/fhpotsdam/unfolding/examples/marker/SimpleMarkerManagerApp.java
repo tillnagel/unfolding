@@ -12,6 +12,8 @@ import de.fhpotsdam.unfolding.utils.MapUtils;
  * Simple example with three markers, managed by the MarkerManager. Displays two point markers, and one line marker.
  * 
  * Managing and drawing the markers is handled internally, with all markers cut-off at the border of the map.
+ * Unfolding's simple marker (SimpleMarker, SimpleLinesMarker, and SimplePolygonMarker) provide some styling
+ * functionality. For more customization you need to create your own Marker classes.
  */
 public class SimpleMarkerManagerApp extends PApplet {
 

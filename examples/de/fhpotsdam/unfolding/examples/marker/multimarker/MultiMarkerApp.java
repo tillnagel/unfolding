@@ -13,6 +13,10 @@ import de.fhpotsdam.unfolding.marker.SimplePolygonMarker;
 import de.fhpotsdam.unfolding.utils.MapUtils;
 
 /**
+ * Shows two polygons for France and Corsica to demonstrate a multi marker. By clicking on one of the two areas the
+ * whole MultiMarker gets selected, thus both areas are highlighted.
+ * 
+ * Set the boolean useMultiMarker to false to see the same areas as independent markers.
  */
 public class MultiMarkerApp extends PApplet {
 
@@ -56,13 +60,13 @@ public class MultiMarkerApp extends PApplet {
 
 	public void mousePressed() {
 		Marker marker = map.getDefaultMarkerManager().getFirstHitMarker(mouseX, mouseY);
-		println("=> Found marker:" + marker);
 		if (marker != null) {
 			marker.setSelected(!marker.isSelected());
 		}
 	}
 
 	private void initPolygons() {
+		// Crude shape of France
 		franceLocations.add(new Location(48.985985f, 8.173828f));
 		franceLocations.add(new Location(51.074539f, 2.460938f));
 		franceLocations.add(new Location(49.33085f, -0.043945f));
@@ -75,6 +79,7 @@ public class MultiMarkerApp extends PApplet {
 		franceLocations.add(new Location(43.935879f, 7.734375f));
 		franceLocations.add(new Location(46.534681f, 6.064453f));
 
+		// Crude shape of Corsica
 		corsicaLocations.add(new Location(41.380106f, 9.162598f));
 		corsicaLocations.add(new Location(42.231771f, 8.547363f));
 		corsicaLocations.add(new Location(42.991791f, 9.404297f));
