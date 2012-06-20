@@ -45,10 +45,10 @@ public class MarkerFactory {
 					marker = createPointMarker((PointFeature) feature);
 					break;
 				case LINES:
-					marker = createLinesMarker((MultiFeature) feature);
+					marker = createLinesMarker((ShapeFeature) feature);
 					break;
 				case POLYGON:
-					marker = createPolygonMarker((MultiFeature) feature);
+					marker = createPolygonMarker((ShapeFeature) feature);
 					break;
 				}
 
@@ -92,7 +92,7 @@ public class MarkerFactory {
 		return marker;
 	}
 
-	protected Marker createLinesMarker(MultiFeature feature) throws Exception {
+	protected Marker createLinesMarker(ShapeFeature feature) throws Exception {
 		Class markerClass = featureMarkerMap.get(feature.getType());
 		Marker marker = null;
 		try {
@@ -106,7 +106,7 @@ public class MarkerFactory {
 		return marker;
 	}
 
-	protected Marker createPolygonMarker(MultiFeature feature) throws Exception {
+	protected Marker createPolygonMarker(ShapeFeature feature) throws Exception {
 		Class markerClass = featureMarkerMap.get(feature.getType());
 		Marker marker = null;
 		try {

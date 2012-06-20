@@ -7,10 +7,10 @@ import processing.core.PApplet;
 import processing.core.PGraphics;
 import de.fhpotsdam.unfolding.Map;
 import de.fhpotsdam.unfolding.geo.Location;
-import de.fhpotsdam.unfolding.marker.AbstractMultiMarker;
+import de.fhpotsdam.unfolding.marker.AbstractShapeMarker;
 import de.fhpotsdam.unfolding.utils.MapPosition;
 
-public class ColoredLinesMarker extends AbstractMultiMarker {
+public class ColoredLinesMarker extends AbstractShapeMarker {
 
 	public ColoredLinesMarker(List<Location> locations, HashMap<String, Object> properties) {
 		super(locations);

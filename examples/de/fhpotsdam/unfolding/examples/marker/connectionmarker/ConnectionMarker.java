@@ -3,11 +3,11 @@ package de.fhpotsdam.unfolding.examples.marker.connectionmarker;
 import java.util.List;
 
 import processing.core.PGraphics;
-import de.fhpotsdam.unfolding.marker.AbstractMultiMarker;
+import de.fhpotsdam.unfolding.marker.AbstractShapeMarker;
 import de.fhpotsdam.unfolding.marker.Marker;
 import de.fhpotsdam.unfolding.utils.MapPosition;
 
-public class ConnectionMarker extends AbstractMultiMarker {
+public class ConnectionMarker extends AbstractShapeMarker {
 
 	public ConnectionMarker(Marker fromMarker, Marker toMarker) {
 		addLocations(fromMarker.getLocation());

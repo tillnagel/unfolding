@@ -4,24 +4,26 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import processing.core.PApplet;
 import processing.core.PGraphics;
 import de.fhpotsdam.unfolding.Map;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.utils.MapPosition;
+import de.fhpotsdam.unfolding.utils.ScreenPosition;
 
-public abstract class AbstractMultiMarker extends AbstractMarker {
+public abstract class AbstractShapeMarker extends AbstractMarker {
 
 	protected List<Location> locations;
 
-	public AbstractMultiMarker() {
-		this(new ArrayList<Location>(),null);
+	public AbstractShapeMarker() {
+		this(new ArrayList<Location>(), null);
 	}
 
-	public AbstractMultiMarker(List<Location> locations) {
-		this(locations,null);
+	public AbstractShapeMarker(List<Location> locations) {
+		this(locations, null);
 	}
-	
-	public AbstractMultiMarker(List<Location> locations, HashMap<String, Object> properties) {
+
+	public AbstractShapeMarker(List<Location> locations, HashMap<String, Object> properties) {
 		this.locations = locations;
 		setProps(properties);
 	}
@@ -131,4 +133,36 @@ public abstract class AbstractMultiMarker extends AbstractMarker {
 	@Override
 	public void drawOuter(PGraphics pg, float x, float y) {
 	}
+
+	@Override
+	public boolean isInside(Map map, float checkX, float checkY) {
+		PApplet.println("AbstractShape.isInside(m, cx, cy)");
+		List<ScreenPosition> positions = new ArrayList<ScreenPosition>();
+		for (Location location : locations) {
+			ScreenPosition pos = map.getScreenPosition(location);
+			positions.add(pos);
+		}
+		return isInside(checkX, checkY, positions);
+	}
+
+	protected boolean isInside(float checkX, float checkY, List<ScreenPosition> positions) {
+		PApplet.println("AbstractShape.isInside(cx, cy, positions)");
+		boolean inside = false;
+		for (int i = 0, j = positions.size() - 1; i < positions.size(); j = i++) {
+			ScreenPosition pi = positions.get(i);
+			ScreenPosition pj = positions.get(j);
+			if ((((pi.y <= checkY) && (checkY < pj.y)) || ((pj.y <= checkY) && (checkY < pi.y)))
+					&& (checkX < (pj.x - pi.x) * (checkY - pi.y) / (pj.y - pi.y) + pi.x)) {
+				inside = !inside;
+			}
+		}
+		return inside;
+	}
+
+	@Override
+	protected boolean isInside(float checkX, float checkY, float x, float y) {
+		// TODO Simply return false?
+		throw new RuntimeException("Check for a single positon is not implemented for polygons.");
+	}
+
 }

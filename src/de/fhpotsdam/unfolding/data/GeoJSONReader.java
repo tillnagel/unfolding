@@ -74,8 +74,8 @@ public class GeoJSONReader {
 		}
 
 		if (featureType.equals("LineString")) {
-			feature = new MultiFeature(FeatureType.LINES);
-			MultiFeature lineFeature = (MultiFeature) feature;
+			feature = new ShapeFeature(FeatureType.LINES);
+			ShapeFeature lineFeature = (ShapeFeature) feature;
 
 			JSONArray coordsArray = geometry.getJSONArray("coordinates");
 			for (int i = 0; i < coordsArray.length(); i++) {
@@ -91,8 +91,8 @@ public class GeoJSONReader {
 		}
 
 		if (featureType.equals("Polygon")) {
-			feature = new MultiFeature(FeatureType.POLYGON);
-			MultiFeature polygonFeature = (MultiFeature) feature;
+			feature = new ShapeFeature(FeatureType.POLYGON);
+			ShapeFeature polygonFeature = (ShapeFeature) feature;
 			JSONArray coords = geometry.getJSONArray("coordinates");
 
 			for (int l = 0; l < coords.getJSONArray(0).length(); l++) {

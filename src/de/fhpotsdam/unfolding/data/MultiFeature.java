@@ -3,22 +3,20 @@ package de.fhpotsdam.unfolding.data;
 import java.util.ArrayList;
 import java.util.List;
 
-import de.fhpotsdam.unfolding.geo.Location;
-
 public class MultiFeature extends Feature {
 
-	public List<Location> locations = new ArrayList<Location>();
+	List<Feature> features = new ArrayList<Feature>();
 
 	public MultiFeature(FeatureType type) {
 		super(type);
 	}
 
-	public List<Location> getLocations() {
-		return locations;
+	public List<Feature> getFeatures() {
+		return features;
 	}
 
-	public void addLocation(Location location) {
-		locations.add(location);
+	public void setFeatures(List<Feature> features) {
+		this.features = features;
 	}
-
+	
 }

@@ -4,10 +4,10 @@ import java.util.List;
 
 import processing.core.PConstants;
 import processing.core.PGraphics;
-import de.fhpotsdam.unfolding.marker.AbstractMultiMarker;
+import de.fhpotsdam.unfolding.marker.AbstractShapeMarker;
 import de.fhpotsdam.unfolding.utils.MapPosition;
 
-public class OuterPolygonMarker extends AbstractMultiMarker {
+public class OuterPolygonMarker extends AbstractShapeMarker {
 
 	@Override
 	public void draw(PGraphics pg, List<MapPosition> mapPositions) {
@@ -24,11 +24,6 @@ public class OuterPolygonMarker extends AbstractMultiMarker {
 		}
 		pg.endShape(PConstants.CLOSE);
 		pg.popStyle();
-	}
-
-	@Override
-	protected boolean isInside(float checkX, float checkY, float x, float y) {
-		return false;
 	}
 
 }

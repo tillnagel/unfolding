@@ -20,7 +20,7 @@ public class GPXReader {
 		XMLElement gpx = new XMLElement(p, gpxFilename);
 
 		// Create track with all track points
-		MultiFeature trackFeature = new MultiFeature(FeatureType.LINES);
+		ShapeFeature trackFeature = new ShapeFeature(FeatureType.LINES);
 		XMLElement[] itemXMLElements = gpx.getChildren("trk/trkseg/trkpt");
 		for (int i = 0; i < itemXMLElements.length; i++) {
 			// Adds location for track point

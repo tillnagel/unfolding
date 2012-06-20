@@ -2,6 +2,7 @@ package de.fhpotsdam.unfolding.marker;
 
 import java.util.HashMap;
 
+import processing.core.PApplet;
 import processing.core.PGraphics;
 import de.fhpotsdam.unfolding.Map;
 import de.fhpotsdam.unfolding.geo.Location;
@@ -74,6 +75,7 @@ public abstract class AbstractMarker implements Marker {
 	 */
 	@Override
 	public boolean isInside(Map map, float checkX, float checkY) {
+		PApplet.println("AbstractMarker.isInside(m, cx, cy)");
 		ScreenPosition pos = getScreenPosition(map);
 		return isInside(checkX, checkY, pos.x, pos.y);
 	}
@@ -131,7 +133,9 @@ public abstract class AbstractMarker implements Marker {
 	public abstract void drawOuter(PGraphics pg, float x, float y);
 
 	/**
-	 * Checks whether given position is inside the map.
+	 * Checks whether given position is inside the marker.
+	 * 
+	 * TODO Keep isInside(cx, cy, x, y) also for AbstractShapeMarker?
 	 * 
 	 * @param checkX
 	 *            The x position to check in screen coordinates.
@@ -153,6 +157,11 @@ public abstract class AbstractMarker implements Marker {
 	 */
 	public void setSelected(boolean selected) {
 		this.selected = selected;
+	}
+
+	@Override
+	public boolean isSelected() {
+		return selected;
 	}
 
 }

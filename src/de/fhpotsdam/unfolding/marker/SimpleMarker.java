@@ -2,6 +2,7 @@ package de.fhpotsdam.unfolding.marker;
 
 import java.util.HashMap;
 
+import processing.core.PApplet;
 import processing.core.PGraphics;
 import processing.core.PVector;
 import de.fhpotsdam.unfolding.geo.Location;
@@ -14,19 +15,19 @@ import de.fhpotsdam.unfolding.geo.Location;
 public class SimpleMarker extends AbstractMarker {
 
 	public float radius;
-	public float r, g, b, a; //TODO fxlange use processing's type color
+	public float r, g, b, a; // TODO fxlange use processing's type color
 
 	public SimpleMarker() {
-		this(null,null);
+		this(null, null);
 	}
-	
+
 	public SimpleMarker(Location location) {
-		this(location,null);
+		this(location, null);
 	}
-	
-	public SimpleMarker(Location location, HashMap<String, Object> properties){
-		super(location,properties);
-		
+
+	public SimpleMarker(Location location, HashMap<String, Object> properties) {
+		super(location, properties);
+
 		radius = 1.f;
 		r = 203;
 		g = 79;
@@ -45,6 +46,7 @@ public class SimpleMarker extends AbstractMarker {
 	}
 
 	public boolean isInside(float checkX, float checkY, float x, float y) {
+		PApplet.println("SimpleMarker.isInside(cx, cy, x, y)");
 		PVector pos = new PVector(x, y);
 		return pos.dist(new PVector(checkX, checkY)) < radius; // FIXME must be zoom dependent
 	}

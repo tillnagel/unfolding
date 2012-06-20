@@ -1,4 +1,4 @@
-package de.fhpotsdam.unfolding.examples.marker.multimarker;
+package de.fhpotsdam.unfolding.examples.marker.gllines;
 
 import java.nio.FloatBuffer;
 import java.util.List;
@@ -10,10 +10,10 @@ import codeanticode.glgraphics.GLGraphicsOffScreen;
 
 import com.sun.opengl.util.BufferUtil;
 
-import de.fhpotsdam.unfolding.marker.AbstractMultiMarker;
+import de.fhpotsdam.unfolding.marker.AbstractShapeMarker;
 import de.fhpotsdam.unfolding.utils.MapPosition;
 
-public class GLLinesMarker extends AbstractMultiMarker {
+public class GLLinesMarker extends AbstractShapeMarker {
 
 	@Override
 	public void draw(PGraphics pg, List<MapPosition> mapPositions) {

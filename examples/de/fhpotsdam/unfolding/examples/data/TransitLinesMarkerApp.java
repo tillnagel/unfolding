@@ -8,7 +8,7 @@ import codeanticode.glgraphics.GLConstants;
 import de.fhpotsdam.unfolding.Map;
 import de.fhpotsdam.unfolding.data.Feature;
 import de.fhpotsdam.unfolding.data.GeoJSONReader;
-import de.fhpotsdam.unfolding.data.MultiFeature;
+import de.fhpotsdam.unfolding.data.ShapeFeature;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.marker.Marker;
 import de.fhpotsdam.unfolding.marker.SimpleLinesMarker;
@@ -42,7 +42,7 @@ public class TransitLinesMarkerApp extends PApplet {
 		// Create marker from features, and use LINE property to color the markers.
 		List<Marker> transitMarkers = new ArrayList<Marker>();
 		for (Feature feature : transitLines) {
-			MultiFeature lineFeature = (MultiFeature) feature;
+			ShapeFeature lineFeature = (ShapeFeature) feature;
 
 			SimpleLinesMarker m = new SimpleLinesMarker(lineFeature.getLocations());
 			String lineColor = lineFeature.getStringProperty("LINE");

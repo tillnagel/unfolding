@@ -8,11 +8,11 @@ import processing.core.PGraphics;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.utils.MapPosition;
 
-public class SimpleLinesMarker extends AbstractMultiMarker {
-	
+public class SimpleLinesMarker extends AbstractShapeMarker {
+
 	protected int color;
 	protected int strokeWeight = 1;
-	
+
 	public SimpleLinesMarker() {
 		super();
 	}
@@ -20,9 +20,9 @@ public class SimpleLinesMarker extends AbstractMultiMarker {
 	public SimpleLinesMarker(List<Location> locations) {
 		super(locations);
 	}
-	
-	public SimpleLinesMarker(List<Location> locations, HashMap<String, Object> properties){
-		super(locations,properties);
+
+	public SimpleLinesMarker(List<Location> locations, HashMap<String, Object> properties) {
+		super(locations, properties);
 	}
 
 	/**
@@ -60,11 +60,6 @@ public class SimpleLinesMarker extends AbstractMultiMarker {
 	public void drawOuter(PGraphics pg, List<MapPosition> mapPositions) {
 	}
 
-	@Override
-	protected boolean isInside(float checkX, float checkY, float x, float y) {
-		return false;
-	}
-
 	public void setColor(int color) {
 		this.color = color;
 	}
@@ -72,5 +67,5 @@ public class SimpleLinesMarker extends AbstractMultiMarker {
 	public void setStrokeWeight(int strokeWeight) {
 		this.strokeWeight = strokeWeight;
 	}
-	
+
 }

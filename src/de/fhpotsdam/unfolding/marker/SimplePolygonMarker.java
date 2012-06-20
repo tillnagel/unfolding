@@ -8,7 +8,7 @@ import processing.core.PGraphics;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.utils.MapPosition;
 
-public class SimplePolygonMarker extends AbstractMultiMarker {
+public class SimplePolygonMarker extends AbstractShapeMarker {
 
 	protected int color = 1684300900;
 	protected int strokeColor;
@@ -29,7 +29,13 @@ public class SimplePolygonMarker extends AbstractMultiMarker {
 	public void draw(PGraphics pg, List<MapPosition> mapPositions) {
 		// REVISIT move to abstractMarker.draw(map)?
 		pg.pushStyle();
-		pg.fill(color);
+		if (isSelected()) {
+			pg.fill(255, 0, 0);
+
+		} else {
+			pg.fill(color);
+
+		}
 		pg.stroke(strokeColor);
 		pg.beginShape();
 		for (MapPosition op : mapPositions) {
@@ -41,11 +47,6 @@ public class SimplePolygonMarker extends AbstractMultiMarker {
 
 	@Override
 	public void drawOuter(PGraphics pg, List<MapPosition> mapPositions) {
-	}
-
-	@Override
-	protected boolean isInside(float checkX, float checkY, float x, float y) {
-		return false;
 	}
 
 	public void setColor(int color) {

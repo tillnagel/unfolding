@@ -15,6 +15,9 @@ public interface Marker {
 	/**
 	 * Gets the location of this marker.
 	 * 
+	 * For point marker this returns the single location, for shape markers it should return a meaningful location, e.g.
+	 * the centroid.
+	 * 
 	 * @return The location with lat, lng.
 	 */
 	public Location getLocation();
@@ -85,6 +88,8 @@ public interface Marker {
 	public void drawOuter(Map map);
 
 	public void setSelected(boolean selected);
+	
+	public boolean isSelected();
 
 	// For drawing onto the texture, i.e. after distortion, etc.
 	// public void drawTexture(PGraphics pg);
