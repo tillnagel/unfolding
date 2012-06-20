@@ -21,8 +21,4 @@ public class MultiFeature extends Feature {
 		locations.add(location);
 	}
 
-	public FeatureType getType() {
-		return FeatureType.LINES;
-	}
-
 }

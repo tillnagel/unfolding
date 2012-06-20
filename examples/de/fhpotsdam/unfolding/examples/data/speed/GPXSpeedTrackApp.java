@@ -15,8 +15,6 @@ import de.fhpotsdam.unfolding.utils.MapUtils;
  * Loads a GPX file containing a bike tour in Berlin, and displays each segment with speed mapped to color.
  * 
  * This example shows a more complex usage of own data loading and special markers.
- * 
- * TODO tillnagel: Is still rather complex to extend this feature/marker mechanism.
  */
 public class GPXSpeedTrackApp extends PApplet {
 

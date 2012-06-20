@@ -7,7 +7,6 @@ import java.util.List;
 
 import de.fhpotsdam.unfolding.data.Feature.FeatureType;
 import de.fhpotsdam.unfolding.geo.Location;
-import de.fhpotsdam.unfolding.marker.AbstractMultiMarker;
 import de.fhpotsdam.unfolding.marker.Marker;
 import de.fhpotsdam.unfolding.marker.SimpleLinesMarker;
 import de.fhpotsdam.unfolding.marker.SimpleMarker;
@@ -87,7 +86,7 @@ public class MarkerFactory {
 			marker = (Marker) markerConstructor.newInstance(feature.getLocation(), feature.getProperties());
 		} catch (NoSuchMethodException e) {
 			Constructor markerConstructor = markerClass.getDeclaredConstructor(Location.class);
-			marker = (Marker) markerConstructor.newInstance(feature.getLocation(), feature.getProperties());
+			marker = (Marker) markerConstructor.newInstance(feature.getLocation());
 		}
 		return marker;
 	}
@@ -100,7 +99,7 @@ public class MarkerFactory {
 			marker = (Marker) markerConstructor.newInstance(feature.getLocations(), feature.getProperties());
 		} catch (NoSuchMethodException e) {
 			Constructor markerConstructor = markerClass.getDeclaredConstructor(List.class);
-			marker = (Marker) markerConstructor.newInstance(feature.getLocations(), feature.getProperties());
+			marker = (Marker) markerConstructor.newInstance(feature.getLocations());
 		}
 		return marker;
 	}
@@ -113,7 +112,7 @@ public class MarkerFactory {
 			marker = (Marker) markerConstructor.newInstance(feature.getLocations(), feature.getProperties());
 		} catch (NoSuchMethodException e) {
 			Constructor markerConstructor = markerClass.getDeclaredConstructor(List.class);
-			marker = (Marker) markerConstructor.newInstance(feature.getLocations(), feature.getProperties());
+			marker = (Marker) markerConstructor.newInstance(feature.getLocations());
 		}
 		return marker;
 	}
