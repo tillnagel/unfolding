@@ -87,6 +87,7 @@ public class MarkerFactory {
 		} catch (NoSuchMethodException e) {
 			Constructor markerConstructor = markerClass.getDeclaredConstructor(Location.class);
 			marker = (Marker) markerConstructor.newInstance(feature.getLocation());
+			marker.setProps(feature.getProperties());
 		}
 		return marker;
 	}
@@ -100,6 +101,7 @@ public class MarkerFactory {
 		} catch (NoSuchMethodException e) {
 			Constructor markerConstructor = markerClass.getDeclaredConstructor(List.class);
 			marker = (Marker) markerConstructor.newInstance(feature.getLocations());
+			marker.setProps(feature.getProperties());
 		}
 		return marker;
 	}
@@ -113,6 +115,7 @@ public class MarkerFactory {
 		} catch (NoSuchMethodException e) {
 			Constructor markerConstructor = markerClass.getDeclaredConstructor(List.class);
 			marker = (Marker) markerConstructor.newInstance(feature.getLocations());
+			marker.setProps(feature.getProperties());
 		}
 		return marker;
 	}

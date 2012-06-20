@@ -41,8 +41,9 @@ public class GeoJSONReader {
 					} else {
 						// Single geometry
 						feature = getFeatureByType(currJSONObjGeometry, currJSONObjProperties);
-						if (feature != null)
+						if (feature != null) {
 							features.add(feature);
+						}
 					}
 
 				}
@@ -92,74 +93,51 @@ public class GeoJSONReader {
 		if (featureType.equals("Polygon")) {
 			feature = new MultiFeature(FeatureType.POLYGON);
 			MultiFeature polygonFeature = (MultiFeature) feature;
-
 			JSONArray coords = geometry.getJSONArray("coordinates");
-
-			// ArrayList <ArrayList >shapes = new ArrayList <ArrayList>();
-			//
-			// for(int i = 0; i < coords.length(); i++){
-			// ArrayList <Location> currShape = new ArrayList <Location>();
 
 			for (int l = 0; l < coords.getJSONArray(0).length(); l++) {
 				double lon = coords.getJSONArray(0).getJSONArray(l).getDouble(0);
 				double lat = coords.getJSONArray(0).getJSONArray(l).getDouble(1);
 				polygonFeature.addLocation(new Location((float) lat, (float) lon));
 			}
-			// shapes.add(currShape);
-			// }
-
-			// polyMarker.setShapes(shapes);
-			// polyMarker.setType(featureType);
 		}
 
 		if (featureType.equals("MultiPolygon")) {
-			PApplet.println("MultiPolygon not supported, yet.");
+			/*
+			feature = new MultiFeature(FeatureType.POLYGON);
+			MultiFeature polygonFeature = (MultiFeature) feature;
+			// FeatureMultiPolygon currFeatureMultiPolygon = (FeatureMultiPolygon) feature;
 
-			// JSONArray coords = geometry.getJSONArray("coordinates");
-			//
-			// marker = new FeatureMultiPolygon(p);
-			// geometry.getString("type")FeatureMultiPolygon
-			// currFeatureMultiPolygon = (FeatureMultiPolygon) marker;
-			//
-			// try{
-			//
-			// ArrayList shapes = new ArrayList();
-			//
-			//
-			// for(int i = 0; i < coords.length(); i++){
-			//
-			//
-			// for(int l = 0; l < coords.getJSONArray(i).length(); l++){
-			//
-			// Polygon2D currShape = new Polygon2D();
-			//
-			// for(int k = 0; k <
-			// coords.getJSONArray(i).getJSONArray(l).length(); k++){
-			//
-			//
-			// double y =
-			// coords.getJSONArray(i).getJSONArray(l).getJSONArray(k).getDouble(0);
-			// double x =
-			// coords.getJSONArray(i).getJSONArray(l).getJSONArray(k).getDouble(1);
-			//
-			// Vec2D thisCoord = new Vec2D((float)x, (float)y);
-			//
-			//
-			// currShape.add(thisCoord);
-			// }
-			// shapes.add(currShape);
-			//
-			// }
-			//
-			// }
-			// currFeatureMultiPolygon.setShapes(shapes);
-			// currFeatureMultiPolygon.setType(geometry.getString("type"));
-			// markers.add(currFeatureMultiPolygon);
-			//
-			// }
-			// catch(JSONException e){
-			// p.println(e.toString());
-			// }
+			JSONArray coords = geometry.getJSONArray("coordinates");
+
+			ArrayList<ArrayList> shapes = new ArrayList<ArrayList>();
+
+			for (int i = 0; i < coords.length(); i++) {
+
+				ArrayList<ArrayList> shape = new ArrayList<ArrayList>();
+
+				for (int l = 0; l < coords.getJSONArray(i).length(); l++) {
+
+					ArrayList currShape = new ArrayList<Location>();
+
+					for (int k = 0; k < coords.getJSONArray(i).getJSONArray(l).length(); k++) {
+
+						double lon = coords.getJSONArray(i).getJSONArray(l).getJSONArray(k).getDouble(0);
+						double lat = coords.getJSONArray(i).getJSONArray(l).getJSONArray(k).getDouble(1);
+
+						polygonFeature.addLocation(new Location((float) lat, (float) lon));
+						//currShape.add(thisCoord);
+					}
+					//shape.add(currShape);
+
+				}
+				//shapes.add(shape);
+
+			}
+//			currFeatureMultiPolygon.setShapes(shapes);
+//			currFeatureMultiPolygon.setType(geometry.getString("type"));
+//			features.add(currFeatureMultiPolygon);
+			 */
 		}
 
 		if (feature != null) {

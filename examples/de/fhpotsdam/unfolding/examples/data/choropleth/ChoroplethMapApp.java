@@ -18,7 +18,7 @@ import de.fhpotsdam.unfolding.utils.MapUtils;
  * density.
  * 
  * It loads the country shapes from a GeoJSON file via a data reader, and loads the population density values from
- * another XML file (provided by the World Bank). For the encoding a linear mapping to 
+ * another CSV file (provided by the World Bank). For the encoding a linear mapping to the transparency value is done.
  */
 public class ChoroplethMapApp extends PApplet {
 
@@ -39,7 +39,7 @@ public class ChoroplethMapApp extends PApplet {
 		countryMarkers = MapUtils.createSimpleMarkers(countries);
 		map.addMarkers(countryMarkers);
 
-		dataEntriesMap = loadPopulationDensityFromXML("countries-population-density.xml");
+		dataEntriesMap = loadPopulationDensityFromCSV("countries-population-density.csv");
 		println("Loaded " + dataEntriesMap.size() + " data entries");
 		shadeCountries();
 	}
@@ -47,10 +47,6 @@ public class ChoroplethMapApp extends PApplet {
 	public void draw() {
 		background(160);
 		map.draw();
-	}
-
-	public void keyPressed() {
-		//shadeCountries();
 	}
 
 	public void shadeCountries() {
@@ -64,10 +60,10 @@ public class ChoroplethMapApp extends PApplet {
 			if (dataEntry != null && dataEntry.value != null) {
 				float saturation = map(dataEntry.value, 0, 700, 10, 255);
 				spMarker.setColor(color(255, 0, 0, saturation));
-				
+
 				minValue = min(minValue, dataEntry.value);
 				maxValue = max(maxValue, dataEntry.value);
-				
+
 			} else {
 				// No value available
 				spMarker.setColor(color(100, 120));
@@ -77,6 +73,32 @@ public class ChoroplethMapApp extends PApplet {
 		println("minValue:" + minValue + ", maxValue:" + maxValue);
 	}
 
+	public HashMap<String, DataEntry> loadPopulationDensityFromCSV(String fileName) {
+		HashMap<String, DataEntry> dataEntriesMap = new HashMap<String, DataEntry>();
+
+		String[] rows = loadStrings(fileName);
+		for (String row : rows) {
+			String[] columns = row.split(";");
+			if (columns.length >= 3) {
+				DataEntry dataEntry = new DataEntry();
+				dataEntry.countryName = columns[0];
+				dataEntry.value = Float.parseFloat(columns[2]);
+				dataEntriesMap.put(dataEntry.countryName, dataEntry);
+			}
+		}
+
+		return dataEntriesMap;
+	}
+
+	class DataEntry {
+		String countryName;
+		Integer year;
+		Float value;
+	}
+
+	/**
+	 * Test loading method to load from original XML file from WorldBank.
+	 */
 	public HashMap<String, DataEntry> loadPopulationDensityFromXML(String fileName) {
 		HashMap<String, DataEntry> dataEntriesMap = new HashMap<String, DataEntry>();
 
@@ -92,7 +114,7 @@ public class ChoroplethMapApp extends PApplet {
 				String fieldName = field.getString("name");
 
 				if (fieldName.equals("Country or Area")) {
-					dataEntry.country = field.getContent();
+					dataEntry.countryName = field.getContent();
 				} else if (fieldName.equals("Year")) {
 					dataEntry.year = Integer.parseInt(field.getContent());
 
@@ -105,16 +127,10 @@ public class ChoroplethMapApp extends PApplet {
 			}
 
 			if (dataEntry.year == 2010) {
-				dataEntriesMap.put(dataEntry.country, dataEntry);
+				dataEntriesMap.put(dataEntry.countryName, dataEntry);
 			}
 		}
 		return dataEntriesMap;
-	}
-
-	class DataEntry {
-		String country;
-		Integer year;
-		Float value;
 	}
 
 }
