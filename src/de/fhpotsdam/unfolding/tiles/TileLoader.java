@@ -23,9 +23,9 @@ import de.fhpotsdam.unfolding.providers.AbstractMapProvider;
 public class TileLoader implements Runnable {
 
 	/** Shows borders around each tile. */
-	private static final boolean SHOW_DEBUG_BORDER = true;
+	private static final boolean SHOW_DEBUG_BORDER = false;
 	/** Shows coordinate information for tile. */
-	private static final boolean SHOW_TILE_COORDINATES = true;
+	private static final boolean SHOW_TILE_COORDINATES = false;
 
 	/** Shows coordinate information for tile, i.e. placed atop original tile image. */
 	public boolean showDebugBorder = SHOW_DEBUG_BORDER;
