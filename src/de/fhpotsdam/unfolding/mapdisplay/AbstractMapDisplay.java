@@ -8,6 +8,7 @@ import java.util.Vector;
 
 import org.apache.log4j.Logger;
 
+import processing.core.PApplet;
 import processing.core.PGraphics;
 import processing.core.PVector;
 import de.fhpotsdam.unfolding.Map;
@@ -88,7 +89,8 @@ public abstract class AbstractMapDisplay implements TileLoaderListener {
 		transformationCenter = new PVector(width / 2, height / 2);
 		innerTransformationCenter = new PVector(width / 2, height / 2);
 
-		innerScale = (float) Math.ceil(Math.min(height / (float) TILE_WIDTH, width / (float) TILE_HEIGHT));
+		//innerScale = (float) Math.ceil(Math.min(height / (float) TILE_WIDTH, width / (float) TILE_HEIGHT));
+		innerScale = (float) width / (float) TILE_HEIGHT;
 		
 		markerManagerList = new ArrayList<MarkerManager<Marker>>();
 	}
@@ -254,6 +256,7 @@ public abstract class AbstractMapDisplay implements TileLoaderListener {
 
 	public void processQueue() {
 		while (pending.size() < max_pending && queue.size() > 0) {
+			
 			Coordinate coord = (Coordinate) queue.remove(0);
 			TileLoader tileLoader = createTileLoader(coord);
 			pending.put(coord, tileLoader);
@@ -272,7 +275,8 @@ public abstract class AbstractMapDisplay implements TileLoaderListener {
 	// TODO Handle null images (if TileLoader/MapProvider returns null tile)
 	public void tileLoaded(Coordinate coord, Object image) {
 		if (pending.containsKey(coord) && coord != null) {
-			images.put(coord, image);
+			if (!images.containsKey(provider.sourceCoordinate(coord)))images.put(coord, image);
+			else images.put(coord,images.get(provider.sourceCoordinate(coord)));
 			pending.remove(coord);
 		} else {
 			queue.add(coord);

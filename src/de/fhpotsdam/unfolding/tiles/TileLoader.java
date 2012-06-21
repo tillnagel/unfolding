@@ -23,9 +23,9 @@ import de.fhpotsdam.unfolding.providers.AbstractMapProvider;
 public class TileLoader implements Runnable {
 
 	/** Shows borders around each tile. */
-	private static final boolean SHOW_DEBUG_BORDER = false;
+	private static final boolean SHOW_DEBUG_BORDER = true;
 	/** Shows coordinate information for tile. */
-	private static final boolean SHOW_TILE_COORDINATES = false;
+	private static final boolean SHOW_TILE_COORDINATES = true;
 
 	/** Shows coordinate information for tile, i.e. placed atop original tile image. */
 	public boolean showDebugBorder = SHOW_DEBUG_BORDER;
@@ -48,7 +48,7 @@ public class TileLoader implements Runnable {
 		this.provider = provider;
 		this.listener = listener;
 		this.coordinate = coordinate;
-
+		
 		cachedEmpyImage = new PImage(provider.tileWidth(), provider.tileHeight(), PConstants.ARGB);
 	}
 
@@ -57,13 +57,13 @@ public class TileLoader implements Runnable {
 	 * afterwards.
 	 */
 	public void run() {
-
 		// Gets tile as image directly from provider (e.g. loaded from a database)
-		PImage tileImg = provider.getTile(coordinate);
+		Coordinate sourceCoordinate = provider.sourceCoordinate(coordinate);
+		PImage tileImg = provider.getTile(sourceCoordinate);
 
 		if (tileImg == null) {
 			// Loads images via the tile URLs from provider (e.g. from a web map service)
-			String[] urls = provider.getTileUrls(coordinate);
+			String[] urls = provider.getTileUrls(sourceCoordinate);
 			if (urls != null) {
 				tileImg = getTileFromUrl(urls);
 			}

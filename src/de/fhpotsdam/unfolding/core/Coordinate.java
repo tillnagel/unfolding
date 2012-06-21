@@ -96,5 +96,4 @@ public class Coordinate {
 		column = PApplet.round(column);
 		zoom = PApplet.round(zoom);
 	}
-
 }

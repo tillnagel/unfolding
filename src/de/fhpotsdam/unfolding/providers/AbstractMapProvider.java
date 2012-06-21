@@ -57,7 +57,7 @@ public abstract class AbstractMapProvider {
 
 		return new Coordinate(wrappedRow, wrappedColumn, coordinate.zoom);
 	}
-
+	
 
 	/** since we're often given four tile servers to pick from */
 	public static float random(int lower, int higher) {

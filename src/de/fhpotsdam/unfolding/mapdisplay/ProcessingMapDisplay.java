@@ -35,7 +35,7 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 
 	// Background color
 	protected int bgColor = 0;
-
+	
 	/**
 	 * Creates a new MapDisplay with full canvas size, and given provider
 	 */
@@ -84,8 +84,6 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 			PMatrix3D invMatrix = new PMatrix3D();
 			invMatrix.apply(matrix);
 			invMatrix.invert();
-			
-			
 			
 			float originalCenterX = invMatrix.multX(transformationCenter.x, transformationCenter.y);
 			float originalCenterY = invMatrix.multY(transformationCenter.x, transformationCenter.y);
@@ -309,7 +307,7 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 		pg.pushMatrix();
 		pg.translate((float) innerOffsetX, (float) innerOffsetY);
 		pg.applyMatrix(innerMatrix);
-
+		
 		Vector visibleKeys = getVisibleKeys(pg);
 
 		if (visibleKeys.size() > 0) {
@@ -324,7 +322,6 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 					pg.pushMatrix();
 					pg.scale(1.0f / PApplet.pow(2, coord.zoom));
 				}
-
 				if (images.containsKey(coord)) {
 					PImage tile = (PImage) images.get(coord);
 
@@ -333,7 +330,7 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 
 					// REVISIT For transparency, do not paint image (why no transparent imgs?)
 					pg.image(tile, x, y, TILE_WIDTH, TILE_HEIGHT);
-
+					
 					if (recent_images.contains(tile)) {
 						recent_images.remove(tile);
 					}
@@ -379,14 +376,14 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 		// NB External threads can change innerMatrix, innerScale, and other properties while this method is
 		// running, which resulted in incorrect values, and in incorrect tile loading.
 		synchronized (this) {
-
+			
 			// Gets outer object corner positions in inner object coordinate system
 			// to check which tiles to load: Always uses bounding box.
 			float[] innerTL = getInnerObjectFromObjectPosition(0, 0);
 			float[] innerTR = getInnerObjectFromObjectPosition(getWidth(), 0);
 			float[] innerBR = getInnerObjectFromObjectPosition(getWidth(), getHeight());
 			float[] innerBL = getInnerObjectFromObjectPosition(0, getHeight());
-
+			
 			Coordinate coordTL = getCoordinateFromInnerPosition(innerTL[0], innerTL[1]).zoomTo(zoomLevel);
 			Coordinate coordTR = getCoordinateFromInnerPosition(innerTR[0], innerTR[1]).zoomTo(zoomLevel);
 			Coordinate coordBR = getCoordinateFromInnerPosition(innerBR[0], innerBR[1]).zoomTo(zoomLevel);
@@ -397,35 +394,36 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 			minRow = (int) PApplet.min(new float[] { coordTL.row, coordTR.row, coordBR.row, coordBL.row });
 			maxRow = (int) PApplet.max(new float[] { coordTL.row, coordTR.row, coordBR.row, coordBL.row });
 		}
-
+		
 		// Add tile padding (to pre-load, and because we might be zooming out between zoom levels)
 		minCol -= grid_padding;
 		minRow -= grid_padding;
 		maxCol += grid_padding;
 		maxRow += grid_padding;
-
+		
 		// log.debug("getVisibleKeys: " + minCol + "," + maxCol + "; " + minRow + "," + maxRow);
-		// PApplet.println("getVisibleKeys: " + minCol + "," + maxCol + "; " + minRow + "," + maxRow);
-
+		
 		// we don't wrap around the world yet, so:
 		int numberTiles = (int) Map.getScaleFromZoom(zoomLevel);
-		minCol = PApplet.constrain(minCol, 0, numberTiles);
-		maxCol = PApplet.constrain(maxCol, 0, numberTiles);
+		//minCol = PApplet.constrain(minCol, 0, numberTiles);
+		//maxCol = PApplet.constrain(maxCol, 0, numberTiles);
 		minRow = PApplet.constrain(minRow, 0, numberTiles);
 		maxRow = PApplet.constrain(maxRow, 0, numberTiles);
-
+		
 		// grab coords for visible tiles
 		for (int col = minCol; col <= maxCol; col++) {
 			for (int row = minRow; row <= maxRow; row++) {
-
 				// source coordinate wraps around the world:
-				Coordinate coord = provider.sourceCoordinate(new Coordinate(row, col, zoomLevel));
+				Coordinate coord = new Coordinate(row%numberTiles,col, zoomLevel);
+				//Coordinate sourceCoord = provider.sourceCoordinate(new Coordinate(row, col, zoomLevel));
+				
 				// make sure we still have ints:
 				coord.roundValues();
+				//sourceCoord.roundValues();
 
 				// keep this for later:
 				visibleKeys.add(coord);
-
+				
 				if (!images.containsKey(coord)) {
 					// fetch it if we don't have it
 					grabTile(coord);
@@ -477,7 +475,7 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 
 		// load up to 4 more things:
 		processQueue();
-
+		
 		return visibleKeys;
 	}
 
