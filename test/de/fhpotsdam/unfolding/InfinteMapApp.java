@@ -5,6 +5,7 @@ import codeanticode.glgraphics.GLConstants;
 import de.fhpotsdam.unfolding.Map;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.mapdisplay.AbstractMapDisplay;
+import de.fhpotsdam.unfolding.mapdisplay.MapDisplayFactory;
 import de.fhpotsdam.unfolding.providers.Microsoft;
 import de.fhpotsdam.unfolding.utils.*;
 import de.fhpotsdam.unfolding.tiles.*;
@@ -20,7 +21,9 @@ public class InfinteMapApp extends PApplet {
 		size(800, 640, GLConstants.GLGRAPHICS);
 		map = new Map(this);
 		MapUtils.createDefaultEventDispatcher(this, map);
-		cursorLocation  = map.getLocation(new ScreenPosition(this.mouseX, this.mouseY));
+		cursorLocation  = map.getLocation(new ScreenPosition(this.mouseX, this.mouseY));		
+		map.minScale=map.getZoom();
+		//map.setTweening(true);
 	}
 
 	public void draw() {
