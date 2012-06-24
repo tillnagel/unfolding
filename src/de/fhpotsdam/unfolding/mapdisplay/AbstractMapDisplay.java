@@ -71,6 +71,7 @@ public abstract class AbstractMapDisplay implements TileLoaderListener {
 	// public int max_images_to_keep = 1024;
 	public int grid_padding = 1; // set to 0 for debugging purposes
 
+
 	protected AbstractMapProvider provider;
 	protected Hashtable<Coordinate, Runnable> pending = new Hashtable<Coordinate, Runnable>();
 	protected Hashtable<Coordinate, Object> images = new Hashtable<Coordinate, Object>();
@@ -120,6 +121,8 @@ public abstract class AbstractMapDisplay implements TileLoaderListener {
 	public abstract void draw();
 
 	public abstract void setBackgroundColor(int color);
+	
+	public abstract void setInfiniteMap(boolean infinite);
 
 	// MarkerManagement -----------------------------------------------
 	
@@ -208,7 +211,8 @@ public abstract class AbstractMapDisplay implements TileLoaderListener {
 	@Deprecated
 	public abstract Location getLocationFromScreenPosition(float x, float y);
 	public abstract Location getLocation(ScreenPosition screenPosition);
-
+	public abstract Location getInnerLocation(ScreenPosition screenPosition);
+	
 	public abstract Location getLocationFromObjectPosition(float x, float y);
 
 	public abstract float[] getInnerObjectFromLocation(Location location);

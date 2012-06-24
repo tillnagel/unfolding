@@ -99,6 +99,7 @@ public class ZoomMapEvent extends MapEvent {
 			PVector transCenter = new PVector(pos.x, pos.y);
 			map.mapDisplay.setInnerTransformationCenter(transCenter);
 		}
+		else map.mapDisplay.setInnerTransformationCenter( new PVector(map.mapDisplay.getWidth()/2,map.mapDisplay.getHeight()/2));
 
 		if (ZOOM_BY_LEVEL.equals(getSubType())) {
 			map.zoom(zoomLevelDelta);

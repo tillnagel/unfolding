@@ -35,6 +35,7 @@ public class Map implements MapEventListener {
 	private static final float PAN_DEFAULT_DELTA = TILE_WIDTH / 2;
 
 	public static final boolean DEFAULT_TWEENING = false;
+	public static final boolean DEFAULT_INFINITEMAP = false;
 
 	public static final Location PRIME_MERIDIAN_EQUATOR_LOCATION = new Location(0, 0);
 	public static final int DEFAULT_ZOOM_LEVEL = 2;
@@ -64,6 +65,7 @@ public class Map implements MapEventListener {
 
 	/** Indicates whether to smoothly animate between mapDisplay states. */
 	private boolean tweening = DEFAULT_TWEENING;
+	
 
 	/** Tweens the scale. */
 	public Integrator scaleIntegrator = new Integrator(1);
@@ -115,7 +117,9 @@ public class Map implements MapEventListener {
 		this.id = id;
 
 		this.mapDisplay = MapDisplayFactory.getMapDisplay(p, id, x, y, width, height, useMask, useDistortion, provider,this);
-
+		
+		/** Indicates whether map panning around the world is infinite*/
+		this.setInfiniteMap(DEFAULT_INFINITEMAP);
 		// panCenterZoomTo(PRIME_MERIDIAN_EQUATOR_LOCATION, DEFAULT_ZOOM_LEVEL);
 	}
 
@@ -224,8 +228,7 @@ public class Map implements MapEventListener {
 	}
 
 	public Location getLocation(ScreenPosition screenPosition) {
-		return mapDisplay.getLocationFromScreenPosition(
-				screenPosition.x, screenPosition.y);
+		return mapDisplay.getLocation(screenPosition);
 	}
 
 	@Deprecated
@@ -326,6 +329,7 @@ public class Map implements MapEventListener {
 	 * Zooms into the map less than a full level. Map tiles will be scaled.
 	 */
 	public void zoomIn() {
+		mapDisplay.setInnerTransformationCenter(this.getCenter());
 		innerScale(SCALE_DELTA_IN);
 	}
 
@@ -333,6 +337,7 @@ public class Map implements MapEventListener {
 	 * Zooms out of the map less than a full level. Map tiles will be scaled.
 	 */
 	public void zoomOut() {
+		mapDisplay.setInnerTransformationCenter(this.getCenter());
 		innerScale(SCALE_DELTA_OUT);
 	}
 
@@ -716,6 +721,10 @@ public class Map implements MapEventListener {
 
 	public void setTweening(boolean tweening) {
 		this.tweening = tweening;
+	}
+	
+	public void setInfiniteMap(boolean infinite) {
+		this.mapDisplay.setInfiniteMap(infinite);
 	}
 
 	public void setBackgroundColor(int bgColor) {

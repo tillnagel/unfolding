@@ -23,7 +23,7 @@ public class KeyboardHandler extends MapEventBroadcaster {
 
 	public KeyboardHandler(PApplet p, List<Map> maps) {
 		super(maps);
-
+		
 		p.registerKeyEvent(this);
 	}
 

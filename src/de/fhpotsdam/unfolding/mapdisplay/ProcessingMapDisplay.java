@@ -36,6 +36,9 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 	// Background color
 	protected int bgColor = 0;
 	
+	//infinite map panning
+	private boolean infinite=false;
+	
 	/**
 	 * Creates a new MapDisplay with full canvas size, and given provider
 	 */
@@ -84,7 +87,7 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 			PMatrix3D invMatrix = new PMatrix3D();
 			invMatrix.apply(matrix);
 			invMatrix.invert();
-			
+	
 			float originalCenterX = invMatrix.multX(transformationCenter.x, transformationCenter.y);
 			float originalCenterY = invMatrix.multY(transformationCenter.x, transformationCenter.y);
 
@@ -102,7 +105,6 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 			PMatrix3D invMatrix = new PMatrix3D();
 			invMatrix.apply(innerMatrix);
 			invMatrix.invert();
-
 			float originalCenterX = invMatrix.multX(innerTransformationCenter.x, innerTransformationCenter.y);
 			float originalCenterY = invMatrix.multY(innerTransformationCenter.x, innerTransformationCenter.y);
 
@@ -152,6 +154,7 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 	}
 
 	public float[] getInnerObjectFromObjectPosition(float x, float y) {
+		//return getInnerTransformedPosition(x, y, true);
 		return getInnerTransformedPosition(x, y, true);
 	}
 
@@ -231,9 +234,15 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 
 	@Override
 	public Location getLocation(ScreenPosition screenPosition) {
+			Location innerLocation = getInnerLocation(screenPosition);
+			float lon=innerLocation.getLon() % 360.0f;
+			if(lon!=0)lon=(PApplet.abs(lon)>180.0f) ?  lon % 180.0f+(180.0f*-lon/PApplet.abs(lon)) : lon;
+			return new Location(innerLocation.getLat(),lon);
+	}
+	
+	public Location getInnerLocation(ScreenPosition screenPosition) {
 		synchronized (this) {
-			float innerObjectXY[] = getInnerObjectFromScreenPosition(
-					screenPosition.x, screenPosition.y);
+			float innerObjectXY[] = getInnerObject(screenPosition);
 			return getLocationFromInnerObjectPosition(innerObjectXY[0], innerObjectXY[1]);
 		}
 	}
@@ -360,6 +369,11 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 	public void setBackgroundColor(int color) {
 		this.bgColor = color;
 	}
+	
+	@Override
+	public void setInfiniteMap(boolean infinite) {
+		this.infinite=infinite;
+	}
 
 	// Based on code by ModestMaps, Tom Carden
 	protected Vector getVisibleKeys(PGraphics pg) {
@@ -394,33 +408,55 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 			minRow = (int) PApplet.min(new float[] { coordTL.row, coordTR.row, coordBR.row, coordBL.row });
 			maxRow = (int) PApplet.max(new float[] { coordTL.row, coordTR.row, coordBR.row, coordBL.row });
 		}
+		int numberTiles = (int) Map.getScaleFromZoom(zoomLevel);
+	
+		float InnerWidth = TILE_WIDTH * innerScale;
+		while (minCol < -numberTiles/2 && maxCol < numberTiles/2) {
+		//while (innerOffsetX > InnerWidth) {
+			maxCol += numberTiles;
+			minCol += numberTiles;
+			innerOffsetX -= InnerWidth;
+			calculateInnerMatrix();
+		}
+		while (minCol > 0 && maxCol > numberTiles) {
+		//while (innerOffsetX < InnerWidth) {
+			maxCol -= numberTiles;
+			minCol -= numberTiles;
+			innerOffsetX += TILE_WIDTH * innerScale;
+			calculateInnerMatrix();
+		}
+		maxCol = (maxCol>((maxCol%numberTiles)+numberTiles)) ? maxCol%numberTiles :maxCol;
+		minCol = (minCol<((minCol%numberTiles)-numberTiles)) ? minCol%numberTiles :minCol;
 		
+		PApplet.println(innerOffsetX);
 		// Add tile padding (to pre-load, and because we might be zooming out between zoom levels)
-		minCol -= grid_padding;
+		minCol -= grid_padding+numberTiles;
+		maxCol += grid_padding+numberTiles;
 		minRow -= grid_padding;
-		maxCol += grid_padding;
 		maxRow += grid_padding;
 		
 		// log.debug("getVisibleKeys: " + minCol + "," + maxCol + "; " + minRow + "," + maxRow);
 		
 		// we don't wrap around the world yet, so:
-		int numberTiles = (int) Map.getScaleFromZoom(zoomLevel);
-		//minCol = PApplet.constrain(minCol, 0, numberTiles);
-		//maxCol = PApplet.constrain(maxCol, 0, numberTiles);
+		//int numberTiles = (int) Map.getScaleFromZoom(zoomLevel);
+		if(!infinite){
+			minCol = PApplet.constrain(minCol, 0, numberTiles);
+			maxCol = PApplet.constrain(maxCol, 0, numberTiles-1);
+			
+			}
 		minRow = PApplet.constrain(minRow, 0, numberTiles);
-		maxRow = PApplet.constrain(maxRow, 0, numberTiles);
+		maxRow = PApplet.constrain(maxRow, 0, numberTiles-1);
 		
+		//PApplet.println("getVisibleKeys: " + minCol + "," + maxCol+", inner:"+innerOffsetX);
 		// grab coords for visible tiles
 		for (int col = minCol; col <= maxCol; col++) {
 			for (int row = minRow; row <= maxRow; row++) {
 				// source coordinate wraps around the world:
-				Coordinate coord = new Coordinate(row%numberTiles,col, zoomLevel);
-				//Coordinate sourceCoord = provider.sourceCoordinate(new Coordinate(row, col, zoomLevel));
+				Coordinate coord = new Coordinate(row, col, zoomLevel);
 				
 				// make sure we still have ints:
 				coord.roundValues();
-				//sourceCoord.roundValues();
-
+				
 				// keep this for later:
 				visibleKeys.add(coord);
 				
@@ -460,7 +496,6 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 
 			} // rows
 		} // columns
-
 		// sort by zoom so we draw small zoom levels (big tiles) first:
 		Collections.sort(visibleKeys, zoomComparator);
 
@@ -478,6 +513,7 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 		
 		return visibleKeys;
 	}
+	
 
 	// TILE LOADING ---------------------------------------
 

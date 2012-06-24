@@ -23,6 +23,7 @@ public class InfinteMapApp extends PApplet {
 		MapUtils.createDefaultEventDispatcher(this, map);
 		cursorLocation  = map.getLocation(new ScreenPosition(this.mouseX, this.mouseY));		
 		map.minScale=map.getZoom();
+		map.setInfiniteMap(true);
 		//map.setTweening(true);
 	}
 
@@ -30,7 +31,7 @@ public class InfinteMapApp extends PApplet {
 	
 		map.draw();
 		//auto-pan of the map
-		map.panBy(.5f,0);
+		//map.panBy(.5f,0);
 		
 		//shows map coordinates of the current mouse position
 		cursorLocation = map.getLocation(new ScreenPosition(this.mouseX, this.mouseY));
