@@ -41,8 +41,6 @@ public class ColoredLinesMarker extends AbstractShapeMarker {
 		pg.popStyle();
 	}
 
-	// TODO @tillnagel Would be good when empty implementations are not necessary.
-
 	@Override
 	public void draw(PGraphics pg, List<MapPosition> mapPositions) {
 	}
