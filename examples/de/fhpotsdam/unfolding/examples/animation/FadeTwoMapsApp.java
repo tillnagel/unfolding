@@ -89,4 +89,7 @@ public class FadeTwoMapsApp extends PApplet {
 	}
 	
 	
+	public static void main(String[] args) {
+		PApplet.main(new String[] { "de.fhpotsdam.unfolding.examples.animation.FadeTwoMapsApp" });
+	}
 }
