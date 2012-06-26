@@ -220,16 +220,15 @@ public class UnfoldingMap implements MapEventListener {
 	//
 	@Deprecated
 	public Location getLocationFromScreenPosition(float x, float y) {
-		return mapDisplay.getLocationFromScreenPosition(x, y);
+		return getLocation(x, y);
 	}
 
 	public Location getLocation(ScreenPosition screenPosition) {
-		return mapDisplay.getLocationFromScreenPosition(
-				screenPosition.x, screenPosition.y);
+		return mapDisplay.getLocation(screenPosition);
 	}
 
 	public Location getLocation(float x, float y) {
-		return mapDisplay.getLocationFromScreenPosition(x, y);
+		return mapDisplay.getLocation(new ScreenPosition(x, y));
 	}
 	
 	@Deprecated

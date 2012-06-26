@@ -5,28 +5,23 @@ import java.util.List;
 
 import processing.core.PApplet;
 import processing.core.PFont;
-
-import de.fhpotsdam.unfolding.Map;
+import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.geo.Location;
-import de.fhpotsdam.unfolding.mapdisplay.AbstractMapDisplay;
 import de.fhpotsdam.unfolding.utils.GeoUtils;
-import de.fhpotsdam.unfolding.utils.MapUtils;
+import de.fhpotsdam.unfolding.utils.ScreenPosition;
 
 public class BarScaleUI {
 	private static final List<Float> DISPLAY_DISTANCES = Arrays.asList(0.01f, 0.02f, 0.05f, 0.1f, 0.2f, 0.5f, 1f, 2f,
 			5f, 10f, 20f, 50f, 100f, 200f, 500f, 1000f, 2000f, 5000f);
 	private static final float MAX_DISPLAY_DISTANCE = 5000;
 
-	private static final float X_DEFAULT = 100;
-	private static final float Y_DEFAULT = 100;
 	private boolean autoAlignment = true;
 
 	// If false it uses the screen center, resulting in a bar scale depending on the north/south position of the map.
 	boolean showDistanceAtEquator = false;
 
 	private PApplet p;
-	private AbstractMapDisplay mapDisplay;
-	private Map map;
+	private UnfoldingMap map;
 	public float x;
 	public float y;
 
@@ -35,9 +30,8 @@ public class BarScaleUI {
 	private int barWeight;
 	private int barCapOffset;
 
-	public BarScaleUI(PApplet p, Map map, float x, float y) {
+	public BarScaleUI(PApplet p, UnfoldingMap map, float x, float y) {
 		this.p = p;
-		this.mapDisplay = map.mapDisplay;
 		this.map = map;
 		this.x = x;
 		this.y = y;
@@ -49,7 +43,7 @@ public class BarScaleUI {
 
 	}
 
-	public BarScaleUI(PApplet p, Map map) {
+	public BarScaleUI(PApplet p, UnfoldingMap map) {
 		this(p, map, 20, map.mapDisplay.getHeight() - 20);
 	}
 
@@ -77,21 +71,21 @@ public class BarScaleUI {
 			startLocation = new Location(0, 0);
 			destLocation = GeoUtils.getDestinationLocation(startLocation, 90f, distance);
 		} else {
-			startLocation = map.getLocationFromScreenPosition(p.width / 2, p.height / 2);
+			startLocation = map.getLocation(p.width / 2, p.height / 2);
 			destLocation = GeoUtils.getDestinationLocation(startLocation, 90f, distance);
 		}
 		// Calculate distance between both locations in screen coordinates
-		float[] destXY = map.getScreenPositionFromLocation(destLocation);
-		float[] startXY = map.getScreenPositionFromLocation(startLocation);
-		float dx = destXY[0] - startXY[0];
+		ScreenPosition destPos = map.getScreenPosition(destLocation);
+		ScreenPosition startPos = map.getScreenPosition(startLocation);
+		float dx = destPos.x - startPos.x;
 
 		// Display
 		p.fill(color);
 		if (autoAlignment && x > map.mapDisplay.getWidth() / 2) {
 			dx *= -1;
-			p.text(p.nfs(distance, 0, 0) + " km", x + 3, y + 4);
+			p.text(PApplet.nfs(distance, 0, 0) + " km", x + 3, y + 4);
 		} else {
-			p.text(p.nfs(distance, 0, 0) + " km", x + dx + 3, y + 4);
+			p.text(PApplet.nfs(distance, 0, 0) + " km", x + dx + 3, y + 4);
 		}
 		p.stroke(color);
 		p.strokeWeight(barWeight);
