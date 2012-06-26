@@ -19,7 +19,7 @@ public class FadeTwoMapsApp extends PApplet {
 	boolean fadeOnce = false;
 	boolean fadeAlways = false;
 	int fadeVal = 255;
-	int fadeDelta = 1;
+	int fadeDelta = 5;
 	int fadeMin = 0;
 	int fadeMax = 255;
 	
@@ -90,6 +90,6 @@ public class FadeTwoMapsApp extends PApplet {
 	
 	
 	public static void main(String[] args) {
-		PApplet.main(new String[] { "de.fhpotsdam.unfolding.examples.animation.FadeTwoMapsApp" });
+		PApplet.main(new String[] {"de.fhpotsdam.unfolding.examples.animation.FadeTwoMapsApp"});
 	}
 }
