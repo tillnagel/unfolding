@@ -129,8 +129,7 @@ p{
   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.3);
   border-color: #518CC6;
   border-bottom-color: #2A65A0;
-  background: #599BDC;
-  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#599bdc',endColorstr='#3072b3')";
+  @include buttonBackground(#599BDC, #3072B3);
 }
 
 /*

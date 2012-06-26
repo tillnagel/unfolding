@@ -1719,10 +1719,7 @@ button.close {
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
   border-radius: 4px;
-  *margin-left: .3em;
-  -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
-  -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05); }
+  *margin-left: .3em; }
   .btn:hover, .btn:active, .btn.active, .btn.disabled, .btn[disabled] {
     background-color: #e6e6e6;
     *background-color: #d9d9d9; }
@@ -5188,10 +5185,7 @@ button.close {
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
   border-radius: 4px;
-  *margin-left: .3em;
-  -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
-  -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05); }
+  *margin-left: .3em; }
   .btn:hover, .btn:active, .btn.active, .btn.disabled, .btn[disabled] {
     background-color: #e6e6e6;
     *background-color: #d9d9d9; }
@@ -6994,8 +6988,24 @@ p {
   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.3);
   border-color: #518CC6;
   border-bottom-color: #2A65A0;
-  background: #599BDC;
-  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#599bdc',endColorstr='#3072b3')"; }
+  background-color: #488acb;
+  background-image: -moz-linear-gradient(top, #599bdc, #3072b3);
+  background-image: -ms-linear-gradient(top, #599bdc, #3072b3);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#599bdc), to(#3072b3));
+  background-image: -webkit-linear-gradient(top, #599bdc, #3072b3);
+  background-image: -o-linear-gradient(top, #599bdc, #3072b3);
+  background-image: linear-gradient(top, #599bdc, #3072b3);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='ie-hex-str(#599bdc)', endColorstr='ie-hex-str(#3072b3)', GradientType=0);
+  border-color: #3072b3 #3072b3 #204c77;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) fadein(rgba(0, 0, 0, 0.1), 15%);
+  *background-color: #3072b3;
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled = false); }
+  .btn:hover:hover, .btn:hover:active, .btn:hover.active, .btn:hover.disabled, .btn:hover[disabled] {
+    background-color: #3072b3;
+    *background-color: #2b659f; }
+  .btn:hover:active, .btn:hover.active {
+    background-color: #25588b \9; }
 
 /*
 
