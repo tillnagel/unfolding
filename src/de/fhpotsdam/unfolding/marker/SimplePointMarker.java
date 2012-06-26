@@ -30,6 +30,9 @@ public class SimplePointMarker extends AbstractMarker {
 	}
 
 	public void draw(PGraphics pg, float x, float y) {
+	}
+
+	public void drawOuter(PGraphics pg, float x, float y) {
 		pg.pushStyle();
 		if (isSelected()) {
 			pg.fill(highlightColor);
@@ -40,10 +43,6 @@ public class SimplePointMarker extends AbstractMarker {
 		}
 		pg.ellipse(x, y, radius, radius);// TODO use radius in km and convert to px
 		pg.popStyle();
-	}
-
-	public void drawOuter(PGraphics pg, float x, float y) {
-
 	}
 
 	public boolean isInside(float checkX, float checkY, float x, float y) {
