@@ -1,0 +1,27 @@
+{% if video_id == nil %}
+  {% assign video_id = "video-1" %}
+{% endif%}
+{% if video_controls == nil %}
+  {% assign video_controls = "true" %}
+{% endif%}
+{% if video_loop == nil %}
+  {% assign video_loop = "false" %}
+{% endif%}
+{% if video_width == nil %}
+  {% assign video_width = "620" %}
+{% endif%}
+{% if video_height == nil %}
+  {% assign video_height = "390" %}
+{% endif%}
+
+<video id="{{video_id}}" class="video-js vjs-default-skin" {%if video_controls == "true" %}controls="true" {% endif %}{% if video_loop == "true" %}loop="true" {% endif %}preload="auto" width="{{video_width}}" height="{{video_height}}" poster="{{video_img_src}}">
+<source src="{{video_src}}" type='video/mp4'></source>
+</video>
+
+{% assign video_id = nil %}
+{% assign video_controls = nil %}
+{% assign video_loop = nil %}
+{% assign video_src = nil %}
+{% assign video_img_src = nil %}
+{% assign video_width = nil %}
+{% assign video_height = nil %}
