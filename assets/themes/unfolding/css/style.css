@@ -6970,6 +6970,9 @@ h1, h2, h3, h4 {
   h1 h3, h2 h3, h3 h3, h4 h3 {
     text-transform: uppercase; }
 
+h1 a, h2 a, h3 a, h4 a {
+  color: #333; }
+
 p {
   margin-bottom: 21px; }
 
