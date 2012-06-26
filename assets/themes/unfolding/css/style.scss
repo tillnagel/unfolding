@@ -15,8 +15,8 @@
 $iconSpritePath:          url("../bootstrap/images/glyphicons-halflings.png");
 $iconWhiteSpritePath:     url("../bootstrap/images/glyphicons-halflings-white.png");
 $bodyBackground: #FFF;
-$linkColor: #B92F2F;
-$linkColorHover: #B92F2F;
+$linkColor: #333;
+$linkColorHover: #333;
 $serifFontFamily: "Bitter", Georgia, "Times New Roman", Times, serif;
 $sansFontFamily: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 $baseFontSize: 14px;
@@ -61,6 +61,10 @@ $bottomDividerColor: rgba(255,255,255,.5);
     padding:0;
 
     
+}
+
+.thumbnail {
+  background: #FFF;
 }
 
 .span8 .thumbnail {
