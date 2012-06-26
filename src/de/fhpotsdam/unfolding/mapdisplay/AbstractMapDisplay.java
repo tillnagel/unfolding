@@ -141,14 +141,6 @@ public abstract class AbstractMapDisplay implements TileLoaderListener {
 	public MarkerManager<Marker> getDefaultMarkerManager(){
 		return getMarkerManager(0);
 	}
-	
-	/**
-	 * Use {@link #addMarkerManager(MarkerManager)} instead.
-	 */
-	@Deprecated
-	public void setMarkerManager(MarkerManager<Marker> markerManager){
-		markerManagerList.set(0, markerManager);
-	}
 
 	@Deprecated
 	public MarkerManager<Marker> getMarkerManager(){
