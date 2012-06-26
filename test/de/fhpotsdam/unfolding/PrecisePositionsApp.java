@@ -2,13 +2,13 @@ package de.fhpotsdam.unfolding;
 
 import processing.core.PApplet;
 import codeanticode.glgraphics.GLConstants;
-import de.fhpotsdam.unfolding.Map;
+import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.utils.MapUtils;
 
 public class PrecisePositionsApp extends PApplet {
 
-	Map map;
+	UnfoldingMap map;
 
 	public static final Location SINGAPORE_LOCATION = new Location(1.283f, 103.833f);
 	Location location1 = new Location(1.283000f, 103.833000f);
@@ -18,7 +18,7 @@ public class PrecisePositionsApp extends PApplet {
 	public void setup() {
 		size(800, 600, GLConstants.GLGRAPHICS);
 
-		map = new Map(this);
+		map = new UnfoldingMap(this);
 		map.zoomAndPanTo(SINGAPORE_LOCATION, 14);
 		map.setZoomRange(14, 22);
 
