@@ -45,6 +45,10 @@ public abstract class AbstractShapeMarker extends AbstractMarker {
 	public void addLocations(List<Location> locations) {
 		this.locations.addAll(locations);
 	}
+	
+	public void addLocation(float x, float y){
+		locations.add(new Location(x,y));
+	}
 
 	public Location getLocation(int index) {
 		return locations.get(index);
