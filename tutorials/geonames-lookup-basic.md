@@ -2,7 +2,7 @@
 layout: page
 title: Geonames Basic Lookup
 description: Setup An Eclipse Project with Geonames Library
-group: tutorials-internal
+group: tutorials-advanced
 author: Markus Kerschkewicz
 thumbnail: http://placehold.it/330x250
 finalimage: http://placehold.it/610x390&text=Bild+2+610x390
@@ -16,11 +16,8 @@ This tutorial explains how to setup a eclipse project with the geonames library 
 First of all you need to prepare some things to follow this tutorial
 
 *  Create an ecplise project with working unfolding library
-
 *  download the geonames.org java library http://www.geonames.org/source-code/ 
-
 *  geonames library also requires jdom to parse the xml web service result
-
 *  create a free account on geonames.org to use the java library features http://www.geonames.org/login
 
 ## Step 1: Import Geonames Library
@@ -28,6 +25,7 @@ First of all you need to prepare some things to follow this tutorial
 *Lorem ipsum: dolor sit amet, consectetur [adipisicing](http://example.com/ "Link title for adipisicing") elit.*
 
 In the first step we need to import the geonames library and setup the WebService with our username.
+
 
 
 ###### in **geodata/GeoNamesBasicLookup.java**
