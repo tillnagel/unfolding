@@ -6957,7 +6957,8 @@ a.label:hover, a.badge:hover {
   margin-bottom: 10px; }
 
 .container:first-child {
-  margin-top: 21px; }
+  margin-top: 21px;
+  padding-bottom: 42px; }
 
 .page-section1 {
   background: url("/unfolding/assets/images/cartographer.gif") whiteSmoke;
