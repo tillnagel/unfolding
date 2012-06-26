@@ -2,9 +2,9 @@ package de.fhpotsdam.unfolding.examples.marker.connectionmarker;
 
 import processing.core.PGraphics;
 import de.fhpotsdam.unfolding.geo.Location;
-import de.fhpotsdam.unfolding.marker.SimpleMarker;
+import de.fhpotsdam.unfolding.marker.SimplePointMarker;
 
-public class DotMarker extends SimpleMarker {
+public class DotMarker extends SimplePointMarker {
 
 	public DotMarker(Location location) {
 		super(location);

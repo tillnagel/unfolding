@@ -9,7 +9,7 @@ import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.marker.Marker;
 import de.fhpotsdam.unfolding.marker.MarkerManager;
-import de.fhpotsdam.unfolding.marker.SimpleMarker;
+import de.fhpotsdam.unfolding.marker.SimplePointMarker;
 import de.fhpotsdam.unfolding.utils.MapUtils;
 
 /**
@@ -34,7 +34,7 @@ public class ComplexMapSnapshotApp extends PApplet {
 		// Add random markers
 		MarkerManager<Marker> markerManager = new MarkerManager<Marker>();
 		for (int i = 0; i < 100; i++) {
-			SimpleMarker marker = new SimpleMarker();
+			SimplePointMarker marker = new SimplePointMarker();
 			marker.setLocation(random(30, 60), random(-10, 30));
 			markerManager.addMarker(marker);
 		}

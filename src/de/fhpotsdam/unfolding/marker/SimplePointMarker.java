@@ -12,20 +12,20 @@ import de.fhpotsdam.unfolding.utils.StyleConstants;
  * Simple marker, implementing only the main draw method.
  */
 
-public class SimpleMarker extends AbstractMarker {
+public class SimplePointMarker extends AbstractMarker {
 
 
 	public float radius = 1f;
 
-	public SimpleMarker() {
+	public SimplePointMarker() {
 		this(null, null);
 	}
 
-	public SimpleMarker(Location location) {
+	public SimplePointMarker(Location location) {
 		this(location, null);
 	}
 
-	public SimpleMarker(Location location, HashMap<String, Object> properties) {
+	public SimplePointMarker(Location location, HashMap<String, Object> properties) {
 		super(location, properties);
 	}
 

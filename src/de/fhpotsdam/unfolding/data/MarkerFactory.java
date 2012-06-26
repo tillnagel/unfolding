@@ -10,7 +10,7 @@ import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.marker.Marker;
 import de.fhpotsdam.unfolding.marker.MultiMarker;
 import de.fhpotsdam.unfolding.marker.SimpleLinesMarker;
-import de.fhpotsdam.unfolding.marker.SimpleMarker;
+import de.fhpotsdam.unfolding.marker.SimplePointMarker;
 import de.fhpotsdam.unfolding.marker.SimplePolygonMarker;
 
 @SuppressWarnings("rawtypes")
@@ -20,7 +20,7 @@ public class MarkerFactory {
 
 	public MarkerFactory() {
 		featureMarkerMap = new HashMap<Feature.FeatureType, Class>();
-		featureMarkerMap.put(FeatureType.POINT, SimpleMarker.class);
+		featureMarkerMap.put(FeatureType.POINT, SimplePointMarker.class);
 		featureMarkerMap.put(FeatureType.LINES, SimpleLinesMarker.class);
 		featureMarkerMap.put(FeatureType.POLYGON, SimplePolygonMarker.class);
 	}

@@ -5,7 +5,7 @@ import codeanticode.glgraphics.GLConstants;
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.marker.SimpleLinesMarker;
-import de.fhpotsdam.unfolding.marker.SimpleMarker;
+import de.fhpotsdam.unfolding.marker.SimplePointMarker;
 import de.fhpotsdam.unfolding.utils.MapUtils;
 
 /**
@@ -30,10 +30,10 @@ public class SimpleMarkerManagerApp extends PApplet {
 		map.panTo(new Location(40f, -42f));
 		MapUtils.createDefaultEventDispatcher(this, map);
 
-		SimpleMarker berlinMarker = new SimpleMarker(berlinLocation);
+		SimplePointMarker berlinMarker = new SimplePointMarker(berlinLocation);
 		berlinMarker.setColor(color(0, 200, 0, 100));
 		berlinMarker.setRadius(4);
-		SimpleMarker mexicoCityMarker = new SimpleMarker(mexicoCityLocation);
+		SimplePointMarker mexicoCityMarker = new SimplePointMarker(mexicoCityLocation);
 		mexicoCityMarker.setColor(color(200, 0, 0, 100));
 		SimpleLinesMarker connectionMarker = new SimpleLinesMarker(berlinLocation, mexicoCityLocation);
 		map.addMarkers(berlinMarker, mexicoCityMarker, connectionMarker);

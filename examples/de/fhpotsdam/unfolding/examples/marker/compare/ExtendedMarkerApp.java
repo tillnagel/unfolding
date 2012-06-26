@@ -8,7 +8,7 @@ import codeanticode.glgraphics.GLConstants;
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.marker.Marker;
-import de.fhpotsdam.unfolding.marker.SimpleMarker;
+import de.fhpotsdam.unfolding.marker.SimplePointMarker;
 import de.fhpotsdam.unfolding.marker.SimplePolygonMarker;
 import de.fhpotsdam.unfolding.utils.MapUtils;
 
@@ -31,7 +31,7 @@ public class ExtendedMarkerApp extends PApplet {
 	Location areaLocation3 = new Location(32.4801f, -117.15820f);
 
 	// Marker
-	SimpleMarker pointMarker;
+	SimplePointMarker pointMarker;
 	SimplePolygonMarker areaMarker;
 	InnerLabelMarker labelMarker;
 	OuterPointMarker outerPointMarker;
@@ -46,7 +46,7 @@ public class ExtendedMarkerApp extends PApplet {
 		MapUtils.createDefaultEventDispatcher(this, mapsWithInner);
 
 		// inner marker
-		pointMarker = new SimpleMarker(pointLocation);
+		pointMarker = new SimplePointMarker(pointLocation);
 		pointMarker.setRadius(5);
 		areaMarker = new SimplePolygonMarker();
 		areaMarker.addLocations(areaLocation1, areaLocation2, areaLocation3);

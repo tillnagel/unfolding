@@ -3,9 +3,9 @@ package de.fhpotsdam.unfolding.examples.marker.compare;
 import processing.core.PApplet;
 import processing.core.PGraphics;
 import de.fhpotsdam.unfolding.geo.Location;
-import de.fhpotsdam.unfolding.marker.SimpleMarker;
+import de.fhpotsdam.unfolding.marker.SimplePointMarker;
 
-public class OuterLabelMarker extends SimpleMarker {
+public class OuterLabelMarker extends SimplePointMarker {
 	
 	public OuterLabelMarker(Location location) {
 		super(location);
