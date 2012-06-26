@@ -14,7 +14,7 @@
 @import "../bootstrap/stylesheets/_bootstrap.scss";
 $iconSpritePath:          url("../bootstrap/images/glyphicons-halflings.png");
 $iconWhiteSpritePath:     url("../bootstrap/images/glyphicons-halflings-white.png");
-$bodyBackground: #F5F5F5;
+$bodyBackground: #FFF;
 $linkColor: #B92F2F;
 $linkColorHover: #B92F2F;
 $serifFontFamily: "Bitter", Georgia, "Times New Roman", Times, serif;
@@ -79,8 +79,8 @@ $bottomDividerColor: rgba(255,255,255,.5);
 }
 
 .page-section1{
-    //@include translucent-background(#BFB9A4,.2);
-    background:#FFFFFF;
+    //@include translucent-background(#BFB9A4,1);
+    background:#EFEFEF;
 }
 
 

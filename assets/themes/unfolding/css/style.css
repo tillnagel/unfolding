@@ -3560,7 +3560,7 @@ body {
   font-size: 14px;
   line-height: 21px;
   color: #333333;
-  background-color: #f5f5f5; }
+  background-color: white; }
 
 a {
   color: #b92f2f;
@@ -6968,7 +6968,7 @@ a.label:hover, a.badge:hover {
   margin-top: 21px; }
 
 .page-section1 {
-  background: #FFFFFF; }
+  background: #EFEFEF; }
 
 h1, h2, h3, h4 {
   font-family: "Open Sans";
