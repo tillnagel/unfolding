@@ -6968,7 +6968,8 @@ a.label:hover, a.badge:hover {
   margin-top: 21px; }
 
 .page-section1 {
-  background: url("/assets/images/cartographer.gif") whiteSmoke; }
+  background: url("/unfolding/assets/images/cartographer.gif") whiteSmoke;
+  border-bottom: none; }
 
 h1, h2, h3, h4 {
   font-family: "Open Sans";

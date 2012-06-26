@@ -80,7 +80,8 @@ $bottomDividerColor: rgba(255,255,255,.5);
 
 .page-section1{
     //@include translucent-background(#BFB9A4,1);
-    background:url('/assets/images/cartographer.gif') whiteSmoke;
+    background:url('/unfolding/assets/images/cartographer.gif') whiteSmoke;
+    border-bottom:none;
 }
 
 
