@@ -234,13 +234,13 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 
 	@Override
 	public Location getLocation(ScreenPosition screenPosition) {
-			Location innerLocation = getInnerLocation(screenPosition);
+			Location innerLocation = getInfiniteLocation(screenPosition);
 			float lon=innerLocation.getLon() % 360.0f;
 			if(lon!=0)lon=(PApplet.abs(lon)>180.0f) ?  lon % 180.0f+(180.0f*-lon/PApplet.abs(lon)) : lon;
 			return new Location(innerLocation.getLat(),lon);
 	}
 	
-	public Location getInnerLocation(ScreenPosition screenPosition) {
+	public Location getInfiniteLocation(ScreenPosition screenPosition) {
 		synchronized (this) {
 			float innerObjectXY[] = getInnerObject(screenPosition);
 			return getLocationFromInnerObjectPosition(innerObjectXY[0], innerObjectXY[1]);

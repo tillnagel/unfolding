@@ -46,7 +46,7 @@ public class MouseHandler extends MapEventBroadcaster {
 					// Pan + Zoom (order is important)
 
 					PanMapEvent panMapEvent = new PanMapEvent(this, map.getId());
-					Location location = map.mapDisplay.getInnerLocation(new ScreenPosition(mouseX,mouseY));
+					Location location = map.mapDisplay.getInfiniteLocation(new ScreenPosition(mouseX,mouseY));
 					panMapEvent.setToLocation(location);
 					eventDispatcher.fireMapEvent(panMapEvent);
 
@@ -68,7 +68,7 @@ public class MouseHandler extends MapEventBroadcaster {
 						ZoomMapEvent.ZOOM_BY_LEVEL);
 
 				// Use location as zoom center, so listening maps can zoom correctly
-				Location location = map.mapDisplay.getInnerLocation(new ScreenPosition(mouseX,mouseY));
+				Location location = map.mapDisplay.getInfiniteLocation(new ScreenPosition(mouseX,mouseY));
 				zoomMapEvent.setTransformationCenterLocation(location);
 
 				// Zoom in or out
@@ -90,8 +90,8 @@ public class MouseHandler extends MapEventBroadcaster {
 
 				// Pan between two locations, so other listening maps can pan correctly
 
-				Location oldLocation = map.mapDisplay.getInnerLocation(new ScreenPosition(pmouseX,pmouseY));
-				Location newLocation = map.mapDisplay.getInnerLocation(new ScreenPosition(mouseX,mouseY));
+				Location oldLocation = map.mapDisplay.getInfiniteLocation(new ScreenPosition(pmouseX,pmouseY));
+				Location newLocation = map.mapDisplay.getInfiniteLocation(new ScreenPosition(mouseX,mouseY));
 
 				PanMapEvent panMapEvent = new PanMapEvent(this, map.getId(), PanMapEvent.PAN_BY);
 				panMapEvent.setFromLocation(oldLocation);
