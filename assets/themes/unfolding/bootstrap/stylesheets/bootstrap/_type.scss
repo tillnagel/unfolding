@@ -45,12 +45,13 @@ h1 {
   }
 }
 h2 {
-  font-size: 24px;
+  font-size: 22px;
   line-height: $baseLineHeight * 2;
   small {
     font-size: 18px;
   }
 }
+.span8 h2 {margin-top:25px;}
 h3 {
   font-size: 18px;
   line-height: $baseLineHeight * 1.5;

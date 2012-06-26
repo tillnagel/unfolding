@@ -34,8 +34,8 @@
 
 // Add a hover state for linked versions only
 a.thumbnail:hover {
-  border-color: $linkColor;
-  @include box-shadow(0 1px 4px rgba(0,105,214,.25));
+  //border-color: $linkColor;
+  //@include box-shadow(0 1px 4px rgba(0,105,214,.25));
 }
 // Images and captions
 .thumbnail > img {

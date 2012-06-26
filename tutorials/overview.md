@@ -11,20 +11,20 @@ finalfiles: #someurlatgithub
 
 {% include JB/setup %}
 
-## Unfolding Overview
-Download the latest version of the [Unfolding library](https://github.com/tillnagel/unfolding/downloads "Download Unfolding") at Github.  
-Unzip the archive and put the extracted Unfolding folder into the libraries folder of your Processing sketches.  
-
-To find the Processing sketches location on your computer, open the Preferences window of the 
-Processing application and look for the "Sketchbook location" item at the top. 
-You will need to create the "libraries" folder if this is your first contributed library. 
-
-Unfolding also needs the library GLGraphics to simplify the handling of OpenGL. Download the [GLGraphics library](http://sourceforge.net/projects/glgraphics/ "GLGraphics"), unzip it and put the GLGraphics folder in the libraries folder.
-
-Restart Processing, start a new sketch and create your first simple map. 
+## Unfolding - A Map library for Processing & Java
+Unfolding is a map library that was created to handle and interact with maps in processing and java. Initially founded by researcher and lecturer Till Nagel in 200X, Unfolding has been mainly used by interfacedesign students at the university of applied sciences to create simple interactive maps on large multitouch tables. Since 200X several projects were realized with unfolding
 
 
 ## Features
+The advantages are
 
 
 ## Background & Technology
+Unfolding is based on Java ...
+
+Unfolding is a tile-based map library. Map tiles can have various geographic features, and come in all kind of styles. It comes with various map providers, such as OpenStreetMap or TileMill.
+
+
+Architecture
+Tile mechanism: Provider, SlippyMaps, Coordinates etc
+Transformation: Matrices, Levels (Geo/inner, Map/outer, screen/canvas), etc
