@@ -6950,7 +6950,8 @@ a.label:hover, a.badge:hover {
   padding: 0; }
 
 .thumbnail {
-  background: #FFF; }
+  background: #FFF;
+  border: none; }
 
 .span8 ul {
   margin-bottom: 10px; }
