@@ -56,7 +56,7 @@
             <a href="{{ linkto }}" class="thumbnail pull-left" title="Go to {{ node.title }}">
               <img src="{{ node.thumbnail }}" alt="{{ node.title }}" width="140px" height="90px"/>
             </a>
-            <h3><a href="{{ linkto }}">{{ node.title }}</a></h3>
+            <h3><a href="/unfolding/{{ linkto }}">{{ node.title }}</a></h3>
             <p>
               {{ node.description }}
               {% if node.author %}
