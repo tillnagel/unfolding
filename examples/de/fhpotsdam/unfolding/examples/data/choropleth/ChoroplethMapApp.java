@@ -10,8 +10,6 @@ import de.fhpotsdam.unfolding.Map;
 import de.fhpotsdam.unfolding.data.Feature;
 import de.fhpotsdam.unfolding.data.GeoJSONReader;
 import de.fhpotsdam.unfolding.marker.Marker;
-import de.fhpotsdam.unfolding.marker.MultiMarker;
-import de.fhpotsdam.unfolding.marker.SimplePolygonMarker;
 import de.fhpotsdam.unfolding.utils.MapUtils;
 
 /**
@@ -55,32 +53,13 @@ public class ChoroplethMapApp extends PApplet {
 			String countryName = (String) marker.getProperties().get("name");
 			DataEntry dataEntry = dataEntriesMap.get(countryName);
 
-			SimplePolygonMarker spMarker;
-			if (marker instanceof SimplePolygonMarker) {
-				spMarker = (SimplePolygonMarker) marker;
-
-				if (dataEntry != null && dataEntry.value != null) {
-					// Encode value as brightness (values range: 0-1000)
-					float transparency = map(dataEntry.value, 0, 700, 10, 255);
-					spMarker.setColor(color(255, 0, 0, transparency));
-				} else {
-					// No value available
-					spMarker.setColor(color(100, 120));
-				}
-			} else if (marker instanceof MultiMarker) {
-				// TODO This is ugly! Maybe enable styling all Markers? Or implement StylableMarker interface.  
-				
-				for (Marker m : ((MultiMarker) marker).getMarkers()) {
-					SimplePolygonMarker spMarker2 = (SimplePolygonMarker) m;
-					if (dataEntry != null && dataEntry.value != null) {
-						// Encode value as brightness (values range: 0-1000)
-						float transparency = map(dataEntry.value, 0, 700, 10, 255);
-						spMarker2.setColor(color(255, 0, 0, transparency));
-					} else {
-						// No value available
-						spMarker2.setColor(color(100, 120));
-					}
-				}
+			if (dataEntry != null && dataEntry.value != null) {
+				// Encode value as brightness (values range: 0-1000)
+				float transparency = map(dataEntry.value, 0, 700, 10, 255);
+				marker.setColor(color(255, 0, 0, transparency));
+			} else {
+				// No value available
+				marker.setColor(color(100, 120));
 			}
 		}
 	}

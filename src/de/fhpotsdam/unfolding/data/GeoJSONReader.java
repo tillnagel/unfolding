@@ -3,6 +3,7 @@ package de.fhpotsdam.unfolding.data;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.UUID;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -22,6 +23,8 @@ public class GeoJSONReader {
 			JSONArray allFeatures = geoJson.getJSONArray("features");
 
 			for (int i = 0; i < allFeatures.length(); i++) {
+
+				String id = allFeatures.getJSONObject(i).optString("id", UUID.randomUUID().toString());
 
 				JSONObject currJSONObjGeometry = allFeatures.getJSONObject(i).getJSONObject("geometry");
 				JSONObject currJSONObjProperties = allFeatures.getJSONObject(i).getJSONObject("properties");
@@ -47,6 +50,7 @@ public class GeoJSONReader {
 						}
 					}
 
+					feature.setId(id);
 				}
 			}
 		} catch (JSONException e) {
@@ -76,25 +80,30 @@ public class GeoJSONReader {
 
 		if (featureType.equals("LineString")) {
 			feature = new ShapeFeature(FeatureType.LINES);
-			ShapeFeature lineFeature = (ShapeFeature) feature;
+			ShapeFeature linesFeature = (ShapeFeature) feature;
 
-			JSONArray coordsArray = geometry.getJSONArray("coordinates");
-			for (int i = 0; i < coordsArray.length(); i++) {
-				JSONArray coords = coordsArray.getJSONArray(i);
-				double lat = coords.getDouble(1);
-				double lon = coords.getDouble(0);
-				lineFeature.addLocation(new Location((float) lat, (float) lon));
-			}
+			JSONArray coordinates = geometry.getJSONArray("coordinates");
+			populateLinesFeature(linesFeature, coordinates);
 		}
 
 		if (featureType.equals("MultiLineString")) {
-			PApplet.println("MultiLineString not supported, yet.");
+			feature = new MultiFeature();
+			MultiFeature multiFeature = (MultiFeature) feature;
+
+			JSONArray lines = geometry.getJSONArray("coordinates");
+			for (int i = 0; i < lines.length(); i++) {
+				JSONArray coordinates = lines.getJSONArray(i).getJSONArray(0);
+
+				ShapeFeature linesFeature = new ShapeFeature(FeatureType.LINES);
+				populateLinesFeature(linesFeature, coordinates);
+				multiFeature.addFeature(linesFeature);
+			}
 		}
 
 		if (featureType.equals("Polygon")) {
 			feature = new ShapeFeature(FeatureType.POLYGON);
 			ShapeFeature polygonFeature = (ShapeFeature) feature;
-			
+
 			// Creates a single polygon feature
 			JSONArray coordinates = geometry.getJSONArray("coordinates").getJSONArray(0);
 			populatePolygonFeature(polygonFeature, coordinates);
@@ -103,23 +112,33 @@ public class GeoJSONReader {
 		if (featureType.equals("MultiPolygon")) {
 			feature = new MultiFeature();
 			MultiFeature multiFeature = (MultiFeature) feature;
-			
+
 			// Creates multiple polygon features
 			JSONArray polygons = geometry.getJSONArray("coordinates");
 			for (int i = 0; i < polygons.length(); i++) {
 				JSONArray coordinates = polygons.getJSONArray(i).getJSONArray(0);
-				
+
 				ShapeFeature polygonFeature = new ShapeFeature(FeatureType.POLYGON);
 				populatePolygonFeature(polygonFeature, coordinates);
 				multiFeature.addFeature(polygonFeature);
 			}
 		}
 
-		if (feature != null) {
+		if (feature != null && properties != null) {
 			setProperties(feature, properties);
 		}
 
 		return feature;
+	}
+
+	private static void populateLinesFeature(ShapeFeature linesFeature, JSONArray coordinates) throws JSONException {
+		for (int i = 0; i < coordinates.length(); i++) {
+			JSONArray coords = coordinates.getJSONArray(i);
+			double lat = coords.getDouble(1);
+			double lon = coords.getDouble(0);
+			linesFeature.addLocation(new Location((float) lat, (float) lon));
+		}
+
 	}
 
 	private static void populatePolygonFeature(ShapeFeature polygonFeature, JSONArray coordinates) throws JSONException {

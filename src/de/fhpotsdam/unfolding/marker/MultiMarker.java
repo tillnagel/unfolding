@@ -16,6 +16,15 @@ public class MultiMarker implements Marker {
 	protected List<Marker> markers = new ArrayList<Marker>();
 	public HashMap<String, Object> properties;
 	protected boolean selected;
+	protected String id;
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
 
 	public void setMarkers(List<Marker> markers) {
 		this.markers = markers;
@@ -113,5 +122,27 @@ public class MultiMarker implements Marker {
 	public boolean isSelected() {
 		return selected;
 	}
+
+	public void setColor(int color) {
+		for (Marker marker : markers) {
+			marker.setColor(color);
+		}
+	}
+
+	@Override
+	public void setStrokeColor(int color) {
+		for (Marker marker : markers) {
+			marker.setStrokeColor(color);
+		}
+	}
+
+	@Override
+	public void setStrokeWeight(int weight) {
+		for (Marker marker : markers) {
+			marker.setStrokeWeight(weight);
+		}
+	}
+	
+	
 
 }

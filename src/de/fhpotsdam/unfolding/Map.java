@@ -228,6 +228,10 @@ public class Map implements MapEventListener {
 				screenPosition.x, screenPosition.y);
 	}
 
+	public Location getLocation(float x, float y) {
+		return mapDisplay.getLocationFromScreenPosition(x, y);
+	}
+	
 	@Deprecated
 	public float[] getScreenPositionFromLocation(Location location) {
 		return mapDisplay.getScreenPositionFromLocation(location);

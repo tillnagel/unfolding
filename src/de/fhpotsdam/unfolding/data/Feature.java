@@ -12,6 +12,7 @@ public class Feature {
 	}
 
 	private FeatureType type;
+	private String id;
 
 	/** Stores data properties. A feature does not know about the semantics though, this has to be done in the display. */
 	public HashMap<String, Object> properties = new HashMap<String, Object>();
@@ -29,7 +30,7 @@ public class Feature {
 	public FeatureType getType() {
 		return type;
 	}
-	
+
 	public HashMap<String, Object> getProperties() {
 		return properties;
 	}
@@ -71,6 +72,14 @@ public class Feature {
 	 */
 	public void putProperty(String key, Object value) {
 		properties.put(key, value);
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
 	}
 
 }

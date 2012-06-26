@@ -8,6 +8,7 @@ import de.fhpotsdam.unfolding.Map;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.utils.GeoUtils;
 import de.fhpotsdam.unfolding.utils.ScreenPosition;
+import de.fhpotsdam.unfolding.utils.StyleConstants;
 
 /**
  * Marker handling location to appropriate coordinate system. Also it provides the correct PGraphics.
@@ -17,9 +18,16 @@ import de.fhpotsdam.unfolding.utils.ScreenPosition;
  */
 public abstract class AbstractMarker implements Marker {
 
+	protected int color = StyleConstants.DEFAULT_FILL_COLOR;
+	protected int strokeColor = StyleConstants.DEFAULT_STROKE_COLOR;
+	protected int strokeWeight = StyleConstants.DEFAULT_STROKE_WEIGHT;
+	protected int highlightColor = StyleConstants.HIGHLIGHTED_FILL_COLOR;
+	protected int highlightStrokeColor = StyleConstants.HIGHLIGHTED_STROKE_COLOR;
+
 	public Location location;
 	public HashMap<String, Object> properties;
 	public boolean selected;
+	public String id;
 
 	public AbstractMarker() {
 		this(new Location(0, 0), null);
@@ -27,6 +35,14 @@ public abstract class AbstractMarker implements Marker {
 
 	public AbstractMarker(Location location) {
 		this(location, null);
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	public AbstractMarker(Location location, HashMap<String, Object> props) {
@@ -165,6 +181,23 @@ public abstract class AbstractMarker implements Marker {
 	@Override
 	public boolean isSelected() {
 		return selected;
+	}
+
+	public void setColor(int color) {
+		this.color = color;
+	}
+
+	public void setStrokeWeight(int strokeWeight) {
+		this.strokeWeight = strokeWeight;
+	}
+
+	public void setHighlightColor(int highlightColor) {
+		this.highlightColor = highlightColor;
+	}
+
+	@Override
+	public void setStrokeColor(int color) {
+		this.strokeColor = color;
 	}
 
 }

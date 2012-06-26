@@ -7,6 +7,7 @@ import processing.opengl.PGraphicsOpenGL;
 import codeanticode.glgraphics.GLGraphics;
 import de.fhpotsdam.unfolding.Map;
 import de.fhpotsdam.unfolding.providers.AbstractMapProvider;
+import de.fhpotsdam.unfolding.providers.MBTilesMapProvider;
 import de.fhpotsdam.unfolding.providers.OpenStreetMap;
 
 public class MapDisplayFactory {
@@ -19,21 +20,19 @@ public class MapDisplayFactory {
 
 	public static Logger log = Logger.getLogger(MapDisplayFactory.class);
 
-	public static AbstractMapDisplay getMapDisplay(PApplet p, String id, float x, float y,
-			float width, float height, AbstractMapProvider provider, Map map) {
-		return getMapDisplay(p, id, x, y, width, height, DEFAULT_USE_MASK, DEFAULT_USE_DISTORTION,
-				provider, map);
+	public static AbstractMapDisplay getMapDisplay(PApplet p, String id, float x, float y, float width, float height,
+			AbstractMapProvider provider, Map map) {
+		return getMapDisplay(p, id, x, y, width, height, DEFAULT_USE_MASK, DEFAULT_USE_DISTORTION, provider, map);
 	}
 
-	public static AbstractMapDisplay getMapDisplay(PApplet p, String id, float x, float y,
-			float width, float height, boolean useMask, boolean useDistortion,
-			AbstractMapProvider provider, Map map) {
+	public static AbstractMapDisplay getMapDisplay(PApplet p, String id, float x, float y, float width, float height,
+			boolean useMask, boolean useDistortion, AbstractMapProvider provider, Map map) {
 		AbstractMapDisplay mapDisplay;
-		
+
 		if (provider == null) {
 			provider = getDefaultProvider();
 		}
-		
+
 		if (useMask) {
 			if (p.g instanceof GLGraphics) {
 				if (useDistortion) {
@@ -57,7 +56,6 @@ public class MapDisplayFactory {
 			mapDisplay = new ProcessingMapDisplay(p, provider, x, y, width, height);
 		}
 
-		
 		mapDisplay.createDefaultMarkerManager(map);
 		return mapDisplay;
 	}
@@ -65,5 +63,4 @@ public class MapDisplayFactory {
 	public static AbstractMapProvider getDefaultProvider() {
 		return new OpenStreetMap.CloudmadeProvider(OSM_API_KEY, OSM_STYLE_ID);
 	}
-	
 }

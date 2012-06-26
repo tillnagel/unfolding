@@ -14,10 +14,6 @@ import de.fhpotsdam.unfolding.utils.StyleConstants;
 
 public class SimpleMarker extends AbstractMarker {
 
-	protected int color = StyleConstants.DEFAULT_FILL_COLOR;
-	protected int strokeColor = StyleConstants.DEFAULT_STROKE_COLOR;
-	protected int highlightColor = StyleConstants.HIGHLIGHTED_FILL_COLOR;
-	protected int highlightStrokeColor = StyleConstants.HIGHLIGHTED_STROKE_COLOR;
 
 	public float radius = 1f;
 

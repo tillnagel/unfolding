@@ -12,6 +12,10 @@ import de.fhpotsdam.unfolding.geo.Location;
  */
 public interface Marker {
 
+	public String getId();
+
+	public void setId(String id);
+
 	/**
 	 * Gets the location of this marker.
 	 * 
@@ -98,5 +102,9 @@ public interface Marker {
 
 	// For drawing onto the texture, i.e. after distortion, etc.
 	// public void drawTexture(PGraphics pg);
+
+	public void setColor(int color);
+	public void setStrokeColor(int color);
+	public void setStrokeWeight(int weight);
 
 }

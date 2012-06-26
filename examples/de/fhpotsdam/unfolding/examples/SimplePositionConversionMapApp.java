@@ -22,20 +22,21 @@ public class SimplePositionConversionMapApp extends PApplet {
 	}
 
 	public void draw() {
-		background(0);
 		map.draw();
 
-		noStroke();
 		fill(215, 0, 0, 100);
 
 		// Shows geo-location at mouse position
-		Location location = map.getLocationFromScreenPosition(mouseX, mouseY);
+		Location location = map.getLocation(mouseX, mouseY);
 		text(location.toString(), mouseX, mouseY);
-
+	
+	
 		// Shows marker at Berlin location
 		Location loc = new Location(52.5f, 13.4f);
 		ScreenPosition pos = map.getScreenPosition(loc);
 		ellipse(pos.x, pos.y, 20, 20);
+		
+		
 		String berlinDescription = "Berlin at pixel (" + (int)pos.x + "/" + (int)pos.y + ")"; 
 		text(berlinDescription, pos.x, pos.y);
 	}
