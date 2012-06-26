@@ -16,7 +16,7 @@ $iconSpritePath:          url("../bootstrap/images/glyphicons-halflings.png");
 $iconWhiteSpritePath:     url("../bootstrap/images/glyphicons-halflings-white.png");
 $bodyBackground: #FFF;
 $linkColor: #333;
-$linkColorHover: #333;
+$linkColorHover: #4183C4;
 $serifFontFamily: "Bitter", Georgia, "Times New Roman", Times, serif;
 $sansFontFamily: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 $baseFontSize: 14px;
@@ -72,7 +72,7 @@ $bottomDividerColor: rgba(255,255,255,.5);
 .span8  ul {margin-bottom:10px;}
 .span8	ul {margin-bottom:10px;}
 .span8	pre {margin-bottom: 10px;}
-.span8	img {padding: 5px 0px;}
+.span8	img { }
 
 
 .container{
@@ -118,6 +118,19 @@ p{
     i {
       display:none;
     }
+    font-size: 13px;
+    font-weight: bold;
+    line-height:18px;
+}
+
+.btn:hover {
+  color: white;
+  text-decoration: none;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.3);
+  border-color: #518CC6;
+  border-bottom-color: #2A65A0;
+  background: #599BDC;
+  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#599bdc',endColorstr='#3072b3')";
 }
 
 /*
