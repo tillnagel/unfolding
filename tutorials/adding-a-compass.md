@@ -3,10 +3,11 @@ layout: page
 title: Adding a Compass
 description: This little Tutorial will explain how to add a simple compass to your map
 group: tutorials-beginner
-author: Christopher Pietsch & 
+author: Christopher Pietsch and 
 thumbnail: http://placehold.it/330x250
 finalfiles: #someurlatgithub
 ---
+
 
 {% include JB/setup %}
 
