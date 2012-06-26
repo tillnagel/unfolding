@@ -2,7 +2,7 @@ package de.fhpotsdam.unfolding.examples;
 
 import processing.core.PApplet;
 import codeanticode.glgraphics.GLConstants;
-import de.fhpotsdam.unfolding.Map;
+import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.providers.Microsoft;
 import de.fhpotsdam.unfolding.utils.MapUtils;
 
@@ -11,12 +11,12 @@ import de.fhpotsdam.unfolding.utils.MapUtils;
  */
 public class SatelliteProviderMapApp extends PApplet {
 
-	Map map;
+	UnfoldingMap map;
 
 	public void setup() {
 		size(400, 400, GLConstants.GLGRAPHICS);
 		// use MS ArialProvider
-		map = new Map(this, new Microsoft.AerialProvider());
+		map = new UnfoldingMap(this, new Microsoft.AerialProvider());
 		MapUtils.createDefaultEventDispatcher(this, map);
 	}
 

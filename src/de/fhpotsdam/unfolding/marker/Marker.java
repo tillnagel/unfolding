@@ -2,7 +2,7 @@ package de.fhpotsdam.unfolding.marker;
 
 import java.util.HashMap;
 
-import de.fhpotsdam.unfolding.Map;
+import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.geo.Location;
 
 /**
@@ -74,7 +74,7 @@ public interface Marker {
 	 *            The y position to check in screen coordinates.
 	 * @return true if inside, false otherwise.
 	 */
-	public boolean isInside(Map map, float checkX, float checkY);
+	public boolean isInside(UnfoldingMap map, float checkX, float checkY);
 
 	/**
 	 * Draws this marker in inner object coordinate system.
@@ -84,7 +84,7 @@ public interface Marker {
 	 * @param map
 	 *            The map to draw on.
 	 */
-	public void draw(Map map);
+	public void draw(UnfoldingMap map);
 
 	/**
 	 * Draws this marker in outer object coordinate system.
@@ -94,7 +94,7 @@ public interface Marker {
 	 * @param map
 	 *            The map to draw on.
 	 */
-	public void drawOuter(Map map);
+	public void drawOuter(UnfoldingMap map);
 
 	public void setSelected(boolean selected);
 

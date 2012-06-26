@@ -4,7 +4,7 @@ import org.apache.log4j.Logger;
 
 import processing.core.PApplet;
 import codeanticode.glgraphics.GLConstants;
-import de.fhpotsdam.unfolding.Map;
+import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.events.EventDispatcher;
 import de.fhpotsdam.unfolding.interactions.TuioCursorHandler;
 
@@ -17,7 +17,7 @@ public class MultitouchMapApp extends PApplet {
 	// For fullscreen start as application
 	public static final boolean FULLSCREEN = false;
 
-	Map map;
+	UnfoldingMap map;
 	EventDispatcher eventDispatcher;
 
 	TuioCursorHandler tuioCursorHandler;
@@ -29,7 +29,7 @@ public class MultitouchMapApp extends PApplet {
 			size(800, 600, GLConstants.GLGRAPHICS);
 		}
 
-		map = new Map(this);
+		map = new UnfoldingMap(this);
 		map.setTweening(false);
 
 		eventDispatcher = new EventDispatcher();

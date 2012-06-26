@@ -6,7 +6,7 @@ import codeanticode.glgraphics.GLConstants;
 
 import processing.core.PApplet;
 import processing.core.PFont;
-import de.fhpotsdam.unfolding.Map;
+import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.events.EventDispatcher;
 import de.fhpotsdam.unfolding.events.PanMapEvent;
 import de.fhpotsdam.unfolding.events.ZoomMapEvent;
@@ -29,7 +29,7 @@ public class NaviButtonMapApp extends PApplet {
 
 	EventDispatcher eventDispatcher;
 
-	Map map;
+	UnfoldingMap map;
 
 	public void setup() {
 		size(800, 600, GLConstants.GLGRAPHICS);
@@ -38,7 +38,7 @@ public class NaviButtonMapApp extends PApplet {
 		textFont(loadFont("Miso-Light-12.vlw"));
 
 		// Creates default mapDisplay
-		map = new Map(this, "map", 0, 0, 600, 600);
+		map = new UnfoldingMap(this, "map", 0, 0, 600, 600);
 		map.setTweening(false);
 
 		debugDisplay = new DebugDisplay(this, map.mapDisplay, 600, 200, 250, 150);

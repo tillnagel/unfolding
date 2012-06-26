@@ -2,7 +2,7 @@ package de.fhpotsdam.unfolding.examples;
 
 import processing.core.PApplet;
 import codeanticode.glgraphics.GLConstants;
-import de.fhpotsdam.unfolding.Map;
+import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.utils.MapUtils;
 
@@ -22,7 +22,7 @@ public class SimpleMapApp extends PApplet {
 	 * to geo positions (Location), translating Location to cursor position, and
 	 * much more.
 	 */
-	Map map;
+	UnfoldingMap map;
 
 	/**
 	 * setup() gets called at the beginning. Here you shoud setup/initialize
@@ -38,7 +38,7 @@ public class SimpleMapApp extends PApplet {
 		// Here we actually create a the map and pass this. This way map knows
 		// where to
 		// draw on
-		map = new Map(this);
+		map = new UnfoldingMap(this);
 
 		// Then we zoom to a Location with given latitude and longtitude
 		map.zoomAndPanTo(new Location(52.5f, 13.4f), 10);

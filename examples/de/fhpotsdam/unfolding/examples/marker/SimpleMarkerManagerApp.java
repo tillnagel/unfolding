@@ -2,7 +2,7 @@ package de.fhpotsdam.unfolding.examples.marker;
 
 import processing.core.PApplet;
 import codeanticode.glgraphics.GLConstants;
-import de.fhpotsdam.unfolding.Map;
+import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.marker.SimpleLinesMarker;
 import de.fhpotsdam.unfolding.marker.SimpleMarker;
@@ -17,7 +17,7 @@ import de.fhpotsdam.unfolding.utils.MapUtils;
  */
 public class SimpleMarkerManagerApp extends PApplet {
 
-	Map map;
+	UnfoldingMap map;
 
 	Location berlinLocation = new Location(52.5f, 13.4f);
 	Location mexicoCityLocation = new Location(19.4f, -99.1f);
@@ -25,7 +25,7 @@ public class SimpleMarkerManagerApp extends PApplet {
 	public void setup() {
 		size(800, 600, GLConstants.GLGRAPHICS);
 
-		map = new Map(this, "map", 50, 50, 700, 500);
+		map = new UnfoldingMap(this, "map", 50, 50, 700, 500);
 		map.zoomToLevel(3);
 		map.panTo(new Location(40f, -42f));
 		MapUtils.createDefaultEventDispatcher(this, map);

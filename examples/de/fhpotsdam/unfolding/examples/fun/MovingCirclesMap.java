@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import processing.core.PApplet;
 import codeanticode.glgraphics.GLConstants;
-import de.fhpotsdam.unfolding.Map;
+import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.events.EventDispatcher;
 import de.fhpotsdam.unfolding.events.MapEvent;
 import de.fhpotsdam.unfolding.events.MapEventListener;
@@ -16,7 +16,7 @@ import de.fhpotsdam.unfolding.utils.MapUtils;
  */
 public class MovingCirclesMap extends PApplet implements MapEventListener {
 
-	Map map1;
+	UnfoldingMap map1;
 
 	ArrayList circles = new ArrayList();
 	int circleNumber = 1200;
@@ -26,7 +26,7 @@ public class MovingCirclesMap extends PApplet implements MapEventListener {
 	public void setup() {
 		size(800, 600, GLConstants.GLGRAPHICS);
 
-		map1 = new Map(this, "map1", 0, 0, 800, 600, true, false, new Microsoft.AerialProvider());
+		map1 = new UnfoldingMap(this, "map1", 0, 0, 800, 600, true, false, new Microsoft.AerialProvider());
 		EventDispatcher eventDispatcher = MapUtils.createDefaultEventDispatcher(this, map1);
 		eventDispatcher.register(map1, "pan");
 		// eventDispatcher.register(this, "zoom");

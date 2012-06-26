@@ -7,7 +7,7 @@ import org.apache.log4j.Logger;
 
 import processing.core.PApplet;
 
-import de.fhpotsdam.unfolding.Map;
+import de.fhpotsdam.unfolding.UnfoldingMap;
 
 /**
  * Manages markers of different types.
@@ -17,7 +17,7 @@ public class MarkerManager<E extends Marker> {
 
 	public static Logger log = Logger.getLogger(MarkerManager.class);
 
-	Map map;
+	UnfoldingMap map;
 	List<E> markers;
 	protected boolean bEnableDrawing;
 
@@ -31,7 +31,7 @@ public class MarkerManager<E extends Marker> {
 		addMarkers(markers);
 	}
 
-	public void setMap(Map map) {
+	public void setMap(UnfoldingMap map) {
 		this.map = map;
 	}
 	

@@ -2,7 +2,7 @@ package de.fhpotsdam.unfolding.examples.multi;
 
 import processing.core.PApplet;
 import codeanticode.glgraphics.GLConstants;
-import de.fhpotsdam.unfolding.Map;
+import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.mapdisplay.MapDisplayFactory;
 import de.fhpotsdam.unfolding.providers.MBTilesMapProvider;
@@ -14,16 +14,16 @@ public class MapTransitionApp extends PApplet {
 
 	public static final String JDBC_CONN_STRING_MAC = "jdbc:sqlite:../data/europe-night.mbtiles";
 
-	Map mapDay;
-	Map mapNight;
+	UnfoldingMap mapDay;
+	UnfoldingMap mapNight;
 
 	Integrator blendIntegrator = new Integrator(0);
 
 	public void setup() {
 		size(800, 600, GLConstants.GLGRAPHICS);
 
-		mapDay = new Map(this, new OpenStreetMap.CloudmadeProvider(MapDisplayFactory.OSM_API_KEY, 23058));
-		mapNight = new Map(this, new MBTilesMapProvider(JDBC_CONN_STRING_MAC));
+		mapDay = new UnfoldingMap(this, new OpenStreetMap.CloudmadeProvider(MapDisplayFactory.OSM_API_KEY, 23058));
+		mapNight = new UnfoldingMap(this, new MBTilesMapProvider(JDBC_CONN_STRING_MAC));
 
 		mapDay.zoomToLevel(4);
 		mapDay.panTo(new Location(49.6f, 9.4f));

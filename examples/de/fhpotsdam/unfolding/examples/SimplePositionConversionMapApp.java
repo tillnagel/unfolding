@@ -2,7 +2,7 @@ package de.fhpotsdam.unfolding.examples;
 
 import processing.core.PApplet;
 import codeanticode.glgraphics.GLConstants;
-import de.fhpotsdam.unfolding.Map;
+import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.utils.MapUtils;
 import de.fhpotsdam.unfolding.utils.ScreenPosition;
@@ -12,12 +12,12 @@ import de.fhpotsdam.unfolding.utils.ScreenPosition;
  */
 public class SimplePositionConversionMapApp extends PApplet {
 
-	Map map;
+	UnfoldingMap map;
 
 	public void setup() {
 		size(800, 600, GLConstants.GLGRAPHICS);
 
-		map = new Map(this);
+		map = new UnfoldingMap(this);
 		MapUtils.createDefaultEventDispatcher(this, map);
 	}
 

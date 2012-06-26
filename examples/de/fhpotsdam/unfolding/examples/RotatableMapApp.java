@@ -3,7 +3,7 @@ package de.fhpotsdam.unfolding.examples;
 import processing.core.PApplet;
 import processing.core.PVector;
 import codeanticode.glgraphics.GLConstants;
-import de.fhpotsdam.unfolding.Map;
+import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.utils.DebugDisplay;
 import de.fhpotsdam.unfolding.utils.MapUtils;
@@ -19,7 +19,7 @@ import de.fhpotsdam.unfolding.utils.ScreenPosition;
  */
 public class RotatableMapApp extends PApplet {
 
-	Map map;
+	UnfoldingMap map;
 	DebugDisplay debugDisplay;
 
 	PVector rotateCenter = new PVector(350, 250);
@@ -34,7 +34,7 @@ public class RotatableMapApp extends PApplet {
 			size(800, 600);
 		}
 
-		map = new Map(this, "map1", 50, 50, 700, 500);
+		map = new UnfoldingMap(this, "map1", 50, 50, 700, 500);
 		map.setTweening(false);
 		map.zoomToLevel(3);
 		MapUtils.createDefaultEventDispatcher(this, map);

@@ -3,7 +3,7 @@ package de.fhpotsdam.unfolding.events;
 import org.apache.log4j.Logger;
 
 import processing.core.PVector;
-import de.fhpotsdam.unfolding.Map;
+import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.utils.ScreenPosition;
 
@@ -93,7 +93,7 @@ public class ZoomMapEvent extends MapEvent {
 	}
 
 	@Override
-	public void executeManipulationFor(Map map) {
+	public void executeManipulationFor(UnfoldingMap map) {
 		if (transformationCenterLocation != null) {
 			ScreenPosition pos = map.mapDisplay.getScreenPosition(transformationCenterLocation);
 			PVector transCenter = new PVector(pos.x, pos.y);

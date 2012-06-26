@@ -4,7 +4,7 @@ import processing.core.PApplet;
 import processing.core.PGraphics;
 import processing.core.PImage;
 import codeanticode.glgraphics.GLGraphicsOffScreen;
-import de.fhpotsdam.unfolding.Map;
+import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.geo.Location;
 
 public class MapSnapshot {
@@ -26,12 +26,12 @@ public class MapSnapshot {
 	public float width;
 	public float height;
 
-	public MapSnapshot(PApplet p, Map map) {
+	public MapSnapshot(PApplet p, UnfoldingMap map) {
 		this.p = p;
 		snapshot(map);
 	}
 
-	public void snapshot(Map map) {
+	public void snapshot(UnfoldingMap map) {
 		this.location = map.getCenter();
 		this.zoomLevel = map.getZoomLevel();
 

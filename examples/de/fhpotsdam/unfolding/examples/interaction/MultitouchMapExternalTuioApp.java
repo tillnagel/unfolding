@@ -9,7 +9,7 @@ import TUIO.TuioListener;
 import TUIO.TuioObject;
 import TUIO.TuioTime;
 import codeanticode.glgraphics.GLConstants;
-import de.fhpotsdam.unfolding.Map;
+import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.events.EventDispatcher;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.interactions.TuioCursorHandler;
@@ -28,7 +28,7 @@ public class MultitouchMapExternalTuioApp extends PApplet implements TuioListene
 
 	public static Logger log = Logger.getLogger(MultitouchMapExternalTuioApp.class);
 
-	Map map;
+	UnfoldingMap map;
 	EventDispatcher eventDispatcher;
 	TuioCursorHandler tuioCursorHandler;
 	TuioClient tuioClient;
@@ -48,7 +48,7 @@ public class MultitouchMapExternalTuioApp extends PApplet implements TuioListene
 		// size(800, 600, GLConstants.GLGRAPHICS);
 		size(1920, 1080, GLConstants.GLGRAPHICS);
 
-		map = new Map(this);
+		map = new UnfoldingMap(this);
 		map.setTweening(false);
 		map.zoomAndPanTo(new Location(1.283f, 103.833f), 13);
 		map.setPanningRestriction(new Location(1.283f, 103.833f), 30);

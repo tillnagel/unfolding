@@ -6,7 +6,7 @@ import java.util.List;
 
 import processing.core.PApplet;
 import processing.core.PGraphics;
-import de.fhpotsdam.unfolding.Map;
+import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.utils.MapPosition;
 import de.fhpotsdam.unfolding.utils.ScreenPosition;
@@ -58,7 +58,7 @@ public abstract class AbstractShapeMarker extends AbstractMarker {
 		locations.remove(index);
 	}
 
-	public void draw(Map map) {
+	public void draw(UnfoldingMap map) {
 		super.draw(map);
 
 		PGraphics pg = map.mapDisplay.getPG();
@@ -74,7 +74,7 @@ public abstract class AbstractShapeMarker extends AbstractMarker {
 	}
 
 	@Override
-	public void drawOuter(Map map) {
+	public void drawOuter(UnfoldingMap map) {
 		super.drawOuter(map);
 
 		PGraphics pg = map.mapDisplay.getOuterPG();
@@ -90,11 +90,11 @@ public abstract class AbstractShapeMarker extends AbstractMarker {
 	}
 
 	/* override these methods to draw your marker dependent of properties and map attributes */
-	protected void draw(PGraphics pg, List<MapPosition> mapPositions, HashMap<String, Object> properties, Map map) {
+	protected void draw(PGraphics pg, List<MapPosition> mapPositions, HashMap<String, Object> properties, UnfoldingMap map) {
 		draw(pg, mapPositions);
 	}
 
-	protected void drawOuter(PGraphics pg, List<MapPosition> mapPositions, HashMap<String, Object> properties, Map map) {
+	protected void drawOuter(PGraphics pg, List<MapPosition> mapPositions, HashMap<String, Object> properties, UnfoldingMap map) {
 		drawOuter(pg, mapPositions);
 	}
 
@@ -135,7 +135,7 @@ public abstract class AbstractShapeMarker extends AbstractMarker {
 	}
 
 	@Override
-	public boolean isInside(Map map, float checkX, float checkY) {
+	public boolean isInside(UnfoldingMap map, float checkX, float checkY) {
 		PApplet.println("AbstractShape.isInside(m, cx, cy)");
 		List<ScreenPosition> positions = new ArrayList<ScreenPosition>();
 		for (Location location : locations) {

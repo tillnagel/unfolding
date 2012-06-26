@@ -5,7 +5,7 @@ import java.util.List;
 
 import processing.core.PApplet;
 import codeanticode.glgraphics.GLConstants;
-import de.fhpotsdam.unfolding.Map;
+import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.marker.Marker;
 import de.fhpotsdam.unfolding.marker.SimpleMarker;
@@ -20,8 +20,8 @@ import de.fhpotsdam.unfolding.utils.MapUtils;
 public class ExtendedMarkerApp extends PApplet {
 
 	// maps
-	List<Map> mapsWithInner = new ArrayList<Map>();
-	List<Map> mapsWithOuter = new ArrayList<Map>();
+	List<UnfoldingMap> mapsWithInner = new ArrayList<UnfoldingMap>();
+	List<UnfoldingMap> mapsWithOuter = new ArrayList<UnfoldingMap>();
 
 	// locations for test marker
 	Location usaCenter = new Location(39.828175f, -98.5795f);
@@ -66,7 +66,7 @@ public class ExtendedMarkerApp extends PApplet {
 		changeMaps(mapsWithOuter);
 	}
 
-	private void addMarkerToMaps(List<Map> maps, Marker pointMarker, Marker areaMarker, Marker labelMarker) {
+	private void addMarkerToMaps(List<UnfoldingMap> maps, Marker pointMarker, Marker areaMarker, Marker labelMarker) {
 		maps.get(0).addMarkers(pointMarker);
 		maps.get(1).addMarkers(areaMarker);
 		maps.get(2).addMarkers(labelMarker);
@@ -87,10 +87,10 @@ public class ExtendedMarkerApp extends PApplet {
 	public void draw() {
 		background(70);
 
-		for (Map map : mapsWithInner) {
+		for (UnfoldingMap map : mapsWithInner) {
 			map.draw();
 		}
-		for (Map map : mapsWithOuter) {
+		for (UnfoldingMap map : mapsWithOuter) {
 			map.draw();
 		}
 	}
@@ -102,7 +102,7 @@ public class ExtendedMarkerApp extends PApplet {
 		}
 	}
 
-	private void changeMaps(List<Map> maps) {
+	private void changeMaps(List<UnfoldingMap> maps) {
 		maps.get(3).zoomAndPanTo(maps.get(3).getCenter(), 3);
 		maps.get(4).zoomAndPanTo(maps.get(4).getCenter(), 3);
 		maps.get(5).zoomAndPanTo(maps.get(5).getCenter(), 3);
@@ -113,9 +113,9 @@ public class ExtendedMarkerApp extends PApplet {
 		maps.get(8).outerRotate(radians(30));
 
 		// inner rotate
-		Map innerRotateMap1 = maps.get(9);
-		Map innerRotateMap2 = maps.get(10);
-		Map innerRotateMap3 = maps.get(11);
+		UnfoldingMap innerRotateMap1 = maps.get(9);
+		UnfoldingMap innerRotateMap2 = maps.get(10);
+		UnfoldingMap innerRotateMap3 = maps.get(11);
 		innerRotateMap1.mapDisplay.setInnerTransformationCenter(innerRotateMap1.getScreenPosition(innerRotateMap1
 				.getCenter()));
 		innerRotateMap2.mapDisplay.setInnerTransformationCenter(innerRotateMap2.getScreenPosition(innerRotateMap2
@@ -127,19 +127,19 @@ public class ExtendedMarkerApp extends PApplet {
 		innerRotateMap3.rotate(radians(30));
 	}
 
-	public List<Map> createMaps(int xStart, int yStart, int mapWidth, int mapHeight, int xGap, int yGap) {
-		List<Map> maps = new ArrayList<Map>();
+	public List<UnfoldingMap> createMaps(int xStart, int yStart, int mapWidth, int mapHeight, int xGap, int yGap) {
+		List<UnfoldingMap> maps = new ArrayList<UnfoldingMap>();
 		for (int y = yStart; y < yStart + (yGap + mapHeight) * 4; y += yGap + mapHeight) {
 			for (int x = xStart; x < xStart + (xGap + mapWidth) * 3; x += xGap + mapWidth) {
-				Map map = createMap(x, y, mapWidth, mapHeight);
+				UnfoldingMap map = createMap(x, y, mapWidth, mapHeight);
 				maps.add(map);
 			}
 		}
 		return maps;
 	}
 
-	public Map createMap(int x, int y, int mapWidth, int mapHeight) {
-		Map map = new Map(this, x, y, mapWidth, mapHeight);
+	public UnfoldingMap createMap(int x, int y, int mapWidth, int mapHeight) {
+		UnfoldingMap map = new UnfoldingMap(this, x, y, mapWidth, mapHeight);
 		map.zoomToLevel(2);
 		map.panTo(usaCenter);
 		return map;

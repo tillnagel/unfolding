@@ -3,7 +3,7 @@ package de.fhpotsdam.unfolding.utils;
 import processing.core.PApplet;
 import processing.core.PFont;
 import processing.core.PMatrix3D;
-import de.fhpotsdam.unfolding.Map;
+import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.mapdisplay.AbstractMapDisplay;
 
 public class DebugDisplay {
@@ -56,13 +56,13 @@ public class DebugDisplay {
 		this(p, mapDisplay, 10, 10, WIDTH_DEFAULT, HEIGHT_DEFAULT);
 	}
 
-	public DebugDisplay(PApplet p, Map map) {
+	public DebugDisplay(PApplet p, UnfoldingMap map) {
 		this(p, map.mapDisplay, 10, 10, WIDTH_DEFAULT, HEIGHT_DEFAULT);
 	}
 
 	public void draw() {
-		int zoomLevel = Map.getZoomLevelFromScale(mapDisplay.innerScale);
-		float zoom = Map.getZoomFromScale(mapDisplay.innerScale);
+		int zoomLevel = UnfoldingMap.getZoomLevelFromScale(mapDisplay.innerScale);
+		float zoom = UnfoldingMap.getZoomFromScale(mapDisplay.innerScale);
 
 		String infoText = "Scale: " + mapDisplay.innerScale + "\n";
 		infoText += "Zoom: " + zoomLevel + " (" + zoom + ")\n";

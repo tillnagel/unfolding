@@ -4,7 +4,7 @@ import java.util.HashMap;
 
 import processing.core.PApplet;
 import processing.core.PGraphics;
-import de.fhpotsdam.unfolding.Map;
+import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.utils.GeoUtils;
 import de.fhpotsdam.unfolding.utils.ScreenPosition;
@@ -60,7 +60,7 @@ public abstract class AbstractMarker implements Marker {
 
 	@Override
 	// REVISIT rethink visibility of draw(Map)
-	public void draw(Map map) {
+	public void draw(UnfoldingMap map) {
 		PGraphics pg = map.mapDisplay.getPG();
 		float[] xy = map.mapDisplay.getInnerObjectFromLocation(getLocation());
 		float x = xy[0];
@@ -69,7 +69,7 @@ public abstract class AbstractMarker implements Marker {
 	}
 
 	@Override
-	public void drawOuter(Map map) {
+	public void drawOuter(UnfoldingMap map) {
 		PGraphics pg = map.mapDisplay.getOuterPG();
 		float[] xy = map.mapDisplay.getObjectFromLocation(getLocation());
 		float x = xy[0];
@@ -78,11 +78,11 @@ public abstract class AbstractMarker implements Marker {
 	}
 
 	/* override these methods to draw your marker dependent of map attributes */
-	protected void draw(PGraphics pg, float x, float y, Map map) {
+	protected void draw(PGraphics pg, float x, float y, UnfoldingMap map) {
 		draw(pg, x, y);
 	}
 
-	protected void drawOuter(PGraphics pg, float x, float y, Map map) {
+	protected void drawOuter(PGraphics pg, float x, float y, UnfoldingMap map) {
 		drawOuter(pg, x, y);
 	}
 
@@ -92,13 +92,13 @@ public abstract class AbstractMarker implements Marker {
 	 * Uses internal implemented {@link #isInside(float, float, float, float)} of the sub class.
 	 */
 	@Override
-	public boolean isInside(Map map, float checkX, float checkY) {
+	public boolean isInside(UnfoldingMap map, float checkX, float checkY) {
 		PApplet.println("AbstractMarker.isInside(m, cx, cy)");
 		ScreenPosition pos = getScreenPosition(map);
 		return isInside(checkX, checkY, pos.x, pos.y);
 	}
 
-	public ScreenPosition getScreenPosition(Map map) {
+	public ScreenPosition getScreenPosition(UnfoldingMap map) {
 		return map.mapDisplay.getScreenPosition(getLocation());
 	}
 

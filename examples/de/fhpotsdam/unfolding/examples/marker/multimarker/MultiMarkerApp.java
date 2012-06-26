@@ -5,7 +5,7 @@ import java.util.List;
 
 import processing.core.PApplet;
 import codeanticode.glgraphics.GLConstants;
-import de.fhpotsdam.unfolding.Map;
+import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.marker.Marker;
 import de.fhpotsdam.unfolding.marker.MultiMarker;
@@ -22,7 +22,7 @@ public class MultiMarkerApp extends PApplet {
 
 	boolean useMultiMarker = true;
 
-	Map map;
+	UnfoldingMap map;
 
 	// France
 	List<Location> franceLocations = new ArrayList<Location>();
@@ -34,7 +34,7 @@ public class MultiMarkerApp extends PApplet {
 
 		initPolygons();
 
-		map = new Map(this, "map");
+		map = new UnfoldingMap(this, "map");
 		map.zoomToLevel(4);
 		map.panTo(new Location(50f, 12f));
 		MapUtils.createDefaultEventDispatcher(this, map);

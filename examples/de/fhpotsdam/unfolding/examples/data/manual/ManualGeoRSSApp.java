@@ -6,7 +6,7 @@ import java.util.List;
 import processing.core.PApplet;
 import processing.xml.XMLElement;
 import codeanticode.glgraphics.GLConstants;
-import de.fhpotsdam.unfolding.Map;
+import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.examples.marker.infomarker.InfoMarkerApp;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.utils.MapUtils;
@@ -25,7 +25,7 @@ import de.fhpotsdam.unfolding.utils.ScreenPosition;
  */
 public class ManualGeoRSSApp extends PApplet {
 
-	Map map;
+	UnfoldingMap map;
 
 	List<Location> rssGeoLocations = new ArrayList<Location>();
 
@@ -33,7 +33,7 @@ public class ManualGeoRSSApp extends PApplet {
 		size(800, 600, GLConstants.GLGRAPHICS);
 		smooth();
 
-		map = new Map(this, 50, 50, 700, 500);
+		map = new UnfoldingMap(this, 50, 50, 700, 500);
 		map.zoomToLevel(2);
 		MapUtils.createDefaultEventDispatcher(this, map);
 

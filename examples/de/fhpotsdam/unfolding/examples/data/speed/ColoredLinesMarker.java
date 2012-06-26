@@ -5,7 +5,7 @@ import java.util.List;
 
 import processing.core.PApplet;
 import processing.core.PGraphics;
-import de.fhpotsdam.unfolding.Map;
+import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.marker.AbstractShapeMarker;
 import de.fhpotsdam.unfolding.utils.MapPosition;
@@ -18,7 +18,7 @@ public class ColoredLinesMarker extends AbstractShapeMarker {
 	}
 
 	@Override
-	protected void draw(PGraphics pg, List<MapPosition> mapPositions, HashMap<String, Object> properties, Map map) {
+	protected void draw(PGraphics pg, List<MapPosition> mapPositions, HashMap<String, Object> properties, UnfoldingMap map) {
 		pg.pushStyle();
 
 		List<Double> speedList = (List<Double>) properties.get("speedList");

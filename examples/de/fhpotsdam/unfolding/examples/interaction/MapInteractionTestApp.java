@@ -5,7 +5,7 @@ import org.apache.log4j.Logger;
 import processing.core.PApplet;
 import processing.core.PVector;
 import codeanticode.glgraphics.GLConstants;
-import de.fhpotsdam.unfolding.Map;
+import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.utils.DebugDisplay;
 import de.fhpotsdam.unfolding.utils.ScreenPosition;
@@ -22,7 +22,7 @@ public class MapInteractionTestApp extends PApplet {
 	public static Logger log = Logger.getLogger(MapInteractionTestApp.class);
 
 	/** The interactive map. */
-	Map map;
+	UnfoldingMap map;
 	/** Debug display for information about the map's current state. */ 
 	DebugDisplay debugDisplay;
 	
@@ -31,7 +31,7 @@ public class MapInteractionTestApp extends PApplet {
 	public void setup() {
 		size(800, 600, GLConstants.GLGRAPHICS);
 
-		map = new Map(this, "map1", 50, 50, 700, 500);
+		map = new UnfoldingMap(this, "map1", 50, 50, 700, 500);
 		map.setTweening(false);
 		// MapUtils.createDefaultEventDispatcher(this, map);
 

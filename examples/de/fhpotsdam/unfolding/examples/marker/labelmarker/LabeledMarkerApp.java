@@ -3,7 +3,7 @@ package de.fhpotsdam.unfolding.examples.marker.labelmarker;
 import processing.core.PApplet;
 import processing.core.PFont;
 import codeanticode.glgraphics.GLConstants;
-import de.fhpotsdam.unfolding.Map;
+import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.utils.MapUtils;
 
@@ -12,7 +12,7 @@ import de.fhpotsdam.unfolding.utils.MapUtils;
  */
 public class LabeledMarkerApp extends PApplet {
 
-	Map map;
+	UnfoldingMap map;
 
 	LabeledMarker berlinMarker;
 
@@ -22,7 +22,7 @@ public class LabeledMarkerApp extends PApplet {
 		size(800, 600, GLConstants.GLGRAPHICS);
 		PFont font = loadFont("Miso-Light-12.vlw");
 
-		map = new Map(this, "map", 50, 50, 700, 500);
+		map = new UnfoldingMap(this, "map", 50, 50, 700, 500);
 		map.zoomToLevel(3);
 		map.panTo(berlinLocation);
 		MapUtils.createDefaultEventDispatcher(this, map);

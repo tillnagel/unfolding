@@ -5,7 +5,7 @@ import java.util.List;
 
 import processing.core.PApplet;
 import codeanticode.glgraphics.GLConstants;
-import de.fhpotsdam.unfolding.Map;
+import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.data.Feature;
 import de.fhpotsdam.unfolding.data.GeoJSONReader;
 import de.fhpotsdam.unfolding.data.ShapeFeature;
@@ -24,13 +24,13 @@ public class TransitLinesMarkerApp extends PApplet {
 
 	Location bostonLocation = new Location(42.357778f, -71.061667f);
 
-	Map map;
+	UnfoldingMap map;
 
 	public void setup() {
 		size(800, 600, GLConstants.GLGRAPHICS);
 		smooth();
 
-		map = new Map(this);
+		map = new UnfoldingMap(this);
 		map.zoomToLevel(11);
 		map.panTo(bostonLocation);
 		map.setZoomRange(9, 17); // prevent zooming too far out

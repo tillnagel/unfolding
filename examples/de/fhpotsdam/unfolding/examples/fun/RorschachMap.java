@@ -2,26 +2,26 @@ package de.fhpotsdam.unfolding.examples.fun;
 
 import processing.core.PApplet;
 import codeanticode.glgraphics.GLConstants;
-import de.fhpotsdam.unfolding.Map;
+import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.events.EventDispatcher;
 import de.fhpotsdam.unfolding.providers.Microsoft;
 import de.fhpotsdam.unfolding.utils.MapUtils;
 
 public class RorschachMap extends PApplet {
 
-	Map map1;
-	Map map2;
-	Map map3;
-	Map map4;
+	UnfoldingMap map1;
+	UnfoldingMap map2;
+	UnfoldingMap map3;
+	UnfoldingMap map4;
 
 	public void setup() {
 		size(800, 600, GLConstants.GLGRAPHICS);
 
-		map1 = new Map(this, "map1", 0, 0, 400, 300, true, false, new Microsoft.AerialProvider());
+		map1 = new UnfoldingMap(this, "map1", 0, 0, 400, 300, true, false, new Microsoft.AerialProvider());
 		map1.mapDisplay = new FlippedMapDisplay(this, new Microsoft.AerialProvider(), 0, 0, 400, 300);
-		map2 = new Map(this, "map2", 400, 0, 400, 300, true, false, new Microsoft.AerialProvider());
-		map3 = new Map(this, "map3", 0, 300, 400, 300, true, false, new Microsoft.AerialProvider());
-		map4 = new Map(this, "map4", 400, 300, 400, 300, true, false, new Microsoft.AerialProvider());
+		map2 = new UnfoldingMap(this, "map2", 400, 0, 400, 300, true, false, new Microsoft.AerialProvider());
+		map3 = new UnfoldingMap(this, "map3", 0, 300, 400, 300, true, false, new Microsoft.AerialProvider());
+		map4 = new UnfoldingMap(this, "map4", 400, 300, 400, 300, true, false, new Microsoft.AerialProvider());
 		EventDispatcher eventDispatcher = MapUtils.createDefaultEventDispatcher(this, map1, map2, map3, map4);
 
 		//map1.rotate(PI);

@@ -2,7 +2,7 @@ package de.fhpotsdam.unfolding.examples;
 
 import processing.core.PApplet;
 import codeanticode.glgraphics.GLConstants;
-import de.fhpotsdam.unfolding.Map;
+import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.utils.GeoUtils;
 import de.fhpotsdam.unfolding.utils.MapUtils;
@@ -20,7 +20,7 @@ public class GreatCircleConnectionApp extends PApplet {
 	final Location singaporeLocation = new Location(1, 100);
 	final Location berlinLocation = new Location(54, 13.5f);
 
-	Map map;
+	UnfoldingMap map;
 
 	Location sourceLocation = berlinLocation;
 	Location targetLocation = singaporeLocation;
@@ -28,7 +28,7 @@ public class GreatCircleConnectionApp extends PApplet {
 	public void setup() {
 		size(800, 600, GLConstants.GLGRAPHICS);
 
-		map = new Map(this);
+		map = new UnfoldingMap(this);
 		MapUtils.createDefaultEventDispatcher(this, map);
 	}
 

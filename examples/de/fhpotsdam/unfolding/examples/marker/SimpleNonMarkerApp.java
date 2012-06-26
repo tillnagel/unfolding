@@ -2,7 +2,7 @@ package de.fhpotsdam.unfolding.examples.marker;
 
 import processing.core.PApplet;
 import codeanticode.glgraphics.GLConstants;
-import de.fhpotsdam.unfolding.Map;
+import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.utils.MapUtils;
 import de.fhpotsdam.unfolding.utils.ScreenPosition;
@@ -16,7 +16,7 @@ import de.fhpotsdam.unfolding.utils.ScreenPosition;
  */
 public class SimpleNonMarkerApp extends PApplet {
 
-	Map map;
+	UnfoldingMap map;
 
 	Location locationBerlin = new Location(52.5f, 13.4f);
 	Location locationLondon = new Location(51.5f, 0f);
@@ -25,7 +25,7 @@ public class SimpleNonMarkerApp extends PApplet {
 		size(400, 400, GLConstants.GLGRAPHICS);
 		noStroke();
 
-		map = new Map(this);
+		map = new UnfoldingMap(this);
 		map.setTweening(true);
 		map.zoomToLevel(3);
 		map.panTo(new Location(40f, 8f));

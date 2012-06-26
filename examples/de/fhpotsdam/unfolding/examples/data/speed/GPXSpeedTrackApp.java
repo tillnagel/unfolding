@@ -4,7 +4,7 @@ import java.util.List;
 
 import processing.core.PApplet;
 import codeanticode.glgraphics.GLConstants;
-import de.fhpotsdam.unfolding.Map;
+import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.data.Feature;
 import de.fhpotsdam.unfolding.data.MarkerFactory;
 import de.fhpotsdam.unfolding.geo.Location;
@@ -18,14 +18,14 @@ import de.fhpotsdam.unfolding.utils.MapUtils;
  */
 public class GPXSpeedTrackApp extends PApplet {
 
-	Map map;
+	UnfoldingMap map;
 
 	Location startLocation = new Location(52.49f, 13.44f);
 
 	public void setup() {
 		size(800, 600, GLConstants.GLGRAPHICS);
 
-		map = new Map(this);
+		map = new UnfoldingMap(this);
 		MapUtils.createDefaultEventDispatcher(this, map);
 		map.zoomAndPanTo(startLocation, 14);
 

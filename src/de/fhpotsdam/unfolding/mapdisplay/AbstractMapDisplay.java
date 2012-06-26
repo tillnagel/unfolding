@@ -10,7 +10,7 @@ import org.apache.log4j.Logger;
 
 import processing.core.PGraphics;
 import processing.core.PVector;
-import de.fhpotsdam.unfolding.Map;
+import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.core.Coordinate;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.marker.Marker;
@@ -365,7 +365,7 @@ public abstract class AbstractMapDisplay implements TileLoaderListener {
 		cleanupImageBuffer(true);
 	}
 	
-	protected void createDefaultMarkerManager(Map map) {
+	protected void createDefaultMarkerManager(UnfoldingMap map) {
 		MarkerManager mm = new MarkerManager<Marker>();
 		mm.setMap(map);
 		markerManagerList.add(mm);

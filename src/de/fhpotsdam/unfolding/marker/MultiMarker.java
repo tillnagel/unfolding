@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import de.fhpotsdam.unfolding.Map;
+import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.geo.Location;
 
 /**
@@ -78,7 +78,7 @@ public class MultiMarker implements Marker {
 	 * Returns true if at least one marker is hit.
 	 */
 	@Override
-	public boolean isInside(Map map, float checkX, float checkY) {
+	public boolean isInside(UnfoldingMap map, float checkX, float checkY) {
 		boolean inside = false;
 
 		for (Marker marker : markers) {
@@ -89,14 +89,14 @@ public class MultiMarker implements Marker {
 	}
 
 	@Override
-	public void draw(Map map) {
+	public void draw(UnfoldingMap map) {
 		for (Marker marker : markers) {
 			marker.draw(map);
 		}
 	}
 
 	@Override
-	public void drawOuter(Map map) {
+	public void drawOuter(UnfoldingMap map) {
 		for (Marker marker : markers) {
 			marker.drawOuter(map);
 		}

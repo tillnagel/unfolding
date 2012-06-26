@@ -7,7 +7,7 @@ import org.apache.log4j.Logger;
 
 import processing.core.PApplet;
 import codeanticode.glgraphics.GLConstants;
-import de.fhpotsdam.unfolding.Map;
+import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.events.EventDispatcher;
 import de.fhpotsdam.unfolding.events.MapEventListener;
 import de.fhpotsdam.unfolding.events.PanMapEvent;
@@ -32,17 +32,17 @@ public class MapComparisonApp extends PApplet {
 
 	EventDispatcher eventDispatcher;
 
-	Map mapOSM;
-	Map mapOSMSmall;
-	Map mapOSMSmallSatBlend;
-	Map mapOSMSmallOSMBlend;
-	Map mapOSMSmallSat;
+	UnfoldingMap mapOSM;
+	UnfoldingMap mapOSMSmall;
+	UnfoldingMap mapOSMSmallSatBlend;
+	UnfoldingMap mapOSMSmallOSMBlend;
+	UnfoldingMap mapOSMSmallSat;
 
-	Map mapGoogle;
-	Map mapGoogleSmall;
-	Map mapGoogleSmallSatBlend;
-	Map mapGoogleSmallGoogleBlend;
-	Map mapGoogleSmallSat;
+	UnfoldingMap mapGoogle;
+	UnfoldingMap mapGoogleSmall;
+	UnfoldingMap mapGoogleSmallSatBlend;
+	UnfoldingMap mapGoogleSmallGoogleBlend;
+	UnfoldingMap mapGoogleSmallSat;
 
 	public void setup() {
 		size(1230, 700, GLConstants.GLGRAPHICS);
@@ -51,33 +51,33 @@ public class MapComparisonApp extends PApplet {
 		eventDispatcher = new EventDispatcher();
 
 		// OSM --------------------------------------------
-		mapOSM = new Map(this, "mapOSM", 10, 10, 400, 335);
+		mapOSM = new UnfoldingMap(this, "mapOSM", 10, 10, 400, 335);
 
 		// OSM to Satellite
-		mapOSMSmall = new Map(this, "mapOSMSmall", 420, 10, 260, 335);
+		mapOSMSmall = new UnfoldingMap(this, "mapOSMSmall", 420, 10, 260, 335);
 
-		mapOSMSmallSatBlend = new Map(this, "mapOSMSmallSatBlend", 690, 10, 260, 335, true, false,
+		mapOSMSmallSatBlend = new UnfoldingMap(this, "mapOSMSmallSatBlend", 690, 10, 260, 335, true, false,
 				new Microsoft.AerialProvider());
-		mapOSMSmallOSMBlend = new Map(this, "mapOSMSmallOSMBlend", 690, 10, 260, 335);
+		mapOSMSmallOSMBlend = new UnfoldingMap(this, "mapOSMSmallOSMBlend", 690, 10, 260, 335);
 
 		// FIXME MS Satellite maps may not be smaller than tile-size. Why? (This is new!)
-		mapOSMSmallSat = new Map(this, "mapOSMSmallSat", 960, 10, 260, 335, true, false,
+		mapOSMSmallSat = new UnfoldingMap(this, "mapOSMSmallSat", 960, 10, 260, 335, true, false,
 				new Microsoft.AerialProvider());
 
 		// Google -----------------------------------------
-		mapGoogle = new Map(this, "maoGoogle", 10, 355, 400, 335, true, false,
+		mapGoogle = new UnfoldingMap(this, "maoGoogle", 10, 355, 400, 335, true, false,
 				new Google.GoogleMapProvider());
 
 		// Google to Satellite
-		mapGoogleSmall = new Map(this, "mapGoogleSmall", 420, 355, 260, 335, true, false,
+		mapGoogleSmall = new UnfoldingMap(this, "mapGoogleSmall", 420, 355, 260, 335, true, false,
 				new Google.GoogleMapProvider());
 
-		mapGoogleSmallSatBlend = new Map(this, "mapGoogleSmallSatBlend", 690, 355, 260, 335, true,
+		mapGoogleSmallSatBlend = new UnfoldingMap(this, "mapGoogleSmallSatBlend", 690, 355, 260, 335, true,
 				false, new Microsoft.AerialProvider());
-		mapGoogleSmallGoogleBlend = new Map(this, "mapGoogleSmallGoogleBlend", 690, 355, 260, 335,
+		mapGoogleSmallGoogleBlend = new UnfoldingMap(this, "mapGoogleSmallGoogleBlend", 690, 355, 260, 335,
 				true, false, new Google.GoogleMapProvider());
 
-		mapGoogleSmallSat = new Map(this, "mapGoogleSmallSat", 960, 355, 260, 335, true, false,
+		mapGoogleSmallSat = new UnfoldingMap(this, "mapGoogleSmallSat", 960, 355, 260, 335, true, false,
 				new Microsoft.AerialProvider());
 
 		// First OSM and first google map are broadcasters

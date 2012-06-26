@@ -2,7 +2,7 @@ package de.fhpotsdam.unfolding.examples.overviewdetail;
 
 import processing.core.PApplet;
 import codeanticode.glgraphics.GLConstants;
-import de.fhpotsdam.unfolding.Map;
+import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.events.EventDispatcher;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.utils.MapUtils;
@@ -18,10 +18,10 @@ import de.fhpotsdam.unfolding.utils.ScreenPosition;
 public class OverviewAndDetailWithViewportApp extends PApplet {
 	
 	// Big map showing a detailed area
-	Map mapDetail;
+	UnfoldingMap mapDetail;
 
 	// Small map showing the overview, i.e. the world
-	Map mapOverviewStatic;
+	UnfoldingMap mapOverviewStatic;
 
 	// Interactive finder box atop the overview map.
 	ViewportRect viewportRect;
@@ -30,13 +30,13 @@ public class OverviewAndDetailWithViewportApp extends PApplet {
 		size(800, 600, GLConstants.GLGRAPHICS);
 
 		// Detail map with default mouse and keyboard interactions
-		mapDetail = new Map(this, "detail", 10, 10, 585, 580);
+		mapDetail = new UnfoldingMap(this, "detail", 10, 10, 585, 580);
 		mapDetail.zoomToLevel(4);
 		mapDetail.setZoomRange(4, 10);
 		EventDispatcher eventDispatcher = MapUtils.createDefaultEventDispatcher(this, mapDetail);
 
 		// Static overview map
-		mapOverviewStatic = new Map(this, "overviewStatic", 605, 10, 185, 185);
+		mapOverviewStatic = new UnfoldingMap(this, "overviewStatic", 605, 10, 185, 185);
 
 		viewportRect = new ViewportRect();
 	}

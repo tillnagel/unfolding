@@ -5,7 +5,7 @@ import java.util.List;
 
 import processing.core.PApplet;
 import codeanticode.glgraphics.GLConstants;
-import de.fhpotsdam.unfolding.Map;
+import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.marker.Marker;
 import de.fhpotsdam.unfolding.marker.MarkerManager;
@@ -19,14 +19,14 @@ import de.fhpotsdam.unfolding.utils.MapUtils;
  */
 public class ComplexMapSnapshotApp extends PApplet {
 
-	Map map;
+	UnfoldingMap map;
 
 	List<MapSnapshot> mapSnapshots = new ArrayList<MapSnapshot>();
 
 	public void setup() {
 		size(800, 600, GLConstants.GLGRAPHICS);
 
-		map = new Map(this);
+		map = new UnfoldingMap(this);
 		map.zoomAndPanTo(new Location(52.5f, 13.4f), 10);
 
 		MapUtils.createDefaultEventDispatcher(this, map);

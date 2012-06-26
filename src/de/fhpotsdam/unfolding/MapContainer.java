@@ -3,7 +3,7 @@ package de.fhpotsdam.unfolding;
 import de.fhpotsdam.unfolding.providers.AbstractMapProvider;
 import processing.core.PApplet;
 
-public class MapContainer extends Map {
+public class MapContainer extends UnfoldingMap {
 
 	public MapContainer(PApplet p, String id) {
 		super(p, id);
