@@ -4,21 +4,28 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import processing.core.PApplet;
 import processing.core.PGraphics;
-import de.fhpotsdam.unfolding.Map;
+import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.utils.MapPosition;
+import de.fhpotsdam.unfolding.utils.ScreenPosition;
 
-public abstract class AbstractMultiMarker extends AbstractMarker {
+public abstract class AbstractShapeMarker extends AbstractMarker {
 
 	protected List<Location> locations;
 
-	public AbstractMultiMarker() {
-		this(new ArrayList<Location>());
+	public AbstractShapeMarker() {
+		this(new ArrayList<Location>(), null);
 	}
 
-	public AbstractMultiMarker(List<Location> locations) {
+	public AbstractShapeMarker(List<Location> locations) {
+		this(locations, null);
+	}
+
+	public AbstractShapeMarker(List<Location> locations, HashMap<String, Object> properties) {
 		this.locations = locations;
+		setProperties(properties);
 	}
 
 	public void setLocations(List<Location> locations) {
@@ -38,6 +45,10 @@ public abstract class AbstractMultiMarker extends AbstractMarker {
 	public void addLocations(List<Location> locations) {
 		this.locations.addAll(locations);
 	}
+	
+	public void addLocation(float x, float y){
+		locations.add(new Location(x,y));
+	}
 
 	public Location getLocation(int index) {
 		return locations.get(index);
@@ -51,7 +62,7 @@ public abstract class AbstractMultiMarker extends AbstractMarker {
 		locations.remove(index);
 	}
 
-	public void draw(Map map) {
+	public void draw(UnfoldingMap map) {
 		super.draw(map);
 
 		PGraphics pg = map.mapDisplay.getPG();
@@ -67,7 +78,7 @@ public abstract class AbstractMultiMarker extends AbstractMarker {
 	}
 
 	@Override
-	public void drawOuter(Map map) {
+	public void drawOuter(UnfoldingMap map) {
 		super.drawOuter(map);
 
 		PGraphics pg = map.mapDisplay.getOuterPG();
@@ -83,11 +94,11 @@ public abstract class AbstractMultiMarker extends AbstractMarker {
 	}
 
 	/* override these methods to draw your marker dependent of properties and map attributes */
-	protected void draw(PGraphics pg, List<MapPosition> mapPositions, HashMap<String, Object> properties, Map map) {
+	protected void draw(PGraphics pg, List<MapPosition> mapPositions, HashMap<String, Object> properties, UnfoldingMap map) {
 		draw(pg, mapPositions);
 	}
 
-	protected void drawOuter(PGraphics pg, List<MapPosition> mapPositions, HashMap<String, Object> properties, Map map) {
+	protected void drawOuter(PGraphics pg, List<MapPosition> mapPositions, HashMap<String, Object> properties, UnfoldingMap map) {
 		drawOuter(pg, mapPositions);
 	}
 
@@ -126,4 +137,36 @@ public abstract class AbstractMultiMarker extends AbstractMarker {
 	@Override
 	public void drawOuter(PGraphics pg, float x, float y) {
 	}
+
+	@Override
+	public boolean isInside(UnfoldingMap map, float checkX, float checkY) {
+		PApplet.println("AbstractShape.isInside(m, cx, cy)");
+		List<ScreenPosition> positions = new ArrayList<ScreenPosition>();
+		for (Location location : locations) {
+			ScreenPosition pos = map.getScreenPosition(location);
+			positions.add(pos);
+		}
+		return isInside(checkX, checkY, positions);
+	}
+
+	protected boolean isInside(float checkX, float checkY, List<ScreenPosition> positions) {
+		PApplet.println("AbstractShape.isInside(cx, cy, positions)");
+		boolean inside = false;
+		for (int i = 0, j = positions.size() - 1; i < positions.size(); j = i++) {
+			ScreenPosition pi = positions.get(i);
+			ScreenPosition pj = positions.get(j);
+			if ((((pi.y <= checkY) && (checkY < pj.y)) || ((pj.y <= checkY) && (checkY < pi.y)))
+					&& (checkX < (pj.x - pi.x) * (checkY - pi.y) / (pj.y - pi.y) + pi.x)) {
+				inside = !inside;
+			}
+		}
+		return inside;
+	}
+
+	@Override
+	protected boolean isInside(float checkX, float checkY, float x, float y) {
+		// TODO Simply return false?
+		throw new RuntimeException("Check for a single positon is not implemented for polygons.");
+	}
+
 }

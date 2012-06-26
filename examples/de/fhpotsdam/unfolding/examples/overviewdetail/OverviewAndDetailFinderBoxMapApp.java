@@ -2,7 +2,7 @@ package de.fhpotsdam.unfolding.examples.overviewdetail;
 
 import processing.core.PApplet;
 import codeanticode.glgraphics.GLConstants;
-import de.fhpotsdam.unfolding.Map;
+import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.events.EventDispatcher;
 import de.fhpotsdam.unfolding.utils.MapUtils;
 import de.fhpotsdam.unfolding.utils.ScreenPosition;
@@ -15,22 +15,22 @@ import de.fhpotsdam.unfolding.utils.ScreenPosition;
  */
 public class OverviewAndDetailFinderBoxMapApp extends PApplet {
 
-	Map mapDetail;
-	Map mapOverview;
-	Map mapOverviewStatic;
+	UnfoldingMap mapDetail;
+	UnfoldingMap mapOverview;
+	UnfoldingMap mapOverviewStatic;
 
 	public void setup() {
 		size(800, 600, GLConstants.GLGRAPHICS);
 
 		// Detail map with default mouse and keyboard interactions
-		mapDetail = new Map(this, "detail", 10, 10, 585, 580);
+		mapDetail = new UnfoldingMap(this, "detail", 10, 10, 585, 580);
 		mapDetail.zoomToLevel(4);
 		mapDetail.setZoomRange(4, 10);
 		mapDetail.setTweening(true);
 		EventDispatcher eventDispatcher = MapUtils.createDefaultEventDispatcher(this, mapDetail);
 
 		// Overview map listens to interaction events from the detail map
-		mapOverview = new Map(this, "overview", 605, 10, 185, 185);
+		mapOverview = new UnfoldingMap(this, "overview", 605, 10, 185, 185);
 		mapOverview.zoomToLevel(1);
 		mapOverview.setZoomRange(1, 7);
 		mapOverview.setTweening(true);
@@ -38,7 +38,7 @@ public class OverviewAndDetailFinderBoxMapApp extends PApplet {
 		eventDispatcher.register(mapOverview, "zoom", mapDetail.getId());
 
 		// Static overview map
-		mapOverviewStatic = new Map(this, "overviewStatic", 605, 205, 185, 185);
+		mapOverviewStatic = new UnfoldingMap(this, "overviewStatic", 605, 205, 185, 185);
 	}
 
 	public void draw() {

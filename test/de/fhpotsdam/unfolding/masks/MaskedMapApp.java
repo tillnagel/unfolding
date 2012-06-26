@@ -2,17 +2,17 @@ package de.fhpotsdam.unfolding.masks;
 
 import processing.core.PApplet;
 import codeanticode.glgraphics.GLConstants;
-import de.fhpotsdam.unfolding.Map;
+import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.utils.MapUtils;
 
 public class MaskedMapApp extends PApplet {
 
-	Map map;
+	UnfoldingMap map;
 
 	public void setup() {
 		size(800, 600, GLConstants.GLGRAPHICS);
 
-		map = new Map(this);
+		map = new UnfoldingMap(this);
 		MapUtils.createDefaultEventDispatcher(this, map);
 		map.zoomToLevel(2);
 	}

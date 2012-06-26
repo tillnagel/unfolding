@@ -9,7 +9,7 @@ import org.apache.log4j.Logger;
 
 import processing.core.PApplet;
 import processing.core.PConstants;
-import de.fhpotsdam.unfolding.Map;
+import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.events.MapEventBroadcaster;
 import de.fhpotsdam.unfolding.events.PanMapEvent;
 import de.fhpotsdam.unfolding.events.ZoomMapEvent;
@@ -19,11 +19,11 @@ public class MouseHandler extends MapEventBroadcaster {
 
 	public static Logger log = Logger.getLogger(MouseHandler.class);
 
-	public MouseHandler(PApplet p, Map... maps) {
+	public MouseHandler(PApplet p, UnfoldingMap... maps) {
 		this(p, Arrays.asList(maps));
 	}
 
-	public MouseHandler(PApplet p, List<Map> maps) {
+	public MouseHandler(PApplet p, List<UnfoldingMap> maps) {
 		super(maps);
 
 		p.registerMouseEvent(this);
@@ -36,7 +36,7 @@ public class MouseHandler extends MapEventBroadcaster {
 	}
 
 	public void mouseClicked() {
-		for (Map map : maps) {
+		for (UnfoldingMap map : maps) {
 			if (map.isHit(mouseX, mouseY)) {
 				if (mouseEvent.getClickCount() == 2) {
 
@@ -60,7 +60,7 @@ public class MouseHandler extends MapEventBroadcaster {
 	}
 
 	public void mouseWheel(float delta) {
-		for (Map map : maps) {
+		for (UnfoldingMap map : maps) {
 			if (map.isHit(mouseX, mouseY)) {
 				//log.debug("mouse: fire zoomBy for " + map.getId());
 
@@ -84,7 +84,7 @@ public class MouseHandler extends MapEventBroadcaster {
 	}
 
 	public void mouseDragged() {
-		for (Map map : maps) {
+		for (UnfoldingMap map : maps) {
 			if (map.isHit(mouseX, mouseY)) {
 				//log.debug("mouse: fire panTo for " + map.getId());
 

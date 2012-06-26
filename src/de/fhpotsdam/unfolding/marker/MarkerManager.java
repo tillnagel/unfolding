@@ -5,8 +5,9 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
-import de.fhpotsdam.unfolding.Map;
-import de.fhpotsdam.unfolding.utils.GeoUtils;
+import processing.core.PApplet;
+
+import de.fhpotsdam.unfolding.UnfoldingMap;
 
 /**
  * Manages markers of different types.
@@ -16,7 +17,7 @@ public class MarkerManager<E extends Marker> {
 
 	public static Logger log = Logger.getLogger(MarkerManager.class);
 
-	Map map;
+	UnfoldingMap map;
 	List<E> markers;
 	protected boolean bEnableDrawing;
 
@@ -30,7 +31,7 @@ public class MarkerManager<E extends Marker> {
 		addMarkers(markers);
 	}
 
-	public void setMap(Map map) {
+	public void setMap(UnfoldingMap map) {
 		this.map = map;
 	}
 	
@@ -99,9 +100,12 @@ public class MarkerManager<E extends Marker> {
 	}
 
 	public E getFirstHitMarker(float checkX, float checkY) {
+		
 		E foundMarker = null;
 		// NB: Markers should be ordered, e.g. by size ascending, i.e. big, medium, small
 		for (E marker : markers) {
+
+			PApplet.println("MarkerManager.getFirstHitMarker() " + marker.getClass().toString());
 
 			// NB: If markers are order by size descending, i.e. small, medium, big
 			// for (int i = markers.size() - 1; i >= 0; i--) {

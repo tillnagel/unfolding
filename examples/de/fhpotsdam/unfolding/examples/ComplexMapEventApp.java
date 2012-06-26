@@ -7,7 +7,7 @@ import org.apache.log4j.Logger;
 
 import processing.core.PApplet;
 import codeanticode.glgraphics.GLConstants;
-import de.fhpotsdam.unfolding.Map;
+import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.events.EventDispatcher;
 import de.fhpotsdam.unfolding.events.PanMapEvent;
 import de.fhpotsdam.unfolding.events.ScopedListeners;
@@ -41,7 +41,7 @@ public class ComplexMapEventApp extends PApplet {
 
 	public static Logger log = Logger.getLogger(ComplexMapEventApp.class);
 
-	List<Map> maps = new ArrayList<Map>();
+	List<UnfoldingMap> maps = new ArrayList<UnfoldingMap>();
 
 	EventDispatcher eventDispatcher;
 
@@ -55,14 +55,14 @@ public class ComplexMapEventApp extends PApplet {
 		eventDispatcher = new EventDispatcher();
 
 		// Creates default mapDisplay
-		Map map1 = new Map(this, "map1", 10, 10, 400, 400);
+		UnfoldingMap map1 = new UnfoldingMap(this, "map1", 10, 10, 400, 400);
 		map1.setTweening(false);
 		map1.setActive(false);
 		maps.add(map1);
-		Map map2 = new Map(this, "map2", 420, 10, 400, 400);
+		UnfoldingMap map2 = new UnfoldingMap(this, "map2", 420, 10, 400, 400);
 		map2.setTweening(false);
 		maps.add(map2);
-		Map map3 = new Map(this, "map3", 830, 10, 400, 400);
+		UnfoldingMap map3 = new UnfoldingMap(this, "map3", 830, 10, 400, 400);
 		map3.setTweening(false);
 		map3.setActive(false);
 		maps.add(map3);
@@ -96,7 +96,7 @@ public class ComplexMapEventApp extends PApplet {
 	public void draw() {
 		background(0);
 
-		for (Map map : maps) {
+		for (UnfoldingMap map : maps) {
 			map.draw();
 		}
 

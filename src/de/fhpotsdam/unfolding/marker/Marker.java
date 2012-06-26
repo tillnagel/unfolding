@@ -2,18 +2,25 @@ package de.fhpotsdam.unfolding.marker;
 
 import java.util.HashMap;
 
-import de.fhpotsdam.unfolding.Map;
+import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.geo.Location;
 
 /**
  * Marker interface for all markers to be drawn on to maps.
  * 
- * Must handle location to appropriate coordinate system by itself.
+ * A marker has at least one location, and properties. A marker can be drawn, selected, and tested if hit.
  */
 public interface Marker {
 
+	public String getId();
+
+	public void setId(String id);
+
 	/**
 	 * Gets the location of this marker.
+	 * 
+	 * For point marker this returns the single location, for shape markers it should return a meaningful location, e.g.
+	 * the centroid.
 	 * 
 	 * @return The location with lat, lng.
 	 */
@@ -46,10 +53,15 @@ public interface Marker {
 	 */
 	public double getDistanceTo(Location location);
 
-	// TODO Documentation
-	public void setProps(HashMap<String, Object> props);
+	/**
+	 * Sets the additional properties of this marker.
+	 * 
+	 * @param properties
+	 *            The properties to set.
+	 */
+	public void setProperties(HashMap<String, Object> properties);
 
-	public HashMap<String, Object> getProps();
+	public HashMap<String, Object> getProperties();
 
 	/**
 	 * Checks whether given position is inside this marker, according to the maps coordinate system.
@@ -62,7 +74,7 @@ public interface Marker {
 	 *            The y position to check in screen coordinates.
 	 * @return true if inside, false otherwise.
 	 */
-	public boolean isInside(Map map, float checkX, float checkY);
+	public boolean isInside(UnfoldingMap map, float checkX, float checkY);
 
 	/**
 	 * Draws this marker in inner object coordinate system.
@@ -72,7 +84,7 @@ public interface Marker {
 	 * @param map
 	 *            The map to draw on.
 	 */
-	public void draw(Map map);
+	public void draw(UnfoldingMap map);
 
 	/**
 	 * Draws this marker in outer object coordinate system.
@@ -82,11 +94,17 @@ public interface Marker {
 	 * @param map
 	 *            The map to draw on.
 	 */
-	public void drawOuter(Map map);
+	public void drawOuter(UnfoldingMap map);
 
 	public void setSelected(boolean selected);
 
+	public boolean isSelected();
+
 	// For drawing onto the texture, i.e. after distortion, etc.
 	// public void drawTexture(PGraphics pg);
+
+	public void setColor(int color);
+	public void setStrokeColor(int color);
+	public void setStrokeWeight(int weight);
 
 }

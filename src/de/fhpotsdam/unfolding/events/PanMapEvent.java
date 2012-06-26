@@ -2,7 +2,7 @@ package de.fhpotsdam.unfolding.events;
 
 import org.apache.log4j.Logger;
 
-import de.fhpotsdam.unfolding.Map;
+import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.geo.Location;
 
 public class PanMapEvent extends MapEvent {
@@ -47,7 +47,7 @@ public class PanMapEvent extends MapEvent {
 	}
 
 	@Override
-	public void executeManipulationFor(Map map) {
+	public void executeManipulationFor(UnfoldingMap map) {
 		if (PAN_BY.equals(getSubType())) {
 //			log.debug("Panning mapDisplay " + map.getId() + " from " + fromLocation + " to "
 //					+ toLocation);

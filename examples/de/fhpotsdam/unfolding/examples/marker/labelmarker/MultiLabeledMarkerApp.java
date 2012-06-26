@@ -6,7 +6,7 @@ import java.util.List;
 import processing.core.PApplet;
 import processing.core.PFont;
 import codeanticode.glgraphics.GLConstants;
-import de.fhpotsdam.unfolding.Map;
+import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.data.Feature;
 import de.fhpotsdam.unfolding.data.GeoRSSReader;
 import de.fhpotsdam.unfolding.data.PointFeature;
@@ -27,13 +27,13 @@ import de.fhpotsdam.unfolding.utils.MapUtils;
  */
 public class MultiLabeledMarkerApp extends PApplet {
 
-	Map map;
+	UnfoldingMap map;
 
 	public void setup() {
 		size(800, 600, GLConstants.GLGRAPHICS);
 		PFont font = loadFont("Miso-Light-12.vlw");
 
-		map = new Map(this, "map", 50, 50, 700, 500);
+		map = new UnfoldingMap(this, "map", 50, 50, 700, 500);
 		map.zoomToLevel(2);
 		MapUtils.createDefaultEventDispatcher(this, map);
 

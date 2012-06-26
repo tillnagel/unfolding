@@ -3,11 +3,15 @@ package de.fhpotsdam.unfolding.examples.marker.connectionmarker;
 import java.util.List;
 
 import processing.core.PGraphics;
-import de.fhpotsdam.unfolding.marker.AbstractMultiMarker;
+import de.fhpotsdam.unfolding.marker.AbstractShapeMarker;
 import de.fhpotsdam.unfolding.marker.Marker;
 import de.fhpotsdam.unfolding.utils.MapPosition;
 
-public class ConnectionMarker extends AbstractMultiMarker {
+/**
+ * A special marker to connect two markers. This is very similar to a SimpleLinesMarker, only that it uses the locations
+ * of two given markers.
+ */
+public class ConnectionMarker extends AbstractShapeMarker {
 
 	public ConnectionMarker(Marker fromMarker, Marker toMarker) {
 		addLocations(fromMarker.getLocation());
@@ -25,8 +29,4 @@ public class ConnectionMarker extends AbstractMultiMarker {
 		pg.line(from.x, from.y, to.x, to.y);
 	}
 
-	@Override
-	protected boolean isInside(float checkX, float checkY, float x, float y) {
-		return false;
-	}
 }

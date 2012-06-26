@@ -10,7 +10,7 @@ import processing.xml.XMLElement;
 import de.fhpotsdam.unfolding.data.Feature;
 import de.fhpotsdam.unfolding.data.Feature.FeatureType;
 import de.fhpotsdam.unfolding.data.GPXReader;
-import de.fhpotsdam.unfolding.data.MultiFeature;
+import de.fhpotsdam.unfolding.data.ShapeFeature;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.utils.GeoUtils;
 import de.fhpotsdam.utils.StringUtils;
@@ -33,7 +33,7 @@ public class GPXSpeedReader {
 		Location prevLocation = null;
 
 		// Create track with all track points
-		MultiFeature trackFeature = new MultiFeature(FeatureType.LINES);
+		ShapeFeature trackFeature = new ShapeFeature(FeatureType.LINES);
 		List<Double> speedList = new ArrayList<Double>();
 
 		XMLElement[] itemXMLElements = gpx.getChildren("trk/trkseg/trkpt");

@@ -11,7 +11,7 @@ import processing.core.PGraphics;
 import processing.core.PImage;
 import processing.core.PMatrix3D;
 import processing.core.PVector;
-import de.fhpotsdam.unfolding.Map;
+import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.core.Coordinate;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.marker.Marker;
@@ -373,7 +373,7 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 		// Grid to load tiles for.
 		int minCol, maxCol, minRow, maxRow;
 
-		int zoomLevel = Map.getZoomLevelFromScale((float) innerScale);
+		int zoomLevel = UnfoldingMap.getZoomLevelFromScale((float) innerScale);
 
 		// Synchronize on this to not interfere with tile loading (see getVisibleKeys)
 		// NB External threads can change innerMatrix, innerScale, and other properties while this method is
@@ -408,7 +408,7 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 		// PApplet.println("getVisibleKeys: " + minCol + "," + maxCol + "; " + minRow + "," + maxRow);
 
 		// we don't wrap around the world yet, so:
-		int numberTiles = (int) Map.getScaleFromZoom(zoomLevel);
+		int numberTiles = (int) UnfoldingMap.getScaleFromZoom(zoomLevel);
 		minCol = PApplet.constrain(minCol, 0, numberTiles);
 		maxCol = PApplet.constrain(maxCol, 0, numberTiles);
 		minRow = PApplet.constrain(minRow, 0, numberTiles);

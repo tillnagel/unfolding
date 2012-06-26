@@ -7,7 +7,7 @@ import org.apache.log4j.Logger;
 import processing.core.PApplet;
 import processing.core.PFont;
 import codeanticode.glgraphics.GLConstants;
-import de.fhpotsdam.unfolding.Map;
+import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.marker.Marker;
 import de.fhpotsdam.unfolding.marker.MarkerManager;
 import de.fhpotsdam.unfolding.utils.MapUtils;
@@ -17,13 +17,13 @@ public class InfoMarkerApp extends PApplet {
 
 	public static Logger log = Logger.getLogger(ZoomDependentMarkerApp.class);
 
-	Map map;
+	UnfoldingMap map;
 
 	public void setup() {
 		size(800, 600, GLConstants.GLGRAPHICS);
 		smooth();
 
-		map = new Map(this, "map", 10, 10, 780, 580);
+		map = new UnfoldingMap(this, "map", 10, 10, 780, 580);
 		MapUtils.createDefaultEventDispatcher(this, map);
 
 		PFont font = loadFont("Miso-Light-12.vlw");

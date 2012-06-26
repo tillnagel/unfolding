@@ -8,7 +8,7 @@ import org.apache.log4j.Logger;
 
 import processing.core.PApplet;
 import processing.core.PConstants;
-import de.fhpotsdam.unfolding.Map;
+import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.events.MapEventBroadcaster;
 import de.fhpotsdam.unfolding.events.PanMapEvent;
 import de.fhpotsdam.unfolding.events.ZoomMapEvent;
@@ -17,18 +17,18 @@ public class KeyboardHandler extends MapEventBroadcaster {
 
 	public static Logger log = Logger.getLogger(KeyboardHandler.class);
 
-	public KeyboardHandler(PApplet p, Map... maps) {
+	public KeyboardHandler(PApplet p, UnfoldingMap... maps) {
 		this(p, Arrays.asList(maps));
 	}
 
-	public KeyboardHandler(PApplet p, List<Map> maps) {
+	public KeyboardHandler(PApplet p, List<UnfoldingMap> maps) {
 		super(maps);
 
 		p.registerKeyEvent(this);
 	}
 
 	public void keyPressed(char key, int keyCode) {
-		for (Map map : maps) {
+		for (UnfoldingMap map : maps) {
 			if (map.isActive()) {
 				if (key == '+' || key == '-') {
 					ZoomMapEvent zoomMapEvent = new ZoomMapEvent(this, map.getId());

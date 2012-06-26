@@ -2,7 +2,7 @@ package de.fhpotsdam.unfolding.examples.multi;
 
 import processing.core.PApplet;
 import codeanticode.glgraphics.GLConstants;
-import de.fhpotsdam.unfolding.Map;
+import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.mapdisplay.MapDisplayFactory;
 import de.fhpotsdam.unfolding.providers.Google;
 import de.fhpotsdam.unfolding.providers.Microsoft;
@@ -21,18 +21,18 @@ import de.fhpotsdam.unfolding.utils.MapUtils;
  */
 public class DynamicMapSwitch extends PApplet {
 
-	Map currentMap;
+	UnfoldingMap currentMap;
 
-	Map map1;
-	Map map2;
-	Map map3;
+	UnfoldingMap map1;
+	UnfoldingMap map2;
+	UnfoldingMap map3;
 
 	public void setup() {
 		size(800, 600, GLConstants.GLGRAPHICS);
 
-		map1 = new Map(this, new Google.GoogleMapProvider());
-		map2 = new Map(this, new Microsoft.AerialProvider());
-		map3 = new Map(this, new OpenStreetMap.CloudmadeProvider(MapDisplayFactory.OSM_API_KEY, 23058));
+		map1 = new UnfoldingMap(this, new Google.GoogleMapProvider());
+		map2 = new UnfoldingMap(this, new Microsoft.AerialProvider());
+		map3 = new UnfoldingMap(this, new OpenStreetMap.CloudmadeProvider(MapDisplayFactory.OSM_API_KEY, 23058));
 
 		MapUtils.createDefaultEventDispatcher(this, map1, map2, map3);
 

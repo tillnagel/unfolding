@@ -4,24 +4,27 @@ import java.util.List;
 
 import processing.core.PApplet;
 import codeanticode.glgraphics.GLConstants;
-import de.fhpotsdam.unfolding.Map;
+import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.data.Feature;
 import de.fhpotsdam.unfolding.data.GeoJSONReader;
 import de.fhpotsdam.unfolding.marker.Marker;
 import de.fhpotsdam.unfolding.utils.MapUtils;
 
 /**
- * Displays countries of the world as simple polygons. Reads from a GeoJSON file.
+ * Displays countries of the world as simple polygons. Reads from a GeoJSON file, and uses default marker creation (i.e.
+ * features are represented by simple markers).
+ * 
+ * Press SPACE to toggle visibility of the lines.
  */
 public class GeoJSONMarkerApp extends PApplet {
 
-	Map map;
+	UnfoldingMap map;
 
 	public void setup() {
 		size(800, 600, GLConstants.GLGRAPHICS);
 		smooth();
 
-		map = new Map(this, 50, 50, 700, 500);
+		map = new UnfoldingMap(this, 50, 50, 700, 500);
 		map.zoomToLevel(2);
 		MapUtils.createDefaultEventDispatcher(this, map);
 
@@ -33,6 +36,12 @@ public class GeoJSONMarkerApp extends PApplet {
 	public void draw() {
 		background(160);
 		map.draw();
+	}
+
+	public void keyPressed() {
+		if (key == ' ') {
+			map.getDefaultMarkerManager().toggleDrawing();
+		}
 	}
 
 }

@@ -5,20 +5,20 @@ import java.util.List;
 
 import processing.core.PApplet;
 import processing.core.PGraphics;
-import de.fhpotsdam.unfolding.Map;
+import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.geo.Location;
-import de.fhpotsdam.unfolding.marker.AbstractMultiMarker;
+import de.fhpotsdam.unfolding.marker.AbstractShapeMarker;
 import de.fhpotsdam.unfolding.utils.MapPosition;
 
-public class ColoredLinesMarker extends AbstractMultiMarker {
+public class ColoredLinesMarker extends AbstractShapeMarker {
 
 	public ColoredLinesMarker(List<Location> locations, HashMap<String, Object> properties) {
 		super(locations);
-		setProps(properties);
+		setProperties(properties);
 	}
 
 	@Override
-	protected void draw(PGraphics pg, List<MapPosition> mapPositions, HashMap<String, Object> properties, Map map) {
+	protected void draw(PGraphics pg, List<MapPosition> mapPositions, HashMap<String, Object> properties, UnfoldingMap map) {
 		pg.pushStyle();
 
 		List<Double> speedList = (List<Double>) properties.get("speedList");
@@ -40,8 +40,6 @@ public class ColoredLinesMarker extends AbstractMultiMarker {
 
 		pg.popStyle();
 	}
-
-	// TODO @tillnagel Would be good when empty implementations are not necessary.
 
 	@Override
 	public void draw(PGraphics pg, List<MapPosition> mapPositions) {

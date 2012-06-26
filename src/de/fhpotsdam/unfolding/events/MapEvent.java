@@ -2,7 +2,7 @@ package de.fhpotsdam.unfolding.events;
 
 import java.util.EventObject;
 
-import de.fhpotsdam.unfolding.Map;
+import de.fhpotsdam.unfolding.UnfoldingMap;
 
 public abstract class MapEvent extends EventObject {
 
@@ -48,6 +48,6 @@ public abstract class MapEvent extends EventObject {
 		return tweening;
 	}
 
-	public abstract void executeManipulationFor(Map map);
+	public abstract void executeManipulationFor(UnfoldingMap map);
 
 }

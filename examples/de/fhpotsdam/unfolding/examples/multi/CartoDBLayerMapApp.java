@@ -5,7 +5,7 @@
 package de.fhpotsdam.unfolding.examples.multi;
 
 import codeanticode.glgraphics.GLConstants;
-import de.fhpotsdam.unfolding.Map;
+import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.providers.AbstractMapProvider;
 import de.fhpotsdam.unfolding.providers.CartoDBProvider;
 import de.fhpotsdam.unfolding.providers.Microsoft;
@@ -18,7 +18,7 @@ import processing.core.PApplet;
  */
 public class CartoDBLayerMapApp extends PApplet {
 
-	Map map;
+	UnfoldingMap map;
 	AbstractMapProvider masterProvider;
 	CartoDBProvider cartodb;
 
@@ -44,7 +44,7 @@ public class CartoDBLayerMapApp extends PApplet {
 
 		//map1 = new Map(this, "map1", 0, 0, width, height, true, false, );
 		//map1.setTweening(false);
-		map = new Map(this, "map", 0, 0, width, height, true, false, cartodb);
+		map = new UnfoldingMap(this, "map", 0, 0, width, height, true, false, cartodb);
 		map.setTweening(false);
 		MapUtils.createDefaultEventDispatcher(this, map);
 	}

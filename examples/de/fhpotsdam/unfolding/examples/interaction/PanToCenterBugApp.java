@@ -5,7 +5,7 @@ import org.apache.log4j.Logger;
 import processing.core.PApplet;
 import processing.core.PVector;
 import codeanticode.glgraphics.GLConstants;
-import de.fhpotsdam.unfolding.Map;
+import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.events.EventDispatcher;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.utils.DebugDisplay;
@@ -27,7 +27,7 @@ public class PanToCenterBugApp extends PApplet {
 
 	EventDispatcher eventDispatcher;
 
-	Map map;
+	UnfoldingMap map;
 
 	// London, UK
 	Location locLondon = new Location(51.50939f, 0f);
@@ -42,7 +42,7 @@ public class PanToCenterBugApp extends PApplet {
 		textFont(loadFont("Miso-Light-12.vlw"));
 
 		// Creates default mapDisplay
-		map = new Map(this, "map", 0, 0, 800, 600);
+		map = new UnfoldingMap(this, "map", 0, 0, 800, 600);
 		map.setTweening(false);
 
 		debugDisplay = new DebugDisplay(this, map.mapDisplay, 0, 0, 250, 200);

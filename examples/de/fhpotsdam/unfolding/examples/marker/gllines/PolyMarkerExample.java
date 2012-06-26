@@ -1,20 +1,20 @@
-package de.fhpotsdam.unfolding.examples.marker.multimarker;
+package de.fhpotsdam.unfolding.examples.marker.gllines;
 
 import processing.core.PApplet;
 import codeanticode.glgraphics.GLConstants;
-import de.fhpotsdam.unfolding.Map;
+import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.utils.MapUtils;
 
 @SuppressWarnings("serial")
 public class PolyMarkerExample extends PApplet {
 
-	Map map;
+	UnfoldingMap map;
 	
 	public void setup() {
 		size(800, 600, GLConstants.GLGRAPHICS);
 
-		map = new Map(this, 0, 0, 800, 500);
+		map = new UnfoldingMap(this, 0, 0, 800, 500);
 		map.zoomToLevel(3);
 		map.panTo(new Location(40f, 8f));
 		MapUtils.createDefaultEventDispatcher(this, map);
@@ -25,21 +25,6 @@ public class PolyMarkerExample extends PApplet {
 		linesMarker.addLocations(new Location(48.f, 5f));
 		
 		map.addMarkers(linesMarker);
-		
-//		MarkerManager<Marker> fluesse;
-//		MarkerManager<Marker> strassen;
-//		
-//		map.addMarkerManager(fluesse);
-//		map.addMarkerManager(strassen);
-		
-//		map.moveLayer(flusse,-1);
-		
-//		flugParser.pasrseTo(mm,color);
-//		mm.setColor();
-		
-		//mouse
-//		fluesse.enableDrawing();
-//		fluesse.disableDrawing();
 	}
 	
 	public void draw(){

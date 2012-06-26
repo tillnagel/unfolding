@@ -7,7 +7,7 @@ import org.apache.log4j.Logger;
 import processing.core.PApplet;
 import processing.core.PFont;
 import codeanticode.glgraphics.GLConstants;
-import de.fhpotsdam.unfolding.Map;
+import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.events.EventDispatcher;
 import de.fhpotsdam.unfolding.mapdisplay.MapDisplayFactory;
 import de.fhpotsdam.unfolding.marker.Marker;
@@ -20,8 +20,8 @@ public class InfoMarkerOnMultipleMapApp extends PApplet {
 
 	public static Logger log = Logger.getLogger(InfoMarkerOnMultipleMapApp.class);
 
-	Map map1;
-	Map map2;
+	UnfoldingMap map1;
+	UnfoldingMap map2;
 	EventDispatcher eventDispatcher;
 
 	MarkerManager markerManager1, markerManager2;
@@ -35,12 +35,12 @@ public class InfoMarkerOnMultipleMapApp extends PApplet {
 		font = loadFont("Miso-Light-12.vlw");
 		textFont(font);
 
-		map1 = new Map(this, "map", 10, 10, 780, 580, true, false,
+		map1 = new UnfoldingMap(this, "map", 10, 10, 780, 580, true, false,
 				new OpenStreetMap.CloudmadeProvider(MapDisplayFactory.OSM_API_KEY, 23058));
 		map1.setTweening(false);
 		map1.rotate(0.3f);
 
-		map2 = new Map(this, "map", 800, 10, 490, 580, true, false,
+		map2 = new UnfoldingMap(this, "map", 800, 10, 490, 580, true, false,
 				new OpenStreetMap.CloudmadeProvider(MapDisplayFactory.OSM_API_KEY, 23058));
 		map2.setTweening(false);
 		map2.outerRotate(-0.2f);
@@ -69,7 +69,7 @@ public class InfoMarkerOnMultipleMapApp extends PApplet {
 		checkInsideMarker(map2);
 	}
 
-	public void checkInsideMarker(Map map) {
+	public void checkInsideMarker(UnfoldingMap map) {
 		if (map.isHit(mouseX, mouseY)) {
 			MarkerManager mm = map.mapDisplay.getLastMarkerManager();
 

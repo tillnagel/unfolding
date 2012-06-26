@@ -5,7 +5,7 @@ import java.util.List;
 
 import processing.core.PApplet;
 import codeanticode.glgraphics.GLConstants;
-import de.fhpotsdam.unfolding.Map;
+import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.utils.GeoUtils;
 import de.fhpotsdam.unfolding.utils.MapUtils;
@@ -20,15 +20,15 @@ public class MapWithBarScaleApp extends PApplet {
 			5f, 10f, 20f, 50f, 100f, 200f, 500f, 1000f, 2000f, 5000f);
 	private static final float MAX_DISPLAY_DISTANCE = 5000;
 
-	Map map;
+	UnfoldingMap map;
 
 	// If false it uses the screen center, resulting in a bar scale depending on the north/south position of the map.
-	boolean showDistanceAtEquator = true;
+	boolean showDistanceAtEquator = false;
 
 	public void setup() {
 		size(800, 600, GLConstants.GLGRAPHICS);
 
-		map = new Map(this, "map");
+		map = new UnfoldingMap(this, "map");
 		map.setTweening(false);
 		MapUtils.createDefaultEventDispatcher(this, map);
 

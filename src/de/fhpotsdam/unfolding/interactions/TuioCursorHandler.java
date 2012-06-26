@@ -15,7 +15,7 @@ import TUIO.TuioListener;
 import TUIO.TuioObject;
 import TUIO.TuioPoint;
 import TUIO.TuioTime;
-import de.fhpotsdam.unfolding.Map;
+import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.events.MapEventBroadcaster;
 import de.fhpotsdam.unfolding.events.PanMapEvent;
 import de.fhpotsdam.unfolding.events.ZoomMapEvent;
@@ -40,15 +40,15 @@ public class TuioCursorHandler extends MapEventBroadcaster implements TuioListen
 	float oldDist;
 	PFont font;
 
-	public TuioCursorHandler(PApplet p, Map... maps) {
+	public TuioCursorHandler(PApplet p, UnfoldingMap... maps) {
 		this(p, Arrays.asList(maps));
 	}
 
-	public TuioCursorHandler(PApplet p, boolean listenToTuio, Map... maps) {
+	public TuioCursorHandler(PApplet p, boolean listenToTuio, UnfoldingMap... maps) {
 		this(p, listenToTuio, Arrays.asList(maps));
 	}
 
-	public TuioCursorHandler(PApplet p, boolean listenToTuio, List<Map> maps) {
+	public TuioCursorHandler(PApplet p, boolean listenToTuio, List<UnfoldingMap> maps) {
 		super(maps);
 
 		this.p = p;
@@ -63,7 +63,7 @@ public class TuioCursorHandler extends MapEventBroadcaster implements TuioListen
 		p.registerDispose(this);
 	}
 
-	public TuioCursorHandler(PApplet p, List<Map> maps) {
+	public TuioCursorHandler(PApplet p, List<UnfoldingMap> maps) {
 		this(p, true, maps);
 	}
 
@@ -80,7 +80,7 @@ public class TuioCursorHandler extends MapEventBroadcaster implements TuioListen
 		int y = tcur.getScreenY(p.height);
 
 		// Updates go to all hit ones, independent of z-index
-		for (Map map : maps) {
+		for (UnfoldingMap map : maps) {
 			if (map.isHit(x, y)) {
 
 				if (tuioCursor1 != null && tuioCursor2 != null) {

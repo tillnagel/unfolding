@@ -2,7 +2,7 @@ package de.fhpotsdam.unfolding.examples.events;
 
 import processing.core.PApplet;
 import codeanticode.glgraphics.GLConstants;
-import de.fhpotsdam.unfolding.Map;
+import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.events.MapEvent;
 import de.fhpotsdam.unfolding.events.PanMapEvent;
 import de.fhpotsdam.unfolding.geo.Location;
@@ -17,13 +17,13 @@ import de.fhpotsdam.unfolding.utils.MapUtils;
  */
 public class SimpleMapListenerApp extends PApplet {
 
-	Map map;
+	UnfoldingMap map;
 	Location oldLocation = new Location(0, 0);
 
 	public void setup() {
 		size(800, 600, GLConstants.GLGRAPHICS);
 
-		map = new Map(this);
+		map = new UnfoldingMap(this);
 		MapUtils.createDefaultEventDispatcher(this, map);
 	}
 

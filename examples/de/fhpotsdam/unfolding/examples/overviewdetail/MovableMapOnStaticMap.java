@@ -2,7 +2,7 @@ package de.fhpotsdam.unfolding.examples.overviewdetail;
 
 import processing.core.PApplet;
 import codeanticode.glgraphics.GLConstants;
-import de.fhpotsdam.unfolding.Map;
+import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.geo.Location;
 
 /**
@@ -13,8 +13,8 @@ import de.fhpotsdam.unfolding.geo.Location;
  */
 public class MovableMapOnStaticMap extends PApplet {
 
-	Map mapStatic;
-	Map mapZoom;
+	UnfoldingMap mapStatic;
+	UnfoldingMap mapZoom;
 
 	float mapZoomX = 100;
 	float mapZoomY = 100;
@@ -22,8 +22,8 @@ public class MovableMapOnStaticMap extends PApplet {
 	public void setup() {
 		size(800, 600, GLConstants.GLGRAPHICS);
 
-		mapStatic = new Map(this, "static", 0, 0, 800, 600);
-		mapZoom = new Map(this, "zoom", 400, 300, 150, 150);
+		mapStatic = new UnfoldingMap(this, "static", 0, 0, 800, 600);
+		mapZoom = new UnfoldingMap(this, "zoom", 400, 300, 150, 150);
 		mapZoom.setTweening(false);
 		mapZoom.zoomToLevel(6);
 	}

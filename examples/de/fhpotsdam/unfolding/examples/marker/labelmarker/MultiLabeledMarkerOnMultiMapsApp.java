@@ -5,7 +5,7 @@ import java.util.List;
 import processing.core.PApplet;
 import processing.core.PFont;
 import codeanticode.glgraphics.GLConstants;
-import de.fhpotsdam.unfolding.Map;
+import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.data.Feature;
 import de.fhpotsdam.unfolding.data.GeoRSSReader;
 import de.fhpotsdam.unfolding.marker.Marker;
@@ -19,18 +19,18 @@ import de.fhpotsdam.unfolding.utils.MapUtils;
  */
 public class MultiLabeledMarkerOnMultiMapsApp extends PApplet {
 
-	Map map1;
-	Map map2;
+	UnfoldingMap map1;
+	UnfoldingMap map2;
 
 	public void setup() {
 		size(800, 600, GLConstants.GLGRAPHICS);
 		PFont font = loadFont("Miso-Light-12.vlw");
 
-		map1 = new Map(this, "map", 50, 50, 500, 500);
+		map1 = new UnfoldingMap(this, "map", 50, 50, 500, 500);
 		map1.zoomToLevel(2);
 		MapUtils.createDefaultEventDispatcher(this, map1);
 
-		map2 = new Map(this, "map", 575, 50, 150, 150);
+		map2 = new UnfoldingMap(this, "map", 575, 50, 150, 150);
 		MapUtils.createDefaultEventDispatcher(this, map2);
 
 		List<Feature> features = GeoRSSReader.loadData(this, "bbc-georss-test.xml");
@@ -50,7 +50,7 @@ public class MultiLabeledMarkerOnMultiMapsApp extends PApplet {
 		checkInsideMarker(map2);
 	}
 
-	public void checkInsideMarker(Map map) {
+	public void checkInsideMarker(UnfoldingMap map) {
 		if (map.isHit(mouseX, mouseY)) {
 			MarkerManager<Marker> mm = map.mapDisplay.getLastMarkerManager();
 

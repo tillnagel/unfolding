@@ -2,21 +2,21 @@ package de.fhpotsdam.unfolding.examples.interaction;
 
 import processing.core.PApplet;
 import codeanticode.glgraphics.GLConstants;
-import de.fhpotsdam.unfolding.Map;
+import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.utils.GeoUtils;
 import de.fhpotsdam.unfolding.utils.MapUtils;
 
 public class PanConstrainedMapSelfApp extends PApplet {
 
-	Map map;
+	UnfoldingMap map;
 
 	Location centerLocation = new Location(1.359f, 103.816f);
 
 	public void setup() {
 		size(800, 600, GLConstants.GLGRAPHICS);
 
-		map = new Map(this);
+		map = new UnfoldingMap(this);
 		map.zoomAndPanTo(new Location(centerLocation), 12);
 		map.setZoomRange(12, 15);
 

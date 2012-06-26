@@ -1,5 +1,6 @@
 package de.fhpotsdam.unfolding.marker;
 
+import java.util.HashMap;
 import java.util.List;
 
 import processing.core.PConstants;
@@ -7,7 +8,7 @@ import processing.core.PGraphics;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.utils.MapPosition;
 
-public class SimpleLinesMarker extends AbstractMultiMarker {
+public class SimpleLinesMarker extends AbstractShapeMarker {
 
 	public SimpleLinesMarker() {
 		super();
@@ -15,6 +16,10 @@ public class SimpleLinesMarker extends AbstractMultiMarker {
 
 	public SimpleLinesMarker(List<Location> locations) {
 		super(locations);
+	}
+
+	public SimpleLinesMarker(List<Location> locations, HashMap<String, Object> properties) {
+		super(locations, properties);
 	}
 
 	/**
@@ -30,11 +35,16 @@ public class SimpleLinesMarker extends AbstractMultiMarker {
 	@Override
 	public void draw(PGraphics pg, List<MapPosition> mapPositions) {
 		pg.pushStyle();
-		pg.fill(100, 90, 240, 100);
-		pg.stroke(50, 50, 50, 200);
+		pg.noFill();
+		if (isSelected()) {
+			pg.stroke(highlightColor);
+		} else {
+			pg.stroke(color);
+		}
+		pg.strokeWeight(strokeWeight);
+		pg.smooth();
 
 		pg.beginShape(PConstants.LINES);
-		// TODO this way its equal to LINE_STRIP but LINE_STRIP doesnt work
 		MapPosition last = mapPositions.get(0);
 		for (int i = 1; i < mapPositions.size(); ++i) {
 			MapPosition mp = mapPositions.get(i);
@@ -49,11 +59,6 @@ public class SimpleLinesMarker extends AbstractMultiMarker {
 
 	@Override
 	public void drawOuter(PGraphics pg, List<MapPosition> mapPositions) {
-	}
-
-	@Override
-	protected boolean isInside(float checkX, float checkY, float x, float y) {
-		return false;
 	}
 
 }

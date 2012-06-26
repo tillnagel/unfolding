@@ -3,26 +3,29 @@ package de.fhpotsdam.unfolding.data;
 import java.util.ArrayList;
 import java.util.List;
 
-import de.fhpotsdam.unfolding.geo.Location;
-
+/**
+ * A feature consisting of multiple features. Only contains one properties list.
+ * 
+ * Can be used for e.g. JSON's GeometryCollection, but also for MultiPolygons, etc.
+ */
 public class MultiFeature extends Feature {
 
-	public List<Location> locations = new ArrayList<Location>();
+	List<Feature> features = new ArrayList<Feature>();
 
-	public MultiFeature(FeatureType type) {
-		super(type);
+	public MultiFeature() {
+		super(FeatureType.MULTI);
 	}
 
-	public List<Location> getLocations() {
-		return locations;
+	public List<Feature> getFeatures() {
+		return features;
 	}
 
-	public void addLocation(Location location) {
-		locations.add(location);
+	public void setFeatures(List<Feature> features) {
+		this.features = features;
 	}
-
-	public FeatureType getType() {
-		return FeatureType.LINES;
+	
+	public void addFeature(Feature feature) {
+		this.features.add(feature);
 	}
 
 }

@@ -2,7 +2,7 @@ package de.fhpotsdam.unfolding.examples.multi;
 
 import processing.core.PApplet;
 import codeanticode.glgraphics.GLConstants;
-import de.fhpotsdam.unfolding.Map;
+import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.mapdisplay.MapDisplayFactory;
 import de.fhpotsdam.unfolding.providers.AbstractMapProvider;
 import de.fhpotsdam.unfolding.providers.Google;
@@ -22,7 +22,7 @@ import de.fhpotsdam.unfolding.utils.MapUtils;
 
 public class DynamicProviderSwitch extends PApplet {
 
-	Map map;
+	UnfoldingMap map;
 	AbstractMapProvider provider1;
 	AbstractMapProvider provider2;
 	AbstractMapProvider provider3;
@@ -34,7 +34,7 @@ public class DynamicProviderSwitch extends PApplet {
 		provider2 = new Microsoft.AerialProvider();
 		provider3 = new OpenStreetMap.CloudmadeProvider(MapDisplayFactory.OSM_API_KEY, 23058);
 
-		map = new Map(this, provider1);
+		map = new UnfoldingMap(this, provider1);
 		MapUtils.createDefaultEventDispatcher(this, map);
 	}
 

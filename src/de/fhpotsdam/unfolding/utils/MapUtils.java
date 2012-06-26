@@ -3,10 +3,10 @@ package de.fhpotsdam.unfolding.utils;
 import java.util.List;
 
 import processing.core.PApplet;
-import de.fhpotsdam.unfolding.Map;
+import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.data.Feature;
 import de.fhpotsdam.unfolding.data.MarkerFactory;
-import de.fhpotsdam.unfolding.data.SimpleMarkerFactory;
+import de.fhpotsdam.unfolding.data.MarkerFactory;
 import de.fhpotsdam.unfolding.events.EventDispatcher;
 import de.fhpotsdam.unfolding.events.PanMapEvent;
 import de.fhpotsdam.unfolding.events.ZoomMapEvent;
@@ -33,7 +33,7 @@ public class MapUtils {
 	 *            One or many maps.
 	 * @return The EventDispatcher to use for additional event handling.
 	 */
-	public static EventDispatcher createDefaultEventDispatcher(PApplet p, Map... maps) {
+	public static EventDispatcher createDefaultEventDispatcher(PApplet p, UnfoldingMap... maps) {
 		EventDispatcher eventDispatcher = new EventDispatcher();
 
 		MouseHandler mouseHandler = new MouseHandler(p, maps);
@@ -42,7 +42,7 @@ public class MapUtils {
 		eventDispatcher.addBroadcaster(mouseHandler);
 		eventDispatcher.addBroadcaster(keyboardHandler);
 
-		for (Map map : maps) {
+		for (UnfoldingMap map : maps) {
 			eventDispatcher.register(map, PanMapEvent.TYPE_PAN, map.getId());
 			eventDispatcher.register(map, ZoomMapEvent.TYPE_ZOOM, map.getId());
 		}
@@ -60,14 +60,14 @@ public class MapUtils {
 	 *            One or many maps.
 	 * @return The EventDispatcher to use for additional event handling.
 	 */
-	public static EventDispatcher createDefaultEventDispatcher(PApplet p, List<Map> maps) {
-		Map[] mapsArray = (maps != null) ? maps.toArray(new Map[0]) : new Map[0];
+	public static EventDispatcher createDefaultEventDispatcher(PApplet p, List<UnfoldingMap> maps) {
+		UnfoldingMap[] mapsArray = (maps != null) ? maps.toArray(new UnfoldingMap[0]) : new UnfoldingMap[0];
 		return createDefaultEventDispatcher(p, mapsArray);
 	}
 
 	public static List<Marker> createSimpleMarkers(List<Feature> features) {
 		if (markerFactory == null) {
-			markerFactory = new SimpleMarkerFactory();
+			markerFactory = new MarkerFactory();
 		}
 		return markerFactory.createMarkers(features);
 	}

@@ -5,8 +5,9 @@ import org.apache.log4j.Logger;
 import processing.core.PApplet;
 import processing.opengl.PGraphicsOpenGL;
 import codeanticode.glgraphics.GLGraphics;
-import de.fhpotsdam.unfolding.Map;
+import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.providers.AbstractMapProvider;
+import de.fhpotsdam.unfolding.providers.MBTilesMapProvider;
 import de.fhpotsdam.unfolding.providers.OpenStreetMap;
 
 public class MapDisplayFactory {
@@ -15,25 +16,23 @@ public class MapDisplayFactory {
 	public static final boolean DEFAULT_USE_DISTORTION = false;
 
 	public static final String OSM_API_KEY = "607e6483654b5c47b9056791d607ab74";
-	public static final int OSM_STYLE_ID = 998;
+	public static final int OSM_STYLE_ID = 65697; // 998
 
 	public static Logger log = Logger.getLogger(MapDisplayFactory.class);
 
-	public static AbstractMapDisplay getMapDisplay(PApplet p, String id, float x, float y,
-			float width, float height, AbstractMapProvider provider, Map map) {
-		return getMapDisplay(p, id, x, y, width, height, DEFAULT_USE_MASK, DEFAULT_USE_DISTORTION,
-				provider, map);
+	public static AbstractMapDisplay getMapDisplay(PApplet p, String id, float x, float y, float width, float height,
+			AbstractMapProvider provider, UnfoldingMap map) {
+		return getMapDisplay(p, id, x, y, width, height, DEFAULT_USE_MASK, DEFAULT_USE_DISTORTION, provider, map);
 	}
 
-	public static AbstractMapDisplay getMapDisplay(PApplet p, String id, float x, float y,
-			float width, float height, boolean useMask, boolean useDistortion,
-			AbstractMapProvider provider, Map map) {
+	public static AbstractMapDisplay getMapDisplay(PApplet p, String id, float x, float y, float width, float height,
+			boolean useMask, boolean useDistortion, AbstractMapProvider provider, UnfoldingMap map) {
 		AbstractMapDisplay mapDisplay;
-		
+
 		if (provider == null) {
 			provider = getDefaultProvider();
 		}
-		
+
 		if (useMask) {
 			if (p.g instanceof GLGraphics) {
 				if (useDistortion) {
@@ -41,7 +40,7 @@ public class MapDisplayFactory {
 					mapDisplay = new DistortedGLGraphicsMapDisplay(p, provider, x, y, width, height);
 				} else {
 					log.debug("Using GLGraphicsMapDisplay for '" + id + "'");
-					mapDisplay = new GLGraphicsMapDisplay(p, provider, x, y, width, height);
+					mapDisplay = new MaskedGLGraphicsMapDisplay(p, provider, x, y, width, height);
 				}
 			} else {
 				if (p.g instanceof PGraphicsOpenGL) {
@@ -57,7 +56,6 @@ public class MapDisplayFactory {
 			mapDisplay = new ProcessingMapDisplay(p, provider, x, y, width, height);
 		}
 
-		
 		mapDisplay.createDefaultMarkerManager(map);
 		return mapDisplay;
 	}
@@ -65,5 +63,4 @@ public class MapDisplayFactory {
 	public static AbstractMapProvider getDefaultProvider() {
 		return new OpenStreetMap.CloudmadeProvider(OSM_API_KEY, OSM_STYLE_ID);
 	}
-	
 }

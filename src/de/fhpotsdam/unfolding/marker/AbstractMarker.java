@@ -2,41 +2,65 @@ package de.fhpotsdam.unfolding.marker;
 
 import java.util.HashMap;
 
+import processing.core.PApplet;
 import processing.core.PGraphics;
-import de.fhpotsdam.unfolding.Map;
+import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.utils.GeoUtils;
 import de.fhpotsdam.unfolding.utils.ScreenPosition;
+import de.fhpotsdam.unfolding.utils.StyleConstants;
 
 /**
  * Marker handling location to appropriate coordinate system. Also it provides the correct PGraphics.
  * 
+ * The given x,y coordinates are already converted into the local coordinate system, so no need for further conversion.
+ * 
  */
 public abstract class AbstractMarker implements Marker {
+
+	protected int color = StyleConstants.DEFAULT_FILL_COLOR;
+	protected int strokeColor = StyleConstants.DEFAULT_STROKE_COLOR;
+	protected int strokeWeight = StyleConstants.DEFAULT_STROKE_WEIGHT;
+	protected int highlightColor = StyleConstants.HIGHLIGHTED_FILL_COLOR;
+	protected int highlightStrokeColor = StyleConstants.HIGHLIGHTED_STROKE_COLOR;
 
 	public Location location;
 	public HashMap<String, Object> properties;
 	public boolean selected;
+	public String id;
 
 	public AbstractMarker() {
-		this(new Location(0, 0));
+		this(new Location(0, 0), null);
 	}
 
 	public AbstractMarker(Location location) {
-		this.location = location;
+		this(location, null);
 	}
 
-	public void setProps(HashMap<String, Object> props) {
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public AbstractMarker(Location location, HashMap<String, Object> props) {
+		this.location = location;
+		setProperties(props);
+	}
+
+	public void setProperties(HashMap<String, Object> props) {
 		this.properties = props;
 	}
 
-	public HashMap<String, Object> getProps() {
+	public HashMap<String, Object> getProperties() {
 		return properties;
 	}
 
 	@Override
 	// REVISIT rethink visibility of draw(Map)
-	public void draw(Map map) {
+	public void draw(UnfoldingMap map) {
 		PGraphics pg = map.mapDisplay.getPG();
 		float[] xy = map.mapDisplay.getInnerObjectFromLocation(getLocation());
 		float x = xy[0];
@@ -45,7 +69,7 @@ public abstract class AbstractMarker implements Marker {
 	}
 
 	@Override
-	public void drawOuter(Map map) {
+	public void drawOuter(UnfoldingMap map) {
 		PGraphics pg = map.mapDisplay.getOuterPG();
 		float[] xy = map.mapDisplay.getObjectFromLocation(getLocation());
 		float x = xy[0];
@@ -54,11 +78,11 @@ public abstract class AbstractMarker implements Marker {
 	}
 
 	/* override these methods to draw your marker dependent of map attributes */
-	protected void draw(PGraphics pg, float x, float y, Map map) {
+	protected void draw(PGraphics pg, float x, float y, UnfoldingMap map) {
 		draw(pg, x, y);
 	}
 
-	protected void drawOuter(PGraphics pg, float x, float y, Map map) {
+	protected void drawOuter(PGraphics pg, float x, float y, UnfoldingMap map) {
 		drawOuter(pg, x, y);
 	}
 
@@ -68,12 +92,13 @@ public abstract class AbstractMarker implements Marker {
 	 * Uses internal implemented {@link #isInside(float, float, float, float)} of the sub class.
 	 */
 	@Override
-	public boolean isInside(Map map, float checkX, float checkY) {
+	public boolean isInside(UnfoldingMap map, float checkX, float checkY) {
+		PApplet.println("AbstractMarker.isInside(m, cx, cy)");
 		ScreenPosition pos = getScreenPosition(map);
 		return isInside(checkX, checkY, pos.x, pos.y);
 	}
 
-	public ScreenPosition getScreenPosition(Map map) {
+	public ScreenPosition getScreenPosition(UnfoldingMap map) {
 		return map.mapDisplay.getScreenPosition(getLocation());
 	}
 
@@ -102,6 +127,7 @@ public abstract class AbstractMarker implements Marker {
 	 * 
 	 * e.g. markers oriented to the tiles
 	 * 
+	 * 
 	 * @param pg
 	 *            The PGraphics to draw on
 	 * @param x
@@ -126,7 +152,9 @@ public abstract class AbstractMarker implements Marker {
 	public abstract void drawOuter(PGraphics pg, float x, float y);
 
 	/**
-	 * Checks whether given position is inside the map.
+	 * Checks whether given position is inside the marker.
+	 * 
+	 * TODO Keep isInside(cx, cy, x, y) also for AbstractShapeMarker?
 	 * 
 	 * @param checkX
 	 *            The x position to check in screen coordinates.
@@ -148,6 +176,28 @@ public abstract class AbstractMarker implements Marker {
 	 */
 	public void setSelected(boolean selected) {
 		this.selected = selected;
+	}
+
+	@Override
+	public boolean isSelected() {
+		return selected;
+	}
+
+	public void setColor(int color) {
+		this.color = color;
+	}
+
+	public void setStrokeWeight(int strokeWeight) {
+		this.strokeWeight = strokeWeight;
+	}
+
+	public void setHighlightColor(int highlightColor) {
+		this.highlightColor = highlightColor;
+	}
+
+	@Override
+	public void setStrokeColor(int color) {
+		this.strokeColor = color;
 	}
 
 }

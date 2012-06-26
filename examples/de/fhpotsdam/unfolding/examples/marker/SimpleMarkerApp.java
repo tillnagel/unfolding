@@ -2,39 +2,39 @@ package de.fhpotsdam.unfolding.examples.marker;
 
 import processing.core.PApplet;
 import codeanticode.glgraphics.GLConstants;
-import de.fhpotsdam.unfolding.Map;
+import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.geo.Location;
-import de.fhpotsdam.unfolding.marker.SimpleMarker;
+import de.fhpotsdam.unfolding.marker.SimplePointMarker;
 import de.fhpotsdam.unfolding.utils.MapUtils;
 import de.fhpotsdam.unfolding.utils.ScreenPosition;
 
 /**
  * Simple marker display, without the use of MarkerManager.
  * 
- * Conversion between geo-location and screen position is done automatically, but drawing the markers is done by this
- * app.
+ * Conversion between geo-location and screen position is done via the marker, but drawing the markers is done by this
+ * application itself. Easiest way of drawing own styled markers.
  * 
  */
 @SuppressWarnings("serial")
 public class SimpleMarkerApp extends PApplet {
 
-	Map map;
+	UnfoldingMap map;
 
-	SimpleMarker markerBerlin;
-	SimpleMarker markerLondon;
+	SimplePointMarker markerBerlin;
+	SimplePointMarker markerLondon;
 
 	public void setup() {
 		size(800, 400, GLConstants.GLGRAPHICS);
 
-		map = new Map(this);
+		map = new UnfoldingMap(this);
 		map.setTweening(true);
 		map.zoomToLevel(3);
 		map.panTo(new Location(40f, 8f));
 		MapUtils.createDefaultEventDispatcher(this, map);
 
-		markerBerlin = new SimpleMarker(new Location(52.5f, 13.4f));
+		markerBerlin = new SimplePointMarker(new Location(52.5f, 13.4f));
 		markerBerlin.radius = 10;
-		markerLondon = new SimpleMarker(new Location(51.5f, 0f));
+		markerLondon = new SimplePointMarker(new Location(51.5f, 0f));
 	}
 
 	public void draw() {
