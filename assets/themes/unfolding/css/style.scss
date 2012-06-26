@@ -109,10 +109,24 @@ p{
 
 .btn {
     &.btn.btn-primary{
-        @extend .btn-inverse;
+       // @extend .btn-inverse;
+    }
+    i {
+      display:none;
     }
 }
 
+/*
+
+.btn {
+
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 11px;
+  line-height: 16px;
+}
+
+*/
 
 
 
@@ -168,13 +182,6 @@ p{
   }    
 }
 
-.btn {
-
-  text-transform: uppercase;
-  font-weight: bold;
-  font-size: 11px;
-  line-height: 16px;
-}
 
 
 a.thumbnail:hover {
