@@ -5,7 +5,6 @@ description: This Site will show how to set up the Unfolding library in Processi
 group: tutorials-starter
 author: Sebastian Sadowski
 thumbnail: http://placehold.it/330x250
-finalimage: http://placehold.it/610x390&text=Bild+2+610x390
 finalfiles: #someurlatgithub
 ---
 

@@ -14,9 +14,9 @@
 @import "../bootstrap/stylesheets/_bootstrap.scss";
 $iconSpritePath:          url("../bootstrap/images/glyphicons-halflings.png");
 $iconWhiteSpritePath:     url("../bootstrap/images/glyphicons-halflings-white.png");
-$bodyBackground: #F5F5F5;
-$linkColor: #B92F2F;
-$linkColorHover: #B92F2F;
+$bodyBackground: #FFF;
+$linkColor: #333;
+$linkColorHover: #4183C4;
 $serifFontFamily: "Bitter", Georgia, "Times New Roman", Times, serif;
 $sansFontFamily: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 $baseFontSize: 14px;
@@ -63,15 +63,29 @@ $bottomDividerColor: rgba(255,255,255,.5);
     
 }
 
+.thumbnail {
+  background: #FFF;
+  border:none;
+}
+
+
+.span8  ul {margin-bottom:10px;}
+.span8	ul {margin-bottom:10px;}
+.span8	pre {margin-bottom: 10px;}
+.span8	img { }
+
+
 .container{
     &:first-child{
         margin-top:$baseLineHeight;
+        padding-bottom: $baseLineHeight*2;
     }
 }
 
 .page-section1{
-    //@include translucent-background(#BFB9A4,.2);
-    background:#FFFFFF;
+    //@include translucent-background(#BFB9A4,1);
+    background:url('/unfolding/assets/images/cartographer.gif') whiteSmoke;
+    border-bottom:none;
 }
 
 
@@ -90,16 +104,46 @@ h1, h2, h3, h4{
     }
 }
 
+h1 a, h2 a, h3 a, h4 a{
+     color: #333;
+}
+
 p{
     margin-bottom: $baseLineHeight;
 }
 
 .btn {
     &.btn.btn-primary{
-        @extend .btn-inverse;
+       // @extend .btn-inverse;
     }
+    i {
+      display:none;
+    }
+    font-size: 13px;
+    font-weight: bold;
+    line-height:18px;
 }
 
+.btn:hover {
+  color: white;
+  text-decoration: none;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.3);
+  border-color: #518CC6;
+  border-bottom-color: #2A65A0;
+  @include buttonBackground(#599BDC, #3072B3);
+}
+
+/*
+
+.btn {
+
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 11px;
+  line-height: 16px;
+}
+
+*/
 
 
 
@@ -155,15 +199,11 @@ p{
   }    
 }
 
-.btn {
 
-  text-transform: uppercase;
-  font-weight: bold;
-  font-size: 11px;
-  line-height: 16px;
+
+a.thumbnail:hover {
+  border-color: none;
 }
-
-
 
 footer {
     opacity: 0.8;
@@ -173,9 +213,11 @@ footer {
 }
 
 h3 {
-    font-size: 20px;
+    font-size: 18px;
     line-height: 39px;
 }
+h3 a {color: black;}
+
 
 
 
