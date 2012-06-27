@@ -50,8 +50,8 @@ public class ChoroplethMapApp extends PApplet {
 
 	public void shadeCountries() {
 		for (Marker marker : countryMarkers) {
-			String countryName = (String) marker.getProperties().get("name");
-			DataEntry dataEntry = dataEntriesMap.get(countryName);
+			String countryId = marker.getId();
+			DataEntry dataEntry = dataEntriesMap.get(countryId);
 
 			if (dataEntry != null && dataEntry.value != null) {
 				// Encode value as brightness (values range: 0-1000)
@@ -74,8 +74,9 @@ public class ChoroplethMapApp extends PApplet {
 			if (columns.length >= 3) {
 				DataEntry dataEntry = new DataEntry();
 				dataEntry.countryName = columns[0];
+				dataEntry.id = columns[1];
 				dataEntry.value = Float.parseFloat(columns[2]);
-				dataEntriesMap.put(dataEntry.countryName, dataEntry);
+				dataEntriesMap.put(dataEntry.id, dataEntry);
 			}
 		}
 
@@ -84,6 +85,7 @@ public class ChoroplethMapApp extends PApplet {
 
 	class DataEntry {
 		String countryName;
+		String id;
 		Integer year;
 		Float value;
 	}
