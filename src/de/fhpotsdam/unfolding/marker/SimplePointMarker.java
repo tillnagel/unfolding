@@ -34,6 +34,7 @@ public class SimplePointMarker extends AbstractMarker {
 
 	public void drawOuter(PGraphics pg, float x, float y) {
 		pg.pushStyle();
+		pg.strokeWeight(strokeWeight);
 		if (isSelected()) {
 			pg.fill(highlightColor);
 			pg.stroke(highlightStrokeColor);
