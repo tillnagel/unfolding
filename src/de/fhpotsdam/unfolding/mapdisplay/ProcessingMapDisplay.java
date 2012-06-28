@@ -1,6 +1,8 @@
 package de.fhpotsdam.unfolding.mapdisplay;
 
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.Vector;
 
 import org.apache.log4j.Logger;
@@ -235,9 +237,8 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 	@Override
 	public Location getLocation(ScreenPosition screenPosition) {
 			Location innerLocation = getInfiniteLocation(screenPosition);
-			float lon=innerLocation.getLon() % 360.0f;
-			if(lon!=0)lon=(PApplet.abs(lon)>180.0f) ?  lon % 180.0f+(180.0f*-lon/PApplet.abs(lon)) : lon;
-			return new Location(innerLocation.getLat(),lon);
+			innerLocation.constrain();
+			return innerLocation;
 	}
 	
 	public Location getInfiniteLocation(ScreenPosition screenPosition) {
@@ -274,7 +275,57 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 			return new ScreenPosition(getScreenFromInnerObjectPosition(innerObjectXY[0], innerObjectXY[1]));
 		}
 	}
+	public ScreenPosition getVisibleScreenPosition(Location location) {
+		List  <ScreenPosition> visibleScreenPositions = getAllScreenPositions(location);
+		if(!visibleScreenPositions.isEmpty()){
+			ScreenPosition center = new ScreenPosition(getScreenFromObjectPosition(this.getWidth()/2, this.getHeight()/2));
+			
+			ScreenPosition visible = visibleScreenPositions.get(0);
+			papplet.line(center.x, center.y, visible.x, visible.y);
+			for(ScreenPosition p: visibleScreenPositions){
+				if(center.dist(p) < center.dist(visible))visible = p;
+			}
+			//for(ScreenPosition p: visibleScreenPositions)PApplet.print("["+p.x+"] ");			
+	//		float[] innerCenterXY = getInnerObjectFromObjectPosition(this.getWidth()/2, visibleScreenPositions.get(0).y);
+	//		float minInnerDist = PApplet.abs(this.getInnerObject(visibleScreenPositions.get(0))[0]);
+	//		ScreenPosition visible = visibleScreenPositions.get(0);
+	//		for(ScreenPosition p: visibleScreenPositions){
+	//			float[] innerCenterXY = getInnerObjectFromObjectPosition(this.getWidth()/2, visibleScreenPositions.get(0).y);
+	//			float[] InnerObjectXY = this.getInnerObject(p);
+	//			float innerDist=Math.abs(InnerObjectXY[0]-innerCenterXY[0]);
+	//			if(minInnerDist > Math.abs(innerCenterXY[0])-InnerObjectXY[0]){
+	//				innerDist = innerDist;
+	//				visible = p;
+	//			}			
+	//		}
+			return   visible;
+		} 
+		else return getScreenPosition(location);
+	}
+	
+	public List <ScreenPosition> getAllScreenPositions(Location location) {
+		//create empty ArrayList of ScreenPosition
+		List <ScreenPosition> LocationScreenPositions = new ArrayList<ScreenPosition>();
+		
+		location.constrain();
+		
+		//get min and max longitudes of current screen 
+		Location borderL = this.getLocationFromObjectPosition(0, 0);
+		Location borderR = this.getLocationFromObjectPosition(this.getWidth(), 0);
+		float minLon = location.getLon();
+		float maxLon = borderR.getLon();
+		
+		while ( borderL.getLon() < minLon)minLon -= 360f;
+		while ( borderL.getLon() > minLon)minLon += 360f;
 
+		for (float lon = minLon; lon < maxLon; lon+=360.0f) {
+		 		location.setLon(lon);
+				LocationScreenPositions.add(getScreenPosition(location));
+		 }
+		
+		return LocationScreenPositions;
+	}
+	
 	@Deprecated
 	public float[] getScreenPositionFromLocation(Location location) {
 		synchronized (this) {
@@ -408,42 +459,24 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 			minRow = (int) PApplet.min(new float[] { coordTL.row, coordTR.row, coordBR.row, coordBL.row });
 			maxRow = (int) PApplet.max(new float[] { coordTL.row, coordTR.row, coordBR.row, coordBL.row });
 		}
-		int numberTiles = (int) Map.getScaleFromZoom(zoomLevel);
-	
-		float InnerWidth = TILE_WIDTH * innerScale;
-		while (minCol < -numberTiles/2 && maxCol < numberTiles/2) {
-		//while (innerOffsetX > InnerWidth) {
-			maxCol += numberTiles;
-			minCol += numberTiles;
-			innerOffsetX -= InnerWidth;
-			calculateInnerMatrix();
-		}
-		while (minCol > 0 && maxCol > numberTiles) {
-		//while (innerOffsetX < InnerWidth) {
-			maxCol -= numberTiles;
-			minCol -= numberTiles;
-			innerOffsetX += TILE_WIDTH * innerScale;
-			calculateInnerMatrix();
-		}
-		maxCol = (maxCol>((maxCol%numberTiles)+numberTiles)) ? maxCol%numberTiles :maxCol;
-		minCol = (minCol<((minCol%numberTiles)-numberTiles)) ? minCol%numberTiles :minCol;
 		
-		PApplet.println(innerOffsetX);
 		// Add tile padding (to pre-load, and because we might be zooming out between zoom levels)
-		minCol -= grid_padding+numberTiles;
-		maxCol += grid_padding+numberTiles;
+		minCol -= grid_padding;//+numberTiles;
+		maxCol += grid_padding;//+numberTiles;
 		minRow -= grid_padding;
 		maxRow += grid_padding;
 		
 		// log.debug("getVisibleKeys: " + minCol + "," + maxCol + "; " + minRow + "," + maxRow);
 		
 		// we don't wrap around the world yet, so:
-		//int numberTiles = (int) Map.getScaleFromZoom(zoomLevel);
+		int numberTiles = (int) Map.getScaleFromZoom(zoomLevel);
+		
 		if(!infinite){
 			minCol = PApplet.constrain(minCol, 0, numberTiles);
 			maxCol = PApplet.constrain(maxCol, 0, numberTiles-1);
 			
 			}
+		
 		minRow = PApplet.constrain(minRow, 0, numberTiles);
 		maxRow = PApplet.constrain(maxRow, 0, numberTiles-1);
 		

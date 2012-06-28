@@ -239,7 +239,9 @@ public class Map implements MapEventListener {
 	public ScreenPosition getScreenPosition(Location location) {
 		return mapDisplay.getScreenPosition(location);
 	}
-
+	public ScreenPosition getVisibleScreenPosition(Location location) {
+		return mapDisplay.getVisibleScreenPosition(location);
+	}
 
 	// public PVector getScreenPositionFromLocation(Location location) {
 	// float[] xy = mapDisplay.getScreenPositionFromLocation(location);
