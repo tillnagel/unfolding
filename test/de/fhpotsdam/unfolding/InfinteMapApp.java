@@ -19,8 +19,8 @@ public class InfinteMapApp extends PApplet {
 	Location cursorLocation;
 
 	Location pointLocation = new Location(52, 14 - 360*1.5f);
-//	EventDispatcher eventDispatcher;
-//	TuioCursorHandler tuioCursorHandler;
+	EventDispatcher eventDispatcher;
+	TuioCursorHandler tuioCursorHandler;
 
 	public void setup() {
 		size(800, 640, GLConstants.GLGRAPHICS);
@@ -30,18 +30,20 @@ public class InfinteMapApp extends PApplet {
 		//	map.minScale = map.getZoom();
 		map.setInfiniteMap(true);
 		
-		//	eventDispatcher = new EventDispatcher();
-		//	tuioCursorHandler = new TuioCursorHandler(this, map);
-		//	eventDispatcher.addBroadcaster(tuioCursorHandler);
-		//	eventDispatcher.register(map, "pan");
-		//	eventDispatcher.register(map, "zoom");
+			eventDispatcher = new EventDispatcher();
+			tuioCursorHandler = new TuioCursorHandler(this, map);
+			eventDispatcher.addBroadcaster(tuioCursorHandler);
+			eventDispatcher.register(map, "pan");
+			eventDispatcher.register(map, "zoom");
 	}
 
 	public void draw() {
+		background(0);	
 		map.draw();
 		// auto-pan of the map
 		// map.panBy(.5f,0);
-		// map.rotate(.005f);
+		//map.outerRotate(.005f);
+		//map.innerRotate(-.005f);
 		
 		// shows map coordinates of the current mouse position
 		cursorLocation = map.getLocation(new ScreenPosition(this.mouseX,this.mouseY));

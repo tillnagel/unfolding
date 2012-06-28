@@ -4,6 +4,7 @@ import org.apache.log4j.Logger;
 
 import de.fhpotsdam.unfolding.Map;
 import de.fhpotsdam.unfolding.geo.Location;
+import de.fhpotsdam.unfolding.utils.ScreenPosition;
 
 public class PanMapEvent extends MapEvent {
 
@@ -45,9 +46,11 @@ public class PanMapEvent extends MapEvent {
 	public void setToLocation(Location toLocation) {
 		this.toLocation = toLocation;
 	}
-
+	
 	@Override
 	public void executeManipulationFor(Map map) {
+		map.mapDisplay.setInnerTransformationCenter( new ScreenPosition(map.mapDisplay.getWidth()/2,map.mapDisplay.getHeight()/2));
+		
 		if (PAN_BY.equals(getSubType())) {
 //			log.debug("Panning mapDisplay " + map.getId() + " from " + fromLocation + " to "
 //					+ toLocation);

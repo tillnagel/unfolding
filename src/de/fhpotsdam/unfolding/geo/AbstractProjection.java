@@ -52,8 +52,6 @@ public abstract class AbstractProjection {
 		coordinate = coordinate.zoomTo(this.zoom);
 		PVector point = new PVector(coordinate.column, coordinate.row);
 		point = this.unproject(point);
-		//point.x=point.x % (PApplet.PI*2);
-		//point.x=(PApplet.abs(point.x)>PApplet.PI) ?  point.x % PApplet.PI+(PApplet.PI*-PApplet.constrain(point.x/PApplet.PI, -1, 1)) : point.x;
 		return new Location(180.0f * point.y / PApplet.PI, 180.0f * point.x / PApplet.PI);
 	}
 

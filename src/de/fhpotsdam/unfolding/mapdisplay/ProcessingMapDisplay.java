@@ -107,9 +107,10 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 			PMatrix3D invMatrix = new PMatrix3D();
 			invMatrix.apply(innerMatrix);
 			invMatrix.invert();
+			
 			float originalCenterX = invMatrix.multX(innerTransformationCenter.x, innerTransformationCenter.y);
 			float originalCenterY = invMatrix.multY(innerTransformationCenter.x, innerTransformationCenter.y);
-
+			
 			innerMatrix = new PMatrix3D();
 			innerMatrix.translate(innerTransformationCenter.x, innerTransformationCenter.y);
 			innerMatrix.scale(innerScale);
@@ -286,18 +287,18 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 				if(center.dist(p) < center.dist(visible))visible = p;
 			}
 			//for(ScreenPosition p: visibleScreenPositions)PApplet.print("["+p.x+"] ");			
-	//		float[] innerCenterXY = getInnerObjectFromObjectPosition(this.getWidth()/2, visibleScreenPositions.get(0).y);
-	//		float minInnerDist = PApplet.abs(this.getInnerObject(visibleScreenPositions.get(0))[0]);
-	//		ScreenPosition visible = visibleScreenPositions.get(0);
-	//		for(ScreenPosition p: visibleScreenPositions){
-	//			float[] innerCenterXY = getInnerObjectFromObjectPosition(this.getWidth()/2, visibleScreenPositions.get(0).y);
-	//			float[] InnerObjectXY = this.getInnerObject(p);
-	//			float innerDist=Math.abs(InnerObjectXY[0]-innerCenterXY[0]);
-	//			if(minInnerDist > Math.abs(innerCenterXY[0])-InnerObjectXY[0]){
-	//				innerDist = innerDist;
-	//				visible = p;
-	//			}			
-	//		}
+			//		float[] innerCenterXY = getInnerObjectFromObjectPosition(this.getWidth()/2, visibleScreenPositions.get(0).y);
+			//		float minInnerDist = PApplet.abs(this.getInnerObject(visibleScreenPositions.get(0))[0]);
+			//		ScreenPosition visible = visibleScreenPositions.get(0);
+			//		for(ScreenPosition p: visibleScreenPositions){
+			//			float[] innerCenterXY = getInnerObjectFromObjectPosition(this.getWidth()/2, visibleScreenPositions.get(0).y);
+			//			float[] InnerObjectXY = this.getInnerObject(p);
+			//			float innerDist=Math.abs(InnerObjectXY[0]-innerCenterXY[0]);
+			//			if(minInnerDist > Math.abs(innerCenterXY[0])-InnerObjectXY[0]){
+			//				innerDist = innerDist;
+			//				visible = p;
+			//			}			
+			//		}
 			return   visible;
 		} 
 		else return getScreenPosition(location);
