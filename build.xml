@@ -66,11 +66,11 @@
 	</target>
 	
 	<!-- Creates Javadoc -->
-	<target name="docs" depends="compile">
+	<target name="docs">
 		<javadoc packagenames="src" sourcepath="${src.dir}" destdir="${docs.dir}" classpathref="build.classpath">
 			<!-- Define which files / directory should get included, we include all -->
 			<fileset dir="${src.dir}">
-				<include name="**" />
+				<include name="**/*.java" />
 			</fileset>
 		</javadoc>
 	</target>
