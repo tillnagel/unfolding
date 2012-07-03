@@ -18,6 +18,10 @@ public class Location extends PVector {
 		this.y = lon;
 	}
 	
+	public Location(double lat, double lon) {
+		this((float)lat,(float)lon);
+	}
+	
 	/**
 	 * Create a Location
 	 * @param location location to use.
