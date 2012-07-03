@@ -3560,7 +3560,7 @@ body {
   background-color: white; }
 
 a {
-  color: #333333;
+  color: #4183c4;
   text-decoration: none; }
 
 a:hover {
@@ -5633,7 +5633,7 @@ button.btn, input[type="submit"].btn {
 .nav-list > .active > a, .nav-list > .active > a:hover {
   color: white;
   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.2);
-  background-color: #333333; }
+  background-color: #4183c4; }
 
 .nav-list [class^="icon-"] {
   margin-right: 2px; }
@@ -5699,7 +5699,7 @@ button.btn, input[type="submit"].btn {
 
 .nav-pills .active > a, .nav-pills .active > a:hover {
   color: white;
-  background-color: #333333; }
+  background-color: #4183c4; }
 
 .nav-stacked > li {
   float: none; }
@@ -5747,8 +5747,8 @@ button.btn, input[type="submit"].btn {
   border-radius: 4px; }
 
 .nav-tabs .dropdown-toggle .caret, .nav-pills .dropdown-toggle .caret {
-  border-top-color: #333333;
-  border-bottom-color: #333333;
+  border-top-color: #4183c4;
+  border-bottom-color: #4183c4;
   margin-top: 6px; }
 
 .nav-tabs .dropdown-toggle:hover .caret, .nav-pills .dropdown-toggle:hover .caret {
