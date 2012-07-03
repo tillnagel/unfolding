@@ -7,9 +7,11 @@ import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.utils.MapUtils;
 
 @SuppressWarnings("serial")
-public class PolyMarkerExample extends PApplet {
+public class GLLinesMarkerApp extends PApplet {
 
 	UnfoldingMap map;
+	
+	//TODO @fx-lange use dataset
 	
 	public void setup() {
 		size(800, 600, GLConstants.GLGRAPHICS);
