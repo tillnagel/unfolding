@@ -28,3 +28,10 @@ Unfolding is a tile-based map library. Map tiles can have various geographic fea
 Architecture
 Tile mechanism: Provider, SlippyMaps, Coordinates etc
 Transformation: Matrices, Levels (Geo/inner, Map/outer, screen/canvas), etc
+
+
+## Tiles
+Map tiles are square bitmap graphics displayed in a grid arrangement to show a map.
+A "tileset" typically includes enough tiles to form a very large image but generally the idea is not to show them all at once, but to display only a particular area of the map so the map can load faster.
+The beaking down of a huge map to manageable pieces is like a pyramid of image tiles
+![tilespyramid](/assets/images/tutorials/tilespyramid.jpeg)
