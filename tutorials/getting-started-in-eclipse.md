@@ -4,6 +4,7 @@ title: Getting Started in Eclipse
 description: This Site will show how to set up the Unfolding library in Processing and how you create your first simple map in minutes.
 group: tutorials-starter
 author: Till Nagel
+author-url: "http://tillnagel.com/"
 thumbnail: http://placehold.it/330x250
 finalimage: http://placehold.it/610x390&text=Bild+2+610x390
 finalfiles: #someurlatgithub

@@ -20,7 +20,13 @@
               {{ node.description }}
               {% if node.author %}
                 </br>
+                {% if node.author-url %}
+                  <a href="{{ node.author-url }}" title="Go to Page from {{ node.author }}">
+                {% endif %}
                 <i class="icon-user"> </i> {{ node.author }}
+                {% if node.author-url %}
+                  </a>
+                {% endif %}
               {% endif %}
               <!-- {% if node.released %}
                 </br>
@@ -61,7 +67,13 @@
               {{ node.description }}
               {% if node.author %}
                 </br>
-                <i class="icon-user"> </i> Author: {{ node.author }}
+                {% if node.author-url %}
+                   <a href="{{ node.author-url }}" title="Go to Page from {{ node.author }}">
+                 {% endif %}
+                 <i class="icon-user"> </i> {{ node.author }}
+                 {% if node.author-url %}
+                   </a>
+                 {% endif %}
               {% endif %}
               {% if node.released %}
                 <!-- </br>
