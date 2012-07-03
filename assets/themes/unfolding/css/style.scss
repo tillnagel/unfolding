@@ -15,7 +15,7 @@
 $iconSpritePath:          url("../bootstrap/images/glyphicons-halflings.png");
 $iconWhiteSpritePath:     url("../bootstrap/images/glyphicons-halflings-white.png");
 $bodyBackground: #FFF;
-$linkColor: #333;
+$linkColor: #4183C4;
 $linkColorHover: #4183C4;
 $serifFontFamily: "Bitter", Georgia, "Times New Roman", Times, serif;
 $sansFontFamily: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -204,6 +204,8 @@ p{
 a.thumbnail:hover {
   border-color: none;
 }
+
+
 
 footer {
     opacity: 0.8;
