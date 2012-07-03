@@ -72,7 +72,7 @@ public class MultiMarker implements Marker {
 	//implement both in different methods? examples needed!
 	@Override
 	public double getDistanceTo(Location location) {
-		double minDistance = Float.MAX_VALUE;
+		double minDistance = Double.MAX_VALUE;
 		for(Marker marker : markers){
 			double dist = marker.getDistanceTo(location);
 			minDistance =  dist < minDistance ? dist : minDistance;

@@ -88,10 +88,14 @@ public class MarkerManager<E extends Marker> {
 
 	public E getNearestMarker(float checkX, float checkY) {
 		E foundMarker = null;
-		double minDist = 30000;
+		double minDist = Double.MAX_VALUE;
 		for (E marker : markers) {
 			double dist = marker.getDistanceTo( map.getLocation(checkX, checkY) );
-			if (minDist > dist) {
+			if (minDist == dist){
+				if(marker.isInside(map, checkX, checkY)){
+					foundMarker = marker;
+				}
+			}else if (minDist > dist) {
 				minDist = dist;
 				foundMarker = marker;
 			}

@@ -49,6 +49,19 @@ public abstract class AbstractShapeMarker extends AbstractMarker {
 	public void addLocation(float x, float y){
 		locations.add(new Location(x,y));
 	}
+	
+	public Location getLocation(){
+		return getCentroid();
+	}
+	
+	public Location getCentroid() {
+		Location center = new Location(0,0);
+		for(Location loc : locations){
+			center.add(loc);
+		}
+		center.div((float)locations.size());
+		return center;
+	}
 
 	public Location getLocation(int index) {
 		return locations.get(index);
