@@ -14,6 +14,15 @@
             <img src="http://placehold.it/610x390&text=Bild+2+610x390" alt="">
           </a>
         {% endif %}
+        {% if page.video_src and page.video_img_src%}
+          {% assign video_id = "video-big" %}
+          {% assign video_src = "http://video-js.zencoder.com/oceans-clip.mp4" %}
+          {% assign video_img_src = "http://video-js.zencoder.com/oceans-clip.jpg" %}
+          {% include video %}
+          {% if page.video_caption %}
+            <p><em>{{ page.video_caption }}</em></p>
+          {% endif %}
+        {% endif %}
       </div>
       <div class="span4">
         {% if page.group == "navigation"%}

@@ -22,6 +22,11 @@
   line-height: 14px !important;
 }
 
+.syntaxhighlighter .container:before,
+.syntaxhighlighter .container:after{
+  content: none;
+}
+
 .syntaxhighlighter {
   background-color: white !important;
   border: 1px solid #E1E1E8 !important;

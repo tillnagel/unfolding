@@ -3,6 +3,9 @@ layout: page
 title: "Exhibition"
 description: "This Site will contain the exhibition"
 group: navigation
+video_src: "http://video-js.zencoder.com/oceans-clip.mp4"
+video_img_src: "http://video-js.zencoder.com/oceans-clip.jpg"
+video_caption: "foo bar"
 ---
 
 {% include JB/setup %}
