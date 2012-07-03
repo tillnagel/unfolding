@@ -90,7 +90,7 @@ public class MarkerManager<E extends Marker> {
 		E foundMarker = null;
 		double minDist = 30000;
 		for (E marker : markers) {
-			double dist = marker.getDistanceTo( map.getLocationFromScreenPosition(checkX, checkY) );
+			double dist = marker.getDistanceTo( map.getLocation(checkX, checkY) );
 			if (minDist > dist) {
 				minDist = dist;
 				foundMarker = marker;

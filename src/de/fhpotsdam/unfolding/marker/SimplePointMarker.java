@@ -6,7 +6,6 @@ import processing.core.PApplet;
 import processing.core.PGraphics;
 import processing.core.PVector;
 import de.fhpotsdam.unfolding.geo.Location;
-import de.fhpotsdam.unfolding.utils.StyleConstants;
 
 /**
  * Simple marker, implementing only the main draw method.

@@ -2,7 +2,6 @@ package de.fhpotsdam.unfolding.marker;
 
 import java.util.HashMap;
 
-import processing.core.PApplet;
 import processing.core.PGraphics;
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.geo.Location;
@@ -93,7 +92,6 @@ public abstract class AbstractMarker implements Marker {
 	 */
 	@Override
 	public boolean isInside(UnfoldingMap map, float checkX, float checkY) {
-		PApplet.println("AbstractMarker.isInside(m, cx, cy)");
 		ScreenPosition pos = getScreenPosition(map);
 		return isInside(checkX, checkY, pos.x, pos.y);
 	}

@@ -40,10 +40,17 @@ public class MultiMarker implements Marker {
 		}
 	}
 
+	/**
+	 * return center of all markers
+	 */
 	@Override
 	public Location getLocation() {
-		// TODO Auto-generated method stub
-		return null;
+		Location center = new Location(0,0);
+		for(Marker marker : markers){
+			center.add(marker.getLocation());
+		}
+		center.div((float)markers.size());
+		return center;
 	}
 
 	@Override
@@ -58,10 +65,19 @@ public class MultiMarker implements Marker {
 
 	}
 
+	/**
+	 * return distance between location and the (to the location) closest marker
+	 */
+	//REVISIT alternatively method could return distance to the of all markers
+	//implement both in different methods? examples needed!
 	@Override
 	public double getDistanceTo(Location location) {
-		// TODO Auto-generated method stub
-		return 0;
+		double minDistance = Float.MAX_VALUE;
+		for(Marker marker : markers){
+			double dist = marker.getDistanceTo(location);
+			minDistance =  dist < minDistance ? dist : minDistance;
+		}
+		return minDistance;
 	}
 
 	@Override
