@@ -13,11 +13,6 @@ import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.marker.Marker;
 import de.fhpotsdam.unfolding.utils.MapUtils;
 
-/**
- * Shows two polygons for France and Corsica to demonstrate a multi marker. By clicking on one of the two areas the whole MultiMarker gets selected, thus both areas are highlighted.
- * 
- * Set the boolean useMultiMarker to false to see the same areas as independent markers.
- */
 @SuppressWarnings("serial")
 public class GetNearestMultiMarkerApp extends PApplet {
 
@@ -28,8 +23,8 @@ public class GetNearestMultiMarkerApp extends PApplet {
 		size(800, 600, GLConstants.GLGRAPHICS);
 
 		map = new UnfoldingMap(this, "map");
-		map.zoomToLevel(4);
-		map.panTo(new Location(50f, 12f));
+		map.zoomToLevel(2);
+		map.panTo(new Location(58.631217f,-101.601562f));
 		MapUtils.createDefaultEventDispatcher(this, map);
 
 		initPolygons();
