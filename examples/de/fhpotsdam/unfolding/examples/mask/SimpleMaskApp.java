@@ -1,20 +1,13 @@
-package de.fhpotsdam.unfolding.examples.ui;
+package de.fhpotsdam.unfolding.examples.mask;
 
 import processing.core.PApplet;
 import codeanticode.glgraphics.GLConstants;
 import codeanticode.glgraphics.GLGraphicsOffScreen;
-import de.fhpotsdam.unfolding.Map;
 import de.fhpotsdam.unfolding.UnfoldingMap;
-import de.fhpotsdam.unfolding.geo.Location;
-import de.fhpotsdam.unfolding.mapdisplay.MaskedGLGraphicsMapDisplay;
-import de.fhpotsdam.unfolding.ui.*;
 import de.fhpotsdam.unfolding.utils.MapUtils;
 
 /**
- * 
- * @author Christopher Pietsch
- * 
- *         This example shows the use of an grayscale mask applied to the map.
+ * This example shows the use of an gray-scale mask applied to the map.
  */
 public class SimpleMaskApp extends PApplet {
 
@@ -39,7 +32,7 @@ public class SimpleMaskApp extends PApplet {
 		// shows the mask next to the map
 		image(mask.getTexture(), 420, 10);
 	}
-	
+
 	// draw the grayscale mask on an mask object
 	// 255 = invisible
 	// 0 = visible
