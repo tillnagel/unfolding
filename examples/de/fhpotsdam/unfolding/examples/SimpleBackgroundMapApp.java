@@ -8,8 +8,6 @@ import de.fhpotsdam.unfolding.utils.MapUtils;
 
 /**
  * Show how
- * @author stefan
- *
  */
 public class SimpleBackgroundMapApp extends PApplet {
 

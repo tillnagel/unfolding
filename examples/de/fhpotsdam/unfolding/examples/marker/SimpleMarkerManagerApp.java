@@ -25,14 +25,15 @@ public class SimpleMarkerManagerApp extends PApplet {
 	public void setup() {
 		size(800, 600, GLConstants.GLGRAPHICS);
 
-		map = new UnfoldingMap(this, "map", 50, 50, 700, 500);
+		map = new UnfoldingMap(this, 50, 50, 700, 500);
+
 		map.zoomToLevel(3);
 		map.panTo(new Location(40f, -42f));
 		MapUtils.createDefaultEventDispatcher(this, map);
 
 		SimplePointMarker berlinMarker = new SimplePointMarker(berlinLocation);
 		berlinMarker.setColor(color(0, 200, 0, 100));
-		berlinMarker.setRadius(4);
+		berlinMarker.setRadius(40);
 		SimplePointMarker mexicoCityMarker = new SimplePointMarker(mexicoCityLocation);
 		mexicoCityMarker.setColor(color(200, 0, 0, 100));
 		SimpleLinesMarker connectionMarker = new SimpleLinesMarker(berlinLocation, mexicoCityLocation);

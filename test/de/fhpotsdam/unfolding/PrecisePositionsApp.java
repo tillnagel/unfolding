@@ -2,8 +2,9 @@ package de.fhpotsdam.unfolding;
 
 import processing.core.PApplet;
 import codeanticode.glgraphics.GLConstants;
-import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.geo.Location;
+import de.fhpotsdam.unfolding.marker.Marker;
+import de.fhpotsdam.unfolding.marker.SimplePointMarker;
 import de.fhpotsdam.unfolding.utils.MapUtils;
 
 public class PrecisePositionsApp extends PApplet {
@@ -12,8 +13,10 @@ public class PrecisePositionsApp extends PApplet {
 
 	public static final Location SINGAPORE_LOCATION = new Location(1.283f, 103.833f);
 	Location location1 = new Location(1.283000f, 103.833000f);
-	Location location2 = new Location(1.283001f, 103.833001f);
-	Location location3 = new Location(1.283018f, 103.833015f);
+	// loc2 has seemingly same pos than loc1
+	Location location2 = new Location(1.283013f, 103.833011f);
+	// loc3 has different pos than loc1
+	Location location3 = new Location(1.283014f, 103.833012f);
 
 	public void setup() {
 		size(800, 600, GLConstants.GLGRAPHICS);
@@ -32,6 +35,10 @@ public class PrecisePositionsApp extends PApplet {
 		System.out.printf("x = %.9f y = %.9f \n", x, y);
 		// println(PApplet.nf(x, 1, 9) + ", " + PApplet.nf(y, 1, 9));
 
+		Marker marker1 = new SimplePointMarker(location1);
+		Marker marker2 = new SimplePointMarker(location2);
+		Marker marker3 = new SimplePointMarker(location3);
+		map.addMarkers(marker1, marker2, marker3);
 	}
 
 	public void draw() {

@@ -58,10 +58,15 @@ public class MultiMarkerApp extends PApplet {
 		map.draw();
 	}
 
-	public void mouseClicked() {
-		Marker marker = map.getDefaultMarkerManager().getFirstHitMarker(mouseX, mouseY);
-		if (marker != null) {
-			marker.setSelected(!marker.isSelected());
+	public void mouseMoved() {
+		Marker hitMarker = map.getDefaultMarkerManager().getFirstHitMarker(mouseX, mouseY);
+		if (hitMarker != null) {
+			hitMarker.setSelected(true);
+		}
+		else {
+			for (Marker marker : map.getDefaultMarkerManager().getMarkers()) {
+				marker.setSelected(false);
+			}
 		}
 	}
 

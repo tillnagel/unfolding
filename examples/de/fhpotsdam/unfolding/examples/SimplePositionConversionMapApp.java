@@ -28,19 +28,17 @@ public class SimplePositionConversionMapApp extends PApplet {
 
 		// Shows geo-location at mouse position
 		Location location = map.getLocation(mouseX, mouseY);
-		text(location.toString(), mouseX, mouseY);
-	
-	
+		text("geo:" + location.toString(), mouseX, mouseY);
+
 		// Shows marker at Berlin location
 		Location loc = new Location(52.5f, 13.4f);
 		ScreenPosition pos = map.getScreenPosition(loc);
 		ellipse(pos.x, pos.y, 20, 20);
-		
-		
-		String berlinDescription = "Berlin at pixel (" + (int)pos.x + "/" + (int)pos.y + ")"; 
+
+		String berlinDescription = "Berlin at pixel (" + (int) pos.x + "," + (int) pos.y + ")";
 		text(berlinDescription, pos.x, pos.y);
 	}
-	
+
 	public static void main(String[] args) {
 		// Here we start the actual Unfolding part
 		PApplet.main(new String[] { "de.fhpotsdam.unfolding.examples.SimplePositionConversionMapApp" });

@@ -99,4 +99,17 @@ public class GeoUtils {
 
 		return angle;
 	}
+
+	public static Location getDecimal(Integer latDegrees, Integer latMinutes, Integer latSeconds, String latDirection,
+			Integer lonDegrees, Integer lonMinutes, Integer lonSeconds, String lonDirection) {
+		float lat = latDegrees + (latMinutes * 60 + latSeconds) / 3600;
+		if (latDirection.equals("S")) {
+			lat = -lat;
+		}
+		float lon = lonDegrees + (lonMinutes * 60 + lonSeconds) / 3600;
+		if (lonDirection.equals("W")) {
+			lon = -lon;
+		}
+		return new Location(lat, lon);
+	}
 }

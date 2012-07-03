@@ -33,7 +33,6 @@ public class SimpleMarkerApp extends PApplet {
 		MapUtils.createDefaultEventDispatcher(this, map);
 
 		markerBerlin = new SimplePointMarker(new Location(52.5f, 13.4f));
-		markerBerlin.radius = 10;
 		markerLondon = new SimplePointMarker(new Location(51.5f, 0f));
 	}
 
@@ -48,8 +47,6 @@ public class SimpleMarkerApp extends PApplet {
 		ScreenPosition posBerlin = markerBerlin.getScreenPosition(map);
 		fill(0, 200, 0, 100);
 		ellipse(posBerlin.x, posBerlin.y, 20, 20);
-		// REVISIT draw directly? (till: I vote against this, as it's an internal mechanism)
-		// markerBerlin.drawNOW(map);
 
 		// Zoom dependent marker size
 		ScreenPosition posLondon = markerLondon.getScreenPosition(map);

@@ -27,7 +27,7 @@ public class GeoJSONReader {
 				String id = allFeatures.getJSONObject(i).optString("id", UUID.randomUUID().toString());
 
 				JSONObject currJSONObjGeometry = allFeatures.getJSONObject(i).getJSONObject("geometry");
-				JSONObject currJSONObjProperties = allFeatures.getJSONObject(i).getJSONObject("properties");
+				JSONObject currJSONObjProperties = allFeatures.getJSONObject(i).optJSONObject("properties");
 
 				if (currJSONObjGeometry != null) {
 					Feature feature = null;
