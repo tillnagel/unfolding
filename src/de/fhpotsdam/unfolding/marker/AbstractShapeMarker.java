@@ -78,7 +78,7 @@ public abstract class AbstractShapeMarker extends AbstractMarker {
 	public void draw(UnfoldingMap map) {
 		super.draw(map);
 
-		PGraphics pg = map.mapDisplay.getPG();
+		PGraphics pg = map.mapDisplay.getInnerPG();
 
 		List<MapPosition> mapPositions = new ArrayList<MapPosition>();
 
@@ -153,7 +153,6 @@ public abstract class AbstractShapeMarker extends AbstractMarker {
 
 	@Override
 	public boolean isInside(UnfoldingMap map, float checkX, float checkY) {
-		PApplet.println("AbstractShape.isInside(m, cx, cy)");
 		List<ScreenPosition> positions = new ArrayList<ScreenPosition>();
 		for (Location location : locations) {
 			ScreenPosition pos = map.getScreenPosition(location);
@@ -163,7 +162,6 @@ public abstract class AbstractShapeMarker extends AbstractMarker {
 	}
 
 	protected boolean isInside(float checkX, float checkY, List<ScreenPosition> positions) {
-		PApplet.println("AbstractShape.isInside(cx, cy, positions)");
 		boolean inside = false;
 		for (int i = 0, j = positions.size() - 1; i < positions.size(); j = i++) {
 			ScreenPosition pi = positions.get(i);
@@ -180,6 +178,10 @@ public abstract class AbstractShapeMarker extends AbstractMarker {
 	protected boolean isInside(float checkX, float checkY, float x, float y) {
 		// TODO Simply return false?
 		throw new RuntimeException("Check for a single positon is not implemented for polygons.");
+	}
+
+	public int getColor() {
+		return color;
 	}
 
 }

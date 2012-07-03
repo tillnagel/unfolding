@@ -6,15 +6,9 @@ import java.util.List;
 import processing.core.PConstants;
 import processing.core.PGraphics;
 import de.fhpotsdam.unfolding.geo.Location;
-import de.fhpotsdam.unfolding.utils.StyleConstants;
 import de.fhpotsdam.unfolding.utils.MapPosition;
 
 public class SimplePolygonMarker extends AbstractShapeMarker {
-
-	protected int color = StyleConstants.DEFAULT_FILL_COLOR;
-	protected int strokeColor = StyleConstants.DEFAULT_STROKE_COLOR;
-	protected int highlightColor = StyleConstants.HIGHLIGHTED_FILL_COLOR;
-	protected int highlightStrokeColor = StyleConstants.HIGHLIGHTED_STROKE_COLOR;
 
 	public SimplePolygonMarker() {
 		super();
@@ -30,7 +24,12 @@ public class SimplePolygonMarker extends AbstractShapeMarker {
 
 	@Override
 	public void draw(PGraphics pg, List<MapPosition> mapPositions) {
-		// REVISIT move to abstractMarker.draw(map)?
+	}
+
+	@Override
+	public void drawOuter(PGraphics pg, List<MapPosition> mapPositions) {
+		// TODO Draw polygon marker in draw() or in drawOuter()? See https://github.com/tillnagel/unfolding/issues/25
+
 		pg.pushStyle();
 		if (isSelected()) {
 			pg.fill(highlightColor);
@@ -39,16 +38,13 @@ public class SimplePolygonMarker extends AbstractShapeMarker {
 			pg.fill(color);
 			pg.stroke(strokeColor);
 		}
+
 		pg.beginShape();
-		for (MapPosition op : mapPositions) {
-			pg.vertex(op.x, op.y);
+		for (MapPosition pos : mapPositions) {
+			pg.vertex(pos.x, pos.y);
 		}
 		pg.endShape(PConstants.CLOSE);
 		pg.popStyle();
-	}
-
-	@Override
-	public void drawOuter(PGraphics pg, List<MapPosition> mapPositions) {
 	}
 
 	public void setColor(int color) {

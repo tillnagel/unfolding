@@ -113,13 +113,13 @@ public abstract class AbstractMapDisplay implements TileLoaderListener {
 		}
 	}
 
-	public abstract PGraphics getPG();
+	public abstract PGraphics getInnerPG();
 	
+	public abstract PGraphics getOuterPG();
+
 	public GLGraphicsOffScreen getMask(){
 		return null;
 	}
-
-	public abstract PGraphics getOuterPG();
 
 	public abstract void draw();
 

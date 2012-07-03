@@ -28,10 +28,11 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 	// Used for loadImage and float maths
 	public PApplet papplet;
 
-	/** The transformation matrix. */
-	protected PMatrix3D matrix = new PMatrix3D();
-
+	/** The inner transformation matrix. Scales and rotates the map. */
 	protected PMatrix3D innerMatrix = new PMatrix3D();
+
+	/** The outer transformation matrix. Rotates the map pane. */
+	protected PMatrix3D matrix = new PMatrix3D();
 
 	// Background color
 	protected int bgColor = 0;
@@ -84,9 +85,7 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 			PMatrix3D invMatrix = new PMatrix3D();
 			invMatrix.apply(matrix);
 			invMatrix.invert();
-			
-			
-			
+
 			float originalCenterX = invMatrix.multX(transformationCenter.x, transformationCenter.y);
 			float originalCenterY = invMatrix.multY(transformationCenter.x, transformationCenter.y);
 
@@ -223,7 +222,8 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 		return coord;
 	}
 
-	@Deprecated @Override
+	@Deprecated
+	@Override
 	public Location getLocationFromScreenPosition(float x, float y) {
 		synchronized (this) {
 			float innerObjectXY[] = getInnerObjectFromScreenPosition(x, y);
@@ -234,8 +234,7 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 	@Override
 	public Location getLocation(ScreenPosition screenPosition) {
 		synchronized (this) {
-			float innerObjectXY[] = getInnerObjectFromScreenPosition(
-					screenPosition.x, screenPosition.y);
+			float innerObjectXY[] = getInnerObjectFromScreenPosition(screenPosition.x, screenPosition.y);
 			return getLocationFromInnerObjectPosition(innerObjectXY[0], innerObjectXY[1]);
 		}
 	}
@@ -278,7 +277,7 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 
 	// DRAWING --------------------------------------------------
 
-	public PGraphics getPG() {
+	public PGraphics getInnerPG() {
 		// NB Always inner graphics, this one not used. Implemented in sub classes.
 		return papplet.g;
 	}
@@ -287,15 +286,17 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 		return papplet.g;
 	}
 
+	/**
+	 * Is called last in {@link #draw()}. May be implemented in sub-classes to handle drawing on outerPG.
+	 */
 	protected void postDraw() {
-		// May be implemented in sub-classes.
 	}
 
 	/**
 	 * Draws the on the PGraphics canvas.
 	 */
 	public void draw() {
-		PGraphics pg = getPG();
+		PGraphics pg = getInnerPG();
 		pg.beginDraw();
 
 		// Store and switch off smooth (OpenGL cannot handle it)
@@ -343,13 +344,14 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 			pg.popMatrix();
 		}
 
-		for (MarkerManager<Marker> mm : markerManagerList){
+		// Draws all markers on innerPG
+		for (MarkerManager<Marker> mm : markerManagerList) {
 			mm.draw();
 		}
 
 		pg.popMatrix();
-
 		pg.endDraw();
+
 		postDraw();
 
 		cleanupImageBuffer();
@@ -487,10 +489,10 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 		return new TileLoader(papplet, provider, this, coord);
 
 		// TODO Make showDebug etc public.
-//		TileLoader tl = new TileLoader(papplet, provider, this, coord);
-//		tl.showDebugBorder();
-//		tl.showTileCoordinates();
-//		return tl;
+		// TileLoader tl = new TileLoader(papplet, provider, this, coord);
+		// tl.showDebugBorder();
+		// tl.showTileCoordinates();
+		// return tl;
 	}
 
 }

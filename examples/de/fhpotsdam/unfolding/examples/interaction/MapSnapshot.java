@@ -35,7 +35,7 @@ public class MapSnapshot {
 		this.location = map.getCenter();
 		this.zoomLevel = map.getZoomLevel();
 
-		PGraphics pg = map.mapDisplay.getPG();
+		PGraphics pg = map.mapDisplay.getInnerPG();
 		if (pg instanceof GLGraphicsOffScreen) {
 			thumbnail = new PImage((int) map.mapDisplay.getWidth(), (int) map.mapDisplay.getHeight());
 			((GLGraphicsOffScreen) pg).getTexture().getImage(thumbnail);

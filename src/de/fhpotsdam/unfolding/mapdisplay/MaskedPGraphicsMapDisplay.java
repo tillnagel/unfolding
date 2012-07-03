@@ -19,7 +19,7 @@ public class MaskedPGraphicsMapDisplay extends ProcessingMapDisplay implements P
 		pg = papplet.createGraphics((int) width, (int) height, P3D);
 	}
 
-	public PGraphics getPG() {
+	public PGraphics getInnerPG() {
 		return pg;
 	}
 

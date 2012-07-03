@@ -1,8 +1,9 @@
 package de.fhpotsdam.unfolding.examples.fun;
 
-import codeanticode.glgraphics.GLTexture;
 import processing.core.PApplet;
 import processing.core.PGraphics;
+import codeanticode.glgraphics.GLGraphicsOffScreen;
+import codeanticode.glgraphics.GLTexture;
 import de.fhpotsdam.unfolding.mapdisplay.GLGraphicsMapDisplay;
 import de.fhpotsdam.unfolding.marker.Marker;
 import de.fhpotsdam.unfolding.marker.MarkerManager;
@@ -21,18 +22,18 @@ public class FlippedMapDisplay extends GLGraphicsMapDisplay {
 		outerPG.pushMatrix();
 		outerPG.translate(offsetX, offsetY);
 		outerPG.applyMatrix(matrix);
-		
+
 		// Flip test
-		GLTexture map = pg.getTexture();
+		GLTexture map = ((GLGraphicsOffScreen) getInnerPG()).getTexture();
 		outerPG.scale(-1, 1);
 		outerPG.translate(-width, 0);
 		outerPG.image(map, 0, 0);
-		
-		for (MarkerManager<Marker> mm : markerManagerList){
+
+		for (MarkerManager<Marker> mm : markerManagerList) {
 			mm.drawOuter();
 		}
 
 		outerPG.popMatrix();
 	}
-	
+
 }

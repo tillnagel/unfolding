@@ -6,7 +6,6 @@ import processing.core.PApplet;
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.data.Feature;
 import de.fhpotsdam.unfolding.data.MarkerFactory;
-import de.fhpotsdam.unfolding.data.MarkerFactory;
 import de.fhpotsdam.unfolding.events.EventDispatcher;
 import de.fhpotsdam.unfolding.events.PanMapEvent;
 import de.fhpotsdam.unfolding.events.ZoomMapEvent;

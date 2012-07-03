@@ -10,40 +10,56 @@ import de.fhpotsdam.unfolding.providers.AbstractMapProvider;
 
 public class GLGraphicsMapDisplay extends ProcessingMapDisplay implements PConstants {
 
-	protected GLGraphicsOffScreen pg;
+	// Inner map (and inner marker) will be drawn on this.
+	protected GLGraphicsOffScreen offscreenPG;
+	// Outer marker will be drawn on this
+	protected GLGraphicsOffScreen offscreenCutoffPG;
 
 	protected float opacity = 255;
 
-	public GLGraphicsMapDisplay(PApplet papplet, AbstractMapProvider provider, float offsetX,
-			float offsetY, float width, float height) {
+	public GLGraphicsMapDisplay(PApplet papplet, AbstractMapProvider provider, float offsetX, float offsetY,
+			float width, float height) {
 		super(papplet, provider, offsetX, offsetY, width, height);
 
-		pg = new GLGraphicsOffScreen(papplet, (int) width, (int) height);
+		offscreenPG = new GLGraphicsOffScreen(papplet, (int) width, (int) height);
+		offscreenCutoffPG = new GLGraphicsOffScreen(papplet, (int) width, (int) height);
 	}
-	
+
 	@Override
 	public void resize(float width, float height) {
 		super.resize(width, height);
-		pg = new GLGraphicsOffScreen(papplet, (int) width, (int) height);
+		offscreenPG = new GLGraphicsOffScreen(papplet, (int) width, (int) height);
+		offscreenCutoffPG = new GLGraphicsOffScreen(papplet, (int) width, (int) height);
 	}
 
-	public PGraphics getPG() {
-		return pg;
+	@Override
+	public PGraphics getInnerPG() {
+		return offscreenPG;
 	}
 
+	@Override
+	public PGraphics getOuterPG() {
+		return offscreenCutoffPG;
+	}
+
+	@Override
 	protected void postDraw() {
-		PGraphics outerPG = getOuterPG();
-
-		outerPG.pushMatrix();
-		outerPG.translate(offsetX, offsetY);
-		outerPG.applyMatrix(matrix);
-		outerPG.image(pg.getTexture(), 0, 0);
-
-		for (MarkerManager<Marker> mm : markerManagerList){
+		// Draws inner map (with inner marker) and outer marker
+		offscreenCutoffPG.beginDraw();
+		offscreenCutoffPG.image(offscreenPG.getTexture(), 0, 0);
+		for (MarkerManager<Marker> mm : markerManagerList) {
 			mm.drawOuter();
 		}
+		offscreenCutoffPG.endDraw();
 
-		outerPG.popMatrix();
+		// Transforms (outer) map pane, and draws inner map + outer marker onto canvas
+		// This cuts off marker at the border.
+		PGraphics canvasPG = papplet.g;
+		canvasPG.pushMatrix();
+		canvasPG.translate(offsetX, offsetY);
+		canvasPG.applyMatrix(matrix);
+		canvasPG.image(offscreenCutoffPG.getTexture(), 0, 0);
+		canvasPG.popMatrix();
 	}
 
 }

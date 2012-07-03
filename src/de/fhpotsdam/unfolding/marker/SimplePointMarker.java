@@ -13,8 +13,7 @@ import de.fhpotsdam.unfolding.geo.Location;
 
 public class SimplePointMarker extends AbstractMarker {
 
-
-	public float radius = 1f;
+	public float radius = 10f;
 
 	public SimplePointMarker() {
 		this(null, null);

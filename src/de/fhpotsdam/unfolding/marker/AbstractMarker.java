@@ -58,9 +58,8 @@ public abstract class AbstractMarker implements Marker {
 	}
 
 	@Override
-	// REVISIT rethink visibility of draw(Map)
 	public void draw(UnfoldingMap map) {
-		PGraphics pg = map.mapDisplay.getPG();
+		PGraphics pg = map.mapDisplay.getInnerPG();
 		float[] xy = map.mapDisplay.getInnerObjectFromLocation(getLocation());
 		float x = xy[0];
 		float y = xy[1];

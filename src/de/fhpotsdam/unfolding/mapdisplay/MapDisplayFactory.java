@@ -7,7 +7,6 @@ import processing.opengl.PGraphicsOpenGL;
 import codeanticode.glgraphics.GLGraphics;
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.providers.AbstractMapProvider;
-import de.fhpotsdam.unfolding.providers.MBTilesMapProvider;
 import de.fhpotsdam.unfolding.providers.OpenStreetMap;
 
 public class MapDisplayFactory {
@@ -40,7 +39,9 @@ public class MapDisplayFactory {
 					mapDisplay = new DistortedGLGraphicsMapDisplay(p, provider, x, y, width, height);
 				} else {
 					log.debug("Using GLGraphicsMapDisplay for '" + id + "'");
-					mapDisplay = new MaskedGLGraphicsMapDisplay(p, provider, x, y, width, height);
+					// TODO @chris: Why always use MaskedGLGraphicsMD?
+					// mapDisplay = new MaskedGLGraphicsMapDisplay(p, provider, x, y, width, height);
+					mapDisplay = new GLGraphicsMapDisplay(p, provider, x, y, width, height);
 				}
 			} else {
 				if (p.g instanceof PGraphicsOpenGL) {

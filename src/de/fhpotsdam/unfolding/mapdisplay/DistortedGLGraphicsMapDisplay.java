@@ -39,7 +39,7 @@ public class DistortedGLGraphicsMapDisplay extends GLGraphicsMapDisplay {
 		
 		// TODO Delete test grid in ProcessingMapDisplay
 		
-		textureDistorter.draw(outerPG, pg.getTexture());
+		textureDistorter.draw(outerPG, offscreenPG.getTexture());
 
 		outerPG.popMatrix();
 	}
@@ -48,7 +48,7 @@ public class DistortedGLGraphicsMapDisplay extends GLGraphicsMapDisplay {
 		PGraphics p = papplet.g;
 		p.pushMatrix();
 		p.translate(offsetX, offsetY);
-		textureDistorter.draw(p, pg.getTexture());
+		textureDistorter.draw(p, offscreenPG.getTexture());
 		p.popMatrix();
 	}
 

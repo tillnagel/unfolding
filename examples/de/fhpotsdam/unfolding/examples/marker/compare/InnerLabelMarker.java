@@ -20,4 +20,8 @@ public class InnerLabelMarker extends SimplePointMarker {
 		pg.popStyle();
 	}
 
+	@Override
+	public void drawOuter(PGraphics pg, float x, float y) {
+	}
+
 }

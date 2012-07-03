@@ -109,8 +109,6 @@ public class MarkerManager<E extends Marker> {
 		// NB: Markers should be ordered, e.g. by size ascending, i.e. big, medium, small
 		for (E marker : markers) {
 
-			PApplet.println("MarkerManager.getFirstHitMarker() " + marker.getClass().toString());
-
 			// NB: If markers are order by size descending, i.e. small, medium, big
 			// for (int i = markers.size() - 1; i >= 0; i--) {
 			// Marker marker = markers.get(i);
