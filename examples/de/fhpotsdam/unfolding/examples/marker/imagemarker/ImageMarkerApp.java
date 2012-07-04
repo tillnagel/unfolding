@@ -16,7 +16,7 @@ public class ImageMarkerApp extends PApplet {
 
 		map = new Map(this);
 		MapUtils.createDefaultEventDispatcher(this, map);
-		ImageMarker imgMarker = new ImageMarker(berlinLocation, loadImage("marker.png"));
+		ImageMarker imgMarker = new ImageMarker(berlinLocation, loadImage("marker_red.png"));
 		map.addMarkers(imgMarker);
 	}
 

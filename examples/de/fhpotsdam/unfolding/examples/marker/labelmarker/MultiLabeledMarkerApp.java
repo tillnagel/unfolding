@@ -31,7 +31,7 @@ public class MultiLabeledMarkerApp extends PApplet {
 
 	public void setup() {
 		size(800, 600, GLConstants.GLGRAPHICS);
-		PFont font = loadFont("Miso-Light-12.vlw");
+		PFont font = loadFont("Helvetica-12.vlw");
 
 		map = new UnfoldingMap(this, "map", 50, 50, 700, 500);
 		map.zoomToLevel(2);

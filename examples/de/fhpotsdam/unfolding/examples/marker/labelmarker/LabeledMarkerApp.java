@@ -20,18 +20,19 @@ public class LabeledMarkerApp extends PApplet {
 
 	public void setup() {
 		size(800, 600, GLConstants.GLGRAPHICS);
-		PFont font = loadFont("Miso-Light-12.vlw");
+		PFont font = loadFont("Helvetica-16.vlw");
 
 		map = new UnfoldingMap(this, "map", 50, 50, 700, 500);
 		map.zoomToLevel(3);
 		map.panTo(berlinLocation);
 		MapUtils.createDefaultEventDispatcher(this, map);
 
-		berlinMarker = new LabeledMarker(font, "Berlin", berlinLocation, 20);
+		berlinMarker = new LabeledMarker(font, "Berlin", berlinLocation, 15);
 		map.addMarkers(berlinMarker);
 	}
 
 	public void draw() {
+		
 		background(240);
 		map.draw();
 	}

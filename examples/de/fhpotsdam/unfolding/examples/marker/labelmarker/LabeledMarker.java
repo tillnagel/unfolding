@@ -11,8 +11,8 @@ public class LabeledMarker extends AbstractMarker {
 	public String name;
 	protected float size;
 
-	public int color = 0;
-	public int highlightColor = -256;
+	public int space=10;
+	//public int highlightColor = -256;
 
 	protected boolean selected = false;
 	protected boolean visible = true;
@@ -41,25 +41,33 @@ public class LabeledMarker extends AbstractMarker {
 			return;
 		}
 
-		// point
-		int pointColor = (selected) ? highlightColor : color;
-		pg.fill(pointColor, 200);
-		pg.stroke(pointColor, 10);
-		pg.strokeWeight(1);
-		pg.ellipse(x, y, size, size);
-		pg.strokeWeight(2);
-		pg.stroke(pointColor, 100);
-		pg.point(x, y);
+		pg.pushStyle();
+		pg.pushMatrix();
+		if(selected){
+			pg.translate(0, 0,1);
+		}
+		pg.strokeWeight(strokeWeight);
+		if (selected) {
+			pg.fill(highlightColor);
+			pg.stroke(highlightStrokeColor);
+		} else {
+			pg.fill(color);
+			pg.stroke(strokeColor);
+		}
+		pg.ellipse(x, y, size, size);// TODO use radius in km and convert to px
 
 		// label
 		if (selected && name != null) {
 			pg.textFont(font);
-			pg.fill(color, 200);
-			pg.noStroke();
-			pg.rect(x - pg.textWidth(name) / 2 - 2, y - pg.textSize, pg.textWidth(name) + 4, pg.textSize);
-			pg.fill(highlightColor, 200);
-			pg.text(name, (int) (x - pg.textWidth(name) / 2), (int) (y - 2));
+			pg.fill(highlightColor);
+			pg.stroke(highlightStrokeColor);
+			pg.rect(x  +strokeWeight/2, y - pg.textSize +strokeWeight/2-space, pg.textWidth(name) + space*1.5f, pg.textSize+space);
+			pg.fill(255,255,255);
+			pg.text(name, x  +space*0.75f+strokeWeight/2, y +strokeWeight/2-space*0.75f);
 		}
+		pg.popMatrix();
+		pg.popStyle();
+		
 	}
 
 	/**
@@ -67,7 +75,7 @@ public class LabeledMarker extends AbstractMarker {
 	 * Marker is selected.
 	 */
 	protected boolean isInside(float checkX, float checkY, float x, float y) {
-		return PApplet.dist(checkX, checkY, x, y) < size / 2;
+		return PApplet.dist(checkX, checkY, x, y) < size /2;
 	}
 
 	/**
