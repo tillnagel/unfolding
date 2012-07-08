@@ -75,15 +75,48 @@
 			</batchtest>
 		</junit>
 	</target>
-	
-	<!-- Creates Javadoc -->
-	<target name="docs">
-		<javadoc packagenames="src" sourcepath="${src.dir}" destdir="${docs.dir}" classpathref="build.classpath">
-			<!-- Define which files / directory should get included, we include all -->
-			<fileset dir="${src.dir}">
-				<include name="**/*.java" />
-			</fileset>
-		</javadoc>
+
+	<!--Creates the deployable jar file  -->
+	<target name="jar" depends="compile">
+		<jar destfile="${dist.dir}\unfolding.jar" basedir="${build.dir}">
+			<!-- <manifest> -->
+			<!-- 	<attribute name="Main-Class" value="test.Main" /> -->
+			<!-- </manifest> -->
+		</jar>
+	</target>
+
+
+	<!--
+		 Create the folder structure for a simple eclipse project including all
+		 libs and some demos.
+	 -->
+	<target name="unfolding_app_template" depends="jar">
+		<!-- create all folders -->
+		<mkdir dir="${dist.dir}/unfolding_app_template" />
+		<mkdir dir="${dist.dir}/unfolding_app_template/bin" />
+		<mkdir dir="${dist.dir}/unfolding_app_template/data" />
+		<mkdir dir="${dist.dir}/unfolding_app_template/lib" />
+		<mkdir dir="${dist.dir}/unfolding_app_template/libNative" />
+		<mkdir dir="${dist.dir}/unfolding_app_template/src" />
+		<!-- copy all libs -->
+		<copy todir="${dist.dir}/unfolding_app_template/lib/">
+			<fileset dir="lib" />
+		</copy>	
+		<copy todir="${dist.dir}/unfolding_app_template/libNative/">
+			<fileset dir="libNative" />
+		</copy>	
+		<!-- copy our current unfolding jar -->
+		<copy file="${dist.dir}/unfolding.jar" todir="${dist.dir}/unfolding_app_template/lib/" />
+		<!-- copy some example src -->
+		<copy file="examples/HelloUnfoldingWorld.java" todir="${dist.dir}/unfolding_app_template/src/" />
+		<copy file="examples/MBTilesMapApp.java" todir="${dist.dir}/unfolding_app_template/src/" />
+		<copy file="examples/SimpleMapApp.java" todir="${dist.dir}/unfolding_app_template/src/" />
+		<!-- copy .classpath and .project -->
+		<copy file="resources/unfolding_app_template/classpath" todir="${dist.dir}/unfolding_app_template/.classpath/" />
+		<copy file="resources/unfolding_app_template/project" todir="${dist.dir}/unfolding_app_template/.project" />
+		<zip destfile="${dist.dir}/unfolding_app_template.zip"
+			basedir="${dist.dir}/unfolding_app_template/"
+		/>
 	</target>
 
 
