@@ -43,16 +43,27 @@
 		<mkdir dir="${test.report.dir}" />
 	</target>
 
+	<!-- Creates Javadoc -->
+	<target name="docs">
+		<javadoc packagenames="src" sourcepath="${src.dir}" destdir="${docs.dir}" classpathref="build.classpath">
+			<!-- Define which files / directory should get included, we include all -->
+			<fileset dir="${src.dir}">
+				<include name="**/*.java" />
+			</fileset>
+		</javadoc>
+	</target>
+
 	<!-- Compiles the java code (including the usage of library for JUnit -->
 	<target name="compile" depends="clean, makedir">
 		<javac srcdir="${src.dir};${test.dir}" destdir="${build.dir}" >
 			<classpath refid="build.classpath" />
-			<classpath refid="junit.class.path" />
+			<!-- <classpath refid="junit.class.path" /> -->
 		</javac>
 	</target>
 	
 	<!-- Run the JUnit Tests -->
 	<!-- Output is XML, could also be plain-->
+	<!-- NOTE: This is not working yet -->
 	<target name="junit" depends="compile">
 		<junit printsummary="on" fork="false" haltonfailure="yes">
 			<classpath refid="junit.class.path" />
@@ -75,7 +86,8 @@
 		</javadoc>
 	</target>
 
-	<target name="main" depends="compile, docs">
+
+	<target name="main" depends="docs, jar">
 		<description>Main target</description>
 	</target>
 
