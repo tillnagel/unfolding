@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<project name="UNFOLDING" default="main" basedir=".">
+<project name="unfolding" default="main" basedir=".">
+	
+	<property name="project.name" value="unfolding" />
+	<property name="project.version" value="0.9.0" />
+	
+	<property name="project.jar.name" value="${project.name}-${project.version}.jar"/>
+	
 	<!-- Sets variables which can later be used. -->
 	<!-- The value of a property is accessed via ${} -->
 	<property name="src.dir" location="src" />
@@ -55,7 +61,14 @@
 
 	<!-- Compiles the java code (including the usage of library for JUnit -->
 	<target name="compile" depends="clean, makedir">
-		<javac srcdir="${src.dir};${test.dir}" destdir="${build.dir}" >
+		<javac srcdir="${src.dir}" destdir="${build.dir}" >
+			<classpath refid="build.classpath" />
+			<!-- <classpath refid="junit.class.path" /> -->
+		</javac>
+	</target>
+	
+	<target name="compile-test" depends="compile">
+		<javac srcdir="${test.dir}" destdir="${build.dir}" >
 			<classpath refid="build.classpath" />
 			<!-- <classpath refid="junit.class.path" /> -->
 		</javac>
@@ -64,7 +77,7 @@
 	<!-- Run the JUnit Tests -->
 	<!-- Output is XML, could also be plain-->
 	<!-- NOTE: This is not working yet -->
-	<target name="junit" depends="compile">
+	<target name="junit" depends="compile-test">
 		<junit printsummary="on" fork="false" haltonfailure="yes">
 			<classpath refid="junit.class.path" />
 			<formatter type="xml" />
@@ -78,7 +91,7 @@
 
 	<!--Creates the deployable jar file  -->
 	<target name="jar" depends="compile">
-		<jar destfile="${dist.dir}\unfolding.jar" basedir="${build.dir}">
+		<jar destfile="${dist.dir}\${project.jar.name}" basedir="${build.dir}">
 			<!-- <manifest> -->
 			<!-- 	<attribute name="Main-Class" value="test.Main" /> -->
 			<!-- </manifest> -->
@@ -106,7 +119,7 @@
 			<fileset dir="libNative" />
 		</copy>	
 		<!-- copy our current unfolding jar -->
-		<copy file="${dist.dir}/unfolding.jar" todir="${dist.dir}/unfolding_app_template/lib/" />
+		<copy file="${dist.dir}/${project.jar.name}" todir="${dist.dir}/unfolding_app_template/lib/" />
 		<!-- copy some example src -->
 		<copy file="examples/HelloUnfoldingWorld.java" todir="${dist.dir}/unfolding_app_template/src/" />
 		<copy file="examples/MBTilesMapApp.java" todir="${dist.dir}/unfolding_app_template/src/" />
