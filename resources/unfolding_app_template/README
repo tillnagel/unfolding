@@ -1,5 +1,11 @@
-In this folder are some files that are used for the
-unfolding_app_template (see the ant task).
+unfolding_app_template
+======================
 
-Do NOT change anything here, except if you really know
-what you are doing.
+This is a skeleton for how to use unfolding in eclipse.  You only need to
+import ('File -> Import -> Existing Projects into Workspace', select this
+folder, 'Finish') this folder in eclipse and everything should work.
+
+A few unfolding demos are included as well.
+
+
+Get excited and make things!
