@@ -107,7 +107,9 @@
 		<mkdir dir="${dist.dir}/unfolding_app_template/src" />
 		<!-- copy all libs -->
 		<copy todir="${dist.dir}/unfolding_app_template/lib/">
-			<fileset dir="lib" />
+			<fileset dir="lib">
+				<exclude name="*junit*" />
+			</fileset>
 		</copy>	
 		<copy todir="${dist.dir}/unfolding_app_template/libNative/">
 			<fileset dir="libNative" />
