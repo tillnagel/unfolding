@@ -7,6 +7,7 @@
 	<!-- Sets variables which can later be used. -->
 	<!-- The value of a property is accessed via ${} -->
 	<property name="version" value="0.8.beta" />
+	<property name="unfolding.jar" value="unfolding.${version}.jar" />
 
 	<property name="src.dir" location="src" />
 	<property name="build.dir" location="build" />
@@ -84,7 +85,7 @@
 
 	<!--Creates the deployable jar file  -->
 	<target name="jar" depends="compile">
-		<jar destfile="${dist.dir}\unfolding.${version}.jar" basedir="${build.dir}">
+		<jar destfile="${dist.dir}\${unfolding.jar}" basedir="${build.dir}">
 			<!-- <manifest> -->
 			<!-- 	<attribute name="Main-Class" value="test.Main" /> -->
 			<!-- </manifest> -->
