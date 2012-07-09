@@ -10,6 +10,7 @@
 	<property name="unfolding.jar" value="unfolding.${version}.jar" />
 
 	<property name="src.dir" location="src" />
+	<property name="example.dir" location="examples" />
 	<property name="build.dir" location="build" />
 	<property name="dist.dir" location="dist" />
 	<property name="docs.dir" location="doc" />
@@ -136,6 +137,27 @@
 		/>
 	</target>
 
+	<!--
+		 Create the folder structure for a simple eclipse project including all
+		 libs and all examples.
+	 -->
+	<target name="unfolding_app_template_with_examples" depends="unfolding_app_template">
+		<!-- copy unfolding_app_template and add some examples -->
+		<copy todir="${dist.dir}/unfolding_app_template_with_examples/">
+			<fileset dir="${dist.dir}/unfolding_app_template" />
+		</copy>
+		<!-- copy examples -->
+		<copy todir="${dist.dir}/unfolding_app_template_with_examples/examples/">
+			<fileset dir="${example.dir}" />
+		</copy>
+		<!-- new classpath file -->
+		<copy file="resources/unfolding_app_template/classpath_with_examples"
+			tofile="${dist.dir}/unfolding_app_template_with_examples/.classpath" />
+		<!-- create a zip file -->
+		<zip destfile="${dist.dir}/unfolding_app_template_with_examples.zip"
+			basedir="${dist.dir}/unfolding_app_template_with_examples/"
+		/>
+	</target>
 
 	<target name="main" depends="docs, jar">
 		<description>Main target</description>
