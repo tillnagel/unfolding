@@ -118,10 +118,10 @@
 			<fileset dir="lib">
 				<exclude name="*junit*" />
 			</fileset>
-		</copy>	
+		</copy>
 		<copy todir="${dist.dir}/unfolding_app_template/libNative/">
 			<fileset dir="libNative" />
-		</copy>	
+		</copy>
 		<!-- copy our current unfolding jar -->
 		<copy file="${dist.dir}/${unfolding.jar}" todir="${dist.dir}/unfolding_app_template/lib/" />
 		<!-- copy some example src -->
@@ -141,21 +141,31 @@
 		 Create the folder structure for a simple eclipse project including all
 		 libs and all examples.
 	 -->
-	<target name="unfolding_app_template_with_examples" depends="unfolding_app_template">
-		<!-- copy unfolding_app_template and add some examples -->
-		<copy todir="${dist.dir}/unfolding_app_template_with_examples/">
-			<fileset dir="${dist.dir}/unfolding_app_template" />
+	<target name="unfolding_app_template_with_examples" depends="jar">
+		<mkdir dir="${dist.dir}/unfolding_app_template_with_examples" />
+		<mkdir dir="${dist.dir}/unfolding_app_template_with_examples/bin" />
+		<mkdir dir="${dist.dir}/unfolding_app_template_with_examples/data" />
+		<mkdir dir="${dist.dir}/unfolding_app_template_with_examples/lib" />
+		<mkdir dir="${dist.dir}/unfolding_app_template_with_examples/libNative" />
+		<mkdir dir="${dist.dir}/unfolding_app_template_with_examples/src" />
+		<!-- copy all libs -->
+		<copy todir="${dist.dir}/unfolding_app_template_with_examples/lib/">
+			<fileset dir="lib">
+				<exclude name="*junit*" />
+			</fileset>
 		</copy>
-		<!-- copy examples -->
+		<copy todir="${dist.dir}/unfolding_app_template_with_examples/libNative/">
+			<fileset dir="libNative" />
+		</copy>
+		<!-- copy our current unfolding jar -->
+		<copy file="${dist.dir}/${unfolding.jar}" todir="${dist.dir}/unfolding_app_template_with_examples/lib/" />
+		<!-- copy some examples -->
 		<copy todir="${dist.dir}/unfolding_app_template_with_examples/examples/">
 			<fileset dir="${example.dir}" />
 		</copy>
-		<!-- new .classpath file -->
-		<copy file="resources/unfolding_app_template/classpath_with_examples"
-			tofile="${dist.dir}/unfolding_app_template_with_examples/.classpath" />
-		<!-- new .project file -->
-		<copy file="resources/unfolding_app_template/project_with_examples"
-			tofile="${dist.dir}/unfolding_app_template_with_examples/.project" />
+		<!-- copy .classpath and .project -->
+		<copy file="resources/unfolding_app_template/classpath_with_examples" tofile="${dist.dir}/unfolding_app_template_with_examples/.classpath" />
+		<copy file="resources/unfolding_app_template/project_with_examples" tofile="${dist.dir}/unfolding_app_template_with_examples/.project" />
 		<!-- create a zip file -->
 		<zip destfile="${dist.dir}/unfolding_app_template_with_examples.zip"
 			basedir="${dist.dir}/unfolding_app_template_with_examples/"
