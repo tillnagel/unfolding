@@ -124,6 +124,9 @@
 		</copy>
 		<!-- copy our current unfolding jar -->
 		<copy file="${dist.dir}/${unfolding.jar}" todir="${dist.dir}/unfolding_app_template/lib/" />
+		<!-- copy readme -->
+		<copy file="resources/unfolding_app_template/README"
+		      todir="${dist.dir}/unfolding_app_template/README" />
 		<!-- copy some example src -->
 		<copy file="examples/HelloUnfoldingWorld.java" todir="${dist.dir}/unfolding_app_template/src/" />
 		<copy file="examples/MBTilesMapApp.java" todir="${dist.dir}/unfolding_app_template/src/" />
@@ -159,6 +162,9 @@
 		</copy>
 		<!-- copy our current unfolding jar -->
 		<copy file="${dist.dir}/${unfolding.jar}" todir="${dist.dir}/unfolding_app_template_with_examples/lib/" />
+		<!-- copy readme -->
+		<copy file="resources/unfolding_app_template/README"
+		      todir="${dist.dir}/unfolding_app_template_with_examples/README" />
 		<!-- copy some examples -->
 		<copy todir="${dist.dir}/unfolding_app_template_with_examples/examples/">
 			<fileset dir="${example.dir}" />
