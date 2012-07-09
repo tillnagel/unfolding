@@ -62,7 +62,14 @@
 
 	<!-- Compiles the java code (including the usage of library for JUnit -->
 	<target name="compile" depends="clean, makedir">
-		<javac srcdir="${src.dir};${test.dir}" destdir="${build.dir}" >
+		<javac srcdir="${src.dir}" destdir="${build.dir}" >
+			<classpath refid="build.classpath" />
+			<!-- <classpath refid="junit.class.path" /> -->
+		</javac>
+	</target>
+	
+	<target name="compile-test" depends="compile">
+		<javac srcdir="${test.dir}" destdir="${build.dir}" >
 			<classpath refid="build.classpath" />
 			<!-- <classpath refid="junit.class.path" /> -->
 		</javac>
@@ -71,7 +78,7 @@
 	<!-- Run the JUnit Tests -->
 	<!-- Output is XML, could also be plain-->
 	<!-- NOTE: This is not working yet -->
-	<target name="junit" depends="compile">
+	<target name="junit" depends="compile-test">
 		<junit printsummary="on" fork="false" haltonfailure="yes">
 			<classpath refid="junit.class.path" />
 			<formatter type="xml" />
