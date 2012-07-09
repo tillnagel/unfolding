@@ -150,9 +150,12 @@
 		<copy todir="${dist.dir}/unfolding_app_template_with_examples/examples/">
 			<fileset dir="${example.dir}" />
 		</copy>
-		<!-- new classpath file -->
+		<!-- new .classpath file -->
 		<copy file="resources/unfolding_app_template/classpath_with_examples"
 			tofile="${dist.dir}/unfolding_app_template_with_examples/.classpath" />
+		<!-- new .project file -->
+		<copy file="resources/unfolding_app_template/project_with_examples"
+			tofile="${dist.dir}/unfolding_app_template_with_examples/.project" />
 		<!-- create a zip file -->
 		<zip destfile="${dist.dir}/unfolding_app_template_with_examples.zip"
 			basedir="${dist.dir}/unfolding_app_template_with_examples/"
