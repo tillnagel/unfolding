@@ -8,7 +8,7 @@
 	<property name="docs.dir" location="doc" />
 	<property name="lib.dir" location="lib" />
 
-	<!-- Variables used for JUnit testin -->
+	<!-- Variables used for JUnit testing -->
 	<property name="test.dir" location="test" />
 	<property name="test.report.dir" location="testreport" />
 	
