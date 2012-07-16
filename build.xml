@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<project name="UNFOLDING" default="main" basedir=".">
+<project name="Unfolding" default="main" basedir=".">
 	<description>
 		Unfolding
 	</description>
 
 	<!-- Sets variables which can later be used. -->
 	<!-- The value of a property is accessed via ${} -->
-	<property name="version" value="0.8.beta" />
+	<property name="version" value="0.9.beta" />
 	<property name="unfolding.jar" value="unfolding.${version}.jar" />
 
 	<property name="src.dir" location="src" />

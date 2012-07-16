@@ -3,13 +3,15 @@ package de.fhpotsdam.unfolding.mapdisplay;
 import org.apache.log4j.Logger;
 
 import processing.core.PApplet;
-import processing.opengl.PGraphicsOpenGL;
-import codeanticode.glgraphics.GLGraphics;
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.providers.AbstractMapProvider;
 import de.fhpotsdam.unfolding.providers.OpenStreetMap;
 
+@SuppressWarnings("rawtypes")
 public class MapDisplayFactory {
+
+	public static final String OPEN_GL_CLASSNAME = "processing.opengl.PGraphicsOpenGL";
+	public static final String GLGRAPHICSL_CLASSNAME = "codeanticode.glgraphics.GLGraphics";
 
 	public static final boolean DEFAULT_USE_MASK = true;
 	public static final boolean DEFAULT_USE_DISTORTION = false;
@@ -26,32 +28,46 @@ public class MapDisplayFactory {
 
 	public static AbstractMapDisplay getMapDisplay(PApplet p, String id, float x, float y, float width, float height,
 			boolean useMask, boolean useDistortion, AbstractMapProvider provider, UnfoldingMap map) {
-		AbstractMapDisplay mapDisplay;
+
+		AbstractMapDisplay mapDisplay = null;
 
 		if (provider == null) {
 			provider = getDefaultProvider();
 		}
 
 		if (useMask) {
-			if (p.g instanceof GLGraphics) {
-				if (useDistortion) {
-					log.debug("Using DistortedGLGraphicsMapDisplay for '" + id + "'");
-					mapDisplay = new DistortedGLGraphicsMapDisplay(p, provider, x, y, width, height);
-				} else {
-					log.debug("Using GLGraphicsMapDisplay for '" + id + "'");
-					// TODO @chris: Why always use MaskedGLGraphicsMD?
-					// mapDisplay = new MaskedGLGraphicsMapDisplay(p, provider, x, y, width, height);
-					mapDisplay = new GLGraphicsMapDisplay(p, provider, x, y, width, height);
+			try {
+				Class glGraphicsClass = Class.forName(GLGRAPHICSL_CLASSNAME);
+				if (glGraphicsClass.isInstance(p.g)) {
+					if (useDistortion) {
+						log.debug("Using DistortedGLGraphicsMapDisplay for '" + id + "'");
+						mapDisplay = new DistortedGLGraphicsMapDisplay(p, provider, x, y, width, height);
+					} else {
+						log.debug("Using GLGraphicsMapDisplay for '" + id + "'");
+						// TODO @chris: Why always use MaskedGLGraphicsMD?
+						// mapDisplay = new MaskedGLGraphicsMapDisplay(p, provider, x, y, width, height);
+						mapDisplay = new GLGraphicsMapDisplay(p, provider, x, y, width, height);
+					}
 				}
-			} else {
-				if (p.g instanceof PGraphicsOpenGL) {
-					log.warn("No OpenGL mapDisplay available. Use GLGraphics or P3D. '" + id + "'");
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			}
+
+			if (mapDisplay == null) {
+				try {
+					Class openGLClass = Class.forName(OPEN_GL_CLASSNAME);
+					if (openGLClass.isInstance(p.g)) {
+						log.warn("No OpenGL mapDisplay available. Use GLGraphics or P3D. '" + id + "'");
+					}
+				} catch (ClassNotFoundException e) {
+					e.printStackTrace();
 				}
 
 				log.debug("Using MaskedPGraphicsMapDisplay for '" + id + "'");
 				log.warn("no rotation possible (without OpenGL)");
 				mapDisplay = new MaskedPGraphicsMapDisplay(p, provider, x, y, width, height);
 			}
+
 		} else {
 			PApplet.println("Using ProcessingMapDisplay");
 			mapDisplay = new ProcessingMapDisplay(p, provider, x, y, width, height);
