@@ -9,3 +9,18 @@ A few unfolding demos are included as well.
 
 
 Get excited and make things!
+
+
+
+
+
+MANUAL INSTALLATION
+
+If the import does not work follow the steps below.
+
+Eclipse
+- Create new Java project
+- Copy+Paste all files into project
+- Add all lib/*.jars to build path
+- Set native library location for jogl.jar. Choose appropriate folder for your OS.
+- Add data/ as src

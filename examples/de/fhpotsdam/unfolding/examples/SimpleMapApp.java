@@ -27,7 +27,7 @@ public class SimpleMapApp extends PApplet {
 	 */
 	public void setup() {
 		// set the display to 800x600 and use OpenGL acceleration
-		size(800, 600, GLConstants.GLGRAPHICS);
+		size(1024, 768, GLConstants.GLGRAPHICS);
 		// if your computer does not offer OpenGL acceleration use the following
 		// line instead
 		// size(800, 600);
