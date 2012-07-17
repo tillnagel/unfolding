@@ -2,7 +2,6 @@
 layout: page
 title: "Tutorials"
 description: "This site will contain the tutorials"
-group: navigation
 ---
 {% include JB/setup %}
 

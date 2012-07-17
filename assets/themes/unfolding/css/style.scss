@@ -17,6 +17,7 @@ $iconWhiteSpritePath:     url("../bootstrap/images/glyphicons-halflings-white.pn
 $bodyBackground: #FFF;
 $linkColor: #4183C4;
 $linkColorHover: #4183C4;
+$headingsFontFamily: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 $serifFontFamily: "Bitter", Georgia, "Times New Roman", Times, serif;
 $sansFontFamily: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 $baseFontSize: 14px;
@@ -46,9 +47,6 @@ $bottomDividerColor: rgba(255,255,255,.5);
 
 @import "../bootstrap/stylesheets/_bootstrap.scss";
 
-
-
-
 // ===============================
 // = Container Sections and Rows =
 // ===============================
@@ -59,8 +57,6 @@ $bottomDividerColor: rgba(255,255,255,.5);
     width:100%;
     margin:0;
     padding:0;
-
-    
 }
 
 .thumbnail {
@@ -74,7 +70,6 @@ $bottomDividerColor: rgba(255,255,255,.5);
 .span8	pre {margin-bottom: 10px;}
 .span8	img { }
 
-
 .container{
     &:first-child{
         margin-top:$baseLineHeight;
@@ -82,12 +77,24 @@ $bottomDividerColor: rgba(255,255,255,.5);
     }
 }
 
+.page-header .container{
+  margin-top:0;
+  margin-bottom:0;
+  padding-bottom:0;
+}
+
 .page-section1{
     //@include translucent-background(#BFB9A4,1);
-    background:url('/unfolding/assets/images/cartographer.gif') whiteSmoke;
+    // background:url('/assets/images/cartographer.gif') whiteSmoke;
+    background: whiteSmoke;
     border-bottom:none;
 }
 
+.page-footer {
+    color: white;
+    @include translucent-background(#000, 0.8);
+    margin-top: $baseLineHeight*2;
+}
 
 
 
@@ -95,17 +102,24 @@ $bottomDividerColor: rgba(255,255,255,.5);
 // = Standart HTML Elements and Bootstrap Classes =
 // ================================================
 
-h1, h2, h3, h4{
-    // font-family: $serifFontFamily;
-    font-family: "Open Sans";
+h1, h2, h3, h4, h5, h6{
+  font-family: $headingsFontFamily;
+  font-weight: 600;
+  a{
+    font-family: $headingsFontFamily;
     font-weight: 600;
-    &h3{
-        text-transform: uppercase;
+    &:hover{
+      color: $linkColor;
     }
+  }
 }
 
-h1 a, h2 a, h3 a, h4 a{
-     color: #333;
+h3 {
+    font-size: 18px;
+    line-height: 39px;
+    a {
+      color: black;
+    }
 }
 
 p{
@@ -113,15 +127,20 @@ p{
 }
 
 .btn {
-    &.btn.btn-primary{
-       // @extend .btn-inverse;
+  i {
+    @extend .icon;
+    opacity: 0.9;
+  }
+  font-size: 13px;
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: 11px;
+  line-height: $baseLineHeight;
+  &:hover{
+    i{
+      @extend .icon-white;
     }
-    i {
-      display:none;
-    }
-    font-size: 13px;
-    font-weight: bold;
-    line-height:18px;
+  }
 }
 
 .btn:hover {
@@ -133,95 +152,99 @@ p{
   @include buttonBackground(#599BDC, #3072B3);
 }
 
-/*
-
-.btn {
-
-  text-transform: uppercase;
-  font-weight: bold;
-  font-size: 11px;
-  line-height: 16px;
-}
-
-*/
-
-
-
 // ==================
 // = Custom Classes =
 // ==================
 
-.logo {
-  position: relative;
 
-  background-image: url("../../../images/logo.png");
-  background-repeat: no-repeat;
-  top: -14px;
-  padding-left: 139px;
-  
-  padding-top: 22px;
-  
-  overflow: visible;
-  position: relative;
-  height: 39px;
-  
-  h1 {
-    font-size: 20px;
-    float:left;
-    a {
-      color:#000000;
-    }
-    a:hover {
+
+.logo a,
+.menu li a{
+  @include box-sizing(border-box);
+  display: inline-block;
+  font-family: $headingsFontFamily;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: $baseLineHeight*2;
+  padding: 0 15px 0 15px;
+  margin: $baseLineHeight*1.5 0 $baseLineHeight*1 0;
+}
+
+.logo {
+  @extend .pull-left;
+  a {
+    background: url("../../../images/logo.png") no-repeat 0 50%;
+    color:#000000;
+    padding-left: 150px;
+    &:hover {
       text-decoration: none;
     }
-  }  
+  }
 }
 
 .menu {
-  float: right;
-  margin: 0;
-  padding: 0 0 15px;
-  list-style: none;
-  
+  @extend .unstyled;
   li {
-    float: left; 
+    @extend .pull-left;
     a {
-      padding: 10px 15px;
-      text-decoration: none; 
-      border-right: thin dotted #BCBCBC;
+      text-decoration: none;
+      &:hover{
+        background: whiteSmoke;
+      }
     }
+
   }
-  li:last-child {
-    a {
-      border-right: none;
-    }
-    
-  }    
 }
 
+.page-header .menu{
+  @extend .pull-right;
+  li {
+    a{
+      border-right: 1px dotted #BCBCBC;
+    }
+    &:last-child a{
+      border-right: none;
+    }
+    &.active a{
+      color: #000;
+    }
+  }
+}
+
+.page-footer .menu{
+  @extend .pull-left;
+  width:100%;
+  li{
+    a{
+      font-family: $headingsFontFamily;
+      font-size: $baseFontSize;;
+      font-weight: 600;
+      line-height: $baseLineHeight;
+      padding: 0 5px 0 5px;
+      margin: 0 4px 0 0 ;
+    }
+    a:hover,
+    &.active a{
+      color: #fff;
+    }
+    a:hover{
+      @include border-radius(4px);
+      background: black;
+    }
+  }
+}
+
+.ribbon {
+  position:absolute;
+  top:0;
+  right:0;
+  z-index: 900;
+}
 
 
 a.thumbnail:hover {
   border-color: none;
 }
-
-
-
-footer {
-    opacity: 0.8;
-    color: white;
-    background: black;
-    margin-top: 55px!important;
-}
-
-h3 {
-    font-size: 18px;
-    line-height: 39px;
-}
-h3 a {color: black;}
-
-
-
 
 .pages-teasers {
     &.pages-teasers-list{

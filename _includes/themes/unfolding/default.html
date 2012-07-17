@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-
     <meta charset="utf-8">
     <title>{{ site.title }}: {{ page.title }}</title>
     {% if page.description %}
@@ -10,11 +9,9 @@
         <meta name="description" content="{{ site.tagline }}">
     {% endif %}
     <meta name="author" content="{{ site.author.name }}">
-
     <!--[if lt IE 9]>
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
-
     <script src="{{ ASSET_PATH }}/js/jquery.js"></script>
     <script src="{{ ASSET_PATH }}/bootstrap/javascripts/bootstrap-transition.js"></script>
     <script src="{{ ASSET_PATH }}/bootstrap/javascripts/bootstrap-alert.js"></script>
@@ -33,87 +30,80 @@
     <script src="{{ ASSET_PATH }}/js/shCore.js"></script>
     <script src="{{ ASSET_PATH }}/js/shBrushProcessing.js"></script>
     <script src="{{ ASSET_PATH }}/js/shBrushJava.js"></script>
-
-
     <link href="{{ ASSET_PATH }}/css/style.css" rel="stylesheet" type="text/css" media="all"/>
     <link href="{{ ASSET_PATH }}/css/shCore.css" rel="stylesheet" type="text/css" media="all"/>
     <link href="{{ ASSET_PATH }}/css/shThemeProcessing.css" rel="stylesheet" type="text/css" media="all"/>
-
     <!-- Le fav and touch icons -->
     <!-- Update these with your own images
     <link rel="shortcut icon" href="images/favicon.ico">
     <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
     <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
     <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
-  -->
+    -->
   </head>
-
   <body>
-
-    <!--
     <header class="outer-container page-header">
       <div class="container">
         <div class="row">
-          <div class="span8">
-            <div class="navbar">
-              <div class="navbar-inner">
-                  <a class="brand" href="{{ HOME_PATH }}">{{ site.title }}</a>
-                  <ul class="nav">
-                    {% assign pages_list = site.pages %}
-                    {% assign group = 'navigation' %}
-                    {% include JB/pages_list %}
-                    <li>
-                      <a href="https://github.com/tillnagel/unfolding" target="_blank">GitHub</a>
-                    </li>
-                  </ul>
-              </div>
+            <div>
+              <h1 class="logo"><a href="{{ HOME_PATH }}">{{ site.title }}</a></h1>
+              <ul class="menu">
+                {% assign pages_list = site.pages %}
+                {% assign required_page = 'Welcome to Unfolding' %}
+                {% assign title_override = 'Home' %}
+                {% include menuitem %}
+
+                {% assign pages_list = site.pages %}
+                {% assign required_page = 'Exhibition' %}
+                {% include menuitem %}
+
+                {% assign pages_list = site.pages %}
+                {% assign required_page = 'Tutorials' %}
+                {% include menuitem %}
+
+                <li>
+                  <a href="https://github.com/tillnagel/unfolding" target="_blank">GitHub</a>
+                </li>
+              </ul>
+              <a class="ribbon" href="https://github.com/tillnagel/unfolding"><img src="/assets/themes/unfolding/images/forkme_right_darkblue.png" alt="Fork me on GitHub"></a>
             </div>
-          </div>
         </div>
       </div>
     </header>
-    -->
-
-
-    <header class="outer-container page-header">
-      <div class="container">
-      <div class="row">
-
-          <div class="logo">
-            <h1><a href="{{ HOME_PATH }}">{{ site.title }}</a></h1>
-
-            <ul class="menu">
-              {% assign pages_list = site.pages %}
-              {% assign group = 'navigation' %}
-              {% include JB/pages_list %}
-              <li>
-                <a href="https://github.com/tillnagel/unfolding" target="_blank">GitHub</a>
-              </li>
-
-            </ul>
-          </div>
-
-      </div>
-      </div>
-    </header>
-
-
-
-
     {{ content }}
     <footer class="outer-container page-footer">
       <div class="container">
         <div class="row">
-          <div class="span8">
-            <p>&copy; {{ site.author.name }} 2012 – Developed at Interaction Design Lab, FH Potsdam and KU Leuven.
-              <!-- with help from <a href="http://jekyllbootstrap.com" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll Bootstrap</a>
-              and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a> -->
+          <div class="span12">
+            <ul class="menu">
+              {% assign pages_list = site.pages %}
+              {% assign required_page = 'Welcome to Unfolding' %}
+              {% assign title_override = 'Home' %}
+              {% include menuitem %}
+
+              {% assign pages_list = site.pages %}
+              {% assign required_page = 'Exhibition' %}
+              {% include menuitem %}
+
+              {% assign pages_list = site.pages %}
+              {% assign required_page = 'Tutorials' %}
+              {% include menuitem %}
+
+              <li>
+                <a href="https://github.com/tillnagel/unfolding" target="_blank">GitHub</a>
+              </li>
+
+              {% assign pages_list = site.pages %}
+              {% assign required_page = 'Impressum and Legal' %}
+              {% include menuitem %}
+            </ul>
+            <p class="copy">&copy; 2012 – <a href="{{ HOME_PATH }}">{{ site.title }}</a> by {{ site.author.name }}<br />
+            Developed at Interaction Design Lab, FH Potsdam and KU Leuven.
             </p>
           </div>
         </div>
       </div>
     </footer>
-
     {% include JB/analytics %}
   </body>
 </html>

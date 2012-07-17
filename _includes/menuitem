@@ -1,0 +1,36 @@
+
+
+{% for node in pages_list %}
+  {% if node.title != null %}
+    {% if group == null or group == node.group %}
+      {% if required_page == node.title %}
+        {% if page.url == node.url %}
+          <li class="active">
+              <a href="{{ BASE_PATH }}{{node.url}}" class="active">
+              {% if title_override != null and title_override != nil %}
+                {{title_override}}
+              {% else %}
+                {{node.title}}
+              {% endif %}
+            </a>
+          </li>
+        {% else %}
+          <li>
+            <a href="{{ BASE_PATH }}{{node.url}}">
+              {% if title_override != null and title_override != nil %}
+                {{title_override}}
+              {% else %}
+                {{node.title}}
+              {% endif %}
+            </a>
+          </li>
+        {% endif %}
+      {% endif %}
+    {% endif %}
+  {% endif %}
+{% endfor %}
+
+{% assign pages_list = nil %}
+{% assign group = nil %}
+{% assign required_page = nil %}
+{% assign title_override = nil %}
