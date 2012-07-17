@@ -5,24 +5,15 @@ description: How do I include different MapProviders and what are tiles?
 group: tutorials-starter
 author: Sebastian Sadowski
 thumbnail: http://placehold.it/330x250
-finalimage: http://placehold.it/610x390&text=Bild+2+610x390
+finalimage: /assets/images/tutorials/mapprovider.png
 finalfiles: #someurlatgithub
 ---
 
 {% include JB/setup %}
 
-## Various map styles
-Unfolding supports different map providers and styles:
-- Google Maps 
-- Google Terrain
-- Microsoft Aerial
-- CloudMade: Open Street Map
-- CloudMade: Midnight Commander
-- ImmoScout Heatmap
-![mapprovider](/assets/images/tutorials/mapprovider.png)
-
 ## Specify map provider
-Select a specific map provider at the initialisation of a new map object if you want to have another map provider than the standard (open streets maps). All Providers are listed in the [official documentation](https://github.com/tillnagel/unfolding/downloads "official documentation"). 
+Unfolding supports different map providers and styles.   
+Select a specific map provider at the initialisation of a new map object if you want to have another map provider than the standard (CloudMade: Open Street Maps).
 
 For instance if you want to include the Microsoft Aerial Provider in a processing sketch:
 
@@ -45,9 +36,40 @@ For instance if you want to include the Microsoft Aerial Provider in a processin
 	  map.draw();
 	}
 
+You can also style your own map with MapBox and include it:
 
-## Tiles
-Map tiles are square bitmap graphics displayed in a grid arrangement to show a map.
-A "tileset" typically includes enough tiles to form a very large image but generally the idea is not to show them all at once, but to display only a particular area of the map so the map can load faster.
-The beaking down of a huge map to manageable pieces is like a pyramid of image tiles
-![tilespyramid](/assets/images/tutorials/tilespyramid.jpeg)
+	CODE HERE
+
+
+## Various map styles
+
+You can use the following map styles with the "Cc-by-SA 2.0" License:
+OpenStreetMap.OpenStreetMapProvider(  );   
+OpenStreetMap.CloudmadeProvider( API KEY, STYLE ID );
+OpenStreetMap.StamenTonerProvider(  ); 
+
+Furthermore, the following map provider are for educational purposes only:
+Google.GoogleTerrainProvider();   
+Google.GoogleMapProvider();   
+Google.GoogleSimplifiedProvider();   
+Google.GoogleSimplified2Provider();   
+
+Microsoft.RoadProvider();   
+Microsoft.AerialProvider();   
+Microsoft.HybridProvider();   
+
+Yahoo.RoadProvider();   
+Yahoo.AerialProvider();   
+Yahoo.HybridProvider();   
+
+ImmoScout.ImmoScoutProvider();   
+ImmoScout.HeatMapProvider();   
+
+MapBox.MapBoxProvider();   
+MapBox.WorldLightProvider();   
+MapBox.ControlRoomProvider();   
+MapBox.LacquerProvider();   
+MapBox.MuseDarkStyleProvider();   
+MapBox.PlainUSAProvider();   
+MapBox.BlankProvider();   
+

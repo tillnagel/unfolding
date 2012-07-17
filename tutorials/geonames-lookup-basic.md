@@ -1,11 +1,11 @@
 ---
 layout: page
-title: Geonames Basic Lookup
+title: Geonames Lookup
 description: Setup An Eclipse Project with Geonames Library
 group: tutorials-advanced
 author: Markus Kerschkewicz
-thumbnail: http://placehold.it/330x250
-finalimage: http://placehold.it/610x390&text=Bild+2+610x390
+thumbnail:  http://tillnagel.github.com/unfolding/assets/images/tutorials/geonames_lookup_titel_thumb.jpg
+finalimage: http://tillnagel.github.com/unfolding/assets/images/tutorials/geonames_lookup_titel.jpg
 finalsrc: #someurlatgithub
 ---
 
@@ -21,8 +21,7 @@ First of all you need to prepare some things to follow this tutorial
 *  create a free account on geonames.org to use the java library features http://www.geonames.org/login
 
 ## Step 1: Import Geonames Library
-![BLABLA](/assets/images/tutorials/basic_geonames_lookup_berlin.jpg "Berlin Lookup")
-*Lorem ipsum: dolor sit amet, consectetur [adipisicing](http://example.com/ "Link title for adipisicing") elit.*
+
 
 In the first step we need to import the geonames library and setup the WebService with our username.
 
@@ -150,4 +149,64 @@ The last thing we need to do is defining the keyPressed(); function for our look
 		}
 	}
 	
+	![Here comes the alt text](https://github.com/tillnagel/unfolding/blob/gh-pages/assets/images/tutorials/basic_geonames_lookup_berlin.jpg "Monaco")
+	*'s' pressed switches to monaco*
+	
 So now we are able to switch the searchCriteria by pressing the certain key. If you are running the code now it will print the certain searchresults for either "berlin" (key: a) or "monaco" (key: s).
+
+## Advanced: Use ControlP5 to do a dynamic lookup via text-input
+
+In the last step i just shortly want to show you how you can combine the geonames data-lookup in combination with ControlP5 and a text-input field. You get the advantage to dynamically navigate over the whole map by searching certain places.
+
+first import the controlP5 library, create some variables we need and initialize our ControlP5 textfield.
+	
+	// CONTROLP5 Import
+		import controlP5.ControlEvent;
+		import controlP5.ControlP5;
+		import controlP5.Textfield;
+		
+		…
+	
+	// CONTROLP5 Variables
+		ControlP5 cp5;
+		String textValue = "";
+		Textfield myTextfield;
+		controlP5.Label label;
+		
+		public void setup() {
+
+				size(650, 440, GLConstants.GLGRAPHICS);
+
+				// INIT UNFOLDING
+				…
+				
+				// INIT GEONAMES
+				…
+
+				// INIT CONTROLP5
+				cp5 = new ControlP5(this);
+
+				println(cp5);
+				myTextfield = cp5.addTextfield("Search Criteria").setPosition(20, 400).setSize(200, 20).setFocus(true);
+				myTextfield.setAutoClear(true).keepFocus(true);
+				label = myTextfield.captionLabel();
+				label.setColor(color(0));
+
+			}
+			
+now we just need to change the variable of our variable of the  'searchCriteria.setQ(searchName);' to 'searchCriteria.setQ(myTextfield.getStringValue());' and setup our "ControlP5-Events". 
+
+	public void input(String theText) {
+		// automatically receives results from controller input
+		println("a textfield event for controller 'input' : " + theText);
+	}
+
+	public void controlEvent(ControlEvent theEvent) {
+		if (theEvent.isAssignableFrom(Textfield.class)) {
+			println("controlEvent: accessing a string from controller '" + theEvent.getName() + "': "
+					+ theEvent.getStringValue());
+			searchEvent = true;
+		}
+	}
+
+hope you found this tutorial helpfull. 
