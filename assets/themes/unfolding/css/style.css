@@ -6969,6 +6969,10 @@ a.label:hover, a.badge:hover {
   background: whiteSmoke;
   border-bottom: none; }
 
+.page-section2 .thumbnail {
+  border: rgba(0, 0, 0, 0.06) solid 1px;
+  background: whiteSmoke; }
+
 .page-footer {
   color: white;
   background-color: rgba(0, 0, 0, 0.8);
@@ -6979,15 +6983,14 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 600; }
   h1 a, h2 a, h3 a, h4 a, h5 a, h6 a {
     font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
-    font-weight: 600; }
+    font-weight: 600;
+    color: #4183c4; }
     h1 a:hover, h2 a:hover, h3 a:hover, h4 a:hover, h5 a:hover, h6 a:hover {
       color: #4183c4; }
 
 h3 {
   font-size: 18px;
   line-height: 39px; }
-  h3 a {
-    color: black; }
 
 p {
   margin-bottom: 21px; }
@@ -7083,6 +7086,7 @@ p {
   z-index: 900; }
 
 a.thumbnail:hover {
+  background: #fff;
   border-color: none; }
 
 .pages-teasers.pages-teasers-list .thumbnail {

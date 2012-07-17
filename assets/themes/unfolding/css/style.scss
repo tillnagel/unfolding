@@ -90,6 +90,13 @@ $bottomDividerColor: rgba(255,255,255,.5);
     border-bottom:none;
 }
 
+.page-section2{
+  .thumbnail{
+    border: rgba(0, 0, 0, 0.06) solid 1px;
+    background: whiteSmoke;
+  }
+}
+
 .page-footer {
     color: white;
     @include translucent-background(#000, 0.8);
@@ -108,6 +115,7 @@ h1, h2, h3, h4, h5, h6{
   a{
     font-family: $headingsFontFamily;
     font-weight: 600;
+    color: $linkColor;
     &:hover{
       color: $linkColor;
     }
@@ -117,9 +125,6 @@ h1, h2, h3, h4, h5, h6{
 h3 {
     font-size: 18px;
     line-height: 39px;
-    a {
-      color: black;
-    }
 }
 
 p{
@@ -243,6 +248,7 @@ p{
 
 
 a.thumbnail:hover {
+  background: #fff;
   border-color: none;
 }
 
