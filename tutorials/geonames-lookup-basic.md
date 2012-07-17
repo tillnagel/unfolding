@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Geonames Basic Lookup
+title: Geonames Lookup
 description: Setup An Eclipse Project with Geonames Library
 group: tutorials-advanced
 author: Markus Kerschkewicz
@@ -206,3 +206,5 @@ now we just need to change the variable of our variable of the  'searchCriteria.
 			searchEvent = true;
 		}
 	}
+
+hope you found this tutorial helpfull. 
