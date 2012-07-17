@@ -21,8 +21,7 @@ First of all you need to prepare some things to follow this tutorial
 *  create a free account on geonames.org to use the java library features http://www.geonames.org/login
 
 ## Step 1: Import Geonames Library
-![Here comes the alt text](https://github.com/tillnagel/unfolding/blob/gh-pages/assets/images/tutorials/basic_geonames_lookup_berlin.jpg "Berlin Lookup")
-*Lorem ipsum: dolor sit amet, consectetur [adipisicing](http://example.com/ "Link title for adipisicing") elit.*
+
 
 In the first step we need to import the geonames library and setup the WebService with our username.
 
@@ -149,6 +148,9 @@ The last thing we need to do is defining the keyPressed(); function for our look
 
 		}
 	}
+	
+	![Here comes the alt text](https://github.com/tillnagel/unfolding/blob/gh-pages/assets/images/tutorials/basic_geonames_lookup_berlin.jpg "Monaco")
+	*'s' pressed switches to monaco*
 	
 So now we are able to switch the searchCriteria by pressing the certain key. If you are running the code now it will print the certain searchresults for either "berlin" (key: a) or "monaco" (key: s).
 
