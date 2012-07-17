@@ -30,7 +30,7 @@ public class GeoNamesBasicLookup extends PApplet {
 		MapUtils.createDefaultEventDispatcher(this, map);
 
 		// INIT GEONAMES
-		WebService.setUserName("maerzhase"); // add your username here
+		WebService.setUserName("username"); // add your username here
 		searchCriteria.setMaxRows(1);
 
 	}
