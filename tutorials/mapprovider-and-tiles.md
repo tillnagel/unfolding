@@ -1,9 +1,8 @@
 ---
 layout: page
 title: MapProvider and Tiles
-description: How do I include different MapProviders and what are tiles?
+description: How do I include different MapProviders?
 group: tutorials-starter
-author: Sebastian Sadowski
 thumbnail: http://placehold.it/330x250
 finalimage: /assets/images/tutorials/mapprovider.png
 finalfiles: #someurlatgithub
@@ -24,21 +23,17 @@ For instance if you want to include the Microsoft Aerial Provider in a processin
 	import de.fhpotsdam.unfolding.utils.*;
 	import de.fhpotsdam.unfolding.providers.*;
 
-	de.fhpotsdam.unfolding.Map map;
+	UnfoldingMap map;
 
 	void setup() {
 	  size(800, 600, GLConstants.GLGRAPHICS);
-	  map = new de.fhpotsdam.unfolding.Map(this, new Microsoft.AerialProvider());
+	  map = new UnfoldingMap(this, new Microsoft.AerialProvider());
 	  MapUtils.createDefaultEventDispatcher(this, map);
 	}
 
 	void draw() {
 	  map.draw();
 	}
-
-You can also style your own map with MapBox and include it:
-
-	CODE HERE
 
 
 ## Various map styles
