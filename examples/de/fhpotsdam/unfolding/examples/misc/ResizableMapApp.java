@@ -1,4 +1,4 @@
-package de.fhpotsdam.unfolding.examples;
+package de.fhpotsdam.unfolding.examples.misc;
 
 import processing.core.PApplet;
 import codeanticode.glgraphics.GLConstants;
@@ -7,9 +7,10 @@ import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.utils.MapUtils;
 
 /**
- * Map will be resized when user drags the resize handle. The map will be resized, but everything
- * else stays the same, i.e. even the current transformation center will be consistent. If the frame
- * size was increased, the missing tiles will be loaded, and added automatically.
+ * Map will be resized when user drags the resize handle. This only works for Applications, not Applets.
+ * 
+ * The map will be resized, but everything else stays the same, i.e. even the current transformation center will be
+ * consistent. If the frame size was increased, the missing tiles will be loaded, and added automatically.
  */
 public class ResizableMapApp extends PApplet {
 
@@ -40,7 +41,6 @@ public class ResizableMapApp extends PApplet {
 
 		background(0);
 		map.draw();
-		ellipse(random(width), random(height), 50, 50);
 	}
 
 	public static void main(String[] args) {

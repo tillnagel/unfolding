@@ -24,6 +24,10 @@ public class SimpleBarScaleApp extends PApplet {
 	public void draw() {
 		background(0);
 		map.draw();
+
+		fill(255, 100);
+		noStroke();
+		rect(barScale.x - 5, barScale.y - 10, 100, 20);
 		barScale.draw();
 	}
 
