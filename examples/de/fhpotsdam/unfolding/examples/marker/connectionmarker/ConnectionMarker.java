@@ -20,10 +20,6 @@ public class ConnectionMarker extends AbstractShapeMarker {
 
 	@Override
 	public void draw(PGraphics pg, List<MapPosition> mapPositions) {
-	}
-
-	@Override
-	public void drawOuter(PGraphics pg, List<MapPosition> mapPositions) {
 		MapPosition from = mapPositions.get(0);
 		MapPosition to = mapPositions.get(1);
 		pg.line(from.x, from.y, to.x, to.y);

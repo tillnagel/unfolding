@@ -290,6 +290,12 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 	 * Is called last in {@link #draw()}. May be implemented in sub-classes to handle drawing on outerPG.
 	 */
 	protected void postDraw() {
+
+		// Draws all markers 
+		for (MarkerManager<Marker> mm : markerManagerList) {
+			mm.draw();
+		}
+
 	}
 
 	/**
@@ -342,11 +348,6 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 				}
 			}
 			pg.popMatrix();
-		}
-
-		// Draws all markers on innerPG
-		for (MarkerManager<Marker> mm : markerManagerList) {
-			mm.draw();
 		}
 
 		pg.popMatrix();

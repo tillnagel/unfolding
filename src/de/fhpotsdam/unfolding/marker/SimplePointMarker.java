@@ -27,10 +27,10 @@ public class SimplePointMarker extends AbstractMarker {
 		super(location, properties);
 	}
 
-	public void draw(PGraphics pg, float x, float y) {
+	public void drawIn(PGraphics pg, float x, float y) {
 	}
 
-	public void drawOuter(PGraphics pg, float x, float y) {
+	public void draw(PGraphics pg, float x, float y) {
 		pg.pushStyle();
 		pg.strokeWeight(strokeWeight);
 		if (isSelected()) {

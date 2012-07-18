@@ -77,16 +77,6 @@ public interface Marker {
 	public boolean isInside(UnfoldingMap map, float checkX, float checkY);
 
 	/**
-	 * Draws this marker in inner object coordinate system.
-	 * 
-	 * e.g. markers oriented to the tiles
-	 * 
-	 * @param map
-	 *            The map to draw on.
-	 */
-	public void draw(UnfoldingMap map);
-
-	/**
 	 * Draws this marker in outer object coordinate system.
 	 * 
 	 * e.g. for labels oriented to the map
@@ -94,7 +84,7 @@ public interface Marker {
 	 * @param map
 	 *            The map to draw on.
 	 */
-	public void drawOuter(UnfoldingMap map);
+	public void draw(UnfoldingMap map);
 
 	public void setSelected(boolean selected);
 

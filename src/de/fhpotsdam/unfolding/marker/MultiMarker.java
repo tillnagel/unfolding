@@ -111,13 +111,6 @@ public class MultiMarker implements Marker {
 		}
 	}
 
-	@Override
-	public void drawOuter(UnfoldingMap map) {
-		for (Marker marker : markers) {
-			marker.drawOuter(map);
-		}
-	}
-
 	/**
 	 * Sets the selected status of all its markers.
 	 */

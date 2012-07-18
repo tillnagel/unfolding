@@ -31,7 +31,7 @@ public class LabeledMarker extends AbstractMarker {
 		this.font = font;
 	}
 
-	public void draw(PGraphics pg, float x, float y) {
+	public void drawIn(PGraphics pg, float x, float y) {
 		if (!isVisible()) {
 			return;
 		}
@@ -48,7 +48,7 @@ public class LabeledMarker extends AbstractMarker {
 	/**
 	 * Displays this marker's name in a box.
 	 */
-	public void drawOuter(PGraphics pg, float x, float y) {
+	public void draw(PGraphics pg, float x, float y) {
 		if (selected && name != null) {
 			pg.textFont(font);
 			pg.fill(color, 200);

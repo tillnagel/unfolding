@@ -48,7 +48,7 @@ public class GLGraphicsMapDisplay extends ProcessingMapDisplay implements PConst
 		offscreenCutoffPG.beginDraw();
 		offscreenCutoffPG.image(offscreenPG.getTexture(), 0, 0);
 		for (MarkerManager<Marker> mm : markerManagerList) {
-			mm.drawOuter();
+			mm.draw();
 		}
 		offscreenCutoffPG.endDraw();
 

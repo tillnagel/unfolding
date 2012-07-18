@@ -11,10 +11,10 @@ public class DotMarker extends SimplePointMarker {
 		radius = 10;
 	}
 
-	public void draw(PGraphics pg, float x, float y) {
+	public void drawIn(PGraphics pg, float x, float y) {
 	}
 
-	public void drawOuter(PGraphics pg, float x, float y) {
+	public void draw(PGraphics pg, float x, float y) {
 		pg.fill(color);
 		pg.stroke(strokeColor);
 		pg.ellipse(x, y, radius, radius);

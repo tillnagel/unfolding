@@ -49,7 +49,7 @@ public class MaskedGLGraphicsMapDisplay extends GLGraphicsMapDisplay implements 
 		outerPG.image(maskedTex, 0, 0);
 
 		for (MarkerManager<Marker> mm : markerManagerList) {
-			mm.drawOuter();
+			mm.draw();
 		}
 
 		outerPG.popMatrix();

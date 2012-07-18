@@ -42,11 +42,7 @@ public class ColoredLinesMarker extends AbstractShapeMarker {
 	}
 
 	@Override
-	public void draw(PGraphics pg, List<MapPosition> mapPositions) {
-	}
-
-	@Override
-	public void drawOuter(PGraphics pg, List<MapPosition> objectPositions) {
+	public void draw(PGraphics pg, List<MapPosition> objectPositions) {
 	}
 
 	@Override

@@ -11,7 +11,7 @@ public class InnerLabelMarker extends SimplePointMarker {
 		super(location);
 	}
 
-	public void draw(PGraphics pg, float x, float y) {
+	public void drawIn(PGraphics pg, float x, float y) {
 		pg.pushStyle();
 		pg.fill(color);
 		pg.stroke(strokeColor);
@@ -21,7 +21,7 @@ public class InnerLabelMarker extends SimplePointMarker {
 	}
 
 	@Override
-	public void drawOuter(PGraphics pg, float x, float y) {
+	public void draw(PGraphics pg, float x, float y) {
 	}
 
 }

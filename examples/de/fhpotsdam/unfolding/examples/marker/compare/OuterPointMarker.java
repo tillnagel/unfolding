@@ -17,10 +17,10 @@ public class OuterPointMarker extends AbstractMarker {
 		super(location);
 	}
 
-	public void draw(PGraphics pg, float x, float y) {
+	public void drawIn(PGraphics pg, float x, float y) {
 	}
 
-	public void drawOuter(PGraphics pg, float x, float y) {
+	public void draw(PGraphics pg, float x, float y) {
 		pg.fill(203, 79, 91, 200);
 		pg.stroke(0, 50);
 		pg.ellipse(x, y, radius, radius);

@@ -30,7 +30,7 @@ public class FlippedMapDisplay extends GLGraphicsMapDisplay {
 		outerPG.image(map, 0, 0);
 
 		for (MarkerManager<Marker> mm : markerManagerList) {
-			mm.drawOuter();
+			mm.draw();
 		}
 
 		outerPG.popMatrix();

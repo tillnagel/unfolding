@@ -131,22 +131,11 @@ public class MarkerManager<E extends Marker> {
 		return hitMarkers;
 	}
 
-	// draw and drawOuter to allow both; markers either implement one or the other.
-	// Differences: Off-map cut-off, size-dependencies, ...
-	
 	public void draw() {
 		if(!bEnableDrawing)
 			return;
 		for (Marker marker : markers) {
 			marker.draw(map);
-		}
-	}
-
-	public void drawOuter() {
-		if(!bEnableDrawing)
-			return;
-		for (Marker marker : markers) {
-			marker.drawOuter(map);
 		}
 	}
 	

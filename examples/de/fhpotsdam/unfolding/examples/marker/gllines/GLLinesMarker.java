@@ -50,10 +50,6 @@ public class GLLinesMarker extends AbstractShapeMarker {
 	}
 
 	@Override
-	public void drawOuter(PGraphics pg, List<MapPosition> objectPositions) {
-	}
-
-	@Override
 	protected boolean isInside(float checkX, float checkY, float x, float y) {
 		return false;
 	}

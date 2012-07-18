@@ -17,10 +17,6 @@ public class ImageMarker extends AbstractMarker {
 
 	@Override
 	public void draw(PGraphics pg, float x, float y) {
-	}
-
-	@Override
-	public void drawOuter(PGraphics pg, float x, float y) {
 		pg.pushStyle();
 		pg.imageMode(PConstants.CORNER);
 		pg.image(img, x - 11, y - 37);

@@ -75,24 +75,9 @@ public abstract class AbstractShapeMarker extends AbstractMarker {
 		locations.remove(index);
 	}
 
+	@Override
 	public void draw(UnfoldingMap map) {
 		super.draw(map);
-
-		PGraphics pg = map.mapDisplay.getInnerPG();
-
-		List<MapPosition> mapPositions = new ArrayList<MapPosition>();
-
-		for (Location loc : getLocations()) {
-			float[] xy = map.mapDisplay.getInnerObjectFromLocation(loc);
-			mapPositions.add(new MapPosition(xy));
-		}
-
-		draw(pg, mapPositions, properties, map);
-	}
-
-	@Override
-	public void drawOuter(UnfoldingMap map) {
-		super.drawOuter(map);
 
 		PGraphics pg = map.mapDisplay.getOuterPG();
 
@@ -103,30 +88,13 @@ public abstract class AbstractShapeMarker extends AbstractMarker {
 			mapPositions.add(new MapPosition(xy));
 		}
 
-		drawOuter(pg, mapPositions, properties, map);
+		draw(pg, mapPositions, properties, map);
 	}
 
-	/* override these methods to draw your marker dependent of properties and map attributes */
 	protected void draw(PGraphics pg, List<MapPosition> mapPositions, HashMap<String, Object> properties, UnfoldingMap map) {
 		draw(pg, mapPositions);
 	}
 
-	protected void drawOuter(PGraphics pg, List<MapPosition> mapPositions, HashMap<String, Object> properties, UnfoldingMap map) {
-		drawOuter(pg, mapPositions);
-	}
-
-	/**
-	 * Draws these markers in inner object coordinate system.
-	 * 
-	 * e.g. for labels oriented to the map
-	 * 
-	 * @param pg
-	 *            The PGraphics to draw on
-	 * @param objectPositions
-	 *            The positions in inner object coordinates.
-	 */
-
-	public abstract void draw(PGraphics pg, List<MapPosition> objectPositions);
 
 	/**
 	 * Draws these markers in outer object coordinate system.
@@ -138,18 +106,15 @@ public abstract class AbstractShapeMarker extends AbstractMarker {
 	 * @param objectPositions
 	 *            The positions in outer object coordinates.
 	 */
-	public abstract void drawOuter(PGraphics pg, List<MapPosition> objectPositions);
+	public abstract void draw(PGraphics pg, List<MapPosition> objectPositions);
+	
+	@Override
+	public void draw(PGraphics pg, float x, float y){
+		
+	}
 
 	// REVISIT default behavior for getLocation(), draw(location),
 	// drawOuter(location)?
-
-	@Override
-	public void draw(PGraphics pg, float x, float y) {
-	}
-
-	@Override
-	public void drawOuter(PGraphics pg, float x, float y) {
-	}
 
 	@Override
 	public boolean isInside(UnfoldingMap map, float checkX, float checkY) {

@@ -9,12 +9,9 @@ import de.fhpotsdam.unfolding.utils.MapPosition;
 
 public class OuterPolygonMarker extends AbstractShapeMarker {
 
-	@Override
-	public void draw(PGraphics pg, List<MapPosition> mapPositions) {
-	}
 
 	@Override
-	public void drawOuter(PGraphics pg, List<MapPosition> mapPositions) {
+	public void draw(PGraphics pg, List<MapPosition> mapPositions) {
 		pg.pushStyle();
 		pg.fill(100, 90, 240, 100);
 		pg.stroke(50, 50, 50, 200);
