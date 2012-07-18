@@ -15,8 +15,8 @@
 $iconSpritePath:          url("../bootstrap/images/glyphicons-halflings.png");
 $iconWhiteSpritePath:     url("../bootstrap/images/glyphicons-halflings-white.png");
 $bodyBackground: #FFF;
-$linkColor: #4183C4;
-$linkColorHover: #4183C4;
+$linkColor: #c64a00;
+$linkColorHover: #367281;
 $headingsFontFamily: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 $serifFontFamily: "Bitter", Georgia, "Times New Roman", Times, serif;
 $sansFontFamily: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -154,7 +154,7 @@ p{
   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.3);
   border-color: #518CC6;
   border-bottom-color: #2A65A0;
-  @include buttonBackground(#599BDC, #3072B3);
+  @include buttonBackground(lighten($linkColorHover, 30%), $linkColorHover);
 }
 
 // ==================
@@ -172,15 +172,19 @@ p{
   font-weight: 600;
   line-height: $baseLineHeight*2;
   padding: 0 15px 0 15px;
-  margin: $baseLineHeight*1.5 0 $baseLineHeight*1 0;
+  margin: $baseLineHeight*2 0 $baseLineHeight*1 0;
 }
 
 .logo {
   @extend .pull-left;
+  line-height: 0! important;
   a {
+    @include hide-text();
     background: url("../../../images/logo.png") no-repeat 0 50%;
     color:#000000;
-    padding-left: 150px;
+    width: 260px;
+    height: 72px;
+    margin: 19px 0 0 0;
     &:hover {
       text-decoration: none;
     }

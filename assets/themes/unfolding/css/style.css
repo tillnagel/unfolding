@@ -3560,11 +3560,11 @@ body {
   background-color: white; }
 
 a {
-  color: #4183c4;
+  color: #c64a00;
   text-decoration: none; }
 
 a:hover {
-  color: #4183c4;
+  color: #367281;
   text-decoration: underline; }
 
 .row {
@@ -5633,7 +5633,7 @@ button.btn, input[type="submit"].btn {
 .nav-list > .active > a, .nav-list > .active > a:hover {
   color: white;
   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.2);
-  background-color: #4183c4; }
+  background-color: #c64a00; }
 
 .nav-list [class^="icon-"] {
   margin-right: 2px; }
@@ -5699,7 +5699,7 @@ button.btn, input[type="submit"].btn {
 
 .nav-pills .active > a, .nav-pills .active > a:hover {
   color: white;
-  background-color: #4183c4; }
+  background-color: #c64a00; }
 
 .nav-stacked > li {
   float: none; }
@@ -5747,13 +5747,13 @@ button.btn, input[type="submit"].btn {
   border-radius: 4px; }
 
 .nav-tabs .dropdown-toggle .caret, .nav-pills .dropdown-toggle .caret {
-  border-top-color: #4183c4;
-  border-bottom-color: #4183c4;
+  border-top-color: #c64a00;
+  border-bottom-color: #c64a00;
   margin-top: 6px; }
 
 .nav-tabs .dropdown-toggle:hover .caret, .nav-pills .dropdown-toggle:hover .caret {
-  border-top-color: #4183c4;
-  border-bottom-color: #4183c4; }
+  border-top-color: #367281;
+  border-bottom-color: #367281; }
 
 .nav-tabs .active .dropdown-toggle .caret, .nav-pills .active .dropdown-toggle .caret {
   border-top-color: #333333;
@@ -6984,9 +6984,9 @@ h1, h2, h3, h4, h5, h6 {
   h1 a, h2 a, h3 a, h4 a, h5 a, h6 a {
     font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-weight: 600;
-    color: #4183c4; }
+    color: #c64a00; }
     h1 a:hover, h2 a:hover, h3 a:hover, h4 a:hover, h5 a:hover, h6 a:hover {
-      color: #4183c4; }
+      color: #c64a00; }
 
 h3 {
   font-size: 18px;
@@ -7010,24 +7010,24 @@ p {
   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.3);
   border-color: #518CC6;
   border-bottom-color: #2A65A0;
-  background-color: #488acb;
-  background-image: -moz-linear-gradient(top, #599bdc, #3072b3);
-  background-image: -ms-linear-gradient(top, #599bdc, #3072b3);
-  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#599bdc), to(#3072b3));
-  background-image: -webkit-linear-gradient(top, #599bdc, #3072b3);
-  background-image: -o-linear-gradient(top, #599bdc, #3072b3);
-  background-image: linear-gradient(top, #599bdc, #3072b3);
+  background-color: #649fae;
+  background-image: -moz-linear-gradient(top, #84bdcc, #367281);
+  background-image: -ms-linear-gradient(top, #84bdcc, #367281);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#84bdcc), to(#367281));
+  background-image: -webkit-linear-gradient(top, #84bdcc, #367281);
+  background-image: -o-linear-gradient(top, #84bdcc, #367281);
+  background-image: linear-gradient(top, #84bdcc, #367281);
   background-repeat: repeat-x;
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='ie-hex-str(#599bdc)', endColorstr='ie-hex-str(#3072b3)', GradientType=0);
-  border-color: #3072b3 #3072b3 #204c77;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='ie-hex-str(#84bdcc)', endColorstr='ie-hex-str(#367281)', GradientType=0);
+  border-color: #367281 #367281 #1f424b;
   border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) fadein(rgba(0, 0, 0, 0.1), 15%);
-  *background-color: #3072b3;
+  *background-color: #367281;
   filter: progid:DXImageTransform.Microsoft.gradient(enabled = false); }
   .btn:hover:hover, .btn:hover:active, .btn:hover.active, .btn:hover.disabled, .btn:hover[disabled] {
-    background-color: #3072b3;
-    *background-color: #2b659f; }
+    background-color: #367281;
+    *background-color: #2e626f; }
   .btn:hover:active, .btn:hover.active {
-    background-color: #25588b \9; }
+    background-color: #27525d \9; }
 
 .logo a,
 .menu li a {
@@ -7041,14 +7041,23 @@ p {
   font-weight: 600;
   line-height: 42px;
   padding: 0 15px 0 15px;
-  margin: 31.5px 0 21px 0; }
+  margin: 42px 0 21px 0; }
 
-.logo a {
-  background: url("../../../images/logo.png") no-repeat 0 50%;
-  color: #000000;
-  padding-left: 150px; }
-  .logo a:hover {
-    text-decoration: none; }
+.logo {
+  line-height: 0 !important; }
+  .logo a {
+    font: 0/0 a;
+    color: transparent;
+    text-shadow: none;
+    background-color: transparent;
+    border: 0;
+    background: url("../../../images/logo.png") no-repeat 0 50%;
+    color: #000000;
+    width: 260px;
+    height: 72px;
+    margin: 19px 0 0 0; }
+    .logo a:hover {
+      text-decoration: none; }
 
 .menu li a {
   text-decoration: none; }
