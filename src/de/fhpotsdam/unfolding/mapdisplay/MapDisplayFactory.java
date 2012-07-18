@@ -11,7 +11,7 @@ import de.fhpotsdam.unfolding.providers.OpenStreetMap;
 public class MapDisplayFactory {
 
 	public static final String OPEN_GL_CLASSNAME = "processing.opengl.PGraphicsOpenGL";
-	public static final String GLGRAPHICSL_CLASSNAME = "codeanticode.glgraphics.GLGraphics";
+	public static final String GLGRAPHICS_CLASSNAME = "codeanticode.glgraphics.GLGraphics";
 
 	public static final boolean DEFAULT_USE_MASK = true;
 	public static final boolean DEFAULT_USE_DISTORTION = false;
@@ -37,7 +37,7 @@ public class MapDisplayFactory {
 
 		if (useMask) {
 			try {
-				Class glGraphicsClass = Class.forName(GLGRAPHICSL_CLASSNAME);
+				Class glGraphicsClass = Class.forName(GLGRAPHICS_CLASSNAME);
 				if (glGraphicsClass.isInstance(p.g)) {
 					if (useDistortion) {
 						log.debug("Using DistortedGLGraphicsMapDisplay for '" + id + "'");
@@ -50,7 +50,7 @@ public class MapDisplayFactory {
 					}
 				}
 			} catch (ClassNotFoundException e) {
-				e.printStackTrace();
+				// GLGraphics not found, go for Processing default
 			}
 
 			if (mapDisplay == null) {
@@ -60,7 +60,7 @@ public class MapDisplayFactory {
 						log.warn("No OpenGL mapDisplay available. Use GLGraphics or P3D. '" + id + "'");
 					}
 				} catch (ClassNotFoundException e) {
-					e.printStackTrace();
+					// OpenGL not found, was for informational purposes anyway. 
 				}
 
 				log.debug("Using MaskedPGraphicsMapDisplay for '" + id + "'");
