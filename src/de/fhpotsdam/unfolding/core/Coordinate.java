@@ -1,6 +1,6 @@
 package de.fhpotsdam.unfolding.core;
 
-import processing.core.*;
+import processing.core.PApplet;
 
 public class Coordinate {
 

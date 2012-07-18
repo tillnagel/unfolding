@@ -16,6 +16,7 @@
 	<property name="dist.dir" location="dist" />
 	<property name="docs.dir" location="doc" />
 	<property name="lib.dir" location="lib" />
+	<property name="gh-pages.dir" value="../gh-pages/"/>
 
 	<!-- Variables used for JUnit testing -->
 	<property name="test.dir" location="test" />
@@ -204,6 +205,33 @@
 	</target>
 
 
+	<!--
+		Copy the javadoc to the gh-pages folder.
+		The assumption is, that there is a gh-gages folder ../gh-pages/.
+		This should make it easier to keep the api section on gh-pages up to date.
+	-->
+	<target name="docs2ghpages" depends="docs2ghpages.errormsg, dir.gh-pages.check, docs" if="dir.exists">
+		<echo>${gh-pages.dir} exists. Copy javadoc.</echo>
+		<copy todir="${gh-pages.dir}/javadoc/" >
+			<fileset dir="${docs.dir}" />
+		</copy>
+		<echo>Do not forget to add the new files to git in gh-pages!</echo>
+	</target>
+
+	<!-- Spit out an error msg if ../gh-pages does not exist. -->
+	<target name="docs2ghpages.errormsg" depends="dir.gh-pages.check" unless="dir.exists">
+		<echo>${gh-pages.dir} missing. Aborting."</echo>
+	</target>
+
+	<!-- Make sure ../gh-pages exists -->
+	<target name="dir.gh-pages.check">
+		<condition property="dir.exists">
+			<available file="${gh-pages.dir}" type="dir"/>
+		</condition>
+	</target>
+
+
+	<!-- do a lot of stuff :) -->
 	<target name="main" depends="docs, jar">
 		<description>Main target</description>
 	</target>
