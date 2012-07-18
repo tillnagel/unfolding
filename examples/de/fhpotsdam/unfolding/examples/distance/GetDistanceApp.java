@@ -1,13 +1,10 @@
 package de.fhpotsdam.unfolding.examples.distance;
 
-import de.fhpotsdam.unfolding.Map;
+import processing.core.PApplet;
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.geo.Location;
-import de.fhpotsdam.unfolding.providers.Microsoft;
 import de.fhpotsdam.unfolding.utils.GeoUtils;
 import de.fhpotsdam.unfolding.utils.MapUtils;
-
-import processing.core.PApplet;
 
 
 

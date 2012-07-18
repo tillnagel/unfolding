@@ -4,12 +4,13 @@
  */
 package de.fhpotsdam.unfolding.providers;
 
+import java.net.URI;
+
+import org.apache.log4j.Logger;
+
 import de.fhpotsdam.unfolding.core.Coordinate;
 import de.fhpotsdam.unfolding.geo.MercatorProjection;
 import de.fhpotsdam.unfolding.geo.Transformation;
-import de.fhpotsdam.unfolding.providers.AbstractMapTileUrlProvider;
-import java.net.URI;
-import org.apache.log4j.Logger;
 
 /**
  *
