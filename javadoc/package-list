@@ -1,0 +1,14 @@
+de.fhpotsdam.unfolding
+de.fhpotsdam.unfolding.core
+de.fhpotsdam.unfolding.data
+de.fhpotsdam.unfolding.events
+de.fhpotsdam.unfolding.geo
+de.fhpotsdam.unfolding.interactions
+de.fhpotsdam.unfolding.mapdisplay
+de.fhpotsdam.unfolding.marker
+de.fhpotsdam.unfolding.providers
+de.fhpotsdam.unfolding.texture
+de.fhpotsdam.unfolding.tiles
+de.fhpotsdam.unfolding.ui
+de.fhpotsdam.unfolding.utils
+de.fhpotsdam.utils
