@@ -1,28 +1,30 @@
 import processing.core.PApplet;
+import codeanticode.glgraphics.GLConstants;
 import de.fhpotsdam.unfolding.UnfoldingMap;
+import de.fhpotsdam.unfolding.geo.Location;
+import de.fhpotsdam.unfolding.utils.MapUtils;
 
 /**
- * Simple demo app.
- * Used in the unfolding_app_template.
+ * Hello Unfolding World.
+ * 
+ * Download the distribution with examples for many more examples and features.
  */
 public class HelloUnfoldingWorld extends PApplet {
 
 	UnfoldingMap map;
 
-	@Override
 	public void setup() {
-		size(600, 600);
+		size(800, 600, GLConstants.GLGRAPHICS);
 
 		map = new UnfoldingMap(this);
+		map.zoomAndPanTo(new Location(52.5f, 13.4f), 10);
+
+		MapUtils.createDefaultEventDispatcher(this, map);
 	}
 
-	@Override
 	public void draw() {
-		background(255);
-
+		background(0);
 		map.draw();
-
-		ellipse(mouseX, mouseY, 20, 20);
 	}
 
 }
