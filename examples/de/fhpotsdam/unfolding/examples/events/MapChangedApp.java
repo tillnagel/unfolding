@@ -11,12 +11,15 @@ import de.fhpotsdam.unfolding.utils.ScreenPosition;
 
 /**
  * Simple way of reacting to map events in an application.
+ * 
+ * Listen to any events in the mapChanged() method. In this example, a simple zoom animation is shown.
  */
 public class MapChangedApp extends PApplet {
 
 	UnfoldingMap map;
 	Location lastZoomLocation = null;
 	float rectSize = 50;
+	float rectSizeDiff;
 
 	public void setup() {
 		size(800, 600, GLConstants.GLGRAPHICS);
@@ -33,8 +36,8 @@ public class MapChangedApp extends PApplet {
 			stroke(255, 0, 0, 200);
 			rectMode(CENTER);
 			rect(pos.x, pos.y, rectSize, rectSize);
-			rectSize -= 2f;
-			if (rectSize < 2) {
+			rectSize += rectSizeDiff;
+			if (rectSize < 10 || rectSize > 50) {
 				lastZoomLocation = null;
 			}
 		}
@@ -44,7 +47,13 @@ public class MapChangedApp extends PApplet {
 		if (mapEvent.getType().equals(ZoomMapEvent.TYPE_ZOOM)) {
 			ZoomMapEvent zoomMapEvent = (ZoomMapEvent) mapEvent;
 			lastZoomLocation = zoomMapEvent.getCenter();
-			rectSize = 50;
+			if (zoomMapEvent.getZoomLevelDelta() < 0 || zoomMapEvent.getZoomDelta() < 0) {
+				rectSize = 50;
+				rectSizeDiff = -3;
+			} else {
+				rectSize = 10;
+				rectSizeDiff = 3;
+			}
 		}
 	}
 

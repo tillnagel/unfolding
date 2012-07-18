@@ -13,8 +13,7 @@ import de.fhpotsdam.unfolding.utils.GeoUtils;
 import de.fhpotsdam.unfolding.utils.MapUtils;
 
 /**
- * This example shows the internal way of listening to map events. Look into {@link MapChangedApp} for the standard
- * way.
+ * This example shows the internal way of listening to map events. Look into {@link MapChangedApp} for the standard way.
  * 
  * By implementing MapEventListener and registering this PApplet, it handles events in the same way as the maps
  * themselves.
@@ -53,8 +52,8 @@ public class InternalMapEventListenerApp extends PApplet implements MapEventList
 		}
 
 		if (mapEvent.getType().equals(ZoomMapEvent.TYPE_ZOOM)) {
-			ZoomMapEvent zoomMapEvent = (ZoomMapEvent) mapEvent;
-			// Do something
+			// Do something with the event
+			// ZoomMapEvent zoomMapEvent = (ZoomMapEvent) mapEvent;
 		}
 	}
 

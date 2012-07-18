@@ -1,5 +1,7 @@
 package de.fhpotsdam.unfolding;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.List;
 import java.util.UUID;
 
@@ -40,6 +42,9 @@ public class UnfoldingMap implements MapEventListener {
 	public static final int DEFAULT_ZOOM_LEVEL = 2;
 	private static final float DEFAULT_MIN_SCALE = 1;
 	private static final float DEFAULT_MAX_SCALE = 262144; // 2^18
+
+	private static final String MAPCHANGED_METHOD_NAME = "mapChanged";
+	private Method mapChangedMethod = null;
 
 	public float minScale = DEFAULT_MIN_SCALE;
 	public float maxScale = DEFAULT_MAX_SCALE;
@@ -114,10 +119,20 @@ public class UnfoldingMap implements MapEventListener {
 		this.p = p;
 		this.id = id;
 
-		this.mapDisplay = MapDisplayFactory.getMapDisplay(p, id, x, y, width, height, useMask, useDistortion, provider,this);
+		this.mapDisplay = MapDisplayFactory.getMapDisplay(p, id, x, y, width, height, useMask, useDistortion, provider,
+				this);
 
 		// panCenterZoomTo(PRIME_MERIDIAN_EQUATOR_LOCATION, DEFAULT_ZOOM_LEVEL);
+		
+		// Prepare mapChanged method via reflection
+		try {
+			Class appletClass = p.getClass();
+			mapChangedMethod = appletClass.getMethod(MAPCHANGED_METHOD_NAME, MapEvent.class);
+		} catch (SecurityException e) {
+		} catch (NoSuchMethodException e) {
+		}
 	}
+	
 
 	protected static String generateId() {
 		return UUID.randomUUID().toString();
@@ -125,7 +140,7 @@ public class UnfoldingMap implements MapEventListener {
 
 	/**
 	 * Checks whether the given screen coordinates are on this Map.
-	 *
+	 * 
 	 * @param checkX
 	 *            The vertical position to check.
 	 * @param checkY
@@ -139,14 +154,13 @@ public class UnfoldingMap implements MapEventListener {
 
 	/**
 	 * Checks whether the given screen coordinates are on this Map.
-	 *
+	 * 
 	 * @param screenPosition
 	 *            The position to check.
 	 * @return True if map is hit, false otherwise.
 	 */
 	public boolean isHit(ScreenPosition screenPosition) {
-		float[] check = mapDisplay.getObjectFromScreenPosition(
-				screenPosition.x, screenPosition.y);
+		float[] check = mapDisplay.getObjectFromScreenPosition(screenPosition.x, screenPosition.y);
 		return (check[0] > 0 && check[0] < mapDisplay.getWidth() && check[1] > 0 && check[1] < mapDisplay.getHeight());
 	}
 
@@ -175,6 +189,17 @@ public class UnfoldingMap implements MapEventListener {
 	@Override
 	public void onManipulation(MapEvent mapEvent) {
 		mapEvent.executeManipulationFor(this);
+
+		// Forward map event to application via reflection
+		if (mapChangedMethod != null) {
+			try {
+				mapChangedMethod.invoke(p, mapEvent);
+			} catch (IllegalArgumentException e) {
+			} catch (IllegalAccessException e) {
+			} catch (InvocationTargetException e) {
+			}
+		}
+
 	}
 
 	/**
@@ -230,7 +255,7 @@ public class UnfoldingMap implements MapEventListener {
 	public Location getLocation(float x, float y) {
 		return mapDisplay.getLocation(new ScreenPosition(x, y));
 	}
-	
+
 	@Deprecated
 	public float[] getScreenPositionFromLocation(Location location) {
 		return mapDisplay.getScreenPositionFromLocation(location);
@@ -239,7 +264,6 @@ public class UnfoldingMap implements MapEventListener {
 	public ScreenPosition getScreenPosition(Location location) {
 		return mapDisplay.getScreenPosition(location);
 	}
-
 
 	// public PVector getScreenPositionFromLocation(Location location) {
 	// float[] xy = mapDisplay.getScreenPositionFromLocation(location);
@@ -372,8 +396,7 @@ public class UnfoldingMap implements MapEventListener {
 	 */
 	public void zoomAndPanTo(ScreenPosition screenPosition, int level) {
 		// Works only when first zoom around pos, then pan to pos
-		mapDisplay.setInnerTransformationCenter(
-				new PVector(screenPosition.x, screenPosition.y));
+		mapDisplay.setInnerTransformationCenter(new PVector(screenPosition.x, screenPosition.y));
 		zoomToLevel(level);
 		panTo(screenPosition.x, screenPosition.y);
 	}
@@ -412,11 +435,11 @@ public class UnfoldingMap implements MapEventListener {
 	/**
 	 * Pans to the given screen position. The position will be centered.
 	 * 
-	 * @param screenPosition the position to pan to.
+	 * @param screenPosition
+	 *            the position to pan to.
 	 */
 	public void panTo(ScreenPosition screenPosition) {
-		float[] objectXY = mapDisplay.getObjectFromScreenPosition(
-				screenPosition.x, screenPosition.y);
+		float[] objectXY = mapDisplay.getObjectFromScreenPosition(screenPosition.x, screenPosition.y);
 		panObjectPositionToObjectCenter(objectXY[0], objectXY[1]);
 	}
 
@@ -444,10 +467,14 @@ public class UnfoldingMap implements MapEventListener {
 
 		addInnerOffset(dx, dy);
 	}
+
 	/**
 	 * Pans between two ScreenPosition.
-	 * @param from ScreenPo	sition to start from.
-	 * @param to ScreenPosition to pan to.
+	 * 
+	 * @param from
+	 *            ScreenPo sition to start from.
+	 * @param to
+	 *            ScreenPosition to pan to.
 	 */
 	public void pan(ScreenPosition from, ScreenPosition to) {
 		float[] xy1 = mapDisplay.getObjectFromScreenPosition(from.x, from.y);
@@ -458,6 +485,7 @@ public class UnfoldingMap implements MapEventListener {
 
 		addInnerOffset(dx, dy);
 	}
+
 	/**
 	 * Pans from one location to another one.
 	 * 
@@ -509,7 +537,9 @@ public class UnfoldingMap implements MapEventListener {
 
 	/**
 	 * Moves the map to the given ScreenPosition.
-	 * @param screenPosition the ScreenPosition to move to.
+	 * 
+	 * @param screenPosition
+	 *            the ScreenPosition to move to.
 	 */
 	public void move(ScreenPosition screenPosition) {
 		setOffset(screenPosition.x, screenPosition.y);
@@ -526,24 +556,23 @@ public class UnfoldingMap implements MapEventListener {
 		return mapDisplay.getLastMarkerManager();
 	}
 
-	public MarkerManager<Marker> getDefaultMarkerManager(){
+	public MarkerManager<Marker> getDefaultMarkerManager() {
 		return mapDisplay.getDefaultMarkerManager();
 	}
 
-	public MarkerManager<Marker> getMarkerManager(int index){
+	public MarkerManager<Marker> getMarkerManager(int index) {
 		return mapDisplay.getMarkerManager(index);
 	}
 
-	public void addMarkers(Marker ... marker){
-		for(Marker m : marker) {
+	public void addMarkers(Marker... marker) {
+		for (Marker m : marker) {
 			mapDisplay.addMarker(m);
 		}
 	}
 
-	public void addMarkers(List<Marker> markers){
+	public void addMarkers(List<Marker> markers) {
 		mapDisplay.addMarkers(markers);
 	}
-
 
 	// Transformations ------------------------------------
 
@@ -630,7 +659,7 @@ public class UnfoldingMap implements MapEventListener {
 
 	/**
 	 * Restricts the area this map can pan to in a radial fashion.
-	 *
+	 * 
 	 * @param location
 	 *            The center location of the circular restriction area.
 	 * @param maxPanningDistance

@@ -48,7 +48,7 @@ public class ZoomMapEvent extends MapEvent {
 		}
 	}
 
-	protected int getZoomLevel() {
+	public int getZoomLevel() {
 		return zoomLevel;
 	}
 
@@ -56,7 +56,7 @@ public class ZoomMapEvent extends MapEvent {
 		this.zoomLevel = zoomLevel;
 	}
 
-	protected int getZoomLevelDelta() {
+	public int getZoomLevelDelta() {
 		return zoomLevelDelta;
 	}
 
@@ -64,7 +64,7 @@ public class ZoomMapEvent extends MapEvent {
 		this.zoomLevelDelta = zoomLevelDelta;
 	}
 
-	protected float getZoom() {
+	public float getZoom() {
 		return zoom;
 	}
 
@@ -72,7 +72,7 @@ public class ZoomMapEvent extends MapEvent {
 		this.zoom = zoom;
 	}
 
-	protected float getZoomDelta() {
+	public float getZoomDelta() {
 		return zoomDelta;
 	}
 
@@ -80,10 +80,10 @@ public class ZoomMapEvent extends MapEvent {
 		this.zoomDelta = zoomDelta;
 	}
 
-	protected Location getTransformationCenterLocation() {
+	public Location getTransformationCenterLocation() {
 		return transformationCenterLocation;
 	}
-	
+
 	public Location getCenter() {
 		return getTransformationCenterLocation();
 	}
