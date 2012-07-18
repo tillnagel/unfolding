@@ -17,7 +17,7 @@ public class MapDisplayFactory {
 	public static final boolean DEFAULT_USE_DISTORTION = false;
 
 	public static final String OSM_API_KEY = "607e6483654b5c47b9056791d607ab74";
-	public static final int OSM_STYLE_ID = 65678; // 998
+	public static final int OSM_STYLE_ID = 67940; // 998
 
 	public static Logger log = Logger.getLogger(MapDisplayFactory.class);
 
