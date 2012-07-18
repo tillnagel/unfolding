@@ -1,4 +1,4 @@
-package de.fhpotsdam.unfolding.examples.multi;
+package de.fhpotsdam.unfolding.examples.provider.dynamic;
 
 import processing.core.PApplet;
 import codeanticode.glgraphics.GLConstants;
@@ -12,12 +12,11 @@ import de.fhpotsdam.unfolding.utils.MapUtils;
 /**
  * Enables switching between different maps with different tile providers.
  * 
- * All maps listen to map events themselves, i.e. all interactions affect each map, resulting in the
- * same region. (Maps are independent though.)
+ * All maps listen to map events themselves, i.e. all interactions affect each map, resulting in the same region. (Maps
+ * are independent though.)
  * 
- * Only one map at a time is displayed, and only the tiles of that one will be loaded. Yet,
- * switching is faster than {@link DynamicProviderSwitch} after the tiles are loaded. It takes more
- * memory though.
+ * Only one map at a time is displayed, and only the tiles of that one will be loaded. Yet, switching is faster than
+ * {@link DynamicProviderSwitch} after the tiles are loaded. It takes more memory though.
  */
 public class DynamicMapSwitch extends PApplet {
 

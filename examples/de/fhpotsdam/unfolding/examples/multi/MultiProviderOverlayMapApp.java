@@ -10,8 +10,6 @@ import de.fhpotsdam.unfolding.utils.MapUtils;
 
 /**
  * A two layer map. One map lays atop another one with same size and position.
- * 
- * @author tillnagel
  */
 public class MultiProviderOverlayMapApp extends PApplet {
 
@@ -22,12 +20,10 @@ public class MultiProviderOverlayMapApp extends PApplet {
 		size(800, 600, GLConstants.GLGRAPHICS);
 
 		map1 = new UnfoldingMap(this, "map1", 0, 0, width, height, true, false, new Microsoft.RoadProvider());
-		map1.setTweening(false);
 		map1.zoomAndPanTo(new Location(52.439046f, 13.447266f), 8);
 
 		map2 = new UnfoldingMap(this, "map2", 0, 0, width, height, true, false,
 				new ImmoScout.HeatMapProvider());
-		map2.setTweening(false);
 		map2.zoomToLevel(8);
 		map2.zoomAndPanTo(new Location(52.439046f, 13.447266f), 8);
 
