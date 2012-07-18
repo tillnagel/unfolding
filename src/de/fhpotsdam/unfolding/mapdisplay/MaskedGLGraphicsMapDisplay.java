@@ -10,6 +10,7 @@ import de.fhpotsdam.unfolding.marker.Marker;
 import de.fhpotsdam.unfolding.marker.MarkerManager;
 import de.fhpotsdam.unfolding.providers.AbstractMapProvider;
 
+// TODO: Unify with GLGRaphics and create as flag/property
 public class MaskedGLGraphicsMapDisplay extends GLGraphicsMapDisplay implements PConstants {
 
 	public GLGraphicsOffScreen mask;
@@ -19,7 +20,7 @@ public class MaskedGLGraphicsMapDisplay extends GLGraphicsMapDisplay implements 
 	public MaskedGLGraphicsMapDisplay(PApplet papplet, AbstractMapProvider provider, float offsetX, float offsetY,
 			float width, float height) {
 		super(papplet, provider, offsetX, offsetY, width, height);
-
+		
 		mask = new GLGraphicsOffScreen(papplet, (int) width, (int) height, true);
 		mask.smooth();
 		maskedTex = new GLTexture(papplet, (int) width, (int) height);
