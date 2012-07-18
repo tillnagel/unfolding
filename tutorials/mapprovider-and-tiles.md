@@ -1,9 +1,9 @@
 ---
 layout: page
 title: MapProvider and Tiles
-description: How do I include different MapProviders?
+description: The basics of including different MapProviders.
 group: tutorials-starter
-thumbnail: http://placehold.it/330x250
+thumbnail: /assets/images/tutorials/mapprovider_thumb.png
 finalimage: /assets/images/tutorials/mapprovider.png
 finalfiles: #someurlatgithub
 ---

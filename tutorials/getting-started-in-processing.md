@@ -1,9 +1,9 @@
 ---
 layout: page
 title: Getting Started in Processing
-description: Tutorial about how to set up the Unfolding library in Processing and how you create your first simple map.
+description: This introduction covers the setup of the Unfolding library in Processing and the first simple map.
 group: tutorials-starter
-thumbnail: http://placehold.it/330x250
+thumbnail: /assets/images/tutorials/gettingstarted_thumb.png
 finalfiles: #someurlatgithub
 ---
 
