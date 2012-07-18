@@ -24,8 +24,8 @@ public class SimpleMaskAppGl extends PApplet {
 	public void draw() {
 		// update the mask
 		updateMask();
-		background(0, 255, 0);
-		// map.draw();
+		//background(0, 255, 0);
+		map.draw();
 
 		mask.draw();
 
@@ -33,7 +33,8 @@ public class SimpleMaskAppGl extends PApplet {
 
 	public void updateMask() {
 		mask.c.beginDraw();
-		mask.c.background(140);
+		//mask.c.background(0);
+		mask.c.noStroke();
 		mask.c.fill(255);
 		mask.c.ellipse(mouseX, mouseY, 100, 100);
 		mask.c.endDraw();
