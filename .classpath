@@ -21,5 +21,6 @@
 	<classpathentry kind="lib" path="lib/sqlitejdbc-v056.jar"/>
 	<classpathentry kind="lib" path="lib/junit-4.10.jar"/>
 	<classpathentry kind="lib" path="lib/json4processing.jar"/>
+	<classpathentry kind="lib" path="lib-extern/Ani.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
