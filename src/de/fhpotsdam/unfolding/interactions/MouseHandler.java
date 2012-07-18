@@ -45,13 +45,11 @@ public class MouseHandler extends MapEventBroadcaster {
 					// Pan + Zoom (order is important)
 
 					PanMapEvent panMapEvent = new PanMapEvent(this, map.getId());
-					Location location = map.mapDisplay
-							.getLocationFromScreenPosition(mouseX, mouseY);
+					Location location = map.getLocation(mouseX, mouseY);
 					panMapEvent.setToLocation(location);
 					eventDispatcher.fireMapEvent(panMapEvent);
 
-					ZoomMapEvent zoomMapEvent = new ZoomMapEvent(this, map.getId(),
-							ZoomMapEvent.ZOOM_BY_LEVEL, 1);
+					ZoomMapEvent zoomMapEvent = new ZoomMapEvent(this, map.getId(), ZoomMapEvent.ZOOM_BY_LEVEL, 1);
 					zoomMapEvent.setTransformationCenterLocation(location);
 					eventDispatcher.fireMapEvent(zoomMapEvent);
 				}
@@ -62,13 +60,12 @@ public class MouseHandler extends MapEventBroadcaster {
 	public void mouseWheel(float delta) {
 		for (UnfoldingMap map : maps) {
 			if (map.isHit(mouseX, mouseY)) {
-				//log.debug("mouse: fire zoomBy for " + map.getId());
+				// log.debug("mouse: fire zoomBy for " + map.getId());
 
-				ZoomMapEvent zoomMapEvent = new ZoomMapEvent(this, map.getId(),
-						ZoomMapEvent.ZOOM_BY_LEVEL);
+				ZoomMapEvent zoomMapEvent = new ZoomMapEvent(this, map.getId(), ZoomMapEvent.ZOOM_BY_LEVEL);
 
 				// Use location as zoom center, so listening maps can zoom correctly
-				Location location = map.mapDisplay.getLocationFromScreenPosition(mouseX, mouseY);
+				Location location = map.getLocation(mouseX, mouseY);
 				zoomMapEvent.setTransformationCenterLocation(location);
 
 				// Zoom in or out
@@ -86,13 +83,12 @@ public class MouseHandler extends MapEventBroadcaster {
 	public void mouseDragged() {
 		for (UnfoldingMap map : maps) {
 			if (map.isHit(mouseX, mouseY)) {
-				//log.debug("mouse: fire panTo for " + map.getId());
+				// log.debug("mouse: fire panTo for " + map.getId());
 
 				// Pan between two locations, so other listening maps can pan correctly
 
-				Location oldLocation = map.mapDisplay.getLocationFromScreenPosition(pmouseX,
-						pmouseY);
-				Location newLocation = map.mapDisplay.getLocationFromScreenPosition(mouseX, mouseY);
+				Location oldLocation = map.getLocation(pmouseX, pmouseY);
+				Location newLocation = map.getLocation(mouseX, mouseY);
 
 				PanMapEvent panMapEvent = new PanMapEvent(this, map.getId(), PanMapEvent.PAN_BY);
 				panMapEvent.setFromLocation(oldLocation);

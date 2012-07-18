@@ -32,6 +32,7 @@ public class KeyboardHandler extends MapEventBroadcaster {
 			if (map.isActive()) {
 				if (key == '+' || key == '-') {
 					ZoomMapEvent zoomMapEvent = new ZoomMapEvent(this, map.getId());
+					zoomMapEvent.setTransformationCenterLocation(map.getCenter());
 					zoomMapEvent.setSubType(ZoomMapEvent.ZOOM_BY_LEVEL);
 					if (key == '+') {
 						zoomMapEvent.setZoomLevelDelta(1);
@@ -44,8 +45,8 @@ public class KeyboardHandler extends MapEventBroadcaster {
 
 					// FIXME Use toLocation instead of panLeft, etc to allow listening maps to pan
 					// correctly.
-					if (keyCode == PConstants.LEFT || keyCode == PConstants.RIGHT
-							|| keyCode == PConstants.UP || keyCode == PConstants.DOWN) {
+					if (keyCode == PConstants.LEFT || keyCode == PConstants.RIGHT || keyCode == PConstants.UP
+							|| keyCode == PConstants.DOWN) {
 						PanMapEvent panMapEvent = new PanMapEvent(this, map.getId());
 						switch (keyCode) {
 						case PConstants.LEFT:
