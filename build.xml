@@ -11,6 +11,7 @@
 
 	<property name="src.dir" location="src" />
 	<property name="example.dir" location="examples" />
+	<property name="example.processing.dir" location="examples-processing" />
 	<property name="build.dir" location="build" />
 	<property name="dist.dir" location="dist" />
 	<property name="docs.dir" location="doc" />
@@ -140,6 +141,7 @@
 		/>
 	</target>
 
+
 	<!--
 		 Create the folder structure for a simple eclipse project including all
 		 libs and all examples.
@@ -177,6 +179,30 @@
 			basedir="${dist.dir}/unfolding_app_template_with_examples/"
 		/>
 	</target>
+
+
+	<!--
+		 Create the folder structure for direct use in processing.
+	 -->
+	<target name="unfolding_processing" depends="jar">
+		<!-- create folders -->
+		<mkdir dir="${dist.dir}/Unfolding/examples" />
+		<mkdir dir="${dist.dir}/Unfolding/library" />
+
+		<!-- copy libs -->
+		<copy file="${dist.dir}/${unfolding.jar}" tofile="${dist.dir}/Unfolding/library/Unfolding.jar" />
+		<copy todir="${dist.dir}/Unfolding/library/" file="${lib.dir}/log4j-1.2.15.jar" />
+
+		<!-- copy processing examples -->
+		<copy todir="${dist.dir}/Unfolding/examples" >
+			<fileset dir="${example.processing.dir}" />
+		</copy>
+
+		<!-- create a zip file -->
+		<zip destfile="${dist.dir}/Unfolding_for_processing.zip"
+			basedir="${dist.dir}/Unfolding/" />
+	</target>
+
 
 	<target name="main" depends="docs, jar">
 		<description>Main target</description>
