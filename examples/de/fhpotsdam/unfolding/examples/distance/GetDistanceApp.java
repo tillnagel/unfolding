@@ -1,6 +1,7 @@
 package de.fhpotsdam.unfolding.examples.distance;
 
 import de.fhpotsdam.unfolding.Map;
+import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.providers.Microsoft;
 import de.fhpotsdam.unfolding.utils.GeoUtils;
@@ -14,13 +15,13 @@ import processing.core.PApplet;
 
 public class GetDistanceApp extends PApplet {
 	
-	Map map;
+	UnfoldingMap map;
 	
 	
 	public void setup() {
 		size(600, 600);
 		
-		map = new Map(this);
+		map = new UnfoldingMap(this);
 		map.zoomAndPanTo(new Location(52.5f, 13.4f), 10);
 		MapUtils.createDefaultEventDispatcher(this, map);
 	}

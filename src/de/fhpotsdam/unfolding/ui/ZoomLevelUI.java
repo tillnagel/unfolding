@@ -1,10 +1,8 @@
 package de.fhpotsdam.unfolding.ui;
 
-import de.fhpotsdam.unfolding.Map;
-import de.fhpotsdam.unfolding.mapdisplay.AbstractMapDisplay;
 import processing.core.PApplet;
-import processing.core.PFont;
-import processing.core.PImage;
+import de.fhpotsdam.unfolding.UnfoldingMap;
+import de.fhpotsdam.unfolding.mapdisplay.AbstractMapDisplay;
 
 public class ZoomLevelUI {
 	public static final float X_DEFAULT = 100;
@@ -26,11 +24,11 @@ public class ZoomLevelUI {
 		this.y = y;
 		scale = 1;
 	}
-	public ZoomLevelUI(PApplet p, Map map, CompassUI compass) {
+	public ZoomLevelUI(PApplet p, UnfoldingMap map, CompassUI compass) {
 		this(p, map.mapDisplay, compass.x, compass.y);
 	}
 	
-	public ZoomLevelUI(PApplet p, Map map) {
+	public ZoomLevelUI(PApplet p, UnfoldingMap map) {
 		this(p, map.mapDisplay, X_DEFAULT, Y_DEFAULT);
 		//
 	}

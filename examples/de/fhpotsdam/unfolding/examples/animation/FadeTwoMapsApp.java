@@ -1,10 +1,9 @@
 package de.fhpotsdam.unfolding.examples.animation;
 
 import processing.core.PApplet;
-import de.fhpotsdam.unfolding.Map;
+import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.providers.Microsoft;
-import de.fhpotsdam.unfolding.utils.GeoUtils;
 import de.fhpotsdam.unfolding.utils.MapUtils;
 
 /**
@@ -12,8 +11,8 @@ import de.fhpotsdam.unfolding.utils.MapUtils;
  */
 public class FadeTwoMapsApp extends PApplet {
 	
-	Map map1;
-	Map map2;
+	UnfoldingMap map1;
+	UnfoldingMap map2;
 	
 	// Create and set variable we need to fade between our two maps.
 	boolean fadeOnce = false;
@@ -37,9 +36,9 @@ public class FadeTwoMapsApp extends PApplet {
 		float lat = 13.4f;
 		
 		// Initialize two maps
-		map1 = new Map(this, mapXposition, mapYposition, mapWidth, mapHeight);
+		map1 = new UnfoldingMap(this, mapXposition, mapYposition, mapWidth, mapHeight);
 		map1.zoomAndPanTo(new Location(lon, lat), 10);
-		map2 = new Map(this, mapXposition, mapYposition, mapWidth, mapHeight, new Microsoft.AerialProvider());
+		map2 = new UnfoldingMap(this, mapXposition, mapYposition, mapWidth, mapHeight, new Microsoft.AerialProvider());
 		map2.zoomAndPanTo(new Location(lon, lat), 10);
 		MapUtils.createDefaultEventDispatcher(this, map1, map2);
 	}
