@@ -1,9 +1,9 @@
 ---
 layout: page
 title: Getting Started in Processing
-description: This Site will show how to set up the Unfolding library in Processing and how you create your first simple map in minutes.
+description: This introduction covers the setup of the Unfolding library in Processing and the first simple map.
 group: tutorials-starter
-thumbnail: http://placehold.it/330x250
+thumbnail: /assets/images/tutorials/gettingstarted_thumb.png
 finalfiles: #someurlatgithub
 ---
 
@@ -31,26 +31,32 @@ Sketch » Import Library and put the import statements at the top of your code.
 	import codeanticode.glgraphics.*;
 	import de.fhpotsdam.unfolding.*;
 	import de.fhpotsdam.unfolding.geo.*;
-	import de.fhpotsdam.unfolding.utils.*;
+	import de.fhpotsdam.unfolding.utils.*;  
+
 
 Create a reference to a “Map” object, i.e.
 
-	de.fhpotsdam.unfolding.Map map;
+	UnfoldingMap map;
+
 
 In setup() you have to specified the GLGraphics OpenGL renderer as the third parameter of the size() function.
 Initialize a new map object and add the default event function for basic interaction (double-click to zoom  and drag to pan the map).
 
 	void setup() {
 		size(800, 600, GLConstants.GLGRAPHICS);
-		map = new de.fhpotsdam.unfolding.Map(this);
+		map = new UnfoldingMap(this);
 		MapUtils.createDefaultEventDispatcher(this, map);
 	}
 
-Once you’ve done this you can begin to draw the map and run the sketch.
+
+Once you’ve done this you can begin to draw the map and run the sketch.  
 
 	void draw() {
 		map.draw();
 	}
 
-You should get something like this.
+
+You should get something like this.  
+
+
 ![Hello World](/assets/images/tutorials/helloworld.png)
