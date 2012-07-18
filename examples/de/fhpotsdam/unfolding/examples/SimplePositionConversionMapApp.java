@@ -3,6 +3,7 @@ package de.fhpotsdam.unfolding.examples;
 import processing.core.PApplet;
 import codeanticode.glgraphics.GLConstants;
 import de.fhpotsdam.unfolding.UnfoldingMap;
+import de.fhpotsdam.unfolding.examples.marker.SimpleMarkerManagerApp;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.utils.MapUtils;
 import de.fhpotsdam.unfolding.utils.ScreenPosition;
@@ -11,6 +12,7 @@ import de.fhpotsdam.unfolding.utils.ScreenPosition;
  * Simple map app showing how to convert screen position to geo-location, and vice versa.
  * 
  * For automatic conversion from geo-location to screen, take a look at Unfolding's marker mechanism.
+ * Start at {@link SimpleMarkeApp} and {@link SimpleMarkerManagerApp}.
  */
 public class SimplePositionConversionMapApp extends PApplet {
 

@@ -1,4 +1,4 @@
-package de.fhpotsdam.unfolding.examples;
+package de.fhpotsdam.unfolding.examples.misc;
 
 import processing.core.PApplet;
 import codeanticode.glgraphics.GLConstants;
@@ -6,6 +6,12 @@ import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.utils.MapUtils;
 
+/**
+ * Animates smoothly between zoom levels or positions.
+ * 
+ * FIXME Does not work at the moment. Internal map tweening behavior needs to be fixed.
+ *
+ */
 public class TweenMap extends PApplet {
 
 	UnfoldingMap map;

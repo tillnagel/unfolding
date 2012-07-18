@@ -13,7 +13,7 @@ import de.fhpotsdam.unfolding.marker.SimplePolygonMarker;
 import de.fhpotsdam.unfolding.utils.MapUtils;
 
 /**
- * Shows two polygons for France and Corsica to demonstrate a multi marker. By clicking on one of the two areas the
+ * Shows two polygons for France and Corsica to demonstrate a multi marker. By hovering over one of the two areas the
  * whole MultiMarker gets selected, thus both areas are highlighted.
  * 
  * Set the boolean useMultiMarker to false to see the same areas as independent markers.
@@ -32,15 +32,13 @@ public class MultiMarkerApp extends PApplet {
 	public void setup() {
 		size(800, 600, GLConstants.GLGRAPHICS);
 
-		initPolygons();
-
 		map = new UnfoldingMap(this, "map");
 		map.zoomToLevel(4);
 		map.panTo(new Location(50f, 12f));
 		MapUtils.createDefaultEventDispatcher(this, map);
 
-		SimplePolygonMarker franceMarker = new SimplePolygonMarker(franceLocations);
-		SimplePolygonMarker corsicaMarker = new SimplePolygonMarker(corsicaLocations);
+		SimplePolygonMarker franceMarker = new SimplePolygonMarker(getFranceShapeLocations());
+		SimplePolygonMarker corsicaMarker = new SimplePolygonMarker(getCorsicaShapeLocations());
 
 		if (useMultiMarker) {
 			// Create and add as MultiMarker
@@ -62,16 +60,16 @@ public class MultiMarkerApp extends PApplet {
 		Marker hitMarker = map.getDefaultMarkerManager().getFirstHitMarker(mouseX, mouseY);
 		if (hitMarker != null) {
 			hitMarker.setSelected(true);
-		}
-		else {
+		} else {
 			for (Marker marker : map.getDefaultMarkerManager().getMarkers()) {
 				marker.setSelected(false);
 			}
 		}
 	}
 
-	private void initPolygons() {
+	public static List<Location> getFranceShapeLocations() {
 		// Crude shape of France
+		List<Location> franceLocations = new ArrayList<Location>();
 		franceLocations.add(new Location(48.985985f, 8.173828f));
 		franceLocations.add(new Location(51.074539f, 2.460938f));
 		franceLocations.add(new Location(49.33085f, -0.043945f));
@@ -83,12 +81,17 @@ public class MultiMarkerApp extends PApplet {
 		franceLocations.add(new Location(43.075308f, 6.28418f));
 		franceLocations.add(new Location(43.935879f, 7.734375f));
 		franceLocations.add(new Location(46.534681f, 6.064453f));
+		return franceLocations;
+	}
 
+	public static List<Location> getCorsicaShapeLocations() {
 		// Crude shape of Corsica
+		List<Location> corsicaLocations = new ArrayList<Location>();
 		corsicaLocations.add(new Location(41.380106f, 9.162598f));
 		corsicaLocations.add(new Location(42.231771f, 8.547363f));
 		corsicaLocations.add(new Location(42.991791f, 9.404297f));
 		corsicaLocations.add(new Location(42.052556f, 9.558105f));
+		return corsicaLocations;
 	}
 
 }

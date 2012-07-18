@@ -11,6 +11,8 @@ import de.fhpotsdam.unfolding.utils.MapUtils;
  * Animates a map from one position to another.
  * 
  * Uses very simple own animation counter. For smoother animations use some tweening library.
+ * 
+ * Press SPACE to toggle the animation.
  */
 public class SimpleAnimatedMapApp extends PApplet {
 
@@ -19,13 +21,13 @@ public class SimpleAnimatedMapApp extends PApplet {
 	// Berlin
 	Location startLocation = new Location(52.5f, 13.4f);
 
-	// London
-	Location endLocation = new Location(51.50939f, 0f);
+	// Hamburg
+	Location endLocation = new Location(53.6f, 10);
 
 	// Total distance between start and end locations.
 	float totalDist = 0;
 
-	// Angle between start and end locations.
+	// Angle between start and end locations. 
 	float angle;
 
 	Location tweenLocation;

@@ -1,4 +1,4 @@
-package de.fhpotsdam.unfolding.examples;
+package de.fhpotsdam.unfolding.examples.misc;
 
 import processing.core.PApplet;
 import codeanticode.glgraphics.GLConstants;
