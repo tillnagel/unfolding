@@ -1,4 +1,4 @@
-//package de.fhpotsdam.unfolding.examples.animation;
+//package de.fhpotsdam.unfolding.examples.extern.animation;
 //
 //import de.fhpotsdam.unfolding.Map;
 //import de.fhpotsdam.unfolding.geo.Location;
