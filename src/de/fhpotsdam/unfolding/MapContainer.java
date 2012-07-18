@@ -1,7 +1,7 @@
 package de.fhpotsdam.unfolding;
 
-import de.fhpotsdam.unfolding.providers.AbstractMapProvider;
 import processing.core.PApplet;
+import de.fhpotsdam.unfolding.providers.AbstractMapProvider;
 
 public class MapContainer extends UnfoldingMap {
 

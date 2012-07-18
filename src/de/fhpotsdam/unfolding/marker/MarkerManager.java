@@ -5,8 +5,6 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
-import processing.core.PApplet;
-
 import de.fhpotsdam.unfolding.UnfoldingMap;
 
 /**

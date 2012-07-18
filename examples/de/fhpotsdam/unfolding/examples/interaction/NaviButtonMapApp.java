@@ -2,17 +2,13 @@ package de.fhpotsdam.unfolding.examples.interaction;
 
 import org.apache.log4j.Logger;
 
-import codeanticode.glgraphics.GLConstants;
-
 import processing.core.PApplet;
-import processing.core.PFont;
+import codeanticode.glgraphics.GLConstants;
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.events.EventDispatcher;
 import de.fhpotsdam.unfolding.events.PanMapEvent;
 import de.fhpotsdam.unfolding.events.ZoomMapEvent;
 import de.fhpotsdam.unfolding.geo.Location;
-import de.fhpotsdam.unfolding.interactions.KeyboardHandler;
-import de.fhpotsdam.unfolding.interactions.MouseHandler;
 import de.fhpotsdam.unfolding.utils.DebugDisplay;
 import de.fhpotsdam.unfolding.utils.MapUtils;
 

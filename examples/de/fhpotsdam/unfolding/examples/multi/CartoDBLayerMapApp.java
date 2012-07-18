@@ -4,13 +4,13 @@
  */
 package de.fhpotsdam.unfolding.examples.multi;
 
+import processing.core.PApplet;
 import codeanticode.glgraphics.GLConstants;
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.providers.AbstractMapProvider;
 import de.fhpotsdam.unfolding.providers.CartoDBProvider;
 import de.fhpotsdam.unfolding.providers.Microsoft;
 import de.fhpotsdam.unfolding.utils.MapUtils;
-import processing.core.PApplet;
 
 /**
  *

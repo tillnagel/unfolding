@@ -2,14 +2,11 @@ package de.fhpotsdam.unfolding.ui;
 
 import javax.media.opengl.GL;
 
+import processing.core.PApplet;
+import processing.opengl.PGraphicsOpenGL;
 import codeanticode.glgraphics.GLGraphicsOffScreen;
 import codeanticode.glgraphics.GLTexture;
-import de.fhpotsdam.unfolding.Map;
 import de.fhpotsdam.unfolding.mapdisplay.AbstractMapDisplay;
-import processing.core.PApplet;
-import processing.core.PFont;
-import processing.core.PImage;
-import processing.opengl.PGraphicsOpenGL;
 
 public class MaskUI {
 	
