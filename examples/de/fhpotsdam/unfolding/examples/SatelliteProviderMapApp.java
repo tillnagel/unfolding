@@ -14,9 +14,9 @@ public class SatelliteProviderMapApp extends PApplet {
 	UnfoldingMap map;
 
 	public void setup() {
-		size(400, 400, GLConstants.GLGRAPHICS);
-		// use MS ArialProvider
+		size(800, 600, GLConstants.GLGRAPHICS);
 		map = new UnfoldingMap(this, new Microsoft.AerialProvider());
+		map.zoomToLevel(3);
 		MapUtils.createDefaultEventDispatcher(this, map);
 	}
 
@@ -26,7 +26,6 @@ public class SatelliteProviderMapApp extends PApplet {
 	}
 
 	public static void main(String[] args) {
-		// Here we start the actual Unfolding part
 		PApplet.main(new String[] { "de.fhpotsdam.unfolding.examples.SatelliteProviderMapApp" });
 	}
 }

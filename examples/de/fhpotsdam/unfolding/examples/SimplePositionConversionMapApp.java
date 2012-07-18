@@ -9,6 +9,8 @@ import de.fhpotsdam.unfolding.utils.ScreenPosition;
 
 /**
  * Simple map app showing how to convert screen position to geo-location, and vice versa.
+ * 
+ * For automatic conversion from geo-location to screen, take a look at Unfolding's marker mechanism.
  */
 public class SimplePositionConversionMapApp extends PApplet {
 
@@ -25,8 +27,7 @@ public class SimplePositionConversionMapApp extends PApplet {
 		map.draw();
 
 		fill(215, 0, 0, 100);
-
-		// Shows geo-location at mouse position
+		// Shows latitude,longitude at mouse position
 		Location location = map.getLocation(mouseX, mouseY);
 		text("geo:" + location.toString(), mouseX, mouseY);
 
@@ -40,7 +41,6 @@ public class SimplePositionConversionMapApp extends PApplet {
 	}
 
 	public static void main(String[] args) {
-		// Here we start the actual Unfolding part
 		PApplet.main(new String[] { "de.fhpotsdam.unfolding.examples.SimplePositionConversionMapApp" });
 	}
 }
