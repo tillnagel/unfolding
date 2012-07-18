@@ -1,0 +1,6 @@
+This folder contains the JavaDoc of unfolding.
+
+Use the ant target 'docs2ghpages' to copy the javadoc here.
+Do not do it manually.
+
+(See build.xml for more.)
