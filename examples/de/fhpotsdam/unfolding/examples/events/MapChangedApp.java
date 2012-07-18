@@ -12,7 +12,7 @@ import de.fhpotsdam.unfolding.utils.ScreenPosition;
 /**
  * Simple way of reacting to map events in an application.
  * 
- * Listen to any events in the mapChanged() method. In this example, a simple zoom animation is shown.
+ * Listen to events in the mapChanged() method. In this example, a simple zoom animation is shown.
  */
 public class MapChangedApp extends PApplet {
 
@@ -30,7 +30,9 @@ public class MapChangedApp extends PApplet {
 
 	public void draw() {
 		map.draw();
+		
 		if (lastZoomLocation != null) {
+			// Animates a rectangle to indicate where the zoom happened
 			ScreenPosition pos = map.getScreenPosition(lastZoomLocation);
 			noFill();
 			stroke(255, 0, 0, 200);
@@ -45,6 +47,7 @@ public class MapChangedApp extends PApplet {
 
 	public void mapChanged(MapEvent mapEvent) {
 		if (mapEvent.getType().equals(ZoomMapEvent.TYPE_ZOOM)) {
+			// Reacts to zoom events and reads location and zoom value.
 			ZoomMapEvent zoomMapEvent = (ZoomMapEvent) mapEvent;
 			lastZoomLocation = zoomMapEvent.getCenter();
 			if (zoomMapEvent.getZoomLevelDelta() < 0 || zoomMapEvent.getZoomDelta() < 0) {
