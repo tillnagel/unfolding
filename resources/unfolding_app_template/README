@@ -1,24 +1,27 @@
 unfolding_app_template
 ======================
 
-This is a skeleton for how to use unfolding in eclipse.  You only need to
-import ('File -> Import -> Existing Projects into Workspace', select this
-folder, 'Finish') this folder in eclipse and everything should work.
+This is a skeleton to use Unfolding in Eclipse.
 
-A few unfolding demos are included as well.
-
+A very basic Unfolding demo you'll find in the source folder. For more
+examples visit http://unfoldingmaps.org, or download the template with
+examples.
 
 Get excited and make things!
 
 
+INSTALLATION
 
+Import this folder in Eclipse ('File' -> 'Import' -> 'Existing Projects into
+Workspace', Select this folder, 'Finish')
+
+Set the native libraries for your OS ('Configure Build Path' > 'Libraries' > Set 'native library location' of jogl.jar).
 
 
 MANUAL INSTALLATION
 
 If the import does not work follow the steps below.
 
-Eclipse
 - Create new Java project
 - Copy+Paste all files into project
 - Add all lib/*.jars to build path
