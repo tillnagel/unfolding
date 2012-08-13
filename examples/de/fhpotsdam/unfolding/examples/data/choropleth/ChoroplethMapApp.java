@@ -41,10 +41,12 @@ public class ChoroplethMapApp extends PApplet {
 		dataEntriesMap = loadPopulationDensityFromCSV("countries-population-density.csv");
 		println("Loaded " + dataEntriesMap.size() + " data entries");
 		shadeCountries();
+		
+		map.setBackgroundColor(240);
 	}
 
 	public void draw() {
-		background(160);
+		background(240);
 		map.draw();
 	}
 

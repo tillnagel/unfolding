@@ -61,6 +61,10 @@ public class MapBox {
 	
 	/** Example for local TileMill usage, for testing purposes. For actual usage tiles should be exported. */
 	public static class PlainUSAProvider extends MapBoxProvider {
+		
+		// TODO Use new TileMill app
+		//http://localhost:20008/tile/border-bumps/{z}/{x}/{y}.png?updated=' + new Date().getTime()
+		
 		public String[] getTileUrls(Coordinate coordinate) {
 			String url = "http://localhost:8889/1.0.0/plain-usa/"
 					+ getZoomString(coordinate) + ".png";

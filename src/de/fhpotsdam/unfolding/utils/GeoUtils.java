@@ -112,4 +112,6 @@ public class GeoUtils {
 		}
 		return new Location(lat, lon);
 	}
+	
+	
 }
