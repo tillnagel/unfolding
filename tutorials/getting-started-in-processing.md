@@ -59,4 +59,4 @@ Once you’ve done this you can begin to draw the map and run the sketch.
 You should get something like this.  
 
 
-![Hello World](/assets/images/tutorials/helloworld.png)
+![Hello World](../assets/images/tutorials/helloworld.png)
