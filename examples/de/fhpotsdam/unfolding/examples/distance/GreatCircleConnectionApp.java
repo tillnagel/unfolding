@@ -4,6 +4,7 @@ import processing.core.PApplet;
 import codeanticode.glgraphics.GLConstants;
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.geo.Location;
+import de.fhpotsdam.unfolding.providers.OpenStreetMap;
 import de.fhpotsdam.unfolding.utils.GeoUtils;
 import de.fhpotsdam.unfolding.utils.MapUtils;
 import de.fhpotsdam.unfolding.utils.ScreenPosition;
@@ -73,6 +74,6 @@ public class GreatCircleConnectionApp extends PApplet {
 
 	public static void main(String[] args) {
 		// Here we start the actual Unfolding part
-		PApplet.main(new String[] { "de.fhpotsdam.unfolding.examples.GreatCircleConnectionApp" });
+		PApplet.main(new String[] { "de.fhpotsdam.unfolding.examples.distance.GreatCircleConnectionApp" });
 	}
 }
