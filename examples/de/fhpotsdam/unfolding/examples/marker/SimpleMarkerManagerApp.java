@@ -6,6 +6,7 @@ import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.marker.SimpleLinesMarker;
 import de.fhpotsdam.unfolding.marker.SimplePointMarker;
+import de.fhpotsdam.unfolding.providers.Google;
 import de.fhpotsdam.unfolding.utils.MapUtils;
 
 /**
@@ -13,35 +14,40 @@ import de.fhpotsdam.unfolding.utils.MapUtils;
  * 
  * Managing and drawing the markers is handled internally, with all markers cut-off at the border of the map.
  * Unfolding's simple marker (SimpleMarker, SimpleLinesMarker, and SimplePolygonMarker) provide some styling
- * functionality. For more customization you need to create your own Marker classes.
+ * functionality. For more customization you need to create your own Marker classes (TODO link/ref to extended marker examples).
  */
+@SuppressWarnings("serial")
 public class SimpleMarkerManagerApp extends PApplet {
 
 	UnfoldingMap map;
 
-	Location berlinLocation = new Location(52.5f, 13.4f);
-	Location mexicoCityLocation = new Location(19.4f, -99.1f);
-
 	public void setup() {
 		size(800, 600, GLConstants.GLGRAPHICS);
 
-		map = new UnfoldingMap(this, 50, 50, 700, 500);
+		map = new UnfoldingMap(this, new Google.GoogleMapProvider());
 
 		map.zoomToLevel(3);
 		map.panTo(new Location(40f, -42f));
 		MapUtils.createDefaultEventDispatcher(this, map);
 
-		SimplePointMarker berlinMarker = new SimplePointMarker(berlinLocation);
+		// Create Markers from Locations
+		Location berlinLocation = new Location(52.5f, 13.4f);
+		Location mexicoCityLocation = new Location(19.4f, -99.1f);
 
-		
+		// Point Markers
+		SimplePointMarker berlinMarker = new SimplePointMarker(berlinLocation);
 		SimplePointMarker mexicoCityMarker = new SimplePointMarker(mexicoCityLocation);
-		
+		// Line Marker
 		SimpleLinesMarker connectionMarker = new SimpleLinesMarker(berlinLocation, mexicoCityLocation);
+
+		// Add Markers to the maps default MarkerManager
 		map.addMarkers(berlinMarker, mexicoCityMarker, connectionMarker);
 	}
 
 	public void draw() {
 		background(240);
+
+		// drawing the markers in handled internally
 		map.draw();
 	}
 

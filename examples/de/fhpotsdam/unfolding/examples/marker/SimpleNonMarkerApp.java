@@ -14,6 +14,7 @@ import de.fhpotsdam.unfolding.utils.ScreenPosition;
  * Note, that this simple mechanism only works for full-sized maps (i.e. the markers are shown off-map, too). For usage
  * of MarkerManager look into other examples, e.g. {@link SimpleMarkerManagerApp}.
  */
+@SuppressWarnings("serial")
 public class SimpleNonMarkerApp extends PApplet {
 
 	UnfoldingMap map;

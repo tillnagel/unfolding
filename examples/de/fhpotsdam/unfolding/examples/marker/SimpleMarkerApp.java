@@ -11,9 +11,10 @@ import de.fhpotsdam.unfolding.utils.ScreenPosition;
 /**
  * Simple marker display, without the use of MarkerManager.
  * 
- * Conversion between geo-location and screen position is done via the marker, but drawing the markers is done by this
- * application itself. Easiest way of drawing own styled markers.
+ * Conversion between geo-location and screen position is done via the marker,
+ * but drawing the markers is done by this application itself.
  * 
+ * Easiest way of drawing own styled markers.
  */
 @SuppressWarnings("serial")
 public class SimpleMarkerApp extends PApplet {
@@ -32,8 +33,12 @@ public class SimpleMarkerApp extends PApplet {
 		map.panTo(new Location(40f, 8f));
 		MapUtils.createDefaultEventDispatcher(this, map);
 
-		markerBerlin = new SimplePointMarker(new Location(52.5f, 13.4f));
-		markerLondon = new SimplePointMarker(new Location(51.5f, 0f));
+		// Create Markers from Locations
+		Location locationBerlin = new Location(52.5f, 13.4f);
+		Location locationLondon = new Location(51.5f, 0f);
+
+		markerBerlin = new SimplePointMarker(locationBerlin);
+		markerLondon = new SimplePointMarker(locationLondon);
 	}
 
 	public void draw() {
