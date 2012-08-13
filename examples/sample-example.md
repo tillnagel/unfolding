@@ -5,7 +5,7 @@ description: "This is just a sample item for an example"
 group: "examples"
 author: "Arno Nym"
 thumbnail: "http://placehold.it/330x250"
-finalfiles: "#someurlatgithub"
+gh_link: "https://github.com/tillnagel/unfolding/blob/develop/examples/de/fhpotsdam/unfolding/examples/SimpleMapApp.java"
 finalimage: "http://placehold.it/610x390&text=Bild+2+610x390"
 ---
 
