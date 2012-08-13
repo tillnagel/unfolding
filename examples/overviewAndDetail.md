@@ -3,21 +3,20 @@ layout: "page"
 title: "Example: Overview + Detail"
 description: "Simple overview and a detail map"
 group: "examples"
-thumbnail: "/assets/images/examples/overviewDetail1.jpg"
-finalfiles: "#someurlatgithub"
+thumbnail: "../assets/images/examples/overviewDetail1.jpg"
+gh_link: "https://github.com/tillnagel/unfolding/blob/develop/examples/de/fhpotsdam/unfolding/examples/overviewdetail/OverviewAndDetailMapApp.java"
 
 ---
 
 {% include JB/setup %}
 
 Two maps are shown side by side: The overview is a small-scale map, and shows the same area as the large-scale detail map.
-Both maps are interactive, and can be navigated. Each interaction is reflected in both maps. This Overview + Detail example shows how to setup simple connected map views.
+Both maps are interactive, and can be navigated. Each interaction is reflected in both maps.
 
-![Overview + Detail Screenshot](../assets/images/examples/overviewDetail1.jpg)
+This Overview + Detail example shows how to setup simple connected map views.
 
+![Overview + Detail](../assets/images/examples/overviewDetail1.jpg)
 
-
-###### in **examples/overviewdetail/OverviewAndDetailMapApp.java**
 	public class OverviewAndDetailMapApp extends PApplet {
 		
 		UnfoldingMap mapDetail;
