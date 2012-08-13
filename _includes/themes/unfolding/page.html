@@ -56,11 +56,10 @@
           {% endif %}
         {% endif %}
         {% if page.group == "examples" %}
-          {% if page.finalfiles != null %}
+          {% if page.gh_link != null %}
             <div class="download-box">
-              <h3>Download Example Files </h3>
-              <p>Download all Files for the "{{ page.title }}" example as processing sketch.</p>
-              <p><a href="{{page.finalfiles}}" class="btn "><i class="icon-download"> </i> Download Tutorial Files</a></p>
+              <h3>Show Source</h3>
+              <p><a href="{{page.gh_link}}" class="btn "><i class="icon-file"> </i> source on github</a></p>
             </div>
           {% endif %}
         {% endif %}
