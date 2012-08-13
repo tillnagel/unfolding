@@ -1,4 +1,4 @@
-package de.fhpotsdam.unfolding.examples.marker.compare;
+package de.fhpotsdam.tests.marker.compare;
 
 import java.util.List;
 
