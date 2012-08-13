@@ -47,7 +47,7 @@ public class SimpleMarkerManagerApp extends PApplet {
 	public void draw() {
 		background(240);
 
-		// drawing the markers in handled internally
+		// Drawing Markers in handled internally
 		map.draw();
 	}
 

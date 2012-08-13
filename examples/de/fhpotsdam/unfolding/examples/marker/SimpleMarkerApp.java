@@ -46,7 +46,7 @@ public class SimpleMarkerApp extends PApplet {
 
 		map.draw();
 
-		// Draws locations on screen positions according to their geo-locations.
+		// Draws Markers on screen positions according to their geo-locations.
 
 		// Fixed-size marker
 		ScreenPosition posBerlin = markerBerlin.getScreenPosition(map);
