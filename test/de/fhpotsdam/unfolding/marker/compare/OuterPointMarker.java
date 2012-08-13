@@ -1,4 +1,4 @@
-package de.fhpotsdam.tests.marker.compare;
+package de.fhpotsdam.unfolding.marker.compare;
 
 import processing.core.PGraphics;
 import de.fhpotsdam.unfolding.geo.Location;
