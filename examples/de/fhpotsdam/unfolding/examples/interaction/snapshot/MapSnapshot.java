@@ -11,7 +11,7 @@ public class MapSnapshot {
 
 	private static final float THUMBNAIL_SCALE = 0.2f;
 
-	private PApplet p;
+	protected PApplet p;
 
 	/** Stored map location. */
 	public Location location;

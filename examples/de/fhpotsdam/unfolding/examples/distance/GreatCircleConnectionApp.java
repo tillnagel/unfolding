@@ -36,7 +36,8 @@ public class GreatCircleConnectionApp extends PApplet {
 	public void draw() {
 		background(0);
 		map.draw();
-
+		
+		noStroke();
 		fill(0, 0, 255);
 		ScreenPosition sourcePos = map.getScreenPosition(targetLocation);
 		ellipse(sourcePos.x, sourcePos.y, 10, 10);
@@ -49,7 +50,7 @@ public class GreatCircleConnectionApp extends PApplet {
 		double dist = GeoUtils.getDistance(targetLocation, sourceLocation);
 
 		noFill();
-		strokeWeight(2);
+		strokeWeight(4);
 		stroke(0, 100);
 		beginShape();
 		for (float d = 0; d < dist; d += 100) {

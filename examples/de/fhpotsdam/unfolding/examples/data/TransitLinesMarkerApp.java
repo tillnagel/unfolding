@@ -12,6 +12,7 @@ import de.fhpotsdam.unfolding.data.ShapeFeature;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.marker.Marker;
 import de.fhpotsdam.unfolding.marker.SimpleLinesMarker;
+import de.fhpotsdam.unfolding.providers.StamenMapProvider;
 import de.fhpotsdam.unfolding.utils.MapUtils;
 
 /**
@@ -30,7 +31,7 @@ public class TransitLinesMarkerApp extends PApplet {
 		size(800, 600, GLConstants.GLGRAPHICS);
 		smooth();
 
-		map = new UnfoldingMap(this);
+		map = new UnfoldingMap(this, new StamenMapProvider.TonerBackground());
 		map.zoomToLevel(11);
 		map.panTo(bostonLocation);
 		map.setZoomRange(9, 17); // prevent zooming too far out
@@ -64,7 +65,7 @@ public class TransitLinesMarkerApp extends PApplet {
 				color = color(238, 137, 40);
 			}
 			m.setColor(color);
-			m.setStrokeWeight(2);
+			m.setStrokeWeight(5);
 			transitMarkers.add(m);
 		}
 
