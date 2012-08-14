@@ -7,11 +7,11 @@ import de.fhpotsdam.unfolding.events.EventDispatcher;
 import de.fhpotsdam.unfolding.interactions.MouseHandler;
 
 /**
- * Two maps are shown: An overview, and a detail map. The overview is a small-scale map, and
- * shows the same area as the large-scale detail map.
+ * Shows an overview, and a detail map. The overview is a small-scale map, and shows the same area as the
+ * large-scale detail map.
  * 
- * Both maps are interactive, and can be navigated. Each interaction is reflected in both maps. This
- * Overview + Detail example shows how to setup simple connected map views.
+ * Both maps are interactive, and can be navigated. Each interaction is reflected in both maps. This Overview + Detail
+ * example shows how to setup simple connected map views.
  * 
  */
 public class OverviewAndDetailMapApp extends PApplet {
@@ -23,6 +23,7 @@ public class OverviewAndDetailMapApp extends PApplet {
 		size(800, 600, GLConstants.GLGRAPHICS);
 
 		mapDetail = new UnfoldingMap(this, "detail", 10, 10, 585, 580);
+		mapDetail.zoomToLevel(4);
 		mapOverview = new UnfoldingMap(this, "overview", 605, 10, 185, 185);
 
 		EventDispatcher eventDispatcher = new EventDispatcher();

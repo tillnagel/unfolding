@@ -3,20 +3,19 @@ package de.fhpotsdam.unfolding.examples.overviewdetail;
 import processing.core.PApplet;
 import codeanticode.glgraphics.GLConstants;
 import de.fhpotsdam.unfolding.UnfoldingMap;
-import de.fhpotsdam.unfolding.events.EventDispatcher;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.utils.MapUtils;
 import de.fhpotsdam.unfolding.utils.ScreenPosition;
 
 /**
- * Two maps are shown: One navigable overview maps, and one navigable detail map. The area in the
- * detail map is shown as viewport (finder rectangle) in the overview maps.
+ * Shows an navigable detail map, and a static overview map with a viewport. The area in the detail map is shown as
+ * finder rectangle (aka viewport) in the overview map. The finder can be dragged around.
  * 
- * This Overview + Detail example shows how to use custom interaction without relying on Unfolding's
- * internal event mechanism.
+ * This Overview + Detail example shows how to use custom interaction without relying on Unfolding's internal event
+ * mechanism.
  */
 public class OverviewAndDetailWithViewportApp extends PApplet {
-	
+
 	// Big map showing a detailed area
 	UnfoldingMap mapDetail;
 
@@ -33,7 +32,7 @@ public class OverviewAndDetailWithViewportApp extends PApplet {
 		mapDetail = new UnfoldingMap(this, "detail", 10, 10, 585, 580);
 		mapDetail.zoomToLevel(4);
 		mapDetail.setZoomRange(4, 10);
-		EventDispatcher eventDispatcher = MapUtils.createDefaultEventDispatcher(this, mapDetail);
+		MapUtils.createDefaultEventDispatcher(this, mapDetail);
 
 		// Static overview map
 		mapOverviewStatic = new UnfoldingMap(this, "overviewStatic", 605, 10, 185, 185);
@@ -48,16 +47,16 @@ public class OverviewAndDetailWithViewportApp extends PApplet {
 		mapOverviewStatic.draw();
 
 		// Viewport is updated by the actual area of the detail map
-		ScreenPosition tl = mapOverviewStatic.mapDisplay.getScreenPosition(mapDetail.getTopLeftBorder());
-		ScreenPosition br = mapOverviewStatic.mapDisplay.getScreenPosition(mapDetail.getBottomRightBorder());
+		ScreenPosition tl = mapOverviewStatic.getScreenPosition(mapDetail.getTopLeftBorder());
+		ScreenPosition br = mapOverviewStatic.getScreenPosition(mapDetail.getBottomRightBorder());
 		viewportRect.setDimension(tl, br);
 		viewportRect.draw();
 	}
 
-	public void panDetailMap() {
+	public void panViewportOnDetailMap() {
 		float x = viewportRect.x + viewportRect.w / 2;
 		float y = viewportRect.y + viewportRect.h / 2;
-		Location newLocation = mapOverviewStatic.mapDisplay.getLocationFromScreenPosition(x, y);
+		Location newLocation = mapOverviewStatic.mapDisplay.getLocation(x, y);
 		mapDetail.panTo(newLocation);
 	}
 
@@ -81,7 +80,7 @@ public class OverviewAndDetailWithViewportApp extends PApplet {
 
 		public void draw() {
 			noFill();
-			stroke(30, 30, 255, 140);
+			stroke(251, 114, 0, 240);
 			rect(x, y, w, h);
 		}
 
@@ -107,7 +106,7 @@ public class OverviewAndDetailWithViewportApp extends PApplet {
 			viewportRect.x = mouseX - oldX;
 			viewportRect.y = mouseY - oldY;
 
-			panDetailMap();
+			panViewportOnDetailMap();
 		}
 	}
 

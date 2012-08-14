@@ -24,8 +24,6 @@ public class PanConstrainedMapApp extends PApplet {
 		MapUtils.createDefaultEventDispatcher(this, map);
 	}
 
-	boolean first = true;
-
 	public void draw() {
 		background(0);
 		map.draw();

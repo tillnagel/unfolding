@@ -1,4 +1,4 @@
-package de.fhpotsdam.unfolding.examples.interaction;
+package de.fhpotsdam.unfolding.examples.interaction.snapshot;
 
 import java.util.ArrayList;
 import java.util.List;

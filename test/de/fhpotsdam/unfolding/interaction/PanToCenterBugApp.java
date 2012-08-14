@@ -1,4 +1,4 @@
-package de.fhpotsdam.unfolding.examples.interaction;
+package de.fhpotsdam.unfolding.interaction;
 
 import org.apache.log4j.Logger;
 

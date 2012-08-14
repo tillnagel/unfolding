@@ -8,8 +8,10 @@ import de.fhpotsdam.unfolding.utils.MapUtils;
 import de.fhpotsdam.unfolding.utils.ScreenPosition;
 
 /**
- * Three maps are shown: Two overview maps, and one navigable detail map. The currently selected
- * area in the detail map is shown as finder rectangle in the overview maps.
+ * Three maps are shown: One large navigable detail map, and two overview maps. The currently selected area in the
+ * detail map is shown as finder rectangle in the overview maps. One overview map always shows the whole world, with its
+ * finder rectangle changing size on zoom. The other overview map shows the same view in another zoom level, with its
+ * finder rectangle keeping its size.
  * 
  * This Overview + Detail example shows how to setup connected map views.
  */
@@ -48,20 +50,20 @@ public class OverviewAndDetailFinderBoxMapApp extends PApplet {
 		mapOverview.draw();
 		mapOverviewStatic.draw();
 
-		// Finder box for overview map
-		ScreenPosition tl1 = mapOverview.mapDisplay.getScreenPosition(mapDetail.getTopLeftBorder());
-		ScreenPosition br1 = mapOverview.mapDisplay.getScreenPosition(mapDetail.getBottomRightBorder());
+		// Finder box for overview map 3 levels zoomed in
+		ScreenPosition tl1 = mapOverview.getScreenPosition(mapDetail.getTopLeftBorder());
+		ScreenPosition br1 = mapOverview.getScreenPosition(mapDetail.getBottomRightBorder());
 		drawDetailSelectionBox(tl1, br1);
 
 		// Finder box for static overview map
-		ScreenPosition tl2 = mapOverviewStatic.mapDisplay.getScreenPosition(mapDetail.getTopLeftBorder());
-		ScreenPosition br2 = mapOverviewStatic.mapDisplay.getScreenPosition(mapDetail.getBottomRightBorder());
+		ScreenPosition tl2 = mapOverviewStatic.getScreenPosition(mapDetail.getTopLeftBorder());
+		ScreenPosition br2 = mapOverviewStatic.getScreenPosition(mapDetail.getBottomRightBorder());
 		drawDetailSelectionBox(tl2, br2);
 	}
 
 	public void drawDetailSelectionBox(ScreenPosition tl, ScreenPosition br) {
 		noFill();
-		stroke(30, 30, 255, 140);
+		stroke(251, 114, 0, 240);
 		float w = br.x - tl.x;
 		float h = br.y - tl.y;
 		rect(tl.x, tl.y, w, h);
