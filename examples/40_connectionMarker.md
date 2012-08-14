@@ -16,7 +16,7 @@ If they are neighbors a connection is shown.
 ![Connection Marker](../assets/images/examples/overviewDetail1.jpg)
 
 
-###### in **examples/marker/connectionmarker/NeighborMarkersApp.java*c 
+###### in **examples/marker/connectionmarker/NeighborMarkersApp.java**
 
 	public class NeighborMarkersApp extends PApplet {
 	

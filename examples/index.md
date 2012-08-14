@@ -1,7 +1,7 @@
 ---
 layout: page
 title: "Examples"
-description: "This site will contain the tutorials"
+description: "Unfolding examples showing various features, and API usage."
 ---
 {% include JB/setup %}
 
