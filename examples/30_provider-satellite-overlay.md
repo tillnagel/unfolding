@@ -4,7 +4,7 @@ title: "Example: Overlay map"
 description: "Shows a small satellite map laid over a background map"
 group: "examples"
 thumbnail: "../assets/images/examples/satellite-overlay-thumb.jpg"
-gh_link: "https://github.com/tillnagel/unfolding/blob/develop/examples/de/fhpotsdam/unfolding/examples/data/choropleth/ChoroplethMapApp.java"
+gh_link: "https://github.com/tillnagel/unfolding/blob/develop/examples/de/fhpotsdam/unfolding/examples/multi/overlay/SatelliteOverlayApp.java"
 
 ---
 
