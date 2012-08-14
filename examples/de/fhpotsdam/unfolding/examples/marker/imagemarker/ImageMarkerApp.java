@@ -6,18 +6,28 @@ import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.utils.MapUtils;
 
+/**
+ * Demonstrates how to use ImageMarkers with different icons.
+ */
 public class ImageMarkerApp extends PApplet {
 
 	Location berlinLocation = new Location(52.5f, 13.4f);
+	Location veniceLocation = new Location(45.44f, 12.34f);
+	Location lisbonLocation = new Location(38.71f, -9.14f);
+
 	UnfoldingMap map;
 
 	public void setup() {
 		size(800, 600, GLConstants.GLGRAPHICS);
 
 		map = new UnfoldingMap(this);
+		map.zoomAndPanTo(new Location(50.26f, 12.1f), 4);
 		MapUtils.createDefaultEventDispatcher(this, map);
-		ImageMarker imgMarker = new ImageMarker(berlinLocation, loadImage("marker_red.png"));
-		map.addMarkers(imgMarker);
+
+		ImageMarker imgMarker1 = new ImageMarker(lisbonLocation, loadImage("marker_red.png"));
+		ImageMarker imgMarker2 = new ImageMarker(veniceLocation, loadImage("marker_red.png"));
+		ImageMarker imgMarker3 = new ImageMarker(berlinLocation, loadImage("marker_gray.png"));
+		map.addMarkers(imgMarker1, imgMarker2, imgMarker3);
 	}
 
 	public void draw() {

@@ -35,7 +35,7 @@ public class ChoroplethMapApp extends PApplet {
 		map.zoomToLevel(2);
 		map.setBackgroundColor(240);
 		MapUtils.createDefaultEventDispatcher(this, map);
-		
+
 		// Load country polygons and adds them as markers
 		List<Feature> countries = GeoJSONReader.loadData(this, "countries.geo.json");
 		countryMarkers = MapUtils.createSimpleMarkers(countries);
@@ -44,15 +44,15 @@ public class ChoroplethMapApp extends PApplet {
 		// Load population data
 		dataEntriesMap = loadPopulationDensityFromCSV("countries-population-density.csv");
 		println("Loaded " + dataEntriesMap.size() + " data entries");
-		
+
 		// Country markers are shaded according to its population density (only once)
 		shadeCountries();
 	}
 
 	public void draw() {
 		background(240);
-		
-		// Draw map tiles and country markers 
+
+		// Draw map tiles and country markers
 		map.draw();
 	}
 
@@ -72,7 +72,7 @@ public class ChoroplethMapApp extends PApplet {
 			}
 		}
 	}
-	
+
 	public HashMap<String, DataEntry> loadPopulationDensityFromCSV(String fileName) {
 		HashMap<String, DataEntry> dataEntriesMap = new HashMap<String, DataEntry>();
 

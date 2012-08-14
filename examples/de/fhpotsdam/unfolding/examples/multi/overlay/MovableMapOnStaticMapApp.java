@@ -1,4 +1,4 @@
-package de.fhpotsdam.unfolding.examples.overviewdetail;
+package de.fhpotsdam.unfolding.examples.multi.overlay;
 
 import processing.core.PApplet;
 import codeanticode.glgraphics.GLConstants;
@@ -6,12 +6,10 @@ import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.geo.Location;
 
 /**
- * A loupe on a map. The loupe, a small movable map, always updates its view according to its
- * position on the large background map.
- * 
- * @author tillnagel
+ * A loupe on a map. The loupe, a small movable map, always updates its view according to its position on the large
+ * background map.
  */
-public class MovableMapOnStaticMap extends PApplet {
+public class MovableMapOnStaticMapApp extends PApplet {
 
 	UnfoldingMap mapStatic;
 	UnfoldingMap mapZoom;
@@ -20,9 +18,9 @@ public class MovableMapOnStaticMap extends PApplet {
 	float mapZoomY = 100;
 
 	public void setup() {
-		size(800, 600, GLConstants.GLGRAPHICS);
+		size(750, 600, GLConstants.GLGRAPHICS);
 
-		mapStatic = new UnfoldingMap(this, "static", 0, 0, 800, 600);
+		mapStatic = new UnfoldingMap(this, "static", 0, 0, 750, 600);
 		mapZoom = new UnfoldingMap(this, "zoom", 400, 300, 150, 150);
 		mapZoom.setTweening(false);
 		mapZoom.zoomToLevel(6);
@@ -48,8 +46,7 @@ public class MovableMapOnStaticMap extends PApplet {
 		mapZoom.move(mapZoomX, mapZoomY);
 
 		// Read geo location of the mouse position from the background map
-		Location locationOnStaticMap = mapStatic.mapDisplay.getLocationFromScreenPosition(mouseX,
-				mouseY);
+		Location locationOnStaticMap = mapStatic.getLocation(mouseX, mouseY);
 		// Pan the small map toward that location
 		mapZoom.panTo(locationOnStaticMap);
 	}

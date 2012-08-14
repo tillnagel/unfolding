@@ -6,6 +6,9 @@ import processing.core.PImage;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.marker.AbstractMarker;
 
+/**
+ * This marker displays an image at its location.
+ */
 public class ImageMarker extends AbstractMarker {
 
 	PImage img;

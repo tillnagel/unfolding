@@ -3,6 +3,7 @@ package de.fhpotsdam.unfolding.examples.multi;
 import processing.core.PApplet;
 import codeanticode.glgraphics.GLConstants;
 import de.fhpotsdam.unfolding.UnfoldingMap;
+import de.fhpotsdam.unfolding.utils.MapUtils;
 
 /**
  * Shows two independent maps.
@@ -19,6 +20,7 @@ public class SimpleMultiMapApp extends PApplet {
 
 		map1 = new UnfoldingMap(this, "map1", 0, 0, 500, 290);
 		map2 = new UnfoldingMap(this, "map2", 0, 300, 500, 290);
+		//MapUtils.createDefaultEventDispatcher(this, map1, map2);
 	}
 
 	public void draw() {
