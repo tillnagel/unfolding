@@ -225,6 +225,11 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 	@Deprecated
 	@Override
 	public Location getLocationFromScreenPosition(float x, float y) {
+		return getLocation(x, y);
+	}
+
+	@Override
+	public Location getLocation(float x, float y) {
 		synchronized (this) {
 			float innerObjectXY[] = getInnerObjectFromScreenPosition(x, y);
 			return getLocationFromInnerObjectPosition(innerObjectXY[0], innerObjectXY[1]);
@@ -291,7 +296,7 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 	 */
 	protected void postDraw() {
 
-		// Draws all markers 
+		// Draws all markers
 		for (MarkerManager<Marker> mm : markerManagerList) {
 			mm.draw();
 		}

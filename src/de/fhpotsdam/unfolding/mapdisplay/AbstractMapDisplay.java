@@ -208,7 +208,9 @@ public abstract class AbstractMapDisplay implements TileLoaderListener {
 
 	@Deprecated
 	public abstract Location getLocationFromScreenPosition(float x, float y);
-	
+
+	public abstract Location getLocation(float x, float y);
+
 	public abstract Location getLocation(ScreenPosition screenPosition);
 
 	public abstract Location getLocationFromObjectPosition(float x, float y);
