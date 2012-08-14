@@ -50,11 +50,6 @@ public class OpenStreetMap {
 		}
 	}
 
-	public static class StamenTonerProvider extends GenericOpenStreetMapProvider {
-		public String[] getTileUrls(Coordinate coordinate) {
-			String url = "http://spaceclaw.stamen.com/toner/" + getZoomString(coordinate) + ".png";
-			return new String[] { url };
-		}
-	}
+	
 
 }

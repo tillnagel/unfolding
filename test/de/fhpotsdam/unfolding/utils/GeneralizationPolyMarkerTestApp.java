@@ -11,7 +11,7 @@ import de.fhpotsdam.unfolding.data.Feature;
 import de.fhpotsdam.unfolding.data.GeoJSONReader;
 import de.fhpotsdam.unfolding.data.ShapeFeature;
 import de.fhpotsdam.unfolding.geo.Location;
-import de.fhpotsdam.unfolding.providers.OpenStreetMap;
+import de.fhpotsdam.unfolding.providers.StamenMapProvider;
 
 /**
  * Single country generalization test.
@@ -31,9 +31,9 @@ public class GeneralizationPolyMarkerTestApp extends PApplet {
 	public void setup() {
 		size(800, 600, GLGraphics.GLGRAPHICS);
 
-		map = new UnfoldingMap(this, new OpenStreetMap.StamenTonerProvider());
+		map = new UnfoldingMap(this, new StamenMapProvider.Toner());
 		MapUtils.createDefaultEventDispatcher(this, map);
-		
+
 		ShapeFeature selectedCountry = null;
 		List<Feature> countries = GeoJSONReader.loadData(this, "countries.geo.json");
 		for (Feature country : countries) {

@@ -15,6 +15,7 @@ import de.fhpotsdam.unfolding.interactions.KeyboardHandler;
 import de.fhpotsdam.unfolding.interactions.MouseHandler;
 import de.fhpotsdam.unfolding.providers.Google;
 import de.fhpotsdam.unfolding.providers.OpenStreetMap;
+import de.fhpotsdam.unfolding.providers.StamenMapProvider;
 
 /**
  * Tests the generalization / simplification method to reduce polylines on a map.
@@ -36,7 +37,7 @@ public class GeneralizationOnMapTestApp extends PApplet {
 	public void setup() {
 		size(800, 600, GLGraphics.GLGRAPHICS);
 
-		map = new UnfoldingMap(this, new OpenStreetMap.StamenTonerProvider());
+		map = new UnfoldingMap(this, new StamenMapProvider.Toner());
 		//MapUtils.createDefaultEventDispatcher(this, map);
 		
 		EventDispatcher eventDispatcher = new EventDispatcher();
