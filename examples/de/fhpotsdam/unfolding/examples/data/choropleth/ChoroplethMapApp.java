@@ -17,7 +17,8 @@ import de.fhpotsdam.unfolding.utils.MapUtils;
  * density.
  * 
  * It loads the country shapes from a GeoJSON file via a data reader, and loads the population density values from
- * another CSV file (provided by the World Bank). For the encoding a linear mapping to the transparency value is done.
+ * another CSV file (provided by the World Bank). The data value is encoded to transparency via a simplistic linear
+ * mapping.
  */
 public class ChoroplethMapApp extends PApplet {
 
@@ -32,26 +33,32 @@ public class ChoroplethMapApp extends PApplet {
 
 		map = new UnfoldingMap(this, 50, 50, 700, 500);
 		map.zoomToLevel(2);
+		map.setBackgroundColor(240);
 		MapUtils.createDefaultEventDispatcher(this, map);
-
+		
+		// Load country polygons and adds them as markers
 		List<Feature> countries = GeoJSONReader.loadData(this, "countries.geo.json");
 		countryMarkers = MapUtils.createSimpleMarkers(countries);
 		map.addMarkers(countryMarkers);
 
+		// Load population data
 		dataEntriesMap = loadPopulationDensityFromCSV("countries-population-density.csv");
 		println("Loaded " + dataEntriesMap.size() + " data entries");
-		shadeCountries();
 		
-		map.setBackgroundColor(240);
+		// Country markers are shaded according to its population density (only once)
+		shadeCountries();
 	}
 
 	public void draw() {
 		background(240);
+		
+		// Draw map tiles and country markers 
 		map.draw();
 	}
 
 	public void shadeCountries() {
 		for (Marker marker : countryMarkers) {
+			// Find data for country of the current marker
 			String countryId = marker.getId();
 			DataEntry dataEntry = dataEntriesMap.get(countryId);
 
@@ -65,7 +72,7 @@ public class ChoroplethMapApp extends PApplet {
 			}
 		}
 	}
-
+	
 	public HashMap<String, DataEntry> loadPopulationDensityFromCSV(String fileName) {
 		HashMap<String, DataEntry> dataEntriesMap = new HashMap<String, DataEntry>();
 
@@ -97,7 +104,7 @@ public class ChoroplethMapApp extends PApplet {
 	/**
 	 * Test loading method to load from original XML file from WorldBank.
 	 */
-	public HashMap<String, DataEntry> loadPopulationDensityFromXML(String fileName) {
+	private HashMap<String, DataEntry> loadPopulationDensityFromXML(String fileName) {
 		HashMap<String, DataEntry> dataEntriesMap = new HashMap<String, DataEntry>();
 
 		// Get all records
