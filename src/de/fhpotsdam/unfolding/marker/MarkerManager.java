@@ -34,7 +34,21 @@ public class MarkerManager<E extends Marker> {
 	}
 	
 	public void setMarkers(List<E> markers) {
-		this.markers = markers;
+		if (markers != null) {
+			this.markers = markers;
+		}
+		else {
+			// Convenient method. Users should use clearMarkers() directly.
+			clearMarkers();
+		}
+	}
+	
+	public boolean removeMarker(E marker) {
+		return markers.remove(marker);
+	}
+	
+	public void clearMarkers() {
+		markers.clear();
 	}
 	
 	public boolean isDrawingEnabled(){
@@ -130,8 +144,9 @@ public class MarkerManager<E extends Marker> {
 	}
 
 	public void draw() {
-		if(!bEnableDrawing)
+		if (!bEnableDrawing)
 			return;
+		
 		for (Marker marker : markers) {
 			marker.draw(map);
 		}
