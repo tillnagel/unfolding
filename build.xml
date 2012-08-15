@@ -230,7 +230,7 @@
 
 
 	<!-- do a lot of stuff :) -->
-	<target name="main" depends="docs, jar">
+	<target name="main" depends="clean, docs, jar, unfolding_app_template_with_examples, unfolding_app_template, unfolding_processing">
 		<description>Main target</description>
 	</target>
 
