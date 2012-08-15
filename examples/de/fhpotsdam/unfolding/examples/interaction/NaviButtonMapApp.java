@@ -37,7 +37,7 @@ public class NaviButtonMapApp extends PApplet {
 		map = new UnfoldingMap(this, "map", 0, 0, 600, 600);
 		map.setTweening(false);
 
-		debugDisplay = new DebugDisplay(this, map.mapDisplay, 600, 200, 250, 150);
+		debugDisplay = new DebugDisplay(this, map, 600, 200, 250, 150);
 
 		map.zoomToLevel(3);
 

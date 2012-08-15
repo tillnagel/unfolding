@@ -22,8 +22,7 @@ public class DebugDisplayApp extends PApplet {
 		map.zoomAndPanTo(new Location(52.5f, 13.4f), 10);
 		MapUtils.createDefaultEventDispatcher(this, map);
 
-		textFont(loadFont("Miso-Light-12.vlw"), 20);
-		debugDisplay = new DebugDisplay(this, map.mapDisplay, 10, 450, 300, 200);
+		debugDisplay = new DebugDisplay(this, map);
 	}
 
 	public void draw() {

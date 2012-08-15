@@ -4,7 +4,6 @@ import processing.core.PApplet;
 import processing.core.PFont;
 import processing.core.PMatrix3D;
 import de.fhpotsdam.unfolding.UnfoldingMap;
-import de.fhpotsdam.unfolding.mapdisplay.AbstractMapDisplay;
 
 public class DebugDisplay {
 
@@ -12,7 +11,7 @@ public class DebugDisplay {
 	public static final float HEIGHT_DEFAULT = 140;
 
 	PApplet p;
-	AbstractMapDisplay mapDisplay;
+	UnfoldingMap map;
 
 	float x;
 	float y;
@@ -27,8 +26,8 @@ public class DebugDisplay {
 	 * 
 	 * @param p
 	 *            The PApplet, used to draw and to get mouse position.
-	 * @param mapDisplay
-	 *            The mapDisplay
+	 * @param map
+	 *            The map to display debug information about.
 	 * @param x
 	 *            Horizontal position of the display.
 	 * @param y
@@ -38,61 +37,67 @@ public class DebugDisplay {
 	 * @param height
 	 *            Height of the display.
 	 */
-	public DebugDisplay(PApplet p, AbstractMapDisplay mapDisplay, float x, float y, float width,
-			float height) {
+	public DebugDisplay(PApplet p, UnfoldingMap map, float x, float y, float width, float height) {
 		this.p = p;
-		this.mapDisplay = mapDisplay;
+		this.map = map;
 
 		this.x = x;
 		this.y = y;
 		this.width = width;
 		this.height = height;
 
-		font = p.createFont("Miso-Light-12.vlw", 12);
+		font = p.createFont("Helvetica-12.vlw", 12);
 		p.textFont(font);
 	}
 
-	public DebugDisplay(PApplet p, AbstractMapDisplay mapDisplay) {
-		this(p, mapDisplay, 10, 10, WIDTH_DEFAULT, HEIGHT_DEFAULT);
-	}
-
 	public DebugDisplay(PApplet p, UnfoldingMap map) {
-		this(p, map.mapDisplay, 10, 10, WIDTH_DEFAULT, HEIGHT_DEFAULT);
+		this(p, map, 10, 10, WIDTH_DEFAULT, HEIGHT_DEFAULT);
 	}
 
 	public void draw() {
-		int zoomLevel = UnfoldingMap.getZoomLevelFromScale(mapDisplay.innerScale);
-		float zoom = UnfoldingMap.getZoomFromScale(mapDisplay.innerScale);
 
-		String infoText = "Scale: " + mapDisplay.innerScale + "\n";
-		infoText += "Zoom: " + zoomLevel + " (" + zoom + ")\n";
-		infoText += "tx, ty : " + PApplet.nf((float) mapDisplay.innerOffsetX, 1, 3) + ","
-				+ PApplet.nf((float) mapDisplay.innerOffsetY, 1, 3) + "\n";
-//		PVector center = mapDisplay.getScreenPosForLocation(mapDisplay.getCenterLocation());
-//		infoText += "center (scr, w/2): " + center + "\n";
-//		infoText += "center (loc): " + mapDisplay.getLocationForScreenPosition(center.x, center.y) + "\n";
-//		
-//		PVector itc = mapDisplay.getInnerTransformationCenter();
-//
-//		infoText += "innerCenter (objPos): " + itc + "\n";
-//		infoText += "innerCenter (loc): " + mapDisplay.getLocationForObjectPosition(itc.x, itc.y) + "\n";
-//		PVector otc = mapDisplay.getTransformationCenter();
-//		infoText += "outerCenter (scrPos): " + otc + "\n";
-//		infoText += "outerCenter (loc): " + mapDisplay.getLocationForScreenPosition(otc.x, otc.y) + "\n";
-//
-//		infoText += "Mouse: " + p.mouseX + ", " + p.mouseY + "\n";
-//		infoText += "Mouse (Lat,Lng): " + mapDisplay.getLocationForScreenPosition(p.mouseX, p.mouseY) + "\n";
-//		infoText += "Mouse (Coord): "
-//				+ mapDisplay.getMapProvider().locationCoordinate(
-//						mapDisplay.getLocationForScreenPosition(p.mouseX, p.mouseY)).zoomTo(zoom) + "\n";
-		infoText += "fps: " + Math.round(p.frameRate) + "\n";
+		StringBuffer infoText = new StringBuffer();
+		infoText.append("Map-Zoom: " + map.getZoomLevel() + " (" + map.getZoom() + ")\n");
+		infoText.append("Map-Borders (lat, lng): \n[" + map.getTopLeftBorder() + ", " + map.getBottomRightBorder()
+				+ "]\n\n");
+		
+		infoText.append("Mouse: " + p.mouseX + ", " + p.mouseY + "\n");
+		infoText.append("Mouse (lat, lng): " + map.getLocation(p.mouseX, p.mouseY) + "\n");
 
+		infoText.append("fps: " + Math.round(p.frameRate) + "\n");
+		
+		infoText.append(getInternalDebugInfo());
+		
 		p.noStroke();
 		p.fill(0, 150);
 		p.rect(x, y, width, height);
-
 		p.fill(240);
-		p.text(infoText, x + padding, y + padding, width - padding, height - padding);
+		p.text(infoText.toString(), x + padding, y + padding, width - padding, height - padding);
+	}
+	
+	protected String getInternalDebugInfo() {
+		String internalInfoText = "";
+		
+		// infoText += "tx, ty : " + PApplet.nf((float) mapDisplay.innerOffsetX, 1, 3) + ","
+		// + PApplet.nf((float) mapDisplay.innerOffsetY, 1, 3) + "\n";
+
+		// PVector center = mapDisplay.getScreenPosForLocation(mapDisplay.getCenterLocation());
+		// infoText += "center (scr, w/2): " + center + "\n";
+		// infoText += "center (loc): " + mapDisplay.getLocation(center.x, center.y) + "\n";
+
+		// PVector itc = mapDisplay.getInnerTransformationCenter();
+		// infoText += "innerCenter (objPos): " + itc + "\n";
+		// infoText += "innerCenter (loc): " + mapDisplay.getLocationForObjectPosition(itc.x, itc.y) + "\n";
+		// PVector otc = mapDisplay.getTransformationCenter();
+		// infoText += "outerCenter (scrPos): " + otc + "\n";
+		// infoText += "outerCenter (loc): " + mapDisplay.getLocationForScreenPosition(otc.x, otc.y) + "\n";
+
+		// infoText += "Mouse (Coord): "
+		// + mapDisplay.getMapProvider()
+		// .locationCoordinate(mapDisplay.getLocation(p.mouseX, p.mouseY)).zoomTo(zoom)
+		// + "\n";
+
+		return internalInfoText;
 	}
 
 	public static String getMatrix3DAsString(PMatrix3D m) {

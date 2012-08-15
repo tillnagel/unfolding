@@ -68,7 +68,7 @@ public class ComplexMapEventApp extends PApplet {
 		map3.setActive(false);
 		maps.add(map3);
 
-		debugDisplay = new DebugDisplay(this, map1.mapDisplay, 10, 390, 250, 150);
+		debugDisplay = new DebugDisplay(this, map1, 10, 390, 250, 150);
 
 		MouseHandler mouseHandler = new MouseHandler(this, maps);
 		eventDispatcher.addBroadcaster(mouseHandler);
