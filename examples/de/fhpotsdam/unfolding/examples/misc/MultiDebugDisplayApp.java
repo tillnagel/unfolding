@@ -22,14 +22,14 @@ public class MultiDebugDisplayApp extends PApplet {
 	public void setup() {
 		size(1024, 768, GLConstants.GLGRAPHICS);
 
-		map1 = new UnfoldingMap(this, "Map 1", 0, 0, 512, height);
+		map1 = new UnfoldingMap(this, "map1", 0, 0, 512, height);
 		map1.zoomAndPanTo(new Location(52.5f, 13.4f), 10);
-		map2 = new UnfoldingMap(this, "Map 2", 512, 0, 512, height, true, false, new Microsoft.AerialProvider());
+		map2 = new UnfoldingMap(this, "map2", 512, 0, 512, height, true, false, new Microsoft.AerialProvider());
 		EventDispatcher eventDispatcher = MapUtils.createDefaultEventDispatcher(this, map1, map2);
 
 		// Create debug displays
-		debugDisplay1 = new DebugDisplay(this, map1, 10, 10);
-		debugDisplay2 = new DebugDisplay(this, map2, 522, 10);
+		debugDisplay1 = new DebugDisplay(this, map1, eventDispatcher, 10, 10);
+		debugDisplay2 = new DebugDisplay(this, map2, eventDispatcher, 522, 10);
 	}
 
 	public void draw() {
