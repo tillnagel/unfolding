@@ -2,13 +2,15 @@ package de.fhpotsdam.unfolding.utils;
 
 import processing.core.PApplet;
 import processing.core.PFont;
+import processing.core.PImage;
 import processing.core.PMatrix3D;
 import de.fhpotsdam.unfolding.UnfoldingMap;
+import de.fhpotsdam.unfolding.geo.Location;
 
 public class DebugDisplay {
 
-	public static final float WIDTH_DEFAULT = 250;
-	public static final float HEIGHT_DEFAULT = 140;
+	public static final float WIDTH_DEFAULT = 200;
+	public static final float HEIGHT_DEFAULT = 190;
 
 	PApplet p;
 	UnfoldingMap map;
@@ -18,9 +20,22 @@ public class DebugDisplay {
 	float width;
 	float height;
 	float padding = 4;
+	float margin = 14;
 
 	PFont font;
+	PFont titleFont;
+	int textColor = 0;
+	int valueBoxColor = 0;
+	int separatorColor = 0;
 
+	int textSize = 12;
+	int valueBoxLongWidth = 120;
+	float valueBoxMediumWidth = (valueBoxLongWidth - padding) / 2;
+	int valueBoxShortWidth = 30;
+	int valueBoxHeight = 15;
+
+	PImage logo;
+	
 	/**
 	 * Shows current information on the mapDisplay and the mouse pointer.
 	 * 
@@ -46,8 +61,18 @@ public class DebugDisplay {
 		this.width = width;
 		this.height = height;
 
-		font = p.createFont("Helvetica-12.vlw", 12);
-		p.textFont(font);
+		font = p.loadFont("Lato-Regular-11.vlw");
+		titleFont = p.loadFont("Lato-Bold-14.vlw");
+		
+		logo = p.loadImage("unfolding-mini-icon.png");
+
+		textColor = p.color(255);
+		valueBoxColor = p.color(0, 127);
+		separatorColor = p.color(255, 50);
+	}
+
+	public DebugDisplay(PApplet p, UnfoldingMap map, float x, float y) {
+		this(p, map, x, y, WIDTH_DEFAULT, HEIGHT_DEFAULT);
 	}
 
 	public DebugDisplay(PApplet p, UnfoldingMap map) {
@@ -56,28 +81,110 @@ public class DebugDisplay {
 
 	public void draw() {
 
-		StringBuffer infoText = new StringBuffer();
-		infoText.append("Map-Zoom: " + map.getZoomLevel() + " (" + map.getZoom() + ")\n");
-		infoText.append("Map-Borders (lat, lng): \n[" + map.getTopLeftBorder() + ", " + map.getBottomRightBorder()
-				+ "]\n\n");
-		
-		infoText.append("Mouse: " + p.mouseX + ", " + p.mouseY + "\n");
-		infoText.append("Mouse (lat, lng): " + map.getLocation(p.mouseX, p.mouseY) + "\n");
-
-		infoText.append("fps: " + Math.round(p.frameRate) + "\n");
-		
-		infoText.append(getInternalDebugInfo());
-		
 		p.noStroke();
-		p.fill(0, 150);
+		p.fill(20, 180);
 		p.rect(x, y, width, height);
-		p.fill(240);
-		p.text(infoText.toString(), x + padding, y + padding, width - padding, height - padding);
+		
+		p.image(logo, x + margin, y + margin);
+
+		p.textFont(titleFont);
+		p.textSize(14);
+		p.fill(textColor);
+		String mapName = map.getId();
+		p.text(mapName, (int) (x + margin + logo.width + padding * 2) - 2, (int) (y + margin + logo.height - padding) + 1);
+		
+		
+		p.textFont(font);
+		p.textSize(11);
+		String zoomStr = String.valueOf(map.getZoomLevel());
+		String mouseXStr = String.valueOf(p.mouseX);
+		String mouseYStr = String.valueOf(p.mouseY);
+		Location mouseLoc = map.getLocation(p.mouseX, p.mouseY);
+		String mouseLatStr = PApplet.nf(mouseLoc.getLat(), 1, 3);
+		String mouseLngStr = PApplet.nf(mouseLoc.getLon(), 1, 3);
+		
+		
+		String rendererFQNStr = p.g.getClass().toString();
+		String rendererStr = rendererFQNStr.substring(rendererFQNStr.lastIndexOf('.') + 1);
+		
+		String fpsStr = String.valueOf(PApplet.round(p.frameRate));
+		
+		String providerFQNStr = map.mapDisplay.getMapProvider().getClass().toString();
+		String providerStr = providerFQNStr.substring(providerFQNStr.lastIndexOf('$') + 1);
+		
+
+		float yo = y + 45;
+		drawLabelValue("Zoom", zoomStr, x + 60, yo, valueBoxShortWidth);
+
+		yo += valueBoxHeight + padding * 2;
+		drawSeparator(yo);
+		yo += padding * 2;
+
+		drawLabelValue("px", mouseXStr, x + 60, yo, valueBoxMediumWidth);
+		drawValue(mouseYStr, x + 60 + valueBoxMediumWidth + padding, yo, valueBoxMediumWidth);
+		yo += valueBoxHeight + padding;
+		drawLabelValue("¡", mouseLatStr, x + 60, yo, valueBoxMediumWidth);
+		drawValue(mouseLngStr, x + 60 + valueBoxMediumWidth + padding, yo, valueBoxMediumWidth);
+
+		yo += valueBoxHeight + padding * 2;
+		drawSeparator(yo);
+		yo += padding * 2;
+
+		drawLabelValue("Renderer", rendererStr, x + 60, yo, valueBoxLongWidth);
+		yo += valueBoxHeight + padding;
+		drawLabelValue("Provider", providerStr, x + 60, yo, valueBoxLongWidth);
+		yo += valueBoxHeight + padding;
+		drawLabelValue("fps", fpsStr, x + 60, yo, valueBoxShortWidth);
 	}
+
 	
+	public void drawLabelValue(String label, String value, float x, float y, float valueBoxWidth) {
+
+		drawValue(value, x, y, valueBoxWidth);
+
+		// label
+		float textY = y + textSize - 1;
+		float labelX = x - padding - p.textWidth(label);
+		p.noStroke();
+		p.fill(textColor);
+		p.text(label, labelX, textY);
+	}
+
+	public void drawValue(String value, float x, float y, float valueBoxWidth) {
+		p.noStroke();
+
+		// value box
+		float valueBoxX = x + padding;
+		float valueBoxY = y;
+		p.fill(valueBoxColor);
+		p.rect(valueBoxX, valueBoxY, valueBoxWidth, valueBoxHeight);
+
+		// value (atop box)
+		float textY = y + textSize - 1;
+		float valueX = x + padding * 2;
+		p.fill(textColor);
+		p.text(value, valueX, textY);
+	}
+
+	public void drawZoom(float x, float y) {
+		String label = "Zoom";
+		float labelX = x - padding - p.textWidth(label);
+		p.fill(textColor);
+		p.text(label, labelX, y);
+
+		p.fill(valueBoxColor);
+		// p.rect(valueX, y, boxWidth, boxHeight);
+
+	}
+
+	public void drawSeparator(float y) {
+		p.fill(separatorColor);
+		p.rect(x + margin, y, width - margin * 2, 1);
+	}
+
 	protected String getInternalDebugInfo() {
 		String internalInfoText = "";
-		
+
 		// infoText += "tx, ty : " + PApplet.nf((float) mapDisplay.innerOffsetX, 1, 3) + ","
 		// + PApplet.nf((float) mapDisplay.innerOffsetY, 1, 3) + "\n";
 

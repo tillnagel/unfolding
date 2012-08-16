@@ -18,10 +18,12 @@ public class DebugDisplayApp extends PApplet {
 	public void setup() {
 		size(1024, 768, GLConstants.GLGRAPHICS);
 
+		// map = new UnfoldingMap(this, new Microsoft.AerialProvider());
 		map = new UnfoldingMap(this);
 		map.zoomAndPanTo(new Location(52.5f, 13.4f), 10);
 		MapUtils.createDefaultEventDispatcher(this, map);
 
+		// Create debug display (optional: specify position and size)
 		debugDisplay = new DebugDisplay(this, map);
 	}
 
