@@ -27,6 +27,9 @@ public class DebugDisplay implements MapEventListener {
 	UnfoldingMap map;
 	EventDispatcher eventDispatcher;
 
+	
+	int maxZoomLevels = 18;
+	
 	// Position and size
 	float x;
 	float y;
@@ -58,9 +61,10 @@ public class DebugDisplay implements MapEventListener {
 	// box sizes
 	int valueBoxLongWidth = 120;
 	float valueBoxMediumWidth = (valueBoxLongWidth - padding) / 2;
-	int valueBoxShortWidth = 30;
+	int valueBoxShortWidth = 22;
 	int valueBoxHeight = 15;
 	int eventBoxHeight = 12;
+	int zoomBarWidth = 90;
 
 	// counters to fade event lights
 	public static final float MIN_TRANSPARENCY = 0.3f;
@@ -217,8 +221,8 @@ public class DebugDisplay implements MapEventListener {
 		float yo = y + 45;
 		drawLabelValue("Zoom", zoomStr, x + 60, yo, valueBoxShortWidth);
 
-		drawZoomBar(map.getZoomLevel(), x + 107, yo + 5);
-
+		drawZoomBar(map.getZoomLevel(), x + 95, yo + 5, maxZoomLevels);
+		
 		yo += valueBoxHeight + padding * 2;
 		drawSeparator(yo);
 		yo += padding * 2;
@@ -359,12 +363,11 @@ public class DebugDisplay implements MapEventListener {
 		p.text(value, valueX, textY);
 	}
 
-	protected void drawZoomBar(int zoomLevel, float x, float y) {
-		int zoomBarWidth = 100;
-		int maxZoomLevel = 16;
-		int stepWidth = (zoomBarWidth / (maxZoomLevel + 1));
+	protected void drawZoomBar(int zoomLevel, float x, float y, int maxZoomLevel) {
+		int stepWidth = PApplet.floor((zoomBarWidth / maxZoomLevel));
 		for (int i = 0; i < maxZoomLevel; i++) {
 			p.fill(i < zoomLevel ? zoomStepColorOn : zoomStepColorOff);
+			
 			p.rect(x + i * stepWidth, y, stepWidth - 1, 6);
 		}
 	}
