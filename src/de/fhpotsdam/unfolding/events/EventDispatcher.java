@@ -36,19 +36,19 @@ public class EventDispatcher {
 	}
 
 	/**
-	 * Registers an listener to an event type within one or more event scopes.
+	 * Registers listener to an event type within one or more event scopes.
 	 * 
 	 * @param listener
-	 *            The listener to register.
+	 *            The listener to register, e.g. a map.
 	 * @param type
+	 *            The type of the event, e.g. pan or zoom.
 	 * @param scopeIds
-	 *            IDs of scopes to register for. If none is provided the scope of the listener is
-	 *            used. Note, that if you provide some scopes the listener's scope is not added,
-	 *            automatically.
+	 *            IDs of scopes to register for. If none is provided the scope of the listener is used. Note, that if
+	 *            you provide some scopes the listener's scope is not added, automatically.
 	 */
 	public void register(MapEventListener listener, String type, String... scopeIds) {
+		
 		List<ScopedListeners> scopedListenersList = typedScopedListeners.get(type);
-
 		if (scopedListenersList == null) {
 			// Creates scopedListenersList and adds to typed list.
 			scopedListenersList = new ArrayList<ScopedListeners>();
@@ -60,9 +60,10 @@ public class EventDispatcher {
 			scopeIds = new String[] { listener.getId() };
 		}
 
+		// Adds listener to scope, either to existing or to new.
 		boolean foundExistingScope = false;
-
-		// Adds listener if ScopedListeners exist for scopeIds to register
+		
+		// Adds to existing ScopedListeners (if exist for scopeIds)
 		List<String> scopeIdList = Arrays.asList(scopeIds);
 		for (ScopedListeners scopedListeners : scopedListenersList) {
 			if (scopedListeners.scopeIds.size() == scopeIdList.size()
@@ -70,15 +71,15 @@ public class EventDispatcher {
 				if (!scopedListeners.listeners.contains(listener)) {
 					scopedListeners.listeners.add(listener);
 				} else {
-					log.info("Listener not registered anew: '" + listener.getId() + "' already listens to type '" + type
-							+ "' in scopes '" + Arrays.toString(scopeIds) + "'");
+					log.info("Listener not registered anew: '" + listener.getId() + "' already listens to type '"
+							+ type + "' in scopes '" + Arrays.toString(scopeIds) + "'");
 				}
 				foundExistingScope = true;
 			}
 		}
 
-		// Creates ScopedListeners for scopeIDs and register listener if none found
 		if (!foundExistingScope) {
+			// Creates ScopedListeners for scopeIDs and register listener if none found
 			ScopedListeners scopedListeners = new ScopedListeners();
 			scopedListeners.scopeIds.addAll(scopeIdList);
 			scopedListeners.listeners.add(listener);

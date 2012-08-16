@@ -46,10 +46,12 @@ public class ComplexMapEventApp extends PApplet {
 
 	EventDispatcher eventDispatcher;
 
-	DebugDisplay debugDisplay;
+	DebugDisplay debugDisplay1;
+	DebugDisplay debugDisplay2;
+	DebugDisplay debugDisplay3;
 
 	public void setup() {
-		size(1200, 600, GLConstants.GLGRAPHICS);
+		size(1240, 420, GLConstants.GLGRAPHICS);
 		smooth();
 
 		// Creates non-default dispatcher to register own broadcasters and listeners.
@@ -68,8 +70,6 @@ public class ComplexMapEventApp extends PApplet {
 		map3.setActive(false);
 		maps.add(map3);
 
-		debugDisplay = new DebugDisplay(this, map1, 10, 390);
-
 		MouseHandler mouseHandler = new MouseHandler(this, maps);
 		eventDispatcher.addBroadcaster(mouseHandler);
 		KeyboardHandler keyboardHandler = new KeyboardHandler(this, maps);
@@ -86,6 +86,11 @@ public class ComplexMapEventApp extends PApplet {
 
 		// Prints all listeners
 		printEventDispatcher();
+		
+		
+		debugDisplay1 = new DebugDisplay(this, map1, eventDispatcher, 15, 165);
+		debugDisplay2 = new DebugDisplay(this, map2, eventDispatcher, 425, 165);
+		debugDisplay3 = new DebugDisplay(this, map3, eventDispatcher, 835, 165);
 	}
 
 	public void draw() {
@@ -95,7 +100,9 @@ public class ComplexMapEventApp extends PApplet {
 			map.draw();
 		}
 
-		debugDisplay.draw();
+		debugDisplay1.draw();
+		debugDisplay2.draw();
+		debugDisplay3.draw();
 	}
 
 	public void keyPressed() {

@@ -10,7 +10,9 @@ import de.fhpotsdam.unfolding.utils.DebugDisplay;
 import de.fhpotsdam.unfolding.utils.MapUtils;
 
 /**
- * Shows basic information about the map. Can be used for debugging purposes.
+ * Shows basic information about two independent maps from different providers.
+ * 
+ * The information widget also shows map events, as the eventDispatcher is passed to the DebugDisplay.
  */
 public class MultiDebugDisplayApp extends PApplet {
 
