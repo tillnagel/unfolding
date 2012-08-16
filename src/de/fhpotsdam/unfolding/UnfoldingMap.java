@@ -95,6 +95,10 @@ public class UnfoldingMap implements MapEventListener {
 		this(p, generateId(), 0, 0, p.width, p.height, true, false, provider);
 	}
 
+	public UnfoldingMap(PApplet p, String id, AbstractMapProvider provider) {
+		this(p, id, 0, 0, p.width, p.height, true, false, provider);
+	}
+
 	public UnfoldingMap(PApplet p, float x, float y, float width, float height) {
 		this(p, generateId(), x, y, width, height, true, false, null);
 	}
