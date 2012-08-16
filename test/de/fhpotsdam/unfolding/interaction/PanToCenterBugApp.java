@@ -43,7 +43,7 @@ public class PanToCenterBugApp extends PApplet {
 		map = new UnfoldingMap(this, "map", 0, 0, 800, 600);
 		map.setTweening(false);
 
-		debugDisplay = new DebugDisplay(this, map, 0, 0, 250, 200);
+		debugDisplay = new DebugDisplay(this, map);
 
 		// default dispatcher
 		//eventDispatcher = MapUtils.createDefaultEventDispatcher(this, map);

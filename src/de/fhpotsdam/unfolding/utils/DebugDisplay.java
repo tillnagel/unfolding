@@ -10,15 +10,15 @@ import de.fhpotsdam.unfolding.geo.Location;
 public class DebugDisplay {
 
 	public static final float WIDTH_DEFAULT = 200;
-	public static final float HEIGHT_DEFAULT = 190;
+	public static final float HEIGHT_DEFAULT = 240;
 
 	PApplet p;
 	UnfoldingMap map;
 
 	float x;
 	float y;
-	float width;
-	float height;
+	float width = WIDTH_DEFAULT;
+	float height = HEIGHT_DEFAULT;
 	float padding = 4;
 	float margin = 14;
 
@@ -33,9 +33,15 @@ public class DebugDisplay {
 	float valueBoxMediumWidth = (valueBoxLongWidth - padding) / 2;
 	int valueBoxShortWidth = 30;
 	int valueBoxHeight = 15;
+	int eventBoxHeight = 12;
 
 	PImage logo;
 	
+	int eventBoxColorListeningOn = 0xFF5bdae7;
+	int eventBoxColorListeningOff = 0x335bdae7;
+	int eventBoxColorBroadcastingOn = 0xFFfc8720;
+	int eventBoxColorBroadcastingOff = 0x33fc8720;
+
 	/**
 	 * Shows current information on the mapDisplay and the mouse pointer.
 	 * 
@@ -47,23 +53,17 @@ public class DebugDisplay {
 	 *            Horizontal position of the display.
 	 * @param y
 	 *            Vertical position of the display.
-	 * @param width
-	 *            Width of the display. Text is auto-newline.
-	 * @param height
-	 *            Height of the display.
 	 */
-	public DebugDisplay(PApplet p, UnfoldingMap map, float x, float y, float width, float height) {
+	public DebugDisplay(PApplet p, UnfoldingMap map, float x, float y) {
 		this.p = p;
 		this.map = map;
 
 		this.x = x;
 		this.y = y;
-		this.width = width;
-		this.height = height;
 
 		font = p.loadFont("Lato-Regular-11.vlw");
 		titleFont = p.loadFont("Lato-Bold-14.vlw");
-		
+
 		logo = p.loadImage("unfolding-mini-icon.png");
 
 		textColor = p.color(255);
@@ -71,12 +71,8 @@ public class DebugDisplay {
 		separatorColor = p.color(255, 50);
 	}
 
-	public DebugDisplay(PApplet p, UnfoldingMap map, float x, float y) {
-		this(p, map, x, y, WIDTH_DEFAULT, HEIGHT_DEFAULT);
-	}
-
 	public DebugDisplay(PApplet p, UnfoldingMap map) {
-		this(p, map, 10, 10, WIDTH_DEFAULT, HEIGHT_DEFAULT);
+		this(p, map, 10, 10);
 	}
 
 	public void draw() {
@@ -84,16 +80,16 @@ public class DebugDisplay {
 		p.noStroke();
 		p.fill(20, 180);
 		p.rect(x, y, width, height);
-		
+
 		p.image(logo, x + margin, y + margin);
 
 		p.textFont(titleFont);
 		p.textSize(14);
 		p.fill(textColor);
 		String mapName = map.getId();
-		p.text(mapName, (int) (x + margin + logo.width + padding * 2) - 2, (int) (y + margin + logo.height - padding) + 1);
-		
-		
+		p.text(mapName, (int) (x + margin + logo.width + padding * 2) - 2,
+				(int) (y + margin + logo.height - padding) + 1);
+
 		p.textFont(font);
 		p.textSize(11);
 		String zoomStr = String.valueOf(map.getZoomLevel());
@@ -102,16 +98,14 @@ public class DebugDisplay {
 		Location mouseLoc = map.getLocation(p.mouseX, p.mouseY);
 		String mouseLatStr = PApplet.nf(mouseLoc.getLat(), 1, 3);
 		String mouseLngStr = PApplet.nf(mouseLoc.getLon(), 1, 3);
-		
-		
+
 		String rendererFQNStr = p.g.getClass().toString();
 		String rendererStr = rendererFQNStr.substring(rendererFQNStr.lastIndexOf('.') + 1);
-		
+
 		String fpsStr = String.valueOf(PApplet.round(p.frameRate));
-		
+
 		String providerFQNStr = map.mapDisplay.getMapProvider().getClass().toString();
 		String providerStr = providerFQNStr.substring(providerFQNStr.lastIndexOf('$') + 1);
-		
 
 		float yo = y + 45;
 		drawLabelValue("Zoom", zoomStr, x + 60, yo, valueBoxShortWidth);
@@ -135,9 +129,54 @@ public class DebugDisplay {
 		drawLabelValue("Provider", providerStr, x + 60, yo, valueBoxLongWidth);
 		yo += valueBoxHeight + padding;
 		drawLabelValue("fps", fpsStr, x + 60, yo, valueBoxShortWidth);
+
+		yo += valueBoxHeight + padding * 2;
+		drawSeparator(yo);
+		yo += padding * 2;
+
+		
+		// background box around all events
+		p.fill(valueBoxColor);
+		p.rect(x + margin, yo, width - margin * 2, 24 + padding*2);
+		
+		// Math.random() > 0.5, Math.random() > 0.5
+		float xEventStart = x + 80;
+		yo += padding;
+		drawLabelEvent("Pan By", true, true, xEventStart, yo, 3);
+		drawLabelEvent("Pan To", true, true, xEventStart + 70, yo, 3);
+		yo += eventBoxHeight;
+		drawLabelEvent("Zoom To", true, true, xEventStart, yo, 3);
+		drawLabelEvent("Zoom By", true, true, xEventStart + 70, yo, 3);
+
 	}
 
-	
+	public void drawLabelEvent(String label, boolean listening, boolean broadcasting, float x, float y,
+			float valueBoxWidth) {
+
+		// drawValue(value, x, y, valueBoxWidth);
+		drawEvent(listening, x, y + 4, valueBoxWidth, listening ? eventBoxColorListeningOn : eventBoxColorListeningOff);
+		drawEvent(listening, x + 6, y + 4, valueBoxWidth, broadcasting ? eventBoxColorBroadcastingOn
+				: eventBoxColorBroadcastingOff);
+
+		// label
+		p.textFont(font);
+		p.textSize(8);
+		float textY = y + textSize - 3;
+		float labelX = x - padding - p.textWidth(label.toUpperCase());
+		p.noStroke();
+		p.fill(textColor);
+		p.text(label.toUpperCase(), labelX, textY);
+	}
+
+	private void drawEvent(boolean value, float x, float y, float valueBoxSize, int color) {
+		// value box
+		float valueBoxX = x + padding;
+		float valueBoxY = y;
+		p.fill(color);
+		p.rect(valueBoxX, valueBoxY, valueBoxSize, valueBoxSize);
+
+	}
+
 	public void drawLabelValue(String label, String value, float x, float y, float valueBoxWidth) {
 
 		drawValue(value, x, y, valueBoxWidth);

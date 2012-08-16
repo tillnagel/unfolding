@@ -35,7 +35,7 @@ public class MapInteractionTestApp extends PApplet {
 		map.setTweening(false);
 		// MapUtils.createDefaultEventDispatcher(this, map);
 
-		debugDisplay = new DebugDisplay(this, map, 0, 0, 250, 200);
+		debugDisplay = new DebugDisplay(this, map, 0, 0);
 
 		addMouseWheelListener(new java.awt.event.MouseWheelListener() {
 			public void mouseWheelMoved(java.awt.event.MouseWheelEvent evt) {
