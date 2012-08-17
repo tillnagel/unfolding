@@ -1,3 +1,4 @@
+<!--
 ---
 layout: "page"
 title: "Example: Connection Marker"
@@ -65,3 +66,5 @@ If they are neighbors a connection is shown.
 	}
 
 Have a look at the other [Marker examples](https://github.com/tillnagel/unfolding/tree/develop/examples/de/fhpotsdam/unfolding/examples/marker).
+
+-->

@@ -10,7 +10,7 @@ gh_link: "https://github.com/tillnagel/unfolding/blob/develop/examples/de/fhpots
 
 {% include JB/setup %}
 
-
+Users can save snapshots of the current map, which are then shown as radial thumbnails. By clicking on one of those thumbnails the map pans and zooms to the stored location.
 
 ![Overlay map atop background map](../assets/images/examples/snapshots-circles.jpg)
 
