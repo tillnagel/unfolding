@@ -70,15 +70,11 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 	/**
 	 * Updates the matrix to transform the map with.
 	 * 
-	 * For the rotation the matrix has to be temporarily translated to the transformation center. Thus, it has to be
-	 * reset with the original position, afterwards. Original position is calculated by inverting the current matrix.
-	 * (As the matrix incorporates that position, it stores every transformation, even though the matrix is created
-	 * anew.)
-	 * 
-	 * @param x
-	 *            The transformation center x
-	 * @param y
-	 *            The transformation center y
+	 * For the rotation the matrix has to be temporarily translated to the
+	 * transformation center. Thus, it has to be reset with the original
+	 * position, afterwards. Original position is calculated by inverting the
+	 * current matrix. (As the matrix incorporates that position, it stores
+	 * every transformation, even though the matrix is created anew.)
 	 */
 	public void calculateMatrix() {
 		synchronized (this) {
@@ -381,7 +377,7 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 		// Grid to load tiles for.
 		int minCol, maxCol, minRow, maxRow;
 
-		int zoomLevel = UnfoldingMap.getZoomLevelFromScale((float) innerScale);
+		int zoomLevel = UnfoldingMap.getZoomLevelFromScale(innerScale);
 
 		// Synchronize on this to not interfere with tile loading (see getVisibleKeys)
 		// NB External threads can change innerMatrix, innerScale, and other properties while this method is
