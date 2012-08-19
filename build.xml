@@ -65,14 +65,14 @@
 
 	<!-- Compiles the java code (including the usage of library for JUnit -->
 	<target name="compile" depends="clean, makedir">
-		<javac srcdir="${src.dir}" destdir="${build.dir}" >
+		<javac includeantruntime="false" srcdir="${src.dir}" destdir="${build.dir}" >
 			<classpath refid="build.classpath" />
 			<!-- <classpath refid="junit.class.path" /> -->
 		</javac>
 	</target>
 	
 	<target name="compile-test" depends="compile">
-		<javac srcdir="${test.dir}" destdir="${build.dir}" >
+		<javac includeantruntime="false" srcdir="${test.dir}" destdir="${build.dir}" >
 			<classpath refid="build.classpath" />
 			<!-- <classpath refid="junit.class.path" /> -->
 		</javac>
