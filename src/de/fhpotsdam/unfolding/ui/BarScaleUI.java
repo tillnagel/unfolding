@@ -43,7 +43,6 @@ public class BarScaleUI {
 		barCapOffset = 0;
 		p.color(255);
 		p.textFont(p.createFont("Sans-Serif", 10));
-
 	}
 
 	public BarScaleUI(PApplet p, UnfoldingMap map) {
@@ -113,7 +112,7 @@ public class BarScaleUI {
 	 * 
 	 * @param distance
 	 *            The original distance
-	 * @return A distance from the set of {@link DISPLAY_DISTANCES}
+	 * @return A distance from the set of {@link #DISPLAY_DISTANCES}
 	 */
 	protected float getClosestDistance(float distance) {
 		return closest(distance, DISPLAY_DISTANCES);
