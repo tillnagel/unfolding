@@ -11,13 +11,16 @@ import de.fhpotsdam.unfolding.utils.GeoUtils;
 import de.fhpotsdam.unfolding.utils.ScreenPosition;
 
 public class BarScaleUI {
-	private static final List<Float> DISPLAY_DISTANCES = Arrays.asList(0.01f, 0.02f, 0.05f, 0.1f, 0.2f, 0.5f, 1f, 2f,
+	private static final List<Float> DISPLAY_DISTANCES = Arrays.asList(
+			0.01f, 0.02f, 0.05f, 0.1f, 0.2f, 0.5f, 1f, 2f,
 			5f, 10f, 20f, 50f, 100f, 200f, 500f, 1000f, 2000f, 5000f);
+
 	private static final float MAX_DISPLAY_DISTANCE = 5000;
 
 	private boolean autoAlignment = true;
 
-	// If false it uses the screen center, resulting in a bar scale depending on the north/south position of the map.
+	// If false it uses the screen center, resulting in a bar scale depending on
+	// the north/south position of the map.
 	boolean showDistanceAtEquator = false;
 
 	private PApplet p;
@@ -50,15 +53,10 @@ public class BarScaleUI {
 	/**
 	 * Draws a bar scale at given position according to current zoom level.
 	 * 
-	 * Calculates distance at equator (scale is dependent on Latitude). Uses a distance to display from fixed set of
-	 * distance numbers, so length of bar may vary.
-	 * 
-	 * @param x
-	 *            Position to display bar scale
-	 * @param y
-	 *            Position to display bar scale
+	 * Calculates distance at equator (scale is dependent on Latitude). Uses a
+	 * distance to display from fixed set of distance numbers, so length of bar
+	 * may vary.
 	 */
-
 	public void draw() {
 		// Distance in km, appropriate to current zoom
 		float distance = MAX_DISPLAY_DISTANCE / map.getZoom();
@@ -110,7 +108,8 @@ public class BarScaleUI {
 	}
 
 	/**
-	 * Returns the nearest distance to display as well as to use for calculation.
+	 * Returns the nearest distance to display as well as to use for
+	 * calculation.
 	 * 
 	 * @param distance
 	 *            The original distance
