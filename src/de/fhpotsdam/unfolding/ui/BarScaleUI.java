@@ -51,7 +51,7 @@ public class BarScaleUI {
 
 	/**
 	 * Draws a bar scale at given position according to current zoom level.
-	 * 
+	 *
 	 * Calculates distance at equator (scale is dependent on Latitude). Uses a
 	 * distance to display from fixed set of distance numbers, so length of bar
 	 * may vary.
@@ -99,6 +99,18 @@ public class BarScaleUI {
 
 	}
 
+	/**
+	 * Set the style of the bar scale.
+	 *
+	 * @param color
+	 *            the color of the scale.
+	 * @param barWeight
+	 *            the weight of the scale.
+	 * @param barCapOffset
+	 *            the offset of the scale.
+	 * @param font
+	 *            the font to use for the bar scale.
+	 */
 	public void setStyle(int color, int barWeight, int barCapOffset, PFont font) {
 		this.color = color;
 		this.barWeight = barWeight;
