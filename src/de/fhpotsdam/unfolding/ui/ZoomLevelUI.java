@@ -17,7 +17,7 @@ public class ZoomLevelUI {
 	public float scale;
 
 	public ZoomLevelUI(PApplet p, AbstractMapDisplay mapDisplay,
-		float x, float y) {
+			float x, float y) {
 		this.p = p;
 		this.mapDisplay = mapDisplay;
 		this.x = x;
@@ -25,9 +25,9 @@ public class ZoomLevelUI {
 		scale = 1;
 	}
 	public ZoomLevelUI(PApplet p, UnfoldingMap map, CompassUI compass) {
-		this(p, map.mapDisplay, compass.x, compass.y);
+		this(p, map.mapDisplay, compass.getScreenPosition().x, compass.getScreenPosition().y);
 	}
-	
+
 	public ZoomLevelUI(PApplet p, UnfoldingMap map) {
 		this(p, map.mapDisplay, X_DEFAULT, Y_DEFAULT);
 		//
