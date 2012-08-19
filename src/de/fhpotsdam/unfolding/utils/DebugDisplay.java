@@ -27,26 +27,26 @@ public class DebugDisplay implements MapEventListener {
 	UnfoldingMap map;
 	EventDispatcher eventDispatcher;
 
-	
+
 	int maxZoomLevels = 18;
-	
+
 	// Position and size
 	float x;
 	float y;
 	float width = WIDTH_DEFAULT;
 	float height = HEIGHT_DEFAULT;
-	
+
 	float padding = 4;
 	float margin = 14;
 
 	PImage logo;
-	
-	// Text for labels and values	
+
+	// Text for labels and values
 	PFont font;
 	PFont titleFont;
 	int textSize = 12;
 	int textColor = 0xFFFFFFFF;
-	
+
 	// colors
 	int backgroundColor = 0xF0222222;
 	int valueBoxColor = 0x7F000000;
@@ -57,7 +57,7 @@ public class DebugDisplay implements MapEventListener {
 	// int eventBoxColorListeningOff = 0x335bdae7;
 	int eventBoxColorReceivingOn = 0xFFfc8720;
 	// int eventBoxColorBroadcastingOff = 0x33fc8720;
-	
+
 	// box sizes
 	int valueBoxLongWidth = 120;
 	float valueBoxMediumWidth = (valueBoxLongWidth - padding) / 2;
@@ -98,11 +98,11 @@ public class DebugDisplay implements MapEventListener {
 		if (eventDispatcher != null) {
 			// eventDispatcher.register(this, "pan", map.getId());
 			// eventDispatcher.register(this, "zoom", map.getId());
-			
+
 			// TODO Register to all scopes, instead of using hard-coded strings
 			eventDispatcher.register(this, "pan", "map1", "map2");
 			eventDispatcher.register(this, "zoom", "map1", "map2");
-			
+
 			//eventDispatcher.registerToAll(this, "pan");
 		}
 
@@ -138,7 +138,7 @@ public class DebugDisplay implements MapEventListener {
 			// Sending event (due to broadcasting in scope)
 
 			// Event is in same scope, which means it was sent by my map
-			
+
 			if (mapEvent.getSubType().equals(PanMapEvent.PAN_BY)) {
 				panByBroadcasted = 1;
 			}
@@ -164,7 +164,7 @@ public class DebugDisplay implements MapEventListener {
 					if (listener instanceof UnfoldingMap) {
 						UnfoldingMap listeningMap = (UnfoldingMap) listener;
 						if (map.getId().equals(listeningMap.getId())) {
-							
+
 							if (mapEvent.getSubType().equals(PanMapEvent.PAN_BY)) {
 								panByListened = 1;
 							}
@@ -207,8 +207,8 @@ public class DebugDisplay implements MapEventListener {
 		String mouseXStr = String.valueOf(p.mouseX) + "px";
 		String mouseYStr = String.valueOf(p.mouseY) + "px";
 		Location mouseLoc = map.getLocation(p.mouseX, p.mouseY);
-		String mouseLatStr = PApplet.nf(mouseLoc.getLat(), 1, 3) + "¡";
-		String mouseLngStr = PApplet.nf(mouseLoc.getLon(), 1, 3) + "¡";
+		String mouseLatStr = PApplet.nf(mouseLoc.getLat(), 1, 3) + "deg";
+		String mouseLngStr = PApplet.nf(mouseLoc.getLon(), 1, 3) + "deg";
 
 		String rendererFQNStr = p.g.getClass().toString();
 		String rendererStr = rendererFQNStr.substring(rendererFQNStr.lastIndexOf('.') + 1);
@@ -222,7 +222,7 @@ public class DebugDisplay implements MapEventListener {
 		drawLabelValue("Zoom", zoomStr, x + 60, yo, valueBoxShortWidth);
 
 		drawZoomBar(map.getZoomLevel(), x + 95, yo + 5, maxZoomLevels);
-		
+
 		yo += valueBoxHeight + padding * 2;
 		drawSeparator(yo);
 		yo += padding * 2;
@@ -269,7 +269,7 @@ public class DebugDisplay implements MapEventListener {
 			fadeEventLights();
 		}
 	}
-	
+
 	protected void fadeEventLights() {
 		if (panByListened > MIN_TRANSPARENCY) {
 			panByListened -= transparencyDelta;
@@ -367,7 +367,7 @@ public class DebugDisplay implements MapEventListener {
 		int stepWidth = PApplet.floor((zoomBarWidth / maxZoomLevel));
 		for (int i = 0; i < maxZoomLevel; i++) {
 			p.fill(i < zoomLevel ? zoomStepColorOn : zoomStepColorOff);
-			
+
 			p.rect(x + i * stepWidth, y, stepWidth - 1, 6);
 		}
 	}
