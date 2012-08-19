@@ -2,6 +2,11 @@ package de.fhpotsdam.unfolding.core;
 
 import processing.core.PApplet;
 
+/**
+ * Internal(!) representation of coordinates.
+ * 
+ * It is used to determine which tiles to load. You probably won't use this class.
+ */
 public class Coordinate {
 
 	public static int MAX_ZOOM = 20;
