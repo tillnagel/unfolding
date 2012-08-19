@@ -17,6 +17,10 @@ public class CompassUI {
 	private AbstractMapDisplay mapDisplay;
 
 	private ScreenPosition pos;
+	public ScreenPosition getScreenPosition() {
+		return pos;
+	}
+
 	private float scale;
 	private PImage img;
 
