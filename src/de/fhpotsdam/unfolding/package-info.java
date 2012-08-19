@@ -1,5 +1,5 @@
 /**
-The main classes Map and MapContainer are here.
+The main classes UnfoldingMap and MapContainer are here.
  */
 
 package de.fhpotsdam.unfolding;
