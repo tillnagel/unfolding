@@ -17,9 +17,6 @@ public class CompassUI {
 	private AbstractMapDisplay mapDisplay;
 
 	private ScreenPosition pos;
-	public ScreenPosition getScreenPosition() {
-		return pos;
-	}
 
 	private float scale;
 	private PImage img;
@@ -75,8 +72,21 @@ public class CompassUI {
 			p.popMatrix();
 		}
 	}
+	
+	public ScreenPosition getScreenPosition() {
+		return pos;
+	}
 
 	public void setImage(PImage img) {
 		this.img = img;
 	}
+
+	public float getScale() {
+		return scale;
+	}
+
+	public void setScale(float scale) {
+		this.scale = scale;
+	}
+	
 }

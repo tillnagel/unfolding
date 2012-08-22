@@ -36,7 +36,7 @@ public class ComplexCompassApp extends PApplet {
 		if (key == 'd')
 			map.rotate(-0.1f);
 		if (key == ' ')
-			compass.scale *= 0.95;
+			compass.setScale(compass.getScale() * 0.95f);
 	}
 
 	public static void main(String[] args) {
