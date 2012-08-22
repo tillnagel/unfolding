@@ -1,79 +1,110 @@
 ---
 layout: page
 title: Getting Started in Eclipse
-description: This Site will show how to set up the Unfolding library in Processing and how you create your first simple map in minutes.
+description: How-to set up the Unfolding library in Eclipse, and how-to create your first simple map in minutes.
 group: tutorials-starter
-author: Till Nagel
-author-url: "http://tillnagel.com/"
 thumbnail: http://placehold.it/330x250
-finalimage: http://placehold.it/610x390&text=Bild+2+610x390
+finalimage: 
 finalfiles: #someurlatgithub
 ---
 
 {% include JB/setup %}
 
-## This is the tutorial content (still to be filled)
+## Installation
+
+Download the [Unfolding template for Eclipse](http://github.com) and extract it to your workspace. In Eclipse, import it as an existing project. Lastly, select the native library for OpenGL for your platform. For this, go to xxx, edit the path, and select the appropriate directory for your OS.
+
+Now, you should have a fully working Java project with the unfolding.jar and all other necessary libraries. 
+
+![Unfolding in Eclipse](../assets/images/tutorials/eclipse-helloworld.png)
 
 
-Installation
+## Hello World
+
+Let's begin with the most basic Processing sketch.
+
+	public class SimpleMapApp extends PApplet {
+	
+		public void setup() {
+			size(800, 600);
+		}
+		
+		public void draw() {
+		}
+		
+	}
+
+Here, we simply extend Processing's core class PApplet, and implement the setup() and draw() methods.
+
+Now, let's add a map. For this, we need to create an UnfoldingMap, and draw it in the drawing-loop.
+
+	public class SimpleMapApp extends PApplet {
+	
+		UnfoldingMap map;
+	
+		public void setup() {
+			size(800, 600);
+			map = new UnfoldingMap(this);
+		}
+	
+		public void draw() {
+			map.draw();
+		}
+	
+	}
+
+Run the program and you'll see a world map with our default style in full-size.
+
+![Simple world map](../assets/image/)
 
 
-Memory Usage
--Xmx1024m -Xms1024m
+Now you can use the full API of Unfolding. As an example, let's jump to a specific location, and make the map interactive.
+
+	public class SimpleMapApp extends PApplet {
+
+		UnfoldingMap map;
+
+		public void setup() {
+			size(800, 600);
+			map = new UnfoldingMap(this);
+		
+			// Show map around the location in the given zoom level.
+			map.zoomAndPanTo(new Location(52.5f, 13.4f), 10);
+
+			// Add mouse and keyboard interactions
+			MapUtils.createDefaultEventDispatcher(this, map);
+		}
+
+		public void draw() {
+			map.draw();
+		}
+
+	}
+
+That's it. Now you are all set up, and good to go! Check out the other [tutorials](./), and don't forget to browse through the [examples](../examples/).
 
 
-Copied from SimpleMapApp
+## Tips & Tricks
 
 
-    /**
-    * This demonstrates how to create a simple application with Unfolding.
-    *
-    * You get a map in which you can do the things you expect: move, zoom, etc.
-    *
-    * In order to get an Unfolding app your main class needs to inherit from PApplet and implement setup() and draw().
-    */
-    public class SimpleMapApp extends PApplet {
-      /**
-      * Map is the main concept of Unfolding. It represents a map and offers lots of functionality: zooming, panning,
-      * moving, translating cursor positions to geo positions (Location), translating Location to cursor position, and
-      * much more.
-      */
-      UnfoldingMap map;
+### Memory usage
+It might be a good idea to increase the memory for Unfolding applications. In the Run XXX menu, switch to the Java Virtual Machine / VM tab, and enter the following attributes: 
 
-      /**
-      * setup() gets called at the beginning. Here you shoud setup/initialize your Unfolding stuff.
-      */
-      public void setup() {
-        // set the display to 800x600 and use OpenGL acceleration
-        size(1024, 768, GLConstants.GLGRAPHICS);
-        // if your computer does not offer OpenGL acceleration use the following
-        // line instead
-        // size(800, 600);
+	-Xmx1024m -Xms1024m
+	
+This gives the application 1GB of memory from the start-up. Of course, you can use any memory settings appropriate to your application and hardware setup.
 
-        // Here we actually create a the map and pass this. This way map knows
-        // where to
-        // draw on
-        map = new UnfoldingMap(this);
 
-        // Then we zoom to a Location with given latitude and longtitude
-        map.zoomAndPanTo(new Location(52.5f, 13.4f), 10);
+### Processing in Eclipse
 
-        // In order to have the expected behavior (movement and zooming with
-        // mouse and keyboard)
-        // default events get registered with the following function.
-        MapUtils.createDefaultEventDispatcher(this, map);
-      }
+If you haven't used Processing in Eclipse before, you might want to read a bit about it. See for example XXX and XXX)
 
-      /**
-      * The draw function gets called periodically and needs to redraw.
-      */
-      public void draw() {
-        // Simply draw the map
-        map.draw();
-      }
 
-      public static void main(String[] args) {
-        // Here we start the actual Unfolding part
-        PApplet.main(new String[] { "de.fhpotsdam.unfolding.examples.SimpleMapApp" });
-      }
-    }
+### Application vs Applet
+
+To ensure you start a sketch as application (and not as an applet in the applet viewer) you have to add the main() method
+with the fully qualified name of the main class, as such:
+
+	public static void main(String[] args) {
+		PApplet.main(new String[] { "de.fhpotsdam.unfolding.examples.SimpleMapApp" });
+	}

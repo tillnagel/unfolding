@@ -3,7 +3,7 @@ layout: page
 title: Getting Started in Processing
 description: This introduction covers the setup of the Unfolding library in Processing and the first simple map.
 group: tutorials-starter
-thumbnail: /assets/images/tutorials/gettingstarted_thumb.png
+thumbnail: ../assets/images/tutorials/eclipse-helloworld.png
 finalfiles: #someurlatgithub
 ---
 
