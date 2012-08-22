@@ -301,7 +301,9 @@ h2 {
     font-size: 18px; }
 
 .span8 h2 {
-  margin-top: 25px; }
+  margin-top: 25px; 
+	margin-bottom:10px;
+}
 
 h3 {
   font-size: 18px;
@@ -3766,7 +3768,7 @@ h1 {
 
 h2 {
   font-size: 22px;
-  line-height: 42px; }
+  line-height: 32px; }
   h2 small {
     font-size: 18px; }
 
