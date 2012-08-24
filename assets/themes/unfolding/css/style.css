@@ -4551,6 +4551,19 @@ table .span12 {
   [class^="icon-"]:last-child, [class*=" icon-"]:last-child {
     *margin-left: 0; }
 
+.icon-user {
+	height:0.9em;
+	vertical-align:text-bottom;
+	padding-bottom:2px;
+	line-height:0.99em;
+}
+
+span.author {
+    font-size: 0.9em;
+    font-style: italic;
+    padding-left: 2px;
+}
+
 .icon-white, .btn:hover i {
   background-image: url("../bootstrap/images/glyphicons-halflings-white.png"); }
 
@@ -7105,4 +7118,4 @@ a.thumbnail:hover {
 .pages-teasers.pages-teasers-grid .thumbnail {
   margin-bottom: 10.5px; }
 .pages-teasers.pages-teasers-grid li {
-  min-height: 370px; }
+  min-height: 380px; }

@@ -5,7 +5,7 @@ description: Discover patterns on how people feel in the world.
 group: exhibition
 author: Daniel Palmér and Robin Rundkvist
 released: 2012-12-31 24:59:59
-thumbnail: http://lorempixel.com/320/250/technics/3
+thumbnail: ../assets/images/exhibition/emography.png
 link: http://vmguld.se/emography/
 ---
 

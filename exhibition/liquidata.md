@@ -1,13 +1,14 @@
 ---
 layout: page
-title: Venice Unfolding
-description: Tangible geo-visualization to explore architectural projects in Venice.
+title: LiquiData
+description: A tangible multitouch visualization to explore urban movement patterns, and to share engaging places with the help of a smartphone.
 group: exhibition
-author: Interaction Design Lab, FH Potsdam
+author: Pierre La Baume, Luis Grass, Christopher Pietsch, Gunnar Friedrich, David Ikuye
 released: 2012-12-31 24:59:59
-thumbnail: ../assets/images/exhibition/veniceunfolding.png
-link: http://idl.fh-potsdam.de/projects/venice-unfolding/
+thumbnail: ../assets/images/exhibition/liquidata.png
+link: http://liquidata.org/en/
 ---
+
 {% include JB/setup %}
 
 ### Here Could be Content, but we dont need it. The teasers are linking directly to the associated link, if there is one.

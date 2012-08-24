@@ -6,16 +6,15 @@
       {% if node.title != null %}
         {% if group == null or group == node.group %}
           <li class="span4">
-
             {% if node.link %}
-              {% assign linkto = {{node.link}} %}
+              {% assign link = {{node.link}} %}
             {% else %}
-              {% assign linkto =  {{node.url}} %}
+              {% assign link = {{ BASE_PATH }}{{node.url}} %}
             {% endif %}
-            <a href="{{ BASE_PATH }}{{ node.url }}" class="thumbnail" title="Go to {{ node.title }}">
+            <a href="{{ link }}" class="thumbnail" title="Go to {{ node.title }}">
               <img src="{{ node.thumbnail }}" alt="{{ node.title }}"/>
             </a>
-            <h3><a href="{{ BASE_PATH }}{{ node.url }}">{{ node.title }}</a></h3>
+            <h3><a href="{{ link }}">{{ node.title }}</a></h3>
             <p>
               {{ node.description }}
               {% if node.author %}
@@ -23,7 +22,7 @@
                 {% if node.author-url %}
                   <a href="{{ node.author-url }}" title="Go to Page from {{ node.author }}">
                 {% endif %}
-                <i class="icon-user"> </i> {{ node.author }}
+                <i class="icon-user"> </i><span class="author">{{ node.author }}</span>
                 {% if node.author-url %}
                   </a>
                 {% endif %}

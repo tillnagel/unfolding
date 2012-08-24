@@ -1,13 +1,12 @@
 ---
 layout: page
-title: Lid
-description: A tool for location based literary research.
+title: Live Singapore
+description: Visual exploration of urban mobility.
 group: exhibition
-author: Jan-Erik Stange and Sebastian Meier
-author-url: "http://www.myawesomewebpage.com"
+author: MIT Senseable City Labs
 released: 2012-12-31 24:59:59
-thumbnail: http://lorempixel.com/320/250/technics/2
-link: http://lit.sebastianmeier.eu/
+thumbnail: ../assets/images/exhibition/livesingapore.png
+link: http://senseable.mit.edu/visual-explorations-urban-mobility/
 ---
 
 {% include JB/setup %}

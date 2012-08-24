@@ -1,13 +1,14 @@
 ---
 layout: page
-title: Venice Unfolding
-description: Tangible geo-visualization to explore architectural projects in Venice.
+title: Muse
+description: An interactive multitouch visualization of relations between geo-positioned locations.
 group: exhibition
-author: Interaction Design Lab, FH Potsdam
+author: Till Nagel
 released: 2012-12-31 24:59:59
-thumbnail: ../assets/images/exhibition/veniceunfolding.png
-link: http://idl.fh-potsdam.de/projects/venice-unfolding/
+thumbnail: ../assets/images/exhibition/muse.png
+link: http://tillnagel.com/2011/10/interactive-exploration-of-geospatial-network-visualization/
 ---
+
 {% include JB/setup %}
 
 ### Here Could be Content, but we dont need it. The teasers are linking directly to the associated link, if there is one.
