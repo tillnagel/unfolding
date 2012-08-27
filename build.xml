@@ -218,7 +218,7 @@
 
 	<!-- Spit out an error msg if ../gh-pages does not exist. -->
 	<target name="docs2ghpages.errormsg" depends="dir.gh-pages.check" unless="dir.exists">
-		<echo>${gh-pages.dir} missing. Aborting."</echo>
+		<fail message="${gh-pages.dir} missing. Aborting."></fail>
 	</target>
 
 	<!-- Make sure ../gh-pages exists -->
