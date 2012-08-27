@@ -3,8 +3,7 @@ layout: page
 title: Getting Started in Processing
 description: This introduction covers the setup of the Unfolding library in Processing and the first simple map.
 group: tutorials-starter
-thumbnail: ../assets/images/tutorials/eclipse-helloworld.png
-finalfiles: #someurlatgithub
+thumbnail: ../assets/images/tutorials/processing-thumb.png
 ---
 
 {% include JB/setup %}
@@ -21,6 +20,7 @@ Unfolding also needs the library GLGraphics to simplify the handling of OpenGL. 
 
 Restart Processing, start a new sketch and create your first simple map.
 
+![Unfolding in Processing](../assets/images/tutorials/processing-ide.png)
 
 ## Hello World
 

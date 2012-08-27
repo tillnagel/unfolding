@@ -3,16 +3,15 @@ layout: page
 title: Getting Started in Eclipse
 description: How-to set up the Unfolding library in Eclipse, and how-to create your first simple map in minutes.
 group: tutorials-starter
-thumbnail: http://placehold.it/330x250
+thumbnail: ../assets/images/tutorials/eclipse-thumb.png
 finalimage: 
-finalfiles: #someurlatgithub
 ---
 
 {% include JB/setup %}
 
 ## Installation
 
-Download the [Unfolding template for Eclipse](http://github.com) and extract it to your workspace. In Eclipse, import it as an existing project. Lastly, select the native library for OpenGL for your platform. For this, go to xxx, edit the path, and select the appropriate directory for your OS.
+Download the [Unfolding template for Eclipse](http://github.com) and extract it to your workspace. In Eclipse, import it as an existing project. Lastly, select the native library for OpenGL for your platform. For this, go to "Configure Build Path", select the jogl.jar, edit the Native Library location, and select the appropriate directory for your OS.
 
 Now, you should have a fully working Java project with the unfolding.jar and all other necessary libraries. 
 
@@ -81,14 +80,14 @@ Now you can use the full API of Unfolding. As an example, let's jump to a specif
 
 	}
 
-That's it. Now you are all set up, and good to go! Check out the other [tutorials](./), and don't forget to browse through the [examples](../examples/).
+That's it. Now you are all set up, and good to go! Check out our other [tutorials](./), and don't forget to browse through the [examples](../examples/).
 
 
 ## Tips & Tricks
 
 
 ### Memory usage
-It might be a good idea to increase the memory for Unfolding applications. In the Run XXX menu, switch to the Java Virtual Machine / VM tab, and enter the following attributes: 
+It might be a good idea to increase the memory for Unfolding applications. In the "Run Configurations ..." menu, switch to the Arguments tab and enter the following as VM arguments: 
 
 	-Xmx1024m -Xms1024m
 	
@@ -97,7 +96,7 @@ This gives the application 1GB of memory from the start-up. Of course, you can u
 
 ### Processing in Eclipse
 
-If you haven't used Processing in Eclipse before, you might want to read a bit about it. See for example XXX and XXX)
+If you haven't used Eclipse before, you might want to read a bit about it. See for example <a href="http://processing.org/learning/eclipse/">Learning how to use Processing in Eclipse</a>.
 
 
 ### Application vs Applet
