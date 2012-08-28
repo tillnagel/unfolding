@@ -1,21 +1,23 @@
 ---
 layout: page
 title: Managing multiple maps
-description: How to create and use multiple maps
+description: How to create and use multiple maps in one application.
 group: tutorials-beginner
 finalimage: http://placehold.it/610x390&text=Bild+2+610x390
 finalfile: #someurlatgithub
 ---
 {% include JB/setup %}
 
-Description: How to create and manage multiple maps in one application.
+There are different use-cases for displaying multiple maps.
 
-Target audience: Everybody who wants to use various dependent or independent maps.
+- Adjacent
+- Overlay
+- Overview + Detail
 
-Prerequisites: First experience with Unfolding. Read "Unfolding in 5 Minutes for an introduction . (Internal links do not work? See https://github.com/mojombo/jekyll/pull/369 )
 
-## Two Maps
-Drawing two maps in one application is very simple. You just need to create two maps, and place them besides each other.
+
+## Two adjacent maps
+Drawing two independent maps in one application is very simple. You just need to create two maps, and place them besides each other.
 
 	map1 = new Map(this, "map1", 0, 0, 295, 300);
 	map2 = new Map(this, "map2", 305, 0, 295, 300);
@@ -30,6 +32,9 @@ That's it, basically.
 ![Two maps beside each other](/assets/images/multimap-simple.png)
 
 
+## Overlaying two maps
+
+
 ## Handling interactions for multiple maps
 If you add the default interaction methods, both maps can be panned and zoomed independently. Direct interactions (such as mouse, or finger touch) work out of the box.
 
@@ -38,8 +43,8 @@ If you add the default interaction methods, both maps can be panned and zoomed i
 ### Special Case: Indirect interactions
 
 But what happens if you want to allow using indirect interactions, such as keyboard or, say, an external rotary knob? How does Unfolding know which map should react to which input? It does not. So it is up to you to create some switching mechanism.
-
-As an example, let us use the mouse to select the active map.
+ 
+As an example, let us use the mouse to select the active map. First, we check which map was hit, i.e. over which map the mouse pointer was when the user pressed a key. Then, that map reacts to the plus and minus keys in zooming in and out.
 
 	public void keyPressed() {
 		Map activeMap = null;
@@ -59,4 +64,10 @@ As an example, let us use the mouse to select the active map.
 		}
 	}
 
-First, we check which map was hit, i.e. over which map the mouse pointer was when the user pressed a key. Then, that map reacts to the plus and minus keys in zooming in and out.
+
+
+
+## Overview + Detail
+
+A more complex example is to use two maps which are connected. A typical example is the Overview + Detail interaction pattern. You might know this from Photoshop's navigator window, or from Google Streetview. 
+

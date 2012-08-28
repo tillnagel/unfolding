@@ -2,7 +2,7 @@
 layout: page
 title: MapProvider and Tiles
 description: The basics of including different MapProviders.
-group: tutorials-starter
+group: tutorials-beginner
 thumbnail: /assets/images/tutorials/mapprovider_thumb.png
 finalimage: /assets/images/tutorials/mapprovider.png
 finalfiles: #someurlatgithub

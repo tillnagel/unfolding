@@ -1,9 +1,11 @@
+<!--
+
 ---
 layout: page
 title: Unfolding Overview
 description: What is Unfolding and how is the background?
 group: tutorials-starter
-author: Till Nagel, Felix, Sebastian Sadowski
+author: 
 thumbnail: http://placehold.it/330x250
 finalimage: http://placehold.it/610x390&text=Bild+2+610x390
 finalfiles: #someurlatgithub
@@ -35,3 +37,5 @@ Map tiles are square bitmap graphics displayed in a grid arrangement to show a m
 A "tileset" typically includes enough tiles to form a very large image but generally the idea is not to show them all at once, but to display only a particular area of the map so the map can load faster.
 The beaking down of a huge map to manageable pieces is like a pyramid of image tiles
 ![tilespyramid](/assets/images/tutorials/tilespyramid.jpeg)
+
+-->
