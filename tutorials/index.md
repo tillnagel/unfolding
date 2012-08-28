@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Tutorials
-description: "Learn how-to use Unfolding."
+description: "Learn how to use Unfolding. There will be more tutorials coming soon."
 ---
 {% include JB/setup %}
 
