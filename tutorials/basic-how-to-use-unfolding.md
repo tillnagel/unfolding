@@ -9,9 +9,9 @@ finalimage:
 
 {% include JB/setup %}
 
-Let's begin with our basic Unfolding sketch.
+Prerequisite: You already have installed Unfolding for your programming environment. (Otherwise, do it now: [Unfolding for Processing](getting-started-in-processing.html) or [Unfolding for Eclipse](getting-started-in-eclipse.html).)
 
-You already have installed Unfolding for your programming environment. (Otherwise, do it now: [Unfolding for Processing](getting-started-in-processing.html) or [Unfolding for Eclipse](getting-started-in-eclipse.html).)
+Let's begin with our basic Unfolding sketch.
 
 	UnfoldingMap map;
 	
@@ -34,10 +34,12 @@ You can easily convert a screen position to a location, and vice versa. As an ex
 
 Here, we get the Location of the map at the current mouse position, and show its latitude and longitude as black text.
 
-	Location location = map.getLocation(mouseX, mouseY);
-	fill(0);
-	text(location.getLat() + ", " + location.getLon(), mouseX, mouseY);
-
+	void draw() {
+		map.draw();
+		Location location = map.getLocation(mouseX, mouseY);
+		fill(0);
+		text(location.getLat() + ", " + location.getLon(), mouseX, mouseY);
+	}
 
 ## Map styles
 
@@ -67,19 +69,39 @@ Now, let's say you want to focus your visualization on a city. Manually set the 
 Here, we pan to Berlin and zoom to a level users can see the whole city area.
 
 You might want to restrict the map interactions, for instance because you only have data for a specific area.
-For that, we create a Location for the city, and use it to center the map (as before), but we are using that Location also as center for the panning restriction. Users now can drag the map only for 30 km around the city center.
+For that, we create a Location for the city, and use it to center the map (as before), but we are using that Location also as center for the panning restriction. 
 	
 	Location berlinLocation = new Location(52.5f, 13.4f);
 	map.zoomAndPanTo(berlinLocation, 10);
 	float maxPanningDistance = 30; // in km
 	map.setPanningRestriction(berlinLocation, maxPanningDistance);
 
+Users now can drag the map only for 30 km around the city center.
+
 See the [Interactions tutorial](interactions-simple.html) for more map interactivity, such as how to jump to different locations, or how to animate the map.
 
 
 ## Marker
 
+Displaying markers on a map is very straight-forward. Just create a marker with a location and add it to the map in setup().
 
+	Location berlinLocation = new Location(52.5, 13.4);
+	Location dublinLocation = new Location(53.35, -6.26);
+  	
+	// Create point markers for locations
+	SimplePointMarker berlinMarker = new SimplePointMarker(berlinLocation);
+	SimplePointMarker dublinMarker = new SimplePointMarker(dublinLocation);
+  	
+	// Add markers to the map
+	map.addMarkers(berlinMarker, dublinMarker);
+
+They will be drawn automatically on top of the map, always at the correct position.
+
+![Simple Point Markers](../assets/images/tutorials/markers-simple.png)
+
+Unfolding provides a default marker style, and has point, line, and polygon markers out of the box.
+
+Check out the [Markers tutorial](markers-simple.html) to see how to style your markers, and use polygon or even multi-area markers. If you want to load data from GeoJSON or various other file formats, take a look at our [Markers & Data tutorial](markers-data.html).
 
 
 ## More information
