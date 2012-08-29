@@ -60,3 +60,12 @@ You should get something like this.
 
 
 ![Hello World](../assets/images/tutorials/helloworld.png)
+
+That's it. Now you are all set up, and good to go! Check out our other [tutorials](./), and don't forget to browse through the [examples](../examples/).
+
+
+## Tips & Tricks
+
+### Memory usage
+It might be a good idea to increase the memory for Unfolding applications. For this, go to the Processing Preferences, check the box next to "Increase maximum available memory" and enter an amount, e.g. 1024 MB.
+

@@ -49,7 +49,7 @@ Unfolding displays maps in a default style, with cartographic data from OpenStre
 	
 (Don't forget importing `de.fhpotsdam.unfolding.providers.*`)
 
-This way, you can easily switch to one of the pre-configured map tile providers. To see the different map styles, go to the [MapProvider & Tiles tutorial](). There you'll also find how to create your own map provider, and even how to create a completely new map style.
+This way, you can easily switch to one of the pre-configured map tile providers. To see the different map styles, go to the [MapProvider & Tiles tutorial](mapprovider-and-tiles.html). There you'll also find how to create your own map provider, and even how to create a completely new map style.
 
 ![Map Style: Satellite](../assets/images/tutorials/provider-sat.png)
 <br/><br/>
@@ -83,7 +83,7 @@ See the [Interactions tutorial](interactions-simple.html) for more map interacti
 
 ## Marker
 
-Displaying markers on a map is very straight-forward. Just create a marker with a location and add it to the map in setup().
+Displaying markers on a map is very straight-forward. Just create a marker with a location and add it to the map once.
 
 	Location berlinLocation = new Location(52.5, 13.4);
 	Location dublinLocation = new Location(53.35, -6.26);
