@@ -127,7 +127,7 @@ public class UnfoldingMap implements MapEventListener {
 				this);
 
 		// panCenterZoomTo(PRIME_MERIDIAN_EQUATOR_LOCATION, DEFAULT_ZOOM_LEVEL);
-		
+
 		// Prepare mapChanged method via reflection
 		try {
 			Class appletClass = p.getClass();
@@ -136,7 +136,6 @@ public class UnfoldingMap implements MapEventListener {
 		} catch (NoSuchMethodException e) {
 		}
 	}
-	
 
 	protected static String generateId() {
 		return UUID.randomUUID().toString();
@@ -576,6 +575,18 @@ public class UnfoldingMap implements MapEventListener {
 
 	public void addMarkers(List<Marker> markers) {
 		mapDisplay.addMarkers(markers);
+	}
+
+	public List<Marker> getMarkers() {
+		return mapDisplay.getDefaultMarkerManager().getMarkers();
+	}
+
+	public Marker getFirstHitMarker(float checkX, float checkY) {
+		return mapDisplay.getDefaultMarkerManager().getFirstHitMarker(checkX, checkY);
+	}
+
+	public List<Marker> getHitMarker(float checkX, float checkY) {
+		return mapDisplay.getDefaultMarkerManager().getHitMarkers(checkX, checkY);
 	}
 
 	// Transformations ------------------------------------
