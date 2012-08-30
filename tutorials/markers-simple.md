@@ -3,7 +3,7 @@ layout: page
 title: Markers 
 description: How to use point, line, and polygon markers, how to style them, and how to create an interaction mechanism.
 group: tutorials-beginner
-thumbnail: ../assets/images/tutorials/basic-map-thumb.png
+thumbnail: ../assets/images/tutorials/markers-simple-thumb.png
 finalimage: 
 ---
 
@@ -29,14 +29,24 @@ They will be drawn automatically on top of the map, always at the correct positi
 
 Unfolding provides a default marker style, and has point, line, and polygon markers out of the box.
 
-
 ## Style your markers
 
-The easiest method to style your marker is to draw it yourself instead of adding it to the map.
+All default markers provide some very basic styling methods, e.g. to set stroke and fill colors.
 
-![Styled marker with fixed size](../assets/images/tutorials/marker-fixed-size.png)
+	// Adapt style
+	berlinMarker.setColor(color(255, 0, 0, 100));
+	berlinMarker.setStrokeColor(color(255, 0, 0));
+	berlinMarker.setStrokeWeight(4);
 
-For this you need to make the marker global, i.e. define the variable first in your sketch (line 2), then assign a new marker in setup (line 11).
+For more sophisticated marker customization or for creating data glyphs, there are two options:
+- Drawing it yourself
+- Creating own marker class (advanced)
+
+The easiest method to create a custom style is to draw the marker yourself instead of adding it to the map.
+
+![Styled markers](../assets/images/tutorials/marker-style-2.png)
+
+For this you need to make the marker global, i.e. define the variable first in your sketch (here: line 2), then assign a new marker in setup (line 11).
 In draw() get the current position of the marker (line 19), and draw some visual representation with Processing's drawing functions (lines 20-23).
 
 	UnfoldingMap map;
@@ -58,28 +68,27 @@ In draw() get the current position of the marker (line 19), and draw some visual
 	  map.draw();
 
 	  ScreenPosition berlinPos = berlinMarker.getScreenPosition(map);
-	  strokeWeight(1);
-	  stroke(0, 100);
-	  fill(0, 200, 0, 100);
-	  ellipse(berlinPos.x, berlinPos.y, 20, 20);
+	  strokeWeight(16);
+	  stroke(67, 211, 227, 100);
+	  noFill();
+	  ellipse(berlinPos.x, berlinPos.y, 36, 36);
 	}
 
 `marker.getScreenPosition(map)` returns the current x,y-position of the marker on the map. The method converts the geo-location of that marker to the current `ScreenPosition` on the canvas of the sketch.
 
 
-Now, you can style your markers in any way you want. In the following example we draw the marker as ring with a text label.
+Now, you can style your markers in any way you want. In the following example we draw the marker as two arcs with a text label.
 
 ![Marker as ring with label](../assets/images/tutorials/marker-style-1.png)
 
-Note that we draw a zoom dependent marker, i.e. the marker will be bigger in zoomed in, and smaller in zoomed out maps.
-
 	ScreenPosition posLondon = markerLondon.getScreenPosition(map);
-	strokeWeight(16);
-	stroke(200, 0, 0, 100);
+	strokeWeight(12);
+	stroke(200, 0, 0, 200);
+	strokeCap(SQUARE);
 	noFill();
-	// Zoom dependent marker size
-	float s = map.getZoom();
-	ellipse(posLondon.x, posLondon.y, s, s);
+	float s = 44;
+	arc(posLondon.x, posLondon.y, s, s, -PI * 0.9, -PI * 0.1);
+	arc(posLondon.x, posLondon.y, s, s, PI * 0.1, PI * 0.9);
 	fill(0);
 	text("London", posLondon.x - textWidth("London") / 2, posLondon.y + 4);
 
@@ -94,14 +103,12 @@ Besides, by creating your own marker class you will have cleaner code, and can m
 
 ![Image marker](../assets/images/tutorials/markers-image.png)
 
-See the [Image Marker example](examples/40_image-marker.html) for code on how to create an own marker class displaying images.
-
-(More following soon.)
+See the [Image Marker example](../examples/40_image-marker.html) for code on how to create an own marker class displaying images.
 
 
 ## Line and polygon marker
 
-(More following soon.)
+(Coming soon.)
 
 
 ## Selecting a marker
@@ -113,13 +120,15 @@ You can manually set the status, and it will be displayed in the default highlig
 	SimplePointMarker marker = new SimplePointMarker(new Location(52.5, 13.4));
 	marker.setSelected(true);
 
-If you want to allow users to interactively select and deselect markers, you need to check which marker the mouse pointer is over currently, and set the status accordingly. 
+If you want to allow users to interactively select and deselect markers, you need to check which marker the mouse pointer is over currently, and set the status accordingly. For instance, like this:
 
 	public void mouseMoved() {
 		Marker hitMarker = map.getFirstHitMarker(mouseX, mouseY);
 		if (hitMarker != null) {
+			// Select current marker 
 			hitMarker.setSelected(true);
 		} else {
+			// Deselect all other markers
 			for (Marker marker : map.getMarkers()) {
 				marker.setSelected(false);
 			}
@@ -150,7 +159,13 @@ The following example shows the shape for France and Corsica, both defined as (c
 
 As you can see, this works also with selection handling. When the user moves the mouse over one of the areas, both are highlighted. 
 
-(More following soon.)
+
+## Fixed and dynamic sized markers
+
+Note that we draw a zoom dependent marker, i.e. the marker will be bigger in zoomed in, and smaller in zoomed out maps.
+
+	// Zoom dependent marker size
+	float s = map.getZoom();
 
 
 ## Creating data markers from GeoJSON, GPX & Co
