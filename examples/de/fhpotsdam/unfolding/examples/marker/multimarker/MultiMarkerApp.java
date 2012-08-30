@@ -20,7 +20,7 @@ import de.fhpotsdam.unfolding.utils.MapUtils;
  */
 public class MultiMarkerApp extends PApplet {
 
-	boolean useMultiMarker = true;
+	boolean useMultiMarker = false;
 
 	UnfoldingMap map;
 
@@ -45,6 +45,7 @@ public class MultiMarkerApp extends PApplet {
 			MultiMarker multiMarker = new MultiMarker();
 			multiMarker.addMarkers(franceMarker, corsicaMarker);
 			map.addMarkers(multiMarker);
+			
 		} else {
 			// Add France and Corsica as two independent polygon markers
 			map.addMarkers(franceMarker, corsicaMarker);
@@ -57,6 +58,9 @@ public class MultiMarkerApp extends PApplet {
 	}
 
 	public void mouseMoved() {
+		// Not via marker.isInside(...) as this example supports both MultiMarker and two markers. 
+		//multiMarker.isInside(map, mouseX, mouseY);
+		
 		Marker hitMarker = map.getDefaultMarkerManager().getFirstHitMarker(mouseX, mouseY);
 		if (hitMarker != null) {
 			hitMarker.setSelected(true);

@@ -42,6 +42,11 @@ public class SimpleMarkerManagerApp extends PApplet {
 
 		// Add Markers to the maps default MarkerManager
 		map.addMarkers(berlinMarker, mexicoCityMarker, connectionMarker);
+		
+		// Adapt style
+		berlinMarker.setColor(color(255, 0, 0, 100));
+		berlinMarker.setStrokeColor(color(255, 0, 0));
+		berlinMarker.setStrokeWeight(2);
 	}
 
 	public void draw() {
