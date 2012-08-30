@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Markers 
-description: How to use point, line, and polygon markers, how to style them, and how to create your own.
+description: How to use point, line, and polygon markers, how to style them, and how to create an interaction mechanism.
 group: tutorials-beginner
 thumbnail: ../assets/images/tutorials/basic-map-thumb.png
 finalimage: 
@@ -9,8 +9,6 @@ finalimage:
 
 {% include JB/setup %}
 
-
-## Marker
 
 Displaying markers on a map is very straight-forward. Just create a marker with a location and add it to the map once.
 Here, for instance, we are creating two point markers, one for Berlin and one for Dublin.
@@ -34,7 +32,9 @@ Unfolding provides a default marker style, and has point, line, and polygon mark
 
 ## Style your markers
 
-The easiest method to style your marker is to draw it yourself, instead of adding it to the map.
+The easiest method to style your marker is to draw it yourself instead of adding it to the map.
+
+![Styled marker with fixed size](../assets/images/tutorials/marker-fixed-size.png)
 
 For this you need to make the marker global, i.e. define the variable first in your sketch (line 2), then assign a new marker in setup (line 11).
 In draw() get the current position of the marker (line 19), and draw some visual representation with Processing's drawing functions (lines 20-23).
@@ -66,14 +66,12 @@ In draw() get the current position of the marker (line 19), and draw some visual
 
 `marker.getScreenPosition(map)` returns the current x,y-position of the marker on the map. The method converts the geo-location of that marker to the current `ScreenPosition` on the canvas of the sketch.
 
-![Styled marker with fixed size](../assets/images/tutorials/marker-fixed-size.png)
-
 
 Now, you can style your markers in any way you want. In the following example we draw the marker as ring with a text label.
 
 ![Marker as ring with label](../assets/images/tutorials/marker-style-1.png)
 
-Note, that we draw a zoom dependent marker, i.e. the marker will be bigger in zoomed in, and smaller in zoomed out maps.
+Note that we draw a zoom dependent marker, i.e. the marker will be bigger in zoomed in, and smaller in zoomed out maps.
 
 	ScreenPosition posLondon = markerLondon.getScreenPosition(map);
 	strokeWeight(16);
@@ -90,17 +88,46 @@ Note, that we draw a zoom dependent marker, i.e. the marker will be bigger in zo
 
 ## Create your own marker
 
-By creating your own marker class you have full control over style and interaction handling. Besides, you will have cleaner code, and can manage hundreds of markers with a more elegant software architecture, as the drawing will be handled automatically by the map.
+You can also create your own marker class by extending AbstractMarker, which gives you full control over style and interaction handling.
+
+Besides, by creating your own marker class you will have cleaner code, and can manage hundreds of markers with a more elegant software architecture, as the drawing will be handled automatically by the map.
 
 ![Image marker](../assets/images/tutorials/markers-image.png)
 
-See the [Image Marker example](examples/40_image-marker.html) for code on how to create an own marker class extending AbstractMarker.
+See the [Image Marker example](examples/40_image-marker.html) for code on how to create an own marker class displaying images.
 
 (More following soon.)
+
 
 ## Line and polygon marker
 
 (More following soon.)
+
+
+## Selecting a marker
+
+Unfolding's simple markers support highlighting. This can be used e.g. for enabling an interactive picking mechanism, or to animate through different markers.
+
+You can manually set the status, and it will be displayed in the default highlight style.
+
+	SimplePointMarker marker = new SimplePointMarker(new Location(52.5, 13.4));
+	marker.setSelected(true);
+
+If you want to allow users to interactively select and deselect markers, you need to check which marker the mouse pointer is over currently, and set the status accordingly. 
+
+	public void mouseMoved() {
+		Marker hitMarker = map.getFirstHitMarker(mouseX, mouseY);
+		if (hitMarker != null) {
+			hitMarker.setSelected(true);
+		} else {
+			for (Marker marker : map.getMarkers()) {
+				marker.setSelected(false);
+			}
+		}
+	}
+
+NB: You can use the same selection mechanism when creating your own marker classes.
+
 
 ## Multi marker
 
@@ -109,6 +136,17 @@ You can also create markers consisting of multiple sub markers.
 The following example shows the shape for France and Corsica, both defined as (crude) polygons. Both areas are `SimplePolygonMarker` and combined in one `MultiMarker`. Only the `MultiMarker` is added to the map.
 
 ![Multi-Marker with two polygons](../assets/images/tutorials/marker-multi-select.png)
+
+	// Create markers for each area
+	SimplePolygonMarker franceMarker = new SimplePolygonMarker(getFranceShapeLocations());
+	SimplePolygonMarker corsicaMarker = new SimplePolygonMarker(getCorsicaShapeLocations());
+
+	// Combine as MultiMarker
+	MultiMarker multiMarker = new MultiMarker();
+	multiMarker.addMarkers(franceMarker, corsicaMarker);
+
+	// Add only MultiMarker to the map
+	map.addMarkers(multiMarker);
 
 As you can see, this works also with selection handling. When the user moves the mouse over one of the areas, both are highlighted. 
 

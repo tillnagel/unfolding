@@ -1,11 +1,9 @@
 ---
 layout: page
 title: Adding a Compass
-description: This little Tutorial will explain how to add a simple compass to your map
-group: tutorials-beginner
-author: Christopher Pietsch and
-thumbnail: http://placehold.it/330x250
-finalfiles: #someurlatgithub
+description: Shows how to add an interactive compass UI to the map.
+group: tutorials-advanced
+thumbnail: ../assets/images/tutorials/compass-thumb.png
 ---
 
 
@@ -16,7 +14,7 @@ finalfiles: #someurlatgithub
 To test the compass you can rotate the map via **a** and **d**.
 
 
-![compass](http://tillnagel.github.com/unfolding/assets/images/tutorials/compass.png)
+![compass](../assets/images/tutorials/compass.png)
 
 ## Simple
 Check out the [SimpleCompassApp.java](https://github.com/tillnagel/unfolding/blob/compass/examples/de/fhpotsdam/unfolding/examples/ui/SimpleCompassApp.java).
