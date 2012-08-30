@@ -2,34 +2,51 @@ package de.fhpotsdam.unfolding.marker;
 
 import java.util.HashMap;
 
-import processing.core.PApplet;
 import processing.core.PGraphics;
 import processing.core.PVector;
 import de.fhpotsdam.unfolding.geo.Location;
 
 /**
- * Simple marker, implementing only the main draw method.
+ * Simple marker representing a single location as a circle.
  */
-
 public class SimplePointMarker extends AbstractMarker {
 
-	public float radius = 10f;
+	protected float radius = 10f;
 
+	/**
+	 * Creates an empty point marker. Used internally by the MarkerFactory.
+	 */
 	public SimplePointMarker() {
 		this(null, null);
 	}
 
+	/**
+	 * Creates a point marker for the given location.
+	 * 
+	 * @param location
+	 *            The location of this Marker.
+	 */
 	public SimplePointMarker(Location location) {
 		this(location, null);
 	}
 
+	/**
+	 * Creates a point marker for the given location and properties.
+	 * 
+	 * @param location
+	 *            The location of this Marker.
+	 * @param properties
+	 *            Some data properties for this marker.
+	 */
 	public SimplePointMarker(Location location, HashMap<String, Object> properties) {
 		super(location, properties);
 	}
 
-	public void drawIn(PGraphics pg, float x, float y) {
-	}
-
+	/**
+	 * Draws this point marker as circle in the defined style. If no style has been set, Unfolding's default one is
+	 * used.
+	 */
+	@Override
 	public void draw(PGraphics pg, float x, float y) {
 		pg.pushStyle();
 		pg.strokeWeight(strokeWeight);
@@ -40,26 +57,23 @@ public class SimplePointMarker extends AbstractMarker {
 			pg.fill(color);
 			pg.stroke(strokeColor);
 		}
-		pg.ellipse(x, y, radius, radius);// TODO use radius in km and convert to px
+		pg.ellipse(x, y, radius, radius); // TODO use radius in km and convert to px
 		pg.popStyle();
 	}
 
+	@Override
 	public boolean isInside(float checkX, float checkY, float x, float y) {
-		PApplet.println("SimpleMarker.isInside(cx, cy, x, y)");
 		PVector pos = new PVector(x, y);
 		return pos.dist(new PVector(checkX, checkY)) < radius; // FIXME must be zoom dependent
 	}
 
+	/**
+	 * Sets the radius of this marker. Used for the displayed ellipse.
+	 * 
+	 * @param radius
+	 */
 	public void setRadius(float radius) {
 		this.radius = radius;
-	}
-
-	public void setColor(int color) {
-		this.color = color;
-	}
-
-	public void setStrokeColor(int strokeColor) {
-		this.strokeColor = strokeColor;
 	}
 
 }

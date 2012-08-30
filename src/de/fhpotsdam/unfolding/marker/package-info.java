@@ -1,5 +1,7 @@
 /**
- * Easily display points of interest on maps using Marker and MarkerManager.
+ * Display visual representations of geo-spatial locations using Marker and MarkerManager.
+ * 
+ * You can use the default SimplePointMarker, SimpleLineMarker, and SimplePolygonMarker, or create your own by extending AbstractMarker or one of its subclasses.
  */
-
 package de.fhpotsdam.unfolding.marker;
+

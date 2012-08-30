@@ -23,10 +23,14 @@ public class SimpleLinesMarker extends AbstractShapeMarker {
 	}
 
 	/**
-	 * Convenient method to create a marker with a single line.
+	 * Creates a marker for a single line.
+	 * 
+	 * This convenience method adds the given start and end locations to the list.
 	 * 
 	 * @param startLocation
+	 *            The location of the start of this line.
 	 * @param endLocation
+	 *            The location of the end of this line.
 	 */
 	public SimpleLinesMarker(Location startLocation, Location endLocation) {
 		addLocations(startLocation, endLocation);
@@ -34,9 +38,9 @@ public class SimpleLinesMarker extends AbstractShapeMarker {
 
 	@Override
 	public void draw(PGraphics pg, List<MapPosition> mapPositions) {
-		if (mapPositions.isEmpty()) 
+		if (mapPositions.isEmpty())
 			return;
-		
+
 		pg.pushStyle();
 		pg.noFill();
 		if (isSelected()) {

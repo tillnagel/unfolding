@@ -10,6 +10,9 @@ import de.fhpotsdam.unfolding.geo.Location;
 /**
  * A MultiMarker enables handling of multiple, logically grouped markers. Properties and display states are the same for
  * all its markers.
+ * 
+ * A MultiMarker can consist of various sub-markers, even of different types. For instance, a MultiMarker could have
+ * three polygon marker and one point marker.
  */
 public class MultiMarker implements Marker {
 
@@ -45,11 +48,11 @@ public class MultiMarker implements Marker {
 	 */
 	@Override
 	public Location getLocation() {
-		Location center = new Location(0,0);
-		for(Marker marker : markers){
+		Location center = new Location(0, 0);
+		for (Marker marker : markers) {
 			center.add(marker.getLocation());
 		}
-		center.div((float)markers.size());
+		center.div((float) markers.size());
 		return center;
 	}
 
@@ -68,14 +71,14 @@ public class MultiMarker implements Marker {
 	/**
 	 * return distance between location and the (to the location) closest marker
 	 */
-	//REVISIT alternatively method could return distance to the of all markers
-	//implement both in different methods? examples needed!
+	// REVISIT alternatively method could return distance to the of all markers
+	// implement both in different methods? examples needed!
 	@Override
 	public double getDistanceTo(Location location) {
 		double minDistance = Double.MAX_VALUE;
-		for(Marker marker : markers){
+		for (Marker marker : markers) {
 			double dist = marker.getDistanceTo(location);
-			minDistance =  dist < minDistance ? dist : minDistance;
+			minDistance = dist < minDistance ? dist : minDistance;
 		}
 		return minDistance;
 	}
@@ -151,7 +154,5 @@ public class MultiMarker implements Marker {
 			marker.setStrokeWeight(weight);
 		}
 	}
-	
-	
 
 }

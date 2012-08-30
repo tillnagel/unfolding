@@ -10,22 +10,44 @@ import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.utils.MapPosition;
 import de.fhpotsdam.unfolding.utils.ScreenPosition;
 
+/**
+ * Abstract marker representing multiple locations. Can be implemented as lines, polygons, or other shapes.
+ * 
+ * Handles multiple locations, and implements the main marker methods for handling those properly.
+ */
 public abstract class AbstractShapeMarker extends AbstractMarker {
 
+	/** All locations defining this shape. */
 	protected List<Location> locations;
 
 	public AbstractShapeMarker() {
 		this(new ArrayList<Location>(), null);
 	}
 
+	/**
+	 * Creates a shape marker for the given locations.
+	 * 
+	 * @param location
+	 *            The list of locations.
+	 */
 	public AbstractShapeMarker(List<Location> locations) {
 		this(locations, null);
 	}
 
+	/**
+	 * Creates a shape marker for the given locations.
+	 * 
+	 * @param location
+	 *            The list of locations.
+	 * @param properties
+	 *            Some data properties for this marker.
+	 */
 	public AbstractShapeMarker(List<Location> locations, HashMap<String, Object> properties) {
 		this.locations = locations;
 		setProperties(properties);
 	}
+
+	// Methods handling locations -------------------------
 
 	public void setLocations(List<Location> locations) {
 		this.locations = locations;
@@ -44,21 +66,25 @@ public abstract class AbstractShapeMarker extends AbstractMarker {
 	public void addLocations(List<Location> locations) {
 		this.locations.addAll(locations);
 	}
-	
-	public void addLocation(float x, float y){
-		locations.add(new Location(x,y));
+
+	public void addLocation(float x, float y) {
+		locations.add(new Location(x, y));
 	}
-	
-	public Location getLocation(){
-		return getCentroid();
-	}
-	
+
+	/**
+	 * Returns the geometric center of this shape.
+	 * 
+	 * The returned location minimizes the sum of squared Euclidean distances between itself and each location in the
+	 * list.
+	 * 
+	 * @return The centroid location.
+	 */
 	public Location getCentroid() {
-		Location center = new Location(0,0);
-		for(Location loc : locations){
+		Location center = new Location(0, 0);
+		for (Location loc : locations) {
 			center.add(loc);
 		}
-		center.div((float)locations.size());
+		center.div((float) locations.size());
 		return center;
 	}
 
@@ -72,6 +98,25 @@ public abstract class AbstractShapeMarker extends AbstractMarker {
 
 	public void removeLocation(int index) {
 		locations.remove(index);
+	}
+
+	/**
+	 * Adds the given location to the list of locations.
+	 * 
+	 * NB: Does not set this as the only location! This implementation is just prevent mistakes by using this method as
+	 * more general Marker method.
+	 * 
+	 * @param location
+	 *            The location to add.
+	 */
+	@Override
+	public void setLocation(Location location) {
+		addLocations(location);
+	}
+
+	@Override
+	public Location getLocation() {
+		return getCentroid();
 	}
 
 	@Override
@@ -90,10 +135,10 @@ public abstract class AbstractShapeMarker extends AbstractMarker {
 		draw(pg, mapPositions, properties, map);
 	}
 
-	protected void draw(PGraphics pg, List<MapPosition> mapPositions, HashMap<String, Object> properties, UnfoldingMap map) {
+	protected void draw(PGraphics pg, List<MapPosition> mapPositions, HashMap<String, Object> properties,
+			UnfoldingMap map) {
 		draw(pg, mapPositions);
 	}
-
 
 	/**
 	 * Draws these markers in outer object coordinate system.
@@ -106,10 +151,10 @@ public abstract class AbstractShapeMarker extends AbstractMarker {
 	 *            The positions in outer object coordinates.
 	 */
 	public abstract void draw(PGraphics pg, List<MapPosition> objectPositions);
-	
+
 	@Override
-	public void draw(PGraphics pg, float x, float y){
-		
+	public void draw(PGraphics pg, float x, float y) {
+
 	}
 
 	// REVISIT default behavior for getLocation(), draw(location),
@@ -142,10 +187,6 @@ public abstract class AbstractShapeMarker extends AbstractMarker {
 	protected boolean isInside(float checkX, float checkY, float x, float y) {
 		// TODO Simply return false?
 		throw new RuntimeException("Check for a single positon is not implemented for polygons.");
-	}
-
-	public int getColor() {
-		return color;
 	}
 
 }

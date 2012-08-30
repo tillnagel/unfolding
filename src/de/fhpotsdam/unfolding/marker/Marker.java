@@ -45,16 +45,17 @@ public interface Marker {
 	public void setLocation(Location location);
 
 	/**
-	 * Calculate distance to location
+	 * Calculate distance between this marker and the given location.
 	 * 
 	 * @param location
-	 * @return distance to location
+	 *            The location to calculate the distance to.
+	 * @return Distance to location in kilometers (km).
 	 * 
 	 */
 	public double getDistanceTo(Location location);
 
 	/**
-	 * Sets the additional properties of this marker.
+	 * Sets the optional properties of this marker.
 	 * 
 	 * @param properties
 	 *            The properties to set.
@@ -77,24 +78,50 @@ public interface Marker {
 	public boolean isInside(UnfoldingMap map, float checkX, float checkY);
 
 	/**
-	 * Draws this marker in outer object coordinate system.
-	 * 
-	 * e.g. for labels oriented to the map
+	 * Draws this marker.
 	 * 
 	 * @param map
 	 *            The map to draw on.
 	 */
 	public void draw(UnfoldingMap map);
 
+	/**
+	 * Sets the selected status of this marker.
+	 * 
+	 * @param selected
+	 *            The new status.
+	 */
 	public void setSelected(boolean selected);
 
+	/**
+	 * Indicates whether this marker is selected. Can be used for drawing the marker differently, e.g. to highlight it.
+	 * 
+	 * @return true if it is selected, false otherwise.
+	 */
 	public boolean isSelected();
 
-	// For drawing onto the texture, i.e. after distortion, etc.
-	// public void drawTexture(PGraphics pg);
-
+	/**
+	 * Sets the main color of this marker.
+	 * 
+	 * @param color
+	 *            The color (in Processing's color type)
+	 */
 	public void setColor(int color);
+
+	/**
+	 * Sets the color of the border.
+	 * 
+	 * @param color
+	 *            The color (in Processing's color type)
+	 */
 	public void setStrokeColor(int color);
+
+	/**
+	 * Sets the thickness of the border of this marker.
+	 * 
+	 * @param strokeWeight
+	 *            Thickness in pixel.
+	 */
 	public void setStrokeWeight(int weight);
 
 }

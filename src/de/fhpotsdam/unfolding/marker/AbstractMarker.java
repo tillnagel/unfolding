@@ -10,10 +10,10 @@ import de.fhpotsdam.unfolding.utils.ScreenPosition;
 import de.fhpotsdam.unfolding.utils.StyleConstants;
 
 /**
- * Marker handling location to appropriate coordinate system. Also it provides the correct PGraphics.
+ * Abstract marker handling location to appropriate coordinate system, and handles basic marker functionality.
  * 
- * The given x,y coordinates are already converted into the local coordinate system, so no need for further conversion.
- * 
+ * All default marker of Unfolding implement this. Your own class can extend this AbstractMarker or implement the Marker
+ * interface, directly.
  */
 public abstract class AbstractMarker implements Marker {
 
@@ -23,10 +23,14 @@ public abstract class AbstractMarker implements Marker {
 	protected int highlightColor = StyleConstants.HIGHLIGHTED_FILL_COLOR;
 	protected int highlightStrokeColor = StyleConstants.HIGHLIGHTED_STROKE_COLOR;
 
-	public Location location;
-	public HashMap<String, Object> properties;
-	public boolean selected;
-	public String id;
+	/** The location of this marker. */
+	protected Location location;
+	/** Optional data properties. */
+	protected HashMap<String, Object> properties;
+	/** Indicates whether this marker is selected. */
+	protected boolean selected;
+	/** The ID of this marker. */
+	protected String id;
 
 	public AbstractMarker() {
 		this(new Location(0, 0), null);
@@ -34,6 +38,11 @@ public abstract class AbstractMarker implements Marker {
 
 	public AbstractMarker(Location location) {
 		this(location, null);
+	}
+
+	public AbstractMarker(Location location, HashMap<String, Object> props) {
+		this.location = location;
+		setProperties(props);
 	}
 
 	public String getId() {
@@ -44,19 +53,20 @@ public abstract class AbstractMarker implements Marker {
 		this.id = id;
 	}
 
-	public AbstractMarker(Location location, HashMap<String, Object> props) {
-		this.location = location;
-		setProperties(props);
-	}
-
+	@Override
 	public void setProperties(HashMap<String, Object> props) {
 		this.properties = props;
 	}
 
+	@Override
 	public HashMap<String, Object> getProperties() {
 		return properties;
 	}
 
+	/**
+	 * Draws this marker onto the map. Converts the geo-location to object position, and calls
+	 * {@link #draw(PGraphics, float, float, UnfoldingMap)}.
+	 */
 	@Override
 	public void draw(UnfoldingMap map) {
 		PGraphics pg = map.mapDisplay.getOuterPG();
@@ -66,10 +76,39 @@ public abstract class AbstractMarker implements Marker {
 		draw(pg, x, y, map);
 	}
 
-	/* override these methods to draw your marker dependent of map attributes */
+	/**
+	 * Draws a visual representation of this marker. The given x,y coordinates are already converted into the local
+	 * coordinate system, so no need for further conversion. That is, a position of (0, 0) is the origin of this marker.
+	 * 
+	 * Subclasses <em>may</em> override this method to draw a marker depending on map properties.
+	 * 
+	 * @param pg
+	 *            The PGraphics to draw on.
+	 * @param x
+	 *            The x position in object coordinates.
+	 * @param y
+	 *            The y position in object coordinates.
+	 * @param map
+	 *            The map to draw on. Can be used to draw a marker which depends on other properties of the map.
+	 */
 	protected void draw(PGraphics pg, float x, float y, UnfoldingMap map) {
 		draw(pg, x, y);
 	}
+
+	/**
+	 * Draws a visual representation of this marker. The given x,y coordinates are already converted into the local
+	 * coordinate system, so no need for further conversion. That is, a position of (0, 0) is the origin of this marker.
+	 * 
+	 * Subclasses <em>must</em> override this method to draw a marker.
+	 * 
+	 * @param pg
+	 *            The PGraphics to draw on
+	 * @param x
+	 *            The x position in outer object coordinates.
+	 * @param y
+	 *            The y position in outer object coordinates.
+	 */
+	public abstract void draw(PGraphics pg, float x, float y);
 
 	/**
 	 * Checks whether given position is inside this marker, according to the maps coordinate system.
@@ -107,20 +146,6 @@ public abstract class AbstractMarker implements Marker {
 	}
 
 	/**
-	 * Draws this marker in outer object coordinate system.
-	 * 
-	 * e.g. for labels oriented to the map
-	 * 
-	 * @param pg
-	 *            The PGraphics to draw on
-	 * @param x
-	 *            The x position in outer object coordinates.
-	 * @param y
-	 *            The y position in outer object coordinates.
-	 */
-	public abstract void draw(PGraphics pg, float x, float y);
-
-	/**
 	 * Checks whether given position is inside the marker.
 	 * 
 	 * TODO Keep isInside(cx, cy, x, y) also for AbstractShapeMarker?
@@ -138,7 +163,7 @@ public abstract class AbstractMarker implements Marker {
 	protected abstract boolean isInside(float checkX, float checkY, float x, float y);
 
 	/**
-	 * Changes the select status of this marker. Sub-classes need to use the selection status.
+	 * Changes the select status of this marker. Sub-classes can use the selection status to highlight this marker.
 	 * 
 	 * @param selected
 	 *            Whether this marker is selected or not.
@@ -152,10 +177,12 @@ public abstract class AbstractMarker implements Marker {
 		return selected;
 	}
 
+	@Override
 	public void setColor(int color) {
 		this.color = color;
 	}
 
+	@Override
 	public void setStrokeWeight(int strokeWeight) {
 		this.strokeWeight = strokeWeight;
 	}

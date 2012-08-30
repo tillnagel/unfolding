@@ -12,10 +12,6 @@ public class OuterLabelMarker extends SimplePointMarker {
 	}
 
 	@Override
-	public void drawIn(PGraphics pg, float x, float y) {
-	}
-
-	@Override
 	public void draw(PGraphics pg, float x, float y) {
 		pg.pushStyle(); 
 		pg.fill(color);
