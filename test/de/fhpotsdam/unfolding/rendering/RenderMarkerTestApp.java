@@ -18,7 +18,7 @@ public class RenderMarkerTestApp extends PApplet {
 	public void setup() {
 		size(800, 600, GLConstants.GLGRAPHICS);
 		//size(800, 600);
-		//smooth();
+		smooth();
 
 		map = new UnfoldingMap(this);
 		map.zoomToLevel(3);

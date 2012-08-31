@@ -21,8 +21,8 @@ public class GLGraphicsMapDisplay extends ProcessingMapDisplay implements PConst
 			float width, float height) {
 		super(papplet, provider, offsetX, offsetY, width, height);
 
-		offscreenPG = new GLGraphicsOffScreen(papplet, (int) width, (int) height);
-		offscreenCutoffPG = new GLGraphicsOffScreen(papplet, (int) width, (int) height);
+		offscreenPG = new GLGraphicsOffScreen(papplet, (int) width, (int) height, true);
+		offscreenCutoffPG = new GLGraphicsOffScreen(papplet, (int) width, (int) height, true);
 	}
 
 	@Override
