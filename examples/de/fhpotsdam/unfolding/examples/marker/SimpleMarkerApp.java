@@ -1,7 +1,7 @@
 package de.fhpotsdam.unfolding.examples.marker;
 
 import processing.core.PApplet;
-import codeanticode.glgraphics.GLConstants;
+import processing.core.PFont;
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.marker.SimplePointMarker;
@@ -11,10 +11,8 @@ import de.fhpotsdam.unfolding.utils.ScreenPosition;
 /**
  * Simple marker display, without the use of MarkerManager.
  * 
- * Conversion between geo-location and screen position is done via the marker,
- * but drawing the markers is done by this application itself.
- * 
- * Easiest way of drawing own styled markers.
+ * Conversion between geo-location and screen position is done via the marker, but drawing the markers is done by this
+ * application itself. This is the easiest way of drawing own styled markers.
  */
 @SuppressWarnings("serial")
 public class SimpleMarkerApp extends PApplet {
@@ -25,7 +23,8 @@ public class SimpleMarkerApp extends PApplet {
 	SimplePointMarker markerLondon;
 
 	public void setup() {
-		size(800, 400, GLConstants.GLGRAPHICS);
+		size(800, 400);
+		smooth();
 
 		map = new UnfoldingMap(this);
 		map.setTweening(true);
@@ -39,6 +38,9 @@ public class SimpleMarkerApp extends PApplet {
 
 		markerBerlin = new SimplePointMarker(locationBerlin);
 		markerLondon = new SimplePointMarker(locationLondon);
+
+		PFont font = createFont("serif-bold", 12);
+		textFont(font);
 	}
 
 	public void draw() {
@@ -50,13 +52,22 @@ public class SimpleMarkerApp extends PApplet {
 
 		// Fixed-size marker
 		ScreenPosition posBerlin = markerBerlin.getScreenPosition(map);
+		strokeWeight(1);
+		stroke(0, 100);
 		fill(0, 200, 0, 100);
 		ellipse(posBerlin.x, posBerlin.y, 20, 20);
 
-		// Zoom dependent marker size
 		ScreenPosition posLondon = markerLondon.getScreenPosition(map);
-		fill(200, 0, 0, 100);
-		float s = map.getZoom();
-		ellipse(posLondon.x, posLondon.y, s, s);
+		strokeWeight(12);
+		stroke(200, 0, 0, 200);
+		strokeCap(SQUARE);
+		noFill();
+		// Zoom dependent marker size
+		//float s = map.getZoom();
+		float s = 44;
+		arc(posLondon.x, posLondon.y, s, s, -PI*0.9f, -PI*0.1f);
+		arc(posLondon.x, posLondon.y, s, s, PI*0.1f, PI*0.9f);
+		fill(0);
+		text("London", posLondon.x - textWidth("London") / 2, posLondon.y + 4);
 	}
 }

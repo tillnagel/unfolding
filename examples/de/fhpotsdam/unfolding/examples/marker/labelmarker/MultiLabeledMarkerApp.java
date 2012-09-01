@@ -10,6 +10,7 @@ import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.data.Feature;
 import de.fhpotsdam.unfolding.data.GeoRSSReader;
 import de.fhpotsdam.unfolding.data.PointFeature;
+import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.marker.Marker;
 import de.fhpotsdam.unfolding.marker.MarkerManager;
 import de.fhpotsdam.unfolding.utils.MapUtils;
@@ -27,24 +28,33 @@ import de.fhpotsdam.unfolding.utils.MapUtils;
  */
 public class MultiLabeledMarkerApp extends PApplet {
 
-	UnfoldingMap map;
+	UnfoldingMap map;Location berlinLocation = new Location(52.5f, 13.4f);
 
 	public void setup() {
 		size(800, 600, GLConstants.GLGRAPHICS);
-		PFont font = loadFont("Helvetica-12.vlw");
 
 		map = new UnfoldingMap(this, "map", 50, 50, 700, 500);
 		map.zoomToLevel(2);
+		//map.panTo(berlinLocation);
 		MapUtils.createDefaultEventDispatcher(this, map);
 
-		List<Feature> features = GeoRSSReader.loadData(this, "bbc-georss-test.xml");
-		List<Marker> markers = createLabeledMarkers(font, features);
-		map.addMarkers(markers);
+//		List<Feature> features = GeoRSSReader.loadData(this, "bbc-georss-test.xml");
+//		List<Marker> markers = createLabeledMarkers(features);
+//		map.addMarkers(markers);
+//		
+		font = loadFont("Helvetica-16.vlw");
+		Marker berlinMarker = new LabeledMarker(new Location(52.5f, 13.4f), "Fossils", font, 15);
+		map.addMarkers(berlinMarker);
 	}
 
+	PFont font;
+	
 	public void draw() {
 		background(240);
 		map.draw();
+		
+		textFont(font);
+		text("Fossils", 100, 100);
 	}
 
 	public void mouseMoved() {
@@ -62,12 +72,13 @@ public class MultiLabeledMarkerApp extends PApplet {
 		}
 	}
 
-	public static List<Marker> createLabeledMarkers(PFont font, List<Feature> features) {
+	public List<Marker> createLabeledMarkers(List<Feature> features) {
+		PFont font = loadFont("Helvetica-16.vlw");
 		List<Marker> markers = new ArrayList<Marker>();
 		for (Feature feature : features) {
 			String label = feature.getStringProperty("title");
 			PointFeature pointFeature = (PointFeature) feature;
-			Marker marker = new LabeledMarker(font, label, pointFeature.getLocation(), 20);
+			Marker marker = new LabeledMarker(pointFeature.getLocation(), label, font, 15);
 			markers.add(marker);
 		}
 		return markers;

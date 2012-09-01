@@ -14,27 +14,29 @@ public class LabeledMarkerApp extends PApplet {
 
 	UnfoldingMap map;
 
-	LabeledMarker berlinMarker;
-
 	Location berlinLocation = new Location(52.5f, 13.4f);
-
+	LabeledMarker berlinMarker;
+	PFont font;
+	
 	public void setup() {
 		size(800, 600, GLConstants.GLGRAPHICS);
-		PFont font = loadFont("Helvetica-16.vlw");
+		// size(800, 600);
 
 		map = new UnfoldingMap(this, "map", 50, 50, 700, 500);
 		map.zoomToLevel(3);
 		map.panTo(berlinLocation);
 		MapUtils.createDefaultEventDispatcher(this, map);
 
-		berlinMarker = new LabeledMarker(font, "Berlin", berlinLocation, 15);
+		font = loadFont("Helvetica-16.vlw");
+		berlinMarker = new LabeledMarker(berlinLocation, "Fossils", font, 15);
 		map.addMarkers(berlinMarker);
 	}
 
 	public void draw() {
-		
 		background(240);
 		map.draw();
+		
+		
 	}
 
 	public void mouseMoved() {

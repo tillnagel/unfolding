@@ -20,14 +20,9 @@ import de.fhpotsdam.unfolding.utils.MapUtils;
  */
 public class MultiMarkerApp extends PApplet {
 
-	boolean useMultiMarker = false;
+	boolean useMultiMarker = true;
 
 	UnfoldingMap map;
-
-	// France
-	List<Location> franceLocations = new ArrayList<Location>();
-	// Corsica
-	List<Location> corsicaLocations = new ArrayList<Location>();
 
 	public void setup() {
 		size(800, 600, GLConstants.GLGRAPHICS);

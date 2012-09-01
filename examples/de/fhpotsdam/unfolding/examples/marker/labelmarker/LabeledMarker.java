@@ -1,50 +1,36 @@
 package de.fhpotsdam.unfolding.examples.marker.labelmarker;
 
-import processing.core.PApplet;
 import processing.core.PFont;
 import processing.core.PGraphics;
 import de.fhpotsdam.unfolding.geo.Location;
-import de.fhpotsdam.unfolding.marker.AbstractMarker;
+import de.fhpotsdam.unfolding.marker.SimplePointMarker;
 
-public class LabeledMarker extends AbstractMarker {
+/**
+ * Extends point marker to additionally display label. 
+ */
+public class LabeledMarker extends SimplePointMarker {
 
-	public String name;
+	protected String name;
 	protected float size;
-
-	public int space=10;
-	//public int highlightColor = -256;
-
-	protected boolean selected = false;
-	protected boolean visible = true;
+	protected int space = 10;
 
 	private PFont font;
 
-	public LabeledMarker(Location location, float size) {
+	public LabeledMarker(Location location, String name, PFont font, float size) {
 		this.location = location;
-		this.size = size;
-	}
-
-	public LabeledMarker(PFont font, String name, Location location, float size) {
-		this(location, size);
 		this.name = name;
 		this.font = font;
-	}
-
-	public void drawIn(PGraphics pg, float x, float y) {
+		this.size = size;
 	}
 
 	/**
 	 * Displays this marker's name in a box.
 	 */
 	public void draw(PGraphics pg, float x, float y) {
-		if (!isVisible()) {
-			return;
-		}
-
 		pg.pushStyle();
 		pg.pushMatrix();
-		if(selected){
-			pg.translate(0, 0,1);
+		if (selected) {
+			pg.translate(0, 0, 1);
 		}
 		pg.strokeWeight(strokeWeight);
 		if (selected) {
@@ -61,42 +47,18 @@ public class LabeledMarker extends AbstractMarker {
 			pg.textFont(font);
 			pg.fill(highlightColor);
 			pg.stroke(highlightStrokeColor);
-			pg.rect(x  +strokeWeight/2, y - pg.textSize +strokeWeight/2-space, pg.textWidth(name) + space*1.5f, pg.textSize+space);
-			pg.fill(255,255,255);
-			pg.text(name, x  +space*0.75f+strokeWeight/2, y +strokeWeight/2-space*0.75f);
+			pg.rect(x + strokeWeight / 2, y - font.getSize() + strokeWeight / 2 - space,
+					pg.textWidth(name) + space * 1.5f, font.getSize() + space);
+			pg.fill(255, 255, 255);
+			pg.text(name, Math.round(x + space * 0.75f + strokeWeight / 2),
+					Math.round(y + strokeWeight / 2 - space * 0.75f));
 		}
 		pg.popMatrix();
 		pg.popStyle();
-		
 	}
 
-	/**
-	 * Checks whether the given position is in close proximity to this Marker. Used e.g. for indicating whether this
-	 * Marker is selected.
-	 */
-	protected boolean isInside(float checkX, float checkY, float x, float y) {
-		return PApplet.dist(checkX, checkY, x, y) < size /2;
-	}
-
-	/**
-	 * Indicates whether this marker is visible, and shall be drawn.
-	 * 
-	 * @return true if visible, false otherwise.
-	 */
-	public boolean isVisible() {
-		return visible;
-	}
-
-	public void setVisible(boolean visible) {
-		this.visible = visible;
-	}
-
-	public boolean isSelected() {
-		return selected;
-	}
-
-	public void setSelected(boolean selected) {
-		this.selected = selected;
+	public String getName() {
+		return name;
 	}
 
 }

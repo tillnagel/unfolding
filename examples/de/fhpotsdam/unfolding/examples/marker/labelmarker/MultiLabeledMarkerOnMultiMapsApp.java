@@ -2,8 +2,6 @@ package de.fhpotsdam.unfolding.examples.marker.labelmarker;
 
 import java.util.List;
 
-import processing.core.PApplet;
-import processing.core.PFont;
 import codeanticode.glgraphics.GLConstants;
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.data.Feature;
@@ -17,14 +15,13 @@ import de.fhpotsdam.unfolding.utils.MapUtils;
  * 
  * Markers on both maps react to hover, but selection is always visible in both maps, as the markers are the same.
  */
-public class MultiLabeledMarkerOnMultiMapsApp extends PApplet {
+public class MultiLabeledMarkerOnMultiMapsApp extends MultiLabeledMarkerApp {
 
 	UnfoldingMap map1;
 	UnfoldingMap map2;
 
 	public void setup() {
 		size(800, 600, GLConstants.GLGRAPHICS);
-		PFont font = loadFont("Miso-Light-12.vlw");
 
 		map1 = new UnfoldingMap(this, "map", 50, 50, 500, 500);
 		map1.zoomToLevel(2);
@@ -34,7 +31,7 @@ public class MultiLabeledMarkerOnMultiMapsApp extends PApplet {
 		MapUtils.createDefaultEventDispatcher(this, map2);
 
 		List<Feature> features = GeoRSSReader.loadData(this, "bbc-georss-test.xml");
-		List<Marker> markers = MultiLabeledMarkerApp.createLabeledMarkers(font, features);
+		List<Marker> markers = createLabeledMarkers(features);
 		map1.addMarkers(markers);
 		map2.addMarkers(markers);
 	}

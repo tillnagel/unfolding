@@ -48,7 +48,7 @@ public class GetNearestMultiMarkerApp extends PApplet {
 		if (marker != null) {
 			for (Marker countryMarker : countryMarkers) {
 				countryMarker.setSelected(countryMarker == marker);
-				PApplet.println(countryMarker.getDistanceTo(map.getLocation(mouseX, mouseY)));
+				//PApplet.println(countryMarker.getDistanceTo(map.getLocation(mouseX, mouseY)));
 			}
 		}
 	}
