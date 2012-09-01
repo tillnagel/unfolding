@@ -11,11 +11,15 @@ import de.fhpotsdam.unfolding.utils.MapUtils;
 import de.fhpotsdam.unfolding.utils.ScreenPosition;
 
 /**
- * Shows a static image laid over an interactive background map.
+ * Shows a static image laid over an interactive background map. The north-west and south-east boundaries of the image
+ * are used to position and scale the image. (There is no tile mechanism for the overlay image).
  * 
- * See {@link ImageOverlayApp} for more information.
+ * In this example, the image shows from where people take pictures of famous sights. The visualization is laid over a
+ * satellite map. Below, you can see how people photograph the Hans-Otto-Theater in Potsdam, Germany.
+ * See http://schwinki.de/splendor/ for more information.
+ * 
  */
-public class SmallImageOverlayApp extends PApplet {
+public class ImageOverlayApp extends PApplet {
 
 	UnfoldingMap map;
 	Location center = new Location(52.396, 13.058);
@@ -23,13 +27,20 @@ public class SmallImageOverlayApp extends PApplet {
 	DebugDisplay debugDisplay;
 
 	PImage visImg;
-	Location visNorthWest = new Location(52.399539, 13.048003);
-	Location visSouthEast = new Location(52.391667, 13.066667);
+
+	// Kaiserbahnhof Potsdam, 52.394667¡, 13.013944¡ (west)
+	// Meierei, 52.421944¡, 13.069722¡ (north)
+	// Schloss Babelsberg, 52.407639¡, 13.093289¡ (east)
+	// Potsdam Hauptbahnhof, 52.391667¡, 13.066667¡ (south)
+
+	Location visNorthWest = new Location(52.421944, 13.013944);
+	Location visSouthEast = new Location(52.391667, 13.093289);
 
 	public void setup() {
 		size(1400, 800, GLConstants.GLGRAPHICS);
 
-		visImg = loadImage("splendor-cutout.png");
+		// Very low quality for file size reasons. Use original from http://schwinki.de/splendor/
+		visImg = loadImage("splendor-big.jpg");
 
 		map = new UnfoldingMap(this, "Satellite Map", new Microsoft.AerialProvider());
 		map.zoomAndPanTo(center, 14);
@@ -51,6 +62,5 @@ public class SmallImageOverlayApp extends PApplet {
 		image(visImg, topRight.x, topRight.y, width, height);
 
 		debugDisplay.draw();
-
 	}
 }
