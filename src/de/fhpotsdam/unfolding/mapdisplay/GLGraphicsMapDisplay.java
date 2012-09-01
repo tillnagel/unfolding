@@ -52,7 +52,7 @@ public class GLGraphicsMapDisplay extends ProcessingMapDisplay implements PConst
 		}
 		offscreenCutoffPG.endDraw();
 
-		// Transforms (outer) map pane, and draws inner map + outer marker onto canvas
+		// Transforms (outer) map pane, and draws inner map + marker onto canvas
 		// This cuts off marker at the border.
 		PGraphics canvasPG = papplet.g;
 		canvasPG.pushMatrix();
