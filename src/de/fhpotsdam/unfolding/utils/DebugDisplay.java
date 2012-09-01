@@ -207,8 +207,8 @@ public class DebugDisplay implements MapEventListener {
 		String mouseXStr = String.valueOf(p.mouseX) + "px";
 		String mouseYStr = String.valueOf(p.mouseY) + "px";
 		Location mouseLoc = map.getLocation(p.mouseX, p.mouseY);
-		String mouseLatStr = PApplet.nf(mouseLoc.getLat(), 1, 3) + "deg";
-		String mouseLngStr = PApplet.nf(mouseLoc.getLon(), 1, 3) + "deg";
+		String mouseLatStr = PApplet.nf(mouseLoc.getLat(), 1, 3) + "°";
+		String mouseLngStr = PApplet.nf(mouseLoc.getLon(), 1, 3) + "°";
 
 		String rendererFQNStr = p.g.getClass().toString();
 		String rendererStr = rendererFQNStr.substring(rendererFQNStr.lastIndexOf('.') + 1);
