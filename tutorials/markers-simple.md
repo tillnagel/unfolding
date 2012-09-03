@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Markers 
-description: How to use point, line, and polygon markers, how to style them, and how to create an interaction mechanism.
+description: How to use point, line, and polygon markers, how to style them, and how to handle simple interactions.
 group: tutorials-beginner
 thumbnail: ../assets/images/tutorials/markers-simple-thumb.png
 finalimage: 
