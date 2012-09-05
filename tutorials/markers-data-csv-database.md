@@ -2,7 +2,7 @@
 layout: page
 title: Markers &amp; Data 2 - Other data sources
 description: Loading and displaying geospatial data from CSV, databases, etc.
-group: tutorials-beginner
+group: tutorials-advanced
 thumbnail: ../assets/images/tutorials/marker-data-2-thumb.png
 finalimage: 
 ---
@@ -31,12 +31,12 @@ The CSV file includes:
 
 (Note the *BEL* for Belgium as ID in GeoJSON and as second value in the CSV. This is the three-letter [country code](http://en.wikipedia.org/wiki/Country_code).)
   
-First we load all country polygons as markers, then all data from the CSV into a hashmap with country codes as keys.
+First, we load all country polygons as markers (line 9), and all data from the CSV into a hashmap with country codes as keys (line 14).
 
 	List<Marker> countryMarkers;
 	HashMap<String, DataEntry> dataEntriesMap;
 
-	public void setup() {
+	void setup() {
 		size(800, 600, GLConstants.GLGRAPHICS);
 		map = new UnfoldingMap(this);
 		
@@ -49,7 +49,7 @@ First we load all country polygons as markers, then all data from the CSV into a
 		dataEntriesMap = loadPopulationDensityFromCSV("population-density.csv");
 	}
 	
-In order to find matching population values for each country, we use the country code existing in both files to lookup a CSV value for the current marker.
+In order to find matching population values for each country, we use the country code existing in both files to lookup a CSV value for the current marker (lines 3-4 below)
 
 	for (Marker marker : countryMarkers) {
 		// Find data for country of the current marker
@@ -61,7 +61,7 @@ In order to find matching population values for each country, we use the country
 		marker.setColor(color(255, 0, 0, alpha));
 	}
 
-This example visualizes population density of the world as a choropleth map. Countries are shaded in proportion to the population density. The data value is encoded to transparency via a simplistic linear mapping. 
+This example visualizes population density of the world as a choropleth map. Countries are shaded in proportion to the population density. The data value is encoded to transparency via a simplistic linear mapping (line 7 above). 
 
 ![Marker Data Choropleth](../assets/images/tutorials/marker-data-choropleth.png)
 
@@ -71,6 +71,8 @@ See the [Choropleth Map](../examples/40_choropleth.html) example for the full co
 ## Read from other sources
 
 You can also query geospatial data from other sources, such as databases, or web services.
+
+(More to come soon.)
 
 Check out our [Geonames tutorial](geonames-lookup-basic.html) on finding geo-locations for place names.
 

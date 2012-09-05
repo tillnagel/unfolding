@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Tutorials
-description: "Learn how to use Unfolding. There will be more tutorials coming soon."
+description: "Learn how to use the various functionality of Unfolding maps. Start with &quot;How to use Unfolding&quot;, then read some of the Beginner tutorials on topics you are interested in. Later on, you can delve into more advanced topics. More tutorials will be added regularly."
 ---
 {% include JB/setup %}
 
