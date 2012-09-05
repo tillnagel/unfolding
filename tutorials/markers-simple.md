@@ -97,7 +97,7 @@ Now, you can style your markers in any way you want. In the following example we
 
 ## Create your own marker
 
-You can also create your own marker class by extending AbstractMarker, which gives you full control over style and interaction handling.
+You can also create your own marker class by extending `AbstractMarker`, which gives you full control over style and interaction handling.
 
 Besides, by creating your own marker class you will have cleaner code, and can manage hundreds of markers with a more elegant software architecture, as the drawing will be handled automatically by the map.
 
@@ -108,7 +108,17 @@ See the [Image Marker example](../examples/40_image-marker.html) for code on how
 
 ## Line and polygon marker
 
-(Coming soon.)
+You can also create markers for multiple geo-locations. For instance, if you want to show flight paths you could use line markers, and if you want to show neighborhoods in your city you could use polygon markers.
+
+Let's create a very simple line marker connecting two locations.
+	
+	Location startLocation = new Location(52.5, 13.4);
+	Location endLocation = new Location(53.35, -6.26);
+	SimpleLineMarker connectionMarker = new SimpleLineMarker(startLocation, endLocation);
+
+As the names suggest, a `LineMarker` connects two or more locations with a line, a `PolygonMarker` draws a closed polygon. Both are shape markers handling a list of locations, having a centroid, and providing hit test methods.
+
+For more complex markers with many locations it might be useful to load them from a geo-data source. Check out our [Markers & Data tutorial](markers-data-geojson.html) for this.
 
 
 ## Selecting a marker
@@ -135,7 +145,7 @@ If you want to allow users to interactively select and deselect markers, you nee
 		}
 	}
 
-NB: You can use the same selection mechanism when creating your own marker classes.
+NB: You can use the same selection mechanism when creating your own marker classes. Take a look at the LabelMarker example for a marker which displays a text label when selected.
 
 
 ## Multi marker
@@ -157,7 +167,7 @@ The following example shows the shape for France and Corsica, both defined as (c
 	// Add only MultiMarker to the map
 	map.addMarkers(multiMarker);
 
-As you can see, this works also with selection handling. When the user moves the mouse over one of the areas, both are highlighted. 
+As you can see, this works also with interactive selection. When the user moves the mouse over one of the areas, both are highlighted. 
 
 
 ## Fixed and dynamic sized markers
@@ -168,9 +178,9 @@ Note that we draw a zoom dependent marker, i.e. the marker will be bigger in zoo
 	float s = map.getZoom();
 
 
-## Creating data markers from GeoJSON, GPX & Co
+## Creating data markers
 
-If you want to load data from GeoJSON or various other file formats, take a look at our [Markers & Data tutorial](markers-data.html).
+If you want to load geospatial data from GeoJSON or various other file formats, take a look at our [Data Markers](markers-data-geojson.html), and our [Data Markers 2](markers-data-csv-database.html) tutorials.
 
 
 

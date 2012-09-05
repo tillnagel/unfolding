@@ -3,7 +3,7 @@ layout: page
 title: Markers &amp; Data
 description: Loading and displaying geospatial data from GeoJSON, GPX, and other files.
 group: tutorials-beginner
-thumbnail: ../assets/images/tutorials/markers-simple-thumb.png
+thumbnail: ../assets/images/tutorials/markers-data-thumb.png
 finalimage: 
 ---
 
@@ -31,15 +31,13 @@ The following example displays countries of the world as simple polygons. Reads 
 		map.draw();
 	}
 
-Now, you can load data from other formats easily. 
+As easily you can load data from sources in other formats, for instance an online GeoRSS containing the latest earthquakes.
 
 	String rssUrl = "http://earthquake.usgs.gov/earthquakes/catalogs/eqs7day-M5.xml";
 	List<Feature> features = GeoRSSReader.loadData(this, rssUrl);
 	List<Marker> markers = MapUtils.createSimpleMarkers(features);
 
-The provided data readers support basic functionality, and do not fully implement the respective specifications. The GeoJSON parser supports most features, while the GeoRSS reader supports only Simple and W3C Geo, but not GML, and the GPX reader only enables reading track points. So, either use some other library to parse various data formats with full specification support, or tell us what file you are trying to read in our [issue tracker](https://github.com/tillnagel/unfolding/issues).
-
-(More to come soon on CSV, KML etc)
+The provided data readers **support basic functionality**, and do not fully implement the respective specifications. The GeoJSON parser supports most features, while the GeoRSS reader supports only Simple and W3C Geo, but not GML, and the GPX reader only enables reading track points. So, either use some other library to parse various data formats with full specification support, or tell us what file you are trying to read in our [issue tracker](https://github.com/tillnagel/unfolding/issues).
 
 
 ## Using Shapefiles
@@ -61,6 +59,9 @@ For an example, let's use a Shapefile containing borders of all countries. Downl
 
 ## Features and Markers
 
+A `Feature` ([API](http://tillnagel.github.com/unfolding/javadoc/index.html?de/fhpotsdam/unfolding/data/package-summary.html)) contains the geographic data such as a single location for a point, or multiple locations for lines or polygons, and optionally some data properties.	
+A `Marker` ([API](http://tillnagel.github.com/unfolding/javadoc/index.html?de/fhpotsdam/unfolding/marker/package-summary.html)) is the visual representations of a feature on a map.
+
 In the examples above, we create default markers automatically from the loaded geo data.
 	
 	List<Feature> features = GeoDataReader.loadData(this, dataFile);
@@ -70,7 +71,7 @@ This way, Unfolding creates simple markers in the default style. If you want to 
 
 ### Specify which markers to create automatically
 
-You can create own markers from features.
+You can create other markers than the default ones from features. Specify an appropriate marker class, and create the markers from some already populated features.
 
 	MarkerFactory markerFactory = new MarkerFactory();
 	markerFactory.setPolygonClass(MyPolygonMarker.class);
@@ -83,7 +84,11 @@ See the [Markers tutorial](markers-simple.html) on how to create own marker clas
 
 ### Create markers from features manually
 
-![Marker & Data: MBTA Lines](../assets/images/tutorials/marker-data-mbtalines.jpg)
+If you want to use an existing marker class, but set some visual properties based on data attributes, you can do that by creating the markers on your own.
+
+![Marker & Data: MBTA Lines](../assets/images/tutorials/marker-data-mbtalines.png)
+
+In this example the transit lines in Boston are loaded from a GeoJSON file as features (line 4). Then, we check for the data attribute containing the name of the MBTA line (line 11). Lastly, we use that name to color code the line markers (lines 12-29), and add them to the map (line 34).
 
 		List<Marker> transitMarkers = new ArrayList<Marker>();
 
@@ -122,20 +127,10 @@ See the [Markers tutorial](markers-simple.html) on how to create own marker clas
 
 See the [MBTA Lines](examples/40_marker-mbta-lines.html) example for the full code.
 
-## Combine geo-spatial data with other data sources
-
-See the [Choropleth Map](../examples/40_choropleth.html) example for how to combine GeoJSON geometry data with population density data from a CSV file by using country codes existing it both files.
-
-(More details coming soon.)
-
 ## Generalization & Level of detail
 
 (As you can see, the simplified (i.e. [generalized](http://en.wikipedia.org/wiki/Cartographic_generalization)) border data results in overlaps and gaps between the vector countries and the underlying tiles. Use a high detailed data file to prevent this. For performance boosts, look at our examples AutoGeneralization or ZoomDependentPolygonData.)
 
-
-## Read from other sources
-
-You can also query geospatial data from other sources, such as databases, or web services.
 
 
 
