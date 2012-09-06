@@ -3,8 +3,8 @@ layout: page
 title: MapProvider and Tiles
 description: How to use another map style, switch between them, and how to create your own. Also gives a short introduction to map tiles.
 group: tutorials-beginner
-thumbnail: /assets/images/tutorials/mapprovider_thumb.png
-finalimage: /assets/images/tutorials/mapproviders.png
+thumbnail: ../assets/images/tutorials/mapprovider_thumb.png
+finalimage: ../assets/images/tutorials/mapproviders.png
 finalfiles: #someurlatgithub
 ---
 
