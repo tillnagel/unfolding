@@ -24,8 +24,6 @@ public class SimplePolygonMarker extends AbstractShapeMarker {
 
 	@Override
 	public void draw(PGraphics pg, List<MapPosition> mapPositions) {
-		// TODO Draw polygon marker in draw() or in drawOuter()? See https://github.com/tillnagel/unfolding/issues/25
-
 		pg.pushStyle();
 		if (isSelected()) {
 			pg.fill(highlightColor);

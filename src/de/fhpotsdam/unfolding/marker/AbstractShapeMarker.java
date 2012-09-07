@@ -121,8 +121,6 @@ public abstract class AbstractShapeMarker extends AbstractMarker {
 
 	@Override
 	public void draw(UnfoldingMap map) {
-		super.draw(map);
-
 		PGraphics pg = map.mapDisplay.getOuterPG();
 
 		List<MapPosition> mapPositions = new ArrayList<MapPosition>();
