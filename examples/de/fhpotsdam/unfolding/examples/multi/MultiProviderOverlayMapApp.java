@@ -18,14 +18,13 @@ public class MultiProviderOverlayMapApp extends PApplet {
 
 	public void setup() {
 		size(800, 600, GLConstants.GLGRAPHICS);
+		
+		Location berlinLocation = new Location(52.439046f, 13.447266f);
+		map1 = new UnfoldingMap(this, "map1", new Microsoft.RoadProvider());
+		map1.zoomAndPanTo(berlinLocation, 11);
 
-		map1 = new UnfoldingMap(this, "map1", 0, 0, width, height, true, false, new Microsoft.RoadProvider());
-		map1.zoomAndPanTo(new Location(52.439046f, 13.447266f), 8);
-
-		map2 = new UnfoldingMap(this, "map2", 0, 0, width, height, true, false,
-				new ImmoScout.HeatMapProvider());
-		map2.zoomToLevel(8);
-		map2.zoomAndPanTo(new Location(52.439046f, 13.447266f), 8);
+		map2 = new UnfoldingMap(this, "map2", new ImmoScout.HeatMapProvider());
+		map2.zoomAndPanTo(berlinLocation, 11);
 
 		MapUtils.createDefaultEventDispatcher(this, map1, map2);
 	}

@@ -16,11 +16,11 @@ public class SimpleMultiMapApp extends PApplet {
 	UnfoldingMap map2;
 
 	public void setup() {
-		size(500, 590, GLConstants.GLGRAPHICS);
+		size(620, 300, GLConstants.GLGRAPHICS);
 
-		map1 = new UnfoldingMap(this, "map1", 0, 0, 500, 290);
-		map2 = new UnfoldingMap(this, "map2", 0, 300, 500, 290);
-		//MapUtils.createDefaultEventDispatcher(this, map1, map2);
+		map1 = new UnfoldingMap(this, "map1", 0, 0, 305, 300);
+		map2 = new UnfoldingMap(this, "map2", 315, 0, 305, 300);
+		MapUtils.createDefaultEventDispatcher(this, map1, map2);
 	}
 
 	public void draw() {

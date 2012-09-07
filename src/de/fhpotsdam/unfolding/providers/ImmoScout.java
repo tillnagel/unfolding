@@ -28,8 +28,7 @@ public class ImmoScout {
 		public String[] getTileUrls(Coordinate coordinate) {
 			// old:
 			// "http://heatmaps.immobilienscout24.de/geoserver/wmsproxy/KGS22_2009_whg_miete_gg/"
-
-			String url = "http://heatmaps.immobilienscout24.de/geoserver/gmwmsproxy?layer=2010_@@@@_whg_miete_gg"
+			String url = "http://heatmaps.immobilienscout24.de/geoserver/gmwmsproxy?layer=q22011_q22012_Wohnung_Miete_@@@@"
 					+ getZoomString(sourceCoordinate(coordinate));
 			return new String[] { url };
 		}
