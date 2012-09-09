@@ -39,9 +39,7 @@ Of course, you could change the map style, or add different markers to each map,
 
 ## Overlaying two maps
 
-Fully over each other. (Sat + ImmoScout24)
-
-You don't need to do anything special for the interaction, as both are simply reacting to user input in the same way, and thus stay synchronized.
+Show two map layers together by displaying two UnfoldingMaps at the same position, with the top one transparent.
 
 	UnfoldingMap map1;
 	UnfoldingMap map2;
@@ -67,19 +65,15 @@ You don't need to do anything special for the interaction, as both are simply re
 		map2.draw();
 	}
 
+(If you want to do more sophisticated stuff, you could also create your own MapProvider and combine two or more tiles in there.)
+
 ![Overlay maps](/assets/images/tutorials/multimaps-overlay.png)
 
-See the [Looking glass example](http://localhost:4000/examples/30_provider-satellite-overlay.html) for the full code.
-
-
-More complex: Window to other map layer.
-
-
-
-## Handling interactions for multiple maps
-If you add the default interaction methods, both maps can be panned and zoomed independently. Direct interactions (such as mouse, or finger touch) work out of the box.
+You don't need to do anything special for the interaction, as both are simply reacting to user input in the same way, and thus stay synchronized.
 
 	MapUtils.createDefaultEventDispatcher(this, map1, map2);
+
+If you add the default interaction methods, both maps can be panned and zoomed independently. Direct interactions (such as mouse, or finger touch) work out of the box.
 
 ### Special Case: Indirect interactions
 
@@ -106,9 +100,14 @@ As an example, let us use the mouse to select the active map. First, we check wh
 	}
 
 
+## Connected maps
 
+### Loupe
 
-## Overview + Detail
+More complex: Window to other map layer.
+See the [Looking glass example](http://localhost:4000/examples/30_provider-satellite-overlay.html) for the full code.
+
+### Overview + Detail
 
 A more complex example is to use two maps which are connected. A typical example is the [Overview + Detail interaction pattern](http://designinginterfaces.com/firstedition/index.php?page=Overview_Plus_Detail). You might know this from Photoshop's navigator window, or from Google Maps.
 

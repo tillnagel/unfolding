@@ -72,9 +72,11 @@ For that you need to know the URLs to access the tiles, and extend an appropriat
 
 
 ## Create your own map style
-If you want to create a completely new map style you can use different methods. For simple adaptations you could use the [CloudMade style editor](http://developers.cloudmade.com/projects/show/style-editor) and specify its ID in the `CloudmadeProvider`. For more options you can create a map with TileMill. See the article [TileMill for Processing](http://tillnagel.com/2011/06/tilemill-for-processing/) for a brief introduction on how to create maps with TileMill.
+If you want to create a completely new map style you can use different methods.
 
-After you exported your styled map to a MBTiles file (a database containing the tiles), you can use it with Unfolding.
+For simple adaptations you could use the [CloudMade style editor](http://developers.cloudmade.com/projects/show/style-editor) and specify its ID in the `CloudmadeProvider`.
+
+For more options you can create a map with [TileMill](http://tilemill.com/). See the article [TileMill for Processing](http://tillnagel.com/2011/06/tilemill-for-processing/) for a brief introduction on how to create maps with TileMill. After you exported your styled map to a MBTiles file (a database containing the tiles), you can use it with Unfolding.
 For this, you need to add the [SQLlite driver](http://code.google.com/p/sqlite-jdbc/) to your Processing/Java libraries. Then, specify the path to the MBTiles file in the `MBTilesMapProvider`.
 
 	UnfoldingMap map;
@@ -105,9 +107,82 @@ There are two ways to switch between two or more styles dynamically.
 1. Switch between maps
 2. Switch provider of a single map 
 
-See the DynamicMapSwitch and DynamicProviderSwith examples.
 
-(More to come soon.)
+![Dynamic map style switching](../assets/images/Unfolding-GIF-Test.gif)
+
+
+### Switch between maps
+
+In the following example, we create three maps with different map styles, but draw only the currentMap.
+All maps listen to map events themselves, i.e. all interactions affect each map, resulting in the same region.
+
+	UnfoldingMap currentMap;
+	UnfoldingMap map1;
+	UnfoldingMap map2;
+	UnfoldingMap map3;
+
+	void setup() {
+		size(800, 600, GLConstants.GLGRAPHICS);
+
+		map1 = new UnfoldingMap(this, new Google.GoogleMapProvider());
+		map2 = new UnfoldingMap(this, new Microsoft.AerialProvider());
+		map3 = new UnfoldingMap(this, new OpenStreetMap.CloudmadeProvider(MapDisplayFactory.OSM_API_KEY, 23058));
+		MapUtils.createDefaultEventDispatcher(this, map1, map2, map3);
+
+		currentMap = map1;
+	}
+
+	void draw() {
+		currentMap.draw();
+	}
+
+	void keyPressed() {
+		if (key == '1') {
+			currentMap = map1;
+		} else if (key == '2') {
+			currentMap = map2;
+		} else if (key == '3') {
+			currentMap = map3;
+		}
+	}
+
+Only one map at a time is displayed, and only the tiles of that one will be loaded. Yet, after tiles are loaded switching maps is faster than switching providers. It takes more memory though. 
+
+### Switch between providers
+
+This option enables switching between different tile providers for the same map. All map settings are persistent, i.e. current transformations, markers, interactions, etc will stay the same.
+
+	UnfoldingMap map;
+	AbstractMapProvider provider1;
+	AbstractMapProvider provider2;
+	AbstractMapProvider provider3;
+
+	void setup() {
+		size(800, 600, GLConstants.GLGRAPHICS);
+
+		provider1 = new Google.GoogleMapProvider();
+		provider2 = new Microsoft.AerialProvider();
+		provider3 = new OpenStreetMap.CloudmadeProvider(MapDisplayFactory.OSM_API_KEY, 23058);
+
+		map = new UnfoldingMap(this, provider1);
+		MapUtils.createDefaultEventDispatcher(this, map);
+	}
+
+	void draw() {
+		map.draw();
+	}
+
+	void keyPressed() {
+		if (key == '1') {
+			map.mapDisplay.setProvider(provider1);
+		} else if (key == '2') {
+			map.mapDisplay.setProvider(provider2);
+		} else if (key == '3') {
+			map.mapDisplay.setProvider(provider3);
+		}
+	}
+
+After switching the tile cache will be cleared and visible tiles loaded from new provider. Thus, it always holds only one tile set, and consumes less memory, but takes a bit longer to load.
 
 
 
