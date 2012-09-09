@@ -1,12 +1,11 @@
 ---
 layout: page
-title: Geonames Lookup
+title: Geonames Lookup (draft)
 description: Setup An Eclipse Project with Geonames Library
 group: tutorials-advanced
 author: Markus Kerschkewicz
-thumbnail:  http://tillnagel.github.com/unfolding/assets/images/tutorials/geonames_lookup_titel_thumb.jpg
-finalimage: http://tillnagel.github.com/unfolding/assets/images/tutorials/geonames_lookup_titel.jpg
-finalsrc: #someurlatgithub
+thumbnail:  ../assets/images/tutorials/geonames_lookup_title_thumb.jpg
+finalimage: ../assets/images/tutorials/geonames_lookup_titel.jpg
 ---
 
 {% include JB/setup %}

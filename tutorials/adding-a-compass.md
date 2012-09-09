@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Adding a Compass
+title: Adding a Compass (draft)
 description: Shows how to add an interactive compass UI to the map.
 group: tutorials-advanced
 thumbnail: ../assets/images/tutorials/compass-thumb.png
