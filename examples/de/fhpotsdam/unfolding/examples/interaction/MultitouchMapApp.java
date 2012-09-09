@@ -18,8 +18,6 @@ public class MultitouchMapApp extends PApplet {
 	public static final boolean FULLSCREEN = false;
 
 	UnfoldingMap map;
-	EventDispatcher eventDispatcher;
-
 	TuioCursorHandler tuioCursorHandler;
 
 	public void setup() {
@@ -30,9 +28,8 @@ public class MultitouchMapApp extends PApplet {
 		}
 
 		map = new UnfoldingMap(this);
-		map.setTweening(false);
 
-		eventDispatcher = new EventDispatcher();
+		EventDispatcher eventDispatcher = new EventDispatcher();
 
 		tuioCursorHandler = new TuioCursorHandler(this, map);
 		eventDispatcher.addBroadcaster(tuioCursorHandler);

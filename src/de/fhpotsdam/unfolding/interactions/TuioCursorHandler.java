@@ -105,12 +105,10 @@ public class TuioCursorHandler extends MapEventBroadcaster implements TuioListen
 					}
 
 					if (zoom) {
-						ZoomMapEvent zoomMapEvent = new ZoomMapEvent(
-								this, map.getId(), ZoomMapEvent.ZOOM_BY);
+						ZoomMapEvent zoomMapEvent = new ZoomMapEvent(this, map.getId(), ZoomMapEvent.ZOOM_BY);
 
 						// 1. pos of last finger
-						//map.mapDisplay.setInnerTransformationCenter(transCenter);
-						Location centerLocation = map.getLocationFromScreenPosition(transCenter.x, transCenter.y);
+						Location centerLocation = map.getLocation(transCenter.x, transCenter.y);
 						zoomMapEvent.setTransformationCenterLocation(centerLocation);
 
 						// 2. object center: pinch gesture w/o fixed finger-location connection
@@ -149,10 +147,10 @@ public class TuioCursorHandler extends MapEventBroadcaster implements TuioListen
 
 					if (tuioCursor1.getCursorID() == tcur.getCursorID()) {
 						TuioPoint oldTuioPoint = tcur.getPath().get(tcur.getPath().size() - 2);
-						Location fromLocation = map.mapDisplay.getLocationFromScreenPosition(
-								oldTuioPoint.getScreenX(p.width), oldTuioPoint.getScreenY(p.height));
-						Location toLocation = map.mapDisplay.getLocationFromScreenPosition(
-								tuioCursor1.getScreenX(p.width), tuioCursor1.getScreenY(p.height));
+						Location fromLocation = map.mapDisplay.getLocation(oldTuioPoint.getScreenX(p.width),
+								oldTuioPoint.getScreenY(p.height));
+						Location toLocation = map.mapDisplay.getLocation(tuioCursor1.getScreenX(p.width),
+								tuioCursor1.getScreenY(p.height));
 
 						PanMapEvent panMapEvent = new PanMapEvent(this, map.getId(), PanMapEvent.PAN_BY);
 						panMapEvent.setFromLocation(fromLocation);
@@ -173,7 +171,7 @@ public class TuioCursorHandler extends MapEventBroadcaster implements TuioListen
 			oldAngle = getAngleBetween(tuioCursor1, tuioCursor2);
 			oldDist = getDistance(tuioCursor1, tuioCursor2);
 		} else {
-			//PApplet.println("Already 2 cursors in use. Adding further ones to stack.");
+			// PApplet.println("Already 2 cursors in use. Adding further ones to stack.");
 			unusedTuioCursorStack.add(tuioCursor);
 		}
 	}
@@ -189,7 +187,7 @@ public class TuioCursorHandler extends MapEventBroadcaster implements TuioListen
 			}
 
 		}
-		
+
 		if (tuioCursor1 != null && tuioCursor1.getCursorID() == tuioCursor.getCursorID()) {
 			tuioCursor1 = null;
 			// If second still is on object, switch cursors
@@ -205,8 +203,7 @@ public class TuioCursorHandler extends MapEventBroadcaster implements TuioListen
 				}
 			}
 		}
-		
-		
+
 		// TODO check only if the other were no hits
 		TuioCursor toRemoveTC = null;
 		for (TuioCursor unusedTuioCursor : unusedTuioCursorStack) {
@@ -218,7 +215,7 @@ public class TuioCursorHandler extends MapEventBroadcaster implements TuioListen
 		if (toRemoveTC != null) {
 			unusedTuioCursorStack.remove(toRemoveTC);
 		}
-		
+
 	}
 
 	protected float getDistance(TuioCursor tuioCursor1, TuioCursor tuioCursor2) {

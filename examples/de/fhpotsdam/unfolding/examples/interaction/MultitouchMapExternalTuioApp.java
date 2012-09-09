@@ -45,8 +45,8 @@ public class MultitouchMapExternalTuioApp extends PApplet implements TuioListene
 	}
 
 	public void setup() {
-		// size(800, 600, GLConstants.GLGRAPHICS);
-		size(1920, 1080, GLConstants.GLGRAPHICS);
+		 size(800, 600, GLConstants.GLGRAPHICS);
+		//size(1920, 1080, GLConstants.GLGRAPHICS);
 
 		map = new UnfoldingMap(this);
 		map.setTweening(false);
