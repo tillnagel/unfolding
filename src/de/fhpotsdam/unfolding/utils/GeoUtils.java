@@ -1,6 +1,16 @@
 package de.fhpotsdam.unfolding.utils;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import de.fhpotsdam.unfolding.data.Feature;
+import de.fhpotsdam.unfolding.data.MultiFeature;
+import de.fhpotsdam.unfolding.data.PointFeature;
+import de.fhpotsdam.unfolding.data.ShapeFeature;
 import de.fhpotsdam.unfolding.geo.Location;
+import de.fhpotsdam.unfolding.marker.AbstractShapeMarker;
+import de.fhpotsdam.unfolding.marker.Marker;
+import de.fhpotsdam.unfolding.marker.MultiMarker;
 
 /**
  * Basic geo-spatial utility methods.
@@ -100,6 +110,9 @@ public class GeoUtils {
 		return angle;
 	}
 
+	/**
+	 * Super simplistic method to convert a geo-position as a Location.
+	 */
 	public static Location getDecimal(Integer latDegrees, Integer latMinutes, Integer latSeconds, String latDirection,
 			Integer lonDegrees, Integer lonMinutes, Integer lonSeconds, String lonDirection) {
 		float lat = latDegrees + (latMinutes * 60 + latSeconds) / 3600;
@@ -112,6 +125,106 @@ public class GeoUtils {
 		}
 		return new Location(lat, lon);
 	}
-	
-	
+
+	/**
+	 * Returns the geometric center of the locations.
+	 * 
+	 * The returned location minimizes the sum of squared Euclidean distances between itself and each location in the
+	 * list.
+	 * 
+	 * @return The centroid location.
+	 */
+	public static Location getCentroid(List<Location> locations) {
+		Location center = new Location(0, 0);
+		for (Location loc : locations) {
+			center.add(loc);
+		}
+		center.div((float) locations.size());
+		return center;
+	}
+
+	/**
+	 * Returns all locations of all features.
+	 * 
+	 * @param features
+	 *            A list of features.
+	 * @return A list of locations.
+	 */
+	public static List<Location> getLocationsFromFeatures(List<Feature> features) {
+		List<Location> locations = new ArrayList<Location>();
+		for (Feature feature : features) {
+			locations.addAll(getLocations(feature));
+		}
+		return locations;
+	}
+
+	/**
+	 * Returns all locations of a feature. That is a single location for a point, all locations for lines or polygons,
+	 * and all locations of all features of a MultiFeature.
+	 * 
+	 * @param feature
+	 *            The feature to get locations from.
+	 * @return A list of locations.
+	 */
+	public static List<Location> getLocations(Feature feature) {
+		List<Location> locations = new ArrayList<Location>();
+		if (feature.getType() == Feature.FeatureType.POINT) {
+			PointFeature pf = (PointFeature) feature;
+			locations.add(pf.getLocation());
+		}
+		if (feature.getType() == Feature.FeatureType.LINES || feature.getType() == Feature.FeatureType.POLYGON) {
+			ShapeFeature sf = (ShapeFeature) feature;
+			locations.addAll(sf.getLocations());
+		}
+		if (feature.getType() == Feature.FeatureType.MULTI) {
+			MultiFeature multiFeature = (MultiFeature) feature;
+			for (Feature f : multiFeature.getFeatures()) {
+				locations.addAll(getLocations(f));
+			}
+		}
+		return locations;
+	}
+
+	/**
+	 * Returns all locations of all markers.
+	 * 
+	 * @param markers
+	 *            A list of markers.
+	 * @return A list of locations.
+	 */
+	public static List<Location> getLocationsFromMarkers(List<Marker> markers) {
+		List<Location> locations = new ArrayList<Location>();
+		for (Marker marker : markers) {
+			locations.addAll(getLocations(marker));
+		}
+		return locations;
+	}
+
+	/**
+	 * Returns all locations of a marker. That is a single location for a point, all locations for lines or polygons,
+	 * and all locations of all markers of a MultiMarker.
+	 * 
+	 * @param marker
+	 *            The marker to get locations from.
+	 * @return A list of locations.
+	 */
+	public static List<Location> getLocations(Marker marker) {
+		List<Location> locations = new ArrayList<Location>();
+		if (marker instanceof MultiMarker) {
+			// recursive for multi
+			MultiMarker mm = (MultiMarker) marker;
+			for (Marker m : mm.getMarkers()) {
+				locations.addAll(getLocations(m));
+			}
+		} else if (marker instanceof AbstractShapeMarker) {
+			// line or polygon
+			AbstractShapeMarker sm = (AbstractShapeMarker) marker;
+			locations.addAll(sm.getLocations());
+		} else {
+			// default: point
+			locations.add(marker.getLocation());
+		}
+		return locations;
+	}
+
 }
