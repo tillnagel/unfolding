@@ -16,7 +16,7 @@ public class GeoUtilsTestApp extends PApplet {
 		size(800, 600);
 
 		List<Feature> features = GeoJSONReader.loadData(this, "countries.geo.json");
-		List<Location> locations = GeoUtils.getLocations(features);
+		List<Location> locations = GeoUtils.getLocationsFromFeatures(features);
 		println("Found " + locations.size() + " locations");
 	}
 
