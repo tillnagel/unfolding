@@ -64,7 +64,8 @@ public class UnfoldingMap implements MapEventListener {
 
 	/** The ID of this map. */
 	protected String id;
-
+	
+	/** Indicates whether this map is currently active. */
 	protected boolean active = true;
 
 	/** Indicates whether to smoothly animate between mapDisplay states. */
@@ -78,31 +79,62 @@ public class UnfoldingMap implements MapEventListener {
 	private Integrator tyIntegrator = new Integrator(1);
 
 	/**
-	 * Creates a new full-canvas Map.
+	 * Creates a new full canvas map with the given ID.
+	 * @param p The main applet.
+	 * @param id The ID of this map.
 	 */
 	public UnfoldingMap(PApplet p, String id) {
 		this(p, id, 0, 0, p.width, p.height, true, false, null);
 	}
 
 	/**
-	 * Creates a new full-canvas Map with a generated ID.
+	 * Creates a new full canvas map with a generated ID.
+	 * @param p The main applet.
 	 */
 	public UnfoldingMap(PApplet p) {
 		this(p, generateId(), 0, 0, p.width, p.height, true, false, null);
 	}
-
+	
+	/**
+	 * Creates a new full canvas map with tiles from the given provider.
+	 * @param p The main applet.
+	 * @param provider The map tiles provider to use.
+	 */
 	public UnfoldingMap(PApplet p, AbstractMapProvider provider) {
 		this(p, generateId(), 0, 0, p.width, p.height, true, false, provider);
 	}
-
+	
+	/**
+	 * Creates a new full canvas map with given ID, and with tiles from the given provider.
+	 * @param p The main applet.
+	 * @param id The ID of this map.
+	 * @param provider The map tiles provider to use.
+	 */
 	public UnfoldingMap(PApplet p, String id, AbstractMapProvider provider) {
 		this(p, id, 0, 0, p.width, p.height, true, false, provider);
 	}
-
+	
+	/**
+	 * Creates a new map with specific position and dimension.
+	 * @param p The main applet.
+	 * @param x The x position of this map.
+	 * @param y The y position of this map.
+	 * @param width The width of this map.
+	 * @param height The height of this map.
+	 */
 	public UnfoldingMap(PApplet p, float x, float y, float width, float height) {
 		this(p, generateId(), x, y, width, height, true, false, null);
 	}
 
+	/**
+	 * Creates a new map with specific position and dimension.
+	 * @param p The main applet.
+	 * @param id The ID of this map.
+	 * @param x The x position of this map.
+	 * @param y The y position of this map.
+	 * @param width The width of this map.
+	 * @param height The height of this map.
+	 */
 	public UnfoldingMap(PApplet p, String id, float x, float y, float width, float height) {
 		this(p, id, x, y, width, height, true, false, null);
 	}
@@ -111,12 +143,30 @@ public class UnfoldingMap implements MapEventListener {
 		this(p, id, x, y, width, height, true, useDistortion, null);
 	}
 
+	/**
+	 * Creates a new map with specific position and dimension.
+	 * @param p The main applet.
+	 * @param x The x position of this map.
+	 * @param y The y position of this map.
+	 * @param width The width of this map.
+	 * @param height The height of this map.
+	 * @param provider The map tiles provider to use.
+	 */
 	public UnfoldingMap(PApplet p, float x, float y, float width, float height, AbstractMapProvider provider) {
 		this(p, generateId(), x, y, width, height, true, false, provider);
 	}
 
 	/**
-	 * Creates a Map at given position with given dimension.
+	 * Creates a new map with specific position and dimension.
+	 * @param p The main applet.
+	 * @param id The ID of this map.
+	 * @param x The x position of this map.
+	 * @param y The y position of this map.
+	 * @param width The width of this map.
+	 * @param height The height of this map.
+	 * @param useMask Whether this map enables using masks (test)
+	 * @param useDistortion Whether this map enables using distortion (test)
+	 * @param provider The map tiles provider to use.
 	 */
 	public UnfoldingMap(PApplet p, String id, float x, float y, float width, float height, boolean useMask,
 			boolean useDistortion, AbstractMapProvider provider) {
