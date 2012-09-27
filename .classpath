@@ -22,5 +22,7 @@
 	<classpathentry kind="lib" path="lib/junit-4.10.jar"/>
 	<classpathentry kind="lib" path="lib/json4processing.jar"/>
 	<classpathentry kind="lib" path="lib-extern/Ani.jar"/>
+	<classpathentry kind="lib" path="lib-extern/controlP5.jar"/>
+	<classpathentry kind="lib" path="lib-extern/geonames-1.1.6.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
