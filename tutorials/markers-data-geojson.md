@@ -125,7 +125,7 @@ In this example the transit lines in Boston are loaded from a GeoJSON file as fe
 
 		map.addMarkers(transitMarkers);
 
-See the [MBTA Lines](examples/40_marker-mbta-lines.html) example for the full code.
+See the [MBTA Lines](/examples/40_marker-mbta-lines.html) example for the full code.
 
 ## Generalization & Level of detail
 
