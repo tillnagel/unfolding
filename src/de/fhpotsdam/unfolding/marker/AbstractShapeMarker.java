@@ -7,6 +7,7 @@ import java.util.List;
 import processing.core.PGraphics;
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.geo.Location;
+import de.fhpotsdam.unfolding.utils.GeoUtils;
 import de.fhpotsdam.unfolding.utils.MapPosition;
 import de.fhpotsdam.unfolding.utils.ScreenPosition;
 
@@ -80,12 +81,7 @@ public abstract class AbstractShapeMarker extends AbstractMarker {
 	 * @return The centroid location.
 	 */
 	public Location getCentroid() {
-		Location center = new Location(0, 0);
-		for (Location loc : locations) {
-			center.add(loc);
-		}
-		center.div((float) locations.size());
-		return center;
+		return GeoUtils.getCentroid(locations);
 	}
 
 	public Location getLocation(int index) {
