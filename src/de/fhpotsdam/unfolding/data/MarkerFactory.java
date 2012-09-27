@@ -66,9 +66,12 @@ public class MarkerFactory {
 			marker = createMultiMarker((MultiFeature) feature);
 			break;
 		}
-		
+
 		// Set id
 		marker.setId(feature.getId());
+
+		// Copy properties
+		marker.setProperties(feature.getProperties());
 
 		return marker;
 	}

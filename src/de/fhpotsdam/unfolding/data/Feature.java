@@ -39,6 +39,10 @@ public class Feature {
 		return properties.get(key);
 	}
 
+	public Object addProperty(String key, Object value) {
+		return properties.put(key, value);
+	}
+
 	/**
 	 * Returns the value of a String property.
 	 * 

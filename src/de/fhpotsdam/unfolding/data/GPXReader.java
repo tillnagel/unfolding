@@ -8,6 +8,11 @@ import processing.xml.XMLElement;
 import de.fhpotsdam.unfolding.data.Feature.FeatureType;
 import de.fhpotsdam.unfolding.geo.Location;
 
+/**
+ * Experimental GPX reader with just a very basic functionality.
+ * 
+ * Reads all track points of all track segments of all tracks into one line feature.
+ */
 public class GPXReader {
 
 	/**
@@ -21,6 +26,7 @@ public class GPXReader {
 
 		// Create track with all track points
 		ShapeFeature trackFeature = new ShapeFeature(FeatureType.LINES);
+		
 		XMLElement[] itemXMLElements = gpx.getChildren("trk/trkseg/trkpt");
 		for (int i = 0; i < itemXMLElements.length; i++) {
 			// Adds location for track point
@@ -29,8 +35,12 @@ public class GPXReader {
 			Location location = new Location(lat, lon);
 			trackFeature.addLocation(location);
 		}
+		
+		// Add time as property
+		XMLElement timeXMLElement = gpx.getChild("trk/time");
+		trackFeature.addProperty("time", timeXMLElement.getContent());
+		
 		trackFeatures.add(trackFeature);
-
 		return trackFeatures;
 	}
 
