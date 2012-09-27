@@ -8,7 +8,7 @@ thumbnail: ../assets/images/tutorials/interactions-thumb.png
 ---
 {% include JB/setup %}
 
-As you have seen in the Getting Started tutorial every map you create is already interactive. By creating the default event dispatcher (as shown above), users already can interact with your map.
+As you have seen in the [Getting Started tutorial](basic-how-to-use-unfolding.html) every map you create is already interactive. By creating the default event dispatcher (as shown above), users already can interact with your map.
 
 Users can pan the map by dragging it with the mouse, or by using the arrow keys on the keyboard. Using the mouse wheel zooms in or out, which also works by pressing + or - keys. Double-clicking on the map centers it around that location, and zooms in one level. 
 
@@ -29,7 +29,7 @@ There are many other methods, e.g.
 	map.panTo(Location location);
 	map.panTo(ScreenPosition pos);
 	
-and many more. Check the [`UnfoldingMap` API documentation](http://tillnagel.github.com/unfolding/javadoc/index.html?de/fhpotsdam/unfolding/UnfoldingMap.html) for all.
+and many more. Check the [`UnfoldingMap` API documentation](/javadoc/index.html?de/fhpotsdam/unfolding/UnfoldingMap.html) for all.
 
 
 ## Restricting maps

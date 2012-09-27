@@ -59,8 +59,8 @@ For an example, let's use a Shapefile containing borders of all countries. Downl
 
 ## Features and Markers
 
-A `Feature` ([API](http://tillnagel.github.com/unfolding/javadoc/index.html?de/fhpotsdam/unfolding/data/package-summary.html)) contains the geographic data such as a single location for a point, or multiple locations for lines or polygons, and optionally some data properties.	
-A `Marker` ([API](http://tillnagel.github.com/unfolding/javadoc/index.html?de/fhpotsdam/unfolding/marker/package-summary.html)) is the visual representations of a feature on a map.
+A `Feature` ([API](/javadoc/index.html?de/fhpotsdam/unfolding/data/package-summary.html)) contains the geographic data such as a single location for a point, or multiple locations for lines or polygons, and optionally some data properties.	
+A `Marker` ([API](/javadoc/index.html?de/fhpotsdam/unfolding/marker/package-summary.html)) is the visual representations of a feature on a map.
 
 In the examples above, we create default markers automatically from the loaded geo data.
 	

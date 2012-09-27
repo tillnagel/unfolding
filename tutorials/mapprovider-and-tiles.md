@@ -59,7 +59,7 @@ The following are some of the map providers included in the Unfolding distributi
 - Yahoo.RoadProvider();   
 - Yahoo.HybridProvider();   
 
-Check the [MapProvider package API](http://tillnagel.github.com/unfolding/javadoc/index.html?de/fhpotsdam/unfolding/providers/package-summary.html) for more styles.
+Check the [MapProvider package API](/javadoc/index.html?de/fhpotsdam/unfolding/providers/package-summary.html) for more styles.
 
 
 ### Create own map provider
@@ -77,7 +77,7 @@ If you want to create a completely new map style you can use different methods.
 For simple adaptations you could use the [CloudMade style editor](http://developers.cloudmade.com/projects/show/style-editor) and specify its ID in the `CloudmadeProvider`.
 
 For more options you can create a map with [TileMill](http://tilemill.com/). See the article [TileMill for Processing](http://tillnagel.com/2011/06/tilemill-for-processing/) for a brief introduction on how to create maps with TileMill. After you exported your styled map to a MBTiles file (a database containing the tiles), you can use it with Unfolding.
-For this, you need to add the [SQLlite driver](http://code.google.com/p/sqlite-jdbc/) to your Processing/Java libraries. Then, specify the path to the MBTiles file in the `MBTilesMapProvider`.
+For this, you need to add the [SQLlite driver](http://code.google.com/p/sqlite-jdbc/) to your Processing libraries (included in the Eclipse template). Then, specify the path to the MBTiles file in the `MBTilesMapProvider`.
 
 	UnfoldingMap map;
 
