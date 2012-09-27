@@ -4,7 +4,7 @@ title: "Example: Map overlay"
 description: "A looking glass into a satellite map layer." 
 group: "examples"
 thumbnail: "../assets/images/examples/satellite-overlay-thumb.jpg"
-gh_link: "https://github.com/tillnagel/unfolding/blob/develop/examples/de/fhpotsdam/unfolding/examples/multi/overlay/SatelliteOverlayApp.java"
+gh_link: "https://github.com/tillnagel/unfolding/blob/master/examples/de/fhpotsdam/unfolding/examples/multi/overlay/SatelliteOverlayApp.java"
 
 ---
 

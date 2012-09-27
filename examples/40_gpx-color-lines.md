@@ -4,7 +4,7 @@ title: "Example: GPX trail as color-coded lines"
 description: "Showing the path and speed of a bike tour."
 group: "examples"
 thumbnail: "../assets/images/examples/gpx-color-coded-lines-thumb.jpg"
-gh_link: "https://github.com/tillnagel/unfolding/blob/develop/examples/de/fhpotsdam/unfolding/examples/data/manual/ManualGPXTrackApp.java"
+gh_link: "https://github.com/tillnagel/unfolding/blob/master/examples/de/fhpotsdam/unfolding/examples/data/manual/ManualGPXTrackApp.java"
 
 ---
 

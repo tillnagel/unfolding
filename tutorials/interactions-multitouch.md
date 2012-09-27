@@ -58,7 +58,7 @@ For instance, you might want to allow your users to tap on markers to select the
 For this, you need to create your own TUIO listener in the app, and connect it to Unfolding's `TuioCursorHandler`.
 Now the main app listens to TUIO events, and forwards the multitouch events to the handler. This allows reacting to touch interactions in the application, as well as having an interactive multitouch map. 
 
-See the [MultitouchMapExternalTuioApp](https://github.com/tillnagel/unfolding/blob/develop/examples/de/fhpotsdam/unfolding/examples/interaction/MultitouchMapExternalTuioApp.java) example for source code.
+See the [MultitouchMapExternalTuioApp](https://github.com/tillnagel/unfolding/blob/master/examples/de/fhpotsdam/unfolding/examples/interaction/MultitouchMapExternalTuioApp.java) example for source code.
 
 (More to come soon.)
 

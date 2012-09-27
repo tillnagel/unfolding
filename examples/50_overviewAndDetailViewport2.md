@@ -4,7 +4,7 @@ title: "Example: 2 Overview + 1 Detail"
 description: "One static and one dynamic overview map"
 group: "examples"
 thumbnail: "../assets/images/examples/overviewDetailFinder2.jpg"
-gh_link: "https://github.com/tillnagel/unfolding/blob/develop/examples/de/fhpotsdam/unfolding/examples/overviewdetail/OverviewAndDetailFinderBoxMapApp.java"
+gh_link: "https://github.com/tillnagel/unfolding/blob/master/examples/de/fhpotsdam/unfolding/examples/overviewdetail/OverviewAndDetailFinderBoxMapApp.java"
 
 ---
 

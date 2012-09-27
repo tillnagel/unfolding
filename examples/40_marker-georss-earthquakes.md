@@ -4,7 +4,7 @@ title: "Example: GeoRSS Earthquakes Markers"
 description: "Shows latest earthquakes from a live GeoRSS feed."
 group: "examples"
 thumbnail: "../assets/images/examples/data-georss-thumb.jpg"
-gh_link: "https://github.com/tillnagel/unfolding/blob/develop/examples/de/fhpotsdam/unfolding/examples/data/choropleth/ChoroplethMapApp.java"
+gh_link: "https://github.com/tillnagel/unfolding/blob/master/examples/de/fhpotsdam/unfolding/examples/data/choropleth/ChoroplethMapApp.java"
 
 ---
 

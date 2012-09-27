@@ -5,7 +5,7 @@ title: "Example: Connection Marker"
 description: "Drawing connections between locations via extended Markers"
 group: "examples"
 thumbnail: "http://placehold.it/330x250"
-gh_link: "https://github.com/tillnagel/unfolding/blob/develop/examples/de/fhpotsdam/unfolding/examples/marker/connectionmarker"
+gh_link: "https://github.com/tillnagel/unfolding/blob/master/examples/de/fhpotsdam/unfolding/examples/marker/connectionmarker"
 
 ---
 

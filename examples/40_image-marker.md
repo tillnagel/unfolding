@@ -4,7 +4,7 @@ title: "Example: Image Marker"
 description: "Displays various image markers."
 group: "examples"
 thumbnail: "../assets/images/examples/marker-image-thumb.jpg"
-gh_link: "https://github.com/tillnagel/unfolding/blob/develop/examples/de/fhpotsdam/unfolding/examples/marker/imagemarker/"
+gh_link: "https://github.com/tillnagel/unfolding/blob/master/examples/de/fhpotsdam/unfolding/examples/marker/imagemarker/"
 
 ---
 

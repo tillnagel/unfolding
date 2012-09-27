@@ -4,7 +4,7 @@ title: "Example: Colored transit lines"
 description: "Loading and displaying MBTA lines from GeoJSON."
 group: "examples"
 thumbnail: "../assets/images/examples/marker-metrolines-thumb.jpg"
-gh_link: "https://github.com/tillnagel/unfolding/blob/develop/examples/de/fhpotsdam/unfolding/examples/data/TransitLinesMarkerApp.java"
+gh_link: "https://github.com/tillnagel/unfolding/blob/master/examples/de/fhpotsdam/unfolding/examples/data/TransitLinesMarkerApp.java"
 
 ---
 

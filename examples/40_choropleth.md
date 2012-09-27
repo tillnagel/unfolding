@@ -4,7 +4,7 @@ title: "Example: Choropleth Map"
 description: "Shows world population density as choropleth map."
 group: "examples"
 thumbnail: "../assets/images/examples/choropleth-thumb.jpg"
-gh_link: "https://github.com/tillnagel/unfolding/blob/develop/examples/de/fhpotsdam/unfolding/examples/data/choropleth/ChoroplethMapApp.java"
+gh_link: "https://github.com/tillnagel/unfolding/blob/master/examples/de/fhpotsdam/unfolding/examples/data/choropleth/ChoroplethMapApp.java"
 
 ---
 

@@ -4,7 +4,7 @@ title: "Example: Overview + Detail with Viewport"
 description: "Overview and a detail map with viewport finder"
 group: "examples"
 thumbnail: "../assets/images/examples/overviewDetailFinder.jpg"
-gh_link: "https://github.com/tillnagel/unfolding/blob/develop/examples/de/fhpotsdam/unfolding/examples/overviewdetail/OverviewAndDetailWithViewportApp.java"
+gh_link: "https://github.com/tillnagel/unfolding/blob/master/examples/de/fhpotsdam/unfolding/examples/overviewdetail/OverviewAndDetailWithViewportApp.java"
 
 ---
 

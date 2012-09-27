@@ -4,7 +4,7 @@ title: "Example: Debug Display"
 description: "A widget with information about the map."
 group: "examples"
 thumbnail: "../assets/images/examples/debug-display-thumb.jpg"
-gh_link: "https://github.com/tillnagel/unfolding/blob/develop/examples/de/fhpotsdam/unfolding/examples/misc/MultiDebugDisplayApp.java"
+gh_link: "https://github.com/tillnagel/unfolding/blob/master/examples/de/fhpotsdam/unfolding/examples/misc/MultiDebugDisplayApp.java"
 
 ---
 

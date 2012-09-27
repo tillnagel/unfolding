@@ -4,7 +4,7 @@ title: "Example: Overview + Detail"
 description: "Simple overview and a detail map"
 group: "examples"
 thumbnail: "../assets/images/examples/overviewDetail1.jpg"
-gh_link: "https://github.com/tillnagel/unfolding/blob/develop/examples/de/fhpotsdam/unfolding/examples/overviewdetail/OverviewAndDetailMapApp.java"
+gh_link: "https://github.com/tillnagel/unfolding/blob/master/examples/de/fhpotsdam/unfolding/examples/overviewdetail/OverviewAndDetailMapApp.java"
 
 ---
 

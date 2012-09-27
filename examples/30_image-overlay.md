@@ -4,7 +4,7 @@ title: "Example: Image Overlay"
 description: "Positions and displays an image over an interactive map."
 group: "examples"
 thumbnail: "../assets/images/examples/image-overlay-splendor-thumb.jpg"
-gh_link: "https://github.com/tillnagel/unfolding/blob/develop/examples/de/fhpotsdam/unfolding/examples/image/SmallImageOverlayApp.java"
+gh_link: "https://github.com/tillnagel/unfolding/blob/master/examples/de/fhpotsdam/unfolding/examples/image/SmallImageOverlayApp.java"
 
 ---
 
