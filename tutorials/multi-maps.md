@@ -105,7 +105,7 @@ As an example, let us use the mouse to select the active map. First, we check wh
 ### Loupe
 
 More complex: Window to other map layer.
-See the [Looking glass example](http://localhost:4000/examples/30_provider-satellite-overlay.html) for the full code.
+See the [Looking glass example](../examples/30_provider-satellite-overlay.html) for the full code.
 
 ### Overview + Detail
 
@@ -116,8 +116,8 @@ A more complex example is to use two maps which are connected. A typical example
 (More to come soon.)
 
 For now, check out the examples
-- [Overview + Detail](examples/50_overviewAndDetail.html), 
-- [Overview + Detail with Viewport](examples/50_overviewAndDetailViewport.html), and
-- [Two Overviews + One Detail](examples/50_overviewAndDetailViewport2.html).
+- [Overview + Detail](../examples/50_overviewAndDetail.html), 
+- [Overview + Detail with Viewport](../examples/50_overviewAndDetailViewport.html), and
+- [Two Overviews + One Detail](../examples/50_overviewAndDetailViewport2.html).
 
 

@@ -101,7 +101,7 @@ They will be drawn automatically on top of the map, always at the correct positi
 
 Unfolding provides a default marker style, and has point, line, and polygon markers out of the box.
 
-Check out the [Markers tutorial](markers-simple.html) to see how to style your markers, and use polygon or even multi-area markers. If you want to load data from GeoJSON or various other file formats, take a look at our [Markers & Data tutorial](markers-data.html).
+Check out the [Markers tutorial](markers-simple.html) to see how to style your markers, and use polygon or even multi-area markers. If you want to load data from GeoJSON or various other file formats, take a look at our [Markers & Data tutorial](markers-data-geojson.html).
 
 
 ## More information
