@@ -27,13 +27,13 @@ public void draw() {
   // Draws locations on screen positions according to their geo-locations.
 
   // Fixed-size marker
-  float xyBerlin[] = map.getScreenPositionFromLocation(locationBerlin);
+  ScreenPosition posBerlin = map.getScreenPosition(locationBerlin);
   fill(0, 200, 0, 100);
-  ellipse(xyBerlin[0], xyBerlin[1], 20, 20);
+  ellipse(posBerlin.x, posBerlin.y, 20, 20);
 
   // Zoom dependent marker size
-  float xyLondon[] = map.getScreenPositionFromLocation(locationLondon);
+  ScreenPosition posLondon = map.getScreenPosition(locationLondon);
   fill(200, 0, 0, 100);
   float s = map.getZoom();
-  ellipse(xyLondon[0], xyLondon[1], s, s);
+  ellipse(posLondon.x, posLondon.y, s, s);
 }

@@ -30,12 +30,13 @@ public void setup() {
   MapUtils.createDefaultEventDispatcher(this, map);
 
   List<Feature> features = GeoRSSReader.loadData(this, earthquakesURL);
-  List<Marker> markers = MapUtils.createSimpleMarkers(features);
+  MarkerFactory markerFactory = new MarkerFactory();
+  markerFactory.setPointClass(EarthquakeMarker.class);
+  List<Marker> markers = markerFactory.createMarkers(features);
   map.addMarkers(markers);
 }
 
 public void draw() {
-  background(0);
   map.draw();
 }
 
