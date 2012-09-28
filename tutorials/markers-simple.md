@@ -103,8 +103,35 @@ Besides, by creating your own marker class you will have cleaner code, and can m
 
 ![Image marker](../assets/images/tutorials/markers-image.png)
 
-See the [Image Marker example](../examples/40_image-marker.html) for code on how to create an own marker class displaying images.
+As example, let's say you want to have concentric markers at specific point locations. In Processing, create a new tab (by clicking on the arrow in the right top corner), and name it EarthquakeMarker.java (don't forget the 'java' suffix!). Now, create your own class and extend Unfolding's `SimplePointMarker`. In the draw() method you can use the PGraphics (same as the one you are drawing on in Processing), and the x and y parameters to draw your stuff to.
 
+	import processing.core.PGraphics;
+	import de.fhpotsdam.unfolding.geo.Location;
+	import de.fhpotsdam.unfolding.marker.SimplePointMarker;
+
+	public class EarthquakeMarker extends SimplePointMarker {
+
+	  public EarthquakeMarker(Location location) {
+	    super(location);
+	  }
+
+	  public void draw(PGraphics pg, float x, float y) {
+	    pg.pushStyle();
+	    pg.noStroke();
+	    pg.fill(200, 200, 0, 100);
+	    pg.ellipse(x, y, 40, 40);
+		pg.fill(255, 100);
+	    pg.ellipse(x, y, 30, 30);
+	    pg.popStyle();
+	  }
+	}
+
+You also can extend SimpleLinesMarker or SimplePolygonMarker or create your completely own.
+Check out the [Processing tutorial on objects](http://processing.org/learning/objects/) for more information on objects, classes, etc.
+
+How to create your own image marker in Java, as shown in the screenshot above, see the [Image Marker example](../examples/40_image-marker.html) for the source code.
+
+Check the [Data Markers tutorial](markers-data-geojson.html) on how to use own class with the MarkerFactory to create markers from data automatically.
 
 ## Line and polygon marker
 
