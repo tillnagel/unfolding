@@ -622,6 +622,10 @@ public class UnfoldingMap implements MapEventListener {
 			mapDisplay.addMarker(m);
 		}
 	}
+	
+	public void addMarker(Marker marker) {
+		addMarkers(marker);
+	}
 
 	public void addMarkers(List<Marker> markers) {
 		mapDisplay.addMarkers(markers);
