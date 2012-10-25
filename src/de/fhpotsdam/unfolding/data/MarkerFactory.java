@@ -26,7 +26,7 @@ public class MarkerFactory {
 	}
 
 	/**
-	 * Creates a marker for each feature. Marker depends on feature type.
+	 * Creates markers for each feature. Marker depends on feature type.
 	 * 
 	 * @param features
 	 *            The list of features.
@@ -49,7 +49,14 @@ public class MarkerFactory {
 		return markers;
 	}
 
-	private Marker createMarker(Feature feature) throws Exception {
+	/**
+	 * Creates a marker for the feature. Marker depends on feature type.
+	 * 
+	 * @param feature
+	 *            The feature.
+	 * @return A marker of the appropriate type with ID and properties.
+	 */
+	public Marker createMarker(Feature feature) throws Exception {
 		Marker marker = null;
 
 		switch (feature.getType()) {
