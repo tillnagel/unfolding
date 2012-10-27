@@ -6,6 +6,9 @@ import processing.core.PGraphics;
 import processing.core.PImage;
 import de.fhpotsdam.unfolding.UnfoldingMap;
 
+/**
+ * Stores a circular thumbnail of the current map.  
+ */
 public class CircularMapSnapshot extends MapSnapshot {
 
 	public CircularMapSnapshot(PApplet p, UnfoldingMap map) {

@@ -11,7 +11,10 @@ import de.fhpotsdam.unfolding.providers.StamenMapProvider;
 import de.fhpotsdam.unfolding.utils.MapUtils;
 
 /**
+ * Users can save snapshots of the current map, which are then shown as radial thumbnails. By clicking on one of those
+ * thumbnails the map pans and zooms to the stored location.
  * 
+ * See {@link MapSnapshot} and {@link CircularMapSnapshot} for creating the actual snapshot and storage of metadata.
  */
 public class CircularMapSnapshotApp extends PApplet {
 
