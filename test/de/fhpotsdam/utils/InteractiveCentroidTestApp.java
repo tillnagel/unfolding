@@ -36,14 +36,13 @@ public class InteractiveCentroidTestApp extends PApplet {
 			ellipse(pos.x, pos.y, 10, 10);
 			vertices.add(pos);
 		}
-		
+
 		fill(0, 100);
 		beginShape();
 		for (PVector pos : vertices) {
 			vertex(pos.x, pos.y);
 		}
 		endShape();
-		
 
 		Location centroid = GeoUtils.getCentroid(locations);
 		ScreenPosition centroidPos = map.getScreenPosition(centroid);
@@ -80,20 +79,25 @@ public class InteractiveCentroidTestApp extends PApplet {
 	}
 
 	public List<PVector> getClosedPolygon(List<PVector> originalVertices) {
+		if (originalVertices.size() < 1 || (originalVertices.get(0).equals(originalVertices.get(originalVertices.size() - 1)))) {
+			// Return unchanged, if only one point, or already closed
+			return originalVertices;
+		}
+		
 		List<PVector> vertices = new ArrayList<PVector>(originalVertices.size() + 1);
 		for (int i = 0; i < originalVertices.size(); i++) {
 			vertices.add(new PVector());
 		}
 		Collections.copy(vertices, originalVertices);
-		if (vertices.size() > 2) {
+		if (vertices.size() > 1) {
 			if (!vertices.get(0).equals(vertices.get(vertices.size() - 1))) {
-				// Close polygon if non-closed
+				// Add first vertex on last position to close polygon
 				vertices.add(vertices.get(0));
 			}
 		}
 		return vertices;
 	}
-	
+
 	public float getArea(List<PVector> vertices) {
 		float sum = 0;
 		for (int i = 0; i < vertices.size() - 1; i++) {

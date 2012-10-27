@@ -1,7 +1,10 @@
 package de.fhpotsdam.unfolding.utils;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+
+import processing.core.PVector;
 
 import de.fhpotsdam.unfolding.data.Feature;
 import de.fhpotsdam.unfolding.data.MultiFeature;
@@ -127,16 +130,14 @@ public class GeoUtils {
 	}
 
 	/**
-	 * Returns the geometric center of the locations.
+	 * Returns the center of the locations.
 	 * 
 	 * The returned location minimizes the sum of squared Euclidean distances between itself and each location in the
 	 * list.
 	 * 
-	 * FIXME This does not give the geometric center! Many vertices on one side pull centroid too much.
-	 * 
 	 * @return The centroid location.
 	 */
-	public static Location getCentroid(List<Location> locations) {
+	public static Location getEuclideanCentroid(List<Location> locations) {
 		Location center = new Location(0, 0);
 		for (Location loc : locations) {
 			center.add(loc);
@@ -145,6 +146,57 @@ public class GeoUtils {
 		return center;
 	}
 	
+	/**
+	 * Returns the geometric center of the locations of a polygon.
+	 * 
+	 * The returned location is the center of the polygon, unfazed by unbalanced vertices.
+	 * 
+	 * @return The centroid location.
+	 */
+	public static Location getCentroid(List<Location> originalVertices) {
+		List<Location> vertices = getClosedPolygon(originalVertices);
+		float cx = 0f, cy = 0f;
+		for (int i = 0; i < vertices.size() - 1; i++) {
+			PVector vi0 = vertices.get(i);
+			PVector vi1 = vertices.get(i + 1);
+			cx = cx + (vi0.x + vi1.x) * (vi0.x * vi1.y - vi0.y * vi1.x);
+			cy = cy + (vi0.y + vi1.y) * (vi0.x * vi1.y - vi0.y * vi1.x);
+		}
+		float area = getArea(vertices);
+		cx /= (6f * area);
+		cy /= (6f * area);
+		return new Location(cx, cy);
+	}
+
+	protected static List<Location> getClosedPolygon(List<Location> originalVertices) {
+		if (originalVertices.size() < 1 || (originalVertices.get(0).equals(originalVertices.get(originalVertices.size() - 1)))) {
+			// Return unchanged, if only one point, or already closed
+			return originalVertices;
+		}
+		
+		List<Location> vertices = new ArrayList<Location>(originalVertices.size() + 1);
+		for (int i = 0; i < originalVertices.size(); i++) {
+			vertices.add(new Location(0f, 0f));
+		}
+		Collections.copy(vertices, originalVertices);
+		if (vertices.size() > 1) {
+			if (!vertices.get(0).equals(vertices.get(vertices.size() - 1))) {
+				// Add first vertex on last position to close polygon
+				vertices.add(vertices.get(0));
+			}
+		}
+		return vertices;
+	}
+
+	protected static float getArea(List<Location> vertices) {
+		float sum = 0;
+		for (int i = 0; i < vertices.size() - 1; i++) {
+			PVector vi0 = vertices.get(i);
+			PVector vi1 = vertices.get(i + 1);
+			sum += (vi0.x * vi1.y - vi1.x * vi0.y);
+		}
+		return sum * 0.5f;
+	}
 	
 	
 	public static Location getCentroidFromFeatures(List<Feature> features) {
