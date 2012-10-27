@@ -63,7 +63,7 @@ public class InteractiveCentroidTestApp extends PApplet {
 		println(locations);
 	}
 
-	public PVector getCentroidOfPolygon(List<PVector> originalVertices) {
+	public static PVector getCentroidOfPolygon(List<PVector> originalVertices) {
 		List<PVector> vertices = getClosedPolygon(originalVertices);
 		float cx = 0f, cy = 0f;
 		for (int i = 0; i < vertices.size() - 1; i++) {
@@ -78,12 +78,13 @@ public class InteractiveCentroidTestApp extends PApplet {
 		return new PVector(cx, cy);
 	}
 
-	public List<PVector> getClosedPolygon(List<PVector> originalVertices) {
-		if (originalVertices.size() < 1 || (originalVertices.get(0).equals(originalVertices.get(originalVertices.size() - 1)))) {
+	public static List<PVector> getClosedPolygon(List<PVector> originalVertices) {
+		if (originalVertices.size() < 1
+				|| (originalVertices.get(0).equals(originalVertices.get(originalVertices.size() - 1)))) {
 			// Return unchanged, if only one point, or already closed
 			return originalVertices;
 		}
-		
+
 		List<PVector> vertices = new ArrayList<PVector>(originalVertices.size() + 1);
 		for (int i = 0; i < originalVertices.size(); i++) {
 			vertices.add(new PVector());
@@ -98,7 +99,7 @@ public class InteractiveCentroidTestApp extends PApplet {
 		return vertices;
 	}
 
-	public float getArea(List<PVector> vertices) {
+	public static float getArea(List<PVector> vertices) {
 		float sum = 0;
 		for (int i = 0; i < vertices.size() - 1; i++) {
 			PVector vi0 = vertices.get(i);

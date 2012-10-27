@@ -5,7 +5,6 @@ import java.util.Collections;
 import java.util.List;
 
 import processing.core.PVector;
-
 import de.fhpotsdam.unfolding.data.Feature;
 import de.fhpotsdam.unfolding.data.MultiFeature;
 import de.fhpotsdam.unfolding.data.PointFeature;
@@ -145,7 +144,7 @@ public class GeoUtils {
 		center.div((float) locations.size());
 		return center;
 	}
-	
+
 	/**
 	 * Returns the geometric center of the locations of a polygon.
 	 * 
@@ -169,11 +168,12 @@ public class GeoUtils {
 	}
 
 	protected static List<Location> getClosedPolygon(List<Location> originalVertices) {
-		if (originalVertices.size() < 1 || (originalVertices.get(0).equals(originalVertices.get(originalVertices.size() - 1)))) {
+		if (originalVertices.size() < 1
+				|| (originalVertices.get(0).equals(originalVertices.get(originalVertices.size() - 1)))) {
 			// Return unchanged, if only one point, or already closed
 			return originalVertices;
 		}
-		
+
 		List<Location> vertices = new ArrayList<Location>(originalVertices.size() + 1);
 		for (int i = 0; i < originalVertices.size(); i++) {
 			vertices.add(new Location(0f, 0f));
@@ -197,13 +197,16 @@ public class GeoUtils {
 		}
 		return sum * 0.5f;
 	}
-	
-	
+
+	protected static float getArea(Feature feature) {
+		return getArea(GeoUtils.getLocations(feature));
+	}
+
 	public static Location getCentroidFromFeatures(List<Feature> features) {
 		return GeoUtils.getCentroid(GeoUtils.getLocationsFromFeatures(features));
 	}
 
-	public static Location getCentroid(Feature feature) {
+	public static Location getCentroid(Feature feature, boolean useLargestForMulti) {
 		Location location = null;
 
 		switch (feature.getType()) {
@@ -215,19 +218,40 @@ public class GeoUtils {
 			location = GeoUtils.getCentroid(((ShapeFeature) feature).getLocations());
 			break;
 		case MULTI:
-			List<Location> locations = new ArrayList<Location>();
 			MultiFeature multiFeature = ((MultiFeature) feature);
-			for (Feature f : multiFeature.getFeatures()) {
-				Location l = getCentroid(f);
-				locations.add(l);
+			if (useLargestForMulti) {
+				
+				// Return centroid of largest feature
+				float largestArea = 0;
+				Feature largestFeature = null;
+				for (Feature f : multiFeature.getFeatures()) {
+					if (largestArea < getArea(f)) {
+						largestFeature = f;
+						largestArea = getArea(f);
+					}
+				}
+				location = getCentroid(largestFeature);
+				
+			} else {
+				
+				// Return centroid of all features
+				List<Location> locations = new ArrayList<Location>();
+				for (Feature f : multiFeature.getFeatures()) {
+					Location l = getCentroid(f);
+					locations.add(l);
+				}
+				location = GeoUtils.getCentroid(locations);
 			}
-			location = GeoUtils.getCentroid(locations);
 			break;
 		}
 
 		return location;
 	}
-	
+
+	public static Location getCentroid(Feature feature) {
+		return getCentroid(feature, false);
+	}
+
 	/**
 	 * Returns all locations of all features.
 	 * 
