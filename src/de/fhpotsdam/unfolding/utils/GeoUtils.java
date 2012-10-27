@@ -132,6 +132,8 @@ public class GeoUtils {
 	 * The returned location minimizes the sum of squared Euclidean distances between itself and each location in the
 	 * list.
 	 * 
+	 * FIXME This does not give the geometric center! Many vertices on one side pull centroid too much.
+	 * 
 	 * @return The centroid location.
 	 */
 	public static Location getCentroid(List<Location> locations) {
@@ -142,7 +144,38 @@ public class GeoUtils {
 		center.div((float) locations.size());
 		return center;
 	}
+	
+	
+	
+	public static Location getCentroidFromFeatures(List<Feature> features) {
+		return GeoUtils.getCentroid(GeoUtils.getLocationsFromFeatures(features));
+	}
 
+	public static Location getCentroid(Feature feature) {
+		Location location = null;
+
+		switch (feature.getType()) {
+		case POINT:
+			location = ((PointFeature) feature).getLocation();
+			break;
+		case LINES:
+		case POLYGON:
+			location = GeoUtils.getCentroid(((ShapeFeature) feature).getLocations());
+			break;
+		case MULTI:
+			List<Location> locations = new ArrayList<Location>();
+			MultiFeature multiFeature = ((MultiFeature) feature);
+			for (Feature f : multiFeature.getFeatures()) {
+				Location l = getCentroid(f);
+				locations.add(l);
+			}
+			location = GeoUtils.getCentroid(locations);
+			break;
+		}
+
+		return location;
+	}
+	
 	/**
 	 * Returns all locations of all features.
 	 * 
