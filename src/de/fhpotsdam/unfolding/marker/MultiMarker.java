@@ -93,6 +93,21 @@ public class MultiMarker implements Marker {
 		return properties;
 	}
 
+	@Override
+	public Object getProperty(String key) {
+		return properties.get(key);
+	}
+
+	@Override
+	public String getStringProperty(String key) {
+		Object value = properties.get(key);
+		if (value != null && value instanceof String) {
+			return (String) value;
+		} else {
+			return null;
+		}
+	}
+
 	/**
 	 * Returns true if at least one marker is hit.
 	 */
