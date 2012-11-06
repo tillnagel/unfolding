@@ -1,5 +1,7 @@
 package de.fhpotsdam.unfolding.mapdisplay;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.Collections;
 import java.util.Vector;
 
@@ -37,6 +39,10 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 	// Background color
 	protected int bgColor = 0;
 
+	// To notify client app when all tiles have been loaded
+	private static final String TILESLOADED_METHOD_NAME = "tilesLoaded";
+	private Method tilesLoadedMethod = null;
+
 	/**
 	 * Creates a new MapDisplay with full canvas size, and given provider
 	 */
@@ -58,6 +64,8 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 		this.innerOffsetX = width / 2 - TILE_WIDTH / 2;
 		this.innerOffsetY = height / 2 - TILE_HEIGHT / 2;
 
+		registerTilesLoadedMethod();
+
 		setInnerTransformationCenter(new PVector(width / 2 + offsetX, height / 2 + offsetY));
 
 		calculateMatrix();
@@ -65,16 +73,41 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 		calculateInnerMatrix();
 	}
 
+	private void registerTilesLoadedMethod() {
+		try {
+			Class<? extends PApplet> appletClass = papplet.getClass();
+			tilesLoadedMethod = appletClass.getMethod(TILESLOADED_METHOD_NAME);
+		} catch (SecurityException e) {
+		} catch (NoSuchMethodException e) {
+		}
+	}
+
+	/**
+	 * Gets called if all tiles have been loaded. Invokes the tilesLoaded method in the client application if existing.
+	 * 
+	 * TODO Pass the ID of this map to the method to enable handling multiple maps.
+	 */
+	@Override
+	public void tilesLoaded() {
+		if (tilesLoadedMethod != null) {
+			try {
+				tilesLoadedMethod.invoke(papplet);
+			} catch (IllegalArgumentException e) {
+			} catch (IllegalAccessException e) {
+			} catch (InvocationTargetException e) {
+			}
+		}
+	}
+
 	// TRANSFORMATION --------------------------------------------------
 
 	/**
 	 * Updates the matrix to transform the map with.
 	 * 
-	 * For the rotation the matrix has to be temporarily translated to the
-	 * transformation center. Thus, it has to be reset with the original
-	 * position, afterwards. Original position is calculated by inverting the
-	 * current matrix. (As the matrix incorporates that position, it stores
-	 * every transformation, even though the matrix is created anew.)
+	 * For the rotation the matrix has to be temporarily translated to the transformation center. Thus, it has to be
+	 * reset with the original position, afterwards. Original position is calculated by inverting the current matrix.
+	 * (As the matrix incorporates that position, it stores every transformation, even though the matrix is created
+	 * anew.)
 	 */
 	public void calculateMatrix() {
 		synchronized (this) {
