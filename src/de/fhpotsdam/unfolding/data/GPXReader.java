@@ -26,20 +26,34 @@ public class GPXReader {
 
 		// Create track with all track points
 		ShapeFeature trackFeature = new ShapeFeature(FeatureType.LINES);
-		
+		List<String> trackPointTimes = new ArrayList<String>();
+
 		XMLElement[] itemXMLElements = gpx.getChildren("trk/trkseg/trkpt");
 		for (int i = 0; i < itemXMLElements.length; i++) {
+			XMLElement trackPoint = itemXMLElements[i];
+			
 			// Adds location for track point
-			float lat = itemXMLElements[i].getFloat("lat");
-			float lon = itemXMLElements[i].getFloat("lon");
+			float lat = trackPoint.getFloat("lat");
+			float lon = trackPoint.getFloat("lon");
 			Location location = new Location(lat, lon);
 			trackFeature.addLocation(location);
+			
+			XMLElement trackPointTime = trackPoint.getChild("time");
+			if (trackPointTime != null) {
+				trackPointTimes.add(trackPointTime.getContent());
+			}
 		}
-		
-		// Add time as property
+
+		// Add (single) time for whole track as property
 		XMLElement timeXMLElement = gpx.getChild("trk/time");
-		trackFeature.addProperty("time", timeXMLElement.getContent());
-		
+		if (timeXMLElement != null) {
+			trackFeature.addProperty("time", timeXMLElement.getContent());
+		}
+		// Add times of all track points as property
+		if (!trackPointTimes.isEmpty() && trackFeature.getLocations().size() == trackPointTimes.size()) {
+			trackFeature.addProperty("trackPointTimes", trackPointTimes);
+		}
+
 		trackFeatures.add(trackFeature);
 		return trackFeatures;
 	}
