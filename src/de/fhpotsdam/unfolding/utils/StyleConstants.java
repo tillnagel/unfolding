@@ -7,6 +7,6 @@ public class StyleConstants {
 	public static final int HIGHLIGHTED_FILL_COLOR = -4640977;
 	public static final int HIGHLIGHTED_STROKE_COLOR = -7068379;
 	
-	public static final int DEFAULT_STROKE_WEIGHT = 2;
+	public static final int DEFAULT_STROKE_WEIGHT = 1;
 	
 }
