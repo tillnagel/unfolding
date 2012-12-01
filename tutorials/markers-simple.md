@@ -141,7 +141,7 @@ Let's create a very simple line marker connecting two locations.
 	
 	Location startLocation = new Location(52.5, 13.4);
 	Location endLocation = new Location(53.35, -6.26);
-	SimpleLineMarker connectionMarker = new SimpleLineMarker(startLocation, endLocation);
+	SimpleLinesMarker connectionMarker = new SimpleLinesMarker(startLocation, endLocation);
 
 As the names suggest, a `LineMarker` connects two or more locations with a line, a `PolygonMarker` draws a closed polygon. Both are shape markers handling a list of locations, having a centroid, and providing hit test methods.
 
