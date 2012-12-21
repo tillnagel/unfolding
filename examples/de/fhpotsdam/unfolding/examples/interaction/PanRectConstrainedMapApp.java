@@ -3,6 +3,7 @@ package de.fhpotsdam.unfolding.examples.interaction;
 import processing.core.PApplet;
 import codeanticode.glgraphics.GLConstants;
 import de.fhpotsdam.unfolding.UnfoldingMap;
+import de.fhpotsdam.unfolding.events.MapEvent;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.utils.MapUtils;
 import de.fhpotsdam.unfolding.utils.ScreenPosition;
@@ -25,7 +26,14 @@ public class PanRectConstrainedMapApp extends PApplet {
 
 	public void draw() {
 		background(0);
-
+		map.draw();
+	}
+	
+	public void mapChanged(MapEvent mapEvent) {
+		restrictPanning();
+	}
+	
+	public void restrictPanning() {
 		Location mapTopLeft = map.getTopLeftBorder();
 		Location mapBottomRight = map.getBottomRightBorder();
 		
@@ -46,8 +54,6 @@ public class PanRectConstrainedMapApp extends PApplet {
 		if (boundBottomRight.getLat() > mapBottomRight.getLat()) {
 			map.panBy(0, mapBottomRightPos.y - boundBottomRightPos.y);
 		}
-		
-		map.draw();
 	}
 
 }
