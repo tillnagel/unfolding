@@ -219,10 +219,10 @@ public class UnfoldingMap implements MapEventListener {
 				this);
 
 		// panCenterZoomTo(PRIME_MERIDIAN_EQUATOR_LOCATION, DEFAULT_ZOOM_LEVEL);
-		
+
 		prepareMapChangedMethod();
 	}
-	
+
 	protected void prepareMapChangedMethod() {
 		// Prepare mapChanged method via reflection
 		Class<? extends PApplet> appletClass = p.getClass();
@@ -767,16 +767,16 @@ public class UnfoldingMap implements MapEventListener {
 		this.maxScale = getScaleFromZoom(maxZoomLevel);
 	}
 
-	/**
-	 * Sets a bounding box as panning range of the map.
-	 * 
-	 * @param location
-	 *            topLeft corner of the box.
-	 * @param location2
-	 *            bottomRight corner of the box.
-	 */
-	// TODO Implement setPanningRange
-	// public void setPanningRange(Location location, Location location2) {
+	// /**
+	// * Sets a bounding box as panning range of the map.
+	// *
+	// * @param location
+	// * topLeft corner of the box.
+	// * @param location2
+	// * bottomRight corner of the box.
+	// */
+	// TODO Implement setPanningBOund
+	// public void setPanningRange(Location topLeftLocation, Location bottomRightLocation) {
 	// }
 
 	/**
@@ -790,6 +790,10 @@ public class UnfoldingMap implements MapEventListener {
 	public void setPanningRestriction(Location location, float maxPanningDistance) {
 		this.restrictedPanLocation = location;
 		this.maxPanningDistance = maxPanningDistance;
+	}
+
+	public void resetPanningRestriction() {
+		this.restrictedPanLocation = null;
 	}
 
 	private void restrictMapToArea() {
