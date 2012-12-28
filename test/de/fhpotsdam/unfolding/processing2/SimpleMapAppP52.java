@@ -18,7 +18,7 @@ public class SimpleMapAppP52 extends PApplet {
 
 		map = new UnfoldingMap(this);
 		map.zoomAndPanTo(new Location(52.5f, 13.4f), 10);
-//		MapUtils.createDefaultEventDispatcher(this, map);
+		MapUtils.createDefaultEventDispatcher(this, map);
 		/*
 		 * Already called beginDraw()
 		-> https://forum.processing.org/topic/already-called-begindraw-for-another-pgraphicsopengl-object-14-9-2012
@@ -31,8 +31,8 @@ public class SimpleMapAppP52 extends PApplet {
 		rect(15, 15, 50, 50);
 	}
 
-	public void keyPressed() {
-		map.panBy(5, -5);
-	}
+//	public void keyPressed() {
+//		map.panBy(5, -5);
+//	}
 	
 }

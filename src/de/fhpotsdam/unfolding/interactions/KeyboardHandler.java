@@ -1,6 +1,5 @@
 package de.fhpotsdam.unfolding.interactions;
 
-import java.awt.event.KeyEvent;
 import java.util.Arrays;
 import java.util.List;
 
@@ -8,6 +7,7 @@ import org.apache.log4j.Logger;
 
 import processing.core.PApplet;
 import processing.core.PConstants;
+import processing.event.KeyEvent;
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.events.MapEventBroadcaster;
 import de.fhpotsdam.unfolding.events.PanMapEvent;
@@ -24,7 +24,13 @@ public class KeyboardHandler extends MapEventBroadcaster {
 	public KeyboardHandler(PApplet p, List<UnfoldingMap> maps) {
 		super(maps);
 
-		p.registerKeyEvent(this);
+		
+//		p.registerKeyEvent(this);
+		/*
+		 * https://forum.processing.org/topic/how-to-register-methods-in-processing-2b1#25080000001734047
+		 * -> use p.registerMethod("keyEvent",this);
+		 */
+		p.registerMethod("keyEvent",this);
 	}
 
 	public void keyPressed(char key, int keyCode) {
@@ -74,14 +80,14 @@ public class KeyboardHandler extends MapEventBroadcaster {
 	}
 
 	public void keyEvent(KeyEvent keyEvent) {
-		char key = keyEvent.getKeyChar();
+		char key = keyEvent.getKey();
 		int keyCode = keyEvent.getKeyCode();
 
-		switch (keyEvent.getID()) {
-		case KeyEvent.KEY_PRESSED:
+		switch (keyEvent.getKeyCode()) {
+		case KeyEvent.PRESS:
 			keyPressed(key, keyCode);
 			break;
-		case KeyEvent.KEY_RELEASED:
+		case KeyEvent.RELEASE:
 			keyReleased(key, keyCode);
 			break;
 		}

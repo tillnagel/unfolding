@@ -35,16 +35,16 @@ public class MapUtils {
 	public static EventDispatcher createDefaultEventDispatcher(PApplet p, UnfoldingMap... maps) {
 		EventDispatcher eventDispatcher = new EventDispatcher();
 
-		MouseHandler mouseHandler = new MouseHandler(p, maps);
+//		MouseHandler mouseHandler = new MouseHandler(p, maps);
 		KeyboardHandler keyboardHandler = new KeyboardHandler(p, maps);
 
 //		eventDispatcher.addBroadcaster(mouseHandler);
-//		eventDispatcher.addBroadcaster(keyboardHandler);
-//
-//		for (UnfoldingMap map : maps) {
-//			eventDispatcher.register(map, PanMapEvent.TYPE_PAN, map.getId());
-//			eventDispatcher.register(map, ZoomMapEvent.TYPE_ZOOM, map.getId());
-//		}
+		eventDispatcher.addBroadcaster(keyboardHandler);
+
+		for (UnfoldingMap map : maps) {
+			eventDispatcher.register(map, PanMapEvent.TYPE_PAN, map.getId());
+			eventDispatcher.register(map, ZoomMapEvent.TYPE_ZOOM, map.getId());
+		}
 
 		return eventDispatcher;
 	}
