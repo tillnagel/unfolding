@@ -3,7 +3,7 @@ package de.fhpotsdam.unfolding.mapdisplay;
 import processing.core.PApplet;
 import processing.core.PConstants;
 import processing.core.PGraphics;
-import codeanticode.glgraphics.GLGraphicsOffScreen;
+import processing.opengl.PGraphicsOpenGL;
 import de.fhpotsdam.unfolding.marker.Marker;
 import de.fhpotsdam.unfolding.marker.MarkerManager;
 import de.fhpotsdam.unfolding.providers.AbstractMapProvider;
@@ -11,9 +11,10 @@ import de.fhpotsdam.unfolding.providers.AbstractMapProvider;
 public class GLGraphicsMapDisplay extends ProcessingMapDisplay implements PConstants {
 
 	// Inner map (and inner marker) will be drawn on this.
-	protected GLGraphicsOffScreen offscreenPG;
+	protected PGraphics offscreenPG;
+	
 	// Outer marker will be drawn on this
-	protected GLGraphicsOffScreen offscreenCutoffPG;
+	protected PGraphics offscreenCutoffPG;
 
 	protected float opacity = 255;
 
@@ -21,15 +22,16 @@ public class GLGraphicsMapDisplay extends ProcessingMapDisplay implements PConst
 			float width, float height) {
 		super(papplet, provider, offsetX, offsetY, width, height);
 
-		offscreenPG = new GLGraphicsOffScreen(papplet, (int) width, (int) height, true);
-		offscreenCutoffPG = new GLGraphicsOffScreen(papplet, (int) width, (int) height, true);
+//		offscreenPG = new GLGraphicsOffScreen(papplet, (int) width, (int) height, true);
+		offscreenCutoffPG = papplet.createGraphics((int) width, (int) height, OPENGL);
+		offscreenPG = papplet.createGraphics((int) width, (int) height, OPENGL);
 	}
 
 	@Override
 	public void resize(float width, float height) {
 		super.resize(width, height);
-		offscreenPG = new GLGraphicsOffScreen(papplet, (int) width, (int) height);
-		offscreenCutoffPG = new GLGraphicsOffScreen(papplet, (int) width, (int) height);
+		offscreenCutoffPG = papplet.createGraphics((int) width, (int) height, OPENGL);
+		offscreenPG = papplet.createGraphics((int) width, (int) height, OPENGL);
 	}
 
 	@Override
@@ -46,7 +48,7 @@ public class GLGraphicsMapDisplay extends ProcessingMapDisplay implements PConst
 	protected void postDraw() {
 		// Draws inner map (with inner marker) and outer marker
 		offscreenCutoffPG.beginDraw();
-		offscreenCutoffPG.image(offscreenPG.getTexture(), 0, 0);
+		offscreenCutoffPG.image(offscreenPG, 0, 0);
 		for (MarkerManager<Marker> mm : markerManagerList) {
 			mm.draw();
 		}
@@ -58,7 +60,7 @@ public class GLGraphicsMapDisplay extends ProcessingMapDisplay implements PConst
 		canvasPG.pushMatrix();
 		canvasPG.translate(offsetX, offsetY);
 		canvasPG.applyMatrix(matrix);
-		canvasPG.image(offscreenCutoffPG.getTexture(), 0, 0);
+		canvasPG.image(offscreenCutoffPG, 0, 0);
 		canvasPG.popMatrix();
 	}
 

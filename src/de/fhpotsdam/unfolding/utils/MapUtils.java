@@ -38,13 +38,13 @@ public class MapUtils {
 		MouseHandler mouseHandler = new MouseHandler(p, maps);
 		KeyboardHandler keyboardHandler = new KeyboardHandler(p, maps);
 
-		eventDispatcher.addBroadcaster(mouseHandler);
-		eventDispatcher.addBroadcaster(keyboardHandler);
-
-		for (UnfoldingMap map : maps) {
-			eventDispatcher.register(map, PanMapEvent.TYPE_PAN, map.getId());
-			eventDispatcher.register(map, ZoomMapEvent.TYPE_ZOOM, map.getId());
-		}
+//		eventDispatcher.addBroadcaster(mouseHandler);
+//		eventDispatcher.addBroadcaster(keyboardHandler);
+//
+//		for (UnfoldingMap map : maps) {
+//			eventDispatcher.register(map, PanMapEvent.TYPE_PAN, map.getId());
+//			eventDispatcher.register(map, ZoomMapEvent.TYPE_ZOOM, map.getId());
+//		}
 
 		return eventDispatcher;
 	}
