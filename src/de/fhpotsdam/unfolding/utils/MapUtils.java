@@ -38,6 +38,7 @@ public class MapUtils {
 		MouseHandler mouseHandler = new MouseHandler(p, maps);
 		KeyboardHandler keyboardHandler = new KeyboardHandler(p, maps);
 
+		//TODO keyboard panning isn't working after mouse interactions
 		eventDispatcher.addBroadcaster(mouseHandler);
 		eventDispatcher.addBroadcaster(keyboardHandler);
 

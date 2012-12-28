@@ -34,7 +34,6 @@ public class KeyboardHandler extends MapEventBroadcaster {
 	}
 
 	public void keyPressed(char key, int keyCode) {
-		System.out.println("key event");
 		for (UnfoldingMap map : maps) {
 			if (map.isActive()) {
 				if (key == '+' || key == '-') {
@@ -69,7 +68,6 @@ public class KeyboardHandler extends MapEventBroadcaster {
 							panMapEvent.setSubType(PanMapEvent.PAN_DOWN);
 							break;
 						}
-						System.out.println("fire event");
 						eventDispatcher.fireMapEvent(panMapEvent);
 					}
 				}

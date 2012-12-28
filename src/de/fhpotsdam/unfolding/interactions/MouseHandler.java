@@ -27,11 +27,13 @@ public class MouseHandler extends MapEventBroadcaster {
 
 		p.registerMethod("mouseEvent", this);
 		
-//		p.addMouseWheelListener(new java.awt.event.MouseWheelListener() {
-//			public void mouseWheelMoved(java.awt.event.MouseWheelEvent evt) {
-//				mouseWheel(evt.getWheelRotation());
-//			}
-//		});
+		//TODO mouse wheel is not supported in the current beta release (beta 7)
+		//http://code.google.com/p/processing/issues/detail?id=1423
+		p.addMouseWheelListener(new java.awt.event.MouseWheelListener() {
+			public void mouseWheelMoved(java.awt.event.MouseWheelEvent evt) {
+				mouseWheel(evt.getWheelRotation());
+			}
+		});
 	}
 
 	public void mouseClicked() {
