@@ -2,6 +2,7 @@ package de.fhpotsdam.unfolding.marker;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import org.apache.log4j.Logger;
 
@@ -69,7 +70,7 @@ public class MarkerManager<E extends Marker> {
 
 	public boolean addMarker(E marker) {
 		if (markers == null) {
-			this.markers = new ArrayList<E>();
+			this.markers = new CopyOnWriteArrayList<E>();
 		}
 
 		if (markers.contains(marker))
@@ -81,7 +82,7 @@ public class MarkerManager<E extends Marker> {
 
 	public void addMarkers(List<E> markers) {
 		if (this.markers == null) {
-			this.markers = new ArrayList<E>();
+			this.markers = new CopyOnWriteArrayList<E>();
 		}
 		this.markers.addAll(markers);
 	}
@@ -154,3 +155,4 @@ public class MarkerManager<E extends Marker> {
 	
 
 }
+
