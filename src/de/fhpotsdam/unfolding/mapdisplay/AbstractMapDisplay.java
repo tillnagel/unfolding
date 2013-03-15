@@ -366,7 +366,7 @@ public abstract class AbstractMapDisplay implements TileLoaderListener {
 	}
 	
 	protected void createDefaultMarkerManager(UnfoldingMap map) {
-		MarkerManager mm = new MarkerManager<Marker>();
+		MarkerManager<Marker> mm = new MarkerManager<Marker>();
 		mm.setMap(map);
 		markerManagerList.add(mm);
 	}
