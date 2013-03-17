@@ -180,7 +180,7 @@ public class UnfoldingMap implements MapEventListener {
 
 		// Prepare mapChanged method via reflection
 		try {
-			Class appletClass = p.getClass();
+			Class<? extends PApplet> appletClass = p.getClass();
 			mapChangedMethod = appletClass.getMethod(MAPCHANGED_METHOD_NAME, MapEvent.class);
 		} catch (SecurityException e) {
 		} catch (NoSuchMethodException e) {
@@ -263,10 +263,10 @@ public class UnfoldingMap implements MapEventListener {
 			scaleIntegrator.update();
 			mapDisplay.innerScale = scaleIntegrator.value;
 
-			// txIntegrator.update();
-			// mapDisplay.innerOffsetX = txIntegrator.value;
-			// tyIntegrator.update();
-			// mapDisplay.innerOffsetY = tyIntegrator.value;
+//			txIntegrator.update();
+//			mapDisplay.innerOffsetX = txIntegrator.value;
+//			tyIntegrator.update();
+//			mapDisplay.innerOffsetY = tyIntegrator.value;
 
 			mapDisplay.calculateInnerMatrix();
 		}
@@ -600,12 +600,12 @@ public class UnfoldingMap implements MapEventListener {
 
 	// MarkerManagement -----------------------------------------------
 
-	public void addMarkerManager(MarkerManager<Marker> markerManager) {
+	public void addMarkerManager(MarkerManager<? extends Marker> markerManager) {
 		markerManager.setMap(this);
 		mapDisplay.addMarkerManager(markerManager);
 	}
 
-	public MarkerManager<Marker> getLastMarkerManager() {
+	public MarkerManager<? extends Marker> getLastMarkerManager() {
 		return mapDisplay.getLastMarkerManager();
 	}
 
@@ -613,7 +613,7 @@ public class UnfoldingMap implements MapEventListener {
 		return mapDisplay.getDefaultMarkerManager();
 	}
 
-	public MarkerManager<Marker> getMarkerManager(int index) {
+	public MarkerManager<? extends Marker> getMarkerManager(int index) {
 		return mapDisplay.getMarkerManager(index);
 	}
 
@@ -627,7 +627,7 @@ public class UnfoldingMap implements MapEventListener {
 		mapDisplay.addMarkers(markers);
 	}
 
-	public List<Marker> getMarkers() {
+	public List<? extends Marker> getMarkers() {
 		return mapDisplay.getDefaultMarkerManager().getMarkers();
 	}
 
@@ -635,7 +635,7 @@ public class UnfoldingMap implements MapEventListener {
 		return mapDisplay.getDefaultMarkerManager().getFirstHitMarker(checkX, checkY);
 	}
 
-	public List<Marker> getHitMarker(float checkX, float checkY) {
+	public List<? extends Marker> getHitMarker(float checkX, float checkY) {
 		return mapDisplay.getDefaultMarkerManager().getHitMarkers(checkX, checkY);
 	}
 
@@ -672,17 +672,17 @@ public class UnfoldingMap implements MapEventListener {
 	}
 
 	protected void innerScale(float scale) {
-		mapDisplay.innerScale *= scale;
 		// TODO Check max,min scale in TileProvider, not here in Map
-		mapDisplay.innerScale = PApplet.constrain(mapDisplay.innerScale, minScale, maxScale);
+		mapDisplay.innerScale = PApplet.constrain(mapDisplay.innerScale * scale, minScale, maxScale);
+		// TEST tweening
+		scaleIntegrator.target(mapDisplay.innerScale);
 		mapDisplay.calculateInnerMatrix();
 	}
 
 	protected void setInnerScale(float scale) {
-		mapDisplay.innerScale = scale;
-		mapDisplay.innerScale = PApplet.constrain(mapDisplay.innerScale, minScale, maxScale);
+		mapDisplay.innerScale = PApplet.constrain(scale, minScale, maxScale);
 		// TEST tweening
-		scaleIntegrator.target(scale);
+		scaleIntegrator.target(mapDisplay.innerScale);
 		mapDisplay.calculateInnerMatrix();
 	}
 
@@ -776,12 +776,16 @@ public class UnfoldingMap implements MapEventListener {
 	protected void addInnerOffset(float dx, float dy) {
 		mapDisplay.innerOffsetX += dx;
 		mapDisplay.innerOffsetY += dy;
+//		txIntegrator.target(mapDisplay.innerOffsetX);
+//		tyIntegrator.target(mapDisplay.innerOffsetY);
 		mapDisplay.calculateInnerMatrix();
 	}
 
 	protected void setInnerOffset(float x, float y) {
 		mapDisplay.innerOffsetX = x;
 		mapDisplay.innerOffsetY = y;
+//		txIntegrator.target(mapDisplay.innerOffsetX);
+//		tyIntegrator.target(mapDisplay.innerOffsetY);
 		mapDisplay.calculateInnerMatrix();
 	}
 

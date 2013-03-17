@@ -293,7 +293,7 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 	protected void postDraw() {
 
 		// Draws all markers
-		for (MarkerManager<Marker> mm : markerManagerList) {
+		for (MarkerManager<? extends Marker> mm : this) {
 			mm.draw();
 		}
 

@@ -47,7 +47,7 @@ public class GLGraphicsMapDisplay extends ProcessingMapDisplay implements PConst
 		// Draws inner map (with inner marker) and outer marker
 		offscreenCutoffPG.beginDraw();
 		offscreenCutoffPG.image(offscreenPG.getTexture(), 0, 0);
-		for (MarkerManager<Marker> mm : markerManagerList) {
+		for (MarkerManager<? extends Marker> mm : this) {
 			mm.draw();
 		}
 		offscreenCutoffPG.endDraw();

@@ -49,7 +49,7 @@ public class MultiLabeledMarkerOnMultiMapsApp extends MultiLabeledMarkerApp {
 
 	public void checkInsideMarker(UnfoldingMap map) {
 		if (map.isHit(mouseX, mouseY)) {
-			MarkerManager<Marker> mm = map.mapDisplay.getLastMarkerManager();
+			MarkerManager<? extends Marker> mm = map.mapDisplay.getLastMarkerManager();
 
 			// Deselect all marker
 			for (Marker marker : mm.getMarkers()) {

@@ -68,6 +68,10 @@ public class Integrator {
 		targeting = true;
 		target = t;
 	}
+	
+	public void target(double d) {
+		target((float) d);
+	}
 
 	public void noTarget() {
 		targeting = false;

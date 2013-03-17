@@ -3,6 +3,7 @@ package de.fhpotsdam.unfolding.mapdisplay;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Hashtable;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Vector;
 
@@ -25,12 +26,13 @@ import de.fhpotsdam.unfolding.utils.ScreenPosition;
  * Handles tiles
  * 
  */
-public abstract class AbstractMapDisplay implements TileLoaderListener {
+public abstract class AbstractMapDisplay implements TileLoaderListener, Iterable<MarkerManager<? extends Marker>> {
 
 	public static final int TILE_WIDTH = 256;
 	public static final int TILE_HEIGHT = 256;
 
-	// If less than this memory threshold is reached, oldest tile images will be deleted.
+	// If less than this memory threshold is reached, oldest tile images will be
+	// deleted.
 	private static final long MEMORY_THRESHOLD_BYTES = 300000;
 	// Number of tile images to delete.
 	private static final int MEMORY_THRESHOLD_IMAGES = 25;
@@ -42,8 +44,10 @@ public abstract class AbstractMapDisplay implements TileLoaderListener {
 	protected float height;
 
 	// Map values: Inner position and scale (used for tiles)
-	public double innerOffsetX = -TILE_WIDTH / 2; // half the world width, at zoom 0
-	public double innerOffsetY = -TILE_HEIGHT / 2; // half the world height, at zoom 0
+	public double innerOffsetX = -TILE_WIDTH / 2; // half the world width, at
+													// zoom 0
+	public double innerOffsetY = -TILE_HEIGHT / 2; // half the world height, at
+													// zoom 0
 	public float innerScale = 1;
 	public float innerAngle;
 
@@ -63,7 +67,8 @@ public abstract class AbstractMapDisplay implements TileLoaderListener {
 	protected PVector innerTransformationCenter;
 
 	// List of MarkerManager with one default MarkerManager
-	protected List<MarkerManager<Marker>> markerManagerList;
+	protected List<MarkerManager<? extends Marker>> markerManagerList;
+	protected MarkerManager<Marker> defaultMarkerManager;
 
 	// Tiles
 	public int max_pending = 4;
@@ -90,8 +95,8 @@ public abstract class AbstractMapDisplay implements TileLoaderListener {
 		innerTransformationCenter = new PVector(width / 2, height / 2);
 
 		innerScale = (float) Math.ceil(Math.min(height / (float) TILE_WIDTH, width / (float) TILE_HEIGHT));
-		
-		markerManagerList = new ArrayList<MarkerManager<Marker>>();
+
+		markerManagerList = new ArrayList<MarkerManager<? extends Marker>>();
 	}
 
 	public void resize(float width, float height) {
@@ -113,10 +118,10 @@ public abstract class AbstractMapDisplay implements TileLoaderListener {
 	}
 
 	public abstract PGraphics getInnerPG();
-	
+
 	public abstract PGraphics getOuterPG();
 
-	public GLGraphicsOffScreen getMask(){
+	public GLGraphicsOffScreen getMask() {
 		return null;
 	}
 
@@ -125,36 +130,38 @@ public abstract class AbstractMapDisplay implements TileLoaderListener {
 	public abstract void setBackgroundColor(int color);
 
 	// MarkerManagement -----------------------------------------------
-	
+
 	/**
 	 * You need to set the map of the given MarkerManager before using.
 	 */
-	public void addMarkerManager(MarkerManager<Marker> markerManager) {
+	public void addMarkerManager(MarkerManager<? extends Marker> markerManager) {
 		markerManagerList.add(markerManager);
 	}
-	
-	public MarkerManager<Marker> getLastMarkerManager() {
-		return markerManagerList.get(markerManagerList.size()-1);
+
+	public MarkerManager<? extends Marker> getLastMarkerManager() {
+		return markerManagerList.get(markerManagerList.size() - 1);
 	}
-	
-	public MarkerManager<Marker> getDefaultMarkerManager(){
-		return getMarkerManager(0);
+
+	public MarkerManager<Marker> getDefaultMarkerManager() {
+		return defaultMarkerManager;
 	}
 
 	@Deprecated
-	public MarkerManager<Marker> getMarkerManager(){
+	public MarkerManager<Marker> getMarkerManager() {
 		return getDefaultMarkerManager();
 	}
-	
-	public MarkerManager<Marker> getMarkerManager(int index){
-		return markerManagerList.get(index);
+
+	public MarkerManager<? extends Marker> getMarkerManager(int index) {
+		if (index == 0)
+			return getDefaultMarkerManager();
+		return markerManagerList.get(index - 1);
 	}
-	
-	public void addMarker(Marker marker){
+
+	public void addMarker(Marker marker) {
 		getDefaultMarkerManager().addMarker(marker);
 	}
-	
-	public void addMarkers(List<Marker> markers){
+
+	public void addMarkers(List<Marker> markers) {
 		getDefaultMarkerManager().addMarkers(markers);
 	}
 
@@ -169,23 +176,24 @@ public abstract class AbstractMapDisplay implements TileLoaderListener {
 	}
 
 	/**
-	 * Updates the matrix to transform the map with with the current transformation center.
+	 * Updates the matrix to transform the map with with the current
+	 * transformation center.
 	 */
 	public abstract void calculateMatrix();
 
 	public abstract void calculateInnerMatrix();
 
 	/**
-	 * Calculates offset and rotation for screen canvas position, to be used with the internal
-	 * transformation matrix.
+	 * Calculates offset and rotation for screen canvas position, to be used
+	 * with the internal transformation matrix.
 	 * 
 	 * @param x
 	 *            Cartesian x coordinate.
 	 * @param y
 	 *            Cartesian y coordinate.
 	 * @param inverse
-	 *            Indicates back and forward matrix calculation. Inverse is used for point2location,
-	 *            non-inverse for location2point.
+	 *            Indicates back and forward matrix calculation. Inverse is used
+	 *            for point2location, non-inverse for location2point.
 	 * @return An 1d-2elements-array with x and y.
 	 */
 	protected abstract float[] getTransformedPosition(float x, float y, boolean inverse);
@@ -198,6 +206,7 @@ public abstract class AbstractMapDisplay implements TileLoaderListener {
 
 	@Deprecated
 	public abstract float[] getInnerObjectFromScreenPosition(float x, float y);
+
 	public abstract float[] getInnerObject(ScreenPosition screenPosition);
 
 	public abstract float[] getScreenFromObjectPosition(float x, float y);
@@ -219,6 +228,7 @@ public abstract class AbstractMapDisplay implements TileLoaderListener {
 
 	@Deprecated
 	public abstract float[] getScreenPositionFromLocation(Location location);
+
 	public abstract ScreenPosition getScreenPosition(Location location);
 
 	public abstract float[] getObjectFromLocation(Location location);
@@ -238,7 +248,8 @@ public abstract class AbstractMapDisplay implements TileLoaderListener {
 	 *            Point in screen coordinates.
 	 */
 	public void setTransformationCenter(PVector transformationCenter) {
-		// NB Offset subtraction due to special handling (i.e. not included in matrix)
+		// NB Offset subtraction due to special handling (i.e. not included in
+		// matrix)
 		this.transformationCenter.x = transformationCenter.x - offsetX;
 		this.transformationCenter.y = transformationCenter.y - offsetY;
 	}
@@ -325,7 +336,8 @@ public abstract class AbstractMapDisplay implements TileLoaderListener {
 	/**
 	 * Cleans oldest images if too many images exist, or if memory is too full.
 	 * 
-	 * Tiles are added to the recency-based list to allow removing oldest ones from images-array.
+	 * Tiles are added to the recency-based list to allow removing oldest ones
+	 * from images-array.
 	 * 
 	 * REVISIT Check java.lang.ref.SoftReference for better solution.
 	 */
@@ -352,10 +364,11 @@ public abstract class AbstractMapDisplay implements TileLoaderListener {
 	}
 
 	/**
-	 * Set the map provider, dynamically. The currently selected area, as well as all events etc
-	 * will stay.
+	 * Set the map provider, dynamically. The currently selected area, as well
+	 * as all events etc will stay.
 	 * 
-	 * Note that the image buffer will be cleaned, i.e. all tiles need to be loaded anew.
+	 * Note that the image buffer will be cleaned, i.e. all tiles need to be
+	 * loaded anew.
 	 * 
 	 * @param provider
 	 *            The provider to use.
@@ -364,11 +377,41 @@ public abstract class AbstractMapDisplay implements TileLoaderListener {
 		this.provider = provider;
 		cleanupImageBuffer(true);
 	}
-	
+
 	protected void createDefaultMarkerManager(UnfoldingMap map) {
 		MarkerManager<Marker> mm = new MarkerManager<Marker>();
 		mm.setMap(map);
-		markerManagerList.add(mm);
+		defaultMarkerManager = mm;
+	}
+	
+	@Override public Iterator<MarkerManager<? extends Marker>> iterator() {
+		return new Iterator<MarkerManager<? extends Marker>>() {
+
+			Iterator<MarkerManager<? extends Marker>> data = markerManagerList.iterator();
+			boolean defGiven = false;
+			
+			@Override
+			public boolean hasNext() {
+				return data.hasNext();
+			}
+
+			@Override
+			public MarkerManager<? extends Marker> next() {
+				if (!defGiven) {
+					defGiven = true;
+					return defaultMarkerManager;
+				}
+				return data.next();
+			}
+
+			@Override
+			public void remove() {
+				if (!defGiven) {
+					throw new IllegalStateException("Cannot remove default marker manager");
+				}
+				data.remove();
+			}
+		};
 	}
 
 }
