@@ -723,9 +723,12 @@ public class UnfoldingMap implements MapEventListener {
 
 	protected void innerScale(float scale) {
 		// TODO Check max,min scale in TileProvider, not here in Map
-		mapDisplay.innerScale = PApplet.constrain(mapDisplay.innerScale * scale, minScale, maxScale);
-		// TEST tweening
-		scaleIntegrator.target(mapDisplay.innerScale);
+		scale = PApplet.constrain(mapDisplay.innerScale * scale, minScale, maxScale);
+		if (tweening) {
+			scaleIntegrator.target(scale);
+		} else {
+			mapDisplay.innerScale = scale;
+		}
 		mapDisplay.calculateInnerMatrix();
 	}
 
@@ -876,17 +879,18 @@ public class UnfoldingMap implements MapEventListener {
 	}
 
 	public void setTweening(boolean tweening) {
-		if (tweening == this.tweening) return;
+		if (tweening == this.tweening)
+			return;
 		this.tweening = tweening;
-		
+
 		if (tweening) {
 			scaleIntegrator.set(mapDisplay.innerScale);
-			
+
 			txIntegrator.set(mapDisplay.innerOffsetX);
 			tyIntegrator.set(mapDisplay.innerOffsetY);
 		} else {
 			mapDisplay.innerScale = scaleIntegrator.target;
-			
+
 			mapDisplay.innerOffsetX = txIntegrator.target;
 			mapDisplay.innerOffsetY = tyIntegrator.target;
 		}
