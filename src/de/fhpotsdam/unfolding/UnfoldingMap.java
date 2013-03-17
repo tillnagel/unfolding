@@ -22,10 +22,12 @@ import de.fhpotsdam.unfolding.utils.ScreenPosition;
 import de.fhpotsdam.utils.Integrator;
 
 /**
- * An interactive map. Uses the MapDisplay, and handles hit test, active status, as well as all interactions such as
- * panning, zooming, and rotating (with or without tweening).
+ * An interactive map. Uses the MapDisplay, and handles hit test, active status,
+ * as well as all interactions such as panning, zooming, and rotating (with or
+ * without tweening).
  * 
- * Acts as facade for the map interactions, e.g. using innerScale for zooming, and outerRotate for rotating.
+ * Acts as facade for the map interactions, e.g. using innerScale for zooming,
+ * and outerRotate for rotating.
  */
 public class UnfoldingMap implements MapEventListener {
 
@@ -64,7 +66,7 @@ public class UnfoldingMap implements MapEventListener {
 
 	/** The ID of this map. */
 	protected String id;
-	
+
 	/** Indicates whether this map is currently active. */
 	protected boolean active = true;
 
@@ -80,8 +82,11 @@ public class UnfoldingMap implements MapEventListener {
 
 	/**
 	 * Creates a new full canvas map with the given ID.
-	 * @param p The main applet.
-	 * @param id The ID of this map.
+	 * 
+	 * @param p
+	 *            The main applet.
+	 * @param id
+	 *            The ID of this map.
 	 */
 	public UnfoldingMap(PApplet p, String id) {
 		this(p, id, 0, 0, p.width, p.height, true, false, null);
@@ -89,38 +94,54 @@ public class UnfoldingMap implements MapEventListener {
 
 	/**
 	 * Creates a new full canvas map with a generated ID.
-	 * @param p The main applet.
+	 * 
+	 * @param p
+	 *            The main applet.
 	 */
 	public UnfoldingMap(PApplet p) {
 		this(p, generateId(), 0, 0, p.width, p.height, true, false, null);
 	}
-	
+
 	/**
 	 * Creates a new full canvas map with tiles from the given provider.
-	 * @param p The main applet.
-	 * @param provider The map tiles provider to use.
+	 * 
+	 * @param p
+	 *            The main applet.
+	 * @param provider
+	 *            The map tiles provider to use.
 	 */
 	public UnfoldingMap(PApplet p, AbstractMapProvider provider) {
 		this(p, generateId(), 0, 0, p.width, p.height, true, false, provider);
 	}
-	
+
 	/**
-	 * Creates a new full canvas map with given ID, and with tiles from the given provider.
-	 * @param p The main applet.
-	 * @param id The ID of this map.
-	 * @param provider The map tiles provider to use.
+	 * Creates a new full canvas map with given ID, and with tiles from the
+	 * given provider.
+	 * 
+	 * @param p
+	 *            The main applet.
+	 * @param id
+	 *            The ID of this map.
+	 * @param provider
+	 *            The map tiles provider to use.
 	 */
 	public UnfoldingMap(PApplet p, String id, AbstractMapProvider provider) {
 		this(p, id, 0, 0, p.width, p.height, true, false, provider);
 	}
-	
+
 	/**
 	 * Creates a new map with specific position and dimension.
-	 * @param p The main applet.
-	 * @param x The x position of this map.
-	 * @param y The y position of this map.
-	 * @param width The width of this map.
-	 * @param height The height of this map.
+	 * 
+	 * @param p
+	 *            The main applet.
+	 * @param x
+	 *            The x position of this map.
+	 * @param y
+	 *            The y position of this map.
+	 * @param width
+	 *            The width of this map.
+	 * @param height
+	 *            The height of this map.
 	 */
 	public UnfoldingMap(PApplet p, float x, float y, float width, float height) {
 		this(p, generateId(), x, y, width, height, true, false, null);
@@ -128,12 +149,19 @@ public class UnfoldingMap implements MapEventListener {
 
 	/**
 	 * Creates a new map with specific position and dimension.
-	 * @param p The main applet.
-	 * @param id The ID of this map.
-	 * @param x The x position of this map.
-	 * @param y The y position of this map.
-	 * @param width The width of this map.
-	 * @param height The height of this map.
+	 * 
+	 * @param p
+	 *            The main applet.
+	 * @param id
+	 *            The ID of this map.
+	 * @param x
+	 *            The x position of this map.
+	 * @param y
+	 *            The y position of this map.
+	 * @param width
+	 *            The width of this map.
+	 * @param height
+	 *            The height of this map.
 	 */
 	public UnfoldingMap(PApplet p, String id, float x, float y, float width, float height) {
 		this(p, id, x, y, width, height, true, false, null);
@@ -145,12 +173,19 @@ public class UnfoldingMap implements MapEventListener {
 
 	/**
 	 * Creates a new map with specific position and dimension.
-	 * @param p The main applet.
-	 * @param x The x position of this map.
-	 * @param y The y position of this map.
-	 * @param width The width of this map.
-	 * @param height The height of this map.
-	 * @param provider The map tiles provider to use.
+	 * 
+	 * @param p
+	 *            The main applet.
+	 * @param x
+	 *            The x position of this map.
+	 * @param y
+	 *            The y position of this map.
+	 * @param width
+	 *            The width of this map.
+	 * @param height
+	 *            The height of this map.
+	 * @param provider
+	 *            The map tiles provider to use.
 	 */
 	public UnfoldingMap(PApplet p, float x, float y, float width, float height, AbstractMapProvider provider) {
 		this(p, generateId(), x, y, width, height, true, false, provider);
@@ -158,15 +193,25 @@ public class UnfoldingMap implements MapEventListener {
 
 	/**
 	 * Creates a new map with specific position and dimension.
-	 * @param p The main applet.
-	 * @param id The ID of this map.
-	 * @param x The x position of this map.
-	 * @param y The y position of this map.
-	 * @param width The width of this map.
-	 * @param height The height of this map.
-	 * @param useMask Whether this map enables using masks (test)
-	 * @param useDistortion Whether this map enables using distortion (test)
-	 * @param provider The map tiles provider to use.
+	 * 
+	 * @param p
+	 *            The main applet.
+	 * @param id
+	 *            The ID of this map.
+	 * @param x
+	 *            The x position of this map.
+	 * @param y
+	 *            The y position of this map.
+	 * @param width
+	 *            The width of this map.
+	 * @param height
+	 *            The height of this map.
+	 * @param useMask
+	 *            Whether this map enables using masks (test)
+	 * @param useDistortion
+	 *            Whether this map enables using distortion (test)
+	 * @param provider
+	 *            The map tiles provider to use.
 	 */
 	public UnfoldingMap(PApplet p, String id, float x, float y, float width, float height, boolean useMask,
 			boolean useDistortion, AbstractMapProvider provider) {
@@ -256,17 +301,18 @@ public class UnfoldingMap implements MapEventListener {
 	}
 
 	/**
-	 * Updates the integrators for tweening. Must be called before {@link AbstractMapDisplay#draw()} .
+	 * Updates the integrators for tweening. Must be called before
+	 * {@link AbstractMapDisplay#draw()} .
 	 */
 	public void updateMap() {
 		if (tweening) {
 			scaleIntegrator.update();
 			mapDisplay.innerScale = scaleIntegrator.value;
 
-//			txIntegrator.update();
-//			mapDisplay.innerOffsetX = txIntegrator.value;
-//			tyIntegrator.update();
-//			mapDisplay.innerOffsetY = tyIntegrator.value;
+			txIntegrator.update();
+			mapDisplay.innerOffsetX = txIntegrator.value;
+			tyIntegrator.update();
+			mapDisplay.innerOffsetY = tyIntegrator.value;
 
 			mapDisplay.calculateInnerMatrix();
 		}
@@ -419,8 +465,9 @@ public class UnfoldingMap implements MapEventListener {
 	/**
 	 * Zooms in around position, and pans to it.
 	 * 
-	 * After the pan the center still is at the same location. (As innerTransformationCenter is in object coordinates,
-	 * thus stays at same inner position.)
+	 * After the pan the center still is at the same location. (As
+	 * innerTransformationCenter is in object coordinates, thus stays at same
+	 * inner position.)
 	 * 
 	 * @param x
 	 *            X position to zoom around and pan to (in screen coordinates).
@@ -439,8 +486,9 @@ public class UnfoldingMap implements MapEventListener {
 	/**
 	 * Zooms in around position, and pans to it.
 	 * 
-	 * After the pan the center still is at the same location. (As innerTransformationCenter is in object coordinates,
-	 * thus stays at same inner position.)
+	 * After the pan the center still is at the same location. (As
+	 * innerTransformationCenter is in object coordinates, thus stays at same
+	 * inner position.)
 	 * 
 	 * @param screenPosition
 	 *            ScreenPosition to zoom around and pan to.
@@ -457,8 +505,9 @@ public class UnfoldingMap implements MapEventListener {
 	/**
 	 * Zooms in around position, and pans to it.
 	 * 
-	 * After the pan the center still is at the same location. (As innerTransformationCenter is in object coordinates,
-	 * thus stays at same inner position.)
+	 * After the pan the center still is at the same location. (As
+	 * innerTransformationCenter is in object coordinates, thus stays at same
+	 * inner position.)
 	 * 
 	 * @param location
 	 *            The Location to zoom around and pan to.
@@ -497,7 +546,8 @@ public class UnfoldingMap implements MapEventListener {
 	}
 
 	/**
-	 * Pans to the given Location. The position of the location will be centered.
+	 * Pans to the given Location. The position of the location will be
+	 * centered.
 	 * 
 	 * @param location
 	 *            The Location to pan to.
@@ -680,9 +730,12 @@ public class UnfoldingMap implements MapEventListener {
 	}
 
 	protected void setInnerScale(float scale) {
-		mapDisplay.innerScale = PApplet.constrain(scale, minScale, maxScale);
-		// TEST tweening
-		scaleIntegrator.target(mapDisplay.innerScale);
+		scale = PApplet.constrain(scale, minScale, maxScale);
+		if (tweening) {
+			scaleIntegrator.target(scale);
+		} else {
+			mapDisplay.innerScale = scale;
+		}
 		mapDisplay.calculateInnerMatrix();
 	}
 
@@ -774,19 +827,25 @@ public class UnfoldingMap implements MapEventListener {
 	}
 
 	protected void addInnerOffset(float dx, float dy) {
-		mapDisplay.innerOffsetX += dx;
-		mapDisplay.innerOffsetY += dy;
-//		txIntegrator.target(mapDisplay.innerOffsetX);
-//		tyIntegrator.target(mapDisplay.innerOffsetY);
-		mapDisplay.calculateInnerMatrix();
+		if (tweening) {
+			txIntegrator.target(txIntegrator.target + dx);
+			tyIntegrator.target(tyIntegrator.target + dy);
+		} else {
+			mapDisplay.innerOffsetX += dx;
+			mapDisplay.innerOffsetY += dy;
+			mapDisplay.calculateInnerMatrix();
+		}
 	}
 
 	protected void setInnerOffset(float x, float y) {
-		mapDisplay.innerOffsetX = x;
-		mapDisplay.innerOffsetY = y;
-//		txIntegrator.target(mapDisplay.innerOffsetX);
-//		tyIntegrator.target(mapDisplay.innerOffsetY);
-		mapDisplay.calculateInnerMatrix();
+		if (tweening) {
+			txIntegrator.target(x);
+			tyIntegrator.target(y);
+		} else {
+			mapDisplay.innerOffsetX = x;
+			mapDisplay.innerOffsetY = y;
+			mapDisplay.calculateInnerMatrix();
+		}
 	}
 
 	protected void setOffset(float x, float y) {
@@ -813,11 +872,24 @@ public class UnfoldingMap implements MapEventListener {
 	 * Switches the tweening.
 	 */
 	public void switchTweening() {
-		this.tweening = !this.tweening;
+		setTweening(!tweening);
 	}
 
 	public void setTweening(boolean tweening) {
+		if (tweening == this.tweening) return;
 		this.tweening = tweening;
+		
+		if (tweening) {
+			scaleIntegrator.set(mapDisplay.innerScale);
+			
+			txIntegrator.set(mapDisplay.innerOffsetX);
+			tyIntegrator.set(mapDisplay.innerOffsetY);
+		} else {
+			mapDisplay.innerScale = scaleIntegrator.target;
+			
+			mapDisplay.innerOffsetX = txIntegrator.target;
+			mapDisplay.innerOffsetY = tyIntegrator.target;
+		}
 	}
 
 	public void setBackgroundColor(int bgColor) {

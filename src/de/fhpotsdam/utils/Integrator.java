@@ -41,6 +41,10 @@ public class Integrator {
 	public void set(float v) {
 		value = v;
 	}
+	
+	public void set(double d) {
+		set((float) d);
+	}
 
 	/**
 	 * Update for next time step. Returns true if actually updated, false if no longer changing.
