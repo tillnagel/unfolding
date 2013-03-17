@@ -34,7 +34,7 @@ public class GeoMapApp {
 
 	public static class TopologicalGeoMapProvider extends GeoMapAppProvider {
 		public String[] getTileUrls(Coordinate coordinate) {
-			String path = getPath(coordinate);
+			// String path = getPath(coordinate);
 			// String url = "http://dev.geomapapp.org/MapApp/merc_320_1024/" +
 			// path;
 			String url = "http://r" + (int) random(0, 4) + ".ortho.tiles.virtualearth.net/tiles/r"
@@ -48,8 +48,6 @@ public class GeoMapApp {
 		switch ((int) _coordinate.zoom) {
 		case 1:
 			path = "i_512";
-			float column_middle = _coordinate.column / 2;
-			float row_middle = _coordinate.row / 2;
 
 			path += "/E" + (int) _coordinate.column;
 			int col_subdivs = (int) _coordinate.column % 4;

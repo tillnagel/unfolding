@@ -22,12 +22,12 @@ public class LinearInterpolationDistorter extends AbstractLensDistorter {
 	}
 
 	protected float interpolateRadius(float radius) {
-		float s0 = 1;
+//		float s0 = 1;
 		radius = radius * zoom;
 
-		if (radius <= r0) {
-			radius = radius;
-		}
+//		if (radius <= r0) {
+//			radius = radius;
+//		}
 		if (radius > r0 && radius <= r1) {
 			radius = r0 + ((r1 * s1 - r0) / (r1 - r0)) * (radius - r0);
 		}

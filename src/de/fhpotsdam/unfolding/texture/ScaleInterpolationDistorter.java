@@ -18,12 +18,12 @@ public class ScaleInterpolationDistorter extends AbstractLensDistorter {
 	}
 
 	protected float interpolateRadius(float radius) {
-		float s0 = 1;
+//		float s0 = 1;
 		radius = radius * zoom;
 
-		if (radius <= r0) {
-			radius = radius;
-		}
+//		if (radius <= r0) {
+//			radius = radius;
+//		}
 		if (radius > r0 && radius <= r1) {
 			radius = radius + ((PApplet.sq(radius - r0) * (s1 - 1)) / (2 * (r1 - r0)));
 		}

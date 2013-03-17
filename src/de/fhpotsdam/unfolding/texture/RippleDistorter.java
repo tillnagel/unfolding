@@ -1,6 +1,5 @@
 package de.fhpotsdam.unfolding.texture;
 
-import processing.core.PApplet;
 import processing.core.PVector;
 
 /**
@@ -12,8 +11,6 @@ public class RippleDistorter implements Distorter {
 	public void distort(PVector origCoord, PVector distCoord, int value) {
 		distCoord.x = origCoord.x;
 		distCoord.y = origCoord.y;
-
-		PApplet p = PAppletFactory.getInstance();
 
 		// Wave / Ripple
 		distCoord.z = (float) Math.sin(distCoord.x * 1.1f) * 5f;

@@ -20,7 +20,6 @@ import de.fhpotsdam.unfolding.providers.AbstractMapProvider;
 import de.fhpotsdam.unfolding.tiles.TileLoader;
 import de.fhpotsdam.unfolding.utils.ScreenPosition;
 
-@SuppressWarnings("unchecked")
 public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstants {
 
 	public static Logger log = Logger.getLogger(ProcessingMapDisplay.class);
@@ -318,7 +317,7 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 		pg.translate((float) innerOffsetX, (float) innerOffsetY);
 		pg.applyMatrix(innerMatrix);
 
-		Vector visibleKeys = getVisibleKeys(pg);
+		Vector<Coordinate> visibleKeys = getVisibleKeys(pg);
 
 		if (visibleKeys.size() > 0) {
 			Coordinate previous = (Coordinate) visibleKeys.get(0);
@@ -369,10 +368,10 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 	}
 
 	// Based on code by ModestMaps, Tom Carden
-	protected Vector getVisibleKeys(PGraphics pg) {
+	protected Vector<Coordinate> getVisibleKeys(PGraphics pg) {
 
 		// Stores IDs of tiles already displayed
-		Vector visibleKeys = new Vector();
+		Vector<Coordinate> visibleKeys = new Vector<Coordinate>();
 
 		// Grid to load tiles for.
 		int minCol, maxCol, minRow, maxRow;

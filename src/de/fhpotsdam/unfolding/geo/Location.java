@@ -8,6 +8,8 @@ import processing.core.PVector;
  */
 public class Location extends PVector {
 
+	private static final long serialVersionUID = 3979086427727250148L;
+
 	/**
 	 * Create a Location.
 	 * @param lat latitude of the location.

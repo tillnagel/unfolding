@@ -13,13 +13,12 @@ import de.fhpotsdam.unfolding.marker.SimpleLinesMarker;
 import de.fhpotsdam.unfolding.marker.SimplePointMarker;
 import de.fhpotsdam.unfolding.marker.SimplePolygonMarker;
 
-@SuppressWarnings("rawtypes")
 public class MarkerFactory {
 
-	HashMap<FeatureType, Class> featureMarkerMap;
+	HashMap<FeatureType, Class<? extends Marker>> featureMarkerMap;
 
 	public MarkerFactory() {
-		featureMarkerMap = new HashMap<Feature.FeatureType, Class>();
+		featureMarkerMap = new HashMap<Feature.FeatureType, Class<? extends Marker>>();
 		featureMarkerMap.put(FeatureType.POINT, SimplePointMarker.class);
 		featureMarkerMap.put(FeatureType.LINES, SimpleLinesMarker.class);
 		featureMarkerMap.put(FeatureType.POLYGON, SimplePolygonMarker.class);
@@ -76,29 +75,29 @@ public class MarkerFactory {
 		return marker;
 	}
 
-	public void setPointClass(Class pointMarkerClass) {
+	public void setPointClass(Class<? extends Marker> pointMarkerClass) {
 		featureMarkerMap.remove(FeatureType.POINT);
 		featureMarkerMap.put(FeatureType.POINT, pointMarkerClass);
 	}
 
-	public void setLineClass(Class lineMarkerClass) {
+	public void setLineClass(Class<? extends Marker> lineMarkerClass) {
 		featureMarkerMap.remove(FeatureType.LINES);
 		featureMarkerMap.put(FeatureType.LINES, lineMarkerClass);
 	}
 
-	public void setPolygonClass(Class polygonMarkerClass) {
+	public void setPolygonClass(Class<? extends Marker> polygonMarkerClass) {
 		featureMarkerMap.remove(FeatureType.POLYGON);
 		featureMarkerMap.put(FeatureType.POLYGON, polygonMarkerClass);
 	}
 
 	protected Marker createPointMarker(PointFeature feature) throws Exception {
-		Class markerClass = featureMarkerMap.get(feature.getType());
+		Class<? extends Marker> markerClass = featureMarkerMap.get(feature.getType());
 		Marker marker = null;
 		try {
-			Constructor markerConstructor = markerClass.getDeclaredConstructor(Location.class, HashMap.class);
+			Constructor<? extends Marker> markerConstructor = markerClass.getDeclaredConstructor(Location.class, HashMap.class);
 			marker = (Marker) markerConstructor.newInstance(feature.getLocation(), feature.getProperties());
 		} catch (NoSuchMethodException e) {
-			Constructor markerConstructor = markerClass.getDeclaredConstructor(Location.class);
+			Constructor<? extends Marker> markerConstructor = markerClass.getDeclaredConstructor(Location.class);
 			marker = (Marker) markerConstructor.newInstance(feature.getLocation());
 			marker.setProperties(feature.getProperties());
 		}
@@ -106,13 +105,13 @@ public class MarkerFactory {
 	}
 
 	protected Marker createLinesMarker(ShapeFeature feature) throws Exception {
-		Class markerClass = featureMarkerMap.get(feature.getType());
+		Class<? extends Marker> markerClass = featureMarkerMap.get(feature.getType());
 		Marker marker = null;
 		try {
-			Constructor markerConstructor = markerClass.getDeclaredConstructor(List.class, HashMap.class);
+			Constructor<? extends Marker> markerConstructor = markerClass.getDeclaredConstructor(List.class, HashMap.class);
 			marker = (Marker) markerConstructor.newInstance(feature.getLocations(), feature.getProperties());
 		} catch (NoSuchMethodException e) {
-			Constructor markerConstructor = markerClass.getDeclaredConstructor(List.class);
+			Constructor<? extends Marker> markerConstructor = markerClass.getDeclaredConstructor(List.class);
 			marker = (Marker) markerConstructor.newInstance(feature.getLocations());
 			marker.setProperties(feature.getProperties());
 		}
@@ -120,13 +119,13 @@ public class MarkerFactory {
 	}
 
 	protected Marker createPolygonMarker(ShapeFeature feature) throws Exception {
-		Class markerClass = featureMarkerMap.get(feature.getType());
+		Class<? extends Marker> markerClass = featureMarkerMap.get(feature.getType());
 		Marker marker = null;
 		try {
-			Constructor markerConstructor = markerClass.getDeclaredConstructor(List.class, HashMap.class);
+			Constructor<? extends Marker> markerConstructor = markerClass.getDeclaredConstructor(List.class, HashMap.class);
 			marker = (Marker) markerConstructor.newInstance(feature.getLocations(), feature.getProperties());
 		} catch (NoSuchMethodException e) {
-			Constructor markerConstructor = markerClass.getDeclaredConstructor(List.class);
+			Constructor<? extends Marker> markerConstructor = markerClass.getDeclaredConstructor(List.class);
 			marker = (Marker) markerConstructor.newInstance(feature.getLocations());
 			marker.setProperties(feature.getProperties());
 		}

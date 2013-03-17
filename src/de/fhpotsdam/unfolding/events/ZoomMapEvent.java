@@ -9,6 +9,8 @@ import de.fhpotsdam.unfolding.utils.ScreenPosition;
 
 public class ZoomMapEvent extends MapEvent {
 
+	private static final long serialVersionUID = 2218129467079219206L;
+
 	protected static Logger log = Logger.getLogger(ZoomMapEvent.class);
 
 	public static final String TYPE_ZOOM = "zoom";
@@ -101,7 +103,7 @@ public class ZoomMapEvent extends MapEvent {
 		}
 
 		if (ZOOM_BY_LEVEL.equals(getSubType())) {
-			map.zoom(zoomLevelDelta);
+			map.zoomLevel(zoomLevelDelta);
 		} else if (ZOOM_TO_LEVEL.equals(getSubType())) {
 			map.zoomToLevel(zoomLevel);
 		} else if (ZOOM_BY.equals(getSubType())) {

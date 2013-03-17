@@ -15,6 +15,7 @@ import de.fhpotsdam.unfolding.events.PanMapEvent;
 import de.fhpotsdam.unfolding.events.ZoomMapEvent;
 import de.fhpotsdam.unfolding.geo.Location;
 
+@SuppressWarnings("unused")
 public class MouseHandler extends MapEventBroadcaster {
 
 	public static Logger log = Logger.getLogger(MouseHandler.class);
