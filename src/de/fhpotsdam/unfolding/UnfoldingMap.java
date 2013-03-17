@@ -20,6 +20,7 @@ import de.fhpotsdam.unfolding.providers.AbstractMapProvider;
 import de.fhpotsdam.unfolding.utils.GeoUtils;
 import de.fhpotsdam.unfolding.utils.ScreenPosition;
 import de.fhpotsdam.utils.Integrator;
+import de.fhpotsdam.utils.IntegratorCollection;
 
 /**
  * An interactive map. Uses the MapDisplay, and handles hit test, active status,
@@ -51,6 +52,10 @@ public class UnfoldingMap implements MapEventListener {
 	public float minScale = DEFAULT_MIN_SCALE;
 	public float maxScale = DEFAULT_MAX_SCALE;
 
+	private static final String INNER_SCALE_INTEGRATOR = "innerScale";
+	private static final String INNER_OFFSET_X_INTEGRATOR = "innerOffsetX";
+	private static final String INNER_OFFSET_Y_INTEGRATOR = "innerOffsetY";
+
 	/** The center location of the restricted pan area. */
 	protected Location restrictedPanLocation = null;
 	/** The maximum distance to the center location of the restricted pan area. */
@@ -73,12 +78,8 @@ public class UnfoldingMap implements MapEventListener {
 	/** Indicates whether to smoothly animate between mapDisplay states. */
 	private boolean tweening = DEFAULT_TWEENING;
 
-	/** Tweens the scale. */
-	public Integrator scaleIntegrator = new Integrator(1);
-
-	/** Tweens the position. */
-	private Integrator txIntegrator = new Integrator(1);
-	private Integrator tyIntegrator = new Integrator(1);
+	/** Used for tweening. */
+	private IntegratorCollection integrators;
 
 	/**
 	 * Creates a new full canvas map with the given ID.
@@ -230,6 +231,11 @@ public class UnfoldingMap implements MapEventListener {
 		} catch (SecurityException e) {
 		} catch (NoSuchMethodException e) {
 		}
+
+		integrators = new IntegratorCollection();
+		integrators.add("innerScale", 1);
+		integrators.add("innerOffsetX", 1);
+		integrators.add("innerOffsetY", 1);
 	}
 
 	protected static String generateId() {
@@ -306,13 +312,12 @@ public class UnfoldingMap implements MapEventListener {
 	 */
 	public void updateMap() {
 		if (tweening) {
-			scaleIntegrator.update();
-			mapDisplay.innerScale = scaleIntegrator.value;
+			integrators.update();
 
-			txIntegrator.update();
-			mapDisplay.innerOffsetX = txIntegrator.value;
-			tyIntegrator.update();
-			mapDisplay.innerOffsetY = tyIntegrator.value;
+			mapDisplay.innerScale = integrators.getValue(INNER_SCALE_INTEGRATOR);
+
+			mapDisplay.innerOffsetX = integrators.getValue(INNER_OFFSET_X_INTEGRATOR);
+			mapDisplay.innerOffsetY = integrators.getValue(INNER_OFFSET_Y_INTEGRATOR);
 
 			mapDisplay.calculateInnerMatrix();
 		}
@@ -725,7 +730,7 @@ public class UnfoldingMap implements MapEventListener {
 		// TODO Check max,min scale in TileProvider, not here in Map
 		scale = PApplet.constrain(mapDisplay.innerScale * scale, minScale, maxScale);
 		if (tweening) {
-			scaleIntegrator.target(scale);
+			integrators.setTarget(INNER_SCALE_INTEGRATOR, scale);
 		} else {
 			mapDisplay.innerScale = scale;
 		}
@@ -735,7 +740,7 @@ public class UnfoldingMap implements MapEventListener {
 	protected void setInnerScale(float scale) {
 		scale = PApplet.constrain(scale, minScale, maxScale);
 		if (tweening) {
-			scaleIntegrator.target(scale);
+			integrators.setTarget(INNER_SCALE_INTEGRATOR, scale);
 		} else {
 			mapDisplay.innerScale = scale;
 		}
@@ -831,8 +836,8 @@ public class UnfoldingMap implements MapEventListener {
 
 	protected void addInnerOffset(float dx, float dy) {
 		if (tweening) {
-			txIntegrator.target(txIntegrator.target + dx);
-			tyIntegrator.target(tyIntegrator.target + dy);
+			integrators.setTarget(INNER_OFFSET_X_INTEGRATOR, integrators.getTarget(INNER_OFFSET_X_INTEGRATOR) + dx);
+			integrators.setTarget(INNER_OFFSET_Y_INTEGRATOR, integrators.getTarget(INNER_OFFSET_Y_INTEGRATOR) + dy);
 		} else {
 			mapDisplay.innerOffsetX += dx;
 			mapDisplay.innerOffsetY += dy;
@@ -842,8 +847,8 @@ public class UnfoldingMap implements MapEventListener {
 
 	protected void setInnerOffset(float x, float y) {
 		if (tweening) {
-			txIntegrator.target(x);
-			tyIntegrator.target(y);
+			integrators.setTarget(INNER_OFFSET_X_INTEGRATOR, x);
+			integrators.setTarget(INNER_OFFSET_Y_INTEGRATOR, y);
 		} else {
 			mapDisplay.innerOffsetX = x;
 			mapDisplay.innerOffsetY = y;
@@ -884,15 +889,15 @@ public class UnfoldingMap implements MapEventListener {
 		this.tweening = tweening;
 
 		if (tweening) {
-			scaleIntegrator.set(mapDisplay.innerScale);
+			integrators.setValue(INNER_SCALE_INTEGRATOR, mapDisplay.innerScale);
 
-			txIntegrator.set(mapDisplay.innerOffsetX);
-			tyIntegrator.set(mapDisplay.innerOffsetY);
+			integrators.setValue(INNER_OFFSET_X_INTEGRATOR, mapDisplay.innerOffsetX);
+			integrators.setValue(INNER_OFFSET_Y_INTEGRATOR, mapDisplay.innerOffsetY);
 		} else {
-			mapDisplay.innerScale = scaleIntegrator.target;
+			mapDisplay.innerScale = integrators.getTarget(INNER_SCALE_INTEGRATOR);
 
-			mapDisplay.innerOffsetX = txIntegrator.target;
-			mapDisplay.innerOffsetY = tyIntegrator.target;
+			mapDisplay.innerOffsetX = integrators.getTarget(INNER_OFFSET_X_INTEGRATOR);
+			mapDisplay.innerOffsetY = integrators.getTarget(INNER_OFFSET_Y_INTEGRATOR);
 		}
 	}
 
