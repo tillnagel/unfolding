@@ -19,7 +19,6 @@ import de.fhpotsdam.unfolding.marker.MarkerManager;
 import de.fhpotsdam.unfolding.providers.AbstractMapProvider;
 import de.fhpotsdam.unfolding.utils.GeoUtils;
 import de.fhpotsdam.unfolding.utils.ScreenPosition;
-import de.fhpotsdam.utils.Integrator;
 import de.fhpotsdam.utils.IntegratorCollection;
 
 /**
@@ -55,6 +54,7 @@ public class UnfoldingMap implements MapEventListener {
 	private static final String INNER_SCALE_INTEGRATOR = "innerScale";
 	private static final String INNER_OFFSET_X_INTEGRATOR = "innerOffsetX";
 	private static final String INNER_OFFSET_Y_INTEGRATOR = "innerOffsetY";
+	private static final String INNER_ROTATE_INTEGRATOR = "innerRotate";
 
 	/** The center location of the restricted pan area. */
 	protected Location restrictedPanLocation = null;
@@ -233,9 +233,10 @@ public class UnfoldingMap implements MapEventListener {
 		}
 
 		integrators = new IntegratorCollection();
-		integrators.add("innerScale", 1);
-		integrators.add("innerOffsetX", 1);
-		integrators.add("innerOffsetY", 1);
+		integrators.add(INNER_SCALE_INTEGRATOR, 1);
+		integrators.add(INNER_OFFSET_X_INTEGRATOR, 1);
+		integrators.add(INNER_OFFSET_Y_INTEGRATOR, 1);
+		integrators.add(INNER_ROTATE_INTEGRATOR, 0);
 	}
 
 	protected static String generateId() {
@@ -315,6 +316,7 @@ public class UnfoldingMap implements MapEventListener {
 			integrators.update();
 
 			mapDisplay.innerScale = integrators.getValue(INNER_SCALE_INTEGRATOR);
+			mapDisplay.innerAngle = integrators.getValue(INNER_ROTATE_INTEGRATOR);
 
 			mapDisplay.innerOffsetX = integrators.getValue(INNER_OFFSET_X_INTEGRATOR);
 			mapDisplay.innerOffsetY = integrators.getValue(INNER_OFFSET_Y_INTEGRATOR);
@@ -707,13 +709,21 @@ public class UnfoldingMap implements MapEventListener {
 	}
 
 	protected void setInnerRotate(float angle) {
-		mapDisplay.innerAngle = angle;
-		mapDisplay.calculateInnerMatrix();
+		if (tweening) {
+			integrators.setTarget(INNER_ROTATE_INTEGRATOR, angle);
+		} else {
+			mapDisplay.innerAngle = angle;
+			mapDisplay.calculateInnerMatrix();
+		}
 	}
 
 	public void innerRotate(float angle) {
-		mapDisplay.innerAngle += angle;
-		mapDisplay.calculateInnerMatrix();
+		if (tweening) {
+			integrators.setTarget(INNER_ROTATE_INTEGRATOR, integrators.getTarget(INNER_ROTATE_INTEGRATOR) + angle);
+		} else {
+			mapDisplay.innerAngle += angle;
+			mapDisplay.calculateInnerMatrix();
+		}
 	}
 
 	protected void outerScale(float scale) {
@@ -890,11 +900,13 @@ public class UnfoldingMap implements MapEventListener {
 
 		if (tweening) {
 			integrators.setValue(INNER_SCALE_INTEGRATOR, mapDisplay.innerScale);
+			integrators.setValue(INNER_ROTATE_INTEGRATOR, mapDisplay.innerAngle);
 
 			integrators.setValue(INNER_OFFSET_X_INTEGRATOR, mapDisplay.innerOffsetX);
 			integrators.setValue(INNER_OFFSET_Y_INTEGRATOR, mapDisplay.innerOffsetY);
 		} else {
 			mapDisplay.innerScale = integrators.getTarget(INNER_SCALE_INTEGRATOR);
+			mapDisplay.innerAngle = integrators.getTarget(INNER_ROTATE_INTEGRATOR);
 
 			mapDisplay.innerOffsetX = integrators.getTarget(INNER_OFFSET_X_INTEGRATOR);
 			mapDisplay.innerOffsetY = integrators.getTarget(INNER_OFFSET_Y_INTEGRATOR);
