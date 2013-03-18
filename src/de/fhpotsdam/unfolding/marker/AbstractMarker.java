@@ -29,6 +29,8 @@ public abstract class AbstractMarker implements Marker {
 	protected HashMap<String, Object> properties;
 	/** Indicates whether this marker is selected. */
 	protected boolean selected;
+	/** Indicates whether this marker is hidden. */
+	protected boolean hidden;
 	/** The ID of this marker. */
 	protected String id;
 
@@ -45,10 +47,12 @@ public abstract class AbstractMarker implements Marker {
 		setProperties(props);
 	}
 
+	@Override
 	public String getId() {
 		return id;
 	}
 
+	@Override
 	public void setId(String id) {
 		this.id = id;
 	}
@@ -168,6 +172,7 @@ public abstract class AbstractMarker implements Marker {
 	 * @param selected
 	 *            Whether this marker is selected or not.
 	 */
+	@Override
 	public void setSelected(boolean selected) {
 		this.selected = selected;
 	}
@@ -175,6 +180,16 @@ public abstract class AbstractMarker implements Marker {
 	@Override
 	public boolean isSelected() {
 		return selected;
+	}
+	
+	@Override
+	public void setHidden(boolean hidden) {
+		this.hidden = hidden;
+	}
+	
+	@Override
+	public boolean isHidden() {
+		return hidden;
 	}
 
 	@Override

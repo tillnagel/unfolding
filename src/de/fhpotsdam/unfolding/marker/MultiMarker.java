@@ -18,7 +18,7 @@ public class MultiMarker implements Marker {
 
 	protected List<Marker> markers = new ArrayList<Marker>();
 	public HashMap<String, Object> properties;
-	protected boolean selected;
+	protected boolean selected, hidden;
 	protected String id;
 
 	public String getId() {
@@ -133,6 +133,20 @@ public class MultiMarker implements Marker {
 	@Override
 	public boolean isSelected() {
 		return selected;
+	}
+	
+	@Override
+	public void setHidden(boolean hidden) {
+		this.hidden = hidden;
+		
+		for (Marker marker : markers) {
+			marker.setHidden(hidden);
+		}
+	}
+	
+	@Override
+	public boolean isHidden() {
+		return hidden;
 	}
 
 	public void setColor(int color) {
