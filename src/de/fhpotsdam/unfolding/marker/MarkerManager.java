@@ -1,6 +1,6 @@
 package de.fhpotsdam.unfolding.marker;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -21,7 +21,7 @@ public class MarkerManager<E extends Marker> {
 	protected boolean bEnableDrawing;
 
 	public MarkerManager() {
-		markers = new ArrayList<E>();
+		markers = new CopyOnWriteArrayList<E>();
 		bEnableDrawing = true;
 	}
 	
@@ -135,7 +135,7 @@ public class MarkerManager<E extends Marker> {
 	}
 
 	public List<E> getHitMarkers(float checkX, float checkY) {
-		List<E> hitMarkers = new ArrayList<E>();
+		List<E> hitMarkers = new LinkedList<E>();
 		for (E marker : markers) {
 			if (marker.isInside(map, checkX, checkY)) {
 				hitMarkers.add(marker);
