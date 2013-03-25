@@ -2,6 +2,7 @@ package de.fhpotsdam.unfolding;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
 
@@ -15,7 +16,7 @@ import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.mapdisplay.AbstractMapDisplay;
 import de.fhpotsdam.unfolding.mapdisplay.MapDisplayFactory;
 import de.fhpotsdam.unfolding.marker.Marker;
-import de.fhpotsdam.unfolding.marker.MarkerManager;
+import de.fhpotsdam.unfolding.marker.AbstractMarkerManager;
 import de.fhpotsdam.unfolding.providers.AbstractMapProvider;
 import de.fhpotsdam.unfolding.utils.GeoUtils;
 import de.fhpotsdam.unfolding.utils.ScreenPosition;
@@ -657,20 +658,20 @@ public class UnfoldingMap implements MapEventListener {
 
 	// MarkerManagement -----------------------------------------------
 
-	public void addMarkerManager(MarkerManager<? extends Marker> markerManager) {
+	public void addMarkerManager(AbstractMarkerManager<? extends Marker> markerManager) {
 		markerManager.setMap(this);
 		mapDisplay.addMarkerManager(markerManager);
 	}
 
-	public MarkerManager<? extends Marker> getLastMarkerManager() {
+	public AbstractMarkerManager<? extends Marker> getLastMarkerManager() {
 		return mapDisplay.getLastMarkerManager();
 	}
 
-	public MarkerManager<Marker> getDefaultMarkerManager() {
+	public AbstractMarkerManager<Marker> getDefaultMarkerManager() {
 		return mapDisplay.getDefaultMarkerManager();
 	}
 
-	public MarkerManager<? extends Marker> getMarkerManager(int index) {
+	public AbstractMarkerManager<? extends Marker> getMarkerManager(int index) {
 		return mapDisplay.getMarkerManager(index);
 	}
 
@@ -684,7 +685,7 @@ public class UnfoldingMap implements MapEventListener {
 		mapDisplay.addMarkers(markers);
 	}
 
-	public List<? extends Marker> getMarkers() {
+	public Collection<? extends Marker> getMarkers() {
 		return mapDisplay.getDefaultMarkerManager().getMarkers();
 	}
 

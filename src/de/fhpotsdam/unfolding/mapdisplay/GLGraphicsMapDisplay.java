@@ -5,7 +5,7 @@ import processing.core.PConstants;
 import processing.core.PGraphics;
 import codeanticode.glgraphics.GLGraphicsOffScreen;
 import de.fhpotsdam.unfolding.marker.Marker;
-import de.fhpotsdam.unfolding.marker.MarkerManager;
+import de.fhpotsdam.unfolding.marker.AbstractMarkerManager;
 import de.fhpotsdam.unfolding.providers.AbstractMapProvider;
 
 public class GLGraphicsMapDisplay extends ProcessingMapDisplay implements PConstants {
@@ -47,7 +47,7 @@ public class GLGraphicsMapDisplay extends ProcessingMapDisplay implements PConst
 		// Draws inner map (with inner marker) and outer marker
 		offscreenCutoffPG.beginDraw();
 		offscreenCutoffPG.image(offscreenPG.getTexture(), 0, 0);
-		for (MarkerManager<? extends Marker> mm : this) {
+		for (AbstractMarkerManager<? extends Marker> mm : this) {
 			mm.draw();
 		}
 		offscreenCutoffPG.endDraw();

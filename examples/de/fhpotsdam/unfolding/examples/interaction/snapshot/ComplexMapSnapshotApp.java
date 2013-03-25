@@ -8,8 +8,9 @@ import codeanticode.glgraphics.GLConstants;
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.marker.Marker;
-import de.fhpotsdam.unfolding.marker.MarkerManager;
+import de.fhpotsdam.unfolding.marker.AbstractMarkerManager;
 import de.fhpotsdam.unfolding.marker.SimplePointMarker;
+import de.fhpotsdam.unfolding.marker.MarkerManager;
 import de.fhpotsdam.unfolding.utils.MapUtils;
 
 /**
@@ -32,7 +33,7 @@ public class ComplexMapSnapshotApp extends PApplet {
 		MapUtils.createDefaultEventDispatcher(this, map);
 
 		// Add random markers
-		MarkerManager<Marker> markerManager = new MarkerManager<Marker>();
+		AbstractMarkerManager<Marker> markerManager = new MarkerManager<Marker>();
 		for (int i = 0; i < 100; i++) {
 			SimplePointMarker marker = new SimplePointMarker();
 			marker.setLocation(random(30, 60), random(-10, 30));

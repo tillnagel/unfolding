@@ -6,7 +6,7 @@ import codeanticode.glgraphics.GLGraphicsOffScreen;
 import codeanticode.glgraphics.GLTexture;
 import de.fhpotsdam.unfolding.mapdisplay.GLGraphicsMapDisplay;
 import de.fhpotsdam.unfolding.marker.Marker;
-import de.fhpotsdam.unfolding.marker.MarkerManager;
+import de.fhpotsdam.unfolding.marker.AbstractMarkerManager;
 import de.fhpotsdam.unfolding.providers.AbstractMapProvider;
 
 public class FlippedMapDisplay extends GLGraphicsMapDisplay {
@@ -29,7 +29,7 @@ public class FlippedMapDisplay extends GLGraphicsMapDisplay {
 		outerPG.translate(-width, 0);
 		outerPG.image(map, 0, 0);
 
-		for (MarkerManager<? extends Marker> mm : this) {
+		for (AbstractMarkerManager<? extends Marker> mm : this) {
 			mm.draw();
 		}
 

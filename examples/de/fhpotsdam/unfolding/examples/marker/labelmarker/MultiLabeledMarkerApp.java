@@ -11,7 +11,7 @@ import de.fhpotsdam.unfolding.data.Feature;
 import de.fhpotsdam.unfolding.data.PointFeature;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.marker.Marker;
-import de.fhpotsdam.unfolding.marker.MarkerManager;
+import de.fhpotsdam.unfolding.marker.AbstractMarkerManager;
 import de.fhpotsdam.unfolding.utils.MapUtils;
 
 /**
@@ -57,7 +57,7 @@ public class MultiLabeledMarkerApp extends PApplet {
 	}
 
 	public void mouseMoved() {
-		MarkerManager<? extends Marker> mm = map.mapDisplay.getLastMarkerManager();
+		AbstractMarkerManager<? extends Marker> mm = map.mapDisplay.getLastMarkerManager();
 
 		// Deselect all marker
 		for (Marker marker : mm.getMarkers()) {

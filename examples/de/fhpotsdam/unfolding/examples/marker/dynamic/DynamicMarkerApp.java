@@ -5,9 +5,10 @@ import codeanticode.glgraphics.GLConstants;
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.marker.Marker;
-import de.fhpotsdam.unfolding.marker.MarkerManager;
+import de.fhpotsdam.unfolding.marker.AbstractMarkerManager;
 import de.fhpotsdam.unfolding.marker.SimpleLinesMarker;
 import de.fhpotsdam.unfolding.marker.SimplePointMarker;
+import de.fhpotsdam.unfolding.marker.MarkerManager;
 import de.fhpotsdam.unfolding.utils.MapUtils;
 
 /**
@@ -20,7 +21,7 @@ public class DynamicMarkerApp extends PApplet {
 
 	UnfoldingMap map;
 
-	MarkerManager<Marker> markerManager = new MarkerManager<Marker>();
+	AbstractMarkerManager<Marker> markerManager = new MarkerManager<Marker>();
 	SimplePointMarker berlinMarker;
 
 	public void setup() {

@@ -9,6 +9,7 @@ import processing.core.PFont;
 import codeanticode.glgraphics.GLConstants;
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.marker.Marker;
+import de.fhpotsdam.unfolding.marker.AbstractMarkerManager;
 import de.fhpotsdam.unfolding.marker.MarkerManager;
 import de.fhpotsdam.unfolding.utils.MapUtils;
 
@@ -29,7 +30,7 @@ public class InfoMarkerApp extends PApplet {
 		PFont font = loadFont("Miso-Light-12.vlw");
 		// Create markers and add them to the MarkerManager
 		List<Marker> labeledMarkers = GeoRSSLoader.loadGeoRSSMarkers(this, "bbc-georss-test.xml", font);
-		MarkerManager markerManager = new MarkerManager(labeledMarkers);
+		AbstractMarkerManager<Marker> markerManager = new MarkerManager<Marker>(labeledMarkers);
 		map.addMarkerManager(markerManager);
 	}
 
@@ -41,15 +42,15 @@ public class InfoMarkerApp extends PApplet {
 	}
 
 	public void mouseMoved() {
-		MarkerManager mm = map.mapDisplay.getLastMarkerManager();
+		AbstractMarkerManager<? extends Marker> mm = map.mapDisplay.getLastMarkerManager();
 
 		// Deselect all marker
-		for (LabeledMarker lm : (List<LabeledMarker>) mm.getMarkers()) {
+		for (Marker lm : mm.getMarkers()) {
 			lm.setSelected(false);
 		}
 
 		// Select hit marker
-		LabeledMarker marker = (LabeledMarker) mm.getFirstHitMarker(mouseX, mouseY);
+		Marker marker = mm.getFirstHitMarker(mouseX, mouseY);
 		if (marker != null) {
 			marker.setSelected(true);
 		}

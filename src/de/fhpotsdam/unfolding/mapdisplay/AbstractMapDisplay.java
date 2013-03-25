@@ -16,6 +16,7 @@ import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.core.Coordinate;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.marker.Marker;
+import de.fhpotsdam.unfolding.marker.AbstractMarkerManager;
 import de.fhpotsdam.unfolding.marker.MarkerManager;
 import de.fhpotsdam.unfolding.providers.AbstractMapProvider;
 import de.fhpotsdam.unfolding.tiles.TileLoader;
@@ -26,7 +27,7 @@ import de.fhpotsdam.unfolding.utils.ScreenPosition;
  * Handles tiles
  * 
  */
-public abstract class AbstractMapDisplay implements TileLoaderListener, Iterable<MarkerManager<? extends Marker>> {
+public abstract class AbstractMapDisplay implements TileLoaderListener, Iterable<AbstractMarkerManager<? extends Marker>> {
 
 	public static final int TILE_WIDTH = 256;
 	public static final int TILE_HEIGHT = 256;
@@ -67,8 +68,8 @@ public abstract class AbstractMapDisplay implements TileLoaderListener, Iterable
 	protected PVector innerTransformationCenter;
 
 	// List of MarkerManager with one default MarkerManager
-	protected List<MarkerManager<? extends Marker>> markerManagerList;
-	protected MarkerManager<Marker> defaultMarkerManager;
+	protected List<AbstractMarkerManager<? extends Marker>> markerManagerList;
+	protected AbstractMarkerManager<Marker> defaultMarkerManager;
 
 	// Tiles
 	public int max_pending = 4;
@@ -96,7 +97,7 @@ public abstract class AbstractMapDisplay implements TileLoaderListener, Iterable
 
 		innerScale = (float) Math.ceil(Math.min(height / (float) TILE_WIDTH, width / (float) TILE_HEIGHT));
 
-		markerManagerList = new ArrayList<MarkerManager<? extends Marker>>();
+		markerManagerList = new ArrayList<AbstractMarkerManager<? extends Marker>>();
 	}
 
 	public void resize(float width, float height) {
@@ -134,24 +135,24 @@ public abstract class AbstractMapDisplay implements TileLoaderListener, Iterable
 	/**
 	 * You need to set the map of the given MarkerManager before using.
 	 */
-	public void addMarkerManager(MarkerManager<? extends Marker> markerManager) {
+	public void addMarkerManager(AbstractMarkerManager<? extends Marker> markerManager) {
 		markerManagerList.add(markerManager);
 	}
 
-	public MarkerManager<? extends Marker> getLastMarkerManager() {
+	public AbstractMarkerManager<? extends Marker> getLastMarkerManager() {
 		return markerManagerList.get(markerManagerList.size() - 1);
 	}
 
-	public MarkerManager<Marker> getDefaultMarkerManager() {
+	public AbstractMarkerManager<Marker> getDefaultMarkerManager() {
 		return defaultMarkerManager;
 	}
 
 	@Deprecated
-	public MarkerManager<Marker> getMarkerManager() {
+	public AbstractMarkerManager<Marker> getMarkerManager() {
 		return getDefaultMarkerManager();
 	}
 
-	public MarkerManager<? extends Marker> getMarkerManager(int index) {
+	public AbstractMarkerManager<? extends Marker> getMarkerManager(int index) {
 		if (index == 0)
 			return getDefaultMarkerManager();
 		return markerManagerList.get(index - 1);
@@ -379,15 +380,15 @@ public abstract class AbstractMapDisplay implements TileLoaderListener, Iterable
 	}
 
 	protected void createDefaultMarkerManager(UnfoldingMap map) {
-		MarkerManager<Marker> mm = new MarkerManager<Marker>();
+		AbstractMarkerManager<Marker> mm = new MarkerManager<Marker>();
 		mm.setMap(map);
 		defaultMarkerManager = mm;
 	}
 	
-	@Override public Iterator<MarkerManager<? extends Marker>> iterator() {
-		return new Iterator<MarkerManager<? extends Marker>>() {
+	@Override public Iterator<AbstractMarkerManager<? extends Marker>> iterator() {
+		return new Iterator<AbstractMarkerManager<? extends Marker>>() {
 
-			Iterator<MarkerManager<? extends Marker>> data = markerManagerList.iterator();
+			Iterator<AbstractMarkerManager<? extends Marker>> data = markerManagerList.iterator();
 			boolean defGiven = false;
 			
 			@Override
@@ -396,7 +397,7 @@ public abstract class AbstractMapDisplay implements TileLoaderListener, Iterable
 			}
 
 			@Override
-			public MarkerManager<? extends Marker> next() {
+			public AbstractMarkerManager<? extends Marker> next() {
 				if (!defGiven) {
 					defGiven = true;
 					return defaultMarkerManager;

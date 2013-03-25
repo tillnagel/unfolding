@@ -7,7 +7,7 @@ import codeanticode.glgraphics.GLGraphicsOffScreen;
 import codeanticode.glgraphics.GLTexture;
 import codeanticode.glgraphics.GLTextureFilter;
 import de.fhpotsdam.unfolding.marker.Marker;
-import de.fhpotsdam.unfolding.marker.MarkerManager;
+import de.fhpotsdam.unfolding.marker.AbstractMarkerManager;
 import de.fhpotsdam.unfolding.providers.AbstractMapProvider;
 
 // TODO: Unify with GLGRaphics and create as flag/property
@@ -49,7 +49,7 @@ public class MaskedGLGraphicsMapDisplay extends GLGraphicsMapDisplay implements 
 
 		outerPG.image(maskedTex, 0, 0);
 
-		for (MarkerManager<? extends Marker> mm : this) {
+		for (AbstractMarkerManager<? extends Marker> mm : this) {
 			mm.draw();
 		}
 

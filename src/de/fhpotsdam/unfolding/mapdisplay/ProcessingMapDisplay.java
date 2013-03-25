@@ -15,7 +15,7 @@ import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.core.Coordinate;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.marker.Marker;
-import de.fhpotsdam.unfolding.marker.MarkerManager;
+import de.fhpotsdam.unfolding.marker.AbstractMarkerManager;
 import de.fhpotsdam.unfolding.providers.AbstractMapProvider;
 import de.fhpotsdam.unfolding.tiles.TileLoader;
 import de.fhpotsdam.unfolding.utils.ScreenPosition;
@@ -292,7 +292,7 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 	protected void postDraw() {
 
 		// Draws all markers
-		for (MarkerManager<? extends Marker> mm : this) {
+		for (AbstractMarkerManager<? extends Marker> mm : this) {
 			mm.draw();
 		}
 
