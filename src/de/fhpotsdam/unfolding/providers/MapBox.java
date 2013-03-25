@@ -22,7 +22,7 @@ public class MapBox {
 
 		public String getPositiveZoomString(Coordinate coordinate) {
 			// Rows are numbered from bottom to top (opposite to OSM)
-			float gridSize = PApplet.pow(2, coordinate.zoom);
+			// float gridSize = PApplet.pow(2, coordinate.zoom);
 
 			return (int) coordinate.zoom + "/" + (int) coordinate.column + "/" + (int) coordinate.row;
 		}

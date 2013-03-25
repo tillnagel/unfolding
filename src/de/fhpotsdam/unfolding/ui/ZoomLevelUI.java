@@ -4,6 +4,7 @@ import processing.core.PApplet;
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.mapdisplay.AbstractMapDisplay;
 
+@SuppressWarnings("unused")
 public class ZoomLevelUI {
 	public static final float X_DEFAULT = 100;
 	public static final float Y_DEFAULT = 100;

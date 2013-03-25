@@ -4,7 +4,7 @@ import processing.core.PApplet;
 import processing.core.PConstants;
 import processing.core.PGraphics;
 import de.fhpotsdam.unfolding.marker.Marker;
-import de.fhpotsdam.unfolding.marker.MarkerManager;
+import de.fhpotsdam.unfolding.marker.AbstractMarkerManager;
 import de.fhpotsdam.unfolding.providers.AbstractMapProvider;
 
 
@@ -30,7 +30,7 @@ public class MaskedPGraphicsMapDisplay extends ProcessingMapDisplay implements P
 		papplet.translate(offsetX, offsetY);
 		papplet.image(pg, 0, 0);
 		
-		for (MarkerManager<Marker> mm : markerManagerList){
+		for (AbstractMarkerManager<? extends Marker> mm : this){
 			mm.draw();
 		}
 		

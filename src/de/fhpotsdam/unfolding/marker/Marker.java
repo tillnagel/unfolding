@@ -8,7 +8,8 @@ import de.fhpotsdam.unfolding.geo.Location;
 /**
  * Marker interface for all markers to be drawn on to maps.
  * 
- * A marker has at least one location, and properties. A marker can be drawn, selected, and tested if hit.
+ * A marker has at least one location, and properties. A marker can be drawn,
+ * selected, and tested if hit.
  */
 public interface Marker {
 
@@ -19,8 +20,8 @@ public interface Marker {
 	/**
 	 * Gets the location of this marker.
 	 * 
-	 * For point marker this returns the single location, for shape markers it should return a meaningful location, e.g.
-	 * the centroid.
+	 * For point marker this returns the single location, for shape markers it
+	 * should return a meaningful location, e.g. the centroid.
 	 * 
 	 * @return The location with lat, lng.
 	 */
@@ -65,7 +66,8 @@ public interface Marker {
 	public HashMap<String, Object> getProperties();
 
 	/**
-	 * Checks whether given position is inside this marker, according to the maps coordinate system.
+	 * Checks whether given position is inside this marker, according to the
+	 * maps coordinate system.
 	 * 
 	 * @param map
 	 *            The map to draw on.
@@ -94,11 +96,28 @@ public interface Marker {
 	public void setSelected(boolean selected);
 
 	/**
-	 * Indicates whether this marker is selected. Can be used for drawing the marker differently, e.g. to highlight it.
+	 * Indicates whether this marker is selected. <b>Can</b> be used for drawing
+	 * the marker differently, e.g. to highlight it.
 	 * 
 	 * @return true if it is selected, false otherwise.
 	 */
 	public boolean isSelected();
+
+	/**
+	 * Sets the visibility status of this marker.
+	 * 
+	 * @param hidden
+	 *            The new status
+	 */
+	public void setHidden(boolean hidden);
+
+	/**
+	 * Indicates whether this marker is hidden. <b>Can</b> be used for drawing
+	 * the marker differently.
+	 * 
+	 * @return true if it is hidden, false otherwise.
+	 */
+	public boolean isHidden();
 
 	/**
 	 * Sets the main color of this marker.

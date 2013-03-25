@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
-import processing.core.PApplet;
 import processing.core.PVector;
 
 /**
@@ -180,9 +179,9 @@ public class GeneralizationUtils {
 			points = simplifyRadialDistance(points, sqTolerance);
 		}
 
-		int numPoints = points.size();
+		//int numPoints = points.size();
 		points = simplifyDouglasPeucker(points, sqTolerance);
-		int numSimplifiedPoints = points.size();
+		//int numSimplifiedPoints = points.size();
 		//PApplet.println("Reduced " + numPoints + " to " + numSimplifiedPoints + " points.");
 		
 		return points;

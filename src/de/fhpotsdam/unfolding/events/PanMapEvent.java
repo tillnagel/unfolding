@@ -7,6 +7,8 @@ import de.fhpotsdam.unfolding.geo.Location;
 
 public class PanMapEvent extends MapEvent {
 
+	private static final long serialVersionUID = -7683362205139035279L;
+
 	protected static Logger log = Logger.getLogger(PanMapEvent.class);
 
 	public static final String TYPE_PAN = "pan";

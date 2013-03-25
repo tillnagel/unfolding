@@ -8,11 +8,10 @@ import processing.core.PFont;
 import codeanticode.glgraphics.GLConstants;
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.data.Feature;
-import de.fhpotsdam.unfolding.data.GeoRSSReader;
 import de.fhpotsdam.unfolding.data.PointFeature;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.marker.Marker;
-import de.fhpotsdam.unfolding.marker.MarkerManager;
+import de.fhpotsdam.unfolding.marker.AbstractMarkerManager;
 import de.fhpotsdam.unfolding.utils.MapUtils;
 
 /**
@@ -58,7 +57,7 @@ public class MultiLabeledMarkerApp extends PApplet {
 	}
 
 	public void mouseMoved() {
-		MarkerManager<Marker> mm = map.mapDisplay.getLastMarkerManager();
+		AbstractMarkerManager<? extends Marker> mm = map.mapDisplay.getLastMarkerManager();
 
 		// Deselect all marker
 		for (Marker marker : mm.getMarkers()) {

@@ -11,6 +11,7 @@ import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.events.EventDispatcher;
 import de.fhpotsdam.unfolding.mapdisplay.MapDisplayFactory;
 import de.fhpotsdam.unfolding.marker.Marker;
+import de.fhpotsdam.unfolding.marker.AbstractMarkerManager;
 import de.fhpotsdam.unfolding.marker.MarkerManager;
 import de.fhpotsdam.unfolding.providers.OpenStreetMap;
 import de.fhpotsdam.unfolding.utils.MapUtils;
@@ -24,7 +25,7 @@ public class InfoMarkerOnMultipleMapApp extends PApplet {
 	UnfoldingMap map2;
 	EventDispatcher eventDispatcher;
 
-	MarkerManager markerManager1, markerManager2;
+	AbstractMarkerManager<Marker> markerManager1, markerManager2;
 
 	PFont font;
 
@@ -50,8 +51,8 @@ public class InfoMarkerOnMultipleMapApp extends PApplet {
 		List<Marker> markers1 = GeoRSSLoader.loadGeoRSSMarkers(this, "bbc-georss-test.xml", font);
 		List<Marker> markers2 = GeoRSSLoader.loadGeoRSSMarkers(this, "bbc-georss-test.xml", font);
 
-		markerManager1 = new MarkerManager(markers1);
-		markerManager2 = new MarkerManager(markers2);
+		markerManager1 = new MarkerManager<Marker>(markers1);
+		markerManager2 = new MarkerManager<Marker>(markers2);
 
 		map1.addMarkerManager(markerManager1);
 		map2.addMarkerManager(markerManager2);
@@ -71,15 +72,15 @@ public class InfoMarkerOnMultipleMapApp extends PApplet {
 
 	public void checkInsideMarker(UnfoldingMap map) {
 		if (map.isHit(mouseX, mouseY)) {
-			MarkerManager mm = map.mapDisplay.getLastMarkerManager();
+			AbstractMarkerManager<? extends Marker> mm = map.mapDisplay.getLastMarkerManager();
 
 			// Deselect all marker
-			for (LabeledMarker lm : (List<LabeledMarker>) mm.getMarkers()) {
+			for (Marker lm : mm) {
 				lm.setSelected(false);
 			}
 
 			// Select hit marker
-			LabeledMarker marker = (LabeledMarker) mm.getFirstHitMarker(mouseX, mouseY);
+			Marker marker = mm.getFirstHitMarker(mouseX, mouseY);
 			if (marker != null) {
 				marker.setSelected(true);
 			}

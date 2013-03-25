@@ -6,6 +6,8 @@ import de.fhpotsdam.unfolding.UnfoldingMap;
 
 public abstract class MapEvent extends EventObject {
 
+	private static final long serialVersionUID = -181345946612208818L;
+
 	private String type;
 	private String scopeId;
 	private String subType;
