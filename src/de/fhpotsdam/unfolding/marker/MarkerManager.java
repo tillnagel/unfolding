@@ -1,6 +1,7 @@
 package de.fhpotsdam.unfolding.marker;
 
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -15,6 +16,8 @@ import de.fhpotsdam.unfolding.UnfoldingMap;
 public class MarkerManager<E extends Marker> extends AbstractMarkerManager<E> implements Iterable<E> {
 
 	public static Logger log = Logger.getLogger(MarkerManager.class);
+	
+	private List<E> markers;
 
 	public MarkerManager() {
 		markers = new CopyOnWriteArrayList<E>();
@@ -23,11 +26,6 @@ public class MarkerManager<E extends Marker> extends AbstractMarkerManager<E> im
 	public MarkerManager(List<E> markers) {
 		this();
 		addMarkers(markers);
-	}
-
-	@Override
-	public void setMap(UnfoldingMap map) {
-		this.map = map;
 	}
 
 	@Override
@@ -71,13 +69,8 @@ public class MarkerManager<E extends Marker> extends AbstractMarkerManager<E> im
 	}
 
 	@Override
-	public void draw() {
-		if (!bEnableDrawing)
-			return;
-
-		for (Marker marker : this) {
-			marker.draw(map);
-		}
+	public Iterator<E> iterator() {
+		return markers.iterator();
 	}
 
 }

@@ -11,14 +11,11 @@ public abstract class AbstractMarkerManager<E extends Marker> implements Iterabl
 
 	protected UnfoldingMap map;
 
-	protected List<E> markers;
 	protected boolean bEnableDrawing;
 
 	public AbstractMarkerManager() {
 		bEnableDrawing = true;
 	}
-
-	public abstract void draw();
 
 	public abstract Collection<E> getMarkers();
 
@@ -32,7 +29,9 @@ public abstract class AbstractMarkerManager<E extends Marker> implements Iterabl
 
 	public abstract void setMarkers(Collection<E> markers);
 
-	public abstract void setMap(UnfoldingMap map);
+	public void setMap(UnfoldingMap map) {
+		this.map = map;
+	}	
 
 	public boolean isDrawingEnabled() {
 		return bEnableDrawing;
@@ -106,8 +105,15 @@ public abstract class AbstractMarkerManager<E extends Marker> implements Iterabl
 	}
 
 	@Override
-	public Iterator<E> iterator() {
-		return markers.iterator();
+	public abstract Iterator<E> iterator();
+
+	public void draw() {
+		if (!bEnableDrawing)
+			return;
+
+		for (Marker marker : this) {
+			marker.draw(map);
+		}
 	}
 
 }
