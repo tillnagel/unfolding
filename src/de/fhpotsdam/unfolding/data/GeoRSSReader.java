@@ -47,12 +47,12 @@ public class GeoRSSReader {
 	public static List<Feature> loadDataGeoRSS(PApplet p, String fileName) {
 		List<Feature> features = new ArrayList<Feature>();
 
-		XMLElement rss = new XMLElement(p, fileName);
+		XML rss = new XML(fileName);
 		// Get all items
-		XMLElement[] itemXMLElements = rss.getChildren("entry");
+		XML[] itemXMLElements = rss.getChildren("entry");
 		for (int i = 0; i < itemXMLElements.length; i++) {
 			// Sets lat,lon as locations for each item
-			XMLElement pointXML = itemXMLElements[i].getChild("georss:point");
+			XML pointXML = itemXMLElements[i].getChild("georss:point");
 			if (pointXML != null && pointXML.getContent() != null) {
 				String point = pointXML.getContent();
 				String[] latLon = point.split(" ");
@@ -64,19 +64,19 @@ public class GeoRSSReader {
 				features.add(pointFeature);
 
 				// Sets title if existing
-				XMLElement titleXML = itemXMLElements[i].getChild("title");
+				XML titleXML = itemXMLElements[i].getChild("title");
 				if (titleXML != null && titleXML.getContent() != null) {
 					pointFeature.putProperty("title", titleXML.getContent());
 				}
 
 				// Sets date if existing
-				XMLElement dateXML = itemXMLElements[i].getChild("dc:date");
+				XML dateXML = itemXMLElements[i].getChild("dc:date");
 				if (dateXML != null && dateXML.getContent() != null) {
 					pointFeature.putProperty("date", dateXML.getContent());
 				}
 
 				// Sets magnitude if existing
-				XMLElement[] catXMLElements = itemXMLElements[i].getChildren("category");
+				XML[] catXMLElements = itemXMLElements[i].getChildren("category");
 				for (int c = 0; c < catXMLElements.length; c++) {
 					String label = catXMLElements[c].getString("label");
 					if ("Magnitude".equals(label)) {
