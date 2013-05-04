@@ -89,7 +89,7 @@ public abstract class AbstractMapDisplay implements TileLoaderListener {
 		innerTransformationCenter = new PVector(width / 2, height / 2);
 
 		innerScale = (float) Math.ceil(Math.min(height / (float) TILE_WIDTH, width / (float) TILE_HEIGHT));
-		
+
 		markerManagerList = new ArrayList<MarkerManager<Marker>>();
 	}
 
@@ -112,10 +112,10 @@ public abstract class AbstractMapDisplay implements TileLoaderListener {
 	}
 
 	public abstract PGraphics getInnerPG();
-	
+
 	public abstract PGraphics getOuterPG();
 
-	public PGraphics getMask(){
+	public PGraphics getMask() {
 		return null;
 	}
 
@@ -124,36 +124,36 @@ public abstract class AbstractMapDisplay implements TileLoaderListener {
 	public abstract void setBackgroundColor(int color);
 
 	// MarkerManagement -----------------------------------------------
-	
+
 	/**
 	 * You need to set the map of the given MarkerManager before using.
 	 */
 	public void addMarkerManager(MarkerManager<Marker> markerManager) {
 		markerManagerList.add(markerManager);
 	}
-	
+
 	public MarkerManager<Marker> getLastMarkerManager() {
-		return markerManagerList.get(markerManagerList.size()-1);
+		return markerManagerList.get(markerManagerList.size() - 1);
 	}
-	
-	public MarkerManager<Marker> getDefaultMarkerManager(){
+
+	public MarkerManager<Marker> getDefaultMarkerManager() {
 		return getMarkerManager(0);
 	}
 
 	@Deprecated
-	public MarkerManager<Marker> getMarkerManager(){
+	public MarkerManager<Marker> getMarkerManager() {
 		return getDefaultMarkerManager();
 	}
-	
-	public MarkerManager<Marker> getMarkerManager(int index){
+
+	public MarkerManager<Marker> getMarkerManager(int index) {
 		return markerManagerList.get(index);
 	}
-	
-	public void addMarker(Marker marker){
+
+	public void addMarker(Marker marker) {
 		getDefaultMarkerManager().addMarker(marker);
 	}
-	
-	public void addMarkers(List<Marker> markers){
+
+	public void addMarkers(List<Marker> markers) {
 		getDefaultMarkerManager().addMarkers(markers);
 	}
 
@@ -175,16 +175,15 @@ public abstract class AbstractMapDisplay implements TileLoaderListener {
 	public abstract void calculateInnerMatrix();
 
 	/**
-	 * Calculates offset and rotation for screen canvas position, to be used with the internal
-	 * transformation matrix.
+	 * Calculates offset and rotation for screen canvas position, to be used with the internal transformation matrix.
 	 * 
 	 * @param x
 	 *            Cartesian x coordinate.
 	 * @param y
 	 *            Cartesian y coordinate.
 	 * @param inverse
-	 *            Indicates back and forward matrix calculation. Inverse is used for point2location,
-	 *            non-inverse for location2point.
+	 *            Indicates back and forward matrix calculation. Inverse is used for point2location, non-inverse for
+	 *            location2point.
 	 * @return An 1d-2elements-array with x and y.
 	 */
 	protected abstract float[] getTransformedPosition(float x, float y, boolean inverse);
@@ -197,6 +196,7 @@ public abstract class AbstractMapDisplay implements TileLoaderListener {
 
 	@Deprecated
 	public abstract float[] getInnerObjectFromScreenPosition(float x, float y);
+
 	public abstract float[] getInnerObject(ScreenPosition screenPosition);
 
 	public abstract float[] getScreenFromObjectPosition(float x, float y);
@@ -218,6 +218,7 @@ public abstract class AbstractMapDisplay implements TileLoaderListener {
 
 	@Deprecated
 	public abstract float[] getScreenPositionFromLocation(Location location);
+
 	public abstract ScreenPosition getScreenPosition(Location location);
 
 	public abstract float[] getObjectFromLocation(Location location);
@@ -283,7 +284,17 @@ public abstract class AbstractMapDisplay implements TileLoaderListener {
 			queue.add(coord);
 			pending.remove(coord);
 		}
+
+		if (pending.size() == 0 && queue.size() == 0) {
+			tilesLoaded();
+		}
 	}
+
+	/**
+	 * Will be called if all tiles have been loaded. Subclasses can implement this method to notify a method in the
+	 * client app.
+	 */
+	public abstract void tilesLoaded();
 
 	// LOAD SORTING
 	public class QueueSorter implements Comparator<Coordinate> {
@@ -351,8 +362,7 @@ public abstract class AbstractMapDisplay implements TileLoaderListener {
 	}
 
 	/**
-	 * Set the map provider, dynamically. The currently selected area, as well as all events etc
-	 * will stay.
+	 * Set the map provider, dynamically. The currently selected area, as well as all events etc will stay.
 	 * 
 	 * Note that the image buffer will be cleaned, i.e. all tiles need to be loaded anew.
 	 * 
@@ -363,7 +373,7 @@ public abstract class AbstractMapDisplay implements TileLoaderListener {
 		this.provider = provider;
 		cleanupImageBuffer(true);
 	}
-	
+
 	protected void createDefaultMarkerManager(UnfoldingMap map) {
 		MarkerManager mm = new MarkerManager<Marker>();
 		mm.setMap(map);
