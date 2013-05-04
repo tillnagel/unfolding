@@ -1,0 +1,107 @@
+Unfolding Performance Test
+--------------------------
+
+TEST SETUP
+Computer:	MacBook Pro 2011, 2.66GHz, 8GB, NVIDIA GeForce 9600M GT 512 MB
+Software:	Mac OS X 10.7.4, Java 1.6.0_35
+Settings:	Heap memory: 1024m, Canvas: 800x600, OpenGL/GLGraphics
+
+
+ALGORITHMS
+
+0) getPos each frame (no filter, i.e. all are always displayed)
+1) Filter and getPos each frame
+2) Filter on interaction, getPos each frame
+3) Filter and getPos on interaction
+4) Filter and getPos on timer. Timer starts on interaction, is reset on interaction.
+	(i = display lags)
+ a) 100ms
+ b) 1000ms
+5) Filter and getPos on timer. getPos on interaction.
+6) GLModel. Filter on interaction, getPos each frame.
+7) GLModel. Filter and getPos on interaction.
+
+
+DRAWING
+- Rect/Quad with 4 vertices
+
+
+RESULTS
+
+algorithm with numberOfDots in fps
+(i=interactive, i.e. while mouse moving for map panning. Where no i-rows: fps staid same)
+(im=interactive, with new model after each update)
+
+		10k		20k		50k		100k	total:100k,vis:10k
+----------------------------------------------------------
+0)
+1)		43		22		9
+2)		46		23		9
+3)		60		38		16		8
+ i		49		25		10		5
+4a)		58		34		13
+ i		59		37		15
+4b)		59		37		15
+ i		59		37		15
+5)		57		37		16
+ i		52		30		14
+6)		60		60		50		25
+ i 		60		45		25		15
+7) 		60		60		60		60		60
+ i		60		50		40		25		25
+ im										45
+
+
+ANALYSIS
+- Not much difference between 1) and 2), but large difference between 2) and 3).
+	- Iterating over many items is inexpensive.
+	- Filtering many items based on geo-region is quite inexpensive.
+	- getPos is expensive. (Unfolding matrix operations)
+- 3) is best. But slows down on interaction.
+	Next: Improve fps while map is updating.
+- 4) on interaction ( 4ai) and 4bi) ) are faster than 3i), but display updates lag on interaction.
+	- 4ai) and 4bi) are nearly as fast as fastest, i.e. 3)
+ 	- 4a) is slightly slower than 3), as getPos is called in nearly each frame. 
+	- 4b) is very close to 3), and has the advantage of same fps on interaction.
+		But: even stronger display lag!
+- 5) is nearly as fast as 3), and 5i) is faster than 3i)
+	- 5) is slightly slower than 3) due to two separate dot-iterations.
+	- 5i) is moderately faster than 3i) (improvement increases a bit with number of dots)
+	But: filter lag (i.e. after interaction it might take a while until it gets reflected)
+	- Question: Is the complex code of 5) worth the (slight) performance gain in comparison to 3)?
+	- Answer: No. As using GLModel increases performance tremendously
+- 6) and 7) are much faster than non-GLModel usage.
+	- 6i) can keep up with up to 50k markers while still maintaining high responsiveness (<1s or >25fps)
+	- 7i) can keep up with up to 100k markers.
+
+
+
+
+RELATED WORK
+- Google Maps - Performance tests w/ various ways of adding markers
+	http://www.svennerberg.com/2009/01/handling-large-amounts-of-markers-in-google-maps/#test_result
+	"If your purpose is visualization" create reduced "MarkerLights" fastest available.
+- Google Maps API - "Too many markers"
+	https://developers.google.com/maps/articles/toomanymarkers
+
+- Millions of features on HTML Canvas
+	http://www.giscloud.com/blog/gis-cloud-starts-html5-mapping-revolution
+	Seems to be fast on pan, and on zoom re-renders canvas-layers (lag)
+	Very impressive. Also enables fast highlighting on hovering
+
+- [Lemnoia et al 2009] Challenges in Geovisualization
+	Performance is important
+
+- Mapping Wikipedia (Open Layers w/ Google Maps)
+	0.5k-500k points (with fast tooltips)
+	http://wikiproject.oii.ox.ac.uk/mapping_wikipedia/
+	"subclass of the Open Layers Canvas renderer, and optimised for point plotting", http://tracemedia.co.uk/portfolio/mapping-wikipedia/
+	
+	only fast for pan. very slow for zoom!!!
+	
+
+SOFTWARE PROCESS
+
+- "During interactive navigation, the rendering engine displays only the textured quads. If data set is modified by other views or interactors, the set of textures needs to be rendered again. The observer mechanism of Tulip notifies the appropriate views and modifies the data only when necessary." [Tulip Vis Toolkit]
+
+
