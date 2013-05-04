@@ -3,6 +3,12 @@ package de.fhpotsdam.unfolding.examples.overviewdetail;
 import processing.core.PApplet;
 import processing.core.PVector;
 
+/** 
+ * Simple app to test convex hull algorithm.
+ * 
+ * Click anywhere to add vertices. The convex hull is updated.
+ *
+ */
 public class ConvexHullApp extends PApplet {
 
 	ConvexHull convexHull;
