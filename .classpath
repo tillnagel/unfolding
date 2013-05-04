@@ -25,5 +25,7 @@
 	<classpathentry kind="lib" path="lib-extern/controlP5.jar"/>
 	<classpathentry kind="lib" path="lib-extern/geonames-1.1.6.jar"/>
 	<classpathentry kind="lib" path="lib-extern/joda-time-2.0.jar"/>
+	<classpathentry kind="lib" path="lib-extern/toxiclibs_p5.jar"/>
+	<classpathentry kind="lib" path="lib-extern/toxiclibscore.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
