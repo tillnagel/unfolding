@@ -5,6 +5,7 @@ import java.util.List;
 
 import processing.core.PApplet;
 import de.fhpotsdam.unfolding.UnfoldingMap;
+import de.fhpotsdam.unfolding.examples.data.speed.GPXSpeedTrackApp;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.utils.MapUtils;
 import de.fhpotsdam.unfolding.utils.ScreenPosition;
@@ -12,6 +13,8 @@ import de.fhpotsdam.unfolding.utils.ScreenPosition;
 /**
  * Displays a track loaded from a GPX file containing a bike tour in Berlin. The current speed is shown as the color of
  * the path segment, with red representing slow and green representing fast speeds.
+ * 
+ * See {@link GPXSpeedTrackApp} for the marker version. (Recommended!)
  */
 public class ManualGPXTrackApp extends PApplet {
 

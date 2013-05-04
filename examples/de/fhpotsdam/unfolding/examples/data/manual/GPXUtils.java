@@ -6,36 +6,48 @@ import java.util.Calendar;
 import java.util.List;
 
 import processing.core.PApplet;
-import processing.xml.XMLElement;
+import processing.data.XML;
+import de.fhpotsdam.unfolding.data.GPXReader;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.utils.GeoUtils;
 import de.fhpotsdam.utils.StringUtils;
 
 /**
  * Simple utility class to load track points from a GPX file.
+ * 
+ * See {@link GPXReader#loadData(PApplet, String)} for marker version (Recommended!)
  */
 public class GPXUtils {
 
+	/**
+	 * Loads GPX trails, and retursn them as own data beans.
+	 * 
+	 * See {@link GPXReader#loadData(PApplet, String)} for Marker creation.
+	 * 
+	 * @param p The applet.
+	 * @param gpxFilename The GPX file.
+	 * @return A list of track points.
+	 */
 	public static List<TrackPoint> loadGPXTrack(PApplet p, String gpxFilename) {
 		List<TrackPoint> trackPoints = new ArrayList<TrackPoint>();
 		Calendar prevTime = null;
 		Location prevLocation = null;
 
 		// Load GPX file
-		XMLElement gpx = new XMLElement(p, gpxFilename);
+		XML gpx = p.loadXML(gpxFilename);
 		// Get all track points
-		XMLElement[] itemXMLElements = gpx.getChildren("trk/trkseg/trkpt");
-		for (int i = 0; i < itemXMLElements.length; i++) {
+		XML[] xmlTrackPoints = gpx.getChildren("trk/trkseg/trkpt");
+		for (int i = 0; i < xmlTrackPoints.length; i++) {
 			// Creates location for track point
-			float lat = itemXMLElements[i].getFloat("lat");
-			float lon = itemXMLElements[i].getFloat("lon");
+			float lat = xmlTrackPoints[i].getFloat("lat");
+			float lon = xmlTrackPoints[i].getFloat("lon");
 			Location location = new Location(lat, lon);
 
 			// Calculates speed for track point
 			// Uses time span (h) and distance (km) to previous point to get km/h
 			double speed = 0;
 			try {
-				String timeStr = itemXMLElements[i].getChild("time").getContent();
+				String timeStr = xmlTrackPoints[i].getChild("time").getContent();
 				// Replace "Z" for Zulu/GMT time with parseable hour offset
 				timeStr = timeStr.replaceAll("Z", "+0000");
 				Calendar time = StringUtils.parseIsoDateTime(timeStr);

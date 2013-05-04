@@ -6,7 +6,7 @@ import java.util.Calendar;
 import java.util.List;
 
 import processing.core.PApplet;
-import processing.xml.XMLElement;
+import processing.data.XML;
 import de.fhpotsdam.unfolding.data.Feature;
 import de.fhpotsdam.unfolding.data.Feature.FeatureType;
 import de.fhpotsdam.unfolding.data.GPXReader;
@@ -27,7 +27,7 @@ public class GPXSpeedReader {
 		List<Feature> trackFeatures = new ArrayList<Feature>();
 
 		// Load GPX file
-		XMLElement gpx = new XMLElement(p, gpxFilename);
+		XML gpx = p.loadXML(gpxFilename);
 
 		Calendar prevTime = null;
 		Location prevLocation = null;
@@ -36,19 +36,19 @@ public class GPXSpeedReader {
 		ShapeFeature trackFeature = new ShapeFeature(FeatureType.LINES);
 		List<Double> speedList = new ArrayList<Double>();
 
-		XMLElement[] itemXMLElements = gpx.getChildren("trk/trkseg/trkpt");
-		for (int i = 0; i < itemXMLElements.length; i++) {
+		XML[] xmlTrackPoints = gpx.getChildren("trk/trkseg/trkpt");
+		for (int i = 0; i < xmlTrackPoints.length; i++) {
 
 			// Adds location for track point
-			float lat = itemXMLElements[i].getFloat("lat");
-			float lon = itemXMLElements[i].getFloat("lon");
+			float lat = xmlTrackPoints[i].getFloat("lat");
+			float lon = xmlTrackPoints[i].getFloat("lon");
 			Location location = new Location(lat, lon);
 
 			// Calculates speed for track point
 			// Uses time span (h) and distance (km) to previous point to get km/h
 			double speed = 0;
 			try {
-				String timeStr = itemXMLElements[i].getChild("time").getContent();
+				String timeStr = xmlTrackPoints[i].getChild("time").getContent();
 				// Replace "Z" for Zulu/GMT time with parseable hour offset
 				timeStr = timeStr.replaceAll("Z", "+0000");
 				Calendar time = StringUtils.parseIsoDateTime(timeStr);

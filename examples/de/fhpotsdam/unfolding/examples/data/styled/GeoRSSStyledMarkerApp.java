@@ -11,7 +11,7 @@ import de.fhpotsdam.unfolding.marker.Marker;
 import de.fhpotsdam.unfolding.utils.MapUtils;
 
 /**
- * Displays earthquake markers from an RSS feed.
+ * Super simple example to show point markers with own marker class.
  */
 public class GeoRSSStyledMarkerApp extends PApplet {
 

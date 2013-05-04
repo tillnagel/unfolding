@@ -4,8 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import processing.core.PApplet;
-import processing.xml.XMLElement;
-
+import processing.data.XML;
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.data.Feature;
 import de.fhpotsdam.unfolding.data.GeoJSONReader;
@@ -108,14 +107,14 @@ public class ChoroplethMapApp extends PApplet {
 		HashMap<String, DataEntry> dataEntriesMap = new HashMap<String, DataEntry>();
 
 		// Get all records
-		XMLElement rss = new XMLElement(this, fileName);
-		XMLElement[] records = rss.getChildren("data/record");
+		XML rss = new XML(fileName);
+		XML[] records = rss.getChildren("data/record");
 		for (int i = 0; i < records.length; i++) {
 			DataEntry dataEntry = new DataEntry();
 
-			XMLElement[] fields = records[i].getChildren("field");
+			XML[] fields = records[i].getChildren("field");
 			for (int j = 0; j < fields.length; j++) {
-				XMLElement field = fields[j];
+				XML field = fields[j];
 				String fieldName = field.getString("name");
 
 				if (fieldName.equals("Country or Area")) {
