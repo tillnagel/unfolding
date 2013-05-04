@@ -2,7 +2,6 @@ package de.fhpotsdam.unfolding.masks;
 
 import processing.core.PApplet;
 import processing.core.PGraphics;
-import codeanticode.glgraphics.GLConstants;
 import codeanticode.glgraphics.GLGraphicsOffScreen;
 import codeanticode.glgraphics.GLTexture;
 import codeanticode.glgraphics.GLTextureFilter;
@@ -14,7 +13,7 @@ public class MaskedGLGraphicsApp extends PApplet {
 	GLGraphicsOffScreen buf;
 
 	public void setup() {
-		size(256, 256, GLConstants.GLGRAPHICS);
+		size(256, 256, OPENGL);
 
 		GLTexture imgTex = new GLTexture(this, "beach.jpg");
 		// GLTexture imgMask = new GLTexture(this, "mask.png");

@@ -1,7 +1,6 @@
 package de.fhpotsdam.unfolding.examples.marker.dynamic;
 
 import processing.core.PApplet;
-import codeanticode.glgraphics.GLConstants;
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.marker.Marker;
@@ -24,7 +23,7 @@ public class DynamicMarkerApp extends PApplet {
 	SimplePointMarker berlinMarker;
 
 	public void setup() {
-		size(800, 600, GLConstants.GLGRAPHICS);
+		size(800, 600, OPENGL);
 
 		map = new UnfoldingMap(this);
 

@@ -1,7 +1,6 @@
 package de.fhpotsdam.unfolding.examples.mask;
 
 import processing.core.PApplet;
-import codeanticode.glgraphics.GLConstants;
 import codeanticode.glgraphics.GLGraphicsOffScreen;
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.utils.MapUtils;
@@ -16,7 +15,7 @@ public class SimpleMaskApp extends PApplet {
 	GLGraphicsOffScreen mask;
 
 	public void setup() {
-		size(830, 420, GLConstants.GLGRAPHICS);
+		size(830, 420, OPENGL);
 		map = new UnfoldingMap(this, "map1", 10, 10, 400, 400, true, false, null);
 		MapUtils.createDefaultEventDispatcher(this, map);
 

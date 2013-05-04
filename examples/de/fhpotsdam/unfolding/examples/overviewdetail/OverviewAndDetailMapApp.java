@@ -1,7 +1,6 @@
 package de.fhpotsdam.unfolding.examples.overviewdetail;
 
 import processing.core.PApplet;
-import codeanticode.glgraphics.GLConstants;
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.events.EventDispatcher;
 import de.fhpotsdam.unfolding.interactions.MouseHandler;
@@ -20,7 +19,7 @@ public class OverviewAndDetailMapApp extends PApplet {
 	UnfoldingMap mapOverview;
 
 	public void setup() {
-		size(800, 600, GLConstants.GLGRAPHICS);
+		size(800, 600, OPENGL);
 
 		mapDetail = new UnfoldingMap(this, "detail", 10, 10, 585, 580);
 		mapDetail.zoomToLevel(4);

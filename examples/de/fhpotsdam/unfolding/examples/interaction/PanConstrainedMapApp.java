@@ -1,7 +1,6 @@
 package de.fhpotsdam.unfolding.examples.interaction;
 
 import processing.core.PApplet;
-import codeanticode.glgraphics.GLConstants;
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.utils.MapUtils;
@@ -14,7 +13,7 @@ public class PanConstrainedMapApp extends PApplet {
 	float maxPanningDistance = 30;
 
 	public void setup() {
-		size(800, 600, GLConstants.GLGRAPHICS);
+		size(800, 600, OPENGL);
 
 		map = new UnfoldingMap(this);
 		map.zoomAndPanTo(new Location(centerLocation), 12);

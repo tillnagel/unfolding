@@ -1,14 +1,13 @@
 package de.fhpotsdam.matrix;
 
 import processing.core.PApplet;
-import codeanticode.glgraphics.GLConstants;
 
 public class GridTest extends PApplet {
 
 	Grid grid;
 
 	public void setup() {
-		size(800, 600, GLConstants.GLGRAPHICS);
+		size(800, 600, OPENGL);
 		smooth();
 
 		grid = new Grid(this, 50, 50, 300, 200);

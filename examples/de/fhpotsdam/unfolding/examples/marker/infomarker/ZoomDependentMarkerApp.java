@@ -6,7 +6,6 @@ import org.apache.log4j.Logger;
 
 import processing.core.PApplet;
 import processing.core.PFont;
-import codeanticode.glgraphics.GLConstants;
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.mapdisplay.MapDisplayFactory;
 import de.fhpotsdam.unfolding.marker.Marker;
@@ -29,7 +28,7 @@ public class ZoomDependentMarkerApp extends PApplet {
 	MarkerManager<Marker> labeledCountryMarkerManager;
 
 	public void setup() {
-		size(800, 600, GLConstants.GLGRAPHICS);
+		size(800, 600, OPENGL);
 		smooth();
 
 		PFont font = loadFont("Miso-Light-12.vlw");

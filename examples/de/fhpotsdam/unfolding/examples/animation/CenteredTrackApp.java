@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import processing.core.PApplet;
-import codeanticode.glgraphics.GLConstants;
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.examples.data.manual.GPXUtils;
 import de.fhpotsdam.unfolding.geo.Location;
@@ -29,7 +28,7 @@ public class CenteredTrackApp extends PApplet {
 	int trailNumber = 10;
 
 	public void setup() {
-		size(800, 600, GLConstants.GLGRAPHICS);
+		size(800, 600, OPENGL);
 
 		map = new UnfoldingMap(this);
 		MapUtils.createDefaultEventDispatcher(this, map);
@@ -37,7 +36,7 @@ public class CenteredTrackApp extends PApplet {
 
 		trackPoints = GPXUtils.loadGPXTrack(this, "bike-tour.gpx");
 	}
-	
+
 	public void draw() {
 		map.draw();
 
@@ -47,23 +46,23 @@ public class CenteredTrackApp extends PApplet {
 				trackPointIndex = 0;
 			}
 		}
-		
+
 		GPXUtils.TrackPoint currentTrackPoint = trackPoints.get(trackPointIndex);
 		map.panTo(currentTrackPoint.location);
-		
+
 		// Draws trail
 		noStroke();
 		for (int i = trackPointIndex; i > trackPointIndex - trailNumber; i--) {
 			if (i > 0) {
 				GPXUtils.TrackPoint tp = trackPoints.get(i);
 				float tpxy[] = map.getScreenPositionFromLocation(tp.location);
-				
+
 				float alpha = Math.round(PApplet.map(i, trackPointIndex, trackPointIndex - trailNumber, 255, 0));
 				fill(255, 0, 255, alpha);
 				ellipse(tpxy[0], tpxy[1], 12, 12);
 			}
 		}
-		
+
 		// Draws current position
 		float xy[] = map.getScreenPositionFromLocation(currentTrackPoint.location);
 		stroke(255, 120);
@@ -72,7 +71,7 @@ public class CenteredTrackApp extends PApplet {
 		ellipse(xy[0], xy[1], 16, 16);
 
 	}
-	
+
 	public void keyPressed() {
 		if (key == ' ') {
 			animating = !animating;

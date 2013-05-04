@@ -6,7 +6,6 @@ import org.apache.log4j.Logger;
 
 import processing.core.PApplet;
 import processing.core.PFont;
-import codeanticode.glgraphics.GLConstants;
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.events.EventDispatcher;
 import de.fhpotsdam.unfolding.mapdisplay.MapDisplayFactory;
@@ -29,7 +28,7 @@ public class InfoMarkerOnMultipleMapApp extends PApplet {
 	PFont font;
 
 	public void setup() {
-		size(1300, 600, GLConstants.GLGRAPHICS);
+		size(1300, 600, OPENGL);
 		smooth();
 
 		font = loadFont("Miso-Light-12.vlw");

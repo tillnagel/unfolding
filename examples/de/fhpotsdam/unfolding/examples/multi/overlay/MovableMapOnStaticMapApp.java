@@ -1,7 +1,6 @@
 package de.fhpotsdam.unfolding.examples.multi.overlay;
 
 import processing.core.PApplet;
-import codeanticode.glgraphics.GLConstants;
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.geo.Location;
 
@@ -18,7 +17,7 @@ public class MovableMapOnStaticMapApp extends PApplet {
 	float mapZoomY = 100;
 
 	public void setup() {
-		size(750, 600, GLConstants.GLGRAPHICS);
+		size(750, 600, OPENGL);
 
 		mapStatic = new UnfoldingMap(this, "static", 0, 0, 750, 600);
 		mapZoom = new UnfoldingMap(this, "zoom", 400, 300, 150, 150);

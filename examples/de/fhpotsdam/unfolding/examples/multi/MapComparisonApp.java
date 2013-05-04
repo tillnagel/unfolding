@@ -6,7 +6,6 @@ import java.util.List;
 import org.apache.log4j.Logger;
 
 import processing.core.PApplet;
-import codeanticode.glgraphics.GLConstants;
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.events.EventDispatcher;
 import de.fhpotsdam.unfolding.events.MapEventListener;
@@ -45,7 +44,7 @@ public class MapComparisonApp extends PApplet {
 	UnfoldingMap mapGoogleSmallSat;
 
 	public void setup() {
-		size(1230, 700, GLConstants.GLGRAPHICS);
+		size(1230, 700, OPENGL);
 		smooth();
 
 		eventDispatcher = new EventDispatcher();

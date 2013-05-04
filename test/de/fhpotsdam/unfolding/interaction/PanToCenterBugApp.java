@@ -34,7 +34,7 @@ public class PanToCenterBugApp extends PApplet {
 
 
 	public void setup() {
-		size(800, 600, GLConstants.GLGRAPHICS);
+		size(800, 600, OPENGL);
 		smooth();
 
 		textFont(loadFont("Miso-Light-12.vlw"));

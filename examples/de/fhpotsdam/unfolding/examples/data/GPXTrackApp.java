@@ -3,7 +3,6 @@ package de.fhpotsdam.unfolding.examples.data;
 import java.util.List;
 
 import processing.core.PApplet;
-import codeanticode.glgraphics.GLConstants;
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.data.Feature;
 import de.fhpotsdam.unfolding.data.GPXReader;
@@ -21,7 +20,7 @@ public class GPXTrackApp extends PApplet {
 	Location startLocation = new Location(52.49f, 13.44f);
 
 	public void setup() {
-		size(800, 600, GLConstants.GLGRAPHICS);
+		size(800, 600, OPENGL);
 
 		map = new UnfoldingMap(this);
 		MapUtils.createDefaultEventDispatcher(this, map);

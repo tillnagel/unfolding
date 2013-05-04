@@ -1,7 +1,6 @@
 package de.fhpotsdam.unfolding.examples.events;
 
 import processing.core.PApplet;
-import codeanticode.glgraphics.GLConstants;
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.events.MapEvent;
 import de.fhpotsdam.unfolding.events.ZoomMapEvent;
@@ -22,7 +21,7 @@ public class MapChangedApp extends PApplet {
 	float rectSizeDiff;
 
 	public void setup() {
-		size(800, 600, GLConstants.GLGRAPHICS);
+		size(800, 600, OPENGL);
 
 		map = new UnfoldingMap(this);
 		MapUtils.createDefaultEventDispatcher(this, map);

@@ -2,7 +2,6 @@ package de.fhpotsdam.unfolding.examples.misc;
 
 import processing.core.PApplet;
 import processing.core.PVector;
-import codeanticode.glgraphics.GLConstants;
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.utils.MapUtils;
@@ -26,7 +25,7 @@ public class RotatableMapApp extends PApplet {
 
 	public void setup() {
 		if (fullRotatable) {
-			size(800, 600, GLConstants.GLGRAPHICS);
+			size(800, 600, OPENGL);
 		} else {
 			size(800, 600);
 		}

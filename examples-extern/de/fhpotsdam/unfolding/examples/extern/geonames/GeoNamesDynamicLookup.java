@@ -1,7 +1,6 @@
 package de.fhpotsdam.unfolding.examples.extern.geonames;
 
 import processing.core.PApplet;
-import codeanticode.glgraphics.GLConstants;
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.utils.MapUtils;
@@ -33,7 +32,7 @@ public class GeoNamesDynamicLookup extends PApplet {
 
 	public void setup() {
 
-		size(650, 440, GLConstants.GLGRAPHICS);
+		size(650, 440, OPENGL);
 
 		// INIT UNFOLDING
 		map = new UnfoldingMap(this);

@@ -3,7 +3,6 @@ package de.fhpotsdam.unfolding.examples.data.styled;
 import java.util.List;
 
 import processing.core.PApplet;
-import codeanticode.glgraphics.GLConstants;
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.data.Feature;
 import de.fhpotsdam.unfolding.data.GeoRSSReader;
@@ -21,7 +20,7 @@ public class GeoRSSStyledMarkerApp extends PApplet {
 	UnfoldingMap map;
 
 	public void setup() {
-		size(800, 600, GLConstants.GLGRAPHICS);
+		size(800, 600, OPENGL);
 		smooth();
 
 		map = new UnfoldingMap(this);

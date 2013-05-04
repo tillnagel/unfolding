@@ -5,7 +5,6 @@
 package de.fhpotsdam.unfolding.examples.provider;
 
 import processing.core.PApplet;
-import codeanticode.glgraphics.GLConstants;
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.providers.AbstractMapProvider;
 import de.fhpotsdam.unfolding.providers.CartoDBProvider;
@@ -24,7 +23,7 @@ public class CartoDBLayerMapApp extends PApplet {
 
 	@Override
 	public void setup() {
-		size(800, 600, GLConstants.GLGRAPHICS);
+		size(800, 600, OPENGL);
 
 		// the masterProvider is used to fetch a base layer for the map
 		masterProvider = new Microsoft.AerialProvider();

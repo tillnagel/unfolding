@@ -1,7 +1,6 @@
 package de.fhpotsdam.unfolding.examples.multi;
 
 import processing.core.PApplet;
-import codeanticode.glgraphics.GLConstants;
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.mapdisplay.MapDisplayFactory;
 import de.fhpotsdam.unfolding.providers.Microsoft;
@@ -17,7 +16,7 @@ public class MultiProviderMultiMapApp extends PApplet {
 	UnfoldingMap map2;
 
 	public void setup() {
-		size(800, 600, GLConstants.GLGRAPHICS);
+		size(800, 600, OPENGL);
 
 		map1 = new UnfoldingMap(this, "map1", 10, 10, 385, 580, true, false, new Microsoft.AerialProvider());
 		map2 = new UnfoldingMap(this, "map2", 405, 10, 385, 580, true, false, new OpenStreetMap.CloudmadeProvider(

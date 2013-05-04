@@ -1,7 +1,6 @@
 package de.fhpotsdam.unfolding.examples.misc;
 
 import processing.core.PApplet;
-import codeanticode.glgraphics.GLConstants;
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.events.EventDispatcher;
 import de.fhpotsdam.unfolding.geo.Location;
@@ -22,7 +21,7 @@ public class MultiDebugDisplayApp extends PApplet {
 	DebugDisplay debugDisplay2;
 
 	public void setup() {
-		size(1024, 768, GLConstants.GLGRAPHICS);
+		size(1024, 768, OPENGL);
 
 		map1 = new UnfoldingMap(this, "map1", 0, 0, 512, height);
 		map1.zoomAndPanTo(new Location(52.5f, 13.4f), 10);

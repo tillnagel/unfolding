@@ -1,7 +1,6 @@
 package de.fhpotsdam.unfolding.examples.marker;
 
 import processing.core.PApplet;
-import codeanticode.glgraphics.GLConstants;
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.marker.SimpleLinesMarker;
@@ -22,7 +21,7 @@ public class SimpleMarkerManagerApp extends PApplet {
 	UnfoldingMap map;
 
 	public void setup() {
-		size(800, 600, GLConstants.GLGRAPHICS);
+		size(800, 600, OPENGL);
 
 		map = new UnfoldingMap(this, new Google.GoogleMapProvider());
 

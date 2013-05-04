@@ -1,7 +1,6 @@
 package de.fhpotsdam.unfolding.examples.animation;
 
 import processing.core.PApplet;
-import codeanticode.glgraphics.GLConstants;
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.utils.GeoUtils;
@@ -36,7 +35,7 @@ public class SimpleAnimatedMapApp extends PApplet {
 	float animationSpeed = 0.05f;
 
 	public void setup() {
-		size(800, 600, GLConstants.GLGRAPHICS);
+		size(800, 600, OPENGL);
 
 		map = new UnfoldingMap(this);
 		MapUtils.createDefaultEventDispatcher(this, map);

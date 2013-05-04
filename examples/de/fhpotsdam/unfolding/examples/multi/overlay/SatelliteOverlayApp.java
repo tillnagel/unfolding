@@ -1,7 +1,6 @@
 package de.fhpotsdam.unfolding.examples.multi.overlay;
 
 import processing.core.PApplet;
-import codeanticode.glgraphics.GLConstants;
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.providers.Microsoft;
@@ -23,7 +22,7 @@ public class SatelliteOverlayApp extends PApplet {
 	float mapZoomY = 100;
 
 	public void setup() {
-		size(750, 600, GLConstants.GLGRAPHICS);
+		size(750, 600, OPENGL);
 
 		mapOverview = new UnfoldingMap(this, "static", 0, 0, 750, 600);
 		mapOverview.zoomToLevel(2);

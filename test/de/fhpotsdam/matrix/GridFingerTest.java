@@ -8,7 +8,6 @@ import TUIO.TuioCursor;
 import TUIO.TuioListener;
 import TUIO.TuioObject;
 import TUIO.TuioTime;
-import codeanticode.glgraphics.GLConstants;
 
 /**
  * Fully working test app to freely transform an object (Grid). Rotate, Scale (and implicit
@@ -34,7 +33,7 @@ public class GridFingerTest extends PApplet implements TuioListener {
 	// }
 
 	public void setup() {
-		size(1024, 768, GLConstants.GLGRAPHICS);
+		size(1024, 768, OPENGL);
 		smooth();
 
 		grid = new Grid(this, 100, 100, 300, 300);

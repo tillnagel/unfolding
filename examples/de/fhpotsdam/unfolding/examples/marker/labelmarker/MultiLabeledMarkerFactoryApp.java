@@ -3,7 +3,6 @@ package de.fhpotsdam.unfolding.examples.marker.labelmarker;
 import java.util.List;
 
 import processing.core.PApplet;
-import codeanticode.glgraphics.GLConstants;
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.data.Feature;
 import de.fhpotsdam.unfolding.data.GeoRSSReader;
@@ -22,7 +21,7 @@ public class MultiLabeledMarkerFactoryApp extends PApplet {
 	UnfoldingMap map;
 
 	public void setup() {
-		size(800, 600, GLConstants.GLGRAPHICS);
+		size(800, 600, OPENGL);
 
 		map = new UnfoldingMap(this, "map", 50, 50, 700, 500);
 		map.zoomToLevel(2);

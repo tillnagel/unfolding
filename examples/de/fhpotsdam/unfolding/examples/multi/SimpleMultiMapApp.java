@@ -1,7 +1,6 @@
 package de.fhpotsdam.unfolding.examples.multi;
 
 import processing.core.PApplet;
-import codeanticode.glgraphics.GLConstants;
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.utils.MapUtils;
 
@@ -16,7 +15,7 @@ public class SimpleMultiMapApp extends PApplet {
 	UnfoldingMap map2;
 
 	public void setup() {
-		size(620, 300, GLConstants.GLGRAPHICS);
+		size(620, 300, OPENGL);
 
 		map1 = new UnfoldingMap(this, "map1", 0, 0, 305, 300);
 		map2 = new UnfoldingMap(this, "map2", 315, 0, 305, 300);

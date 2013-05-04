@@ -3,7 +3,6 @@ package de.fhpotsdam.unfolding.examples.interaction;
 import org.apache.log4j.Logger;
 
 import processing.core.PApplet;
-import codeanticode.glgraphics.GLConstants;
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.events.EventDispatcher;
 import de.fhpotsdam.unfolding.events.PanMapEvent;
@@ -28,7 +27,7 @@ public class NaviButtonMapApp extends PApplet {
 	UnfoldingMap map;
 
 	public void setup() {
-		size(800, 600, GLConstants.GLGRAPHICS);
+		size(800, 600, OPENGL);
 		smooth();
 
 		textFont(loadFont("Miso-Light-12.vlw"));

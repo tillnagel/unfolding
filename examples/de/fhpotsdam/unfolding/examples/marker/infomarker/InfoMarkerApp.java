@@ -6,7 +6,6 @@ import org.apache.log4j.Logger;
 
 import processing.core.PApplet;
 import processing.core.PFont;
-import codeanticode.glgraphics.GLConstants;
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.marker.Marker;
 import de.fhpotsdam.unfolding.marker.MarkerManager;
@@ -20,7 +19,7 @@ public class InfoMarkerApp extends PApplet {
 	UnfoldingMap map;
 
 	public void setup() {
-		size(800, 600, GLConstants.GLGRAPHICS);
+		size(800, 600, OPENGL);
 		smooth();
 
 		map = new UnfoldingMap(this, "map", 10, 10, 780, 580);

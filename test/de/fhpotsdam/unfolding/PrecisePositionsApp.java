@@ -1,7 +1,6 @@
 package de.fhpotsdam.unfolding;
 
 import processing.core.PApplet;
-import codeanticode.glgraphics.GLConstants;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.marker.Marker;
 import de.fhpotsdam.unfolding.marker.SimplePointMarker;
@@ -21,7 +20,7 @@ public class PrecisePositionsApp extends PApplet {
 
 	@Override
 	public void setup() {
-		size(800, 600, GLConstants.GLGRAPHICS);
+		size(800, 600, OPENGL);
 
 		map = new UnfoldingMap(this);
 		map.zoomAndPanTo(SINGAPORE_LOCATION, 14);

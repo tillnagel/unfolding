@@ -2,7 +2,6 @@ package de.fhpotsdam.unfolding.examples.marker.labelmarker;
 
 import processing.core.PApplet;
 import processing.core.PFont;
-import codeanticode.glgraphics.GLConstants;
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.utils.MapUtils;
@@ -24,7 +23,7 @@ public class LabeledMarkerApp extends PApplet {
 	PFont font;
 
 	public void setup() {
-		size(800, 600, GLConstants.GLGRAPHICS);
+		size(800, 600, OPENGL);
 		// size(800, 600);
 
 		map = new UnfoldingMap(this, "map", 50, 50, 700, 500);

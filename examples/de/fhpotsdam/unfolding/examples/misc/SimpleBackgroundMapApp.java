@@ -1,7 +1,6 @@
 package de.fhpotsdam.unfolding.examples.misc;
 
 import processing.core.PApplet;
-import codeanticode.glgraphics.GLConstants;
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.utils.MapUtils;
@@ -16,7 +15,7 @@ public class SimpleBackgroundMapApp extends PApplet {
 	UnfoldingMap map;
 
 	public void setup() {
-		size(800, 600, GLConstants.GLGRAPHICS);
+		size(800, 600, OPENGL);
 		map = new UnfoldingMap(this, 50, 50, 700, 500);
 		map.zoomAndPanTo(new Location(52.5f, 13.4f), 10);
 		MapUtils.createDefaultEventDispatcher(this, map);

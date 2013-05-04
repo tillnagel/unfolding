@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import processing.core.PApplet;
-import codeanticode.glgraphics.GLConstants;
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.marker.Marker;
@@ -39,7 +38,7 @@ public class ExtendedMarkerApp extends PApplet {
 	OuterLabelMarker outerLabelMarker;
 
 	public void setup() {
-		size(1280, 768, GLConstants.GLGRAPHICS);
+		size(1280, 768, OPENGL);
 
 		mapsWithInner = createMaps(50, 20, 170, 170, 10, 10);
 		mapsWithOuter = createMaps(650, 20, 170, 170, 10, 10);

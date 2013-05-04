@@ -1,7 +1,6 @@
 package de.fhpotsdam.unfolding.examples.misc;
 
 import processing.core.PApplet;
-import codeanticode.glgraphics.GLConstants;
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.utils.MapUtils;
@@ -19,7 +18,7 @@ public class TweenMap extends PApplet {
 	Location loc2 = new Location(40, 20);
 
 	public void setup() {
-		size(800, 600, GLConstants.GLGRAPHICS);
+		size(800, 600, OPENGL);
 
 		map = new UnfoldingMap(this);
 		map.zoomAndPanTo(new Location(52.5f, 13.4f), 10);
