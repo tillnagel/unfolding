@@ -8,7 +8,6 @@ import org.joda.time.Minutes;
 
 import processing.core.PApplet;
 import processing.core.PVector;
-import codeanticode.glgraphics.GLConstants;
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.data.Feature;
 import de.fhpotsdam.unfolding.data.GeoRSSReader;
@@ -17,9 +16,8 @@ import de.fhpotsdam.unfolding.utils.MapUtils;
 import de.fhpotsdam.unfolding.utils.ScreenPosition;
 
 /**
- * Displays earthquake markers from an RSS feed over time.
- * 
- * Animates through earthquakes in 1h steps, and fades out marker.
+ * Displays animated earthquake markers from an RSS feed over time. Animates through earthquakes in 1h steps, and fades
+ * out marker.
  * 
  * Press SPACE for starting or stopping the animation. Press LEFT ARROW or RIGHT ARROW to step through time.
  */
@@ -36,7 +34,7 @@ public class AnimatedTemporalDotsApp extends PApplet {
 	boolean animating = true;
 
 	public void setup() {
-		size(900, 600, GLConstants.GLGRAPHICS);
+		size(900, 600, OPENGL);
 		smooth();
 
 		map = new UnfoldingMap(this);
@@ -77,7 +75,7 @@ public class AnimatedTemporalDotsApp extends PApplet {
 		}
 
 		noStroke();
-		fill(0, 200);
+		fill(0, 100);
 		rect(10, 10, 270, 20);
 		fill(255);
 		text("Time: " + currentTime, 13, 24);
@@ -101,7 +99,7 @@ public class AnimatedTemporalDotsApp extends PApplet {
 		int minutes = Minutes.minutesBetween(time, currentTime).getMinutes();
 		int maxMinutes = 12 * 60;
 		float size = constrain(map(minutes, 0, maxMinutes, 0, 30), 0, 30);
-		
+
 		// But fades away the colors
 		float alphaValue = constrain(map(minutes, 0, maxMinutes, 100, 0), 0, 100);
 		float alphaStrokeValue = constrain(map(minutes, 0, maxMinutes, 255, 0), 0, 255);
@@ -111,7 +109,7 @@ public class AnimatedTemporalDotsApp extends PApplet {
 		stroke(255, 0, 0, alphaStrokeValue);
 		strokeWeight(1);
 		ellipse(pos.x, pos.y, size, size);
-		
+
 		// Always draw the epicenter
 		fill(255, 0, 0);
 		ellipse(pos.x, pos.y, 4, 4);
