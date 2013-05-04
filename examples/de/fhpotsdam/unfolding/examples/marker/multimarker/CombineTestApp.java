@@ -1,11 +1,10 @@
-package de.fhpotsdam.unfolding.examples.data;
+package de.fhpotsdam.unfolding.examples.marker.multimarker;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import processing.core.PApplet;
-import codeanticode.glgraphics.GLConstants;
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.data.Feature;
 import de.fhpotsdam.unfolding.data.GeoJSONReader;
@@ -13,6 +12,9 @@ import de.fhpotsdam.unfolding.marker.Marker;
 import de.fhpotsdam.unfolding.marker.MultiMarker;
 import de.fhpotsdam.unfolding.utils.MapUtils;
 
+/**
+ * Combines two markers into one multi marker.
+ */
 public class CombineTestApp extends PApplet {
 
 	UnfoldingMap map;
@@ -20,7 +22,7 @@ public class CombineTestApp extends PApplet {
 	List<String> specialIDs = new ArrayList<String>(Arrays.asList(ids));
 
 	public void setup() {
-		size(800, 600, GLConstants.GLGRAPHICS);
+		size(800, 600, OPENGL);
 
 		map = new UnfoldingMap(this);
 
