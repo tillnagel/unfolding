@@ -64,7 +64,7 @@ public class UnfoldingMap implements MapEventListener {
 
 	/** The ID of this map. */
 	protected String id;
-	
+
 	/** Indicates whether this map is currently active. */
 	protected boolean active = true;
 
@@ -80,8 +80,11 @@ public class UnfoldingMap implements MapEventListener {
 
 	/**
 	 * Creates a new full canvas map with the given ID.
-	 * @param p The main applet.
-	 * @param id The ID of this map.
+	 * 
+	 * @param p
+	 *            The main applet.
+	 * @param id
+	 *            The ID of this map.
 	 */
 	public UnfoldingMap(PApplet p, String id) {
 		this(p, id, 0, 0, p.width, p.height, true, false, null);
@@ -89,38 +92,53 @@ public class UnfoldingMap implements MapEventListener {
 
 	/**
 	 * Creates a new full canvas map with a generated ID.
-	 * @param p The main applet.
+	 * 
+	 * @param p
+	 *            The main applet.
 	 */
 	public UnfoldingMap(PApplet p) {
 		this(p, generateId(), 0, 0, p.width, p.height, true, false, null);
 	}
-	
+
 	/**
 	 * Creates a new full canvas map with tiles from the given provider.
-	 * @param p The main applet.
-	 * @param provider The map tiles provider to use.
+	 * 
+	 * @param p
+	 *            The main applet.
+	 * @param provider
+	 *            The map tiles provider to use.
 	 */
 	public UnfoldingMap(PApplet p, AbstractMapProvider provider) {
 		this(p, generateId(), 0, 0, p.width, p.height, true, false, provider);
 	}
-	
+
 	/**
 	 * Creates a new full canvas map with given ID, and with tiles from the given provider.
-	 * @param p The main applet.
-	 * @param id The ID of this map.
-	 * @param provider The map tiles provider to use.
+	 * 
+	 * @param p
+	 *            The main applet.
+	 * @param id
+	 *            The ID of this map.
+	 * @param provider
+	 *            The map tiles provider to use.
 	 */
 	public UnfoldingMap(PApplet p, String id, AbstractMapProvider provider) {
 		this(p, id, 0, 0, p.width, p.height, true, false, provider);
 	}
-	
+
 	/**
 	 * Creates a new map with specific position and dimension.
-	 * @param p The main applet.
-	 * @param x The x position of this map.
-	 * @param y The y position of this map.
-	 * @param width The width of this map.
-	 * @param height The height of this map.
+	 * 
+	 * @param p
+	 *            The main applet.
+	 * @param x
+	 *            The x position of this map.
+	 * @param y
+	 *            The y position of this map.
+	 * @param width
+	 *            The width of this map.
+	 * @param height
+	 *            The height of this map.
 	 */
 	public UnfoldingMap(PApplet p, float x, float y, float width, float height) {
 		this(p, generateId(), x, y, width, height, true, false, null);
@@ -128,12 +146,19 @@ public class UnfoldingMap implements MapEventListener {
 
 	/**
 	 * Creates a new map with specific position and dimension.
-	 * @param p The main applet.
-	 * @param id The ID of this map.
-	 * @param x The x position of this map.
-	 * @param y The y position of this map.
-	 * @param width The width of this map.
-	 * @param height The height of this map.
+	 * 
+	 * @param p
+	 *            The main applet.
+	 * @param id
+	 *            The ID of this map.
+	 * @param x
+	 *            The x position of this map.
+	 * @param y
+	 *            The y position of this map.
+	 * @param width
+	 *            The width of this map.
+	 * @param height
+	 *            The height of this map.
 	 */
 	public UnfoldingMap(PApplet p, String id, float x, float y, float width, float height) {
 		this(p, id, x, y, width, height, true, false, null);
@@ -145,12 +170,19 @@ public class UnfoldingMap implements MapEventListener {
 
 	/**
 	 * Creates a new map with specific position and dimension.
-	 * @param p The main applet.
-	 * @param x The x position of this map.
-	 * @param y The y position of this map.
-	 * @param width The width of this map.
-	 * @param height The height of this map.
-	 * @param provider The map tiles provider to use.
+	 * 
+	 * @param p
+	 *            The main applet.
+	 * @param x
+	 *            The x position of this map.
+	 * @param y
+	 *            The y position of this map.
+	 * @param width
+	 *            The width of this map.
+	 * @param height
+	 *            The height of this map.
+	 * @param provider
+	 *            The map tiles provider to use.
 	 */
 	public UnfoldingMap(PApplet p, float x, float y, float width, float height, AbstractMapProvider provider) {
 		this(p, generateId(), x, y, width, height, true, false, provider);
@@ -158,15 +190,25 @@ public class UnfoldingMap implements MapEventListener {
 
 	/**
 	 * Creates a new map with specific position and dimension.
-	 * @param p The main applet.
-	 * @param id The ID of this map.
-	 * @param x The x position of this map.
-	 * @param y The y position of this map.
-	 * @param width The width of this map.
-	 * @param height The height of this map.
-	 * @param useMask Whether this map enables using masks (test)
-	 * @param useDistortion Whether this map enables using distortion (test)
-	 * @param provider The map tiles provider to use.
+	 * 
+	 * @param p
+	 *            The main applet.
+	 * @param id
+	 *            The ID of this map.
+	 * @param x
+	 *            The x position of this map.
+	 * @param y
+	 *            The y position of this map.
+	 * @param width
+	 *            The width of this map.
+	 * @param height
+	 *            The height of this map.
+	 * @param useMask
+	 *            Whether this map enables using masks (test)
+	 * @param useDistortion
+	 *            Whether this map enables using distortion (test)
+	 * @param provider
+	 *            The map tiles provider to use.
 	 */
 	public UnfoldingMap(PApplet p, String id, float x, float y, float width, float height, boolean useMask,
 			boolean useDistortion, AbstractMapProvider provider) {
@@ -177,13 +219,24 @@ public class UnfoldingMap implements MapEventListener {
 				this);
 
 		// panCenterZoomTo(PRIME_MERIDIAN_EQUATOR_LOCATION, DEFAULT_ZOOM_LEVEL);
-
+		
+		prepareMapChangedMethod();
+	}
+	
+	protected void prepareMapChangedMethod() {
 		// Prepare mapChanged method via reflection
+		Class<? extends PApplet> appletClass = p.getClass();
 		try {
-			Class appletClass = p.getClass();
+			// First searches for a method with MapEvent as param
 			mapChangedMethod = appletClass.getMethod(MAPCHANGED_METHOD_NAME, MapEvent.class);
 		} catch (SecurityException e) {
 		} catch (NoSuchMethodException e) {
+			try {
+				// If that failed, searches for a method without
+				mapChangedMethod = appletClass.getMethod(MAPCHANGED_METHOD_NAME);
+			} catch (SecurityException e2) {
+			} catch (NoSuchMethodException e2) {
+			}
 		}
 	}
 
@@ -621,6 +674,10 @@ public class UnfoldingMap implements MapEventListener {
 		for (Marker m : marker) {
 			mapDisplay.addMarker(m);
 		}
+	}
+
+	public void addMarker(Marker marker) {
+		addMarkers(marker);
 	}
 
 	public void addMarkers(List<Marker> markers) {

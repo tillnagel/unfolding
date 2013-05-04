@@ -1,8 +1,10 @@
 package de.fhpotsdam.unfolding.utils;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
+import processing.core.PVector;
 import de.fhpotsdam.unfolding.data.Feature;
 import de.fhpotsdam.unfolding.data.MultiFeature;
 import de.fhpotsdam.unfolding.data.PointFeature;
@@ -127,20 +129,127 @@ public class GeoUtils {
 	}
 
 	/**
-	 * Returns the geometric center of the locations.
+	 * Returns the center of the locations.
 	 * 
 	 * The returned location minimizes the sum of squared Euclidean distances between itself and each location in the
 	 * list.
 	 * 
 	 * @return The centroid location.
 	 */
-	public static Location getCentroid(List<Location> locations) {
+	public static Location getEuclideanCentroid(List<Location> locations) {
 		Location center = new Location(0, 0);
 		for (Location loc : locations) {
 			center.add(loc);
 		}
 		center.div((float) locations.size());
 		return center;
+	}
+
+	/**
+	 * Returns the geometric center of the locations of a polygon.
+	 * 
+	 * The returned location is the center of the polygon, unfazed by unbalanced vertices.
+	 * 
+	 * @return The centroid location.
+	 */
+	public static Location getCentroid(List<Location> originalVertices) {
+		List<Location> vertices = getClosedPolygon(originalVertices);
+		float cx = 0f, cy = 0f;
+		for (int i = 0; i < vertices.size() - 1; i++) {
+			PVector vi0 = vertices.get(i);
+			PVector vi1 = vertices.get(i + 1);
+			cx = cx + (vi0.x + vi1.x) * (vi0.x * vi1.y - vi0.y * vi1.x);
+			cy = cy + (vi0.y + vi1.y) * (vi0.x * vi1.y - vi0.y * vi1.x);
+		}
+		float area = getArea(vertices);
+		cx /= (6f * area);
+		cy /= (6f * area);
+		return new Location(cx, cy);
+	}
+
+	protected static List<Location> getClosedPolygon(List<Location> originalVertices) {
+		if (originalVertices.size() < 1
+				|| (originalVertices.get(0).equals(originalVertices.get(originalVertices.size() - 1)))) {
+			// Return unchanged, if only one point, or already closed
+			return originalVertices;
+		}
+
+		List<Location> vertices = new ArrayList<Location>(originalVertices.size() + 1);
+		for (int i = 0; i < originalVertices.size(); i++) {
+			vertices.add(new Location(0f, 0f));
+		}
+		Collections.copy(vertices, originalVertices);
+		if (vertices.size() > 1) {
+			if (!vertices.get(0).equals(vertices.get(vertices.size() - 1))) {
+				// Add first vertex on last position to close polygon
+				vertices.add(vertices.get(0));
+			}
+		}
+		return vertices;
+	}
+
+	protected static float getArea(List<Location> vertices) {
+		float sum = 0;
+		for (int i = 0; i < vertices.size() - 1; i++) {
+			PVector vi0 = vertices.get(i);
+			PVector vi1 = vertices.get(i + 1);
+			sum += (vi0.x * vi1.y - vi1.x * vi0.y);
+		}
+		return sum * 0.5f;
+	}
+
+	protected static float getArea(Feature feature) {
+		return getArea(GeoUtils.getLocations(feature));
+	}
+
+	public static Location getCentroidFromFeatures(List<Feature> features) {
+		return GeoUtils.getCentroid(GeoUtils.getLocationsFromFeatures(features));
+	}
+
+	public static Location getCentroid(Feature feature, boolean useLargestForMulti) {
+		Location location = null;
+
+		switch (feature.getType()) {
+		case POINT:
+			location = ((PointFeature) feature).getLocation();
+			break;
+		case LINES:
+		case POLYGON:
+			location = GeoUtils.getCentroid(((ShapeFeature) feature).getLocations());
+			break;
+		case MULTI:
+			MultiFeature multiFeature = ((MultiFeature) feature);
+			if (useLargestForMulti) {
+				
+				// Return centroid of largest feature
+				float largestArea = 0;
+				Feature largestFeature = null;
+				for (Feature f : multiFeature.getFeatures()) {
+					if (largestArea < getArea(f)) {
+						largestFeature = f;
+						largestArea = getArea(f);
+					}
+				}
+				location = getCentroid(largestFeature);
+				
+			} else {
+				
+				// Return centroid of all features
+				List<Location> locations = new ArrayList<Location>();
+				for (Feature f : multiFeature.getFeatures()) {
+					Location l = getCentroid(f);
+					locations.add(l);
+				}
+				location = GeoUtils.getCentroid(locations);
+			}
+			break;
+		}
+
+		return location;
+	}
+
+	public static Location getCentroid(Feature feature) {
+		return getCentroid(feature, false);
 	}
 
 	/**

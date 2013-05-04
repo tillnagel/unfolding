@@ -25,6 +25,7 @@ public class SimplePolygonMarker extends AbstractShapeMarker {
 	@Override
 	public void draw(PGraphics pg, List<MapPosition> mapPositions) {
 		pg.pushStyle();
+		pg.strokeWeight(strokeWeight);
 		if (isSelected()) {
 			pg.fill(highlightColor);
 			pg.stroke(highlightStrokeColor);

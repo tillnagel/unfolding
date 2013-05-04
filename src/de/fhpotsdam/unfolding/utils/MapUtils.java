@@ -50,6 +50,21 @@ public class MapUtils {
 		return eventDispatcher;
 	}
 
+	public static EventDispatcher createMouseEventDispatcher(PApplet p, UnfoldingMap... maps) {
+		EventDispatcher eventDispatcher = new EventDispatcher();
+
+		MouseHandler mouseHandler = new MouseHandler(p, maps);
+
+		eventDispatcher.addBroadcaster(mouseHandler);
+
+		for (UnfoldingMap map : maps) {
+			eventDispatcher.register(map, PanMapEvent.TYPE_PAN, map.getId());
+			eventDispatcher.register(map, ZoomMapEvent.TYPE_ZOOM, map.getId());
+		}
+
+		return eventDispatcher;
+	}
+	
 	/**
 	 * Initializes default events, i.e. all given maps handle mouse and keyboard interactions. No
 	 * cross-listening between maps.

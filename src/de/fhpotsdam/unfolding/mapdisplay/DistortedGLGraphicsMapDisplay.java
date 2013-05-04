@@ -2,6 +2,8 @@ package de.fhpotsdam.unfolding.mapdisplay;
 
 import processing.core.PApplet;
 import processing.core.PGraphics;
+import de.fhpotsdam.unfolding.marker.Marker;
+import de.fhpotsdam.unfolding.marker.MarkerManager;
 import de.fhpotsdam.unfolding.providers.AbstractMapProvider;
 import de.fhpotsdam.unfolding.texture.Distorter;
 import de.fhpotsdam.unfolding.texture.LinearInterpolationDistorter;
@@ -31,25 +33,25 @@ public class DistortedGLGraphicsMapDisplay extends GLGraphicsMapDisplay {
 	}
 
 	protected void postDraw() {
-		PGraphics outerPG = getOuterPG();
-		
-		outerPG.pushMatrix();
-		outerPG.translate(offsetX, offsetY);
-		// FIXME outer matrix not applied (instead of as in GLGraphicsMapDisplay)
-		
-		// TODO Delete test grid in ProcessingMapDisplay
-		
-		textureDistorter.draw(outerPG, offscreenPG.getTexture());
+		// Draws inner map (with inner marker) and outer marker
+		offscreenCutoffPG.beginDraw();
+		offscreenCutoffPG.image(offscreenPG.getTexture(), 0, 0);
+		for (MarkerManager<Marker> mm : markerManagerList) {
+			mm.draw();
+		}
+		offscreenCutoffPG.endDraw();
 
-		outerPG.popMatrix();
+		// Transforms (outer) map pane, and draws inner map + marker onto canvas
+		// This cuts off marker at the border.
+		PGraphics canvasPG = papplet.g;
+		canvasPG.pushMatrix();
+		canvasPG.translate(offsetX, offsetY);
+		canvasPG.applyMatrix(matrix);
+		
+		textureDistorter.draw(canvasPG, offscreenPG.getTexture());
+		//canvasPG.image(offscreenCutoffPG.getTexture(), 0, 0);
+		canvasPG.popMatrix();
 	}
-	
-	protected void postDraw2() {
-		PGraphics p = papplet.g;
-		p.pushMatrix();
-		p.translate(offsetX, offsetY);
-		textureDistorter.draw(p, offscreenPG.getTexture());
-		p.popMatrix();
-	}
+
 
 }

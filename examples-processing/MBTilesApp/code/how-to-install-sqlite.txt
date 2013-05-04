@@ -1,0 +1,2 @@
+YOU NEED TO download the sqlitejdbc driver from http://code.google.com/p/sqlite-jdbc/
+and put the jar file into this 'code' directory.

@@ -17,25 +17,33 @@ import processing.opengl.*;
 import codeanticode.glgraphics.*;
 
 
-String earthquakesURL = "http://earthquake.usgs.gov/earthquakes/catalogs/eqs7day-M5.xml";
-
 UnfoldingMap map;
 
-public void setup() {
-  size(800, 600, GLConstants.GLGRAPHICS);
+void setup() {
+  size(800, 600);
   smooth();
 
   map = new UnfoldingMap(this);
-  map.zoomToLevel(2);
   MapUtils.createDefaultEventDispatcher(this, map);
 
-  List<Feature> features = GeoRSSReader.loadData(this, earthquakesURL);
-  List<Marker> markers = MapUtils.createSimpleMarkers(features);
-  map.addMarkers(markers);
+
+  Location berlinLocation = new Location(52.5, 13.4);
+  Location dublinLocation = new Location(53.35, -6.26);
+
+  // Create point markers for locations
+  SimplePointMarker berlinMarker = new SimplePointMarker(berlinLocation);
+  SimplePointMarker dublinMarker = new SimplePointMarker(dublinLocation);
+
+  // Add markers to the maps 
+  map.addMarkers(berlinMarker, dublinMarker);
 }
 
-public void draw() {
-  background(0);
+void draw() {
   map.draw();
+
+  //Location location = map.getLocation(mouseX, mouseY);
+  //fill(0);
+  //text(location.getLat() + ", " + location.getLon(), mouseX, mouseY);
+  //text(location.toString(), mouseX, mouseY);
 }
 

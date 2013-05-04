@@ -7,6 +7,9 @@ import codeanticode.glgraphics.GLGraphicsOffScreen;
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.geo.Location;
 
+/**
+ * Stores a thumbnail, and additional information of the current state of the map.
+ */
 public class MapSnapshot {
 
 	private static final float THUMBNAIL_SCALE = 0.2f;
@@ -32,9 +35,11 @@ public class MapSnapshot {
 	}
 
 	public void snapshot(UnfoldingMap map) {
+		// Stores information of the current state of the map
 		this.location = map.getCenter();
 		this.zoomLevel = map.getZoomLevel();
 
+		// Stores image data of the current map
 		PGraphics pg = map.mapDisplay.getInnerPG();
 		if (pg instanceof GLGraphicsOffScreen) {
 			thumbnail = new PImage((int) map.mapDisplay.getWidth(), (int) map.mapDisplay.getHeight());

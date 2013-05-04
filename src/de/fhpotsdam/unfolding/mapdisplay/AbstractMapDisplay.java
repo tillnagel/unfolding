@@ -10,6 +10,7 @@ import org.apache.log4j.Logger;
 
 import processing.core.PGraphics;
 import processing.core.PVector;
+import codeanticode.glgraphics.GLGraphicsOffScreen;
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.core.Coordinate;
 import de.fhpotsdam.unfolding.geo.Location;

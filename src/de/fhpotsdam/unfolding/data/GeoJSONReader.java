@@ -16,10 +16,14 @@ import de.fhpotsdam.unfolding.geo.Location;
 public class GeoJSONReader {
 
 	public static List<Feature> loadData(PApplet p, String fileName) {
+		return loadDataFromJSON(p, PApplet.join(p.loadStrings(fileName), ""));
+	}
+	
+	public static List<Feature> loadDataFromJSON(PApplet p, String jsonString) {
 		List<Feature> features = new ArrayList<Feature>();
 
 		try {
-			JSONObject geoJson = new JSONObject(PApplet.join(p.loadStrings(fileName), ""));
+			JSONObject geoJson = new JSONObject(jsonString);
 			JSONArray allFeatures = geoJson.getJSONArray("features");
 
 			for (int i = 0; i < allFeatures.length(); i++) {

@@ -63,6 +63,11 @@ public interface Marker {
 	public void setProperties(HashMap<String, Object> properties);
 
 	public HashMap<String, Object> getProperties();
+	
+	public Object getProperty(String key);
+
+	public String getStringProperty(String key);
+
 
 	/**
 	 * Checks whether given position is inside this marker, according to the maps coordinate system.

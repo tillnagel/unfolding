@@ -7,7 +7,6 @@ import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.data.Feature;
 import de.fhpotsdam.unfolding.data.GeoRSSReader;
 import de.fhpotsdam.unfolding.marker.Marker;
-import de.fhpotsdam.unfolding.marker.MarkerManager;
 import de.fhpotsdam.unfolding.utils.MapUtils;
 
 /**
@@ -49,15 +48,13 @@ public class MultiLabeledMarkerOnMultiMapsApp extends MultiLabeledMarkerApp {
 
 	public void checkInsideMarker(UnfoldingMap map) {
 		if (map.isHit(mouseX, mouseY)) {
-			MarkerManager<Marker> mm = map.mapDisplay.getLastMarkerManager();
-
 			// Deselect all marker
-			for (Marker marker : mm.getMarkers()) {
+			for (Marker marker : map.getMarkers()) {
 				marker.setSelected(false);
 			}
 
 			// Select hit marker
-			Marker marker = mm.getFirstHitMarker(mouseX, mouseY);
+			Marker marker = map.getFirstHitMarker(mouseX, mouseY);
 			if (marker != null) {
 				marker.setSelected(true);
 			}

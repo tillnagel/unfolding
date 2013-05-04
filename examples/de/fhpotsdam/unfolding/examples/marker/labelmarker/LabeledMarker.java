@@ -6,21 +6,30 @@ import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.marker.SimplePointMarker;
 
 /**
- * Extends point marker to additionally display label. 
+ * Extends point marker to additionally display label.
  */
 public class LabeledMarker extends SimplePointMarker {
 
 	protected String name;
-	protected float size;
+	protected float size = 15;
 	protected int space = 10;
 
 	private PFont font;
+	private float fontSize = 12;
+
+	public LabeledMarker(Location location) {
+		this.location = location;
+	}
 
 	public LabeledMarker(Location location, String name, PFont font, float size) {
-		this.location = location;
+		this(location);
 		this.name = name;
-		this.font = font;
 		this.size = size;
+
+		this.font = font;
+		if (font != null) {
+			this.fontSize = font.getSize();
+		}
 	}
 
 	/**
@@ -44,11 +53,13 @@ public class LabeledMarker extends SimplePointMarker {
 
 		// label
 		if (selected && name != null) {
-			pg.textFont(font);
+			if (font != null) {
+				pg.textFont(font);
+			}
 			pg.fill(highlightColor);
 			pg.stroke(highlightStrokeColor);
-			pg.rect(x + strokeWeight / 2, y - font.getSize() + strokeWeight / 2 - space,
-					pg.textWidth(name) + space * 1.5f, font.getSize() + space);
+			pg.rect(x + strokeWeight / 2, y - fontSize + strokeWeight / 2 - space, pg.textWidth(name) + space * 1.5f,
+					fontSize + space);
 			pg.fill(255, 255, 255);
 			pg.text(name, Math.round(x + space * 0.75f + strokeWeight / 2),
 					Math.round(y + strokeWeight / 2 - space * 0.75f));

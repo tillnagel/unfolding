@@ -62,6 +62,21 @@ public abstract class AbstractMarker implements Marker {
 	public HashMap<String, Object> getProperties() {
 		return properties;
 	}
+	
+	@Override
+	public Object getProperty(String key) {
+		return properties.get(key);
+	}
+
+	@Override
+	public String getStringProperty(String key) {
+		Object value = properties.get(key);
+		if (value != null && value instanceof String) {
+			return (String) value;
+		} else {
+			return null;
+		}
+	}
 
 	/**
 	 * Draws this marker onto the map. Converts the geo-location to object position, and calls

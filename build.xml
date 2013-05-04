@@ -6,7 +6,7 @@
 
 	<!-- Sets variables which can later be used. -->
 	<!-- The value of a property is accessed via ${} -->
-	<property name="version" value="0.9.beta" />
+	<property name="version" value="0.9.2" />
 	<property name="unfolding.jar" value="unfolding.${version}.jar" />
 
 	<property name="src.dir" location="src" />
@@ -191,6 +191,7 @@
 		<!-- copy libs -->
 		<copy file="${dist.dir}/${unfolding.jar}" tofile="${dist.dir}/Unfolding/library/Unfolding.jar" />
 		<copy todir="${dist.dir}/Unfolding/library/" file="${lib.dir}/log4j-1.2.15.jar" />
+		<copy todir="${dist.dir}/Unfolding/library/" file="${lib.dir}/json4processing.jar" />
 
 		<!-- copy processing examples -->
 		<copy todir="${dist.dir}/Unfolding/examples" >
@@ -198,10 +199,12 @@
 		</copy>
 
 		<!-- create a zip file -->
-		<zip destfile="${dist.dir}/Unfolding_for_processing.zip"
+		<zip destfile="${dist.dir}/Unfolding.zip" 
 			basedir="${dist.dir}/Unfolding/" />
+		<!-- wrap again so users can easily install it by copying the unzipped directory. -->
+		<zip destfile="${dist.dir}/Unfolding_for_processing.zip" 
+			basedir="${dist.dir}/" includes="Unfolding.zip" />
 	</target>
-
 
 	<!--
 		Copy the javadoc to the gh-pages folder.

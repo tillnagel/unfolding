@@ -8,7 +8,12 @@ import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.utils.MapUtils;
 
 /**
+ * Highlights a marker and shows its label when user hovers over the mouse.
  * 
+ * The highlight check is done manually for the marker in mouseMoved().
+ * 
+ * This example uses a LabeledMarker which stores a title, and has a selection mode. This example creates own markers
+ * from the data features.
  */
 public class LabeledMarkerApp extends PApplet {
 
@@ -17,7 +22,7 @@ public class LabeledMarkerApp extends PApplet {
 	Location berlinLocation = new Location(52.5f, 13.4f);
 	LabeledMarker berlinMarker;
 	PFont font;
-	
+
 	public void setup() {
 		size(800, 600, GLConstants.GLGRAPHICS);
 		// size(800, 600);
@@ -35,8 +40,6 @@ public class LabeledMarkerApp extends PApplet {
 	public void draw() {
 		background(240);
 		map.draw();
-		
-		
 	}
 
 	public void mouseMoved() {

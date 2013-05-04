@@ -22,11 +22,11 @@ void draw() {
   fill(215, 0, 0, 100);
 
   // Shows geo-location at mouse position
-  Location location = map.getLocationFromScreenPosition(mouseX, mouseY);
+  Location location = map.getLocation(mouseX, mouseY);
   text(location.toString(), mouseX, mouseY);
 
   // Shows marker at Berlin location
   Location loc = new Location(52.5f, 13.4f);
-  float xy[] = map.getScreenPositionFromLocation(loc);
-  ellipse(xy[0], xy[1], 20, 20);
+  ScreenPosition pos = map.getScreenPosition(loc);
+  ellipse(pos.x, pos.y, 20, 20);
 }

@@ -62,18 +62,19 @@ public class TextureDistorter {
 
 	public void draw(PGraphics g, GLTexture texture) {
 		frameCount++;
-		
-		// REVISIT 
+
+		// REVISIT
 		// Distort by texture to extrude by pixel brightness
 		distortGridByTexture(texture);
-		
-		//distortGrid();
-		
+
+		// distortGrid();
+
 		distortMesh();
 
 		// createMesh(distortedGrid);
 
 		GLGraphics renderer = (GLGraphics) g;
+		// GLGraphicsOffScreen renderer = (GLGraphicsOffScreen) g;
 		renderer.beginGL();
 		renderer.background(0);
 		meshModel.updateVertices(vertices);
@@ -144,9 +145,9 @@ public class TextureDistorter {
 		for (int u = 0; u < uSteps; u++) {
 			for (int v = 0; v < vSteps; v++) {
 				// distortedGrid[u][v] = distorter.distort(origGrid[u][v]);
-				
+
 				// FIXME Test distorting a single grid vector
-				int value = (u > 30 && u < 40 && v == 21) ? 1 : 0;				
+				int value = (u > 30 && u < 40 && v == 21) ? 1 : 0;
 				distorter.distort(origGrid[u][v], distortedGrid[u][v], value);
 			}
 		}
