@@ -26,10 +26,11 @@ public class GPXReader {
 
 		// Create track with all track points
 		ShapeFeature trackFeature = new ShapeFeature(FeatureType.LINES);
+		List<String> trackPointTimes = new ArrayList<String>();
 		
 		XML[] itemXMLElements = gpx.getChildren("trk/trkseg/trkpt");
 		for (int i = 0; i < itemXMLElements.length; i++) {
-			XMLElement trackPoint = itemXMLElements[i];
+			XML trackPoint = itemXMLElements[i];
 			
 			// Adds location for track point
 			float lat = trackPoint.getFloat("lat");
