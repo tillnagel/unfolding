@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import processing.core.PApplet;
-import processing.xml.XMLElement;
+import processing.data.XML;
 import de.fhpotsdam.unfolding.data.Feature.FeatureType;
 import de.fhpotsdam.unfolding.geo.Location;
 
@@ -22,12 +22,12 @@ public class GPXReader {
 		List<Feature> trackFeatures = new ArrayList<Feature>();
 
 		// Load GPX file
-		XMLElement gpx = new XMLElement(p, gpxFilename);
+		XML gpx = new XML(gpxFilename);
 
 		// Create track with all track points
 		ShapeFeature trackFeature = new ShapeFeature(FeatureType.LINES);
 		
-		XMLElement[] itemXMLElements = gpx.getChildren("trk/trkseg/trkpt");
+		XML[] itemXMLElements = gpx.getChildren("trk/trkseg/trkpt");
 		for (int i = 0; i < itemXMLElements.length; i++) {
 			// Adds location for track point
 			float lat = itemXMLElements[i].getFloat("lat");
@@ -37,7 +37,7 @@ public class GPXReader {
 		}
 		
 		// Add time as property
-		XMLElement timeXMLElement = gpx.getChild("trk/time");
+		XML timeXMLElement = gpx.getChild("trk/time");
 		trackFeature.addProperty("time", timeXMLElement.getContent());
 		
 		trackFeatures.add(trackFeature);
