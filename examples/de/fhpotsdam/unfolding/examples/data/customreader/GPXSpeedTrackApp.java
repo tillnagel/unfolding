@@ -1,4 +1,4 @@
-package de.fhpotsdam.unfolding.examples.data.speed;
+package de.fhpotsdam.unfolding.examples.data.customreader;
 
 import java.util.List;
 
@@ -15,6 +15,7 @@ import de.fhpotsdam.unfolding.utils.MapUtils;
  * Loads a GPX file containing a bike tour in Berlin, and displays each segment with speed mapped to color.
  * 
  * This example shows a more complex usage of own data loading and special markers.
+ * See @{link GPXSpeedReader} for how to create your own data reader creating geo-data Features.
  */
 public class GPXSpeedTrackApp extends PApplet {
 

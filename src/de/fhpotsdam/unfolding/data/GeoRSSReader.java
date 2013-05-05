@@ -10,10 +10,8 @@ import de.fhpotsdam.unfolding.geo.Location;
 /**
  * Basic data reader to parse GeoRSS points, in W3C geo
  * 
- * @author tillnagel
- * 
  */
-public class GeoRSSReader {
+public class GeoRSSReader extends GeoDataReader {
 
 	public static List<Feature> loadData(PApplet p, String fileName) {
 		List<Feature> features = new ArrayList<Feature>();

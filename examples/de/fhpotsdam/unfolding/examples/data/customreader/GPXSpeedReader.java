@@ -1,4 +1,4 @@
-package de.fhpotsdam.unfolding.examples.data.speed;
+package de.fhpotsdam.unfolding.examples.data.customreader;
 
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -10,18 +10,24 @@ import processing.xml.XMLElement;
 import de.fhpotsdam.unfolding.data.Feature;
 import de.fhpotsdam.unfolding.data.Feature.FeatureType;
 import de.fhpotsdam.unfolding.data.GPXReader;
+import de.fhpotsdam.unfolding.data.GeoDataReader;
 import de.fhpotsdam.unfolding.data.ShapeFeature;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.utils.GeoUtils;
 import de.fhpotsdam.utils.StringUtils;
 
-public class GPXSpeedReader {
+/**
+ * A custom reader creating Features from geo-spatial data.
+ * 
+ * Similar to {@link GPXReader}, but parses time-stamps for each track point.
+ */
+public class GPXSpeedReader extends GeoDataReader {
 
 	/**
 	 * Loads track segments of a GPX file, and returns them as a lines marker. Additionally, the speed is calculated
 	 * between two points, and stored as property.
 	 * 
-	 * This varies from {@link GPXReader#loadData(PApplet, String)}.
+	 * Varies from {@link GPXReader#loadData(PApplet, String)}.
 	 */
 	public static List<Feature> loadData(PApplet p, String gpxFilename) {
 		List<Feature> trackFeatures = new ArrayList<Feature>();

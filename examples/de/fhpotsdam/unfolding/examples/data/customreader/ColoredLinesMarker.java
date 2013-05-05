@@ -1,4 +1,4 @@
-package de.fhpotsdam.unfolding.examples.data.speed;
+package de.fhpotsdam.unfolding.examples.data.customreader;
 
 import java.util.HashMap;
 import java.util.List;
