@@ -8,6 +8,7 @@ import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.events.EventDispatcher;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.utils.DebugDisplay;
+import de.fhpotsdam.unfolding.utils.MapUtils;
 import de.fhpotsdam.unfolding.utils.ScreenPosition;
 
 /**
@@ -46,7 +47,7 @@ public class PanToCenterBugApp extends PApplet {
 		debugDisplay = new DebugDisplay(this, map);
 
 		// default dispatcher
-		//eventDispatcher = MapUtils.createDefaultEventDispatcher(this, map);
+		eventDispatcher = MapUtils.createDefaultEventDispatcher(this, map);
 	}
 
 	public void draw() {

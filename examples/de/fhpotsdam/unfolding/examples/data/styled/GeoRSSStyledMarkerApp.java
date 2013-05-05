@@ -12,7 +12,9 @@ import de.fhpotsdam.unfolding.marker.Marker;
 import de.fhpotsdam.unfolding.utils.MapUtils;
 
 /**
- * Displays earthquake markers from an RSS feed.
+ * Displays earthquake markers from an RSS feed, but with own markers.
+ * 
+ * Uses MarkerFactory (as in the default marker creation way), but uses own styled EarthquakeMarker.
  */
 public class GeoRSSStyledMarkerApp extends PApplet {
 

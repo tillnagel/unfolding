@@ -1,4 +1,4 @@
-package de.fhpotsdam.unfolding.examples.data.manual;
+package de.fhpotsdam.unfolding.data.manual;
 
 import java.text.ParseException;
 import java.util.ArrayList;

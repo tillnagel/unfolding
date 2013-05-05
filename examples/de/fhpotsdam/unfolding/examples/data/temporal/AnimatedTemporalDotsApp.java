@@ -19,7 +19,7 @@ import de.fhpotsdam.unfolding.utils.ScreenPosition;
 /**
  * Displays earthquake markers from an RSS feed over time.
  * 
- * Animates through earthquakes in 1h steps, and fades out marker.
+ * Animates through earthquakes in 1h steps, and fades out dots.
  * 
  * Press SPACE for starting or stopping the animation. Press LEFT ARROW or RIGHT ARROW to step through time.
  */
@@ -63,7 +63,7 @@ public class AnimatedTemporalDotsApp extends PApplet {
 			DateTime markerTime = new DateTime(marker.getProperty("date"));
 			if (markerTime.isBefore(currentTime)) {
 				ScreenPosition pos = map.getScreenPosition(marker.getLocation());
-				drawGrowingEarthquakeMarker(pos, markerTime);
+				drawGrowingEarthquakeDots(pos, markerTime);
 			}
 		}
 
@@ -83,7 +83,7 @@ public class AnimatedTemporalDotsApp extends PApplet {
 		text("Time: " + currentTime, 13, 24);
 	}
 
-	public void drawEarthquakeMarker(PVector pos, DateTime time) {
+	public void drawEarthquakeDots(PVector pos, DateTime time) {
 		fill(255, 0, 0, 100);
 		stroke(255, 0, 0, 200);
 		strokeWeight(1);
@@ -95,7 +95,7 @@ public class AnimatedTemporalDotsApp extends PApplet {
 		ellipse(pos.x, pos.y, size, size);
 	}
 
-	public void drawGrowingEarthquakeMarker(PVector pos, DateTime time) {
+	public void drawGrowingEarthquakeDots(PVector pos, DateTime time) {
 
 		// Marker grows over time
 		int minutes = Minutes.minutesBetween(time, currentTime).getMinutes();

@@ -6,14 +6,18 @@ import java.util.List;
 import processing.core.PApplet;
 import codeanticode.glgraphics.GLConstants;
 import de.fhpotsdam.unfolding.UnfoldingMap;
-import de.fhpotsdam.unfolding.examples.data.manual.GPXUtils;
+import de.fhpotsdam.unfolding.data.manual.GPXUtils;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.utils.MapUtils;
+import de.fhpotsdam.unfolding.utils.ScreenPosition;
 
 /**
  * Tracks a path by animating the map along its locations. Centers the map around the current location.
  * 
- * The path is loaded from a GPX file containing a bike tour in Berlin.
+ * Press SPACE to start/stop animation.
+ * 
+ * The path is loaded from a GPX file containing a bike tour in Berlin. Uses GPXUtils for creating TrackPoints, and
+ * displays them manually.
  */
 public class CenteredTrackApp extends PApplet {
 
@@ -37,7 +41,7 @@ public class CenteredTrackApp extends PApplet {
 
 		trackPoints = GPXUtils.loadGPXTrack(this, "bike-tour.gpx");
 	}
-	
+
 	public void draw() {
 		map.draw();
 
@@ -47,32 +51,32 @@ public class CenteredTrackApp extends PApplet {
 				trackPointIndex = 0;
 			}
 		}
-		
+
 		GPXUtils.TrackPoint currentTrackPoint = trackPoints.get(trackPointIndex);
 		map.panTo(currentTrackPoint.location);
-		
+
 		// Draws trail
 		noStroke();
 		for (int i = trackPointIndex; i > trackPointIndex - trailNumber; i--) {
 			if (i > 0) {
 				GPXUtils.TrackPoint tp = trackPoints.get(i);
-				float tpxy[] = map.getScreenPositionFromLocation(tp.location);
-				
+				ScreenPosition pos = map.getScreenPosition(tp.location);
+
 				float alpha = Math.round(PApplet.map(i, trackPointIndex, trackPointIndex - trailNumber, 255, 0));
 				fill(255, 0, 255, alpha);
-				ellipse(tpxy[0], tpxy[1], 12, 12);
+				ellipse(pos.x, pos.y, 12, 12);
 			}
 		}
-		
+
 		// Draws current position
-		float xy[] = map.getScreenPositionFromLocation(currentTrackPoint.location);
+		ScreenPosition currentPos = map.getScreenPosition(currentTrackPoint.location);
 		stroke(255, 120);
 		strokeWeight(2);
 		fill(255, 0, 255, 200);
-		ellipse(xy[0], xy[1], 16, 16);
+		ellipse(currentPos.x, currentPos.y, 16, 16);
 
 	}
-	
+
 	public void keyPressed() {
 		if (key == ' ') {
 			animating = !animating;

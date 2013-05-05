@@ -5,6 +5,12 @@
 - Convert more examples from /examples to /examples-processing
 - 
 
+- Pull Request: https://github.com/tillnagel/unfolding/pull/56
+- Pull Request: https://github.com/tillnagel/unfolding/pull/59
+
+
+- Add tweening (from KUL student fork)
+
 
 - Merge develop into master
 
@@ -16,3 +22,19 @@
 	- Processing 
 		- Test w/ 1.5
 		
+
+
+
+
+Processing Examples Candidates
+--------------------------
+- animation/FadeTwoMapsApp
+
+
+- data/GeoRSSMarkerApp  (auto default marker creation)
+- data/GeoJSONMarkerApp (auto default marker creation)
+
+- data/TransitLinesMarkerApp (manually create non-own marker with own color)
+
+
+
