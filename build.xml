@@ -4,9 +4,7 @@
 		Unfolding
 	</description>
 
-	<!-- Sets variables which can later be used. -->
-	<!-- The value of a property is accessed via ${} -->
-	<property name="version" value="0.9.3" />
+	<property name="version" value="0.9.3" /> <!-- NOTE Also update /resources/unfolding_app_template/classpath! -->
 	<property name="unfolding.jar" value="unfolding.${version}.jar" />
 
 	<property name="src.dir" location="src" />
@@ -16,7 +14,7 @@
 	<property name="dist.dir" location="dist" />
 	<property name="docs.dir" location="doc" />
 	<property name="lib.dir" location="lib" />
-	<property name="gh-pages.dir" value="../gh-pages/"/>
+	<property name="gh-pages.dir" value="../unfolding-pages/"/>
 
 	<!-- Variables used for JUnit testing -->
 	<property name="test.dir" location="test" />
