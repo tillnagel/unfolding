@@ -14,8 +14,8 @@ import de.fhpotsdam.unfolding.utils.MapUtils;
 public class MBTilesMapApp extends PApplet {
 
 	// relative path varies depending on whether this was started as applet or application
-	public static final String JDBC_CONN_STRING_APPLICATION = "jdbc:sqlite:./data/muse-dark-2-4.mbtiles";
-	public static final String JDBC_CONN_STRING_APPLET = "jdbc:sqlite:../data/muse-dark-2-4.mbtiles";
+	public static final String JDBC_CONN_STRING_APPLICATION = "jdbc:sqlite:./bin/muse-dark-2-4.mbtiles";
+	public static final String JDBC_CONN_STRING_APPLET = "jdbc:sqlite:./muse-dark-2-4.mbtiles";
 	
 	public static String mbTilesConnectionString = JDBC_CONN_STRING_APPLET;
 
@@ -36,6 +36,6 @@ public class MBTilesMapApp extends PApplet {
 
 	public static void main(String[] args) {
 		mbTilesConnectionString = JDBC_CONN_STRING_APPLICATION;
-		PApplet.main(new String[] { "de.fhpotsdam.unfolding.examples.MBTilesMapApp" });
+		PApplet.main(new String[] { "de.fhpotsdam.unfolding.examples.provider.MBTilesMapApp" });
 	}
 }

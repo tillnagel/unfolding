@@ -51,7 +51,7 @@ public class SimpleMaskAppGl extends PApplet {
 	}
 
 	public static void main(String[] args) {
-		PApplet.main(new String[] { "de.fhpotsdam.unfolding.examples.ui.SimpleMaskAppGl" });
+		PApplet.main(new String[] { "de.fhpotsdam.unfolding.examples.mask.SimpleMaskAppGl" });
 	}
 
 }

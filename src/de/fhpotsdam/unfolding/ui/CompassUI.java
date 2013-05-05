@@ -32,8 +32,7 @@ public class CompassUI {
 	public CompassUI(PApplet p, AbstractMapDisplay mapDisplay, PImage img, float x, float y) {
 		this.p = p;
 		this.mapDisplay = mapDisplay;
-		this.pos.x = x;
-		this.pos.y = y;
+		this.pos = new ScreenPosition(x, y);
 		this.img = img;
 		scale = 1;
 	}
