@@ -6,7 +6,7 @@
 
 	<!-- Sets variables which can later be used. -->
 	<!-- The value of a property is accessed via ${} -->
-	<property name="version" value="0.9.2" />
+	<property name="version" value="0.9.3" />
 	<property name="unfolding.jar" value="unfolding.${version}.jar" />
 
 	<property name="src.dir" location="src" />
@@ -135,7 +135,7 @@
 		<copy file="resources/unfolding_app_template/classpath" tofile="${dist.dir}/unfolding_app_template/.classpath" />
 		<copy file="resources/unfolding_app_template/project" tofile="${dist.dir}/unfolding_app_template/.project" />
 		<!-- create a zip file -->
-		<zip destfile="${dist.dir}/unfolding_app_template.zip"
+		<zip destfile="${dist.dir}/unfolding_app_template_${version}.zip"
 			basedir="${dist.dir}/unfolding_app_template/"
 		/>
 	</target>
@@ -174,7 +174,7 @@
 		<copy file="resources/unfolding_app_template/classpath_with_examples" tofile="${dist.dir}/unfolding_app_template_with_examples/.classpath" />
 		<copy file="resources/unfolding_app_template/project_with_examples" tofile="${dist.dir}/unfolding_app_template_with_examples/.project" />
 		<!-- create a zip file -->
-		<zip destfile="${dist.dir}/unfolding_app_template_with_examples.zip"
+		<zip destfile="${dist.dir}/unfolding_app_template_with_examples_${version}.zip"
 			basedir="${dist.dir}/unfolding_app_template_with_examples/"
 		/>
 	</target>
@@ -202,7 +202,7 @@
 		<zip destfile="${dist.dir}/Unfolding.zip" 
 			basedir="${dist.dir}/Unfolding/" />
 		<!-- wrap again so users can easily install it by copying the unzipped directory. -->
-		<zip destfile="${dist.dir}/Unfolding_for_processing.zip" 
+		<zip destfile="${dist.dir}/Unfolding_for_processing_${version}.zip" 
 			basedir="${dist.dir}/" includes="Unfolding.zip" />
 	</target>
 
