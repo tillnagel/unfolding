@@ -1,0 +1,9 @@
+Release Notes
+
+0.9.1 to 0.9.3
+
+120 files changed, 4431 insertions, 600 deletions (git)
+
+- Added MIT license
+- Cleaned up distribution
+- Added centroid algorithm (and examples)
