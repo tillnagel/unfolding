@@ -1,9 +1,8 @@
-package de.fhpotsdam.unfolding.examples.overviewdetail;
+package de.fhpotsdam.unfolding.examples.overviewdetail.connection;
 
 import processing.core.PApplet;
 import codeanticode.glgraphics.GLConstants;
 import de.fhpotsdam.unfolding.UnfoldingMap;
-import de.fhpotsdam.unfolding.events.EventDispatcher;
 import de.fhpotsdam.unfolding.utils.MapUtils;
 import de.fhpotsdam.unfolding.utils.ScreenPosition;
 
@@ -30,8 +29,7 @@ public class ConvexHullConnectedMapOnStaticMap extends PApplet {
 		mapOverview = new UnfoldingMap(this, "overview", 10, 10, 585, 580);
 		mapOverview.zoomToLevel(1);
 		mapOverview.setZoomRange(1, 7);
-		EventDispatcher eventDispatcher = MapUtils
-				.createDefaultEventDispatcher(this, mapOverview);
+		MapUtils.createDefaultEventDispatcher(this, mapOverview);
 
 		mapDetail = new UnfoldingMap(this, "detail", 605, 10, 150, 150);
 		mapDetail.setTweening(false);

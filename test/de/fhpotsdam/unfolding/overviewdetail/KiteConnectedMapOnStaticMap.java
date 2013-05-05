@@ -1,8 +1,9 @@
-package de.fhpotsdam.unfolding.examples.overviewdetail;
+package de.fhpotsdam.unfolding.overviewdetail;
 
 import processing.core.PApplet;
 import codeanticode.glgraphics.GLConstants;
 import de.fhpotsdam.unfolding.UnfoldingMap;
+import de.fhpotsdam.unfolding.examples.overviewdetail.connection.OverviewPlusDetailConnection;
 import de.fhpotsdam.unfolding.geo.Location;
 
 /**

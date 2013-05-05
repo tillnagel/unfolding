@@ -1,5 +1,6 @@
-package de.fhpotsdam.unfolding.examples.overviewdetail;
+package de.fhpotsdam.unfolding.overviewdetail;
 
+import de.fhpotsdam.unfolding.examples.overviewdetail.connection.ConvexHull;
 import processing.core.PApplet;
 import processing.core.PVector;
 
@@ -20,6 +21,9 @@ public class ConvexHullApp extends PApplet {
 		
 		convexHull = new ConvexHull(this);
 		convexHull.showDebugPoints = true;
+		convexHull.addPoint(new PVector(random(width), random(height)));
+		convexHull.addPoint(new PVector(random(width), random(height)));
+		convexHull.addPoint(new PVector(random(width), random(height)));
 	}
 
 	public void draw() {

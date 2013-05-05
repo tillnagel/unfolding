@@ -1,4 +1,4 @@
-package de.fhpotsdam.unfolding.examples.data.speed;
+package de.fhpotsdam.unfolding.examples.data.customreader;
 
 import java.util.HashMap;
 import java.util.List;
@@ -10,6 +10,9 @@ import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.marker.AbstractShapeMarker;
 import de.fhpotsdam.unfolding.utils.MapPosition;
 
+/**
+ * Custom marker to show colored lines, depending on speed values from custom data reader.
+ */
 public class ColoredLinesMarker extends AbstractShapeMarker {
 
 	public ColoredLinesMarker(List<Location> locations, HashMap<String, Object> properties) {
@@ -18,7 +21,8 @@ public class ColoredLinesMarker extends AbstractShapeMarker {
 	}
 
 	@Override
-	protected void draw(PGraphics pg, List<MapPosition> mapPositions, HashMap<String, Object> properties, UnfoldingMap map) {
+	protected void draw(PGraphics pg, List<MapPosition> mapPositions, HashMap<String, Object> properties,
+			UnfoldingMap map) {
 		pg.pushStyle();
 
 		List<Double> speedList = (List<Double>) properties.get("speedList");

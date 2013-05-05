@@ -1,4 +1,4 @@
-package de.fhpotsdam.unfolding.examples.overviewdetail;
+package de.fhpotsdam.unfolding.examples.overviewdetail.connection;
 
 public interface OverviewPlusDetailConnection {
 	

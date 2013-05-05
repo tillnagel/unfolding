@@ -7,6 +7,9 @@ import de.fhpotsdam.unfolding.utils.GeoUtils;
 import de.fhpotsdam.unfolding.utils.MapUtils;
 import de.fhpotsdam.unfolding.utils.ScreenPosition;
 
+/**
+ * Shows a circle with a 5km radius.
+ */
 public class GetDistanceApp extends PApplet {
 
 	UnfoldingMap map;

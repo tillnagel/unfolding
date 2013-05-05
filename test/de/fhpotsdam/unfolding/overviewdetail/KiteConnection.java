@@ -1,5 +1,6 @@
-package de.fhpotsdam.unfolding.examples.overviewdetail;
+package de.fhpotsdam.unfolding.overviewdetail;
 
+import de.fhpotsdam.unfolding.examples.overviewdetail.connection.OverviewPlusDetailConnection;
 import processing.core.PApplet;
 import processing.core.PVector;
 

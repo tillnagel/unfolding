@@ -1,4 +1,4 @@
-package de.fhpotsdam.unfolding.examples.overviewdetail;
+package de.fhpotsdam.unfolding.examples.overviewdetail.connection;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -21,7 +21,7 @@ public class ConvexHull {
 	public int hullStrokeColor = 0;
 	public int hullFillColor = -256;
 
-	protected boolean showDebugPoints = false;
+	public boolean showDebugPoints = false;
 
 	protected PApplet p;
 

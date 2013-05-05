@@ -11,7 +11,11 @@ import de.fhpotsdam.unfolding.marker.Marker;
 import de.fhpotsdam.unfolding.utils.MapUtils;
 
 /**
- * Displays earthquake markers from an RSS feed.
+ * Displays earthquake markers from an RSS feed for the last 7 days.
+ * 
+ * Reads from GeoRSS file, and uses default marker creation. 
+ * 
+ * Features are points (positions of earthquakes).
  */
 public class GeoRSSMarkerApp extends PApplet {
 

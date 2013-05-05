@@ -8,6 +8,8 @@ import de.fhpotsdam.unfolding.utils.MapUtils;
 
 /**
  * Load two maps and fade between.
+ * 
+ * Press key '1' to fade once, and press key '2' to start fading animation.
  */
 public class FadeTwoMapsApp extends PApplet {
 	

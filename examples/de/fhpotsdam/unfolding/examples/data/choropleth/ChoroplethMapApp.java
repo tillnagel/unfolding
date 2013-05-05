@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.List;
 
 import processing.core.PApplet;
-import processing.xml.XMLElement;
 import codeanticode.glgraphics.GLConstants;
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.data.Feature;
@@ -97,45 +96,6 @@ public class ChoroplethMapApp extends PApplet {
 		String id;
 		Integer year;
 		Float value;
-	}
-
-	// ------------------------------------------
-
-	/**
-	 * Test loading method to load from original XML file from WorldBank.
-	 */
-	private HashMap<String, DataEntry> loadPopulationDensityFromXML(String fileName) {
-		HashMap<String, DataEntry> dataEntriesMap = new HashMap<String, DataEntry>();
-
-		// Get all records
-		XMLElement rss = new XMLElement(this, fileName);
-		XMLElement[] records = rss.getChildren("data/record");
-		for (int i = 0; i < records.length; i++) {
-			DataEntry dataEntry = new DataEntry();
-
-			XMLElement[] fields = records[i].getChildren("field");
-			for (int j = 0; j < fields.length; j++) {
-				XMLElement field = fields[j];
-				String fieldName = field.getString("name");
-
-				if (fieldName.equals("Country or Area")) {
-					dataEntry.countryName = field.getContent();
-				} else if (fieldName.equals("Year")) {
-					dataEntry.year = Integer.parseInt(field.getContent());
-
-				} else if (fieldName.equals("Value")) {
-					String valueStr = field.getContent();
-					if (valueStr != null) {
-						dataEntry.value = Float.parseFloat(valueStr);
-					}
-				}
-			}
-
-			if (dataEntry.year == 2010) {
-				dataEntriesMap.put(dataEntry.countryName, dataEntry);
-			}
-		}
-		return dataEntriesMap;
 	}
 
 }

@@ -13,7 +13,7 @@ import de.fhpotsdam.unfolding.geo.Location;
  * 
  * Reads all track points of all track segments of all tracks into one line feature.
  */
-public class GPXReader {
+public class GPXReader extends GeoDataReader {
 
 	/**
 	 * Loads track segments of a GPX file, and returns them as a single line marker.
@@ -31,13 +31,13 @@ public class GPXReader {
 		XMLElement[] itemXMLElements = gpx.getChildren("trk/trkseg/trkpt");
 		for (int i = 0; i < itemXMLElements.length; i++) {
 			XMLElement trackPoint = itemXMLElements[i];
-			
+
 			// Adds location for track point
 			float lat = trackPoint.getFloat("lat");
 			float lon = trackPoint.getFloat("lon");
 			Location location = new Location(lat, lon);
 			trackFeature.addLocation(location);
-			
+
 			XMLElement trackPointTime = trackPoint.getChild("time");
 			if (trackPointTime != null) {
 				trackPointTimes.add(trackPointTime.getContent());

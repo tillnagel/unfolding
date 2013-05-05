@@ -1,0 +1,49 @@
+- Clean up /test
+- Move test apps from /examples to /test
+	- Select fewer example per section (1 best practice!)
+- Add javadocs to examples
+- Convert more examples from /examples to /examples-processing
+	NOT CLEANED PACKAGES: 
+		- From events to misc
+		(i.e. animation to distance done, and multi to ui)
+
+
+
+- Pull Request: https://github.com/tillnagel/unfolding/pull/56
+- Pull Request: https://github.com/tillnagel/unfolding/pull/59
+
+
+- Add tweening (from KUL student fork)
+
+
+- Merge develop into master
+
+- Publish distributions as 0.9.3
+	- Update ant script: build.xml
+	- Unfolding App Template 
+		- How to handle examples-extern? (/examples-extern, /lib-extern, .classpath)
+		- Test on Linux and Mac
+	- Processing 
+		- Test w/ 1.5
+		
+
+
+
+
+Processing Examples Candidates
+--------------------------
+- animation/FadeTwoMapsApp
+
+
+- data/GeoRSSMarkerApp  (auto default marker creation)
+- data/GeoJSONMarkerApp (auto default marker creation)
+- data/TransitLinesMarkerApp (manually create non-own marker with own color)
+- data/temporal/AnimatedTemporalDotsApp
+- data/choropleth/ChoroplethMapApp
+
+- distance/GreatCircleConnectionApp
+
+- provider/MBTilesMapApp
+
+
+

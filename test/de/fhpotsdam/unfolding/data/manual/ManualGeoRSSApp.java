@@ -1,4 +1,4 @@
-package de.fhpotsdam.unfolding.examples.data.manual;
+package de.fhpotsdam.unfolding.data.manual;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +17,7 @@ import de.fhpotsdam.unfolding.utils.ScreenPosition;
  * according to current map transformation.
  * 
  * (Not using Features, GeoDataReader, nor Marker and MarkerManager.)
+ * Demonstrates how to create marker completely by your own, if you need to.
  * 
  * As you can see, the markers are not cut off at the border of the map. So, this simple mechanism
  * only works for single full-canvas maps. If you have maps placed on the canvas, or multiple ones,
