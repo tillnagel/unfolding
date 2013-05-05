@@ -1,4 +1,4 @@
-package de.fhpotsdam.unfolding.examples.extern.animation;
+package de.fhpotsdam.unfolding.examples.animation;
 
 import processing.core.PApplet;
 import de.fhpotsdam.unfolding.UnfoldingMap;
