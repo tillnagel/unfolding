@@ -1,4 +1,4 @@
-package de.fhpotsdam.unfolding.examples.data.countryMarker;
+package de.fhpotsdam.unfolding.examples.data.countrydata;
 
 import java.util.HashMap;
 import java.util.List;
@@ -17,7 +17,9 @@ import de.fhpotsdam.unfolding.utils.MapUtils;
 /**
  * Shows data bubbles for each country. Loads country shapes, and calculates the centroid to create point marker.
  * 
- * ATTENTION: The used data set does not make sense, at the moment (population density!)
+ * This example loads polygon features (countries) and displays a single data marker (population) in their center.
+ * 
+ * Uses the data CSV for all countries from http://opengeocode.org/download/cow.php
  */
 public class CountryBubbleMapApp extends PApplet {
 
@@ -40,18 +42,19 @@ public class CountryBubbleMapApp extends PApplet {
 		// countryMarkers = MapUtils.createSimpleMarkers(countries);
 
 		// Load population data
-		dataEntriesMap = loadPopulationDensityFromCSV("countries-population-density.csv");
+		dataEntriesMap = loadPopulationFromCSV("countries-data.csv");
 
 		for (Feature country : countries) {
+			// Calculates center to show single point marker for polygon feature
 			Location location = GeoUtils.getCentroid(country, true);
+
 			if (location != null) {
 				SimplePointMarker marker = new SimplePointMarker(location);
 
 				String countryId = country.getId();
 				DataEntry dataEntry = dataEntriesMap.get(countryId);
 				if (dataEntry != null) {
-					println("Country " + countryId + " = " + dataEntry.countryName);
-					float s = map(dataEntry.value, 0, 1000, 0, 100);
+					float s = map(dataEntry.value, 0, 1300000000, 0, 100); // from 0 to China pop (1.3billion)
 					marker.setRadius(s);
 					map.addMarkers(marker);
 				}
@@ -66,18 +69,23 @@ public class CountryBubbleMapApp extends PApplet {
 		map.draw();
 	}
 
-	public HashMap<String, DataEntry> loadPopulationDensityFromCSV(String fileName) {
+	public HashMap<String, DataEntry> loadPopulationFromCSV(String fileName) {
 		HashMap<String, DataEntry> dataEntriesMap = new HashMap<String, DataEntry>();
 
 		String[] rows = loadStrings(fileName);
+		int i = 0;
 		for (String row : rows) {
+			i++;
+			if (i < 30) {
+				continue;
+			}
 			// Reads country name and population density value from CSV row
 			String[] columns = row.split(";");
-			if (columns.length >= 3) {
+			if (columns.length >= 52) {
 				DataEntry dataEntry = new DataEntry();
-				dataEntry.countryName = columns[0];
-				dataEntry.id = columns[1];
-				dataEntry.value = Float.parseFloat(columns[2]);
+				dataEntry.countryName = columns[4]; // country name
+				dataEntry.id = columns[1].trim(); // 3 letter ISO code
+				dataEntry.value = Float.parseFloat(columns[52]); // population
 				dataEntriesMap.put(dataEntry.id, dataEntry);
 			}
 		}

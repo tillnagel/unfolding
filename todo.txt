@@ -3,7 +3,11 @@
 	- Select fewer example per section (1 best practice!)
 - Add javadocs to examples
 - Convert more examples from /examples to /examples-processing
-- 
+	NOT CLEANED PACKAGES: 
+		- From events to misc
+		(i.e. animation to distance done, and multi to ui)
+
+
 
 - Pull Request: https://github.com/tillnagel/unfolding/pull/56
 - Pull Request: https://github.com/tillnagel/unfolding/pull/59
@@ -33,8 +37,13 @@ Processing Examples Candidates
 
 - data/GeoRSSMarkerApp  (auto default marker creation)
 - data/GeoJSONMarkerApp (auto default marker creation)
-
 - data/TransitLinesMarkerApp (manually create non-own marker with own color)
+- data/temporal/AnimatedTemporalDotsApp
+- data/choropleth/ChoroplethMapApp
+
+- distance/GreatCircleConnectionApp
+
+- provider/MBTilesMapApp
 
 
 
