@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import processing.core.PVector;
-import codeanticode.glgraphics.GLConstants;
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.utils.ScreenPosition;
@@ -19,7 +18,7 @@ public class ArcsBezierMap3DApp extends Map3DApp {
 	protected Location warsawLocation = new Location(52.2166f, 21.03333f);
 
 	public void setup() {
-		size(1024, 768, GLConstants.GLGRAPHICS);
+		size(1024, 768, OPENGL);
 
 		map = new UnfoldingMap(this);
 		map.zoomAndPanTo(berlinLocation, 5);
@@ -45,13 +44,12 @@ public class ArcsBezierMap3DApp extends Map3DApp {
 		noFill();
 		stroke(255, 0, 0, 100);
 		strokeWeight(6);
-		
+
 		// Draw full bezier
 		drawBezier(pos1, pos2);
 		drawBezier(pos1, pos3);
 		drawBezier(pos1, warsawPos);
-		
-		
+
 		// Draw spheres each step on one bezier
 		stroke(0, 255, 0, 10);
 		List<PVector> bezierPoints = getBezierPoints(pos1, pos2);
@@ -61,21 +59,19 @@ public class ArcsBezierMap3DApp extends Map3DApp {
 			sphere(2);
 			popMatrix();
 		}
-		
-		
+
 		// Animate sphere tweening over one bezier
 		stroke(0, 0, 255);
 		float height = pos1.dist(pos2);
-		PVector v = getBezierPoint3D(pos1,  pos2, height, t);
+		PVector v = getBezierPoint3D(pos1, pos2, height, t);
 		pushMatrix();
 		translate(v.x, v.y, v.z);
 		sphere(2);
 		popMatrix();
-			t += 0.04;
+		t += 0.04;
 		if (t > 1) {
 			t = 0;
 		}
-	
 
 		popMatrix();
 
@@ -85,7 +81,7 @@ public class ArcsBezierMap3DApp extends Map3DApp {
 		fill(0);
 		text("fps: " + nfs(frameRate, 0, 2), 10, 20);
 	}
-	
+
 	float t = 0;
 
 	public void drawBezier(ScreenPosition pos1, ScreenPosition pos2) {
@@ -114,7 +110,5 @@ public class ArcsBezierMap3DApp extends Map3DApp {
 		float z = bezierPoint(0, height, height, 0, t);
 		return new PVector(x, y, z);
 	}
-	
-	
-	
+
 }

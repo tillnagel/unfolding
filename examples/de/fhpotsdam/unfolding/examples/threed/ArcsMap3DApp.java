@@ -7,7 +7,6 @@ import processing.core.PApplet;
 import toxi.geom.Line3D;
 import toxi.geom.Spline3D;
 import toxi.geom.Vec3D;
-import codeanticode.glgraphics.GLConstants;
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.utils.ScreenPosition;
@@ -22,7 +21,7 @@ public class ArcsMap3DApp extends Map3DApp {
 	protected Location warsawLocation = new Location(52.2166f, 21.03333f);
 
 	public void setup() {
-		size(1024, 768, GLConstants.GLGRAPHICS);
+		size(1024, 768, OPENGL);
 
 		map = new UnfoldingMap(this);
 		map.zoomAndPanTo(berlinLocation, 3);
@@ -39,7 +38,7 @@ public class ArcsMap3DApp extends Map3DApp {
 		map.draw();
 
 		mousePos = getMouse3D();
-		
+
 		ScreenPosition pos1 = map.getScreenPosition(berlinLocation);
 		ScreenPosition pos2 = map.getScreenPosition(hamburgLocation);
 		ScreenPosition pos3 = map.getScreenPosition(munichLocation);
@@ -49,9 +48,8 @@ public class ArcsMap3DApp extends Map3DApp {
 		stroke(255, 0, 0, 100);
 		strokeWeight(6);
 		drawBezier(pos1, pos2);
-		//drawBezier(pos1, pos3);
-		//drawBezier(pos1, warsawPos);
-
+		// drawBezier(pos1, pos3);
+		// drawBezier(pos1, warsawPos);
 
 		popMatrix();
 
@@ -61,18 +59,17 @@ public class ArcsMap3DApp extends Map3DApp {
 		fill(0);
 		text("fps: " + nfs(frameRate, 0, 2), 10, 20);
 	}
-	
+
 	public void drawBezier(ScreenPosition pos1, ScreenPosition pos2) {
 		float height = pos1.dist(pos2);
 		bezier(pos1.x, pos1.y, 0, pos1.x, pos1.y, height, pos2.x, pos2.y, height, pos2.x, pos2.y, 0);
 
 	}
-	
-	
+
 	// OUTDATED EXPERIMENTS TO DRAW ARCS ---------------------------------------------
 
 	public void drawArcs(ScreenPosition pos1, ScreenPosition pos2) {
-		
+
 		Vec3D a = new Vec3D(pos1.x, pos1.y, 0);
 		Vec3D b = new Vec3D(pos2.x, pos2.y, 0);
 

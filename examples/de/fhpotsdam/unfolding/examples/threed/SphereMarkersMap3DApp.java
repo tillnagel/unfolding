@@ -2,7 +2,6 @@ package de.fhpotsdam.unfolding.examples.threed;
 
 import java.util.List;
 
-import codeanticode.glgraphics.GLConstants;
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.data.Feature;
 import de.fhpotsdam.unfolding.data.GeoRSSReader;
@@ -13,11 +12,11 @@ public class SphereMarkersMap3DApp extends Map3DApp {
 
 	String earthquakesURL = "http://earthquake.usgs.gov/earthquakes/feed/atom/4.5/week";
 	List<Feature> features;
-	
+
 	boolean useColorCoding = false;
 
 	public void setup() {
-		size(1024, 768, GLConstants.GLGRAPHICS);
+		size(1024, 768, OPENGL);
 
 		map = new UnfoldingMap(this);
 		map.zoomAndPanTo(berlinLocation, 3);
@@ -41,9 +40,8 @@ public class SphereMarkersMap3DApp extends Map3DApp {
 
 		mousePos = getMouse3D();
 
-		
 		// TODO Create and use GLModel to improve fps
-		
+
 		fill(255, 0, 0, 100);
 		noStroke();
 		float maxSize = map(map.getZoomLevel(), 0, 6, 4, 40);

@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import processing.core.PVector;
-import codeanticode.glgraphics.GLConstants;
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.utils.ScreenPosition;
@@ -21,7 +20,7 @@ public class ArcsWithAnimatedParticlesMap3DApp extends Map3DApp {
 	List<AnimatedParticle> animatedParticles2 = new ArrayList<AnimatedParticle>();
 
 	public void setup() {
-		size(1024, 768, GLConstants.GLGRAPHICS);
+		size(1024, 768, OPENGL);
 
 		map = new UnfoldingMap(this);
 		map.zoomAndPanTo(berlinLocation, 5);
@@ -42,9 +41,9 @@ public class ArcsWithAnimatedParticlesMap3DApp extends Map3DApp {
 		pushMatrix();
 		rotateX(0.7f);
 		translate(0, -160, -100);
-		translate(width/2, height/2);
-		rotateZ(rotateZValue+=0.01f);
-		translate(-width/2, -height/2);
+		translate(width / 2, height / 2);
+		rotateZ(rotateZValue += 0.01f);
+		translate(-width / 2, -height / 2);
 		map.draw();
 
 		mousePos = getMouse3D();
