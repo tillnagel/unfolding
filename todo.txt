@@ -1,0 +1,18 @@
+- Clean up /test
+- Move test apps from /examples to /test
+	- Select fewer example per section (1 best practice!)
+- Add javadocs to examples
+- Convert more examples from /examples to /examples-processing
+- 
+
+
+- Merge develop into master
+
+- Publish distributions as 0.9.3
+	- Update ant script: build.xml
+	- Unfolding App Template 
+		- How to handle examples-extern? (/examples-extern, /lib-extern, .classpath)
+		- Test on Linux and Mac
+	- Processing 
+		- Test w/ 1.5
+		
