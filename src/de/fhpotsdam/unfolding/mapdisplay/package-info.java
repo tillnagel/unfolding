@@ -1,7 +1,4 @@
 /**
- * How maps get displayed.
- *
- * This is mostly internal stuff.
+ * Map displaying variations, e.g. P2D or P3D.
  */
-
 package de.fhpotsdam.unfolding.mapdisplay;

@@ -1,5 +1,5 @@
 /**
-The main classes UnfoldingMap and MapContainer are here.
+ * Contains the main UnfoldingMap class, and all sub-packages.
  */
 
 package de.fhpotsdam.unfolding;
