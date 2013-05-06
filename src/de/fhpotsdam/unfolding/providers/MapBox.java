@@ -4,6 +4,9 @@ import processing.core.PApplet;
 import de.fhpotsdam.unfolding.core.Coordinate;
 import de.fhpotsdam.unfolding.providers.OpenStreetMap.OpenStreetMapProvider;
 
+/**
+ * Various map tiles from MapBox.
+ */
 public class MapBox {
 
 	public static abstract class MapBoxProvider extends OpenStreetMapProvider {

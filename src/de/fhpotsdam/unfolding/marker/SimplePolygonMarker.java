@@ -8,16 +8,36 @@ import processing.core.PGraphics;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.utils.MapPosition;
 
+/**
+ * Marker representing multiple locations as polygon. Use directly to display as simple colored polygon, or extend it
+ * for custom styles.
+ * 
+ * When in need of multiple connected polygons (e.g. a country and an island) use MultiMarker with Polygons.
+ */
 public class SimplePolygonMarker extends AbstractShapeMarker {
 
 	public SimplePolygonMarker() {
 		super();
 	}
 
+	/**
+	 * Creates a polygon marker.
+	 * 
+	 * @param locations
+	 *            The locations to display as polygon.
+	 */
 	public SimplePolygonMarker(List<Location> locations) {
 		super(locations);
 	}
 
+	/**
+	 * Creates a polygon marker with additional properties.
+	 * 
+	 * @param locations
+	 *            The locations to display as polygon.
+	 * @param properties
+	 *            Optional data properties.
+	 */
 	public SimplePolygonMarker(List<Location> locations, HashMap<String, Object> properties) {
 		super(locations, properties);
 	}
@@ -40,22 +60,6 @@ public class SimplePolygonMarker extends AbstractShapeMarker {
 		}
 		pg.endShape(PConstants.CLOSE);
 		pg.popStyle();
-	}
-
-	public void setColor(int color) {
-		this.color = color;
-	}
-
-	public void setStrokeColor(int strokeColor) {
-		this.strokeColor = strokeColor;
-	}
-
-	public void setHighlightColor(int highlightColor) {
-		this.highlightColor = highlightColor;
-	}
-
-	public void setHighlightStrokeColor(int highlightStrokeColor) {
-		this.highlightStrokeColor = highlightStrokeColor;
 	}
 
 }

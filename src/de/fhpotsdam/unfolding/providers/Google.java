@@ -6,11 +6,11 @@ import de.fhpotsdam.unfolding.geo.MercatorProjection;
 import de.fhpotsdam.unfolding.geo.Transformation;
 
 /**
- * 
- * Note: This is for informational purpose, only. See Google's Terms of Service for usage
+ * Google Maps, for informational purpose, only. See Google's Terms of Service for usage
  * conditions.
  */
 public class Google {
+	
 	public static abstract class GoogleProvider extends AbstractMapTileUrlProvider {
 
 		public GoogleProvider() {
@@ -32,7 +32,10 @@ public class Google {
 
 		public abstract String[] getTileUrls(Coordinate coordinate);
 	}
-
+	
+	/**
+	 * Google Terrain Map.
+	 */
 	public static class GoogleTerrainProvider extends GoogleProvider {
 		public GoogleTerrainProvider() {
 		}
@@ -44,6 +47,9 @@ public class Google {
 		}
 	}
 
+	/**
+	 * Standard Google Map. 
+	 */
 	public static class GoogleMapProvider extends GoogleProvider {
 		public GoogleMapProvider() {
 		}
@@ -55,6 +61,9 @@ public class Google {
 		}
 	}
 
+	/**
+	 * Simplified Google Map. 
+	 */
 	public static class GoogleSimplifiedProvider extends GoogleProvider {
 		public GoogleSimplifiedProvider() {
 		}
