@@ -9,10 +9,14 @@ import de.fhpotsdam.unfolding.utils.MapUtils;
 import de.fhpotsdam.unfolding.utils.ScreenPosition;
 
 /**
- * Simple marker display, without the use of MarkerManager.
+ * Simple custom marker display, without the use of MarkerManager.
+ * 
+ * Use if you are not familiar with writing own classes, and if you want to customize more than colors. 
  * 
  * Conversion between geo-location and screen position is done via the marker, but drawing the markers is done by this
- * application itself. This is the easiest way of drawing own styled markers.
+ * application itself. This is the easiest way of drawing own styled markers. A more advanced way is to create an own
+ * Marker class with custom style, where all the position handling can be done via the internal marker mechanism. See
+ * tutorials for an explanation of the differences.
  */
 @SuppressWarnings("serial")
 public class SimpleMarkerApp extends PApplet {
@@ -27,7 +31,7 @@ public class SimpleMarkerApp extends PApplet {
 		smooth();
 
 		map = new UnfoldingMap(this);
-		map.setTweening(true);
+		// map.setTweening(true);
 		map.zoomToLevel(3);
 		map.panTo(new Location(40f, 8f));
 		MapUtils.createDefaultEventDispatcher(this, map);
@@ -63,10 +67,10 @@ public class SimpleMarkerApp extends PApplet {
 		strokeCap(SQUARE);
 		noFill();
 		// Zoom dependent marker size
-		//float s = map.getZoom();
+		// float s = map.getZoom();
 		float s = 44;
-		arc(posLondon.x, posLondon.y, s, s, -PI*0.9f, -PI*0.1f);
-		arc(posLondon.x, posLondon.y, s, s, PI*0.1f, PI*0.9f);
+		arc(posLondon.x, posLondon.y, s, s, -PI * 0.9f, -PI * 0.1f);
+		arc(posLondon.x, posLondon.y, s, s, PI * 0.1f, PI * 0.9f);
 		fill(0);
 		text("London", posLondon.x - textWidth("London") / 2, posLondon.y + 4);
 	}

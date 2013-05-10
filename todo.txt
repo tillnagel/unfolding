@@ -40,10 +40,13 @@ Processing Examples Candidates
 - data/TransitLinesMarkerApp (manually create non-own marker with own color)
 - data/temporal/AnimatedTemporalDotsApp
 - data/choropleth/ChoroplethMapApp
+- data/countrydata/CountryBubbleMap
 
 - distance/GreatCircleConnectionApp
 
 - provider/MBTilesMapApp
+
+- misc/DebugDisplayApp
 
 
 

@@ -5,31 +5,28 @@ import java.util.ArrayList;
 import processing.core.PApplet;
 import codeanticode.glgraphics.GLConstants;
 import de.fhpotsdam.unfolding.UnfoldingMap;
-import de.fhpotsdam.unfolding.events.EventDispatcher;
 import de.fhpotsdam.unfolding.events.MapEvent;
-import de.fhpotsdam.unfolding.events.MapEventListener;
 import de.fhpotsdam.unfolding.providers.Microsoft;
 import de.fhpotsdam.unfolding.utils.MapUtils;
 
 /**
  * Some simple animated circle experiment.
  */
-public class MovingCirclesMap extends PApplet implements MapEventListener {
+public class MovingCirclesMap extends PApplet {
 
 	UnfoldingMap map1;
 
 	ArrayList circles = new ArrayList();
 	int circleNumber = 1200;
 
-	int counter = 0;
-
+	int reInitCounter = 0;
+	boolean reInit = false;
+	
 	public void setup() {
 		size(800, 600, GLConstants.GLGRAPHICS);
 
 		map1 = new UnfoldingMap(this, "map1", 0, 0, 800, 600, true, false, new Microsoft.AerialProvider());
-		EventDispatcher eventDispatcher = MapUtils.createDefaultEventDispatcher(this, map1);
-		eventDispatcher.register(map1, "pan");
-		// eventDispatcher.register(this, "zoom");
+		MapUtils.createDefaultEventDispatcher(this, map1);
 
 		initCircles(circles);
 	}
@@ -37,24 +34,23 @@ public class MovingCirclesMap extends PApplet implements MapEventListener {
 	public void draw() {
 		background(0, 0, 30);
 
-		// map1.draw();
-
 		// draw all circles
 		drawCircles(0, circles.size());
 		// move all circles
 		updateCircles(0, circles.size());
 
 		// if not interacted with the map restart after a while
-		counter++;
-		if (counter > 100) {
+		reInitCounter++;
+		if (reInitCounter > 100 || reInit) {
 			reInitCircles();
+			reInit = false;
+			reInitCounter = 0;
 		}
 	}
 
-	@Override
-	public void onManipulation(MapEvent event) {
-		println("mapevent " + event.getScopeId());
-		reInitCircles();
+	public void mapChanged(MapEvent mapEvent) {
+		println("mapevent " + mapEvent.getScopeId());
+		reInit = true;
 	}
 
 	void initCircles(ArrayList circles) {
@@ -78,7 +74,6 @@ public class MovingCirclesMap extends PApplet implements MapEventListener {
 	}
 
 	void reInitCircles() {
-		counter = 0;
 
 		ArrayList newCircles = new ArrayList();
 		initCircles(newCircles);
@@ -104,9 +99,8 @@ public class MovingCirclesMap extends PApplet implements MapEventListener {
 	}
 
 	/**
-	 * Returns a nearest not already moved circle. Does not return always the nearest, but one which
-	 * is in proximity of the position (x,y) and not moved. (As more circles are already moved the
-	 * farer "nearest" could be)
+	 * Returns a nearest not already moved circle. Does not return always the nearest, but one which is in proximity of
+	 * the position (x,y) and not moved. (As more circles are already moved the farer "nearest" could be)
 	 */
 	Circle foundNearestCircle(ArrayList circles, float x, float y) {
 		float minDist = width + height;
@@ -168,11 +162,6 @@ public class MovingCirclesMap extends PApplet implements MapEventListener {
 		fill(pixels[x + y * width], 127);
 		noStroke();
 		ellipse(x, y, pSize, pSize);
-	}
-
-	@Override
-	public String getId() {
-		return "";
 	}
 
 }
