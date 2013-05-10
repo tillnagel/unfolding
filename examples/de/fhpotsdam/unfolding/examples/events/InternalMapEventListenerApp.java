@@ -13,7 +13,7 @@ import de.fhpotsdam.unfolding.utils.GeoUtils;
 import de.fhpotsdam.unfolding.utils.MapUtils;
 
 /**
- * This example shows the internal way of listening to map events. Look into {@link MapChangedApp} for the standard way.
+ * Advanced! This example shows the internal way of listening to map events. Look into {@link MapChangedApp} for the standard way.
  * 
  * By implementing MapEventListener and registering this PApplet, it handles events in the same way as the maps
  * themselves.
