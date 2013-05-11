@@ -5,6 +5,13 @@ import java.util.List;
 
 import de.fhpotsdam.unfolding.UnfoldingMap;
 
+/**
+ * Broadcasts map events.
+ * 
+ * Sub classes (such as MouseHandler, and KeyboardHandler) can broadcast map events, such as ZoomMapEvent and
+ * PanMapEvent.
+ * 
+ */
 public class MapEventBroadcaster {
 
 	protected List<UnfoldingMap> maps;

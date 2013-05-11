@@ -5,6 +5,9 @@ import org.apache.log4j.Logger;
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.geo.Location;
 
+/**
+ * A map event for all pan events, such as (relative) panBy, (absolute) panTo, or (relative) panLeft, etc.
+ */
 public class PanMapEvent extends MapEvent {
 
 	protected static Logger log = Logger.getLogger(PanMapEvent.class);
@@ -49,13 +52,13 @@ public class PanMapEvent extends MapEvent {
 	@Override
 	public void executeManipulationFor(UnfoldingMap map) {
 		if (PAN_BY.equals(getSubType())) {
-//			log.debug("Panning mapDisplay " + map.getId() + " from " + fromLocation + " to "
-//					+ toLocation);
+			// log.debug("Panning mapDisplay " + map.getId() + " from " + fromLocation + " to "
+			// + toLocation);
 			map.pan(fromLocation, toLocation);
 		}
 
 		if (PAN_TO.equals(getSubType())) {
-//			log.debug("Panning mapDisplay " + map.getId() + " to " + toLocation);
+			// log.debug("Panning mapDisplay " + map.getId() + " to " + toLocation);
 			map.panTo(toLocation);
 		}
 
