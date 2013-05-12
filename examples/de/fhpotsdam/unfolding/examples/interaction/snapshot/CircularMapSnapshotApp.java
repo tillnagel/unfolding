@@ -14,6 +14,8 @@ import de.fhpotsdam.unfolding.utils.MapUtils;
  * Users can save snapshots of the current map, which are then shown as radial thumbnails. By clicking on one of those
  * thumbnails the map pans and zooms to the stored location.
  * 
+ * Press 's' to take a snapshot of the current map. Click on its thumbnail to restore.
+ * 
  * See {@link MapSnapshot} and {@link CircularMapSnapshot} for creating the actual snapshot and storage of metadata.
  */
 public class CircularMapSnapshotApp extends PApplet {

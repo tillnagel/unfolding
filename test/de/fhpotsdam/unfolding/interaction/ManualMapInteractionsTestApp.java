@@ -1,4 +1,4 @@
-package de.fhpotsdam.unfolding.examples.interaction;
+package de.fhpotsdam.unfolding.interaction;
 
 import org.apache.log4j.Logger;
 
@@ -17,9 +17,9 @@ import de.fhpotsdam.unfolding.utils.ScreenPosition;
  * key-pressed) are mapped onto map interactions (e.g. pan, and zoom).
  * 
  */
-public class MapInteractionTestApp extends PApplet {
+public class ManualMapInteractionsTestApp extends PApplet {
 
-	public static Logger log = Logger.getLogger(MapInteractionTestApp.class);
+	public static Logger log = Logger.getLogger(ManualMapInteractionsTestApp.class);
 
 	/** The interactive map. */
 	UnfoldingMap map;
@@ -66,7 +66,7 @@ public class MapInteractionTestApp extends PApplet {
 
 		noStroke();
 		// Show location from mouse
-		Location location = map.mapDisplay.getLocationFromScreenPosition(mouseX, mouseY);
+		Location location = map.mapDisplay.getLocation(mouseX, mouseY);
 		fill(215, 0, 0);
 		text(location + "", mouseX, mouseY);
 

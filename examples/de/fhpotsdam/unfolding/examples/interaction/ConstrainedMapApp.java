@@ -6,7 +6,11 @@ import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.utils.MapUtils;
 
-public class PanConstrainedMapApp extends PApplet {
+/**
+ * This map is constrained in both pan and zoom interactions. Users are allowed to only pan within a specified radial
+ * area, and to zoom within specific zoom levels.
+ */
+public class ConstrainedMapApp extends PApplet {
 
 	UnfoldingMap map;
 

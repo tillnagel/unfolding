@@ -14,7 +14,7 @@ import de.fhpotsdam.unfolding.utils.MapUtils;
  * 
  * Managing and drawing the markers is handled internally, with all markers cut-off at the border of the map.
  * Unfolding's simple marker (SimpleMarker, SimpleLinesMarker, and SimplePolygonMarker) provide some styling
- * functionality. For more customization you need to create your own Marker classes (TODO link/ref to extended marker examples).
+ * functionality. For more customization you need to create your own Marker classes.
  */
 @SuppressWarnings("serial")
 public class SimpleMarkerManagerApp extends PApplet {

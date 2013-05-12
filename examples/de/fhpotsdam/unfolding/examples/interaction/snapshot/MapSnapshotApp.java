@@ -4,12 +4,11 @@ import processing.core.PApplet;
 import codeanticode.glgraphics.GLConstants;
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.geo.Location;
-import de.fhpotsdam.unfolding.providers.OpenStreetMap;
 import de.fhpotsdam.unfolding.utils.MapUtils;
 
 /**
- * Stores and restores a snapshot of the current map view. Each snapshot consists of location, zoom
- * level, and a thumbnail.
+ * Stores and restores a snapshot of the current map view. Each snapshot consists of location, zoom level, and a
+ * thumbnail.
  * 
  * Press 's' to take a snapshot of the current map. Click on its thumbnail to restore.
  */

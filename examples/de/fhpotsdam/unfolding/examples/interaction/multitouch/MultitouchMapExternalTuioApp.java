@@ -1,4 +1,4 @@
-package de.fhpotsdam.unfolding.examples.interaction;
+package de.fhpotsdam.unfolding.examples.interaction.multitouch;
 
 import org.apache.log4j.Logger;
 
@@ -15,14 +15,13 @@ import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.interactions.TuioCursorHandler;
 
 /**
- * Multitouch map with a very simple button atop.
+ * Multitouch map with a simple button atop. A tap on the button does not affect the map.
  * 
  * Creates a map and a handler for TUIO cursors, with this application acting as TUIO listener, and forwarding the TUIO
  * events to the handler. This allows reacting to other touch interactions in the application (e.g. map markers, or
  * other interface elements), as well.
  * 
- * See {@link MultitouchMapApp} if you want to use multitouch interaction for the map only.
- * 
+ * See simpler {@link MultitouchMapApp} if you want to use multitouch interaction for the map only.
  */
 public class MultitouchMapExternalTuioApp extends PApplet implements TuioListener {
 

@@ -1,98 +1,68 @@
 package de.fhpotsdam.unfolding.examples.interaction;
 
-import org.apache.log4j.Logger;
-
 import processing.core.PApplet;
+import processing.core.PFont;
 import codeanticode.glgraphics.GLConstants;
 import de.fhpotsdam.unfolding.UnfoldingMap;
-import de.fhpotsdam.unfolding.events.EventDispatcher;
-import de.fhpotsdam.unfolding.events.PanMapEvent;
-import de.fhpotsdam.unfolding.events.ZoomMapEvent;
 import de.fhpotsdam.unfolding.geo.Location;
-import de.fhpotsdam.unfolding.utils.DebugDisplay;
 import de.fhpotsdam.unfolding.utils.MapUtils;
 
 /**
- * Very simple manual navigation example. The user can press two buttons to jump to specific
- * locations.
- * 
+ * Simple manual navigation example. Click on one of the two buttons to jump to specific locations.
  */
 public class NaviButtonMapApp extends PApplet {
 
-	public static Logger log = Logger.getLogger(NaviButtonMapApp.class);
-
-	DebugDisplay debugDisplay;
-
-	EventDispatcher eventDispatcher;
+	Location berlinLocation = new Location(52.439046f, 13.447266f);
+	int berlinZoomLevel = 10;
+	Location universityLocation = new Location(52.411613f, 13.051779f);
+	int universityZoomLevel = 16;
 
 	UnfoldingMap map;
+	PFont font;
 
 	public void setup() {
 		size(800, 600, GLConstants.GLGRAPHICS);
 		smooth();
+		font = createFont("sans-serif", 14);
 
-		textFont(loadFont("Miso-Light-12.vlw"));
-
-		// Creates default mapDisplay
 		map = new UnfoldingMap(this, "map", 0, 0, 600, 600);
-		map.setTweening(false);
-
-		debugDisplay = new DebugDisplay(this, map, 600, 200);
-
 		map.zoomToLevel(3);
-
-		// default dispatcher
-		eventDispatcher = MapUtils.createDefaultEventDispatcher(this, map);
+		MapUtils.createDefaultEventDispatcher(this, map);
 	}
 
 	public void draw() {
 		background(0);
 		map.draw();
 
-		debugDisplay.draw();
-
-		// Simple "Go to Berlin" - Button
-		fill(255, 0, 0);
-		rect(610, 10, 180, 80);
-		fill(0);
-		text("Berlin", 650, 50);
-
-		// Simple "Go to Berlin" - Button
-		fill(255, 0, 0);
-		rect(610, 110, 180, 80);
-		fill(0);
-		text("FH Potsdam", 650, 150);
+		drawButtons();
 	}
 
-	@Override
-	public void mouseClicked() {
+	public void mouseReleased() {
 		if (mouseX > 610 && mouseX < 790 && mouseY > 10 && mouseY < 90) {
+			map.zoomAndPanTo(berlinLocation, berlinZoomLevel);
 
-			// zoom and pan to berlin
-			log.debug("Go To Berlin");
-			ZoomMapEvent zoomMapEvent = new ZoomMapEvent(this, map.getId());
-			zoomMapEvent.setSubType("zoomTo");
-			zoomMapEvent.setZoomLevel(10);
-			eventDispatcher.fireMapEvent(zoomMapEvent);
-
-			PanMapEvent panMapEvent = new PanMapEvent(this, map.getId());
-			Location berlin = new Location(52.439046f, 13.447266f);
-			panMapEvent.setToLocation(berlin);
-			eventDispatcher.fireMapEvent(panMapEvent);
 		} else if (mouseX > 610 && mouseX < 790 && mouseY > 110 && mouseY < 190) {
-
-			// zoom and pan to fh potsdam
-			log.debug("Go To FH Potsdam");
-			ZoomMapEvent zoomMapEvent = new ZoomMapEvent(this, map.getId());
-			zoomMapEvent.setSubType("zoomTo");
-			zoomMapEvent.setZoomLevel(16);
-			eventDispatcher.fireMapEvent(zoomMapEvent);
-
-			PanMapEvent panMapEvent = new PanMapEvent(this, map.getId());
-			Location fhpotsdam = new Location(52.411613f, 13.051779f);
-			panMapEvent.setToLocation(fhpotsdam);
-			eventDispatcher.fireMapEvent(panMapEvent);
+			map.zoomAndPanTo(universityLocation, universityZoomLevel);
 		}
+	}
+
+	public void drawButtons() {
+		textFont(font);
+		textSize(14);
+
+		// Simple Berlin button
+		fill(127);
+		stroke(200);
+		strokeWeight(2);
+		rect(610, 10, 180, 80);
+		fill(0);
+		text("Berlin (zoom 10)", 620, 52);
+
+		// FHP button
+		fill(127);
+		rect(610, 110, 180, 80);
+		fill(0);
+		text("University (zoom 16)", 620, 152);
 	}
 
 }

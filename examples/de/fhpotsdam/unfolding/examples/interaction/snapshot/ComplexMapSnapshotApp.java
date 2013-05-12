@@ -15,6 +15,8 @@ import de.fhpotsdam.unfolding.utils.MapUtils;
 /**
  * Allows storing and restoring multiple snapshots. With markers.
  * 
+ * Press 's' to take a snapshot of the current map. Click on its thumbnail to restore.
+ * 
  * @see {@link MapSnapshotApp}
  */
 public class ComplexMapSnapshotApp extends PApplet {
@@ -28,10 +30,13 @@ public class ComplexMapSnapshotApp extends PApplet {
 
 		map = new UnfoldingMap(this);
 		map.zoomAndPanTo(new Location(52.5f, 13.4f), 10);
-
 		MapUtils.createDefaultEventDispatcher(this, map);
 
-		// Add random markers
+		addRandomMarkers();
+	}
+
+	public void addRandomMarkers() {
+		// Add some markers to demonstrate they are visible in thumbnail, too.
 		MarkerManager<Marker> markerManager = new MarkerManager<Marker>();
 		for (int i = 0; i < 100; i++) {
 			SimplePointMarker marker = new SimplePointMarker();
