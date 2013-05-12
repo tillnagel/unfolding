@@ -14,9 +14,7 @@ import de.fhpotsdam.unfolding.interactions.MouseHandler;
 import de.fhpotsdam.unfolding.marker.Marker;
 
 /**
- * Utility functions for the map.
- *
- * So far only the creation of defaultEventDispatcher is offered.
+ * Utility and convenience methods for simplifying map usage.
  */
 public class MapUtils {
 
