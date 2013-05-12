@@ -6,8 +6,8 @@
 	NOT CLEANED PACKAGES: 
 		- From events to misc
 		(i.e. animation to distance done, and multi to ui)
-		- done: events, misc, fun, image
-		- todo: marker, interaction, events
+		- done: events, misc, fun, image, interaction
+		- todo: marker
 
 
 - Pull Request: https://github.com/tillnagel/unfolding/pull/56
