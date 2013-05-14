@@ -148,7 +148,8 @@ public class GeoUtils {
 	/**
 	 * Returns the geometric center of the locations of a polygon.
 	 * 
-	 * The returned location is the center of the polygon, unfazed by unbalanced vertices.
+	 * The returned location is the center of the polygon, unfazed by unbalanced vertices. (You probably want to use
+	 * this algorithm, but check out {@link #getEuclideanCentroid(List)} for an alternative.)
 	 * 
 	 * @return The centroid location.
 	 */
@@ -188,6 +189,13 @@ public class GeoUtils {
 		return vertices;
 	}
 
+	/**
+	 * Calculates the area of a polygon.
+	 * 
+	 * @param vertices
+	 *            The vertices of the polygon.
+	 * @return The area.
+	 */
 	protected static float getArea(List<Location> vertices) {
 		float sum = 0;
 		for (int i = 0; i < vertices.size() - 1; i++) {
@@ -198,6 +206,13 @@ public class GeoUtils {
 		return sum * 0.5f;
 	}
 
+	/**
+	 * Calculates the area of a polygon feature.
+	 * 
+	 * @param feature
+	 *            The feature containing vertices.
+	 * @return The area.
+	 */
 	protected static float getArea(Feature feature) {
 		return getArea(GeoUtils.getLocations(feature));
 	}
@@ -220,7 +235,7 @@ public class GeoUtils {
 		case MULTI:
 			MultiFeature multiFeature = ((MultiFeature) feature);
 			if (useLargestForMulti) {
-				
+
 				// Return centroid of largest feature
 				float largestArea = 0;
 				Feature largestFeature = null;
@@ -231,9 +246,9 @@ public class GeoUtils {
 					}
 				}
 				location = getCentroid(largestFeature);
-				
+
 			} else {
-				
+
 				// Return centroid of all features
 				List<Location> locations = new ArrayList<Location>();
 				for (Feature f : multiFeature.getFeatures()) {

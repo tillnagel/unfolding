@@ -6,6 +6,7 @@ import java.util.List;
 
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.geo.Location;
+import de.fhpotsdam.unfolding.utils.GeoUtils;
 
 /**
  * A MultiMarker enables handling of multiple, logically grouped markers. Properties and display states are the same for
@@ -44,7 +45,11 @@ public class MultiMarker implements Marker {
 	}
 
 	/**
-	 * return center of all markers
+	 * Return center of all markers.
+	 * 
+	 * 
+	 * This uses marker.getLocation() which either returns single location, or centroid location (of shape marker), and
+	 * then combines it. TODO Check whether to use {@link GeoUtils#getCentroid(List)} instead.
 	 */
 	@Override
 	public Location getLocation() {

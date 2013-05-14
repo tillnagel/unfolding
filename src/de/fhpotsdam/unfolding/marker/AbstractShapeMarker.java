@@ -108,18 +108,6 @@ public abstract class AbstractShapeMarker extends AbstractMarker {
 	}
 
 	/**
-	 * Returns the geometric center of this shape.
-	 * 
-	 * The returned location minimizes the sum of squared Euclidean distances between itself and each location in the
-	 * list.
-	 * 
-	 * @return The centroid location.
-	 */
-	public Location getCentroid() {
-		return GeoUtils.getCentroid(locations);
-	}
-
-	/**
 	 * Gets the location at the specified index.
 	 * 
 	 * @param index
@@ -165,11 +153,20 @@ public abstract class AbstractShapeMarker extends AbstractMarker {
 	}
 
 	/**
-	 * Gets the centroid location of this marker.
+	 * Gets the geometric center location of this marker.
 	 */
 	@Override
 	public Location getLocation() {
 		return getCentroid();
+	}
+	
+	/**
+	 * Returns the geometric center of this shape.
+	 * 
+	 * @return The centroid location.
+	 */
+	public Location getCentroid() {
+		return GeoUtils.getCentroid(locations);
 	}
 
 	@Override
@@ -207,9 +204,6 @@ public abstract class AbstractShapeMarker extends AbstractMarker {
 	public void draw(PGraphics pg, float x, float y) {
 
 	}
-
-	// REVISIT default behavior for getLocation(), draw(location),
-	// drawOuter(location)?
 
 	@Override
 	public boolean isInside(UnfoldingMap map, float checkX, float checkY) {
