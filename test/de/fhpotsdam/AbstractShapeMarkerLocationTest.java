@@ -4,29 +4,38 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
 
 import processing.core.PApplet;
 import de.fhpotsdam.unfolding.UnfoldingMap;
+import de.fhpotsdam.unfolding.data.Feature;
+import de.fhpotsdam.unfolding.data.GeoJSONReader;
 import de.fhpotsdam.unfolding.geo.Location;
+import de.fhpotsdam.unfolding.marker.AbstractShapeMarker;
 import de.fhpotsdam.unfolding.marker.Marker;
-import de.fhpotsdam.unfolding.marker.MarkerManager;
 import de.fhpotsdam.unfolding.marker.SimplePolygonMarker;
+import de.fhpotsdam.unfolding.utils.MapUtils;
 
 public class AbstractShapeMarkerLocationTest {
 
 	private UnfoldingMap map;
-	private MarkerManager<Marker> markerManager = new MarkerManager<Marker>();
-	private SimplePolygonMarker marker;
+	private SimplePolygonMarker squareMarker;
 	private float squareWidth = 10.f;
+	private PApplet p;
 
 	@Before
 	public void before() {
-		map = new UnfoldingMap(new PApplet());
-		map.addMarkerManager(markerManager);
-		addSquareMarker();
+		p = new PApplet();
+		map = new UnfoldingMap(p);
+	}
+
+	private void addCountryMarker() {
+		List<Feature> countries = GeoJSONReader.loadData(p, "countries.geo.json");
+		List<Marker> countryMarkers = MapUtils.createSimpleMarkers(countries);
+		map.addMarkers(countryMarkers);
 	}
 
 	private void addSquareMarker() {
@@ -35,16 +44,36 @@ public class AbstractShapeMarkerLocationTest {
 		list.add(new Location(0, squareWidth));
 		list.add(new Location(squareWidth, squareWidth));
 		list.add(new Location(squareWidth, 0));
-		marker = new SimplePolygonMarker(list);
-		markerManager.addMarker(marker);
+		squareMarker = new SimplePolygonMarker(list);
 	}
 
 	@Test
-	public void test() {
-		assertTrue(marker.isInsideByLocation(squareWidth / 2.0f,
+	public void testSquareMarker() {
+		addSquareMarker();
+
+		assertTrue(squareMarker.isInsideByLocation(squareWidth / 2.0f,
 				squareWidth / 2.0f));
-		assertFalse(marker.isInsideByLocation(-1, -1));
-		assertFalse(marker.isInsideByLocation(squareWidth + 1, squareWidth + 1));
+		assertFalse(squareMarker.isInsideByLocation(-1, -1));
+		assertFalse(squareMarker.isInsideByLocation(squareWidth + 1, squareWidth + 1));
+	}
+
+	@Test
+	public void testCountryMarker() {
+		addCountryMarker();
+
+		Location berlinLocation = new Location(52.5f, 13.4f);
+		Location pragueLocation = new Location(50.08f, 14.42f);
+
+		for (Marker marker : map.getMarkers()) {
+			if ("DEU".equals(marker.getId())) {
+
+				AbstractShapeMarker shapeMarker = (AbstractShapeMarker) marker;
+
+				assertTrue(shapeMarker.isInsideByLocation(berlinLocation));
+				assertFalse(shapeMarker.isInsideByLocation(pragueLocation));
+			}
+		}
+
 	}
 
 }

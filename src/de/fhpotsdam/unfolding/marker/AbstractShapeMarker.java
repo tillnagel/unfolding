@@ -221,6 +221,19 @@ public abstract class AbstractShapeMarker extends AbstractMarker {
 		return isInside(checkX, checkY, positions);
 	}
 
+	/**
+	 * Checks whether the position is within the border of the vectors. Uses a polygon containment algorithm.
+	 * 
+	 * This method is used for both ScreenPosition as well as Location checks.
+	 * 
+	 * @param checkX
+	 *            The x position to check if inside.
+	 * @param checkY
+	 *            The y position to check if inside.
+	 * @param vectors
+	 *            The vectors of the polygon
+	 * @return True if inside, false otherwise.
+	 */
 	protected boolean isInside(float checkX, float checkY,
 			List<? extends PVector> vectors) {
 		boolean inside = false;
@@ -236,18 +249,27 @@ public abstract class AbstractShapeMarker extends AbstractMarker {
 	}
 
 	/**
-	 * Checks whether given position is inside this marker, according to the
-	 * shape defined by the marker's locations
+	 * Checks whether given position is inside this marker, according to the shape defined by the marker's locations.
+	 * 
+	 * Note: This is only in AbstractShapeMarker and not in AbstractMarker (nor Marker) as only shape markers have an
+	 * area to test whether a point is inside. All others (Point and Lines) have no area, and thus an inside check
+	 * always have to return false. (The screen-pos inside tests check whether a point is inside the visual
+	 * representation, which has an area.)
 	 * 
 	 * @param longitude
-	 *            The longitude
+	 *            The longitude.
 	 * @param latitude
-	 *            The latitude
+	 *            The latitude.
+	 * @return True if inside, false otherwise.
 	 */
 	public boolean isInsideByLocation(float latitude, float longitude) {
 		return isInside(latitude, longitude, locations);
 	}
 
+	public boolean isInsideByLocation(Location location) {
+		return isInside(location.getLat(), location.getLon(), locations);
+	}
+	
 	@Override
 	protected boolean isInside(float checkX, float checkY, float x, float y) {
 		// TODO Simply return false?
