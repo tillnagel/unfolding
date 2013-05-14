@@ -42,6 +42,10 @@ public class Integrator {
 		value = v;
 	}
 
+	public void set(double v) {
+		value = (float) v;
+	}
+	
 	/**
 	 * Update for next time step. Returns true if actually updated, false if no longer changing.
 	 */
@@ -67,6 +71,10 @@ public class Integrator {
 	public void target(float t) {
 		targeting = true;
 		target = t;
+	}
+
+	public void target(double d) {
+		target((float) d);
 	}
 
 	public void noTarget() {

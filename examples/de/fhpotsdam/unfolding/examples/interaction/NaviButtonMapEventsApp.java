@@ -18,10 +18,10 @@ import de.fhpotsdam.unfolding.utils.MapUtils;
  */
 public class NaviButtonMapEventsApp extends PApplet {
 
-	Location berlinLocation = new Location(52.439046f, 13.447266f);
+	Location berlinLocation = new Location(52.51861f, 13.408056f);
 	int berlinZoomLevel = 10;
 	Location universityLocation = new Location(52.411613f, 13.051779f);
-	int universityZoomLevel = 16;
+	int universityZoomLevel = 14;
 
 	UnfoldingMap mapDetail;
 	UnfoldingMap mapOverview;
@@ -37,7 +37,7 @@ public class NaviButtonMapEventsApp extends PApplet {
 		mapDetail = new UnfoldingMap(this, "detail", 10, 10, 585, 580);
 		mapDetail.zoomToLevel(4);
 		mapOverview = new UnfoldingMap(this, "overview", 605, 10, 185, 185);
-
+		
 		eventDispatcher = MapUtils.createDefaultEventDispatcher(this, mapDetail);
 		eventDispatcher.register(mapOverview, "pan", mapDetail.getId(), mapOverview.getId());
 		eventDispatcher.register(mapOverview, "zoom", mapDetail.getId(), mapOverview.getId());
@@ -96,7 +96,7 @@ public class NaviButtonMapEventsApp extends PApplet {
 		fill(127);
 		rect(610, 310, 180, 80);
 		fill(0);
-		text("University (zoom 16)", 620, 352);
+		text("University (zoom 14)", 620, 352);
 	}
 
 }

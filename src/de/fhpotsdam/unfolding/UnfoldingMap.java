@@ -316,10 +316,10 @@ public class UnfoldingMap implements MapEventListener {
 			scaleIntegrator.update();
 			mapDisplay.innerScale = scaleIntegrator.value;
 
-			// txIntegrator.update();
-			// mapDisplay.innerOffsetX = txIntegrator.value;
-			// tyIntegrator.update();
-			// mapDisplay.innerOffsetY = tyIntegrator.value;
+			txIntegrator.update();
+			mapDisplay.innerOffsetX = txIntegrator.value;
+			tyIntegrator.update();
+			mapDisplay.innerOffsetY = tyIntegrator.value;
 
 			mapDisplay.calculateInnerMatrix();
 		}
@@ -729,18 +729,24 @@ public class UnfoldingMap implements MapEventListener {
 	}
 
 	protected void innerScale(float scale) {
-		mapDisplay.innerScale *= scale;
 		// TODO Check max,min scale in TileProvider, not here in Map
-		mapDisplay.innerScale = PApplet.constrain(mapDisplay.innerScale, minScale, maxScale);
-		mapDisplay.calculateInnerMatrix();
+		scale = PApplet.constrain(mapDisplay.innerScale * scale, minScale, maxScale);
+		if (tweening) {
+			scaleIntegrator.target(scale);
+		} else {
+			mapDisplay.innerScale = scale;
+			mapDisplay.calculateInnerMatrix();
+		}
 	}
 
 	protected void setInnerScale(float scale) {
-		mapDisplay.innerScale = scale;
-		mapDisplay.innerScale = PApplet.constrain(mapDisplay.innerScale, minScale, maxScale);
-		// TEST tweening
-		scaleIntegrator.target(scale);
-		mapDisplay.calculateInnerMatrix();
+		scale = PApplet.constrain(scale, minScale, maxScale);
+		if (tweening) {
+			scaleIntegrator.target(scale);
+		} else {
+			mapDisplay.innerScale = scale;
+			mapDisplay.calculateInnerMatrix();
+		}
 	}
 
 	public int getZoomLevel() {
@@ -846,15 +852,25 @@ public class UnfoldingMap implements MapEventListener {
 	}
 
 	protected void addInnerOffset(float dx, float dy) {
-		mapDisplay.innerOffsetX += dx;
-		mapDisplay.innerOffsetY += dy;
-		mapDisplay.calculateInnerMatrix();
+		if (tweening) {
+			txIntegrator.target(txIntegrator.target + dx);
+			tyIntegrator.target(tyIntegrator.target + dy);
+		} else {
+			mapDisplay.innerOffsetX += dx;
+			mapDisplay.innerOffsetY += dy;
+			mapDisplay.calculateInnerMatrix();
+		}
 	}
 
 	protected void setInnerOffset(float x, float y) {
-		mapDisplay.innerOffsetX = x;
-		mapDisplay.innerOffsetY = y;
-		mapDisplay.calculateInnerMatrix();
+		if (tweening) {
+			txIntegrator.target(x);
+			tyIntegrator.target(y);
+		} else {
+			mapDisplay.innerOffsetX = x;
+			mapDisplay.innerOffsetY = y;
+			mapDisplay.calculateInnerMatrix();
+		}
 	}
 
 	protected void setOffset(float x, float y) {
@@ -878,14 +894,43 @@ public class UnfoldingMap implements MapEventListener {
 	}
 
 	/**
-	 * Switches the tweening.
+	 * Switches the tweening flag.
 	 */
 	public void switchTweening() {
-		this.tweening = !this.tweening;
+		// Use setter method to ensure proper setting of integrators.
+		setTweening(!tweening);
+	}
+
+	public boolean isTweening() {
+		return tweening;
 	}
 
 	public void setTweening(boolean tweening) {
+		if (tweening == this.tweening)
+			return;
+
 		this.tweening = tweening;
+
+		if (tweening) {
+			// Set current (animated) and target (final) values to same, so there is no unnecessary animation starting
+			// after switching to tweening.
+
+			scaleIntegrator.set(mapDisplay.innerScale);
+			scaleIntegrator.target(mapDisplay.innerScale);
+
+			txIntegrator.set(mapDisplay.innerOffsetX);
+			txIntegrator.target(mapDisplay.innerOffsetX);
+			tyIntegrator.set(mapDisplay.innerOffsetY);
+			tyIntegrator.target(mapDisplay.innerOffsetY);
+
+		} else {
+			// Set zoom and pan directly, even if still in transition animation
+
+			mapDisplay.innerScale = scaleIntegrator.target;
+
+			mapDisplay.innerOffsetX = txIntegrator.target;
+			mapDisplay.innerOffsetY = tyIntegrator.target;
+		}
 	}
 
 	public void setBackgroundColor(int bgColor) {

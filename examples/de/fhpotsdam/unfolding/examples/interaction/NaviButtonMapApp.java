@@ -11,11 +11,11 @@ import de.fhpotsdam.unfolding.utils.MapUtils;
  * Simple manual navigation example. Click on one of the two buttons to jump to specific locations.
  */
 public class NaviButtonMapApp extends PApplet {
-
-	Location berlinLocation = new Location(52.439046f, 13.447266f);
+	
+	Location berlinLocation = new Location(52.51861f, 13.408056f);
 	int berlinZoomLevel = 10;
 	Location universityLocation = new Location(52.411613f, 13.051779f);
-	int universityZoomLevel = 16;
+	int universityZoomLevel = 14;
 
 	UnfoldingMap map;
 	PFont font;
@@ -26,6 +26,7 @@ public class NaviButtonMapApp extends PApplet {
 		font = createFont("sans-serif", 14);
 
 		map = new UnfoldingMap(this, "map", 0, 0, 600, 600);
+		map.setTweening(true);
 		map.zoomToLevel(3);
 		MapUtils.createDefaultEventDispatcher(this, map);
 	}
@@ -62,7 +63,7 @@ public class NaviButtonMapApp extends PApplet {
 		fill(127);
 		rect(610, 110, 180, 80);
 		fill(0);
-		text("University (zoom 16)", 620, 152);
+		text("University (zoom 14)", 620, 152);
 	}
 
 }
