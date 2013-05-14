@@ -12,8 +12,19 @@ import de.fhpotsdam.unfolding.geo.Location;
  */
 public interface Marker {
 
+	/**
+	 * Gets the marker ID.
+	 * 
+	 * @return An ID.
+	 */
 	public String getId();
 
+	/**
+	 * Sets the marker ID.
+	 * 
+	 * @param id
+	 *            The ID.
+	 */
 	public void setId(String id);
 
 	/**
@@ -58,16 +69,34 @@ public interface Marker {
 	 * Sets the optional properties of this marker.
 	 * 
 	 * @param properties
-	 *            The properties to set.
+	 *            The properties to set. The map consist of key,value pairs for each property.
 	 */
 	public void setProperties(HashMap<String, Object> properties);
 
+	/**
+	 * Gets the optional properties of this marker. The map consist of key,value pairs for each property.
+	 * 
+	 * @return A map of properties.
+	 */
 	public HashMap<String, Object> getProperties();
-	
+
+	/**
+	 * Gets the property for given key.
+	 * 
+	 * @param key
+	 *            The key of the property.
+	 * @return The property, if found.
+	 */
 	public Object getProperty(String key);
 
+	/**
+	 * Gets the property as String for given key.
+	 * 
+	 * @param key
+	 *            The key of the property.
+	 * @return The property, if found.
+	 */
 	public String getStringProperty(String key);
-
 
 	/**
 	 * Checks whether given position is inside this marker, according to the maps coordinate system.
@@ -91,10 +120,10 @@ public interface Marker {
 	public void draw(UnfoldingMap map);
 
 	/**
-	 * Sets the selected status of this marker.
+	 * Changes the select status of this marker. Sub-classes can use the selection status to highlight this marker.
 	 * 
 	 * @param selected
-	 *            The new status.
+	 *            Whether this marker is selected or not.
 	 */
 	public void setSelected(boolean selected);
 

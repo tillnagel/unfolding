@@ -1,8 +1,6 @@
 /**
- * Handling all tile related stuff.
+ * Handles map tiles loading from different sources. 
  * 
- * Tiles are the actual visualization of the map. Different tiles can cab be
- * used.
+ * Slippy maps (such as Unfolding) consist of multiple tile images, containing small parts of the map area.
  */
-
 package de.fhpotsdam.unfolding.tiles;

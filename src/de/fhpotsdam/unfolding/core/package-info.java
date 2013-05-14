@@ -1,5 +1,5 @@
 /**
- * Internal stuff. Don't bother :)
+ * Internal stuff.
  */
 
 package de.fhpotsdam.unfolding.core;

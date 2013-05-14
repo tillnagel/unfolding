@@ -1,4 +1,4 @@
-package de.fhpotsdam.unfolding.examples.extern.geonames;
+package de.fhpotsdam.unfolding.examples.geonames;
 
 import processing.core.PApplet;
 import codeanticode.glgraphics.GLConstants;

@@ -2,13 +2,12 @@ package de.fhpotsdam.unfolding.marker;
 
 import java.util.HashMap;
 
-import processing.core.PApplet;
 import processing.core.PGraphics;
 import processing.core.PVector;
 import de.fhpotsdam.unfolding.geo.Location;
 
 /**
- * Simple marker representing a single location as a circle.
+ * Marker representing a single location. Use directly to display as simple circle, or extend it for custom styles.
  */
 public class SimplePointMarker extends AbstractMarker {
 
@@ -58,7 +57,7 @@ public class SimplePointMarker extends AbstractMarker {
 			pg.fill(color);
 			pg.stroke(strokeColor);
 		}
-		pg.ellipse((int)x, (int)y, radius, radius); // TODO use radius in km and convert to px
+		pg.ellipse((int) x, (int) y, radius, radius); // TODO use radius in km and convert to px
 		pg.popStyle();
 	}
 

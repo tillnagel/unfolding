@@ -7,6 +7,32 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
+import de.fhpotsdam.unfolding.interactions.MouseHandler;
+
+/**
+ * The event dispatcher is the core class for handling the event system.
+ * <p>
+ * In the simplest case all user input only affects a single UnfoldingMap. For instance, a user clicks and drags the
+ * mouse, so that the map gets panned. In this case, the {@link MouseHandler}, a {@link MapEventBroadcaster}, reacts to
+ * the user's mouse-dragging, and creates a PanMapEvent with the respective geo-location to pan to. That event is fired,
+ * and send via the EventDispatcher to the only listener, the single map.
+ * </p>
+ * <p>
+ * In other cases, applications can set up more sophisticated behaviors. For instance, in an overview+detail setting
+ * with a large detail map and a small overview map, the small map shall only show an overview but not being interactive
+ * itself. For this case, the MouseHandler is created for the large map, but with a scope of both maps. The
+ * EventDispatcher is initiated with both maps listening to pan-events. Thus, any panning on the large overview map also
+ * affects the small detail map.<br/>
+ * See the OverviewAndDetailMapApp and the ComplexMapEventApp in the examples section for this.
+ * </p>
+ * <p>
+ * Your application then can create EventDispatcher to connect broadcasters and listeners, and customize the event
+ * handling in an application.
+ * </p>
+ * 
+ * 
+ * 
+ */
 public class EventDispatcher {
 
 	public static final Logger log = Logger.getLogger(EventDispatcher.class);
@@ -17,6 +43,11 @@ public class EventDispatcher {
 		typedScopedListeners = new HashMap<String, List<ScopedListeners>>();
 	}
 
+	/**
+	 * Fires a map event. Sends it to all listeners
+	 * 
+	 * @param event
+	 */
 	public void fireMapEvent(MapEvent event) {
 		String type = event.getType();
 		List<ScopedListeners> scopedListenersList = typedScopedListeners.get(type);
@@ -31,6 +62,12 @@ public class EventDispatcher {
 		}
 	}
 
+	/**
+	 * Adds broadcaster by setting this EventDispatcher in the MapEventDispatcher. (Convenience method).
+	 * 
+	 * @param broadcaster
+	 *            The broadcaster to add.
+	 */
 	public void addBroadcaster(MapEventBroadcaster broadcaster) {
 		broadcaster.setEventDispatcher(this);
 	}
@@ -44,10 +81,10 @@ public class EventDispatcher {
 	 *            The type of the event, e.g. pan or zoom.
 	 * @param scopeIds
 	 *            IDs of scopes to register for. If none is provided the scope of the listener is used. Note, that if
-	 *            you provide some scopes the listener's scope is not added, automatically.
+	 *            you provide some scopes the listener's own scope is not added, automatically.
 	 */
 	public void register(MapEventListener listener, String type, String... scopeIds) {
-		
+
 		List<ScopedListeners> scopedListenersList = typedScopedListeners.get(type);
 		if (scopedListenersList == null) {
 			// Creates scopedListenersList and adds to typed list.
@@ -62,7 +99,7 @@ public class EventDispatcher {
 
 		// Adds listener to scope, either to existing or to new.
 		boolean foundExistingScope = false;
-		
+
 		// Adds to existing ScopedListeners (if exist for scopeIds)
 		List<String> scopeIdList = Arrays.asList(scopeIds);
 		for (ScopedListeners scopedListeners : scopedListenersList) {
@@ -87,12 +124,33 @@ public class EventDispatcher {
 		}
 	}
 
+	/**
+	 * Registers multiple listener for an event type within one or more event scopes.
+	 * 
+	 * @param listeners
+	 *            The listeners to register, e.g. some maps.
+	 * @param type
+	 *            The type of the event, e.g. pan or zoom.
+	 * @param scopeIds
+	 *            IDs of scopes to register for. If none is provided the scope of the listener is used. Note, that if
+	 *            you provide some scopes the listener's own scope is not added, automatically.
+	 */
 	public void register(List<MapEventListener> listeners, String type, String... scopeIds) {
 		for (MapEventListener listener : listeners) {
 			register(listener, type, scopeIds);
 		}
 	}
 
+	/**
+	 * Removes listener if ScopedListeners exist for scopeIds to unregister.
+	 * 
+	 * @param listeners
+	 *            The listener to unregister, e.g. a maps.
+	 * @param type
+	 *            The type of the event, e.g. pan or zoom.
+	 * @param scopeIds
+	 *            IDs of scopes to unregister for.
+	 */
 	public void unregister(MapEventListener listener, String type, String... scopeIds) {
 		List<ScopedListeners> scopedListenersList = typedScopedListeners.get(type);
 		if (scopedListenersList == null) {

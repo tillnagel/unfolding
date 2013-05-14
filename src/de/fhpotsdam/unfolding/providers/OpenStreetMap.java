@@ -4,6 +4,9 @@ import de.fhpotsdam.unfolding.core.Coordinate;
 import de.fhpotsdam.unfolding.geo.MercatorProjection;
 import de.fhpotsdam.unfolding.geo.Transformation;
 
+/**
+ * Various map tiles from OpenStreetMap.
+ */
 public class OpenStreetMap {
 	public static abstract class GenericOpenStreetMapProvider extends AbstractMapTileUrlProvider {
 
@@ -34,6 +37,9 @@ public class OpenStreetMap {
 		}
 	}
 
+	/**
+	 * Map tiles with custom styled maps via CloudMade with OpenStreetMap data.
+	 */
 	public static class CloudmadeProvider extends GenericOpenStreetMapProvider {
 		private String api_key;
 		private int style_id;
@@ -49,7 +55,5 @@ public class OpenStreetMap {
 			return new String[] { url };
 		}
 	}
-
-	
 
 }

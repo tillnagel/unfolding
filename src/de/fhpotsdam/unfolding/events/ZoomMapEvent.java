@@ -7,10 +7,14 @@ import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.utils.ScreenPosition;
 
+/**
+ * A map event for all zoom events, such as (relative) zoomBy and (absolute) zoomTo.
+ */
 public class ZoomMapEvent extends MapEvent {
 
 	protected static Logger log = Logger.getLogger(ZoomMapEvent.class);
 
+	/** The internal type of this ZoomMapEvent. */
 	public static final String TYPE_ZOOM = "zoom";
 
 	public static final String ZOOM_BY_LEVEL = "zoomByLevel";
@@ -84,6 +88,11 @@ public class ZoomMapEvent extends MapEvent {
 		return transformationCenterLocation;
 	}
 
+	/**
+	 * Returns the center of the zoom event, i.e. around which geo-location the map was zoomed in or out.
+	 * 
+	 * @return The center location.
+	 */
 	public Location getCenter() {
 		return getTransformationCenterLocation();
 	}
@@ -101,7 +110,7 @@ public class ZoomMapEvent extends MapEvent {
 		}
 
 		if (ZOOM_BY_LEVEL.equals(getSubType())) {
-			map.zoom(zoomLevelDelta);
+			map.zoomLevel(zoomLevelDelta);
 		} else if (ZOOM_TO_LEVEL.equals(getSubType())) {
 			map.zoomToLevel(zoomLevel);
 		} else if (ZOOM_BY.equals(getSubType())) {

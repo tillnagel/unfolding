@@ -12,7 +12,7 @@ import de.fhpotsdam.unfolding.utils.MapPosition;
 import de.fhpotsdam.unfolding.utils.ScreenPosition;
 
 /**
- * Abstract marker representing multiple locations. Can be implemented as lines, polygons, or other shapes.
+ * Abstract marker representing multiple locations and can be implemented as lines, polygons, or other shapes.
  * 
  * Handles multiple locations, and implements the main marker methods for handling those properly.
  */
@@ -21,6 +21,9 @@ public abstract class AbstractShapeMarker extends AbstractMarker {
 	/** All locations defining this shape. */
 	protected List<Location> locations;
 
+	/**
+	 * Creates an empty shape marker with no locations. Locations can be added dynamically after creation.
+	 */
 	public AbstractShapeMarker() {
 		this(new ArrayList<Location>(), null);
 	}
@@ -50,26 +53,57 @@ public abstract class AbstractShapeMarker extends AbstractMarker {
 
 	// Methods handling locations -------------------------
 
+	/**
+	 * Sets the list of locations.
+	 * 
+	 * @param locations
+	 *            A list of Locations.
+	 */
 	public void setLocations(List<Location> locations) {
 		this.locations = locations;
 	}
 
+	/**
+	 * Gets all locations.
+	 * 
+	 * @return A list of Locations.
+	 */
 	public List<Location> getLocations() {
 		return locations;
 	}
 
+	/**
+	 * Adds all locations to the list of locations.
+	 * 
+	 * @param locations
+	 *            One or multiple Location.
+	 */
 	public void addLocations(Location... locations) {
 		for (Location loc : locations) {
 			this.locations.add(loc);
 		}
 	}
 
+	/**
+	 * Adds all locations to the list of locations.
+	 * 
+	 * @param locations
+	 *            A list of Locations.
+	 */
 	public void addLocations(List<Location> locations) {
 		this.locations.addAll(locations);
 	}
 
-	public void addLocation(float x, float y) {
-		locations.add(new Location(x, y));
+	/**
+	 * Adds a Location to the list of locations.
+	 * 
+	 * @param lat
+	 *            The latitude value.
+	 * @param lon
+	 *            The longitude value.
+	 */
+	public void addLocation(float lat, float lon) {
+		locations.add(new Location(lat, lon));
 	}
 
 	/**
@@ -84,14 +118,33 @@ public abstract class AbstractShapeMarker extends AbstractMarker {
 		return GeoUtils.getCentroid(locations);
 	}
 
+	/**
+	 * Gets the location at the specified index.
+	 * 
+	 * @param index
+	 *            The index of the location.
+	 * @return A Location.
+	 */
 	public Location getLocation(int index) {
 		return locations.get(index);
 	}
 
+	/**
+	 * Deletes a Location from the list of locations.
+	 * 
+	 * @param location
+	 *            The Location to remove.
+	 */
 	public void removeLocation(Location location) {
 		locations.remove(location);
 	}
 
+	/**
+	 * Deletes a Location from the list of locations.
+	 * 
+	 * @param index
+	 *            The index of the Location to remove.
+	 */
 	public void removeLocation(int index) {
 		locations.remove(index);
 	}
@@ -110,6 +163,9 @@ public abstract class AbstractShapeMarker extends AbstractMarker {
 		addLocations(location);
 	}
 
+	/**
+	 * Gets the centroid location of this marker.
+	 */
 	@Override
 	public Location getLocation() {
 		return getCentroid();

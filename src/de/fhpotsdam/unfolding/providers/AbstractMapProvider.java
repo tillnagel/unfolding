@@ -7,29 +7,38 @@ import de.fhpotsdam.unfolding.geo.AbstractProjection;
 import de.fhpotsdam.unfolding.geo.Location;
 
 /**
- * Abstract map provider. In combination with the appropriate TileLoader subclasses handle map
- * tiles.
- * 
+ * Abstract map provider handles map tiles in combination with the appropriate TileLoader.
  */
 public abstract class AbstractMapProvider {
-	
+
 	public AbstractProjection projection;
 
 	public AbstractMapProvider(AbstractProjection projection) {
 		this.projection = projection;
 	}
 
+	/**
+	 * Gets tiles for coordinate.
+	 * 
+	 * Either this or @{link #getTileUrls(Coordinate)} has to be implemented.
+	 * 
+	 * @param coordinate
+	 *            The position and zoom to get tile for.
+	 * @return A single PImage with the tile.
+	 */
 	public abstract PImage getTile(Coordinate coordinate);
-	
+
 	/**
 	 * Gets tile URLs for coordinate. May return multiple URLs, if provider handles multiple layers.
+	 * 
+	 * Either this or @{link #getTile(Coordinate)} has to be implemented.
 	 * 
 	 * @param coordinate
 	 *            The position and zoom to get tile for.
 	 * @return An array with tile URLs (mostly just one)
 	 */
 	public abstract String[] getTileUrls(Coordinate coordinate);
-	
+
 	public abstract int tileWidth();
 
 	public abstract int tileHeight();
@@ -57,7 +66,6 @@ public abstract class AbstractMapProvider {
 
 		return new Coordinate(wrappedRow, wrappedColumn, coordinate.zoom);
 	}
-
 
 	/** since we're often given four tile servers to pick from */
 	public static float random(int lower, int higher) {

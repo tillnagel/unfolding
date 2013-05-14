@@ -27,7 +27,6 @@ public class DebugDisplay implements MapEventListener {
 	UnfoldingMap map;
 	EventDispatcher eventDispatcher;
 
-
 	int maxZoomLevels = 18;
 
 	// Position and size
@@ -78,7 +77,6 @@ public class DebugDisplay implements MapEventListener {
 	float zoomByBroadcasted = MIN_TRANSPARENCY;
 	float zoomToBroadcasted = MIN_TRANSPARENCY;
 
-
 	/**
 	 * Shows current information on the mapDisplay and the mouse pointer.
 	 * 
@@ -86,6 +84,8 @@ public class DebugDisplay implements MapEventListener {
 	 *            The PApplet, used to draw and to get mouse position.
 	 * @param map
 	 *            The map to display debug information about.
+	 * @param eventDispatcher
+	 *            The dispatcher to register this DebugDisplay to in order to display fired events.
 	 * @param x
 	 *            Horizontal position of the display.
 	 * @param y
@@ -100,10 +100,11 @@ public class DebugDisplay implements MapEventListener {
 			// eventDispatcher.register(this, "zoom", map.getId());
 
 			// TODO Register to all scopes, instead of using hard-coded strings
-			eventDispatcher.register(this, "pan", "map1", "map2");
-			eventDispatcher.register(this, "zoom", "map1", "map2");
+			eventDispatcher.register(this, "pan", "map", "map1", "map2");
+			eventDispatcher.register(this, "zoom", "map", "map1", "map2");
 
-			//eventDispatcher.registerToAll(this, "pan");
+			// TODO Implement registerToAll
+			// eventDispatcher.registerToAll(this, "pan");
 		}
 
 		this.x = x;
@@ -114,10 +115,30 @@ public class DebugDisplay implements MapEventListener {
 		logo = p.loadImage("unfolding-mini-icon.png");
 	}
 
+	/**
+	 * Shows current information on the mapDisplay and the mouse pointer. Is positioned at top left corner.
+	 * 
+	 * @param p
+	 *            The PApplet, used to draw and to get mouse position.
+	 * @param map
+	 *            The map to display debug information about.
+	 */
 	public DebugDisplay(PApplet p, UnfoldingMap map) {
 		this(p, map, 10, 10);
 	}
 
+	/**
+	 * Shows current information on the mapDisplay and the mouse pointer.
+	 * 
+	 * @param p
+	 *            The PApplet, used to draw and to get mouse position.
+	 * @param map
+	 *            The map to display debug information about.
+	 * @param x
+	 *            Horizontal position of the display.
+	 * @param y
+	 *            Vertical position of the display.
+	 */
 	public DebugDisplay(PApplet p, UnfoldingMap map, int x, int y) {
 		this(p, map, null, x, y);
 	}

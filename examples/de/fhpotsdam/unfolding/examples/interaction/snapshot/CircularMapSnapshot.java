@@ -7,7 +7,7 @@ import processing.core.PImage;
 import de.fhpotsdam.unfolding.UnfoldingMap;
 
 /**
- * Stores a circular thumbnail of the current map.  
+ * Stores a circular thumbnail of the current map, and current map status data (from MapSnapshot).  
  */
 public class CircularMapSnapshot extends MapSnapshot {
 

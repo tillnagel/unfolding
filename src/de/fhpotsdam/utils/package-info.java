@@ -1,5 +1,4 @@
 /**
- * Really general utility functions.
+ * General utility functions.
  */
-
 package de.fhpotsdam.utils;

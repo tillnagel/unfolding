@@ -4,9 +4,8 @@
 		Unfolding
 	</description>
 
-	<!-- Sets variables which can later be used. -->
-	<!-- The value of a property is accessed via ${} -->
-	<property name="version" value="0.9.2" />
+	<property name="version" value="0.9.3" />
+	<!-- NOTE Also update /resources/unfolding_app_template/classpath! -->
 	<property name="unfolding.jar" value="unfolding.${version}.jar" />
 
 	<property name="src.dir" location="src" />
@@ -16,12 +15,12 @@
 	<property name="dist.dir" location="dist" />
 	<property name="docs.dir" location="doc" />
 	<property name="lib.dir" location="lib" />
-	<property name="gh-pages.dir" value="../gh-pages/"/>
+	<property name="gh-pages.dir" value="../unfolding-pages/" />
 
 	<!-- Variables used for JUnit testing -->
 	<property name="test.dir" location="test" />
 	<property name="test.report.dir" location="testreport" />
-	
+
 	<!--
 		Create a classpath container which can be later used in the ant task
 	-->
@@ -36,7 +35,7 @@
 		<pathelement location="lib/junit-4.10.jar" />
 		<pathelement location="${build.dir}" />
 	</path>
-	
+
 	<!-- Deletes the existing build, docs and dist directory-->
 	<target name="clean">
 		<delete dir="${build.dir}" />
@@ -65,19 +64,19 @@
 
 	<!-- Compiles the java code (including the usage of library for JUnit -->
 	<target name="compile" depends="clean, makedir">
-		<javac includeantruntime="false" srcdir="${src.dir}" destdir="${build.dir}" >
+		<javac includeantruntime="false" srcdir="${src.dir}" destdir="${build.dir}">
 			<classpath refid="build.classpath" />
 			<!-- <classpath refid="junit.class.path" /> -->
 		</javac>
 	</target>
-	
+
 	<target name="compile-test" depends="compile">
-		<javac includeantruntime="false" srcdir="${test.dir}" destdir="${build.dir}" >
+		<javac includeantruntime="false" srcdir="${test.dir}" destdir="${build.dir}">
 			<classpath refid="build.classpath" />
 			<!-- <classpath refid="junit.class.path" /> -->
 		</javac>
 	</target>
-	
+
 	<!-- Run the JUnit Tests -->
 	<!-- Output is XML, could also be plain-->
 	<!-- NOTE: This is not working yet -->
@@ -127,17 +126,14 @@
 		<!-- copy our current unfolding jar -->
 		<copy file="${dist.dir}/${unfolding.jar}" todir="${dist.dir}/unfolding_app_template/lib/" />
 		<!-- copy readme -->
-		<copy file="resources/unfolding_app_template/README"
-		      todir="${dist.dir}/unfolding_app_template/" />
+		<copy file="resources/unfolding_app_template/README" todir="${dist.dir}/unfolding_app_template/" />
 		<!-- copy some example src -->
 		<copy file="examples/HelloUnfoldingWorld.java" todir="${dist.dir}/unfolding_app_template/src/" />
 		<!-- copy .classpath and .project -->
 		<copy file="resources/unfolding_app_template/classpath" tofile="${dist.dir}/unfolding_app_template/.classpath" />
 		<copy file="resources/unfolding_app_template/project" tofile="${dist.dir}/unfolding_app_template/.project" />
 		<!-- create a zip file -->
-		<zip destfile="${dist.dir}/unfolding_app_template.zip"
-			basedir="${dist.dir}/unfolding_app_template/"
-		/>
+		<zip destfile="${dist.dir}/unfolding_app_template_${version}.zip" basedir="${dist.dir}/unfolding_app_template/" />
 	</target>
 
 
@@ -163,9 +159,12 @@
 		</copy>
 		<!-- copy our current unfolding jar -->
 		<copy file="${dist.dir}/${unfolding.jar}" todir="${dist.dir}/unfolding_app_template_with_examples/lib/" />
+		<!-- copy data files -->
+		<copy todir="${dist.dir}/unfolding_app_template_with_examples/data/">
+			<fileset dir="data" />
+		</copy>
 		<!-- copy readme -->
-		<copy file="resources/unfolding_app_template/README"
-		      todir="${dist.dir}/unfolding_app_template_with_examples/README" />
+		<copy file="resources/unfolding_app_template/README" todir="${dist.dir}/unfolding_app_template_with_examples/" />
 		<!-- copy some examples -->
 		<copy todir="${dist.dir}/unfolding_app_template_with_examples/examples/">
 			<fileset dir="${example.dir}" />
@@ -174,9 +173,7 @@
 		<copy file="resources/unfolding_app_template/classpath_with_examples" tofile="${dist.dir}/unfolding_app_template_with_examples/.classpath" />
 		<copy file="resources/unfolding_app_template/project_with_examples" tofile="${dist.dir}/unfolding_app_template_with_examples/.project" />
 		<!-- create a zip file -->
-		<zip destfile="${dist.dir}/unfolding_app_template_with_examples.zip"
-			basedir="${dist.dir}/unfolding_app_template_with_examples/"
-		/>
+		<zip destfile="${dist.dir}/unfolding_app_template_with_examples_${version}.zip" basedir="${dist.dir}/unfolding_app_template_with_examples/" />
 	</target>
 
 
@@ -194,16 +191,14 @@
 		<copy todir="${dist.dir}/Unfolding/library/" file="${lib.dir}/json4processing.jar" />
 
 		<!-- copy processing examples -->
-		<copy todir="${dist.dir}/Unfolding/examples" >
+		<copy todir="${dist.dir}/Unfolding/examples">
 			<fileset dir="${example.processing.dir}" />
 		</copy>
 
 		<!-- create a zip file -->
-		<zip destfile="${dist.dir}/Unfolding.zip" 
-			basedir="${dist.dir}/Unfolding/" />
+		<zip destfile="${dist.dir}/Unfolding.zip" basedir="${dist.dir}/Unfolding/" />
 		<!-- wrap again so users can easily install it by copying the unzipped directory. -->
-		<zip destfile="${dist.dir}/Unfolding_for_processing.zip" 
-			basedir="${dist.dir}/" includes="Unfolding.zip" />
+		<zip destfile="${dist.dir}/Unfolding_for_processing_${version}.zip" basedir="${dist.dir}/" includes="Unfolding.zip" />
 	</target>
 
 	<!--
@@ -213,7 +208,7 @@
 	-->
 	<target name="docs2ghpages" depends="docs2ghpages.errormsg, dir.gh-pages.check, docs" if="dir.exists">
 		<echo>${gh-pages.dir} exists. Copy javadoc.</echo>
-		<copy todir="${gh-pages.dir}/javadoc/" >
+		<copy todir="${gh-pages.dir}/javadoc/">
 			<fileset dir="${docs.dir}" />
 		</copy>
 		<echo>Do not forget to add the new files to git in gh-pages!</echo>
@@ -221,13 +216,14 @@
 
 	<!-- Spit out an error msg if ../gh-pages does not exist. -->
 	<target name="docs2ghpages.errormsg" depends="dir.gh-pages.check" unless="dir.exists">
-		<fail message="${gh-pages.dir} missing. Aborting."></fail>
+		<fail message="${gh-pages.dir} missing. Aborting.">
+		</fail>
 	</target>
 
 	<!-- Make sure ../gh-pages exists -->
 	<target name="dir.gh-pages.check">
 		<condition property="dir.exists">
-			<available file="${gh-pages.dir}" type="dir"/>
+			<available file="${gh-pages.dir}" type="dir" />
 		</condition>
 	</target>
 

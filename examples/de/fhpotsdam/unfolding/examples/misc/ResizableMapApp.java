@@ -41,10 +41,10 @@ public class ResizableMapApp extends PApplet {
 
 		background(0);
 		map.draw();
-		
+
 		// Random resizing to reproduce https://github.com/tillnagel/unfolding/issues/55
-		//width = (int) random(screenWidth);
-		//height = (int) random(screenHeight);
+		// width = (int) random(screenWidth);
+		// height = (int) random(screenHeight);
 	}
 
 	public static void main(String[] args) {

@@ -8,7 +8,7 @@ import de.fhpotsdam.unfolding.geo.Transformation;
 import de.fhpotsdam.unfolding.tiles.MBTilesLoaderUtils;
 
 /**
- * MapProvider for MBTiles.
+ * MapProvider for local MBTiles.
  */
 public class MBTilesMapProvider extends AbstractMapTileProvider {
 	

@@ -13,7 +13,7 @@
 	<classpathentry kind="lib" path="lib/gluegen-rt.jar"/>
 	<classpathentry kind="lib" path="lib/jogl.jar">
 		<attributes>
-			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="unfolding/libNative/linux32"/>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="unfolding/libNative/macosx"/>
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="lib/log4j-1.2.15.jar"/>

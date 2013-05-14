@@ -1,4 +1,4 @@
-package de.fhpotsdam.unfolding.examples.interaction;
+package de.fhpotsdam.unfolding.examples.interaction.multitouch;
 
 import org.apache.log4j.Logger;
 
@@ -8,14 +8,22 @@ import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.events.EventDispatcher;
 import de.fhpotsdam.unfolding.interactions.TuioCursorHandler;
 
+/**
+ * An interactive map which users can zoom, pan, and rotate with finger gestures.
+ * 
+ * You'll need a TUIO-capable touch device to run this example! See http://www.tuio.org/?software for more information.
+ * Start as application for full-screen.
+ * 
+ * See {@link MultitouchMapExternalTuioApp} for how to handle multitouch input for both your app and the map.
+ * 
+ */
 public class MultitouchMapApp extends PApplet {
 
 	public static Logger log = Logger.getLogger(MultitouchMapApp.class);
 
 	public static final boolean DISABLE_ROTATING = false;
 
-	// For fullscreen start as application
-	public static final boolean FULLSCREEN = false;
+	public static boolean FULLSCREEN = false;
 
 	UnfoldingMap map;
 	TuioCursorHandler tuioCursorHandler;
@@ -27,10 +35,11 @@ public class MultitouchMapApp extends PApplet {
 			size(800, 600, GLConstants.GLGRAPHICS);
 		}
 
+		// Init the map
 		map = new UnfoldingMap(this);
 
 		EventDispatcher eventDispatcher = new EventDispatcher();
-
+		// Create multitouch input handler, and register map to listen to pan and zoom events.
 		tuioCursorHandler = new TuioCursorHandler(this, map);
 		eventDispatcher.addBroadcaster(tuioCursorHandler);
 		eventDispatcher.register(map, "pan");
@@ -45,12 +54,14 @@ public class MultitouchMapApp extends PApplet {
 		}
 		map.draw();
 
+		// Shows position of fingers for debugging.
 		tuioCursorHandler.drawCursors();
 	}
 
 	public static void main(String[] args) {
 		String[] params = new String[] { "--present", "--bgcolor=#000000", "--hide-stop", "--exclusive",
 				"de.fhpotsdam.unfolding.examples.interaction.MultitouchMapApp" };
+		FULLSCREEN = true;
 		PApplet.main(params);
 	}
 

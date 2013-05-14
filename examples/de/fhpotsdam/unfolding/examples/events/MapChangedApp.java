@@ -51,9 +51,11 @@ public class MapChangedApp extends PApplet {
 			ZoomMapEvent zoomMapEvent = (ZoomMapEvent) mapEvent;
 			lastZoomLocation = zoomMapEvent.getCenter();
 			if (zoomMapEvent.getZoomLevelDelta() < 0 || zoomMapEvent.getZoomDelta() < 0) {
+				// Zoom in
 				rectSize = 50;
 				rectSizeDiff = -3;
 			} else {
+				// Zoom out
 				rectSize = 10;
 				rectSizeDiff = 3;
 			}

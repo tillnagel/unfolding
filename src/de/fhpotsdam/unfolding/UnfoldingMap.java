@@ -760,7 +760,12 @@ public class UnfoldingMap implements MapEventListener {
 	}
 
 	/**
-	 * Sets the range of map zoom levels.
+	 * Sets the range of map zoom levels. All zoom interactions will be restricted to these levels.
+	 * 
+	 * @param minZoomLevel
+	 *            The lower zoom level boundary.
+	 * @param maxZoomLevel
+	 *            The upper zoom level boundary.
 	 */
 	public void setZoomRange(float minZoomLevel, float maxZoomLevel) {
 		this.minScale = getScaleFromZoom(minZoomLevel);
@@ -792,10 +797,16 @@ public class UnfoldingMap implements MapEventListener {
 		this.maxPanningDistance = maxPanningDistance;
 	}
 
+	/**
+	 * Frees this map from any panning restriction.
+	 */
 	public void resetPanningRestriction() {
 		this.restrictedPanLocation = null;
 	}
 
+	/**
+	 * Method to perform any current map panning restriction.
+	 */
 	private void restrictMapToArea() {
 		if (restrictedPanLocation == null) {
 			return;

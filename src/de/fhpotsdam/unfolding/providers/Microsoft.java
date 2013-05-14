@@ -5,6 +5,9 @@ import de.fhpotsdam.unfolding.core.Coordinate;
 import de.fhpotsdam.unfolding.geo.MercatorProjection;
 import de.fhpotsdam.unfolding.geo.Transformation;
 
+/**
+ * Various map tiles from Microsoft.
+ */
 public class Microsoft {
 
 	public static abstract class MicrosoftProvider extends AbstractMapTileUrlProvider {

@@ -10,7 +10,7 @@ import de.fhpotsdam.unfolding.utils.ScreenPosition;
 import de.fhpotsdam.unfolding.utils.StyleConstants;
 
 /**
- * Abstract marker handling location to appropriate coordinate system, and handles basic marker functionality.
+ * Abstract marker handling conversion of location to appropriate coordinate system, and handles basic marker functionality.
  * 
  * All default marker of Unfolding implement this. Your own class can extend this AbstractMarker or implement the Marker
  * interface, directly.
@@ -45,6 +45,8 @@ public abstract class AbstractMarker implements Marker {
 		setProperties(props);
 	}
 
+	
+	
 	public String getId() {
 		return id;
 	}
@@ -177,12 +179,7 @@ public abstract class AbstractMarker implements Marker {
 	 */
 	protected abstract boolean isInside(float checkX, float checkY, float x, float y);
 
-	/**
-	 * Changes the select status of this marker. Sub-classes can use the selection status to highlight this marker.
-	 * 
-	 * @param selected
-	 *            Whether this marker is selected or not.
-	 */
+	@Override
 	public void setSelected(boolean selected) {
 		this.selected = selected;
 	}
@@ -206,9 +203,13 @@ public abstract class AbstractMarker implements Marker {
 		this.highlightColor = highlightColor;
 	}
 
+	public void setHighlightStrokeColor(int highlightStrokeColor) {
+		this.highlightStrokeColor = highlightStrokeColor;
+	}
+
 	@Override
 	public void setStrokeColor(int color) {
 		this.strokeColor = color;
 	}
-
+	
 }

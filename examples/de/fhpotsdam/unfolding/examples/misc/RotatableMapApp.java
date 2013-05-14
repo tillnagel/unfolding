@@ -52,7 +52,7 @@ public class RotatableMapApp extends PApplet {
 		rotateCenter = new PVector(mouseX, mouseY);
 
 		// Inner rotate (i.e. map) works with both, P2D and GLGraphics
-		map.mapDisplay.setTransformationCenter(rotateCenter);
+		map.mapDisplay.setInnerTransformationCenter(rotateCenter);
 		if (key == 'r') {
 			map.rotate(-PI / 8);
 		} else if (key == 'l') {
@@ -60,7 +60,7 @@ public class RotatableMapApp extends PApplet {
 		}
 
 		// Outer rotate (i.e. map container) only works with GLGraphics offscreen buffer
-		map.mapDisplay.setInnerTransformationCenter(rotateCenter);
+		map.mapDisplay.setTransformationCenter(rotateCenter);
 		if (key == 'R') {
 			map.outerRotate(-PI / 8);
 		} else if (key == 'L') {
@@ -69,6 +69,6 @@ public class RotatableMapApp extends PApplet {
 	}
 
 	public static void main(String[] args) {
-		PApplet.main(new String[] { "de.fhpotsdam.unfolding.examples.RotatableMapApp" });
+		PApplet.main(new String[] { "de.fhpotsdam.unfolding.examples.misc.RotatableMapApp" });
 	}
 }

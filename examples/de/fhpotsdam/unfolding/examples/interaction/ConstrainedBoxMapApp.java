@@ -8,7 +8,12 @@ import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.utils.MapUtils;
 import de.fhpotsdam.unfolding.utils.ScreenPosition;
 
-public class PanRectConstrainedMapApp extends PApplet {
+/**
+ * Manually constrains the map to a rectangular area. Users can only pan within this specified box.
+ * 
+ * See {@link ConstrainedMapApp} for Unfolding's built-in constraint methods.
+ */
+public class ConstrainedBoxMapApp extends PApplet {
 
 	UnfoldingMap map;
 
@@ -28,15 +33,15 @@ public class PanRectConstrainedMapApp extends PApplet {
 		background(0);
 		map.draw();
 	}
-	
+
 	public void mapChanged(MapEvent mapEvent) {
 		restrictPanning();
 	}
-	
+
 	public void restrictPanning() {
 		Location mapTopLeft = map.getTopLeftBorder();
 		Location mapBottomRight = map.getBottomRightBorder();
-		
+
 		ScreenPosition mapTopLeftPos = map.getScreenPosition(mapTopLeft);
 		ScreenPosition boundTopLeftPos = map.getScreenPosition(boundTopLeft);
 		if (boundTopLeft.getLon() > mapTopLeft.getLon()) {

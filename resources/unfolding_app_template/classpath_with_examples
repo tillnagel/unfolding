@@ -17,6 +17,6 @@
 	<classpathentry kind="lib" path="lib/sqlitejdbc-v056.jar"/>
 	<classpathentry kind="lib" path="lib/json4processing.jar"/>
 	<classpathentry kind="lib" path="lib/libTUIO.jar"/>
-	<classpathentry kind="lib" path="lib/unfolding.0.9.beta.jar"/>
+	<classpathentry kind="lib" path="lib/unfolding.0.9.3.jar"/>
 	<classpathentry kind="output" path="build"/>
 </classpath>
