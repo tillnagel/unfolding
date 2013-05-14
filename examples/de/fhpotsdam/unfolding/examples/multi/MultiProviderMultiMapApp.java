@@ -9,7 +9,7 @@ import de.fhpotsdam.unfolding.providers.OpenStreetMap;
 import de.fhpotsdam.unfolding.utils.MapUtils;
 
 /**
- * Two independent maps, with own interactions and different providers.
+ * Shows two independent maps side by side, with own interactions and different providers.
  */
 public class MultiProviderMultiMapApp extends PApplet {
 

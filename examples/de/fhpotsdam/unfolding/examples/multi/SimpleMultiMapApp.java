@@ -6,7 +6,7 @@ import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.utils.MapUtils;
 
 /**
- * Shows two independent maps.
+ * Shows two independent maps aside each other.
  * 
  * Press + or - to zoom one of the maps, depending on which you hover the mouse.
  */

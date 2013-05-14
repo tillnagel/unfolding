@@ -11,14 +11,12 @@ import de.fhpotsdam.unfolding.utils.MapUtils;
 import de.fhpotsdam.utils.Integrator;
 
 /**
- *	Use d / n to anitmate between day and night! 
+ * Press'd' and 'n' to animate between day and night!
  */
-
 public class DayNightTransitionApp extends PApplet {
 
 	public static final String JDBC_CONN_STRING_APPLET = "jdbc:sqlite:../data/muse-dark-2-4.mbtiles";
-	
-	
+
 	UnfoldingMap mapDay;
 	UnfoldingMap mapNight;
 
