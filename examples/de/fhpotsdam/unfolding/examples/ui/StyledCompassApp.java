@@ -9,7 +9,7 @@ import de.fhpotsdam.unfolding.ui.CompassUI;
 import de.fhpotsdam.unfolding.utils.MapUtils;
 
 /**
- * Simple map example using CompassUI with a custom image. 
+ * Simple map example using CompassUI with a custom image.
  * 
  * Use r / l for map rotation.
  */
@@ -28,7 +28,7 @@ public class StyledCompassApp extends PApplet {
 		MapUtils.createDefaultEventDispatcher(this, map);
 
 		compassImg = loadImage("compass_grey.png");
-		compass = new CompassUI(this, map.mapDisplay, compassImg, 700, 100);
+		compass = new CompassUI(this, map, compassImg, 700, 100);
 	}
 
 	public void draw() {
@@ -42,8 +42,10 @@ public class StyledCompassApp extends PApplet {
 			map.rotate(0.1f);
 		if (key == 'l')
 			map.rotate(-0.1f);
-		if (key == ' ')
+		if (key == 's')
 			compass.setScale(compass.getScale() * 0.95f);
+		if (key == 'S')
+			compass.setScale(compass.getScale() * 1.05f);
 	}
 
 	public static void main(String[] args) {
