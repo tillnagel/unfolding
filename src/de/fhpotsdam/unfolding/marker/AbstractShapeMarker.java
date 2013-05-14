@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import processing.core.PGraphics;
+import processing.core.PVector;
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.utils.GeoUtils;
@@ -220,17 +221,31 @@ public abstract class AbstractShapeMarker extends AbstractMarker {
 		return isInside(checkX, checkY, positions);
 	}
 
-	protected boolean isInside(float checkX, float checkY, List<ScreenPosition> positions) {
+	protected boolean isInside(float checkX, float checkY,
+			List<? extends PVector> vectors) {
 		boolean inside = false;
-		for (int i = 0, j = positions.size() - 1; i < positions.size(); j = i++) {
-			ScreenPosition pi = positions.get(i);
-			ScreenPosition pj = positions.get(j);
+		for (int i = 0, j = vectors.size() - 1; i < vectors.size(); j = i++) {
+			PVector pi = vectors.get(i);
+			PVector pj = vectors.get(j);
 			if ((((pi.y <= checkY) && (checkY < pj.y)) || ((pj.y <= checkY) && (checkY < pi.y)))
 					&& (checkX < (pj.x - pi.x) * (checkY - pi.y) / (pj.y - pi.y) + pi.x)) {
 				inside = !inside;
 			}
 		}
 		return inside;
+	}
+
+	/**
+	 * Checks whether given position is inside this marker, according to the
+	 * shape defined by the marker's locations
+	 * 
+	 * @param longitude
+	 *            The longitude
+	 * @param latitude
+	 *            The latitude
+	 */
+	public boolean isInsideByLocation(float latitude, float longitude) {
+		return isInside(latitude, longitude, locations);
 	}
 
 	@Override

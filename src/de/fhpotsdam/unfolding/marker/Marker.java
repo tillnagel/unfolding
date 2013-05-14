@@ -99,7 +99,9 @@ public interface Marker {
 	public String getStringProperty(String key);
 
 	/**
-	 * Checks whether given position is inside this marker, according to the maps coordinate system.
+	 * Checks whether given position is inside this marker, according to the
+	 * maps coordinate system. Can be used for interactive hit tests, e.g. mouse
+	 * interaction
 	 * 
 	 * @param map
 	 *            The map to draw on.
