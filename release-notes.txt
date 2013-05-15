@@ -1,9 +1,24 @@
-Release Notes
+RELEASE NOTES 
 
-0.9.1 to 0.9.3
 
-120 files changed, 4431 insertions, 600 deletions (git)
 
-- Added MIT license
-- Cleaned up distribution
-- Added centroid algorithm (and examples)
+0.9.3
+(20 May 2013: 120 files changed, 4431 insertions, 600 deletions)
+
+Features & Bug Fixes
+- Fixed tweening (#5). Map now can animate between states, optionally.
+- Fixed centroid algorithm (#47).
+- Added mapChanged and tilesLoaded methods. Similar to Processing's simple events such as mouseMoved these allow easily reacting to map events.
+- Enhanced data properties functionality in both Markers and Features.
+
+Documentation
+- Added various more examples (in Eclipse distribution)
+- Added some more examples (in Processing distribution)
+- Enhanced JavaDoc API, and inline documentation.
+
+Other
+- Added MIT license.
+- Cleaned up distribution.
+- Started release notes. :)
+
+

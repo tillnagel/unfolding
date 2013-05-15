@@ -25,6 +25,7 @@ public class MapChangedApp extends PApplet {
 		size(800, 600, GLConstants.GLGRAPHICS);
 
 		map = new UnfoldingMap(this);
+		map.setTweening(true);
 		MapUtils.createDefaultEventDispatcher(this, map);
 	}
 

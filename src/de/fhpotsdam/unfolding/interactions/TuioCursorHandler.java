@@ -89,7 +89,6 @@ public class TuioCursorHandler extends MapEventBroadcaster implements TuioListen
 					// (float/double)
 
 					// Uses inner zoom and inner rotation, thus fingers are on same location
-					// TODO Do study on usability for different interaction approaches.
 
 					// Flags to test various combinations
 					boolean zoom = true;
@@ -106,7 +105,10 @@ public class TuioCursorHandler extends MapEventBroadcaster implements TuioListen
 
 					if (zoom) {
 						ZoomMapEvent zoomMapEvent = new ZoomMapEvent(this, map.getId(), ZoomMapEvent.ZOOM_BY);
-
+						
+						// 3 variations to zoom with two finger gestures
+						// TODO Do study on usability for different interaction approaches.
+						
 						// 1. pos of last finger
 						Location centerLocation = map.getLocation(transCenter.x, transCenter.y);
 						zoomMapEvent.setTransformationCenterLocation(centerLocation);
@@ -118,7 +120,7 @@ public class TuioCursorHandler extends MapEventBroadcaster implements TuioListen
 						// PVector objectCenter = new PVector(objectCenterXY[0], objectCenterXY[1]);
 						// map.mapDisplay.setInnerTransformationCenter(objectCenter);
 
-						// TODO 3. middle pos between both fingers
+						// 3. middle pos between both fingers
 
 						float newDist = getDistance(tuioCursor1, tuioCursor2);
 						float scaleDelta = newDist / oldDist;
@@ -129,6 +131,9 @@ public class TuioCursorHandler extends MapEventBroadcaster implements TuioListen
 					}
 
 					if (rotate) {
+						
+						// TODO Use events (instead of direct map manipulation)
+
 						// rotate center
 						map.mapDisplay.setTransformationCenter(transCenter);
 
@@ -138,9 +143,6 @@ public class TuioCursorHandler extends MapEventBroadcaster implements TuioListen
 						map.rotate(angle);
 					}
 
-					// TODO Use events (instead of direct map manipulation)
-					// ZoomMapEvent zoomMapEvent = new ZoomMapEvent(this, map.getId());
-					// zoomMapEvent.setTransformationCenterLocation(transformationCenterLocation);
 
 				} else if (tuioCursor1 != null) {
 					// One finger: pan

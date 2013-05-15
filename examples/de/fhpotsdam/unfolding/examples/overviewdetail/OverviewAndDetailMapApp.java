@@ -23,8 +23,10 @@ public class OverviewAndDetailMapApp extends PApplet {
 		size(800, 600, GLConstants.GLGRAPHICS);
 
 		mapDetail = new UnfoldingMap(this, "detail", 10, 10, 585, 580);
+		mapDetail.setTweening(true);
 		mapDetail.zoomToLevel(4);
 		mapOverview = new UnfoldingMap(this, "overview", 605, 10, 185, 185);
+		mapOverview.setTweening(true);
 
 		EventDispatcher eventDispatcher = new EventDispatcher();
 

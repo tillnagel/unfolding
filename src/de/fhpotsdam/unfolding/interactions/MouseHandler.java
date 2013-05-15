@@ -40,10 +40,7 @@ public class MouseHandler extends MapEventBroadcaster {
 			if (map.isHit(mouseX, mouseY)) {
 				if (mouseEvent.getClickCount() == 2) {
 
-					// FIXME Pan + Zoom does not work without tweening
-
 					// Pan + Zoom (order is important)
-
 					PanMapEvent panMapEvent = new PanMapEvent(this, map.getId());
 					Location location = map.getLocation(mouseX, mouseY);
 					panMapEvent.setToLocation(location);

@@ -11,7 +11,7 @@ import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.utils.MapUtils;
 
 /**
- * Manual navigation example with two maps.
+ * Advanced: Manual navigation example with two maps.
  * 
  * Uses own map events to execute the navigation. Opposite to {@link NaviButtonMapApp} in this two-maps example, a
  * simple mapDetail.zoomAndPanTo() would not update mapOverview.
@@ -35,6 +35,7 @@ public class NaviButtonMapEventsApp extends PApplet {
 		font = createFont("sans-serif", 14);
 
 		mapDetail = new UnfoldingMap(this, "detail", 10, 10, 585, 580);
+		mapDetail.setTweening(true);
 		mapDetail.zoomToLevel(4);
 		mapOverview = new UnfoldingMap(this, "overview", 605, 10, 185, 185);
 		
@@ -55,28 +56,29 @@ public class NaviButtonMapEventsApp extends PApplet {
 		if (mouseX > 610 && mouseX < 790 && mouseY > 210 && mouseY < 290) {
 			// mapDetail.zoomAndPanTo() would not update mapOverview
 
-			ZoomMapEvent zoomMapEvent = new ZoomMapEvent(this, mapDetail.getId());
-			zoomMapEvent.setSubType(ZoomMapEvent.ZOOM_TO_LEVEL);
-			zoomMapEvent.setZoomLevel(berlinZoomLevel);
-			eventDispatcher.fireMapEvent(zoomMapEvent);
-
 			PanMapEvent panMapEvent = new PanMapEvent(this, mapDetail.getId());
 			panMapEvent.setToLocation(berlinLocation);
 			eventDispatcher.fireMapEvent(panMapEvent);
+
+			ZoomMapEvent zoomMapEvent = new ZoomMapEvent(this, mapDetail.getId(), ZoomMapEvent.ZOOM_TO_LEVEL);
+			zoomMapEvent.setZoomLevel(berlinZoomLevel);
+			zoomMapEvent.setTransformationCenterLocation(berlinLocation);
+			eventDispatcher.fireMapEvent(zoomMapEvent);
+
 
 			// TODO Create convenience methods to fire map events.
 			// MapUtils.fireZoomEvent(eventDispatcher, mapDetail, ZoomMapEvent.ZOOM_TO_LEVEL, berlinZoomLevel);
 			// MapUtils.firePanEvent(eventDispatcher, mapDetail, berlinLocation);
 
 		} else if (mouseX > 610 && mouseX < 790 && mouseY > 310 && mouseY < 390) {
-			ZoomMapEvent zoomMapEvent = new ZoomMapEvent(this, mapDetail.getId());
-			zoomMapEvent.setSubType(ZoomMapEvent.ZOOM_TO_LEVEL);
-			zoomMapEvent.setZoomLevel(universityZoomLevel);
-			eventDispatcher.fireMapEvent(zoomMapEvent);
-
 			PanMapEvent panMapEvent = new PanMapEvent(this, mapDetail.getId());
 			panMapEvent.setToLocation(universityLocation);
 			eventDispatcher.fireMapEvent(panMapEvent);
+
+			ZoomMapEvent zoomMapEvent = new ZoomMapEvent(this, mapDetail.getId(), ZoomMapEvent.ZOOM_TO_LEVEL);
+			zoomMapEvent.setZoomLevel(universityZoomLevel);
+			zoomMapEvent.setTransformationCenterLocation(universityLocation);
+			eventDispatcher.fireMapEvent(zoomMapEvent);
 		}
 	}
 

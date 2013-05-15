@@ -11,7 +11,7 @@ import de.fhpotsdam.unfolding.utils.ScreenPosition;
 /**
  * Manually constrains the map to a rectangular area. Users can only pan within this specified box.
  * 
- * See {@link ConstrainedMapApp} for Unfolding's built-in constraint methods.
+ * See {@link ConstrainedMapApp} for Unfolding's built-in (but radial) constraint methods.
  */
 public class ConstrainedBoxMapApp extends PApplet {
 

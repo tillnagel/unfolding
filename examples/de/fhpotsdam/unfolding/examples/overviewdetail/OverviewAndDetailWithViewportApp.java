@@ -30,6 +30,7 @@ public class OverviewAndDetailWithViewportApp extends PApplet {
 
 		// Detail map with default mouse and keyboard interactions
 		mapDetail = new UnfoldingMap(this, "detail", 10, 10, 585, 580);
+		mapDetail.setTweening(true);
 		mapDetail.zoomToLevel(4);
 		mapDetail.setZoomRange(4, 10);
 		MapUtils.createDefaultEventDispatcher(this, mapDetail);

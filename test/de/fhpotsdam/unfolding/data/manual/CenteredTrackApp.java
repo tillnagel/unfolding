@@ -83,6 +83,6 @@ public class CenteredTrackApp extends PApplet {
 	}
 
 	public static void main(String[] args) {
-		PApplet.main(new String[] { "de.fhpotsdam.unfolding.examples.animation.CenteredTrackApp" });
+		PApplet.main(new String[] { "de.fhpotsdam.unfolding.data.manual.CenteredTrackApp" });
 	}
 }

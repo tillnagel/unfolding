@@ -13,7 +13,7 @@ import de.fhpotsdam.unfolding.utils.ScreenPosition;
  * all renderers. Outer-rotate transforms the map container, and works with GLGraphics only.
  * 
  * Use r and l to inner rotate clock-wise (right), and counter-clock-wise (left), and respectively R and L to outer
- * rotate. Note, this example rotates both around the current mouse pointer.
+ * rotate. Note, in this example the map rotates around the current mouse pointer.
  */
 public class RotatableMapApp extends PApplet {
 

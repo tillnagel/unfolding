@@ -1,4 +1,4 @@
-package de.fhpotsdam.unfolding.examples.animation;
+package de.fhpotsdam.unfolding.examples;
 
 import processing.core.PApplet;
 import codeanticode.glgraphics.GLConstants;
@@ -8,11 +8,11 @@ import de.fhpotsdam.unfolding.utils.GeoUtils;
 import de.fhpotsdam.unfolding.utils.MapUtils;
 
 /**
- * Animates a map from one position to another.
  * 
- * Uses very simple own animation counter. For smoother animations use some tweening library.
+ * OUTDATED. Use setTweening(true) now. This is still useful only as example how to do own animation.
  * 
- * Press SPACE to toggle the animation.
+ * Animates a map from one position to another. Uses very simple own animation counter. For smoother animations use some
+ * tweening library. Press SPACE to toggle the animation.
  */
 public class SimpleAnimatedMapApp extends PApplet {
 
@@ -27,7 +27,7 @@ public class SimpleAnimatedMapApp extends PApplet {
 	// Total distance between start and end locations.
 	float totalDist = 0;
 
-	// Angle between start and end locations. 
+	// Angle between start and end locations.
 	float angle;
 
 	Location tweenLocation;
