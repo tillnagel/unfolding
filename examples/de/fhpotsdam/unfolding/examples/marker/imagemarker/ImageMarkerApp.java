@@ -7,7 +7,8 @@ import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.utils.MapUtils;
 
 /**
- * Demonstrates how to use ImageMarkers with different icons.
+ * Demonstrates how to use ImageMarkers with different icons. Note, the used icons contain translucent (the shadows) and
+ * transparent (the inner holes) areas.
  */
 public class ImageMarkerApp extends PApplet {
 

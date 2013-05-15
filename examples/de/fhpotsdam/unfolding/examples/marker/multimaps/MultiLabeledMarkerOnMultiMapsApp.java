@@ -1,4 +1,4 @@
-package de.fhpotsdam.unfolding.examples.marker.labelmarker;
+package de.fhpotsdam.unfolding.examples.marker.multimaps;
 
 import java.util.List;
 
@@ -7,14 +7,15 @@ import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.data.Feature;
 import de.fhpotsdam.unfolding.data.GeoRSSReader;
 import de.fhpotsdam.unfolding.marker.Marker;
+import de.fhpotsdam.unfolding.marker.labelmarker.ManualLabelMarkerApp;
 import de.fhpotsdam.unfolding.utils.MapUtils;
 
 /**
- * Similar to {@link MultiLabeledMarkerApp}, but marker appear on two maps.
+ * Similar to {@link ManualLabelMarkerApp}, but marker appear on two maps.
  * 
  * Markers on both maps react to hover, but selection is always visible in both maps, as the markers are the same.
  */
-public class MultiLabeledMarkerOnMultiMapsApp extends MultiLabeledMarkerApp {
+public class MultiLabeledMarkerOnMultiMapsApp extends ManualLabelMarkerApp {
 
 	UnfoldingMap map1;
 	UnfoldingMap map2;

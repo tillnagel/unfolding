@@ -1,4 +1,4 @@
-package de.fhpotsdam.unfolding.examples.marker.centroid;
+package de.fhpotsdam.unfolding.examples.marker.advanced.centroid;
 
 import java.util.List;
 
@@ -14,7 +14,8 @@ import de.fhpotsdam.unfolding.utils.MapUtils;
 /**
  * Example using own marker class to create markers from features via the MarkerFactory.
  * 
- * The markers display labels at the center of the polygons, additionally to the polygons (by using SimplePolygonMarker's draw method) thenmselves.
+ * The markers display labels at the center of the polygons, additionally to the polygons (by using
+ * SimplePolygonMarker's draw method) themselves.
  */
 public class CentroidMarkerApp extends PApplet {
 
@@ -39,12 +40,6 @@ public class CentroidMarkerApp extends PApplet {
 	public void draw() {
 		background(160);
 		map.draw();
-	}
-
-	public void keyPressed() {
-		if (key == ' ') {
-			map.getDefaultMarkerManager().toggleDrawing();
-		}
 	}
 
 }

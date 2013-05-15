@@ -13,8 +13,12 @@ import de.fhpotsdam.unfolding.marker.SimplePolygonMarker;
 import de.fhpotsdam.unfolding.utils.MapUtils;
 
 /**
- * Shows two polygons for France and Corsica to demonstrate a multi marker. By hovering over one of the two areas the
- * whole MultiMarker gets selected, thus both areas are highlighted.
+ * Manual multi-marker example showing two polygons for France and Corsica to demonstrate a multi marker. By hovering
+ * over one of the two areas the whole MultiMarker gets selected, thus both areas are highlighted.
+ * 
+ * <p><em>Note, that loading Unfolding's DataReader automatically create and handle multi-marker. Check e.g.
+ * {@link MarkerSelectionApp}.</em>
+ * </p>
  * 
  * Set the boolean useMultiMarker to false to see the same areas as independent markers.
  */
@@ -40,7 +44,7 @@ public class MultiMarkerApp extends PApplet {
 			MultiMarker multiMarker = new MultiMarker();
 			multiMarker.addMarkers(franceMarker, corsicaMarker);
 			map.addMarkers(multiMarker);
-			
+
 		} else {
 			// Add France and Corsica as two independent polygon markers
 			map.addMarkers(franceMarker, corsicaMarker);
@@ -53,9 +57,9 @@ public class MultiMarkerApp extends PApplet {
 	}
 
 	public void mouseMoved() {
-		// Not via marker.isInside(...) as this example supports both MultiMarker and two markers. 
-		//multiMarker.isInside(map, mouseX, mouseY);
-		
+		// Not via marker.isInside(...) as this example supports both MultiMarker and two markers.
+		// multiMarker.isInside(map, mouseX, mouseY);
+
 		Marker hitMarker = map.getDefaultMarkerManager().getFirstHitMarker(mouseX, mouseY);
 		if (hitMarker != null) {
 			hitMarker.setSelected(true);

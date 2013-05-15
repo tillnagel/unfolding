@@ -8,11 +8,13 @@ import de.fhpotsdam.unfolding.utils.MapUtils;
 import de.fhpotsdam.unfolding.utils.ScreenPosition;
 
 /**
- * Displays two dots, by simply updating their position based on their locations. The locations are mapped according to
- * current map transformation.
+ * Displays two dots, by simply updating their position based on their locations. Look into Unfolding's Marker
+ * mechanism, if you want to use interactivity, load data or do anything else more than simply showing dots.
  * 
+ * <p>
  * Note, that this simple mechanism only works for full-sized maps (i.e. the markers are shown off-map, too). For usage
  * of MarkerManager look into other examples, e.g. {@link SimpleMarkerManagerApp}.
+ * </p>
  */
 @SuppressWarnings("serial")
 public class SimpleNonMarkerApp extends PApplet {

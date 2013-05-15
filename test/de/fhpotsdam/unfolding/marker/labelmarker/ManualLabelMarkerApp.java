@@ -1,23 +1,25 @@
-package de.fhpotsdam.unfolding.examples.marker.labelmarker;
+package de.fhpotsdam.unfolding.marker.labelmarker;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import processing.core.PApplet;
+import processing.core.PFont;
 import codeanticode.glgraphics.GLConstants;
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.data.Feature;
 import de.fhpotsdam.unfolding.data.GeoRSSReader;
-import de.fhpotsdam.unfolding.data.MarkerFactory;
+import de.fhpotsdam.unfolding.data.PointFeature;
+import de.fhpotsdam.unfolding.examples.marker.labelmarker.LabeledMarker;
+import de.fhpotsdam.unfolding.examples.marker.labelmarker.MultiLabeledMarkerApp;
 import de.fhpotsdam.unfolding.marker.Marker;
 import de.fhpotsdam.unfolding.utils.MapUtils;
 
 /**
- * Similar to MultiLabeldMarkerApp, but here the custom markers are created by the MarkerFactory.
- * 
- * Selection works out-of-the-box, but for using the 'title' property as label a special method has to be called. 
- * 
+ * Creates custom markers from features, and manually populates label from a data property. Different to
+ * {@link MultiLabeledMarkerApp}.
  */
-public class MultiLabeledMarkerFactoryApp extends PApplet {
+public class ManualLabelMarkerApp extends PApplet {
 
 	UnfoldingMap map;
 
@@ -29,14 +31,8 @@ public class MultiLabeledMarkerFactoryApp extends PApplet {
 		MapUtils.createDefaultEventDispatcher(this, map);
 
 		List<Feature> features = GeoRSSReader.loadData(this, "bbc-georss-test.xml");
-		MarkerFactory markerFactory = new MarkerFactory();
-		markerFactory.setPointClass(LabeledMarker.class);
-		//TODO Add convenience method: markerFactory.addPropertyRule("title", "name");
-		List<Marker> markers = markerFactory.createMarkers(features);
+		List<Marker> markers = createLabeledMarkers(features);
 		map.addMarkers(markers);
-		
-		// Use property 'title' as label
-		populateMarkerLabels(markers);
 	}
 
 	public void draw() {
@@ -57,12 +53,16 @@ public class MultiLabeledMarkerFactoryApp extends PApplet {
 			marker.setSelected(true);
 		}
 	}
-	
-	private void populateMarkerLabels(List<Marker> markers) {
-		for (Marker marker : markers) {
-			LabeledMarker labeledMarker = (LabeledMarker) marker;
-			labeledMarker.name = marker.getStringProperty("title");
-		}
-	}
 
+	public List<Marker> createLabeledMarkers(List<Feature> features) {
+		PFont font = loadFont("Helvetica-16.vlw");
+		List<Marker> markers = new ArrayList<Marker>();
+		for (Feature feature : features) {
+			String label = feature.getStringProperty("title");
+			PointFeature pointFeature = (PointFeature) feature;
+			Marker marker = new LabeledMarker(pointFeature.getLocation(), label, font, 15);
+			markers.add(marker);
+		}
+		return markers;
+	}
 }

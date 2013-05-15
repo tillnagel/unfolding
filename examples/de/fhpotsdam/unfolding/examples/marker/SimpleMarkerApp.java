@@ -11,12 +11,18 @@ import de.fhpotsdam.unfolding.utils.ScreenPosition;
 /**
  * Simple custom marker display, without the use of MarkerManager.
  * 
- * Use if you are not familiar with writing own classes, and if you want to customize more than colors. 
+ * <p>
+ * <em>Use only if you want to customize more than colors AND are not familiar with writing own classes.</em><br/>
+ * If you want to only customize colors, use Unfolding's marker manager (see {@link SimpleMarkerManagerApp}).<br/>
+ * If you want to have complete control, but also want to use the marker manager, write your own marker class (see {@link }).
+ * </p> 
  * 
- * Conversion between geo-location and screen position is done via the marker, but drawing the markers is done by this
+ * <p>
+ * Here, conversion between geo-location and screen position is done via the marker, but drawing the markers is done by this
  * application itself. This is the easiest way of drawing own styled markers. A more advanced way is to create an own
  * Marker class with custom style, where all the position handling can be done via the internal marker mechanism. See
  * tutorials for an explanation of the differences.
+ * </p>
  */
 @SuppressWarnings("serial")
 public class SimpleMarkerApp extends PApplet {

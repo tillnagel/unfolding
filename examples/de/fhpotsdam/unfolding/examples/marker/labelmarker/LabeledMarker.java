@@ -6,7 +6,7 @@ import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.marker.SimplePointMarker;
 
 /**
- * Extends point marker to additionally display label.
+ * A point marker which can show a label containing the marker's name.
  */
 public class LabeledMarker extends SimplePointMarker {
 

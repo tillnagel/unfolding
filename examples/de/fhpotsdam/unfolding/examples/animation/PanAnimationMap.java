@@ -11,6 +11,8 @@ import de.fhpotsdam.unfolding.utils.MapUtils;
 /**
  * Pans smoothly between three locations, in an endless loop.
  * 
+ * Press SPACE to switch tweening off (and on again).
+ * 
  * See {@link NaviButtonMapApp} for an interactive example on how to animate between two locations.
  */
 public class PanAnimationMap extends PApplet {
@@ -40,6 +42,12 @@ public class PanAnimationMap extends PApplet {
 			if (currentLocation >= locations.length) {
 				currentLocation = 0;
 			}
+		}
+	}
+	
+	public void keyPressed() {
+		if (key == ' ') {
+			map.switchTweening();
 		}
 	}
 

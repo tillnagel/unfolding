@@ -1,4 +1,4 @@
-package de.fhpotsdam.unfolding.examples.marker.gllines;
+package de.fhpotsdam.unfolding.marker.gllines;
 
 import java.nio.FloatBuffer;
 import java.util.List;

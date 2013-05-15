@@ -8,12 +8,13 @@ import codeanticode.glgraphics.GLConstants;
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.marker.Marker;
+import de.fhpotsdam.unfolding.marker.SimplePointMarker;
 import de.fhpotsdam.unfolding.utils.GeoUtils;
 import de.fhpotsdam.unfolding.utils.MapUtils;
 
 /**
- * Creates random markers, and checks whether they are in vicinity to each other.
- * If they are neighbors a connection is shown.
+ * Creates random markers, and checks whether they are in vicinity to each other. If they are neighbors a connection is
+ * shown.
  */
 @SuppressWarnings("serial")
 public class NeighborMarkersApp extends PApplet {
@@ -28,13 +29,18 @@ public class NeighborMarkersApp extends PApplet {
 		map.panTo(new Location(52.53f, 13.4f));
 		MapUtils.createDefaultEventDispatcher(this, map);
 
+		initMarkers();
+	}
+
+	public void initMarkers() {
+		map.getDefaultMarkerManager().clearMarkers();
+
 		// Create Markers from random Locations
 		List<Marker> markers = new ArrayList<Marker>();
 		List<Marker> connectionMarkers = new ArrayList<Marker>();
-		
+
 		for (int i = 0; i < 30; i++) {
-			DotMarker m = new DotMarker(new Location(random(52.463f, 52.608f), random(13.23f, 13.54f)));
-			markers.add(m);
+			markers.add(new SimplePointMarker(new Location(random(52.46f, 52.61f), random(13.23f, 13.54f))));
 		}
 
 		// Create connections between near-by markers
@@ -58,6 +64,12 @@ public class NeighborMarkersApp extends PApplet {
 
 		// Drawing Markers in handled internally
 		map.draw();
+	}
+
+	public void keyPressed() {
+		if (key == ' ') {
+			initMarkers();
+		}
 	}
 
 }

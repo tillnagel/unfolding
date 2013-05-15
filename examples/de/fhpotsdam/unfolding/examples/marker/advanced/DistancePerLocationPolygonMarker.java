@@ -1,4 +1,4 @@
-package de.fhpotsdam.unfolding.examples.marker.multimarker;
+package de.fhpotsdam.unfolding.examples.marker.advanced;
 
 import java.util.HashMap;
 import java.util.List;
