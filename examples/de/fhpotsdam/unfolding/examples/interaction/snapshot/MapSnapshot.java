@@ -40,7 +40,7 @@ public class MapSnapshot {
 		this.zoomLevel = map.getZoomLevel();
 
 		// Stores image data of the current map
-		PGraphics pg = map.mapDisplay.getInnerPG();
+		PGraphics pg = map.mapDisplay.getOuterPG();
 		if (pg instanceof GLGraphicsOffScreen) {
 			thumbnail = new PImage((int) map.mapDisplay.getWidth(), (int) map.mapDisplay.getHeight());
 			((GLGraphicsOffScreen) pg).getTexture().getImage(thumbnail);
