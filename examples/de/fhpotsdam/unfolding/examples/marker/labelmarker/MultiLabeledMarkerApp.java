@@ -21,7 +21,6 @@ import de.fhpotsdam.unfolding.utils.MapUtils;
  * If you want to prevent label overlapping, you either need to re-sort the markers, or create two marker sets, one for
  * the dots, and one for the labels.
  * 
- * 
  */
 public class MultiLabeledMarkerApp extends PApplet {
 

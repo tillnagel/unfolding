@@ -7,22 +7,20 @@ import processing.core.PApplet;
 import processing.xml.XMLElement;
 import codeanticode.glgraphics.GLConstants;
 import de.fhpotsdam.unfolding.UnfoldingMap;
-import de.fhpotsdam.unfolding.examples.marker.infomarker.InfoMarkerApp;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.utils.MapUtils;
 import de.fhpotsdam.unfolding.utils.ScreenPosition;
 
 /**
- * Displays earthquake markers from an RSS feed. Geo-locations are read, and mapped manually
- * according to current map transformation.
+ * Displays earthquake markers from an RSS feed. Geo-locations are read, and mapped manually according to current map
+ * transformation.
  * 
- * (Not using Features, GeoDataReader, nor Marker and MarkerManager.)
- * Demonstrates how to create marker completely by your own, if you need to.
+ * (Not using Features, GeoDataReader, nor Marker and MarkerManager.) Demonstrates how to create marker completely by
+ * your own, if you need to.
  * 
- * As you can see, the markers are not cut off at the border of the map. So, this simple mechanism
- * only works for single full-canvas maps. If you have maps placed on the canvas, or multiple ones,
- * or other more sophisticated usages look into examples with MarkerManager, e.g.
- * {@link InfoMarkerApp}.
+ * As you can see, the markers are not cut off at the border of the map. So, this simple mechanism only works for single
+ * full-canvas maps. If you have maps placed on the canvas, or multiple ones, or other more sophisticated usages look
+ * into examples with MarkerManager, e.g. {@link InfoMarkerApp}.
  */
 public class ManualGeoRSSApp extends PApplet {
 

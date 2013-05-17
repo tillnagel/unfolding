@@ -116,10 +116,10 @@ public class ManualMapInteractionsTestApp extends PApplet {
 		}
 
 		if (key == 'R') {
-			map.innerRotate(PI / 20);
+			map.outerRotate(PI / 20);
 		}
 		if (key == 'L') {
-			map.innerRotate(-PI / 20);
+			map.outerRotate(-PI / 20);
 		}
 
 		if (key == 'o') {

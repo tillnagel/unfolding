@@ -38,8 +38,12 @@ public class LabeledMarkerApp extends PApplet {
 		map.draw();
 	}
 
+	/**
+	 * Check for hit test directly with marker.
+	 * 
+	 * See {@link MultiLabeledMarkerApp} for using MarkerManager to handling hit tests.
+	 */
 	public void mouseMoved() {
-		// Simplest method to check for hit test.
 		if (berlinMarker.isInside(map, mouseX, mouseY)) {
 			berlinMarker.setSelected(true);
 		} else {

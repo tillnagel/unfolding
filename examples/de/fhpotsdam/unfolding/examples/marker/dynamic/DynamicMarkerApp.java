@@ -20,7 +20,7 @@ public class DynamicMarkerApp extends PApplet {
 
 	UnfoldingMap map;
 
-	MarkerManager<Marker> markerManager = new MarkerManager<Marker>();
+	MarkerManager<Marker> markerManager;
 	SimplePointMarker berlinMarker;
 
 	public void setup() {
@@ -32,8 +32,8 @@ public class DynamicMarkerApp extends PApplet {
 		map.panTo(new Location(40f, -42f));
 		MapUtils.createDefaultEventDispatcher(this, map);
 
-		// MarkerManager will be handled by this map (even if still empty at this moment)
-		map.addMarkerManager(markerManager);
+		// Get default MarkerManager (still empty at this moment)
+		markerManager = map.getDefaultMarkerManager();
 
 		// Create Markers from Locations
 		Location berlinLocation = new Location(52.5f, 13.4f);
