@@ -8,7 +8,6 @@ import java.util.Vector;
 
 import org.apache.log4j.Logger;
 
-import processing.core.PApplet;
 import processing.core.PGraphics;
 import processing.core.PVector;
 import codeanticode.glgraphics.GLGraphicsOffScreen;
@@ -23,7 +22,10 @@ import de.fhpotsdam.unfolding.tiles.TileLoaderListener;
 import de.fhpotsdam.unfolding.utils.ScreenPosition;
 
 /**
- * Handles tiles
+ * Handles tiles management and display, and map location and screen position conversions.
+ * 
+ * Use {@link UnfoldingMap} in your application. This is the internal class, and should be used only if you know what
+ * you are doing.
  * 
  */
 public abstract class AbstractMapDisplay implements TileLoaderListener {
@@ -131,6 +133,11 @@ public abstract class AbstractMapDisplay implements TileLoaderListener {
 	 * You need to set the map of the given MarkerManager before using.
 	 */
 	public void addMarkerManager(MarkerManager<Marker> markerManager) {
+		// Replace default MarkerManager, if only default exists and has no entries
+		if (markerManagerList.size() == 1 && markerManagerList.get(0).getMarkers().size() == 0) {
+			markerManagerList.remove(0);
+		}
+
 		markerManagerList.add(markerManager);
 	}
 
@@ -148,13 +155,33 @@ public abstract class AbstractMapDisplay implements TileLoaderListener {
 	}
 
 	public MarkerManager<Marker> getMarkerManager(int index) {
-		return markerManagerList.get(index);
+		if (markerManagerList.size() > index) {
+			return markerManagerList.get(index);
+		} else {
+			return null;
+		}
 	}
 
+	/**
+	 * Adds a marker to the default marker manager.
+	 * 
+	 * If you have more than one marker manager, use {@link MarkerManager#addMarker(Marker)} instead.
+	 * 
+	 * @param marker
+	 *            The marker to add.
+	 */
 	public void addMarker(Marker marker) {
 		getDefaultMarkerManager().addMarker(marker);
 	}
 
+	/**
+	 * Adds multiple markers to the default marker manager.
+	 * 
+	 * If you have more than one marker manager, use {@link MarkerManager#addMarkers(List)} instead.
+	 * 
+	 * @param markers
+	 *            The markers to add.
+	 */
 	public void addMarkers(List<Marker> markers) {
 		getDefaultMarkerManager().addMarkers(markers);
 	}
@@ -377,7 +404,7 @@ public abstract class AbstractMapDisplay implements TileLoaderListener {
 	}
 
 	protected void createDefaultMarkerManager(UnfoldingMap map) {
-		MarkerManager mm = new MarkerManager<Marker>();
+		MarkerManager<Marker> mm = new MarkerManager<Marker>();
 		mm.setMap(map);
 		markerManagerList.add(mm);
 	}

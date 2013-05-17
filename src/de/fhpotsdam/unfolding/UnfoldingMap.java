@@ -381,7 +381,9 @@ public class UnfoldingMap implements MapEventListener {
 	/**
 	 * Rotates the map by given angle.
 	 * 
-	 * Whole map will be rotated, not only the inner display.
+	 * <p>
+	 * Use {@link #outerRotate(float)} to rotate the map container. Check RotatableMapApp in examples for a comparison.
+	 * </p>
 	 * 
 	 * @param angle
 	 *            The angle to rotate the map by.
@@ -390,6 +392,12 @@ public class UnfoldingMap implements MapEventListener {
 		innerRotate(angle);
 	}
 
+	/**
+	 * Rotates the map to the given angle, that is it is rotated to the target angle.
+	 * 
+	 * @param angle
+	 *            The angle to rotate the map to.
+	 */
 	public void rotateTo(float angle) {
 		setInnerRotate(angle);
 	}
@@ -578,7 +586,7 @@ public class UnfoldingMap implements MapEventListener {
 	 * Pans between two ScreenPosition.
 	 * 
 	 * @param from
-	 *            ScreenPo sition to start from.
+	 *            ScreenPosition to start from.
 	 * @param to
 	 *            ScreenPosition to pan to.
 	 */
@@ -632,6 +640,10 @@ public class UnfoldingMap implements MapEventListener {
 	/**
 	 * Moves the map to the given position.
 	 * 
+	 * <p>
+	 * The whole map container is moved. Use one of the panning methods to pan the geographical map.
+	 * </p>
+	 * 
 	 * @param x
 	 *            X position in screen coordinates.
 	 * @param y
@@ -653,45 +665,141 @@ public class UnfoldingMap implements MapEventListener {
 
 	// MarkerManagement -----------------------------------------------
 
+	/**
+	 * Add a MarkerManager to the map. Replaces the default MarkerManager if the given one is the first, and the default
+	 * one is empty.
+	 * 
+	 * <p>
+	 * Use this if you want to handle multiple independent marker groups. Otherwise, simply use UnfoldingMap's marker
+	 * methods directly (such as {@link #addMarker(Marker)}) which handles this internally with the default
+	 * MarkerManager.
+	 * </p>
+	 * 
+	 * @param markerManager
+	 *            The MarkerManager to add.
+	 */
 	public void addMarkerManager(MarkerManager<Marker> markerManager) {
 		markerManager.setMap(this);
 		mapDisplay.addMarkerManager(markerManager);
 	}
 
+	/**
+	 * Returns the lastly added MarkerManager.
+	 * 
+	 * @return The last MarkerManager.
+	 */
 	public MarkerManager<Marker> getLastMarkerManager() {
 		return mapDisplay.getLastMarkerManager();
 	}
 
+	/**
+	 * Returns the default MarkerManager, i.e. the first MarkerManager. This is the one used internally by all
+	 * UnfoldingMap's marker methods.
+	 * 
+	 * @return The default MarkerManager.
+	 */
 	public MarkerManager<Marker> getDefaultMarkerManager() {
 		return mapDisplay.getDefaultMarkerManager();
 	}
 
+	/**
+	 * Returns the MarkerManager at the given index position.
+	 * 
+	 * @param index
+	 *            The index to get.
+	 * @return The MarkerManager at the index, or null if not existing.
+	 */
 	public MarkerManager<Marker> getMarkerManager(int index) {
 		return mapDisplay.getMarkerManager(index);
 	}
 
+	/**
+	 * Adds one or multiple markers to the map.
+	 * 
+	 * <p>
+	 * <em>Note</em>: Uses the default marker manager. If you have more than one marker manager, use
+	 * {@link MarkerManager#addMarker(Marker)} instead.
+	 * </p>
+	 * 
+	 * @param marker
+	 *            The marker or markers to add.
+	 */
 	public void addMarkers(Marker... marker) {
 		for (Marker m : marker) {
 			mapDisplay.addMarker(m);
 		}
 	}
 
+	/**
+	 * Adds a marker to the map.
+	 * 
+	 * <p>
+	 * <em>Note</em>: Uses the default marker manager. If you have more than one marker manager, use
+	 * {@link MarkerManager#addMarker(Marker)} instead.
+	 * </p>
+	 * 
+	 * @param marker
+	 *            The marker to add.
+	 */
 	public void addMarker(Marker marker) {
 		addMarkers(marker);
 	}
 
+	/**
+	 * Adds multiple markers to the map.
+	 * 
+	 * <p>
+	 * <em>Note</em>: Uses the default marker manager. If you have more than one marker manager, use
+	 * {@link MarkerManager#addMarkers(List)} instead.
+	 * </p>
+	 * 
+	 * @param markers
+	 *            The markers to add.
+	 */
 	public void addMarkers(List<Marker> markers) {
 		mapDisplay.addMarkers(markers);
 	}
 
+	/**
+	 * Gets markers of the map.
+	 * 
+	 * <p>
+	 * <em>Note</em>: Returns only the markers of the default marker manager. If you have more than one marker manager,
+	 * use {@link MarkerManager#addMarkers(List)} instead.
+	 * </p>
+	 * 
+	 * @return The markers.
+	 */
 	public List<Marker> getMarkers() {
 		return mapDisplay.getDefaultMarkerManager().getMarkers();
 	}
 
+	/**
+	 * Checks whether a marker got hit with the given screen coordinates. Can be used for interactive selection, etc.
+	 * This only returns the first found marker. Use {@link #getHitMarker(float, float)} to get all hit markers.
+	 * 
+	 * <p>
+	 * <em>Note</em>: Returns only the markers of the default marker manager. If you have more than one marker manager,
+	 * use {@link MarkerManager#getFirstHitMarker(float, float)} instead.
+	 * </p>
+	 * 
+	 * @return The hit marker, or null if none was hit.
+	 */
 	public Marker getFirstHitMarker(float checkX, float checkY) {
 		return mapDisplay.getDefaultMarkerManager().getFirstHitMarker(checkX, checkY);
 	}
 
+	/**
+	 * Checks whether multiple markers got hit with the given screen coordinates. Can be used for interactive selection,
+	 * etc. This returns all found markers. Use {@link #getFirstHitMarker(float, float)} to get only one marker.
+	 * 
+	 * <p>
+	 * <em>Note</em>: Returns only the markers of the default marker manager. If you have more than one marker manager,
+	 * use {@link MarkerManager#getHitMarker(float, float)} instead.
+	 * </p>
+	 * 
+	 * @return All hit markers, or an empty list if none were hit.
+	 */
 	public List<Marker> getHitMarker(float checkX, float checkY) {
 		return mapDisplay.getDefaultMarkerManager().getHitMarkers(checkX, checkY);
 	}
@@ -703,6 +811,9 @@ public class UnfoldingMap implements MapEventListener {
 		mapDisplay.calculateMatrix();
 	}
 
+	/**
+	 * Rotates the map container.
+	 */
 	public void outerRotate(float angle) {
 		mapDisplay.angle += angle;
 		mapDisplay.calculateMatrix();
@@ -713,6 +824,12 @@ public class UnfoldingMap implements MapEventListener {
 		mapDisplay.calculateInnerMatrix();
 	}
 
+	/**
+	 * @deprecated Use {@link #rotate(float)} instead.
+	 * 
+	 * @param angle
+	 *            The angle to rotate by.
+	 */
 	public void innerRotate(float angle) {
 		mapDisplay.innerAngle += angle;
 		mapDisplay.calculateInnerMatrix();
@@ -749,10 +866,23 @@ public class UnfoldingMap implements MapEventListener {
 		}
 	}
 
+	/**
+	 * Gets the current zoom level of the map. Typically ranges from 0 to 18 or higher, depending on the MapProvider.
+	 * 
+	 * @return The zoom level.
+	 */
 	public int getZoomLevel() {
 		return getZoomLevelFromScale(mapDisplay.innerScale);
 	}
 
+	/**
+	 * Gets the current zoom of the map. Can be used to scale the size of markers.
+	 * 
+	 * This is the actual scale of the map (not simply a floating zoom level value). It ranges from 0^2 to 18^2 or
+	 * higher. Use {@link #getZoomFromScale(double)} to convert to floating zoom level.
+	 * 
+	 * @return The zoom value.
+	 */
 	public float getZoom() {
 		return mapDisplay.innerScale;
 	}
@@ -901,10 +1031,21 @@ public class UnfoldingMap implements MapEventListener {
 		setTweening(!tweening);
 	}
 
+	/**
+	 * Indicates whether the map currently animates between different states.
+	 * 
+	 * @return True if tweening is on, false otherwise.
+	 */
 	public boolean isTweening() {
 		return tweening;
 	}
 
+	/**
+	 * Sets the tweening flag, i.e. whether the map shall animate between different states.
+	 * 
+	 * @param tweening
+	 *            Whether or not the map shall animate.
+	 */
 	public void setTweening(boolean tweening) {
 		if (tweening == this.tweening)
 			return;
