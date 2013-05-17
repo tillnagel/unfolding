@@ -10,15 +10,15 @@ Features & Bug Fixes
 - Fixed centroid algorithm (#47).
 - Added mapChanged and tilesLoaded methods. Similar to Processing's simple events such as mouseMoved these allow easily reacting to map events.
 - Enhanced data properties functionality in both Markers and Features.
+- Changed default MarkerManager behavior. Now the first manually added replaces the empty default.
 
 Documentation
 - Added various more examples (in Eclipse distribution)
 - Added some more examples (in Processing distribution)
-- Enhanced JavaDoc API, and inline documentation.
+- Added and enhanced API JavaDocs, and inline documentation.
 
 Other
 - Added MIT license.
 - Cleaned up distribution.
 - Started release notes. :)
-
 
