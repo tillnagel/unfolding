@@ -1,7 +1,14 @@
 
-// YOU NEED TO download the sqlitejdbc driver from http://code.google.com/p/sqlite-jdbc/
-// and put the jar file into the 'code' directory.
-
+/**
+ * YOU NEED TO download the sqlitejdbc driver from https://bitbucket.org/xerial/sqlite-jdbc/
+ * and put the jar file into the 'code' directory of this sketch.
+ *
+ *
+ * This example uses a local MBTiles file. Thus, it does not need an Internet connection to load tiles.
+ * 
+ * For testing purposes and to keep the file size small, this example supports only three zoom levels.
+ */
+ 
 import processing.opengl.*;
 import codeanticode.glgraphics.*;
 import de.fhpotsdam.unfolding.*;

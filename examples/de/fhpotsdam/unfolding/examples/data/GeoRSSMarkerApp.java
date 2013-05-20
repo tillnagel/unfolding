@@ -27,7 +27,7 @@ public class GeoRSSMarkerApp extends PApplet {
 		size(800, 600, GLConstants.GLGRAPHICS);
 		smooth();
 
-		map = new UnfoldingMap(this, 50, 50, 700, 500);
+		map = new UnfoldingMap(this);
 		map.zoomToLevel(2);
 		MapUtils.createDefaultEventDispatcher(this, map);
 

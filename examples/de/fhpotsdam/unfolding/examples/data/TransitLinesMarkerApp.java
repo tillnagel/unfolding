@@ -73,7 +73,6 @@ public class TransitLinesMarkerApp extends PApplet {
 	}
 
 	public void draw() {
-		background(160);
 		map.draw();
 	}
 

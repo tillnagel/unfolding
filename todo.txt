@@ -28,23 +28,50 @@ x Merge develop into master
 		- Test w/ 1.5
 		
 
+
+UPDATED Processing examples
+--------------------------
+x ChoroplethMapApp
+	= data.choropleth.ChoroplethMapApp
+x DebugDisplayApp
+	= misc.DebugDisplayApp
+x GeoJSONMarkerApp
+	= data.GeoJSONMarkerApp
+x GeoRSSMarkerApp
+	= data.GeoRSSMarkerApp
+x GeoRSSStyledMarkerApp
+	= data.styled.GeoRSSStyledMarkerApp
+x LabeledMarkerApp
+	≈ marker.labelMarker.MultiLabeledMarkerApp (other data src, and other label)
+x MarkerSelectionApp
+	= marker.MarkerSelectionApp
+x MBTilesApp
+	≈ provider.MBTilesMapApp (smaller mbtiles file, and no sqlite.jar)
+x MultiProviderMultiMapApp
+	= multi.MultiProviderMultiMapApp
+x SimpleMapApp
+	= SimpleMapApp
+
+
+
 Processing Examples Candidates
 --------------------------
 - animation/FadeTwoMapsApp
 
 
-- data/GeoRSSMarkerApp  (auto default marker creation)
-- data/GeoJSONMarkerApp (auto default marker creation)
+x data/GeoRSSMarkerApp  (auto default marker creation)
+x data/GeoJSONMarkerApp (auto default marker creation)
+x MarkerSelectioNApp
 - data/TransitLinesMarkerApp (manually create non-own marker with own color)
 - data/temporal/AnimatedTemporalDotsApp
-- data/choropleth/ChoroplethMapApp
+x data/choropleth/ChoroplethMapApp
 - data/countrydata/CountryBubbleMap
 
 - distance/GreatCircleConnectionApp
 
-- provider/MBTilesMapApp
+x provider/MBTilesMapApp
 
-- misc/DebugDisplayApp
+x misc/DebugDisplayApp
 
 
 

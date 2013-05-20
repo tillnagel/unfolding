@@ -3,6 +3,9 @@ import de.fhpotsdam.unfolding.geo.*;
 import processing.core.*;
 import java.util.HashMap;
 
+/**
+ * A point marker which can show a label containing the marker's name.
+ */
 public class LabeledMarker extends SimplePointMarker {
 
   protected String name;
@@ -11,7 +14,6 @@ public class LabeledMarker extends SimplePointMarker {
 
   private PFont font;
   private float fontSize = 12;
-  private int col;
 
   public LabeledMarker(Location location, HashMap properties) {
     this.location = location;
@@ -36,9 +38,8 @@ public class LabeledMarker extends SimplePointMarker {
     if (selected) {
       pg.fill(highlightColor);
       pg.stroke(highlightStrokeColor);
-    } 
-    else {
-      pg.fill(col);
+    } else {
+      pg.fill(color);
       pg.stroke(strokeColor);
     }
     pg.ellipse(x, y, size, size);// TODO use radius in km and convert to px
@@ -63,5 +64,6 @@ public class LabeledMarker extends SimplePointMarker {
   public String getName() {
     return name;
   }
+  
 }
 

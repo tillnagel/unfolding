@@ -1,3 +1,7 @@
+/**
+ * Own marker with custom style. Only handles a single geo-point. 
+ */
+
 import processing.core.PGraphics;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.marker.SimplePointMarker;

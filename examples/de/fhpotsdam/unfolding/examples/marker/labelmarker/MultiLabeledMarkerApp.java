@@ -33,10 +33,13 @@ public class MultiLabeledMarkerApp extends PApplet {
 		map.zoomToLevel(2);
 		MapUtils.createDefaultEventDispatcher(this, map);
 
+		// Load from GeoRSS file
 		List<Feature> features = GeoRSSReader.loadData(this, "bbc-georss-test.xml");
+		// Create (display) markers from (data) features
 		MarkerFactory markerFactory = new MarkerFactory();
 		markerFactory.setPointClass(LabeledMarker.class);
 		List<Marker> markers = markerFactory.createMarkers(features);
+		// Add markers to map
 		map.addMarkers(markers);
 
 		// Use property 'title' as label

@@ -7,7 +7,7 @@ import de.fhpotsdam.unfolding.providers.MBTilesMapProvider;
 import de.fhpotsdam.unfolding.utils.MapUtils;
 
 /**
- * This app uses a local MBTiles file. Thus, it does not need an Internet connection to load tiles.
+ * This example uses a local MBTiles file. Thus, it does not need an Internet connection to load tiles.
  * 
  * For testing purposes and to keep the file size small, this example supports only three zoom levels.
  */

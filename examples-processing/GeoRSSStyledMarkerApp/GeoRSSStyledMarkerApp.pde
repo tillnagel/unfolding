@@ -1,17 +1,15 @@
-import de.fhpotsdam.unfolding.mapdisplay.*;
+/**
+ * Displays earthquake markers from an RSS feed, but with own markers.
+ * 
+ * Uses MarkerFactory (as in the default marker creation way), but uses own styled EarthquakeMarker.
+ */
+
 import de.fhpotsdam.unfolding.utils.*;
 import de.fhpotsdam.unfolding.marker.*;
-import de.fhpotsdam.unfolding.tiles.*;
-import de.fhpotsdam.unfolding.interactions.*;
 import de.fhpotsdam.unfolding.ui.*;
 import de.fhpotsdam.unfolding.*;
-import de.fhpotsdam.unfolding.core.*;
 import de.fhpotsdam.unfolding.data.*;
 import de.fhpotsdam.unfolding.geo.*;
-import de.fhpotsdam.unfolding.texture.*;
-import de.fhpotsdam.unfolding.events.*;
-import de.fhpotsdam.utils.*;
-import de.fhpotsdam.unfolding.providers.*;
 
 import processing.opengl.*;
 import codeanticode.glgraphics.*;
