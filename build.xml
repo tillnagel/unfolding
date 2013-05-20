@@ -4,8 +4,12 @@
 		Unfolding
 	</description>
 
+	<!-- NOTE: Version number needs to be updated manually also in
+		/src/de/fhpotsdam/unfolding/UnfoldingMap.java
+		/resources/unfolding_app_template/classpath
+		/resources/unfolding_app_template/classpath_with_examples
+	-->
 	<property name="version" value="0.9.3" />
-	<!-- NOTE Also update /resources/unfolding_app_template/classpath! -->
 	<property name="unfolding.jar" value="unfolding.${version}.jar" />
 
 	<property name="src.dir" location="src" />
@@ -133,7 +137,7 @@
 		<copy file="resources/unfolding_app_template/classpath" tofile="${dist.dir}/unfolding_app_template/.classpath" />
 		<copy file="resources/unfolding_app_template/project" tofile="${dist.dir}/unfolding_app_template/.project" />
 		<!-- create a zip file -->
-		<zip destfile="${dist.dir}/unfolding_app_template_${version}.zip" basedir="${dist.dir}/unfolding_app_template/" />
+		<zip destfile="${dist.dir}/unfolding_app_template_${version}.zip" basedir="${dist.dir}/unfolding_app_template/" excludes="*.DS_Store" />
 	</target>
 
 
@@ -173,17 +177,18 @@
 		<copy file="resources/unfolding_app_template/classpath_with_examples" tofile="${dist.dir}/unfolding_app_template_with_examples/.classpath" />
 		<copy file="resources/unfolding_app_template/project_with_examples" tofile="${dist.dir}/unfolding_app_template_with_examples/.project" />
 		<!-- create a zip file -->
-		<zip destfile="${dist.dir}/unfolding_app_template_with_examples_${version}.zip" basedir="${dist.dir}/unfolding_app_template_with_examples/" />
+		<zip destfile="${dist.dir}/unfolding_app_template_with_examples_${version}.zip" basedir="${dist.dir}/unfolding_app_template_with_examples/" excludes="*.DS_Store" />
 	</target>
 
 
 	<!--
 		 Create the folder structure for direct use in processing.
 	 -->
-	<target name="unfolding_processing" depends="jar">
+	<target name="unfolding_processing" depends="jar, docs">
 		<!-- create folders -->
 		<mkdir dir="${dist.dir}/Unfolding/examples" />
 		<mkdir dir="${dist.dir}/Unfolding/library" />
+		<mkdir dir="${dist.dir}/Unfolding/reference" />
 
 		<!-- copy libs -->
 		<copy file="${dist.dir}/${unfolding.jar}" tofile="${dist.dir}/Unfolding/library/Unfolding.jar" />
@@ -195,10 +200,15 @@
 			<fileset dir="${example.processing.dir}" />
 		</copy>
 
+		<!-- copy javadoc -->
+		<copy todir="${dist.dir}/Unfolding/reference">
+			<fileset dir="${docs.dir}" />
+		</copy>
+
 		<!-- create a zip file -->
-		<zip destfile="${dist.dir}/Unfolding.zip" basedir="${dist.dir}/Unfolding/" />
+		<zip destfile="${dist.dir}/Unfolding.zip" basedir="${dist.dir}/Unfolding/" excludes="*.DS_Store" />
 		<!-- wrap again so users can easily install it by copying the unzipped directory. -->
-		<zip destfile="${dist.dir}/Unfolding_for_processing_${version}.zip" basedir="${dist.dir}/" includes="Unfolding.zip" />
+		<zip destfile="${dist.dir}/Unfolding_for_processing_${version}.zip" basedir="${dist.dir}/" includes="Unfolding.zip" excludes="*.DS_Store" />
 	</target>
 
 	<!--

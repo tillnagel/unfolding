@@ -56,6 +56,9 @@ public class UnfoldingMap implements MapEventListener {
 
 	public static Logger log = Logger.getLogger(UnfoldingMap.class);
 
+	/** Whether Unfolding lib showed a greeting message, i.e. the library version. */
+	private static boolean greetingMessageDisplayed = false;
+
 	/** The Processing applet. */
 	protected PApplet p;
 
@@ -214,6 +217,11 @@ public class UnfoldingMap implements MapEventListener {
 			boolean useDistortion, AbstractMapProvider provider) {
 		this.p = p;
 		this.id = id;
+
+		if (!greetingMessageDisplayed) {
+			PApplet.println("Unfolding Map v0.9.3");
+			greetingMessageDisplayed = true;
+		}
 
 		this.mapDisplay = MapDisplayFactory.getMapDisplay(p, id, x, y, width, height, useMask, useDistortion, provider,
 				this);
