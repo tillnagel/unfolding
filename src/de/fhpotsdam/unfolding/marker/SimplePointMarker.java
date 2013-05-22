@@ -48,6 +48,9 @@ public class SimplePointMarker extends AbstractMarker {
 	 */
 	@Override
 	public void draw(PGraphics pg, float x, float y) {
+		if (isHidden())
+			return;
+
 		pg.pushStyle();
 		pg.strokeWeight(strokeWeight);
 		if (isSelected()) {

@@ -99,9 +99,8 @@ public interface Marker {
 	public String getStringProperty(String key);
 
 	/**
-	 * Checks whether given position is inside this marker, according to the
-	 * maps coordinate system. Can be used for interactive hit tests, e.g. mouse
-	 * interaction
+	 * Checks whether given position is inside this marker, according to the maps coordinate system. Can be used for
+	 * interactive hit tests, e.g. mouse interaction
 	 * 
 	 * @param map
 	 *            The map to draw on.
@@ -135,6 +134,21 @@ public interface Marker {
 	 * @return true if it is selected, false otherwise.
 	 */
 	public boolean isSelected();
+
+	/**
+	 * Sets the visibility status of this marker.
+	 * 
+	 * @param hidden
+	 *            The new status
+	 */
+	public void setHidden(boolean hidden);
+
+	/**
+	 * Indicates whether this marker is hidden. <b>Can</b> be used for drawing the marker differently.
+	 * 
+	 * @return true if it is hidden, false otherwise.
+	 */
+	public boolean isHidden();
 
 	/**
 	 * Sets the main color of this marker.

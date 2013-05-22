@@ -10,7 +10,8 @@ import de.fhpotsdam.unfolding.utils.ScreenPosition;
 import de.fhpotsdam.unfolding.utils.StyleConstants;
 
 /**
- * Abstract marker handling conversion of location to appropriate coordinate system, and handles basic marker functionality.
+ * Abstract marker handling conversion of location to appropriate coordinate system, and handles basic marker
+ * functionality.
  * 
  * All default marker of Unfolding implement this. Your own class can extend this AbstractMarker or implement the Marker
  * interface, directly.
@@ -29,6 +30,8 @@ public abstract class AbstractMarker implements Marker {
 	protected HashMap<String, Object> properties;
 	/** Indicates whether this marker is selected. */
 	protected boolean selected;
+	/** Indicates whether this marker is hidden. */
+	protected boolean hidden;
 	/** The ID of this marker. */
 	protected String id;
 
@@ -45,12 +48,12 @@ public abstract class AbstractMarker implements Marker {
 		setProperties(props);
 	}
 
-	
-	
+	@Override
 	public String getId() {
 		return id;
 	}
 
+	@Override
 	public void setId(String id) {
 		this.id = id;
 	}
@@ -64,7 +67,7 @@ public abstract class AbstractMarker implements Marker {
 	public HashMap<String, Object> getProperties() {
 		return properties;
 	}
-	
+
 	@Override
 	public Object getProperty(String key) {
 		return properties.get(key);
@@ -190,6 +193,16 @@ public abstract class AbstractMarker implements Marker {
 	}
 
 	@Override
+	public void setHidden(boolean hidden) {
+		this.hidden = hidden;
+	}
+
+	@Override
+	public boolean isHidden() {
+		return hidden;
+	}
+
+	@Override
 	public void setColor(int color) {
 		this.color = color;
 	}
@@ -211,5 +224,5 @@ public abstract class AbstractMarker implements Marker {
 	public void setStrokeColor(int color) {
 		this.strokeColor = color;
 	}
-	
+
 }

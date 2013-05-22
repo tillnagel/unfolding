@@ -56,7 +56,7 @@ public class SimpleLinesMarker extends AbstractShapeMarker {
 
 	@Override
 	public void draw(PGraphics pg, List<MapPosition> mapPositions) {
-		if (mapPositions.isEmpty())
+		if (mapPositions.isEmpty() || isHidden())
 			return;
 
 		pg.pushStyle();
