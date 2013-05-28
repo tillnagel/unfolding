@@ -8,6 +8,8 @@ thumbnail: ../assets/images/tutorials/processing-thumb.png
 
 {% include JB/setup %}
 
+*Unfolding works with Processing 1.5 only!*
+
 ## Download Library
 Download the latest version of the [Unfolding library](https://github.com/tillnagel/unfolding/downloads "Download Unfolding") at Github.
 Unzip the archive and put the extracted Unfolding folder into the libraries folder of your Processing sketches.
