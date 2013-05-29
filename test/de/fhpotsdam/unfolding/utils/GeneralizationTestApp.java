@@ -38,6 +38,8 @@ public class GeneralizationTestApp extends PApplet {
 	public void draw() {
 		background(250);
 
+		simplifiedPoints = GeneralizationUtils.simplify(points, tolerance, true);
+
 		drawLine(points, color(0, 50), color(255, 0, 0, 20));
 		drawLine(simplifiedPoints, color(0), color(255, 0, 0, 100));
 	}
@@ -65,7 +67,6 @@ public class GeneralizationTestApp extends PApplet {
 		if (key == '-') {
 			tolerance--;
 		}
-		simplifiedPoints = GeneralizationUtils.simplify(points, tolerance, true);
 		println(tolerance);
 	}
 

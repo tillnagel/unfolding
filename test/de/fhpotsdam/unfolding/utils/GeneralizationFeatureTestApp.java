@@ -42,6 +42,7 @@ public class GeneralizationFeatureTestApp extends PApplet {
 			List<PVector> simplifiedPoints = simplifyFeature(country);
 			drawLine(simplifiedPoints, color(255, 0, 0, 200));
 		}
+
 	}
 
 	public List<PVector> simplifyFeature(Feature feature) {
@@ -49,13 +50,13 @@ public class GeneralizationFeatureTestApp extends PApplet {
 		if (feature instanceof ShapeFeature) {
 			ShapeFeature shapeFeature = (ShapeFeature) feature;
 
-			List<PVector> points = simplifyLocations(shapeFeature.getLocations());
+			List<PVector> points = getPositions(shapeFeature.getLocations());
 			simplifiedPoints = GeneralizationUtils.simplify(points, tolerance, true);
 		}
 		return simplifiedPoints;
 	}
 
-	public List<PVector> simplifyLocations(List<Location> locations) {
+	public List<PVector> getPositions(List<Location> locations) {
 		List<PVector> points = new ArrayList<PVector>();
 		for (Location location : locations) {
 			ScreenPosition pos = map.getScreenPosition(location);

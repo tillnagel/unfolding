@@ -21,10 +21,7 @@ public class GeneralizationPolyMarkerTestApp extends PApplet {
 
 	UnfoldingMap map;
 
-	List<Location> locations = new ArrayList<Location>();
-
-	List<PVector> points = new ArrayList<PVector>();
-	List<PVector> simplifiedPoints = new ArrayList<PVector>();
+	ShapeFeature selectedCountry;
 
 	float tolerance = 1;
 
@@ -34,14 +31,12 @@ public class GeneralizationPolyMarkerTestApp extends PApplet {
 		map = new UnfoldingMap(this, new StamenMapProvider.Toner());
 		MapUtils.createDefaultEventDispatcher(this, map);
 
-		ShapeFeature selectedCountry = null;
 		List<Feature> countries = GeoJSONReader.loadData(this, "countries.geo.json");
 		for (Feature country : countries) {
 			if ("Germany".equals(country.getStringProperty("name"))) {
 				selectedCountry = (ShapeFeature) country;
 			}
 		}
-		locations = selectedCountry.getLocations();
 	}
 
 	public void draw() {
@@ -49,13 +44,13 @@ public class GeneralizationPolyMarkerTestApp extends PApplet {
 
 		map.draw();
 
-		points = new ArrayList<PVector>();
-		for (Location location : locations) {
+		List<PVector> points = new ArrayList<PVector>();
+		for (Location location : selectedCountry.getLocations()) {
 			ScreenPosition pos = map.getScreenPosition(location);
 			points.add(pos);
 		}
 		if (!points.isEmpty()) {
-			simplifiedPoints = GeneralizationUtils.simplify(points, tolerance, true);
+			List<PVector> simplifiedPoints = GeneralizationUtils.simplify(points, tolerance, true);
 			drawLine(simplifiedPoints, color(255, 0, 0, 200), color(255, 0, 0, 200));
 		}
 	}
@@ -84,11 +79,7 @@ public class GeneralizationPolyMarkerTestApp extends PApplet {
 		if (key == 't') {
 			tolerance--;
 		}
-		// simplifiedPoints = GeneralizationUtils.simplify(points, tolerance, true);
 		println(tolerance);
 	}
 
-	public void mouseClicked() {
-		// locations.add(map.getLocation(mouseX, mouseY));
-	}
 }

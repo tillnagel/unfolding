@@ -11,10 +11,7 @@ import de.fhpotsdam.unfolding.events.EventDispatcher;
 import de.fhpotsdam.unfolding.events.PanMapEvent;
 import de.fhpotsdam.unfolding.events.ZoomMapEvent;
 import de.fhpotsdam.unfolding.geo.Location;
-import de.fhpotsdam.unfolding.interactions.KeyboardHandler;
 import de.fhpotsdam.unfolding.interactions.MouseHandler;
-import de.fhpotsdam.unfolding.providers.Google;
-import de.fhpotsdam.unfolding.providers.OpenStreetMap;
 import de.fhpotsdam.unfolding.providers.StamenMapProvider;
 
 /**
@@ -23,7 +20,7 @@ import de.fhpotsdam.unfolding.providers.StamenMapProvider;
  * Click to add new points, press + and - to decrease or increase tolerance (generalization factor).
  * 
  */
-public class GeneralizationOnMapTestApp extends PApplet {
+public class GeneralizationTestOnMapApp extends PApplet {
 
 	UnfoldingMap map;
 
@@ -38,8 +35,8 @@ public class GeneralizationOnMapTestApp extends PApplet {
 		size(800, 600, GLGraphics.GLGRAPHICS);
 
 		map = new UnfoldingMap(this, new StamenMapProvider.Toner());
-		//MapUtils.createDefaultEventDispatcher(this, map);
-		
+		// MapUtils.createDefaultEventDispatcher(this, map);
+
 		EventDispatcher eventDispatcher = new EventDispatcher();
 		MouseHandler mouseHandler = new MouseHandler(this, map);
 		eventDispatcher.addBroadcaster(mouseHandler);
@@ -59,7 +56,7 @@ public class GeneralizationOnMapTestApp extends PApplet {
 			points.add(pos);
 		}
 		if (!points.isEmpty()) {
-			//drawLine(points, color(0, 50), color(255, 0, 0, 20));
+			// drawLine(points, color(0, 50), color(255, 0, 0, 20));
 			simplifiedPoints = GeneralizationUtils.simplify(points, tolerance, true);
 			drawLine(simplifiedPoints, color(0, 200), color(255, 0, 0, 200));
 		}
@@ -89,7 +86,7 @@ public class GeneralizationOnMapTestApp extends PApplet {
 		if (key == '-') {
 			tolerance--;
 		}
-		//simplifiedPoints = GeneralizationUtils.simplify(points, tolerance, true);
+		// simplifiedPoints = GeneralizationUtils.simplify(points, tolerance, true);
 		println(tolerance);
 	}
 
