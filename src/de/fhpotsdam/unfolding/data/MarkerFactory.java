@@ -13,11 +13,31 @@ import de.fhpotsdam.unfolding.marker.SimpleLinesMarker;
 import de.fhpotsdam.unfolding.marker.SimplePointMarker;
 import de.fhpotsdam.unfolding.marker.SimplePolygonMarker;
 
+/**
+ * A factory to create markers from features. The factory creates appropriate markers the each feature type, e.g. a
+ * polygon marker for a polygon feature, and handle multi-marker from multi-feature, as well.</p>
+ * <p>
+ * See the following example on how to use this factory to create your own custom markers. For this, set the marker
+ * class for each feature type with the {@link #setPointClass(Class)} etc methods.
+ * </p>
+ * 
+ * <pre>
+ * MarkerFactory markerFactory = new MarkerFactory();
+ * markerFactory.setPolygonClass(MyPolygonMarker.class);
+ * List&lt;Marker&gt; markers = markerFactory.createMarkers(features);
+ * </pre>
+ * <p>
+ * By default, this factory creates the simple markers provided by Unfolding, such as {@link SimplePointMarker}.
+ * </p>
+ */
 @SuppressWarnings("rawtypes")
 public class MarkerFactory {
 
 	HashMap<FeatureType, Class> featureMarkerMap;
 
+	/**
+	 * Creates a new MarkerFactory.
+	 */
 	public MarkerFactory() {
 		featureMarkerMap = new HashMap<Feature.FeatureType, Class>();
 		featureMarkerMap.put(FeatureType.POINT, SimplePointMarker.class);
@@ -83,16 +103,34 @@ public class MarkerFactory {
 		return marker;
 	}
 
+	/**
+	 * Sets the marker class for markers to be created for point features.
+	 * 
+	 * @param pointMarkerClass
+	 *            A marker class.
+	 */
 	public void setPointClass(Class pointMarkerClass) {
 		featureMarkerMap.remove(FeatureType.POINT);
 		featureMarkerMap.put(FeatureType.POINT, pointMarkerClass);
 	}
 
+	/**
+	 * Sets the marker class for markers to be created for lines features.
+	 * 
+	 * @param lineMarkerClass
+	 *            A marker class.
+	 */
 	public void setLineClass(Class lineMarkerClass) {
 		featureMarkerMap.remove(FeatureType.LINES);
 		featureMarkerMap.put(FeatureType.LINES, lineMarkerClass);
 	}
 
+	/**
+	 * Sets the marker class for markers to be created for polygon features.
+	 * 
+	 * @param polygonMarkerClass
+	 *            A marker class.
+	 */
 	public void setPolygonClass(Class polygonMarkerClass) {
 		featureMarkerMap.remove(FeatureType.POLYGON);
 		featureMarkerMap.put(FeatureType.POLYGON, polygonMarkerClass);

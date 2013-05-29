@@ -27,20 +27,57 @@ public class Feature {
 		this.type = type;
 	}
 
+	/**
+	 * Returns the type of this feature.
+	 * 
+	 * @return The type.
+	 */
 	public FeatureType getType() {
 		return type;
 	}
 
+	/**
+	 * Returns all data properties.
+	 * 
+	 * @return The properties.
+	 */
 	public HashMap<String, Object> getProperties() {
 		return properties;
 	}
 
+	/**
+	 * Returns a property for the key.
+	 * 
+	 * @param key
+	 *            The key of the property.
+	 * @return A property or null if not found.
+	 */
 	public Object getProperty(String key) {
 		return properties.get(key);
 	}
 
+	/**
+	 * Adds a property to this feature.
+	 * 
+	 * @param key
+	 *            The key of this property.
+	 * @param value
+	 *            The value of this property.
+	 */
 	public Object addProperty(String key, Object value) {
 		return properties.put(key, value);
+	}
+
+	/**
+	 * Adds a property to this feature.
+	 * 
+	 * @param key
+	 *            The key of this property.
+	 * @param value
+	 *            The value of this property.
+	 */
+	public void putProperty(String key, Object value) {
+		properties.put(key, value);
 	}
 
 	/**
@@ -62,26 +99,31 @@ public class Feature {
 		}
 	}
 
+	/**
+	 * Sets all properties. All previously existing ones will be removed.
+	 * 
+	 * @param properties
+	 *            The data properties.
+	 */
 	public void setProperties(HashMap<String, Object> properties) {
 		this.properties = properties;
 	}
 
 	/**
-	 * Adds a property to this feature.
+	 * Returns the ID of this feature.
 	 * 
-	 * @param key
-	 *            The key of this property.
-	 * @param value
-	 *            The value of this property.
+	 * @return The ID.
 	 */
-	public void putProperty(String key, Object value) {
-		properties.put(key, value);
-	}
-
 	public String getId() {
 		return id;
 	}
 
+	/**
+	 * Sets the ID of this feature.
+	 * 
+	 * @param id
+	 *            The ID.
+	 */
 	public void setId(String id) {
 		this.id = id;
 	}

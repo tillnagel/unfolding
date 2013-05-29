@@ -8,8 +8,9 @@ import processing.xml.XMLElement;
 import de.fhpotsdam.unfolding.geo.Location;
 
 /**
- * Basic data reader to parse GeoRSS points, in W3C geo
+ * Reads GeoRSS files and creates Features.
  * 
+ * Basic data reader to parse GeoRSS points, in W3C geo
  */
 public class GeoRSSReader extends GeoDataReader {
 

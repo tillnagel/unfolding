@@ -13,12 +13,33 @@ import processing.core.PApplet;
 import de.fhpotsdam.unfolding.data.Feature.FeatureType;
 import de.fhpotsdam.unfolding.geo.Location;
 
+/**
+ * Reads GeoJSON files and creates Features. 
+ */
 public class GeoJSONReader extends GeoDataReader {
 
+	/**
+	 * Parses a GeoJSON String and creates features for them.
+	 * 
+	 * @param p
+	 *            The PApplet.
+	 * @param fileName
+	 *            The name of the GeoJSON file.
+	 * @return A list of features.
+	 */
 	public static List<Feature> loadData(PApplet p, String fileName) {
 		return loadDataFromJSON(p, PApplet.join(p.loadStrings(fileName), ""));
 	}
 
+	/**
+	 * Parses a GeoJSON String and creates features for them.
+	 * 
+	 * @param p
+	 *            The PApplet.
+	 * @param jsonString
+	 *            The GeoJSON string containing geometries etc.
+	 * @return A list of features.
+	 */
 	public static List<Feature> loadDataFromJSON(PApplet p, String jsonString) {
 		List<Feature> features = new ArrayList<Feature>();
 
