@@ -52,6 +52,10 @@ x MultiProviderMultiMapApp
 x SimpleMapApp
 	= SimpleMapApp
 
+- SimpleConversionMapApp
+- SimpleMarkerApp
+- SimpleMarkerTutorialApp
+
 
 
 Processing Examples Candidates
