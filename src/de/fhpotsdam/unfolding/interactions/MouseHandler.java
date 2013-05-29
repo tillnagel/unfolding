@@ -5,8 +5,6 @@ import java.awt.event.MouseEvent;
 import java.util.Arrays;
 import java.util.List;
 
-import org.apache.log4j.Logger;
-
 import processing.core.PApplet;
 import processing.core.PConstants;
 import de.fhpotsdam.unfolding.UnfoldingMap;
@@ -15,14 +13,31 @@ import de.fhpotsdam.unfolding.events.PanMapEvent;
 import de.fhpotsdam.unfolding.events.ZoomMapEvent;
 import de.fhpotsdam.unfolding.geo.Location;
 
+/**
+ * Handles mouse input from the user and broadcasts MapEvents such as zoom and pan.
+ */
 public class MouseHandler extends MapEventBroadcaster {
 
-	public static Logger log = Logger.getLogger(MouseHandler.class);
-
+	/**
+	 * Creates a MouseHandler for the given maps.
+	 * 
+	 * @param p
+	 *            The PApplet.
+	 * @param maps
+	 *            One or more maps.
+	 */
 	public MouseHandler(PApplet p, UnfoldingMap... maps) {
 		this(p, Arrays.asList(maps));
 	}
 
+	/**
+	 * Creates a MouseHandler for the given maps.
+	 * 
+	 * @param p
+	 *            The PApplet.
+	 * @param maps
+	 *            A list of maps.
+	 */
 	public MouseHandler(PApplet p, List<UnfoldingMap> maps) {
 		super(maps);
 

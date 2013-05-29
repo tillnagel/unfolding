@@ -19,7 +19,7 @@ import de.fhpotsdam.unfolding.interactions.MouseHandler;
  * </p>
  * <p>
  * In other cases, applications can set up more sophisticated behaviors. For instance, in an overview+detail setting
- * with a large detail map and a small overview map, the small map shall only show an overview but not being interactive
+ * with a large detail map and a small overview map, the small map shall only show an overview but not be interactive
  * itself. For this case, the MouseHandler is created for the large map, but with a scope of both maps. The
  * EventDispatcher is initiated with both maps listening to pan-events. Thus, any panning on the large overview map also
  * affects the small detail map.<br/>

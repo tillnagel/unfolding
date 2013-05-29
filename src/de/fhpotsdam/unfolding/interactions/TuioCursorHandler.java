@@ -21,6 +21,9 @@ import de.fhpotsdam.unfolding.events.PanMapEvent;
 import de.fhpotsdam.unfolding.events.ZoomMapEvent;
 import de.fhpotsdam.unfolding.geo.Location;
 
+/**
+ * Handles finger input (i.e. TUIO cursors) from the user and broadcasts MapEvents such as zoom and pan.
+ */
 // FIXME Implement tuio to map interactions as events!
 // REVISIT Check how to use simpletouch's TuioTransformableObject. For use in events, as in here.
 public class TuioCursorHandler extends MapEventBroadcaster implements TuioListener {

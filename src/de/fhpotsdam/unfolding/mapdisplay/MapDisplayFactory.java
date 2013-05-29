@@ -5,6 +5,10 @@ import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.providers.AbstractMapProvider;
 import de.fhpotsdam.unfolding.providers.OpenStreetMap;
 
+/**
+ * A factory to create MapDisplays for the UnfoldingMap, depending on specified map features.
+ * 
+ */
 @SuppressWarnings("rawtypes")
 public class MapDisplayFactory {
 
@@ -36,10 +40,10 @@ public class MapDisplayFactory {
 				Class glGraphicsClass = Class.forName(GLGRAPHICS_CLASSNAME);
 				if (glGraphicsClass.isInstance(p.g)) {
 					if (useDistortion) {
-						//log.debug("Using DistortedGLGraphicsMapDisplay for '" + id + "'");
+						// log.debug("Using DistortedGLGraphicsMapDisplay for '" + id + "'");
 						mapDisplay = new DistortedGLGraphicsMapDisplay(p, provider, x, y, width, height);
 					} else {
-						//log.debug("Using GLGraphicsMapDisplay for '" + id + "'");
+						// log.debug("Using GLGraphicsMapDisplay for '" + id + "'");
 						PApplet.println("Using GLGraphicsMapDisplay.");
 						// TODO @chris: Why always use MaskedGLGraphicsMD?
 						// mapDisplay = new MaskedGLGraphicsMapDisplay(p, provider, x, y, width, height);
@@ -54,15 +58,15 @@ public class MapDisplayFactory {
 				try {
 					Class openGLClass = Class.forName(OPEN_GL_CLASSNAME);
 					if (openGLClass.isInstance(p.g)) {
-						//log.warn("No OpenGL mapDisplay available. Use GLGraphics or P3D. '" + id + "'");
+						// log.warn("No OpenGL mapDisplay available. Use GLGraphics or P3D. '" + id + "'");
 						PApplet.println("No OpenGL mapDisplay available. Use GLGraphics or P2D.");
 					}
 				} catch (ClassNotFoundException e) {
 					// OpenGL not found, was for informational purposes anyway.
 				}
 
-				//log.debug("Using MaskedPGraphicsMapDisplay for '" + id + "'");
-				//log.warn("no rotation possible (without OpenGL)");
+				// log.debug("Using MaskedPGraphicsMapDisplay for '" + id + "'");
+				// log.warn("no rotation possible (without OpenGL)");
 				PApplet.println("Using MaskedPGraphicsMapDisplay. No rotation possible (w/o GLGraphics)");
 				mapDisplay = new MaskedPGraphicsMapDisplay(p, provider, x, y, width, height);
 			}
