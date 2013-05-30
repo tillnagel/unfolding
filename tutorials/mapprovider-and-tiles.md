@@ -26,8 +26,11 @@ By using tiles you easily can develop interactive maps. On top of the basis map 
 
 Unfolding displays maps in a default style, with cartographic data from OpenStreetMaps and tiles from CloudMade. To use another map style, simply specify it as second parameter when constructing an `UnfoldingMap`. This way, you can easily switch to one of the pre-configured map tile providers.
 
-For instance if you want to display a satellite map use the Microsoft Aerial Provider:
-
+For instance if you want to display a satellite map use the Microsoft Aerial Provider.
+	
+	import de.fhpotsdam.unfolding.providers.Microsoft;
+	// ... other imports ...
+	
 	UnfoldingMap map;
 
 	void setup() {
@@ -40,6 +43,7 @@ For instance if you want to display a satellite map use the Microsoft Aerial Pro
 	  map.draw();
 	}
 
+Don't forget to import the used provider class.
 
 ### Various map providers
 
