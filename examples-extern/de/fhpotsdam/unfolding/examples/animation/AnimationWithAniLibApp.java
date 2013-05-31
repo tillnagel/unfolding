@@ -3,56 +3,67 @@ package de.fhpotsdam.unfolding.examples.animation;
 import processing.core.PApplet;
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.geo.Location;
+import de.fhpotsdam.unfolding.providers.Microsoft;
 import de.fhpotsdam.unfolding.utils.MapUtils;
 import de.looksgood.ani.Ani;
 
-
+/**
+ * Custom map animation with easing functions. Click anywhere to smoothly pan there. Press 'z' or 'Z' to zoom in and out
+ * smoothly.
+ * 
+ * Demonstrates how to create own animations, instead of the built-in tweening functionality. In this example, the
+ * external Ani library is used. 
+ */
 public class AnimationWithAniLibApp extends PApplet {
-	
+
 	UnfoldingMap map;
-	
-	// Ani variables
-	float lat, lon;
-	
-	
+
+	float lat = 52.5f, lon = 13.4f;
+	Location location = new Location(lat, lon);
+
+	float currentZoom = 10;
+	float targetZoom = currentZoom;
+
 	public void setup() {
 		size(1200, 600);
-		
-		map = new UnfoldingMap(this);
-		map.zoomAndPanTo(new Location(52.5f, 13.4f), 10);
+
+		map = new UnfoldingMap(this, new Microsoft.AerialProvider());
+		map.zoomAndPanTo(location, (int) currentZoom);
 		MapUtils.createDefaultEventDispatcher(this, map);
-		
-		// You have to call always Ani.init() first!
+
 		Ani.init(this);
-		lat = 100;
-		lon = 100;
 	}
-	
-	
+
 	public void draw() {
-		background(255);
-		
+		// NB Zoom before pan
+
+		map.zoomTo(currentZoom);
+
+		location.setLat(lat);
+		location.setLon(lon);
+		map.panTo(location);
+
 		map.draw();
-		
-		// mouse ellipse ///////////////////////////////////////////////////////
-		float[] pos = map.getScreenPositionFromLocation(new Location(lat, lon));
-		fill(255, 0, 0);
-		ellipse(pos[0], pos[1], 20, 20);
 	}
-	
-	
-	public void mouseReleased(){
-		Location targetLocation = map.getLocationFromScreenPosition(mouseX, mouseY);
-		
-		// animate the variables x and y in 1.5 sec to targetLocation position.
-	    Ani.to(this, 1.5f, "lat", targetLocation.getLat(), Ani.CUBIC_IN_OUT);
-	    Ani.to(this, 1.5f, "lon", targetLocation.getLon(), Ani.CUBIC_IN_OUT);
+
+	public void keyPressed() {
+		if (key == 'z' || key == 'Z') {
+			if (key == 'z') {
+				targetZoom++;
+			}
+			if (key == 'Z') {
+				targetZoom--;
+			}
+		}
+		Ani.to(this, 1.5f, "currentZoom", targetZoom, Ani.EXPO_OUT);
+
 	}
-	
-	
-	public static void main(String[] args) {
-		PApplet.main(new String[] {"de.fhpotsdam.unfolding.examples.animation.AniLibApp"});
+
+	public void mouseReleased() {
+		Location targetLocation = map.getLocation(mouseX, mouseY);
+
+		Ani.to(this, 1.5f, "lat", targetLocation.getLat(), Ani.EXPO_OUT);
+		Ani.to(this, 1.5f, "lon", targetLocation.getLon(), Ani.EXPO_OUT);
 	}
-	
-	
+
 }
