@@ -28,7 +28,7 @@ public class CircularMapSnapshotApp extends PApplet {
 		size(600, 400, GLConstants.GLGRAPHICS);
 
 		map = new UnfoldingMap(this, 0, 0, 400, 400, new StamenMapProvider.WaterColor());
-		map.zoomAndPanTo(new Location(52.5f, 13.4f), 10);
+		map.zoomAndPanTo(new Location(51.507222, -0.1275), 10);
 
 		MapUtils.createDefaultEventDispatcher(this, map);
 	}
@@ -43,7 +43,7 @@ public class CircularMapSnapshotApp extends PApplet {
 			mapSnapshot.draw(x, y, 80, 80);
 			x += 90;
 			if (x > width - 90) {
-				x = 410;
+				x = 415;
 				y += 90;
 			}
 		}
