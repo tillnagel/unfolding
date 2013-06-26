@@ -14,8 +14,8 @@ public class Google {
 	public static abstract class GoogleProvider extends AbstractMapTileUrlProvider {
 
 		public GoogleProvider() {
-			super(new MercatorProjection(26, new Transformation(1.068070779e7f, 0.0f, 3.355443185e7f, 0.0f,
-					-1.068070890e7f, 3.355443057e7f)));
+			super(new MercatorProjection(26, new Transformation(1.068070779e7, 0.0, 3.355443185e7, 0.0,
+					-1.068070890e7, 3.355443057e7)));
 		}
 
 		public String getZoomString(Coordinate coordinate) {
