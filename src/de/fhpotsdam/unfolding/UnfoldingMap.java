@@ -274,8 +274,7 @@ public class UnfoldingMap implements MapEventListener {
 	 * @return True if map is hit, false otherwise.
 	 */
 	public boolean isHit(ScreenPosition screenPosition) {
-		float[] check = mapDisplay.getObjectFromScreenPosition(screenPosition.x, screenPosition.y);
-		return (check[0] > 0 && check[0] < mapDisplay.getWidth() && check[1] > 0 && check[1] < mapDisplay.getHeight());
+		return isHit(screenPosition.x, screenPosition.y);
 	}
 
 	public boolean isActive() {
