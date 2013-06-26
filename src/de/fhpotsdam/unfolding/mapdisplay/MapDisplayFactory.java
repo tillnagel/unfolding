@@ -18,7 +18,7 @@ public class MapDisplayFactory {
 	public static final boolean DEFAULT_USE_MASK = true;
 	public static final boolean DEFAULT_USE_DISTORTION = false;
 
-	public static final String OSM_API_KEY = "607e6483654b5c47b9056791d607ab74";
+	public static final String OSM_API_KEY = "YOUR-OWN-KEY"; // original one invalid since June 2013
 	public static final int OSM_STYLE_ID = 65678; // test: 69960; // original: 998
 
 	public static AbstractMapDisplay getMapDisplay(PApplet p, String id, float x, float y, float width, float height,
@@ -81,6 +81,6 @@ public class MapDisplayFactory {
 	}
 
 	public static AbstractMapProvider getDefaultProvider() {
-		return new OpenStreetMap.CloudmadeProvider(OSM_API_KEY, OSM_STYLE_ID);
+		return new OpenStreetMap.OpenStreetMapBlackWhiteProvider();
 	}
 }
