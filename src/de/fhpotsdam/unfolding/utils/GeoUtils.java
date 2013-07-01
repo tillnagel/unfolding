@@ -168,6 +168,13 @@ public class GeoUtils {
 		return new Location(cx, cy);
 	}
 
+	/**
+	 * Returns a closed polygon with the last vertex the same as the first.
+	 * 
+	 * @param originalVertices
+	 *            List of locations of original polygon.
+	 * @return List of location of closed polygon.
+	 */
 	protected static List<Location> getClosedPolygon(List<Location> originalVertices) {
 		if (originalVertices.size() < 1
 				|| (originalVertices.get(0).equals(originalVertices.get(originalVertices.size() - 1)))) {
@@ -217,10 +224,28 @@ public class GeoUtils {
 		return getArea(GeoUtils.getLocations(feature));
 	}
 
+	/**
+	 * Gets the overall geometric center of all features.
+	 * 
+	 * @param features
+	 *            A list of features.
+	 * @return The centroid location.
+	 */
 	public static Location getCentroidFromFeatures(List<Feature> features) {
 		return GeoUtils.getCentroid(GeoUtils.getLocationsFromFeatures(features));
 	}
 
+	/**
+	 * Returns the centroid of a feature. Returns the single location for a PointFeature, the geometric center for
+	 * LineFeature and PolygonFeature, and &mdash; depending on the second parameter &mdash; either the overall
+	 * geometric center of all features, or the geometric center of the largest feature in a MultiFeature.
+	 * 
+	 * @param feature
+	 *            The feature to get the centroid for.
+	 * @param useLargestForMulti
+	 *            Set to true if you want to use only the largest feature for {@link MultiFeature}s.
+	 * @return The location of the geometric center.
+	 */
 	public static Location getCentroid(Feature feature, boolean useLargestForMulti) {
 		Location location = null;
 
@@ -263,6 +288,9 @@ public class GeoUtils {
 		return location;
 	}
 
+	/**
+	 * Convenience method for {@link #getCentroid(Feature, boolean)}.
+	 */
 	public static Location getCentroid(Feature feature) {
 		return getCentroid(feature, false);
 	}

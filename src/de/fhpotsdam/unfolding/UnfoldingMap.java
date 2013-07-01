@@ -32,13 +32,17 @@ public class UnfoldingMap implements MapEventListener {
 	public static final float SCALE_DELTA_IN = 1.05f;
 	public static final float SCALE_DELTA_OUT = 1 / 1.05f;
 
+	/** The default tile width of 256px. */
 	public static final int TILE_WIDTH = 256;
+	/** The default tile height of 256px. */
 	public static final int TILE_HEIGHT = 256;
 	private static final float PAN_DEFAULT_DELTA = TILE_WIDTH / 2;
 
+	/** UnfoldingMap do not use tweened animation by default. Use {@link #setTweening(boolean)} to switch it on. */
 	public static final boolean DEFAULT_TWEENING = false;
 
 	public static final Location PRIME_MERIDIAN_EQUATOR_LOCATION = new Location(0, 0);
+	/** The default zoom level of an UnfoldingMap shows the whole world. */
 	public static final int DEFAULT_ZOOM_LEVEL = 2;
 	private static final float DEFAULT_MIN_SCALE = 1;
 	private static final float DEFAULT_MAX_SCALE = 262144; // 2^18
@@ -46,7 +50,9 @@ public class UnfoldingMap implements MapEventListener {
 	private static final String MAPCHANGED_METHOD_NAME = "mapChanged";
 	private Method mapChangedMethod = null;
 
+	/** The minimum scale. If set the map cannot be further zoomed in. Use {@link #setZoomRange(float, float)}. */
 	public float minScale = DEFAULT_MIN_SCALE;
+	/** The maximum scale. If set the map cannot be further zoomed out. Use {@link #setZoomRange(float, float)}. */
 	public float maxScale = DEFAULT_MAX_SCALE;
 
 	/** The center location of the restricted pan area. */
@@ -68,7 +74,7 @@ public class UnfoldingMap implements MapEventListener {
 	/** The ID of this map. */
 	protected String id;
 
-	/** Indicates whether this map is currently active. */
+	/** Indicates whether this map is currently active. May be used for non-direct interactions. */
 	protected boolean active = true;
 
 	/** Indicates whether to smoothly animate between mapDisplay states. */
@@ -231,6 +237,9 @@ public class UnfoldingMap implements MapEventListener {
 		prepareMapChangedMethod();
 	}
 
+	/**
+	 * Internal method to call listening methods in your application for map changes.
+	 */
 	protected void prepareMapChangedMethod() {
 		// Prepare mapChanged method via reflection
 		Class<? extends PApplet> appletClass = p.getClass();
@@ -277,19 +286,37 @@ public class UnfoldingMap implements MapEventListener {
 		return isHit(screenPosition.x, screenPosition.y);
 	}
 
+	/**
+	 * Indicates whether this map is currently active. May be used for non-direct interactions.
+	 * 
+	 * @return True if this map is active, false otherwise.
+	 */
 	public boolean isActive() {
 		return active;
 	}
 
+	/**
+	 * Sets the active flag of this map.
+	 * 
+	 * @param active
+	 *            True if this map is active, false otherwise.
+	 */
 	public void setActive(boolean active) {
 		this.active = active;
 	}
 
-	@Override
+	/**
+	 * Returns the ID of this map.
+	 * 
+	 * @return A identifying string for this map.
+	 */
 	public String getId() {
 		return id;
 	}
 
+	/**
+	 * Updates and draws the map. The main method to display this UnfoldingMap.
+	 */
 	public void draw() {
 		updateMap();
 		restrictMapToArea();
@@ -297,7 +324,7 @@ public class UnfoldingMap implements MapEventListener {
 	}
 
 	/**
-	 * Listens to mapDisplay events.
+	 * Internal method to listens to mapDisplay events. This will call any listening methods in your application.
 	 */
 	@Override
 	public void onManipulation(MapEvent mapEvent) {
@@ -334,14 +361,29 @@ public class UnfoldingMap implements MapEventListener {
 
 	// ----------------------------------------------------
 
+	/**
+	 * Returns the top left corner of the visible map.
+	 * 
+	 * @return The geographic location with latitude and longitude.
+	 */
 	public Location getTopLeftBorder() {
 		return mapDisplay.getLocationFromObjectPosition(0, 0);
 	}
 
+	/**
+	 * Returns the bottom right corner of the visible map.
+	 * 
+	 * @return The geographic location with latitude and longitude.
+	 */
 	public Location getBottomRightBorder() {
 		return mapDisplay.getLocationFromObjectPosition(mapDisplay.getWidth(), mapDisplay.getHeight());
 	}
 
+	/**
+	 * Returns the center location of the visible map.
+	 * 
+	 * @return The geographic location with latitude and longitude.
+	 */
 	public Location getCenter() {
 		return mapDisplay.getLocationFromObjectPosition(mapDisplay.getWidth() / 2, mapDisplay.getHeight() / 2);
 	}
@@ -361,10 +403,26 @@ public class UnfoldingMap implements MapEventListener {
 		return getLocation(x, y);
 	}
 
+	/**
+	 * Converts a position on the screen to a geographic location.
+	 * 
+	 * @param screenPosition
+	 *            The position in screen coordinates.
+	 * @return The geographic location with latitude and longitude.
+	 */
 	public Location getLocation(ScreenPosition screenPosition) {
 		return mapDisplay.getLocation(screenPosition);
 	}
 
+	/**
+	 * Converts a position on the screen to a geographic location.
+	 * 
+	 * @param x
+	 *            The x position in screen coordinates.
+	 * @param y
+	 *            The y position in screen coordinates.
+	 * @return The geographic location with latitude and longitude.
+	 */
 	public Location getLocation(float x, float y) {
 		return mapDisplay.getLocation(new ScreenPosition(x, y));
 	}
@@ -374,6 +432,13 @@ public class UnfoldingMap implements MapEventListener {
 		return mapDisplay.getScreenPositionFromLocation(location);
 	}
 
+	/**
+	 * Converts the geographic location to a position on the screen.
+	 * 
+	 * @param location
+	 *            The geographic location with latitude and longitude.
+	 * @return The screen position.
+	 */
 	public ScreenPosition getScreenPosition(Location location) {
 		return mapDisplay.getScreenPosition(location);
 	}
@@ -802,14 +867,23 @@ public class UnfoldingMap implements MapEventListener {
 	 * 
 	 * <p>
 	 * <em>Note</em>: Returns only the markers of the default marker manager. If you have more than one marker manager,
-	 * use {@link MarkerManager#getHitMarker(float, float)} instead.
+	 * use {@link MarkerManager#getHitMarkers(float, float)} instead.
 	 * </p>
 	 * 
 	 * @return All hit markers, or an empty list if none were hit.
 	 */
-	public List<Marker> getHitMarker(float checkX, float checkY) {
+	public List<Marker> getHitMarkers(float checkX, float checkY) {
 		return mapDisplay.getDefaultMarkerManager().getHitMarkers(checkX, checkY);
 	}
+	
+	/**
+	 * @deprecated Use {@link #getHitMarkers(float, float)} instead.
+	 */
+	public List<Marker> getHitMarker(float checkX, float checkY) {
+		return getHitMarkers(checkX, checkY);
+	}
+
+
 
 	// Transformations ------------------------------------
 
@@ -853,7 +927,7 @@ public class UnfoldingMap implements MapEventListener {
 	}
 
 	protected void innerScale(float scale) {
-		// TODO Check max,min scale in TileProvider, not here in Map
+		// TODO Check max,min scale in TileProvider, not here in UnfoldingMap
 		scale = PApplet.constrain(mapDisplay.innerScale * scale, minScale, maxScale);
 		if (tweening) {
 			scaleIntegrator.target(scale);
@@ -982,12 +1056,6 @@ public class UnfoldingMap implements MapEventListener {
 		addInnerOffset(dx, dy);
 	}
 
-	protected void addOffset(float dx, float dy) {
-		mapDisplay.offsetX += dx;
-		mapDisplay.offsetY += dy;
-		mapDisplay.calculateMatrix();
-	}
-
 	protected void addInnerOffset(float dx, float dy) {
 		if (tweening) {
 			txIntegrator.target(txIntegrator.target + dx);
@@ -1010,22 +1078,61 @@ public class UnfoldingMap implements MapEventListener {
 		}
 	}
 
+	/**
+	 * Sets the offset of the map. Can be used to re-position the map container (not the map content itself).
+	 * 
+	 * @param x
+	 *            The x of the screen position.
+	 * @param y
+	 *            The y of the screen position.
+	 */
 	protected void setOffset(float x, float y) {
 		mapDisplay.offsetX = x;
 		mapDisplay.offsetY = y;
 		mapDisplay.calculateMatrix();
 	}
 
+	/**
+	 * Moves the offset of the map. Can be used to re-position the map container (not the map content itself).
+	 * 
+	 * @param dx
+	 *            The x distance in screen coordinates.
+	 * @param dy
+	 *            The y distance in screen coordinates.
+	 */
+	protected void addOffset(float dx, float dy) {
+		mapDisplay.offsetX += dx;
+		mapDisplay.offsetY += dy;
+		mapDisplay.calculateMatrix();
+	}
+
 	// --------------------------------------------------------------
 
+	/**
+	 * Converts zoom to scale.
+	 * 
+	 * @param zoom
+	 *            The zoom value (between 0 and typically 20+).
+	 * @return The scale value (between 0 and 2<sup>zoom</sup>).
+	 */
 	public static float getScaleFromZoom(float zoom) {
 		return (float) Math.pow(2.0f, zoom);
 	}
 
+	/**
+	 * Converts scale to zoom.
+	 * 
+	 * @param scale
+	 *            The scale value (between 0 and 2<sup>zoom</sup>).
+	 * @return The zoom value (between 0 and typically 20+).
+	 */
 	public static float getZoomFromScale(double scale) {
 		return (float) Math.log(scale) / (float) Math.log(2);
 	}
 
+	/**
+	 * Converts scale to zoom level. Same as {@link #getZoomFromScale(double)} but with integer values.
+	 */
 	public static int getZoomLevelFromScale(double scale) {
 		return Math.round(getZoomFromScale(scale));
 	}
@@ -1081,6 +1188,12 @@ public class UnfoldingMap implements MapEventListener {
 		}
 	}
 
+	/**
+	 * Sets the background color of this map.
+	 * 
+	 * @param bgColor
+	 *            The color in Processing notation.
+	 */
 	public void setBackgroundColor(int bgColor) {
 		this.mapDisplay.setBackgroundColor(bgColor);
 	}

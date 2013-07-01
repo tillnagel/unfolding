@@ -144,7 +144,7 @@ public class EventDispatcher {
 	/**
 	 * Removes listener if ScopedListeners exist for scopeIds to unregister.
 	 * 
-	 * @param listeners
+	 * @param listener
 	 *            The listener to unregister, e.g. a maps.
 	 * @param type
 	 *            The type of the event, e.g. pan or zoom.

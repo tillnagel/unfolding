@@ -169,7 +169,7 @@ public interface Marker {
 	/**
 	 * Sets the thickness of the border of this marker.
 	 * 
-	 * @param strokeWeight
+	 * @param weight
 	 *            Thickness in pixel.
 	 */
 	public void setStrokeWeight(int weight);

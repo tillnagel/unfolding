@@ -17,7 +17,7 @@ public class ShapeFeature extends Feature {
 	 * Creates a shape feature with the type.
 	 * 
 	 * @param type
-	 *            The type. Should be either {@link FeatureType#LINES} or {@link FeatureType#POLYGON}.
+	 *            The type. Should be either {@link Feature.FeatureType#LINES} or {@link Feature.FeatureType#POLYGON}.
 	 */
 	public ShapeFeature(FeatureType type) {
 		super(type);

@@ -32,7 +32,7 @@ public abstract class AbstractShapeMarker extends AbstractMarker {
 	/**
 	 * Creates a shape marker for the given locations.
 	 * 
-	 * @param location
+	 * @param locations
 	 *            The list of locations.
 	 */
 	public AbstractShapeMarker(List<Location> locations) {
@@ -42,7 +42,7 @@ public abstract class AbstractShapeMarker extends AbstractMarker {
 	/**
 	 * Creates a shape marker for the given locations.
 	 * 
-	 * @param location
+	 * @param locations
 	 *            The list of locations.
 	 * @param properties
 	 *            Some data properties for this marker.

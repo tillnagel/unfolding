@@ -47,6 +47,15 @@ public class MapUtils {
 		return eventDispatcher;
 	}
 
+	/**
+	 * Initializes default events, i.e. all given maps handle mouse interactions. No cross-listening between maps.
+	 * 
+	 * @param p
+	 *            The PApplet needed for mouse user interactions.
+	 * @param maps
+	 *            One or many maps.
+	 * @return The EventDispatcher to use for additional event handling.
+	 */
 	public static EventDispatcher createMouseEventDispatcher(PApplet p, UnfoldingMap... maps) {
 		EventDispatcher eventDispatcher = new EventDispatcher();
 
@@ -61,11 +70,11 @@ public class MapUtils {
 
 		return eventDispatcher;
 	}
-	
+
 	/**
-	 * Initializes default events, i.e. all given maps handle mouse and keyboard interactions. No
-	 * cross-listening between maps.
-	 *
+	 * Initializes default events, i.e. all given maps handle mouse and keyboard interactions. No cross-listening
+	 * between maps.
+	 * 
 	 * @param p
 	 *            The PApplet needed for mouse and key user interactions.
 	 * @param maps
@@ -77,6 +86,13 @@ public class MapUtils {
 		return createDefaultEventDispatcher(p, mapsArray);
 	}
 
+	/**
+	 * Creates Unfolding's simple markers from features. (without the need to create a MarkerFactory)
+	 * 
+	 * @param features
+	 *            The features to get markers for.
+	 * @return A list of markers.
+	 */
 	public static List<Marker> createSimpleMarkers(List<Feature> features) {
 		if (markerFactory == null) {
 			markerFactory = new MarkerFactory();
