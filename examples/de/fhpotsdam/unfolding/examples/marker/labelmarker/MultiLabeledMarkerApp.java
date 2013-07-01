@@ -34,7 +34,7 @@ public class MultiLabeledMarkerApp extends PApplet {
 		MapUtils.createDefaultEventDispatcher(this, map);
 
 		// Load from GeoRSS file
-		List<Feature> features = GeoRSSReader.loadData(this, "bbc-georss-test.xml");
+		List<Feature> features = GeoRSSReader.loadData(this, "data/bbc-georss-test.xml");
 		// Create (display) markers from (data) features
 		MarkerFactory markerFactory = new MarkerFactory();
 		markerFactory.setPointClass(LabeledMarker.class);

@@ -30,7 +30,7 @@ public class GeneralizationFeatureTestApp extends PApplet {
 		map = new UnfoldingMap(this, new StamenMapProvider.Toner());
 		MapUtils.createDefaultEventDispatcher(this, map);
 
-		countries = GeoJSONReader.loadData(this, "countries.geo.json");
+		countries = GeoJSONReader.loadData(this, "data/countries.geo.json");
 	}
 
 	public void draw() {

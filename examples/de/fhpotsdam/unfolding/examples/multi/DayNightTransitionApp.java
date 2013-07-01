@@ -4,9 +4,7 @@ import processing.core.PApplet;
 import codeanticode.glgraphics.GLConstants;
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.geo.Location;
-import de.fhpotsdam.unfolding.mapdisplay.MapDisplayFactory;
 import de.fhpotsdam.unfolding.providers.MBTilesMapProvider;
-import de.fhpotsdam.unfolding.providers.OpenStreetMap;
 import de.fhpotsdam.unfolding.utils.MapUtils;
 import de.fhpotsdam.utils.Integrator;
 
@@ -15,7 +13,7 @@ import de.fhpotsdam.utils.Integrator;
  */
 public class DayNightTransitionApp extends PApplet {
 
-	public static final String JDBC_CONN_STRING_APPLET = "jdbc:sqlite:../data/muse-dark-2-4.mbtiles";
+	public static final String JDBC_CONN_STRING_APPLET = "jdbc:sqlite:../data/tiles/blankDark-1-3.mbtiles";
 
 	UnfoldingMap mapDay;
 	UnfoldingMap mapNight;
@@ -25,12 +23,14 @@ public class DayNightTransitionApp extends PApplet {
 	public void setup() {
 		size(800, 600, GLConstants.GLGRAPHICS);
 
-		mapDay = new UnfoldingMap(this, new OpenStreetMap.CloudmadeProvider(MapDisplayFactory.OSM_API_KEY, 23058));
+		mapDay = new UnfoldingMap(this);
 		mapNight = new UnfoldingMap(this, new MBTilesMapProvider(JDBC_CONN_STRING_APPLET));
 
-		mapDay.zoomToLevel(4);
+		mapDay.setZoomRange(1, 3);
+		mapDay.zoomToLevel(3);
 		mapDay.panTo(new Location(49.6f, 9.4f));
-		mapNight.zoomToLevel(4);
+		mapNight.setZoomRange(1, 3);
+		mapNight.zoomToLevel(3);
 		mapNight.panTo(new Location(49.6f, 9.4f));
 
 		MapUtils.createDefaultEventDispatcher(this, mapDay, mapNight);

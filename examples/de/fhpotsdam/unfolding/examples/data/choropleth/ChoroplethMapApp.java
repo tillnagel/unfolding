@@ -36,12 +36,12 @@ public class ChoroplethMapApp extends PApplet {
 		MapUtils.createDefaultEventDispatcher(this, map);
 
 		// Load country polygons and adds them as markers
-		List<Feature> countries = GeoJSONReader.loadData(this, "countries.geo.json");
+		List<Feature> countries = GeoJSONReader.loadData(this, "data/countries.geo.json");
 		countryMarkers = MapUtils.createSimpleMarkers(countries);
 		map.addMarkers(countryMarkers);
 
 		// Load population data
-		dataEntriesMap = loadPopulationDensityFromCSV("countries-population-density.csv");
+		dataEntriesMap = loadPopulationDensityFromCSV("data/countries-population-density.csv");
 		println("Loaded " + dataEntriesMap.size() + " data entries");
 
 		// Country markers are shaded according to its population density (only once)

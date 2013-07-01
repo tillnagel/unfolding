@@ -29,7 +29,7 @@ public class GeoJSONMarkerApp extends PApplet {
 		map.zoomToLevel(2);
 		MapUtils.createDefaultEventDispatcher(this, map);
 
-		List<Feature> countries = GeoJSONReader.loadData(this, "countries.geo.json");
+		List<Feature> countries = GeoJSONReader.loadData(this, "data/countries.geo.json");
 		List<Marker> countryMarkers = MapUtils.createSimpleMarkers(countries);
 		map.addMarkers(countryMarkers);
 	}

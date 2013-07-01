@@ -27,7 +27,7 @@ public class StyledCompassApp extends PApplet {
 		map.zoomAndPanTo(new Location(52.5f, 13.4f), 10);
 		MapUtils.createDefaultEventDispatcher(this, map);
 
-		compassImg = loadImage("compass_grey.png");
+		compassImg = loadImage("ui/compass_grey.png");
 		compass = new CompassUI(this, map, compassImg, 700, 100);
 	}
 

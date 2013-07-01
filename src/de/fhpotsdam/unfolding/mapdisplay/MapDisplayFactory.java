@@ -81,6 +81,6 @@ public class MapDisplayFactory {
 	}
 
 	public static AbstractMapProvider getDefaultProvider() {
-		return new OpenStreetMap.OpenStreetMapBlackWhiteProvider();
+		return new OpenStreetMap.OSMGrayProvider();
 	}
 }

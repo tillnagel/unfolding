@@ -36,14 +36,13 @@ public class OpenStreetMap {
 			return new String[] { url };
 		}
 	}
-	
-	public static class OpenStreetMapBlackWhiteProvider extends GenericOpenStreetMapProvider {
+
+	public static class OSMGrayProvider extends GenericOpenStreetMapProvider {
 		public String[] getTileUrls(Coordinate coordinate) {
 			String url = "http://a.www.toolserver.org/tiles/bw-mapnik/" + getZoomString(coordinate) + ".png";
 			return new String[] { url };
 		}
 	}
-	
 
 	/**
 	 * Map tiles with custom styled maps via CloudMade with OpenStreetMap data.

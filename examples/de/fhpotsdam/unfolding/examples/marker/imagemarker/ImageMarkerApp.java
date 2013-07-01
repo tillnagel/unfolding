@@ -25,9 +25,9 @@ public class ImageMarkerApp extends PApplet {
 		map.zoomAndPanTo(new Location(50.26f, 12.1f), 4);
 		MapUtils.createDefaultEventDispatcher(this, map);
 
-		ImageMarker imgMarker1 = new ImageMarker(lisbonLocation, loadImage("marker_red.png"));
-		ImageMarker imgMarker2 = new ImageMarker(veniceLocation, loadImage("marker_red.png"));
-		ImageMarker imgMarker3 = new ImageMarker(berlinLocation, loadImage("marker_gray.png"));
+		ImageMarker imgMarker1 = new ImageMarker(lisbonLocation, loadImage("ui/marker.png"));
+		ImageMarker imgMarker2 = new ImageMarker(veniceLocation, loadImage("ui/marker_red.png"));
+		ImageMarker imgMarker3 = new ImageMarker(berlinLocation, loadImage("ui/marker_gray.png"));
 		map.addMarkers(imgMarker1, imgMarker2, imgMarker3);
 	}
 

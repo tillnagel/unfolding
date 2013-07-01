@@ -30,7 +30,7 @@ public class ManualGPXTrackApp extends PApplet {
 		MapUtils.createDefaultEventDispatcher(this, map);
 		map.zoomAndPanTo(startLocation, 15);
 
-		trackPoints = GPXUtils.loadGPXTrack(this, "bike-tour.gpx");
+		trackPoints = GPXUtils.loadGPXTrack(this, "data/bike-tour.gpx");
 		println("Loaded " + trackPoints.size() + " track points");
 	}
 

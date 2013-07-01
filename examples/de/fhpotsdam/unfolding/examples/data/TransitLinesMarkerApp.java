@@ -38,7 +38,7 @@ public class TransitLinesMarkerApp extends PApplet {
 		map.setPanningRestriction(bostonLocation, 50);
 		MapUtils.createDefaultEventDispatcher(this, map);
 
-		List<Feature> transitLines = GeoJSONReader.loadData(this, "MBTARapidTransitLines.json");
+		List<Feature> transitLines = GeoJSONReader.loadData(this, "data/MBTARapidTransitLines.json");
 
 		// Create marker from features, and use LINE property to color the markers.
 		List<Marker> transitMarkers = new ArrayList<Marker>();

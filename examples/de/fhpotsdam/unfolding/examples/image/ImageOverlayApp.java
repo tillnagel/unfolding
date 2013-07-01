@@ -40,7 +40,7 @@ public class ImageOverlayApp extends PApplet {
 		size(1400, 800, GLConstants.GLGRAPHICS);
 
 		// Very low quality for file size reasons. Use original from http://schwinki.de/splendor/
-		visImg = loadImage("splendor-big.jpg");
+		visImg = loadImage("test/splendor-big.jpg");
 
 		map = new UnfoldingMap(this, "Satellite Map", new Microsoft.AerialProvider());
 		map.zoomAndPanTo(center, 14);

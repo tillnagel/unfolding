@@ -30,7 +30,7 @@ public class MultiLabeledMarkerOnMultiMapsApp extends ManualLabelMarkerApp {
 		map2 = new UnfoldingMap(this, "map", 575, 50, 150, 150);
 		MapUtils.createDefaultEventDispatcher(this, map2);
 
-		List<Feature> features = GeoRSSReader.loadData(this, "bbc-georss-test.xml");
+		List<Feature> features = GeoRSSReader.loadData(this, "data/bbc-georss-test.xml");
 		List<Marker> markers = createLabeledMarkers(features);
 		map1.addMarkers(markers);
 		map2.addMarkers(markers);

@@ -24,7 +24,7 @@ public class MaskedGLGraphicsMapDisplay extends GLGraphicsMapDisplay implements 
 		mask = new GLGraphicsOffScreen(papplet, (int) width, (int) height, true);
 		mask.smooth();
 		maskedTex = new GLTexture(papplet, (int) width, (int) height);
-		maskFilter = new GLTextureFilter(papplet, "Mask.xml");
+		maskFilter = new GLTextureFilter(papplet, "test/Mask.xml");
 	}
 
 	@Override

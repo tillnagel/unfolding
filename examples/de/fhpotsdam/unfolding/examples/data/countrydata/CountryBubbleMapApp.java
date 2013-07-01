@@ -38,11 +38,11 @@ public class CountryBubbleMapApp extends PApplet {
 		MapUtils.createDefaultEventDispatcher(this, map);
 
 		// Load country polygons and adds them as markers
-		List<Feature> countries = GeoJSONReader.loadData(this, "countries.geo.json");
+		List<Feature> countries = GeoJSONReader.loadData(this, "data/countries.geo.json");
 		// countryMarkers = MapUtils.createSimpleMarkers(countries);
 
 		// Load population data
-		dataEntriesMap = loadPopulationFromCSV("countries-data.csv");
+		dataEntriesMap = loadPopulationFromCSV("data/countries-data.csv");
 
 		for (Feature country : countries) {
 			// Calculates center to show single point marker for polygon feature

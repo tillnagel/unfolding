@@ -30,7 +30,7 @@ public class ManualLabelMarkerApp extends PApplet {
 		map.zoomToLevel(2);
 		MapUtils.createDefaultEventDispatcher(this, map);
 
-		List<Feature> features = GeoRSSReader.loadData(this, "bbc-georss-test.xml");
+		List<Feature> features = GeoRSSReader.loadData(this, "data/bbc-georss-test.xml");
 		List<Marker> markers = createLabeledMarkers(features);
 		map.addMarkers(markers);
 	}
@@ -55,7 +55,7 @@ public class ManualLabelMarkerApp extends PApplet {
 	}
 
 	public List<Marker> createLabeledMarkers(List<Feature> features) {
-		PFont font = loadFont("Helvetica-16.vlw");
+		PFont font = loadFont("ui/OpenSans-12.vlw");
 		List<Marker> markers = new ArrayList<Marker>();
 		for (Feature feature : features) {
 			String label = feature.getStringProperty("title");

@@ -111,9 +111,9 @@ public class DebugDisplay implements MapEventListener {
 		this.y = y;
 		
 		// TODO Load resources from jar instead of data-folder (see issue #64)
-		font = p.loadFont("Lato-Regular-11.vlw");
-		titleFont = p.loadFont("Lato-Bold-14.vlw");
-		logo = p.loadImage("unfolding-mini-icon.png");
+		font = p.loadFont("ui/Lato-Regular-11.vlw");
+		titleFont = p.loadFont("ui/Lato-Bold-14.vlw");
+		logo = p.loadImage("ui/unfolding-mini-icon.png");
 	}
 
 	/**

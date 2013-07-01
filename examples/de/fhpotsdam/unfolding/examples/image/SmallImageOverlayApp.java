@@ -29,7 +29,7 @@ public class SmallImageOverlayApp extends PApplet {
 	public void setup() {
 		size(1400, 800, GLConstants.GLGRAPHICS);
 
-		visImg = loadImage("splendor-cutout.png");
+		visImg = loadImage("test/splendor-cutout.png");
 
 		map = new UnfoldingMap(this, "Satellite Map", new Microsoft.AerialProvider());
 		map.zoomAndPanTo(center, 14);

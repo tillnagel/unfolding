@@ -30,7 +30,7 @@ public class CombineTestApp extends PApplet {
 		map = new UnfoldingMap(this);
 		
 		// Load all countries
-		List<Feature> countries = GeoJSONReader.loadData(this, "countries.geo.json");
+		List<Feature> countries = GeoJSONReader.loadData(this, "data/countries.geo.json");
 		List<Marker> countryMarkers = MapUtils.createSimpleMarkers(countries);
 
 		// But only combine Germany, France, and Ireland

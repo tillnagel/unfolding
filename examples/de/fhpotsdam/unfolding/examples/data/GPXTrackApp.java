@@ -27,7 +27,7 @@ public class GPXTrackApp extends PApplet {
 		MapUtils.createDefaultEventDispatcher(this, map);
 		map.zoomAndPanTo(startLocation, 13);
 
-		List<Feature> features = GPXReader.loadData(this, "bike-tour.gpx");
+		List<Feature> features = GPXReader.loadData(this, "data/bike-tour.gpx");
 		List<Marker> markers = MapUtils.createSimpleMarkers(features);
 		map.addMarkers(markers);
 	}

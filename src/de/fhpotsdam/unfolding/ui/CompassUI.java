@@ -11,7 +11,7 @@ import de.fhpotsdam.unfolding.utils.ScreenPosition;
 public class CompassUI {
 
 	private static final ScreenPosition DEFAULT_POS = new ScreenPosition(100, 100);
-	private static final String IMG_DEFAULT = "compass_white.png";
+	private static final String IMG_DEFAULT = "ui/compass_white.png";
 
 	private PApplet p;
 	private UnfoldingMap map;

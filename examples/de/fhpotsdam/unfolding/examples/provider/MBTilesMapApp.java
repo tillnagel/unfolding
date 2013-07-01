@@ -14,9 +14,9 @@ import de.fhpotsdam.unfolding.utils.MapUtils;
 public class MBTilesMapApp extends PApplet {
 
 	// relative path varies depending on whether this was started as applet or application
-	public static final String JDBC_CONN_STRING_APPLICATION = "jdbc:sqlite:./bin/muse-dark-2-4.mbtiles";
-	public static final String JDBC_CONN_STRING_APPLET = "jdbc:sqlite:./muse-dark-2-4.mbtiles";
-	
+	public static final String JDBC_CONN_STRING_APPLICATION = "jdbc:sqlite:./bin/tiles/blankLight-1-3.mbtiles";
+	public static final String JDBC_CONN_STRING_APPLET = "jdbc:sqlite:./tiles/blankLight-1-3.mbtiles";
+
 	public static String mbTilesConnectionString = JDBC_CONN_STRING_APPLET;
 
 	UnfoldingMap map;
@@ -26,7 +26,7 @@ public class MBTilesMapApp extends PApplet {
 
 		map = new UnfoldingMap(this, new MBTilesMapProvider(mbTilesConnectionString));
 		MapUtils.createDefaultEventDispatcher(this, map);
-		map.setZoomRange(2, 4);
+		map.setZoomRange(1, 3);
 	}
 
 	public void draw() {

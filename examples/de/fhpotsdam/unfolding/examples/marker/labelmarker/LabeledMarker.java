@@ -12,7 +12,7 @@ public class LabeledMarker extends SimplePointMarker {
 
 	protected String name;
 	protected float size = 15;
-	protected int space = 10;
+	protected int space = 6;
 
 	private PFont font;
 	private float fontSize = 12;

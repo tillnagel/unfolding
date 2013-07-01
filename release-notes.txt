@@ -3,18 +3,19 @@ RELEASE NOTES
 
 
 0.9.3
-(20 May 2013: 120 files changed, 4431 insertions, 600 deletions)
 
 Bug Fixes
 - Fixed tweening (#5). Map now can animate between states, optionally.
 - Fixed centroid algorithm (#47).
 - Changed default MarkerManager behavior. Now the first manually added replaces the empty default.
+- Fixed marker precision issue (#66). Now nearby markers are displayed as two distinct markers even on high zoom levels. 
 
 Features
 - Added mapChanged and tilesLoaded methods. Similar to Processing's simple events such as mouseMoved these allow easily reacting to map events.
 - Enhanced data properties functionality in both Markers and Features.
 - Added DebugDisplay.
 - Added hidden flag to markers.
+- Switched default map provider. 
 
 Documentation
 - Added various more examples (in Eclipse distribution)

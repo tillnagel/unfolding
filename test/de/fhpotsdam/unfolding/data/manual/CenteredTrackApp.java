@@ -38,7 +38,7 @@ public class CenteredTrackApp extends PApplet {
 		MapUtils.createDefaultEventDispatcher(this, map);
 		map.zoomAndPanTo(startLocation, 16);
 
-		trackPoints = GPXUtils.loadGPXTrack(this, "bike-tour.gpx");
+		trackPoints = GPXUtils.loadGPXTrack(this, "data/bike-tour.gpx");
 	}
 
 	public void draw() {

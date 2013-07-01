@@ -42,7 +42,7 @@ public class Map3DApp extends PApplet {
 		SimplePointMarker marker = new SimplePointMarker(berlinLocation);
 		map.addMarker(marker);
 
-		// List<Feature> countries = GeoJSONReader.loadData(this, "countries.geo.json");
+		// List<Feature> countries = GeoJSONReader.loadData(this, "data/countries.geo.json");
 		// List<Marker> countryMarkers = MapUtils.createSimpleMarkers(countries);
 		// map.addMarkers(countryMarkers);
 

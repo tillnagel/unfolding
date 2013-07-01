@@ -16,8 +16,8 @@ public class MaskedGLGraphicsApp extends PApplet {
 	public void setup() {
 		size(256, 256, GLConstants.GLGRAPHICS);
 
-		GLTexture imgTex = new GLTexture(this, "beach.jpg");
-		// GLTexture imgMask = new GLTexture(this, "mask.png");
+		GLTexture imgTex = new GLTexture(this, "test/beach.jpg");
+		// GLTexture imgMask = new GLTexture(this, "test/mask.png");
 		GLTexture imgMask = new GLTexture(this, 256, 256);
 
 		PGraphics pg = createGraphics(256, 256, P2D);

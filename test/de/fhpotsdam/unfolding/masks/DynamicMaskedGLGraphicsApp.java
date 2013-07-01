@@ -16,8 +16,8 @@ public class DynamicMaskedGLGraphicsApp extends PApplet {
 	public void setup() {
 		size(768, 256, GLConstants.GLGRAPHICS);
 
-		GLTexture imgTex = new GLTexture(this, "beach.jpg");
-		// GLTexture imgMask = new GLTexture(this, "mask.png");
+		GLTexture imgTex = new GLTexture(this, "test/beach.jpg");
+		// GLTexture imgMask = new GLTexture(this, "test/mask.png");
 		GLTexture imgMask = new GLTexture(this, 256, 256);
 
 		PGraphics pg = createGraphics(256, 256, P2D);
@@ -63,7 +63,7 @@ public class DynamicMaskedGLGraphicsApp extends PApplet {
 
 		maskedTex = new GLTexture(this, 256, 256);
 
-		GLTextureFilter maskFilter = new GLTextureFilter(this, "Mask.xml");
+		GLTextureFilter maskFilter = new GLTextureFilter(this, "test/Mask.xml");
 
 		maskFilter.setParameterValue("mask_factor", 0.0f);
 		maskFilter.apply(new GLTexture[] { imgTex, imgMask }, maskedTex);

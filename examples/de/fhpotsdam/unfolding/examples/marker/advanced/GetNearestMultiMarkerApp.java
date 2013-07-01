@@ -52,7 +52,7 @@ public class GetNearestMultiMarkerApp extends PApplet {
 	}
 
 	private void initPolygons() {
-		List<Feature> countries = GeoJSONReader.loadData(this, "countries.geo.json");
+		List<Feature> countries = GeoJSONReader.loadData(this, "data/countries.geo.json");
 		List<Feature> selectedCountries = new ArrayList<Feature>();
 		for (Feature feature : countries) {
 			if (feature.getId().equalsIgnoreCase("CAN") || feature.getId().equalsIgnoreCase("USA")) {

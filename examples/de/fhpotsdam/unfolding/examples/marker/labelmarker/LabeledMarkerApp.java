@@ -28,7 +28,7 @@ public class LabeledMarkerApp extends PApplet {
 		map.panTo(berlinLocation);
 		MapUtils.createDefaultEventDispatcher(this, map);
 
-		font = loadFont("Helvetica-16.vlw");
+		font = loadFont("ui/OpenSans-12.vlw");
 		berlinMarker = new LabeledMarker(berlinLocation, "Berlin", font, 15);
 		map.addMarkers(berlinMarker);
 	}
