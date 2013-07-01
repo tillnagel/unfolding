@@ -55,7 +55,7 @@ The following are some of the map providers included in the Unfolding distributi
 
 - OpenStreetMap.OpenStreetMapProvider();   
 - OpenStreetMap.CloudmadeProvider(API KEY, STYLE ID);
-- Stamen.TonerProvider(); 
+- StamenMapProvider.Toner(); 
 - Google.GoogleMapProvider();   
 - Google.GoogleTerrainProvider();   
 - Microsoft.RoadProvider();   
