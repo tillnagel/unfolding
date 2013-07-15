@@ -6,8 +6,8 @@ import codeanticode.glgraphics.GLConstants;
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.data.Feature;
 import de.fhpotsdam.unfolding.data.GeoRSSReader;
+import de.fhpotsdam.unfolding.examples.marker.labelmarker.ManualLabelMarkerApp;
 import de.fhpotsdam.unfolding.marker.Marker;
-import de.fhpotsdam.unfolding.marker.labelmarker.ManualLabelMarkerApp;
 import de.fhpotsdam.unfolding.utils.MapUtils;
 
 /**

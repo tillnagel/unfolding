@@ -1,4 +1,4 @@
-package de.fhpotsdam.unfolding.marker.labelmarker;
+package de.fhpotsdam.unfolding.examples.marker.labelmarker;
 
 import java.util.ArrayList;
 import java.util.List;
