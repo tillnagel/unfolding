@@ -9,13 +9,14 @@ Bug Fixes
 - Fixed centroid algorithm (#47).
 - Changed default MarkerManager behavior. Now the first manually added replaces the empty default.
 - Fixed marker precision issue (#66). Now nearby markers are displayed as two distinct markers even on high zoom levels. 
+- Switched default map provider.
 
 Features
 - Added mapChanged and tilesLoaded methods. Similar to Processing's simple events such as mouseMoved these allow easily reacting to map events.
 - Enhanced data properties functionality in both Markers and Features.
 - Added DebugDisplay.
 - Added hidden flag to markers.
-- Switched default map provider. 
+- Added many utility and convenience methods.
 
 Documentation
 - Added various more examples (in Eclipse distribution)

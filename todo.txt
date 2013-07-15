@@ -1,8 +1,8 @@
 - Clean up /test
-- Move test apps from /examples to /test
+x Move test apps from /examples to /test
 	- Select fewer example per section (1 best practice!)
-- Add javadocs to examples
-- Convert more examples from /examples to /examples-processing
+x Add javadocs to examples
+x Convert more examples from /examples to /examples-processing
 x Clean up data folder
 	x e.g. /data/ui, /data/data, /data/tiles, ...
 
