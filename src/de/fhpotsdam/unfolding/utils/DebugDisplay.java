@@ -96,12 +96,10 @@ public class DebugDisplay implements MapEventListener {
 		this.map = map;
 		this.eventDispatcher = eventDispatcher;
 		if (eventDispatcher != null) {
-			// eventDispatcher.register(this, "pan", map.getId());
-			// eventDispatcher.register(this, "zoom", map.getId());
 
-			// TODO Register to all scopes, instead of using hard-coded strings
-			eventDispatcher.register(this, "pan", "map", "map1", "map2");
-			eventDispatcher.register(this, "zoom", "map", "map1", "map2");
+			// TODO Register to all scopes, instead of using a few hard-coded strings
+			eventDispatcher.register(this, "pan", map.getId(), "map", "map1", "map2");
+			eventDispatcher.register(this, "zoom", map.getId(), "map", "map1", "map2");
 
 			// TODO Implement registerToAll
 			// eventDispatcher.registerToAll(this, "pan");
