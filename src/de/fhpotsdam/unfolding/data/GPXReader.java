@@ -24,6 +24,8 @@ public class GPXReader extends GeoDataReader {
 		// Load GPX file
 		XMLElement gpx = new XMLElement(p, gpxFilename);
 
+		// TODO Handle multiple features in one GPX file
+		
 		// Create track with all track points
 		ShapeFeature trackFeature = new ShapeFeature(FeatureType.LINES);
 		List<String> trackPointTimes = new ArrayList<String>();
@@ -44,6 +46,11 @@ public class GPXReader extends GeoDataReader {
 			}
 		}
 
+		// Add name for whole track as property
+		XMLElement nameXMLElement = gpx.getChild("trk/name");
+		if (nameXMLElement != null) {
+			trackFeature.addProperty("name", nameXMLElement.getContent());
+		}
 		// Add (single) time for whole track as property
 		XMLElement timeXMLElement = gpx.getChild("trk/time");
 		if (timeXMLElement != null) {
