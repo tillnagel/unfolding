@@ -214,16 +214,26 @@ public class GeoUtils {
 	}
 
 	/**
-	 * Calculates the area of a polygon feature.
+	 * Calculates the area of a shape feature.
 	 * 
 	 * @param feature
-	 *            The feature containing vertices.
+	 *            The feature containing location vertices.
 	 * @return The area.
 	 */
 	protected static float getArea(Feature feature) {
 		return getArea(GeoUtils.getLocations(feature));
 	}
-
+	
+	/**
+	 * Calculates the area of a shape marker.
+	 * @param marker
+	 *            The marker containing location vertices.
+	 * @return The area.
+	 */
+	protected static float getArea(Marker marker) {
+		return getArea(GeoUtils.getLocations(marker));
+	}
+	
 	/**
 	 * Gets the overall geometric center of all features.
 	 * 
@@ -260,16 +270,8 @@ public class GeoUtils {
 		case MULTI:
 			MultiFeature multiFeature = ((MultiFeature) feature);
 			if (useLargestForMulti) {
-
 				// Return centroid of largest feature
-				float largestArea = 0;
-				Feature largestFeature = null;
-				for (Feature f : multiFeature.getFeatures()) {
-					if (largestArea < getArea(f)) {
-						largestFeature = f;
-						largestArea = getArea(f);
-					}
-				}
+				Feature largestFeature = getLargestFeature(multiFeature);
 				location = getCentroid(largestFeature);
 
 			} else {
@@ -286,6 +288,37 @@ public class GeoUtils {
 		}
 
 		return location;
+	}
+
+	/**
+	 * Returns the largest feature of a MultiFeature by area size.
+	 * 
+	 * @param multiFeature
+	 *            The MultiFeature consisting of multiple features.
+	 * @return The largest feature.
+	 */
+	public static Feature getLargestFeature(MultiFeature multiFeature) {
+		float largestArea = 0;
+		Feature largestFeature = null;
+		for (Feature f : multiFeature.getFeatures()) {
+			if (largestArea < getArea(f)) {
+				largestFeature = f;
+				largestArea = getArea(f);
+			}
+		}
+		return largestFeature;
+	}
+	
+	public static Marker getLargestMarker(MultiMarker multiMarker) {
+		float largestArea = 0;
+		Marker largestMarker = null;
+		for (Marker f : multiMarker.getMarkers()) {
+			if (largestArea < getArea(f)) {
+				largestMarker = f;
+				largestArea = getArea(f);
+			}
+		}
+		return largestMarker;
 	}
 
 	/**
