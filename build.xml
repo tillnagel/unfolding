@@ -131,7 +131,7 @@
 		<copy file="${dist.dir}/${unfolding.jar}" todir="${dist.dir}/unfolding_app_template/lib/" />
 		<!-- copy readme -->
 		<copy file="resources/unfolding_app_template/README" todir="${dist.dir}/unfolding_app_template/" />
-		<!-- copy some example src -->
+		<!-- copy main example src -->
 		<copy file="examples/HelloUnfoldingWorld.java" todir="${dist.dir}/unfolding_app_template/src/" />
 		<!-- copy .classpath and .project -->
 		<copy file="resources/unfolding_app_template/classpath" tofile="${dist.dir}/unfolding_app_template/.classpath" />
@@ -169,6 +169,8 @@
 		</copy>
 		<!-- copy readme -->
 		<copy file="resources/unfolding_app_template/README" todir="${dist.dir}/unfolding_app_template_with_examples/" />
+		<!-- copy main example src -->
+		<copy file="examples/HelloUnfoldingWorld.java" todir="${dist.dir}/unfolding_app_template/src/" />
 		<!-- copy some examples -->
 		<copy todir="${dist.dir}/unfolding_app_template_with_examples/examples/">
 			<fileset dir="${example.dir}" />
