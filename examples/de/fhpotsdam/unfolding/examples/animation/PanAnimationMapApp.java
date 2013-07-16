@@ -5,7 +5,6 @@ import codeanticode.glgraphics.GLConstants;
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.examples.interaction.NaviButtonMapApp;
 import de.fhpotsdam.unfolding.geo.Location;
-import de.fhpotsdam.unfolding.providers.Microsoft;
 import de.fhpotsdam.unfolding.utils.MapUtils;
 
 /**
@@ -15,17 +14,18 @@ import de.fhpotsdam.unfolding.utils.MapUtils;
  * 
  * See {@link NaviButtonMapApp} for an interactive example on how to animate between two locations.
  */
-public class PanAnimationMap extends PApplet {
+public class PanAnimationMapApp extends PApplet {
 
 	UnfoldingMap map;
-	
-	Location[] locations = new Location[]{new Location(52.5, 13.4), new Location(53.6f, 10), new Location(51.34, 12.37)};
+
+	Location[] locations = new Location[] { new Location(52.5, 13.4), new Location(53.6f, 10),
+			new Location(51.34, 12.37) };
 	int currentLocation = 0;
-	
+
 	public void setup() {
 		size(800, 600, GLConstants.GLGRAPHICS);
 
-		map = new UnfoldingMap(this, new Microsoft.RoadProvider());
+		map = new UnfoldingMap(this);
 		map.setTweening(true);
 		map.zoomAndPanTo(locations[currentLocation], 8);
 
@@ -44,7 +44,7 @@ public class PanAnimationMap extends PApplet {
 			}
 		}
 	}
-	
+
 	public void keyPressed() {
 		if (key == ' ') {
 			map.switchTweening();
@@ -52,7 +52,7 @@ public class PanAnimationMap extends PApplet {
 	}
 
 	public static void main(String[] args) {
-		PApplet.main(new String[] { "de.fhpotsdam.unfolding.examples.animation.PanAnimationMap" });
+		PApplet.main(new String[] { "de.fhpotsdam.unfolding.examples.animation.PanAnimationMapApp" });
 	}
 
 }
