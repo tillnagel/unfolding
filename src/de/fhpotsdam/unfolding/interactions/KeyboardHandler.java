@@ -1,11 +1,12 @@
 package de.fhpotsdam.unfolding.interactions;
 
-import java.awt.event.KeyEvent;
 import java.util.Arrays;
 import java.util.List;
 
 import processing.core.PApplet;
 import processing.core.PConstants;
+import processing.event.KeyEvent;
+
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.events.MapEventBroadcaster;
 import de.fhpotsdam.unfolding.events.PanMapEvent;
@@ -39,7 +40,7 @@ public class KeyboardHandler extends MapEventBroadcaster {
 	public KeyboardHandler(PApplet p, List<UnfoldingMap> maps) {
 		super(maps);
 
-		p.registerKeyEvent(this);
+		p.registerMethod("keyEvent",this);
 	}
 
 	public void keyPressed(char key, int keyCode) {
@@ -89,14 +90,14 @@ public class KeyboardHandler extends MapEventBroadcaster {
 	}
 
 	public void keyEvent(KeyEvent keyEvent) {
-		char key = keyEvent.getKeyChar();
+		char key = keyEvent.getKey();
 		int keyCode = keyEvent.getKeyCode();
 
-		switch (keyEvent.getID()) {
-		case KeyEvent.KEY_PRESSED:
+		switch (keyEvent.getAction()) {
+		case KeyEvent.PRESS:
 			keyPressed(key, keyCode);
 			break;
-		case KeyEvent.KEY_RELEASED:
+		case KeyEvent.RELEASE:
 			keyReleased(key, keyCode);
 			break;
 		}
