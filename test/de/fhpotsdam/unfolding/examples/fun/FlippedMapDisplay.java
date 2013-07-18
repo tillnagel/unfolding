@@ -2,8 +2,8 @@ package de.fhpotsdam.unfolding.examples.fun;
 
 import processing.core.PApplet;
 import processing.core.PGraphics;
-import codeanticode.glgraphics.GLGraphicsOffScreen;
-import codeanticode.glgraphics.GLTexture;
+
+
 import de.fhpotsdam.unfolding.mapdisplay.GLGraphicsMapDisplay;
 import de.fhpotsdam.unfolding.marker.Marker;
 import de.fhpotsdam.unfolding.marker.MarkerManager;

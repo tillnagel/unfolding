@@ -5,7 +5,7 @@ import java.util.List;
 
 import processing.core.PApplet;
 import processing.core.PVector;
-import codeanticode.glgraphics.GLGraphics;
+
 import de.fhpotsdam.unfolding.UnfoldingMap;
 
 /**

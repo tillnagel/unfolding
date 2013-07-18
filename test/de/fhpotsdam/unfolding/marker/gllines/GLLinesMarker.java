@@ -6,7 +6,7 @@ import java.util.List;
 import javax.media.opengl.GL;
 
 import processing.core.PGraphics;
-import codeanticode.glgraphics.GLGraphicsOffScreen;
+
 
 import com.sun.opengl.util.BufferUtil;
 

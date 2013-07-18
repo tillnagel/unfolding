@@ -6,7 +6,7 @@ import java.util.Calendar;
 import java.util.List;
 
 import processing.core.PApplet;
-import processing.xml.XMLElement;
+import processing.data.XML;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.utils.GeoUtils;
 import de.fhpotsdam.utils.StringUtils;
@@ -22,20 +22,20 @@ public class GPXUtils {
 		Location prevLocation = null;
 
 		// Load GPX file
-		XMLElement gpx = new XMLElement(p, gpxFilename);
+		XML gpx = new XML(gpxFilename);
 		// Get all track points
-		XMLElement[] itemXMLElements = gpx.getChildren("trk/trkseg/trkpt");
-		for (int i = 0; i < itemXMLElements.length; i++) {
+		XML[] itemXML = gpx.getChildren("trk/trkseg/trkpt");
+		for (int i = 0; i < itemXML.length; i++) {
 			// Creates location for track point
-			float lat = itemXMLElements[i].getFloat("lat");
-			float lon = itemXMLElements[i].getFloat("lon");
+			float lat = itemXML[i].getFloat("lat");
+			float lon = itemXML[i].getFloat("lon");
 			Location location = new Location(lat, lon);
 
 			// Calculates speed for track point
 			// Uses time span (h) and distance (km) to previous point to get km/h
 			double speed = 0;
 			try {
-				String timeStr = itemXMLElements[i].getChild("time").getContent();
+				String timeStr = itemXML[i].getChild("time").getContent();
 				// Replace "Z" for Zulu/GMT time with parseable hour offset
 				timeStr = timeStr.replaceAll("Z", "+0000");
 				Calendar time = StringUtils.parseIsoDateTime(timeStr);

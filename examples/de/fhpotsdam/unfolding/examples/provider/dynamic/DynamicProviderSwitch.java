@@ -1,7 +1,7 @@
 package de.fhpotsdam.unfolding.examples.provider.dynamic;
 
 import processing.core.PApplet;
-import codeanticode.glgraphics.GLConstants;
+
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.mapdisplay.MapDisplayFactory;
 import de.fhpotsdam.unfolding.providers.AbstractMapProvider;
@@ -25,7 +25,7 @@ public class DynamicProviderSwitch extends PApplet {
 	AbstractMapProvider provider3;
 
 	public void setup() {
-		size(800, 600, GLConstants.GLGRAPHICS);
+		size(800, 600, OPENGL);
 
 		provider1 = new Google.GoogleMapProvider();
 		provider2 = new Microsoft.AerialProvider();

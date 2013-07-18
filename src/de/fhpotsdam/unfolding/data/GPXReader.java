@@ -30,9 +30,9 @@ public class GPXReader extends GeoDataReader {
 		ShapeFeature trackFeature = new ShapeFeature(FeatureType.LINES);
 		List<String> trackPointTimes = new ArrayList<String>();
 
-		XML[] itemXMLElements = gpx.getChildren("trk/trkseg/trkpt");
-		for (int i = 0; i < itemXMLElements.length; i++) {
-			XML trackPoint = itemXMLElements[i];
+		XML[] itemXML = gpx.getChildren("trk/trkseg/trkpt");
+		for (int i = 0; i < itemXML.length; i++) {
+			XML trackPoint = itemXML[i];
 
 			// Adds location for track point
 			float lat = trackPoint.getFloat("lat");

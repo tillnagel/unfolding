@@ -2,7 +2,7 @@ package de.fhpotsdam.unfolding.examples.fun;
 
 import processing.core.PApplet;
 import processing.core.PGraphics;
-import codeanticode.glgraphics.GLConstants;
+
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.providers.Microsoft;
 import de.fhpotsdam.unfolding.utils.MapUtils;
@@ -16,7 +16,7 @@ public class GenerativeGraphicMap extends PApplet {
 	PGraphics pg;
 
 	public void setup() {
-		size(800, 600, GLConstants.GLGRAPHICS);
+		size(800, 600, OPENGL);
 
 		map = new UnfoldingMap(this, new Microsoft.AerialProvider());
 		MapUtils.createDefaultEventDispatcher(this, map);

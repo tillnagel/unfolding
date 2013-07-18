@@ -2,7 +2,7 @@ package de.fhpotsdam.unfolding.examples.image;
 
 import processing.core.PApplet;
 import processing.core.PImage;
-import codeanticode.glgraphics.GLConstants;
+
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.providers.Microsoft;
@@ -28,16 +28,16 @@ public class ImageOverlayApp extends PApplet {
 
 	PImage visImg;
 
-	// Kaiserbahnhof Potsdam, 52.394667¡, 13.013944¡ (west)
-	// Meierei, 52.421944¡, 13.069722¡ (north)
-	// Schloss Babelsberg, 52.407639¡, 13.093289¡ (east)
-	// Potsdam Hauptbahnhof, 52.391667¡, 13.066667¡ (south)
+	// Kaiserbahnhof Potsdam, 52.394667ï¿½, 13.013944ï¿½ (west)
+	// Meierei, 52.421944ï¿½, 13.069722ï¿½ (north)
+	// Schloss Babelsberg, 52.407639ï¿½, 13.093289ï¿½ (east)
+	// Potsdam Hauptbahnhof, 52.391667ï¿½, 13.066667ï¿½ (south)
 
 	Location visNorthWest = new Location(52.421944, 13.013944);
 	Location visSouthEast = new Location(52.391667, 13.093289);
 
 	public void setup() {
-		size(1400, 800, GLConstants.GLGRAPHICS);
+		size(1400, 800, OPENGL);
 
 		// Very low quality for file size reasons. Use original from http://schwinki.de/splendor/
 		visImg = loadImage("test/splendor-big.jpg");

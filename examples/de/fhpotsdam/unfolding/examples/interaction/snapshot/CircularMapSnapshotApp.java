@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import processing.core.PApplet;
-import codeanticode.glgraphics.GLConstants;
+
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.providers.StamenMapProvider;
@@ -25,7 +25,7 @@ public class CircularMapSnapshotApp extends PApplet {
 	List<MapSnapshot> mapSnapshots = new ArrayList<MapSnapshot>();
 
 	public void setup() {
-		size(600, 400, GLConstants.GLGRAPHICS);
+		size(600, 400, OPENGL);
 
 		map = new UnfoldingMap(this, 0, 0, 400, 400, new StamenMapProvider.WaterColor());
 		map.zoomAndPanTo(new Location(51.507222, -0.1275), 10);

@@ -1,7 +1,7 @@
 package de.fhpotsdam.unfolding.marker.gllines;
 
 import processing.core.PApplet;
-import codeanticode.glgraphics.GLConstants;
+
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.utils.MapUtils;
@@ -14,7 +14,7 @@ public class GLLinesMarkerApp extends PApplet {
 	//TODO @fx-lange use dataset
 	
 	public void setup() {
-		size(800, 600, GLConstants.GLGRAPHICS);
+		size(800, 600, OPENGL);
 
 		map = new UnfoldingMap(this, 0, 0, 800, 500);
 		map.zoomToLevel(3);

@@ -8,7 +8,7 @@ import TUIO.TuioCursor;
 import TUIO.TuioListener;
 import TUIO.TuioObject;
 import TUIO.TuioTime;
-import codeanticode.glgraphics.GLConstants;
+
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.events.EventDispatcher;
 import de.fhpotsdam.unfolding.geo.Location;
@@ -44,8 +44,8 @@ public class MultitouchMapExternalTuioApp extends PApplet implements TuioListene
 	}
 
 	public void setup() {
-		 size(800, 600, GLConstants.GLGRAPHICS);
-		//size(1920, 1080, GLConstants.GLGRAPHICS);
+		 size(800, 600, OPENGL);
+		//size(1920, 1080, OPENGL);
 
 		map = new UnfoldingMap(this);
 		map.setTweening(false);

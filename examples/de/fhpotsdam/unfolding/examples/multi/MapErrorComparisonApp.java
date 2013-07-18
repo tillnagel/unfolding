@@ -1,7 +1,7 @@
 package de.fhpotsdam.unfolding.examples.multi;
 
 import processing.core.PApplet;
-import codeanticode.glgraphics.GLConstants;
+
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.providers.Microsoft;
@@ -23,7 +23,7 @@ public class MapErrorComparisonApp extends PApplet {
 	float fadeValue = 100;
 
 	public void setup() {
-		size(800, 600, GLConstants.GLGRAPHICS);
+		size(800, 600, OPENGL);
 
 		map1 = new UnfoldingMap(this, "map1", new Microsoft.AerialProvider());
 		map2 = new UnfoldingMap(this, "map2", new Microsoft.AerialProvider());

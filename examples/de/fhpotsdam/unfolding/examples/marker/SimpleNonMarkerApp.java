@@ -1,7 +1,7 @@
 package de.fhpotsdam.unfolding.examples.marker;
 
 import processing.core.PApplet;
-import codeanticode.glgraphics.GLConstants;
+
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.utils.MapUtils;
@@ -25,7 +25,7 @@ public class SimpleNonMarkerApp extends PApplet {
 	Location locationLondon = new Location(51.5f, 0f);
 
 	public void setup() {
-		size(400, 400, GLConstants.GLGRAPHICS);
+		size(400, 400, OPENGL);
 		noStroke();
 
 		map = new UnfoldingMap(this);

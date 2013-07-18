@@ -1,7 +1,7 @@
 package de.fhpotsdam.unfolding.examples.overviewdetail;
 
 import processing.core.PApplet;
-import codeanticode.glgraphics.GLConstants;
+
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.utils.MapUtils;
@@ -26,7 +26,7 @@ public class OverviewAndDetailWithViewportApp extends PApplet {
 	ViewportRect viewportRect;
 
 	public void setup() {
-		size(800, 600, GLConstants.GLGRAPHICS);
+		size(800, 600, OPENGL);
 
 		// Detail map with default mouse and keyboard interactions
 		mapDetail = new UnfoldingMap(this, "detail", 10, 10, 585, 580);

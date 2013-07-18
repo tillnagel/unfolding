@@ -1,7 +1,7 @@
 package de.fhpotsdam.unfolding.examples.overviewdetail.connection;
 
 import processing.core.PApplet;
-import codeanticode.glgraphics.GLConstants;
+
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.utils.MapUtils;
 import de.fhpotsdam.unfolding.utils.ScreenPosition;
@@ -24,7 +24,7 @@ public class ConvexHullConnectedMapOnStaticMap extends PApplet {
 	OverviewPlusDetailConnection connection;
 
 	public void setup() {
-		size(800, 600, GLConstants.GLGRAPHICS);
+		size(800, 600, OPENGL);
 
 		mapOverview = new UnfoldingMap(this, "overview", 10, 10, 585, 580);
 		mapOverview.zoomToLevel(1);

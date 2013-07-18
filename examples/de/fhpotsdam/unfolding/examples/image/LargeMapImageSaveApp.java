@@ -3,7 +3,7 @@ package de.fhpotsdam.unfolding.examples.image;
 import processing.core.PApplet;
 import processing.core.PGraphics;
 import processing.core.PImage;
-import codeanticode.glgraphics.GLConstants;
+
 import codeanticode.glgraphics.GLGraphicsOffScreen;
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.geo.Location;
@@ -37,7 +37,7 @@ public class LargeMapImageSaveApp extends PApplet {
 	boolean tilesLoaded = false;
 
 	public void setup() {
-		size(xStep, yStep, GLConstants.GLGRAPHICS);
+		size(xStep, yStep, OPENGL);
 
 		map = new UnfoldingMap(this);
 		map.zoomAndPanTo(location, zoomLevel);
