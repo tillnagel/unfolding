@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import processing.core.PApplet;
-import processing.xml.XMLElement;
+import processing.data.XML;
 import de.fhpotsdam.unfolding.data.Feature.FeatureType;
 import de.fhpotsdam.unfolding.geo.Location;
 
@@ -22,7 +22,7 @@ public class GPXReader extends GeoDataReader {
 		List<Feature> trackFeatures = new ArrayList<Feature>();
 
 		// Load GPX file
-		XMLElement gpx = new XMLElement(p, gpxFilename);
+		XML gpx = new XML(gpxFilename);
 
 		// TODO Handle multiple features in one GPX file
 		
@@ -30,9 +30,9 @@ public class GPXReader extends GeoDataReader {
 		ShapeFeature trackFeature = new ShapeFeature(FeatureType.LINES);
 		List<String> trackPointTimes = new ArrayList<String>();
 
-		XMLElement[] itemXMLElements = gpx.getChildren("trk/trkseg/trkpt");
+		XML[] itemXMLElements = gpx.getChildren("trk/trkseg/trkpt");
 		for (int i = 0; i < itemXMLElements.length; i++) {
-			XMLElement trackPoint = itemXMLElements[i];
+			XML trackPoint = itemXMLElements[i];
 
 			// Adds location for track point
 			float lat = trackPoint.getFloat("lat");
@@ -40,19 +40,19 @@ public class GPXReader extends GeoDataReader {
 			Location location = new Location(lat, lon);
 			trackFeature.addLocation(location);
 
-			XMLElement trackPointTime = trackPoint.getChild("time");
+			XML trackPointTime = trackPoint.getChild("time");
 			if (trackPointTime != null) {
 				trackPointTimes.add(trackPointTime.getContent());
 			}
 		}
 
 		// Add name for whole track as property
-		XMLElement nameXMLElement = gpx.getChild("trk/name");
+		XML nameXMLElement = gpx.getChild("trk/name");
 		if (nameXMLElement != null) {
 			trackFeature.addProperty("name", nameXMLElement.getContent());
 		}
 		// Add (single) time for whole track as property
-		XMLElement timeXMLElement = gpx.getChild("trk/time");
+		XML timeXMLElement = gpx.getChild("trk/time");
 		if (timeXMLElement != null) {
 			trackFeature.addProperty("time", timeXMLElement.getContent());
 		}
