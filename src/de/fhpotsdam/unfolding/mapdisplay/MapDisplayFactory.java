@@ -37,7 +37,7 @@ public class MapDisplayFactory {
 
 		if (useMask) {
 			try {
-				Class glGraphicsClass = Class.forName(GLGRAPHICS_CLASSNAME);
+				Class glGraphicsClass = Class.forName(OPEN_GL_CLASSNAME);
 				if (glGraphicsClass.isInstance(p.g)) {
 					if (useDistortion) {
 						// log.debug("Using DistortedGLGraphicsMapDisplay for '" + id + "'");
