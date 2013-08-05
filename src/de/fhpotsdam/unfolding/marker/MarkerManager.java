@@ -10,8 +10,8 @@ import de.fhpotsdam.unfolding.UnfoldingMap;
  */
 public class MarkerManager<E extends Marker> {
 
-	UnfoldingMap map;
-	List<E> markers;
+	protected UnfoldingMap map;
+	protected List<E> markers;
 	protected boolean bEnableDrawing;
 
 	/**
