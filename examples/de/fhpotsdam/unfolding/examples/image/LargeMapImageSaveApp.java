@@ -4,7 +4,6 @@ import processing.core.PApplet;
 import processing.core.PGraphics;
 import processing.core.PImage;
 
-import codeanticode.glgraphics.GLGraphicsOffScreen;
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.utils.MapUtils;
@@ -100,12 +99,12 @@ public class LargeMapImageSaveApp extends PApplet {
 		PImage thumbnail;
 
 		PGraphics pg = map.mapDisplay.getInnerPG();
-		if (pg instanceof GLGraphicsOffScreen) {
+		if (pg instanceof PGraphics) {
 			println("Creating new thumbnail");
 			thumbnail = new PImage(width, height);
-			((GLGraphicsOffScreen) pg).getTexture().getImage(thumbnail);
+			pg.get(0, 0, width, height);
 		} else {
-			thumbnail = pg.get();
+			thumbnail = pg.get();//TODO case in P5 2.0 still needed
 		}
 
 		return thumbnail;

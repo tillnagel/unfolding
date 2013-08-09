@@ -3,7 +3,6 @@ package de.fhpotsdam.unfolding.examples.interaction.snapshot;
 import processing.core.PApplet;
 import processing.core.PGraphics;
 import processing.core.PImage;
-import codeanticode.glgraphics.GLGraphicsOffScreen;
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.geo.Location;
 
@@ -41,11 +40,10 @@ public class MapSnapshot {
 
 		// Stores image data of the current map
 		PGraphics pg = map.mapDisplay.getOuterPG();
-		if (pg instanceof GLGraphicsOffScreen) {
-			thumbnail = new PImage((int) map.mapDisplay.getWidth(), (int) map.mapDisplay.getHeight());
-			((GLGraphicsOffScreen) pg).getTexture().getImage(thumbnail);
+		if (pg instanceof PGraphics) {
+			thumbnail = pg.get(0,0,(int) map.mapDisplay.getWidth(), (int) map.mapDisplay.getHeight());
 		} else {
-			thumbnail = pg.get();
+			thumbnail = pg.get();//TODO case in P5 2.0 still needed
 		}
 	}
 
