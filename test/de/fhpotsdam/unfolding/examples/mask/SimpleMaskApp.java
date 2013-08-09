@@ -4,7 +4,6 @@ import processing.core.PApplet;
 import processing.core.PGraphics;
 
 import de.fhpotsdam.unfolding.UnfoldingMap;
-import de.fhpotsdam.unfolding.mapdisplay.MaskedOpenGLMapDisplay;
 import de.fhpotsdam.unfolding.mapdisplay.OpenGLMapDisplay;
 import de.fhpotsdam.unfolding.mapdisplay.shaders.MaskedMapDisplayShader;
 import de.fhpotsdam.unfolding.utils.MapUtils;
