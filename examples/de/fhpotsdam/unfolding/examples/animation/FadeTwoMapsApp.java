@@ -26,7 +26,7 @@ public class FadeTwoMapsApp extends PApplet {
 	
 	
 	public void setup() {
-		size(600, 400);
+		size(600, 400, OPENGL);
 		
 		// Set the position and size of our two maps.
 		int mapXposition = 0;

@@ -30,6 +30,5 @@
 			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="unfolding/libNative"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="lib/libNative/gluegen-rt-natives-linux-i586.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
