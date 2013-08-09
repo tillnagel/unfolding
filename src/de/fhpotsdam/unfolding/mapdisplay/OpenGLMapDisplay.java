@@ -3,11 +3,12 @@ package de.fhpotsdam.unfolding.mapdisplay;
 import processing.core.PApplet;
 import processing.core.PConstants;
 import processing.core.PGraphics;
+import de.fhpotsdam.unfolding.mapdisplay.shaders.MaskedMapDisplayShader;
 import de.fhpotsdam.unfolding.marker.Marker;
 import de.fhpotsdam.unfolding.marker.MarkerManager;
 import de.fhpotsdam.unfolding.providers.AbstractMapProvider;
 
-public class GLGraphicsMapDisplay extends ProcessingMapDisplay implements PConstants {
+public class OpenGLMapDisplay extends P2DMapDisplay implements PConstants {
 
 	// Inner map (and inner marker) will be drawn on this.
 	protected PGraphics offscreenPG;
@@ -15,13 +16,23 @@ public class GLGraphicsMapDisplay extends ProcessingMapDisplay implements PConst
 	protected PGraphics offscreenCutoffPG;
 
 	protected float opacity = 255;
+	
+	protected MaskedMapDisplayShader mapDisplayShader = null; 
 
-	public GLGraphicsMapDisplay(PApplet papplet, AbstractMapProvider provider, float offsetX, float offsetY,
+	public OpenGLMapDisplay(PApplet papplet, AbstractMapProvider provider, float offsetX, float offsetY,
 			float width, float height) {
 		super(papplet, provider, offsetX, offsetY, width, height);
 
 		offscreenPG = papplet.createGraphics((int) width, (int) height,OPENGL);
 		offscreenCutoffPG = papplet.createGraphics((int) width, (int) height,OPENGL);
+	}
+	
+	public void setMapDisplayShader(MaskedMapDisplayShader shader){
+		this.mapDisplayShader = shader;
+	}
+	
+	public MaskedMapDisplayShader getMapDisplayShader(){
+		return mapDisplayShader;
 	}
 
 	@Override
@@ -29,6 +40,9 @@ public class GLGraphicsMapDisplay extends ProcessingMapDisplay implements PConst
 		super.resize(width, height);
 		offscreenPG = papplet.createGraphics((int) width, (int) height,OPENGL);
 		offscreenCutoffPG = papplet.createGraphics((int) width, (int) height,OPENGL);
+		if(mapDisplayShader != null){
+			mapDisplayShader.resize(width, height);
+		}
 	}
 
 	@Override
@@ -57,8 +71,10 @@ public class GLGraphicsMapDisplay extends ProcessingMapDisplay implements PConst
 		canvasPG.pushMatrix();
 		canvasPG.translate(offsetX, offsetY);
 		canvasPG.applyMatrix(matrix);
+		if(mapDisplayShader != null){
+			canvasPG.shader(mapDisplayShader.getShader());
+		}
 		canvasPG.image(offscreenCutoffPG, 0, 0);
 		canvasPG.popMatrix();
 	}
-
 }

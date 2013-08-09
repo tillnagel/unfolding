@@ -23,9 +23,9 @@ import de.fhpotsdam.unfolding.tiles.TileLoader;
 import de.fhpotsdam.unfolding.utils.ScreenPosition;
 
 @SuppressWarnings("unchecked")
-public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstants {
+public class P2DMapDisplay extends AbstractMapDisplay implements PConstants {
 
-	public static Logger log = Logger.getLogger(ProcessingMapDisplay.class);
+	public static Logger log = Logger.getLogger(P2DMapDisplay.class);
 
 	// Used for loadImage and float maths
 	public PApplet papplet;
@@ -46,14 +46,14 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 	/**
 	 * Creates a new MapDisplay with full canvas size, and given provider
 	 */
-	public ProcessingMapDisplay(PApplet papplet, AbstractMapProvider provider) {
+	public P2DMapDisplay(PApplet papplet, AbstractMapProvider provider) {
 		this(papplet, provider, 0, 0, papplet.width, papplet.height);
 	}
 
 	/**
 	 * Creates a new MapDisplay.
 	 */
-	public ProcessingMapDisplay(PApplet papplet, AbstractMapProvider provider, float offsetX, float offsetY,
+	public P2DMapDisplay(PApplet papplet, AbstractMapProvider provider, float offsetX, float offsetY,
 			float width, float height) {
 		super(provider, width, height);
 		this.papplet = papplet;

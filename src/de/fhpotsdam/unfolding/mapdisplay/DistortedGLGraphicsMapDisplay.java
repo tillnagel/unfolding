@@ -9,7 +9,7 @@ import de.fhpotsdam.unfolding.texture.Distorter;
 import de.fhpotsdam.unfolding.texture.LinearInterpolationDistorter;
 import de.fhpotsdam.unfolding.texture.TextureDistorter;
 
-public class DistortedGLGraphicsMapDisplay extends GLGraphicsMapDisplay {
+public class DistortedGLGraphicsMapDisplay extends OpenGLMapDisplay {
 
 	public Distorter distorter;
 	public TextureDistorter textureDistorter;
