@@ -25,7 +25,7 @@ public class LargeMapImageSaveApp extends PApplet {
 	LargeMapImageUtils lmiUtils;
 
 	public void setup() {
-		size(xStep, yStep, OPENGL);
+		size(500, 500, OPENGL);
 
 		map = new UnfoldingMap(this);
 		map.zoomAndPanTo(location, zoomLevel);
