@@ -11,7 +11,7 @@
 	<classpathentry kind="lib" path="lib/core.jar" sourcepath="/processing-1.0.9/core"/>
 	<classpathentry kind="lib" path="lib/gluegen-rt.jar">
 		<attributes>
-			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="unfolding/libNative"/>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="unfolding/lib/libNative"/>
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="lib/log4j-1.2.15.jar"/>
@@ -30,5 +30,6 @@
 			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="unfolding/libNative"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="lib/libNative/gluegen-rt-natives-linux-i586.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
