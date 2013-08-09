@@ -3,7 +3,6 @@ package de.fhpotsdam.unfolding.examples.data;
 import java.util.List;
 
 import processing.core.PApplet;
-
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.data.Feature;
 import de.fhpotsdam.unfolding.data.GeoRSSReader;
@@ -13,7 +12,7 @@ import de.fhpotsdam.unfolding.utils.MapUtils;
 /**
  * Displays earthquake markers from an RSS feed for the last 7 days.
  * 
- * Reads from GeoRSS file, and uses default marker creation. 
+ * Reads from GeoRSS file, and uses default marker creation.
  * 
  * Features are points (positions of earthquakes).
  */

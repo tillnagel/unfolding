@@ -40,11 +40,7 @@ public class MapSnapshot {
 
 		// Stores image data of the current map
 		PGraphics pg = map.mapDisplay.getOuterPG();
-		if (pg instanceof PGraphics) {
-			thumbnail = pg.get(0,0,(int) map.mapDisplay.getWidth(), (int) map.mapDisplay.getHeight());
-		} else {
-			thumbnail = pg.get();//TODO case in P5 2.0 still needed
-		}
+		thumbnail = pg.get();
 	}
 
 	public void set(float x, float y, float width, float height) {

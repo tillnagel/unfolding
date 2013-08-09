@@ -33,7 +33,7 @@ public class GPXSpeedReader extends GeoDataReader {
 		List<Feature> trackFeatures = new ArrayList<Feature>();
 
 		// Load GPX file
-		XML gpx = new XML(gpxFilename);
+		XML gpx = p.loadXML(gpxFilename);
 
 		Calendar prevTime = null;
 		Location prevLocation = null;

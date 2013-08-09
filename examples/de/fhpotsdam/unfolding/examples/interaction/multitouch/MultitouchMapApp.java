@@ -3,7 +3,6 @@ package de.fhpotsdam.unfolding.examples.interaction.multitouch;
 import org.apache.log4j.Logger;
 
 import processing.core.PApplet;
-
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.events.EventDispatcher;
 import de.fhpotsdam.unfolding.interactions.TuioCursorHandler;
@@ -59,8 +58,8 @@ public class MultitouchMapApp extends PApplet {
 	}
 
 	public static void main(String[] args) {
-		String[] params = new String[] { "--present", "--bgcolor=#000000", "--hide-stop", "--exclusive",
-				"de.fhpotsdam.unfolding.examples.interaction.MultitouchMapApp" };
+		String[] params = new String[] { "--present", "--bgcolor=#000000", "--hide-stop",
+				"de.fhpotsdam.unfolding.examples.interaction.multitouch.MultitouchMapApp" };
 		FULLSCREEN = true;
 		PApplet.main(params);
 	}

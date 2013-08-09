@@ -38,14 +38,14 @@ public class MultitouchMapExternalTuioApp extends PApplet implements TuioListene
 	int buttonSize = 40;
 
 	public static void main(String[] args) {
-		String[] params = new String[] { "--present", "--bgcolor=#000000", "--hide-stop", "--exclusive",
-				"de.fhpotsdam.unfolding.examples.interaction.MultitouchMapExternalTuioApp" };
+		String[] params = new String[] { "--present", "--bgcolor=#000000", "--hide-stop",
+				"de.fhpotsdam.unfolding.examples.interaction.multitouch.MultitouchMapExternalTuioApp" };
 		PApplet.main(params);
 	}
 
 	public void setup() {
-		 size(800, 600, OPENGL);
-		//size(1920, 1080, OPENGL);
+		size(800, 600, OPENGL);
+		// size(1920, 1080, OPENGL);
 
 		map = new UnfoldingMap(this);
 		map.setTweening(false);

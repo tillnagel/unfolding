@@ -21,15 +21,19 @@ x MouseWheel not working yet (https://github.com/processing/processing/issues/14
 
 MATRIX / TEXTURE 
 
-- 3D
+- 3D: 2.5D / Pseudo
 - Mask
 - Transparent (real transparency for map tiles)
 - Distortion grids
 
 
 
+- File encoding (all UTF-8)
 
 
+
+- frameRate seems to be not correct?
+	On FullHD/Fullscreen sketches it still shows 60fps but seems to be lagging.
 
 
 

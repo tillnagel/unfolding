@@ -22,7 +22,7 @@ public class GPXUtils {
 		Location prevLocation = null;
 
 		// Load GPX file
-		XML gpx = new XML(gpxFilename);
+		XML gpx = p.loadXML(gpxFilename);
 		// Get all track points
 		XML[] itemXML = gpx.getChildren("trk/trkseg/trkpt");
 		for (int i = 0; i < itemXML.length; i++) {
