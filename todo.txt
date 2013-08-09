@@ -1,6 +1,44 @@
-- Clean up /test
+
+
+1.0 beta Release (for Processing 2)
+--------------------------
+
+- Re-enable sketches for P2D
+
+
+UPDATES to 2.0
+
+- REVISIT ProcessingMapDisplay smooth switching (commented)
+- REVISIT MapUtils event dispatcher registration
+- REVISIT MapDisplayFactory (Instantiation via Class Lookup)
+
+- CHANGED GLGraphics to OpenGL
+
+x CHANGED to Processing events (from awt)
+x MouseWheel not working yet (https://github.com/processing/processing/issues/1461)
+
+
+
+MATRIX / TEXTURE 
+
+- 3D
+- Mask
+- Transparent (real transparency for map tiles)
+- Distortion grids
+
+
+
+
+
+
+
+
+0.9.3 Release
+--------------------------
+
+x Clean up /test
 x Move test apps from /examples to /test
-	- Select fewer example per section (1 best practice!)
+	x Select fewer example per section (1 best practice!)
 x Add javadocs to examples
 x Convert more examples from /examples to /examples-processing
 x Clean up data folder
@@ -17,14 +55,14 @@ x Add tweening (from KUL student fork)
 
 x Merge develop into master
 
-- Publish distributions as 0.9.3
-	- Update ant script: build.xml
+x Publish distributions as 0.9.3
+	x Update ant script: build.xml
 	- Unfolding App Template 
 		- How to handle examples-extern? (/examples-extern, /lib-extern, .classpath)
 		- Test on Linux and Mac
-	- Processing 
-		- Test w/ 1.5
-	- Put zip files to Amazon Cloud
+	x Processing 
+		x Test w/ 1.5
+	x Put zip files to Amazon Cloud
 
 
 UPDATED Processing examples
