@@ -18,8 +18,13 @@ public class ResizableMapApp extends PApplet {
 
 	float oldWidth;
 	float oldHeight;
+	
+	public static boolean isApplet = true;
 
 	public void setup() {
+		if (isApplet) {
+			println("This only works for Applications!");
+		}
 		size(800, 600, OPENGL);
 		frame.setResizable(true);
 
@@ -48,6 +53,7 @@ public class ResizableMapApp extends PApplet {
 	}
 
 	public static void main(String[] args) {
+		isApplet = false;
 		PApplet.main(new String[] { "de.fhpotsdam.unfolding.examples.misc.ResizableMapApp" });
 	}
 }
