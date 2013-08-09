@@ -5,7 +5,6 @@ import java.util.List;
 
 import processing.core.PApplet;
 import processing.data.XML;
-
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.utils.MapUtils;
@@ -42,17 +41,19 @@ public class ManualGeoRSSApp extends PApplet {
 	public void loadRSSGeoLocations() {
 		// Load RSS feed
 		String url = "http://earthquake.usgs.gov/earthquakes/catalogs/eqs7day-M5.xml";
-		XML rss = new XML(url);
+		XML rss = loadXML(url);
 		// Get all items
 		XML[] itemXML = rss.getChildren("channel/item");
 		for (int i = 0; i < itemXML.length; i++) {
 			// Adds lat,lon as locations for each item
 			XML latXML = itemXML[i].getChild("geo:lat");
 			XML lonXML = itemXML[i].getChild("geo:long");
-			float lat = Float.valueOf(latXML.getContent());
-			float lon = Float.valueOf(lonXML.getContent());
+			if (latXML != null && latXML.getContent() != null) {
+				float lat = Float.valueOf(latXML.getContent());
+				float lon = Float.valueOf(lonXML.getContent());
 
-			rssGeoLocations.add(new Location(lat, lon));
+				rssGeoLocations.add(new Location(lat, lon));
+			}
 		}
 	}
 

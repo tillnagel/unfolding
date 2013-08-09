@@ -14,10 +14,19 @@ import de.fhpotsdam.unfolding.geo.Location;
  */
 public class GeoRSSReader extends GeoDataReader {
 
+	/**
+	 * Loads features from RSS feed in W3C Geo format (geo:lat and geo:long)
+	 * 
+	 * @param p
+	 *            The PApplet.
+	 * @param fileName
+	 *            The name of the GeoRSS file (can be local or remote, i.e. a URI)
+	 * @return A list of geo features.
+	 */
 	public static List<Feature> loadData(PApplet p, String fileName) {
 		List<Feature> features = new ArrayList<Feature>();
 
-		XML rss = new XML(fileName);
+		XML rss = p.loadXML(fileName);
 		// Get all items
 		XML[] itemXML = rss.getChildren("channel/item");
 		for (int i = 0; i < itemXML.length; i++) {
@@ -43,10 +52,19 @@ public class GeoRSSReader extends GeoDataReader {
 		return features;
 	}
 
+	/**
+	 * Loads features from RSS feed in GeoRSS format (georss:point).
+	 * 
+	 * @param p
+	 *            The PApplet.
+	 * @param fileName
+	 *            The name of the GeoRSS file (can be local or remote, i.e. a URI)
+	 * @return A list of geo features.
+	 */
 	public static List<Feature> loadDataGeoRSS(PApplet p, String fileName) {
 		List<Feature> features = new ArrayList<Feature>();
 
-		XML rss = new XML(fileName);
+		XML rss = p.loadXML(fileName);
 		// Get all items
 		XML[] itemXML = rss.getChildren("entry");
 		for (int i = 0; i < itemXML.length; i++) {
