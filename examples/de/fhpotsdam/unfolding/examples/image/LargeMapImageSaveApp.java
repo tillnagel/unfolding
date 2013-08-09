@@ -1,9 +1,6 @@
 package de.fhpotsdam.unfolding.examples.image;
 
 import processing.core.PApplet;
-import processing.core.PGraphics;
-import processing.core.PImage;
-
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.utils.LargeMapImageUtils;
@@ -18,7 +15,6 @@ public class LargeMapImageSaveApp extends PApplet {
 	Location location = new Location(52.5f, 13.4f);
 	// Set to zoom level you want to grab.
 	int zoomLevel = 9;
-
 
 	UnfoldingMap map;
 

@@ -3,7 +3,6 @@ package de.fhpotsdam.unfolding.utils;
 import processing.core.PApplet;
 import processing.core.PGraphics;
 import processing.core.PImage;
-import codeanticode.glgraphics.GLGraphicsOffScreen;
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.geo.Location;
 
@@ -163,26 +162,13 @@ public class LargeMapImageUtils {
 	protected void renderAndMakeSnapshot(int shotX, int shotY) {
 		PApplet.println("Making snapshot for " + shotX + ", " + shotY);
 		PImage currentImage = makeSnapshot();
+		largeImage.beginDraw();
 		largeImage.image(currentImage, shotX, shotY);
+		largeImage.endDraw();
 	}
 
 	public PImage makeSnapshot() {
-		return makeSnapshot((int) map.mapDisplay.getWidth(), (int) map.mapDisplay.getHeight());
-	}
-
-	public PImage makeSnapshot(int width, int height) {
-		PImage thumbnail;
-
-		PGraphics pg = map.mapDisplay.getOuterPG();
-		if (pg instanceof GLGraphicsOffScreen) {
-			PApplet.println("Creating new thumbnail");
-			thumbnail = new PImage(width, height);
-			((GLGraphicsOffScreen) pg).getTexture().getImage(thumbnail);
-		} else {
-			thumbnail = pg.get();
-		}
-
-		return thumbnail;
+		return map.mapDisplay.getOuterPG();
 	}
 
 	/**
