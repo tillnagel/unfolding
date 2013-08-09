@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import processing.core.PApplet;
+import processing.core.PConstants;
 import processing.event.MouseEvent;
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.events.MapEventBroadcaster;
@@ -40,18 +41,12 @@ public class MouseHandler extends MapEventBroadcaster {
 		super(maps);
 
 		p.registerMethod("mouseEvent", this);
-
-		p.addMouseWheelListener(new java.awt.event.MouseWheelListener() {
-			public void mouseWheelMoved(java.awt.event.MouseWheelEvent evt) {
-				mouseWheel(evt.getWheelRotation());
-			}
-		});
 	}
 
 	public void mouseClicked() {
 		for (UnfoldingMap map : maps) {
 			if (map.isHit(mouseX, mouseY)) {
-				if (mouseEvent.getCount() == 2) {
+				if (mouseButton == PConstants.LEFT && mouseEvent.getCount() == 2) {
 
 					// Pan + Zoom (order is important)
 					PanMapEvent panMapEvent = new PanMapEvent(this, map.getId());
@@ -93,17 +88,19 @@ public class MouseHandler extends MapEventBroadcaster {
 	public void mouseDragged() {
 		for (UnfoldingMap map : maps) {
 			if (map.isHit(mouseX, mouseY)) {
-				// log.debug("mouse: fire panTo for " + map.getId());
+				if (mouseButton == PConstants.LEFT) {
+					// log.debug("mouse: fire panTo for " + map.getId());
 
-				// Pan between two locations, so other listening maps can pan correctly
+					// Pan between two locations, so other listening maps can pan correctly
 
-				Location oldLocation = map.getLocation(pmouseX, pmouseY);
-				Location newLocation = map.getLocation(mouseX, mouseY);
+					Location oldLocation = map.getLocation(pmouseX, pmouseY);
+					Location newLocation = map.getLocation(mouseX, mouseY);
 
-				PanMapEvent panMapEvent = new PanMapEvent(this, map.getId(), PanMapEvent.PAN_BY);
-				panMapEvent.setFromLocation(oldLocation);
-				panMapEvent.setToLocation(newLocation);
-				eventDispatcher.fireMapEvent(panMapEvent);
+					PanMapEvent panMapEvent = new PanMapEvent(this, map.getId(), PanMapEvent.PAN_BY);
+					panMapEvent.setFromLocation(oldLocation);
+					panMapEvent.setToLocation(newLocation);
+					eventDispatcher.fireMapEvent(panMapEvent);
+				}
 			}
 		}
 	}
@@ -119,11 +116,9 @@ public class MouseHandler extends MapEventBroadcaster {
 	private int mouseX;
 	private int mouseY;
 	private int pmouseX, pmouseY;
-	private int dmouseX, dmouseY;
 	private int emouseX, emouseY;
 	private boolean firstMouse;
 	private int mouseButton;
-	private boolean mousePressed;
 	private MouseEvent mouseEvent;
 
 	public void mouseEvent(MouseEvent event) {
@@ -142,20 +137,10 @@ public class MouseHandler extends MapEventBroadcaster {
 		if (firstMouse) {
 			pmouseX = mouseX;
 			pmouseY = mouseY;
-			dmouseX = mouseX;
-			dmouseY = mouseY;
 			firstMouse = false;
 		}
 
 		switch (action) {
-		case MouseEvent.PRESS:
-			mousePressed = true;
-			// mousePressed();
-			break;
-		case MouseEvent.RELEASE:
-			mousePressed = false;
-			// mouseReleased();
-			break;
 		case MouseEvent.CLICK:
 			mouseClicked();
 			break;
@@ -164,6 +149,9 @@ public class MouseHandler extends MapEventBroadcaster {
 			break;
 		case MouseEvent.MOVE:
 			mouseMoved();
+			break;
+		case MouseEvent.WHEEL:
+			mouseWheel(event.getCount());
 			break;
 		}
 
