@@ -6,16 +6,11 @@ import processing.core.PImage;
 
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.geo.Location;
+import de.fhpotsdam.unfolding.utils.LargeMapImageUtils;
 import de.fhpotsdam.unfolding.utils.MapUtils;
 
 /**
- * Creates large map images, stitched together from multiple tiles. Saves a single large image with a map around the
- * given location at the given zoom level. Initializes map, makes screen-shot, pans automatically, and repeats until it
- * is finished.
- * 
- * To customize, set location, zoomLevel, and totalWidth and totalHeight. The latter two should be multiples of xStep
- * and yStep. Please note the respective terms of service of the map provider.
- * 
+ * Uses LargeMapImageUtils to create a large map image, stitched together from multiple map screenshots.
  */
 public class LargeMapImageSaveApp extends PApplet {
 
@@ -24,16 +19,10 @@ public class LargeMapImageSaveApp extends PApplet {
 	// Set to zoom level you want to grab.
 	int zoomLevel = 9;
 
-	int xStep = 500;
-	int yStep = 500;
-	int totalWidth = xStep * 4;
-	int totalHeight = yStep * 4;
 
-	int shotX = 0;
-	int shotY = 0;
 	UnfoldingMap map;
-	PGraphics largeImage;
-	boolean tilesLoaded = false;
+
+	LargeMapImageUtils lmiUtils;
 
 	public void setup() {
 		size(xStep, yStep, OPENGL);
@@ -43,70 +32,23 @@ public class LargeMapImageSaveApp extends PApplet {
 		MapUtils.createDefaultEventDispatcher(this, map);
 
 		println("Init large map image.");
-		largeImage = createGraphics(totalWidth, totalHeight, P2D);
-
-		map.panBy(totalWidth / 2 - xStep / 2, totalHeight / 2 - yStep / 2);
+		lmiUtils = new LargeMapImageUtils(this, map);
 	}
 
 	public void draw() {
 		map.draw();
 
-		if (tilesLoaded) {
-			renderAndMakeSnapshot(shotX, shotY);
+		lmiUtils.run();
+	}
 
-			shotX += xStep;
-			if (shotX >= totalWidth) {
-				shotX = 0;
-				shotY += yStep;
-				// Return back to the right, and go one down
-				map.panBy(totalWidth - xStep, -yStep);
-			}
-			else {
-				// Go left
-				map.panBy(-xStep, 0);
-			}
-
-			if (shotY >= totalHeight) {
-				saveLargeImage();
-				exit();
-			}
-
-			tilesLoaded = false;
+	public void keyPressed() {
+		if (key == 's') {
+			// Around current center and with current zoom level
+			lmiUtils.init();
 		}
-	}
-
-	public void saveLargeImage() {
-		largeImage.save("largeMap.png");
-		println("Saving large map image.");
-	}
-
-	public void renderAndMakeSnapshot(int shotX, int shotY) {
-		println("Making snapshot for " + shotX + ", " + shotY);
-		PImage currentImage = makeSnapshot();
-		largeImage.image(currentImage, shotX, shotY);
-	}
-
-	public void tilesLoaded() {
-		println("All tiles loaded.");
-		tilesLoaded = true;
-	}
-
-	public PImage makeSnapshot() {
-		return makeSnapshot((int) map.mapDisplay.getWidth(), (int) map.mapDisplay.getHeight());
-	}
-
-	public PImage makeSnapshot(int width, int height) {
-		PImage thumbnail;
-
-		PGraphics pg = map.mapDisplay.getInnerPG();
-		if (pg instanceof PGraphics) {
-			println("Creating new thumbnail");
-			thumbnail = new PImage(width, height);
-			pg.get(0, 0, width, height);
-		} else {
-			thumbnail = pg.get();//TODO case in P5 2.0 still needed
+		if (key == 'b') {
+			// Around set center and zoom level (pans there before screenshoting)
+			lmiUtils.init(location, zoomLevel);
 		}
-
-		return thumbnail;
 	}
 }

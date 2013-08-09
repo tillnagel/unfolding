@@ -257,6 +257,15 @@ public class UnfoldingMap implements MapEventListener {
 		}
 	}
 
+	/**
+	 * Check whether all currently visible tiles have been loaded.
+	 * 
+	 * @return True if all tiles have been loaded, false otherwise.
+	 */
+	public boolean allTilesLoaded() {
+		return mapDisplay.allTilesLoaded();
+	}
+
 	protected static String generateId() {
 		return UUID.randomUUID().toString();
 	}
@@ -676,7 +685,9 @@ public class UnfoldingMap implements MapEventListener {
 	 * Pans from one location to another one.
 	 * 
 	 * @param fromLocation
+	 *            Origin location to pan from.
 	 * @param toLocation
+	 *            Destination location to pan to.
 	 */
 	public void pan(Location fromLocation, Location toLocation) {
 		float[] xy1 = mapDisplay.getObjectFromLocation(fromLocation);
@@ -688,23 +699,43 @@ public class UnfoldingMap implements MapEventListener {
 		addInnerOffset(dx, dy);
 	}
 
+	/**
+	 * Pans by distance in screen coordinates.
+	 * 
+	 * @param dx
+	 *            Horizontal distance in pixel.
+	 * @param dy
+	 *            Vertical distance in pixel.
+	 */
 	public void panBy(float dx, float dy) {
 		float[] dxy = mapDisplay.getObjectFromScreenPosition(dx, dy);
 		addInnerOffset(dxy[0], dxy[1]);
 	}
 
+	/**
+	 * Pans one tile to the left.
+	 */
 	public void panLeft() {
 		addInnerOffset(PAN_DEFAULT_DELTA, 0);
 	}
 
+	/**
+	 * Pans one tile to the right.
+	 */
 	public void panRight() {
 		addInnerOffset(-PAN_DEFAULT_DELTA, 0);
 	}
 
+	/**
+	 * Pans one tile up.
+	 */
 	public void panUp() {
 		addInnerOffset(0, PAN_DEFAULT_DELTA);
 	}
 
+	/**
+	 * Pans one tile down.
+	 */
 	public void panDown() {
 		addInnerOffset(0, -PAN_DEFAULT_DELTA);
 	}
@@ -875,15 +906,13 @@ public class UnfoldingMap implements MapEventListener {
 	public List<Marker> getHitMarkers(float checkX, float checkY) {
 		return mapDisplay.getDefaultMarkerManager().getHitMarkers(checkX, checkY);
 	}
-	
+
 	/**
 	 * @deprecated Use {@link #getHitMarkers(float, float)} instead.
 	 */
 	public List<Marker> getHitMarker(float checkX, float checkY) {
 		return getHitMarkers(checkX, checkY);
 	}
-
-
 
 	// Transformations ------------------------------------
 
