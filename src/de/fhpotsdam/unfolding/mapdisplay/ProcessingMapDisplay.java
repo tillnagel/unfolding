@@ -339,9 +339,6 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 		PGraphics pg = getInnerPG();
 		pg.beginDraw();
 
-		// Store and switch off smooth (OpenGL cannot handle it)
-		boolean smooth = papplet.g.smooth;
-		pg.noSmooth();
 		// REVISIT For transparency, do not paint bg
 		// But needed to delete panning off the map (in order to not smudge)
 		pg.background(bgColor);
@@ -390,11 +387,6 @@ public class ProcessingMapDisplay extends AbstractMapDisplay implements PConstan
 		postDraw();
 
 		cleanupImageBuffer();
-
-		// Restore smoothing, if needed
-		if (smooth) {
-			papplet.smooth();
-		}
 	}
 
 	public void setBackgroundColor(int color) {
