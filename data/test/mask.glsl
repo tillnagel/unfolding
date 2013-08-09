@@ -14,6 +14,6 @@ varying vec4 vertTexCoord;
 
 void main() {
   vec4 texColor = texture2D(texture, vertTexCoord.st).rgba;
-  vec4 maskColor = texture2D(mask, vec2(vertTexCoord.s, 1.0 - vertTexCoord.t)).rgba;
+  vec4 maskColor = texture2D(mask, vec2(vertTexCoord.s, vertTexCoord.t)).rgba;
   gl_FragColor = mix(texColor, vec4(0, 0, 0, 0), 1.0 - maskColor.r);  
 }

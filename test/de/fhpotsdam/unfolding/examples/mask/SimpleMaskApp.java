@@ -1,7 +1,7 @@
 package de.fhpotsdam.unfolding.examples.mask;
 
 import processing.core.PApplet;
-
+import processing.core.PGraphics;
 
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.utils.MapUtils;
@@ -13,7 +13,7 @@ public class SimpleMaskApp extends PApplet {
 
 	UnfoldingMap map;
 
-	GLGraphicsOffScreen mask;
+	PGraphics mask;
 
 	public void setup() {
 		size(830, 420, OPENGL);
@@ -21,6 +21,9 @@ public class SimpleMaskApp extends PApplet {
 		MapUtils.createDefaultEventDispatcher(this, map);
 
 		mask = map.mapDisplay.getMask();
+		mask.beginDraw();
+		mask.background(0);
+		mask.endDraw();
 	}
 
 	public void draw() {
@@ -30,7 +33,7 @@ public class SimpleMaskApp extends PApplet {
 		map.draw();
 
 		// shows the mask next to the map
-		image(mask.getTexture(), 420, 10);
+		image(mask, 400, 0);
 	}
 
 	// draw the grayscale mask on an mask object
@@ -38,11 +41,11 @@ public class SimpleMaskApp extends PApplet {
 	// 0 = visible
 	public void updateMask() {
 		mask.beginDraw();
-		mask.background(255);
-		mask.noStroke();
-		mask.fill(100);
-		mask.ellipse(mouseX, mouseY, 122, 122);
-		mask.fill(0);
+		  if (mouseX != 0 && mouseY != 0) {  
+			  mask.noStroke();
+			  mask.fill(255, 255,255);
+			  mask.ellipse(mouseX, mouseY, 50, 50);
+		  }
 		mask.ellipse(mouseX, mouseY, 100, 100);
 		mask.endDraw();
 	}

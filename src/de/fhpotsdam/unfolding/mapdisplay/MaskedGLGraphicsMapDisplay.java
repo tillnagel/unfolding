@@ -3,9 +3,7 @@ package de.fhpotsdam.unfolding.mapdisplay;
 import processing.core.PApplet;
 import processing.core.PConstants;
 import processing.core.PGraphics;
-import codeanticode.glgraphics.GLGraphicsOffScreen;
-import codeanticode.glgraphics.GLTexture;
-import codeanticode.glgraphics.GLTextureFilter;
+import processing.opengl.PShader;
 import de.fhpotsdam.unfolding.marker.Marker;
 import de.fhpotsdam.unfolding.marker.MarkerManager;
 import de.fhpotsdam.unfolding.providers.AbstractMapProvider;
@@ -13,47 +11,48 @@ import de.fhpotsdam.unfolding.providers.AbstractMapProvider;
 // TODO: Unify with GLGRaphics and create as flag/property
 public class MaskedGLGraphicsMapDisplay extends GLGraphicsMapDisplay implements PConstants {
 
-	public GLGraphicsOffScreen mask;
-	private GLTextureFilter maskFilter;
-	private GLTexture maskedTex;
+	protected PGraphics maskImage;
+	protected PShader maskShader;
+//	private GLTexture maskedTex;
 
 	public MaskedGLGraphicsMapDisplay(PApplet papplet, AbstractMapProvider provider, float offsetX, float offsetY,
 			float width, float height) {
 		super(papplet, provider, offsetX, offsetY, width, height);
 		
-		mask = new GLGraphicsOffScreen(papplet, (int) width, (int) height, true);
-		mask.smooth();
-		maskedTex = new GLTexture(papplet, (int) width, (int) height);
-		maskFilter = new GLTextureFilter(papplet, "test/Mask.xml");
+		maskImage = papplet.createGraphics((int)width, (int)height, OPENGL);
+		maskImage.noSmooth();
+		
+		maskShader = papplet.loadShader("test/mask.glsl");
+		maskShader.set("mask", maskImage);
 	}
 
 	@Override
 	public void resize(float width, float height) {
 		super.resize(width, height);
-		mask = new GLGraphicsOffScreen(papplet, (int) width, (int) height);
+		maskImage.resize((int)width, (int)height);
 	}
 
-	public GLGraphicsOffScreen getMask() {
-		return mask;
+	public PGraphics getMask() {
+		return maskImage;
 	}
 
 	protected void postDraw() {
-		PGraphics outerPG = getOuterPG();
-
-		outerPG.pushMatrix();
-		outerPG.translate(offsetX, offsetY);
-		outerPG.applyMatrix(matrix);
-
-		// maskFilter.setParameterValue("mask_factor", 0.0f);
-		maskFilter.apply(new GLTexture[] { offscreenPG.getTexture(), mask.getTexture() }, maskedTex);
-
-		outerPG.image(maskedTex, 0, 0);
-
+		offscreenCutoffPG.beginDraw();
+		offscreenCutoffPG.image(offscreenPG, 0, 0);
 		for (MarkerManager<Marker> mm : markerManagerList) {
 			mm.draw();
 		}
+		offscreenCutoffPG.endDraw();
 
-		outerPG.popMatrix();
+		// Transforms (outer) map pane, and draws inner map + marker onto canvas
+		// This cuts off marker at the border.
+		PGraphics canvasPG = papplet.g;
+		canvasPG.pushMatrix();
+//		canvasPG.translate(offsetX, offsetY);
+//		canvasPG.applyMatrix(matrix);
+		canvasPG.shader(maskShader);
+		canvasPG.image(offscreenCutoffPG, 0, 0);
+		canvasPG.popMatrix();
 	}
 
 }
