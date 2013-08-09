@@ -1,5 +1,0 @@
-<filter name="Mask">
-    <description>masks a source texture with a mask texture</description>
-    <fragment>Mask.glsl</fragment>
-    <textures input="2" output="1"></textures>
-</filter>
