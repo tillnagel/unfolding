@@ -22,6 +22,9 @@ import de.fhpotsdam.unfolding.providers.AbstractMapProvider;
 import de.fhpotsdam.unfolding.tiles.TileLoader;
 import de.fhpotsdam.unfolding.utils.ScreenPosition;
 
+/**
+ * The internal MapDisplay to handle the map display in Processing 2D (and used as super class for 3D) 
+ */
 @SuppressWarnings("unchecked")
 public class P2DMapDisplay extends AbstractMapDisplay implements PConstants {
 
