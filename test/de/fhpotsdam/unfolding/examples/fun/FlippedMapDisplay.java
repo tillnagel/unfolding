@@ -24,10 +24,9 @@ public class FlippedMapDisplay extends OpenGLMapDisplay {
 		outerPG.applyMatrix(matrix);
 
 		// Flip test
-		GLTexture map = ((GLGraphicsOffScreen) getInnerPG()).getTexture();
 		outerPG.scale(-1, 1);
 		outerPG.translate(-width, 0);
-		outerPG.image(map, 0, 0);
+		outerPG.image(getInnerPG(), 0, 0);
 
 		for (MarkerManager<Marker> mm : markerManagerList) {
 			mm.draw();
