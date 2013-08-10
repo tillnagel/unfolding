@@ -6,6 +6,7 @@
 - Re-enable sketches for P2D
 
 
+
 UPDATES to 2.0
 
 - REVISIT ProcessingMapDisplay smooth switching (commented)
@@ -19,22 +20,38 @@ x MouseWheel not working yet (https://github.com/processing/processing/issues/14
 
 
 
-MATRIX / TEXTURE 
+MATRIX / TEXTURE / SHADER
+
+- How to deform / distort a map in a way the location to screen conversion still works
+	(e.g. Fisheye, 3D spikes)
+
+
+x Mask
+x Implement blur shader
+
+- Send to Andres Colubri & ask for feedback
 
 - 3D: 2.5D / Pseudo
-- Mask
+- Distortion grids 
+
+
+OTHER
 - Transparent (real transparency for map tiles)
-- Distortion grids
+	- see offscreenCutoffPG.bg(0)
 
 
 
-- File encoding (all UTF-8)
+EXAMPLES
 
+- Update examples-processing to P2
+
+
+MISC
 
 
 - frameRate seems to be not correct?
 	On FullHD/Fullscreen sketches it still shows 60fps but seems to be lagging.
-
+- File encoding (all UTF-8)
 
 
 0.9.3 Release

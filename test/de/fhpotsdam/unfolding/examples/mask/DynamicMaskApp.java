@@ -11,7 +11,7 @@ import de.fhpotsdam.unfolding.utils.MapUtils;
 /**
  * This example shows the use of an gray-scale mask applied to the map.
  */
-public class SimpleMaskApp extends PApplet {
+public class DynamicMaskApp extends PApplet {
 
 	UnfoldingMap map;
 
@@ -22,10 +22,10 @@ public class SimpleMaskApp extends PApplet {
 		size(830, 420, OPENGL);
 		map = new UnfoldingMap(this, "map1", 10, 10, 400, 400, true, false, null);
 		MapUtils.createDefaultEventDispatcher(this, map);
-		
-		mapDisplayShader = new MaskedMapDisplayShader(this,400,400); 
-		((OpenGLMapDisplay)map.mapDisplay).setMapDisplayShader(mapDisplayShader);
-		
+
+		mapDisplayShader = new MaskedMapDisplayShader(this, 400, 400);
+		((OpenGLMapDisplay) map.mapDisplay).setMapDisplayShader(mapDisplayShader);
+
 		mask = mapDisplayShader.getMask();
 		mask.beginDraw();
 		mask.background(0);
@@ -47,17 +47,14 @@ public class SimpleMaskApp extends PApplet {
 	// 0 = visible
 	public void updateMask() {
 		mask.beginDraw();
-		  if (mouseX != 0 && mouseY != 0) {  
-			  mask.noStroke();
-			  mask.fill(255, 255,255);
-			  mask.ellipse(mouseX, mouseY, 50, 50);
-		  }
-		mask.ellipse(mouseX, mouseY, 100, 100);
+		if (mouseX != 0 && mouseY != 0) {
+			mask.noStroke();
+			mask.fill(255, 50);
+			mask.ellipse(mouseX, mouseY, 70, 70);
+			mask.fill(255);
+			mask.ellipse(mouseX, mouseY, 50, 50);
+		}
 		mask.endDraw();
-	}
-
-	public static void main(String[] args) {
-		PApplet.main(new String[] { "de.fhpotsdam.unfolding.examples.ui.SimpleMaskApp" });
 	}
 
 }
