@@ -11,7 +11,7 @@ finalimage:
 
 ## Installation
 
-Download the [Unfolding template for Eclipse](https://github.com/tillnagel/unfolding/downloads) and extract it to your workspace. In Eclipse, import it as an existing project. Lastly, select the native library for OpenGL for your platform. For this, go to "Configure Build Path", select the jogl.jar, edit the Native Library location, and select the appropriate directory for your OS.
+Download the [Unfolding template for Eclipse](http://unfoldingmaps.org/downloads) and extract it to your workspace. In Eclipse, import it as an existing project. Lastly, select the native library for OpenGL for your platform. For this, go to "Configure Build Path", select the jogl.jar, edit the Native Library location, and select the appropriate directory for your OS.
 
 Now, you should have a fully working Java project with the unfolding.jar and all other necessary libraries. 
 
