@@ -15,9 +15,17 @@ One finger pans the map, while two or more fingers rotate and zoom the map.
 
 Besides handlers for mouse and keyboard, Unfolding provides one for [TUIO](http://www.tuio.org) cursors (fingers or other small objects).
 
-First, create the `TuioCursorHandler` which listens to TUIO events on the default port. Then add it to the `EventDispatcher` as an handler able to broadcast map events. Lastly, register the map to both _pan_ and _zoom_ events. 
+First, download and install the [TUIO library for Processing](http://www.tuio.org/?processing). Then, in your sketch, initiate the `TuioCursorHandler` which listens to TUIO events on the default port. Then add it to the `EventDispatcher` as an handler able to broadcast map events. Lastly, register the map to both _pan_ and _zoom_ events. 
 
 Now, users can drag to pan the map to a new position. They can pinch close to zoom in, and pinch open to zoom out. They can also rotate the map with two fingers, e.g. to align the map towards the user's standing position.
+
+
+	import processing.opengl.*;
+	import codeanticode.glgraphics.GLConstants;
+	import TUIO.*;
+	import de.fhpotsdam.unfolding.*;
+	import de.fhpotsdam.unfolding.events.*;
+	import de.fhpotsdam.unfolding.interactions.*;
 
 	UnfoldingMap map;
 	TuioCursorHandler tuioCursorHandler;
@@ -58,7 +66,7 @@ For instance, you might want to allow your users to tap on markers to select the
 For this, you need to create your own TUIO listener in the app, and connect it to Unfolding's `TuioCursorHandler`.
 Now the main app listens to TUIO events, and forwards the multitouch events to the handler. This allows reacting to touch interactions in the application, as well as having an interactive multitouch map. 
 
-See the [MultitouchMapExternalTuioApp](https://github.com/tillnagel/unfolding/blob/master/examples/de/fhpotsdam/unfolding/examples/interaction/MultitouchMapExternalTuioApp.java) example for source code.
+See the [MultitouchMapExternalTuioApp](https://github.com/tillnagel/unfolding/blob/master/examples/de/fhpotsdam/unfolding/examples/interaction/multitouch/MultitouchMapExternalTuioApp.java) example for source code.
 
 (More to come soon.)
 
