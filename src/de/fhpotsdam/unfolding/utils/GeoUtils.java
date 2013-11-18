@@ -94,6 +94,9 @@ public class GeoUtils {
 	/**
 	 * Gets the angle between two locations.
 	 * 
+	 * Note that this returns the angle as azimuth, i.e. with 0 degrees at north. This differs from the angle used in
+	 * Processing, where the unit circle starts with 0 degrees at right.
+	 * 
 	 * @param location1
 	 *            First location.
 	 * @param location2
@@ -223,9 +226,10 @@ public class GeoUtils {
 	protected static float getArea(Feature feature) {
 		return getArea(GeoUtils.getLocations(feature));
 	}
-	
+
 	/**
 	 * Calculates the area of a shape marker.
+	 * 
 	 * @param marker
 	 *            The marker containing location vertices.
 	 * @return The area.
@@ -233,7 +237,7 @@ public class GeoUtils {
 	protected static float getArea(Marker marker) {
 		return getArea(GeoUtils.getLocations(marker));
 	}
-	
+
 	/**
 	 * Gets the overall geometric center of all features.
 	 * 
@@ -308,7 +312,7 @@ public class GeoUtils {
 		}
 		return largestFeature;
 	}
-	
+
 	public static Marker getLargestMarker(MultiMarker multiMarker) {
 		float largestArea = 0;
 		Marker largestMarker = null;
