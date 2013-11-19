@@ -35,7 +35,7 @@ public class DistortedGLGraphicsMapDisplay extends OpenGLMapDisplay {
 	protected void postDraw() {
 		// Draws inner map (with inner marker) and outer marker
 		offscreenCutoffPG.beginDraw();
-		offscreenCutoffPG.image(offscreenPG.getTexture(), 0, 0);
+		offscreenCutoffPG.image(offscreenPG, 0, 0);
 		for (MarkerManager<Marker> mm : markerManagerList) {
 			mm.draw();
 		}
@@ -48,7 +48,7 @@ public class DistortedGLGraphicsMapDisplay extends OpenGLMapDisplay {
 		canvasPG.translate(offsetX, offsetY);
 		canvasPG.applyMatrix(matrix);
 		
-		textureDistorter.draw(canvasPG, offscreenPG.getTexture());
+		textureDistorter.draw(canvasPG, offscreenPG);
 		//canvasPG.image(offscreenCutoffPG.getTexture(), 0, 0);
 		canvasPG.popMatrix();
 	}

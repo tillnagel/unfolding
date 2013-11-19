@@ -5,10 +5,9 @@ import java.util.ArrayList;
 import processing.core.PApplet;
 import processing.core.PConstants;
 import processing.core.PGraphics;
+import processing.core.PImage;
+import processing.core.PShape;
 import processing.core.PVector;
-import codeanticode.glgraphics.GLGraphics;
-import codeanticode.glgraphics.GLModel;
-import codeanticode.glgraphics.GLTexture;
 
 public class TextureDistorter {
 
@@ -17,7 +16,7 @@ public class TextureDistorter {
 	public float lightX;
 	public float lightY;
 
-	GLModel meshModel;
+	PShape meshModel;
 
 	// Mesh parameters
 	protected int meshWidth;
@@ -47,7 +46,7 @@ public class TextureDistorter {
 		initGrids();
 		createMesh(distortedGrid);
 
-		meshModel = new GLModel(p, vertices.size(), PConstants.TRIANGLE_STRIP, GLModel.DYNAMIC);
+		meshModel = null;
 	}
 
 	public TextureDistorter(PApplet papplet, float width, float height, int meshStep) {
@@ -60,9 +59,9 @@ public class TextureDistorter {
 
 	int frameCount = 0;
 
-	public void draw(PGraphics g, GLTexture texture) {
+	public void draw(PGraphics g, PImage texture) {
 		frameCount++;
-
+		
 		// REVISIT
 		// Distort by texture to extrude by pixel brightness
 		distortGridByTexture(texture);
@@ -72,45 +71,68 @@ public class TextureDistorter {
 		distortMesh();
 
 		// createMesh(distortedGrid);
-
-		GLGraphics renderer = (GLGraphics) g;
-		// GLGraphicsOffScreen renderer = (GLGraphicsOffScreen) g;
-		renderer.beginGL();
-		renderer.background(0);
-		meshModel.updateVertices(vertices);
-		meshModel.initTextures(1);
-		meshModel.setTexture(0, texture);
-		meshModel.updateTexCoords(0, texCoords);
-		meshModel.initNormals();
-		meshModel.updateNormals(normals);
+		
+		if (meshModel == null) {
+		  // create
+		  meshModel = g.createShape();
+		  meshModel.beginShape(PConstants.TRIANGLE_STRIP);
+		  meshModel.texture(texture);
+		  for (int i = 0; i < vertices.size(); i++) {
+		    PVector vert = vertices.get(i);		    
+		    PVector tcoord = texCoords.get(i);
+		    if (g.is3D()) {
+		      PVector norm = normals.get(i);
+		      meshModel.normal(norm.x, norm.y, norm.z);
+		      meshModel.vertex(vert.x, vert.y, vert.z, tcoord.x, tcoord.y);
+		    } else {
+		      meshModel.vertex(vert.x, vert.y, tcoord.x, tcoord.y);
+		    }		    
+      }
+		  meshModel.endShape();		  
+		} else {
+		  // update using setter methods
+		  meshModel.setTexture(texture);
+		  for (int i = 0; i < vertices.size(); i++) {
+        PVector vert = vertices.get(i);       
+        PVector tcoord = texCoords.get(i);
+        if (g.is3D()) {
+          PVector norm = normals.get(i);
+          meshModel.setNormal(i, norm.x, norm.y, norm.z);
+          meshModel.setVertex(i, vert.x, vert.y, vert.z);
+        } else {
+          meshModel.setVertex(i, vert.x, vert.y);          
+        }       		    
+        meshModel.setTextureUV(i, tcoord.x, tcoord.y);
+		  }
+		}
+		
+		g.background(0);
 
 		if (mouse3DRotate || osc3DRotate) {
 			PApplet p = PAppletFactory.getInstance();
 
 			if (showLight) {
 				// Simple 3D lighting
-				renderer.directionalLight(204, 204, 204, lightX, lightY, -1);
+				g.directionalLight(204, 204, 204, lightX, lightY, -1);
 			}
 
-			renderer.translate(400, 300, 0);
+			g.translate(400, 300);
 
 			if (mouse3DRotate) {
 				float rotX = (p.mouseX / (float) p.width - 0.5f) * 2f * PApplet.PI;
 				float rotZ = (p.mouseY / (float) p.height - 0.5f) * 2f * PApplet.PI;
-				renderer.rotateX(rotX);
-				renderer.rotateZ(rotZ);
+				g.rotateX(rotX);
+				g.rotateZ(rotZ);
 			} else if (osc3DRotate) {
-				renderer.rotateX(rotX);
-				renderer.rotateY(rotY);
-				renderer.rotateZ(rotZ);
+				g.rotateX(rotX);
+				g.rotateY(rotY);
+				g.rotateZ(rotZ);
 			}
 
-			renderer.translate(-400, -300, 0);
+			g.translate(-400, -300);
 		}
 
-		renderer.model(meshModel);
-
-		renderer.endGL();
+		g.shape(meshModel);
 	}
 
 	public float rotX, rotY, rotZ;
@@ -128,8 +150,8 @@ public class TextureDistorter {
 		}
 	}
 
-	protected void distortGridByTexture(GLTexture texture) {
-		texture.updateTexture();
+	protected void distortGridByTexture(PImage texture) {
+		texture.loadPixels();
 		for (int u = 0; u < uSteps; u++) {
 			for (int v = 0; v < vSteps; v++) {
 				int x = u * meshStep;
