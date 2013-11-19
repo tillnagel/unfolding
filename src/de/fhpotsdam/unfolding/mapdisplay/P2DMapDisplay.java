@@ -11,6 +11,7 @@ import processing.core.PApplet;
 import processing.core.PConstants;
 import processing.core.PGraphics;
 import processing.core.PImage;
+import processing.core.PMatrix2D;
 import processing.core.PMatrix3D;
 import processing.core.PVector;
 import de.fhpotsdam.unfolding.UnfoldingMap;
@@ -34,10 +35,10 @@ public class P2DMapDisplay extends AbstractMapDisplay implements PConstants {
 	public PApplet papplet;
 
 	/** The inner transformation matrix. Scales and rotates the map. */
-	protected PMatrix3D innerMatrix = new PMatrix3D();
+	protected PMatrix2D innerMatrix = new PMatrix2D();
 
 	/** The outer transformation matrix. Rotates the map pane. */
-	protected PMatrix3D matrix = new PMatrix3D();
+	protected PMatrix2D matrix = new PMatrix2D();
 
 	// Background color
 	protected int bgColor = 0;
@@ -121,7 +122,7 @@ public class P2DMapDisplay extends AbstractMapDisplay implements PConstants {
 			float originalCenterX = invMatrix.multX(transformationCenter.x, transformationCenter.y);
 			float originalCenterY = invMatrix.multY(transformationCenter.x, transformationCenter.y);
 
-			matrix = new PMatrix3D();
+			matrix = new PMatrix2D();
 			matrix.translate(transformationCenter.x, transformationCenter.y);
 			matrix.scale(scale);
 			matrix.rotateZ(angle);
@@ -139,7 +140,7 @@ public class P2DMapDisplay extends AbstractMapDisplay implements PConstants {
 			float originalCenterX = invMatrix.multX(innerTransformationCenter.x, innerTransformationCenter.y);
 			float originalCenterY = invMatrix.multY(innerTransformationCenter.x, innerTransformationCenter.y);
 
-			innerMatrix = new PMatrix3D();
+			innerMatrix = new PMatrix2D();
 			innerMatrix.translate(innerTransformationCenter.x, innerTransformationCenter.y);
 			innerMatrix.scale(innerScale);
 			innerMatrix.rotateZ(innerAngle);

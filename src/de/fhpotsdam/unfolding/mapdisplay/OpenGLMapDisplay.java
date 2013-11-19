@@ -24,8 +24,8 @@ public class OpenGLMapDisplay extends P2DMapDisplay implements PConstants {
 			float width, float height) {
 		super(papplet, provider, offsetX, offsetY, width, height);
 
-		offscreenPG = papplet.createGraphics((int) width, (int) height, OPENGL);
-		offscreenCutoffPG = papplet.createGraphics((int) width, (int) height, OPENGL);
+		offscreenPG = papplet.createGraphics((int) width, (int) height, P2D);
+		offscreenCutoffPG = papplet.createGraphics((int) width, (int) height, P2D);
 	}
 
 	public void setMapDisplayShader(MapDisplayShader shader) {

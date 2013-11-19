@@ -39,14 +39,15 @@ public class MapDisplayFactory {
 			// NB: PGraphics2D subclasses PGraphicsOpenGL thus p.g in both cases is instance.
 			Class p2dClass = Class.forName(P2D_CLASSNAME);
 			Class openGLClass = Class.forName(OPEN_GL_CLASSNAME);
-			if (p2dClass.isInstance(p.g)) {
-				mapDisplay = new P2DMapDisplay(p, provider, x, y, width, height);
-				PApplet.println("No OpenGL mapDisplay available. Using P2DMapDisplay.");
-			}else if (openGLClass.isInstance(p.g)){
-				mapDisplay = new OpenGLMapDisplay(p, provider, x, y, width, height);
-				PApplet.println("Using OpenGLMapDisplay.");
-				
-			}
+//			if (p2dClass.isInstance(p.g)) {
+//				mapDisplay = new P2DMapDisplay(p, provider, x, y, width, height);
+//				PApplet.println("No OpenGL mapDisplay available. Using P2DMapDisplay.");
+//			}else if (openGLClass.isInstance(p.g)){
+//				mapDisplay = new OpenGLMapDisplay(p, provider, x, y, width, height);
+//				PApplet.println("Using OpenGLMapDisplay.");				
+//			}
+      mapDisplay = new OpenGLMapDisplay(p, provider, x, y, width, height);
+      PApplet.println("Using OpenGLMapDisplay.");       			
 		}catch (ClassNotFoundException e){
 			mapDisplay = new P2DMapDisplay(p, provider, x, y, width, height);
 		}
