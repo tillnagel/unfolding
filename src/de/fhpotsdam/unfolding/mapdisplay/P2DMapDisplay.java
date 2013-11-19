@@ -105,6 +105,17 @@ public class P2DMapDisplay extends AbstractMapDisplay implements PConstants {
 
 	// TRANSFORMATION --------------------------------------------------
 
+	 /**
+   * Translates the map to a new location
+   * 
+   */ 
+	public void setOffset(float x, float y) {
+	  synchronized (this) {
+	    this.offsetX = x;
+	    this.offsetY = y;
+	  }
+	}	
+	
 	/**
 	 * Updates the matrix to transform the map with.
 	 * 

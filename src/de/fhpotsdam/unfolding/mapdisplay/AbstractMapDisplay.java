@@ -98,7 +98,7 @@ public abstract class AbstractMapDisplay implements TileLoaderListener {
 
 		markerManagerList = new ArrayList<MarkerManager<Marker>>();
 	}
-
+	
 	public void resize(float width, float height) {
 		this.width = width;
 		this.height = height;
@@ -117,6 +117,8 @@ public abstract class AbstractMapDisplay implements TileLoaderListener {
 		}
 	}
 
+	public abstract void setOffset(float x, float y);	
+	
 	public abstract PGraphics getInnerPG();
 
 	public abstract PGraphics getOuterPG();

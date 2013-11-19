@@ -323,6 +323,10 @@ public class UnfoldingMap implements MapEventListener {
 		return id;
 	}
 
+	public void setPosition(float x, float y) {
+	  mapDisplay.setOffset(x, y);
+	}
+	
 	/**
 	 * Updates and draws the map. The main method to display this UnfoldingMap.
 	 */
