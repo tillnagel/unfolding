@@ -8,7 +8,6 @@
 	<classpathentry kind="src" path="examples-extern"/>
 	<classpathentry kind="src" path="notworking"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
-	<classpathentry kind="lib" path="lib/core.jar" sourcepath="/processing-1.0.9/core"/>
 	<classpathentry kind="lib" path="lib/gluegen-rt.jar">
 		<attributes>
 			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="unfolding/lib/libNative"/>
@@ -30,7 +29,8 @@
 			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="unfolding/libNative"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/Volumes/Macintosh HD/Files/Projects/Unfolding/unfolding-src/lib/gluegen-rt-natives-macosx-universal.jar"/>
-	<classpathentry kind="lib" path="/Volumes/Macintosh HD/Files/Projects/Unfolding/unfolding-src/lib/jogl-all-natives-macosx-universal.jar"/>
+	<classpathentry kind="lib" path="lib/gluegen-rt-natives-macosx-universal.jar"/>
+	<classpathentry kind="lib" path="lib/jogl-all-natives-macosx-universal.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/processing-core"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
