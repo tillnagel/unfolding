@@ -117,8 +117,6 @@ public abstract class AbstractMapDisplay implements TileLoaderListener {
 		}
 	}
 
-	public abstract void setOffset(float x, float y);	
-	
 	public abstract PGraphics getInnerPG();
 
 	public abstract PGraphics getOuterPG();
