@@ -39,11 +39,13 @@ public class MapDisplayFactory {
 		  Class openGLClass = Class.forName(OPEN_GL_CLASSNAME);
 		  if (openGLClass.isInstance(p.g)){
         mapDisplay = new OpenGLMapDisplay(p, provider, x, y, width, height);
+        PApplet.println("Using OpenGLMapDisplay.");        
 		  } else {
-		    // ???
+		    mapDisplay = new P2DMapDisplay(p, provider, x, y, width, height);
+		    PApplet.println("No OpenGL mapDisplay available. Using P2DMapDisplay.");
 		  }
 		} catch (ClassNotFoundException e){
-			System.err.println("The renderer is not OpenGL-based, unfolding cannot run!");
+		  mapDisplay = new P2DMapDisplay(p, provider, x, y, width, height);
 		}
 
 		mapDisplay.createDefaultMarkerManager(map);

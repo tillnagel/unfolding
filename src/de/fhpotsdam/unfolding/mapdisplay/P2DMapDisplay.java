@@ -11,7 +11,6 @@ import processing.core.PApplet;
 import processing.core.PConstants;
 import processing.core.PGraphics;
 import processing.core.PImage;
-import processing.core.PMatrix2D;
 import processing.core.PMatrix3D;
 import processing.core.PVector;
 import de.fhpotsdam.unfolding.UnfoldingMap;
@@ -35,10 +34,10 @@ public class P2DMapDisplay extends AbstractMapDisplay implements PConstants {
 	public PApplet papplet;
 
 	/** The inner transformation matrix. Scales and rotates the map. */
-	protected PMatrix2D innerMatrix = new PMatrix2D();
+	protected PMatrix3D innerMatrix = new PMatrix3D();
 
 	/** The outer transformation matrix. Rotates the map pane. */
-	protected PMatrix2D matrix = new PMatrix2D();
+	protected PMatrix3D matrix = new PMatrix3D();
 
 	// Background color
 	protected int bgColor = 0;
@@ -133,7 +132,7 @@ public class P2DMapDisplay extends AbstractMapDisplay implements PConstants {
 			float originalCenterX = invMatrix.multX(transformationCenter.x, transformationCenter.y);
 			float originalCenterY = invMatrix.multY(transformationCenter.x, transformationCenter.y);
 
-			matrix = new PMatrix2D();
+			matrix = new PMatrix3D();
 			matrix.translate(transformationCenter.x, transformationCenter.y);
 			matrix.scale(scale);
 			matrix.rotateZ(angle);
@@ -151,7 +150,7 @@ public class P2DMapDisplay extends AbstractMapDisplay implements PConstants {
 			float originalCenterX = invMatrix.multX(innerTransformationCenter.x, innerTransformationCenter.y);
 			float originalCenterY = invMatrix.multY(innerTransformationCenter.x, innerTransformationCenter.y);
 
-			innerMatrix = new PMatrix2D();
+			innerMatrix = new PMatrix3D();
 			innerMatrix.translate(innerTransformationCenter.x, innerTransformationCenter.y);
 			innerMatrix.scale(innerScale);
 			innerMatrix.rotateZ(innerAngle);
@@ -361,7 +360,12 @@ public class P2DMapDisplay extends AbstractMapDisplay implements PConstants {
 		// translate and scale, from the middle
 		pg.pushMatrix();
 		pg.translate((float) innerOffsetX, (float) innerOffsetY);
-		pg.applyMatrix(innerMatrix);
+		if (pg.is3D()) {
+		  pg.applyMatrix(innerMatrix);  
+		} else {
+		  pg.applyMatrix(innerMatrix.m00, innerMatrix.m01, innerMatrix.m03,
+		                 innerMatrix.m10, innerMatrix.m11, innerMatrix.m13);		  
+		}
 
 		Vector visibleKeys = getVisibleKeys(pg);
 
