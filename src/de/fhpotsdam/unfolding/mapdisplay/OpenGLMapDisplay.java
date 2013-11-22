@@ -21,27 +21,31 @@ public class OpenGLMapDisplay extends P2DMapDisplay implements PConstants {
 
 	protected MapDisplayShader mapDisplayShader = null;
 
-	public OpenGLMapDisplay(PApplet papplet, AbstractMapProvider provider, float offsetX, float offsetY,
-			float width, float height) {
+	public OpenGLMapDisplay(PApplet papplet, AbstractMapProvider provider,
+	    String renderer, float offsetX, float offsetY, float width, float height) {
 		super(papplet, provider, offsetX, offsetY, width, height);
-
-		try {
-      Class P2DClass = Class.forName(P2D);
-      Class P3DClass = Class.forName(P3D);
-      if (P2DClass.isInstance(papplet.g)){
-        renderer = P2D;
-      } else if (P3DClass.isInstance(papplet.g)){
-        renderer = P3D;
-      } else {
-        renderer = OPENGL;
-      }
-    } catch (ClassNotFoundException e) {
-      renderer = OPENGL;
-    }
+ 
+		if (renderer == null || renderer.equals("")) {
+	    try {
+	      Class P2DClass = Class.forName(P2D);
+	      Class P3DClass = Class.forName(P3D);
+	      if (P2DClass.isInstance(papplet.g)){
+	        this.renderer = P2D;
+	      } else if (P3DClass.isInstance(papplet.g)){
+	        this.renderer = P3D;
+	      } else {
+	        this.renderer = OPENGL;
+	      }
+	    } catch (ClassNotFoundException e) {
+	      this.renderer = OPENGL;
+	    }		  
+		} else {
+		  this.renderer = renderer;
+		}
 		
-		offscreenPG = papplet.createGraphics((int) width, (int) height, renderer);
+		offscreenPG = papplet.createGraphics((int) width, (int) height, this.renderer);
 		offscreenPG.smooth(papplet.g.quality);
-		offscreenCutoffPG = papplet.createGraphics((int) width, (int) height, renderer);
+		offscreenCutoffPG = papplet.createGraphics((int) width, (int) height, this.renderer);
 		offscreenCutoffPG.smooth(papplet.g.quality);
 		
 	}

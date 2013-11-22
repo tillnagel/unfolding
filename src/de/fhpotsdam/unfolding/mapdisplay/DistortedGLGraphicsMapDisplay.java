@@ -16,7 +16,7 @@ public class DistortedGLGraphicsMapDisplay extends OpenGLMapDisplay {
 
 	public DistortedGLGraphicsMapDisplay(PApplet papplet, AbstractMapProvider provider, float offsetX, float offsetY,
 			float width, float height) {
-		super(papplet, provider, offsetX, offsetY, width, height);
+		super(papplet, provider, null, offsetX, offsetY, width, height);
 
 		distorter = new LinearInterpolationDistorter(width / 2, height / 2);
 		textureDistorter = new TextureDistorter(papplet, width, height, 10);
@@ -25,7 +25,7 @@ public class DistortedGLGraphicsMapDisplay extends OpenGLMapDisplay {
 
 	public DistortedGLGraphicsMapDisplay(PApplet papplet, AbstractMapProvider provider, float offsetX, float offsetY,
 			float width, float height, Distorter distorter) {
-		super(papplet, provider, offsetX, offsetY, width, height);
+		super(papplet, provider, null, offsetX, offsetY, width, height);
 
 		this.distorter = distorter;
 		textureDistorter = new TextureDistorter(papplet, width, height, 10);
