@@ -9,8 +9,9 @@ import de.fhpotsdam.unfolding.marker.Marker;
 import de.fhpotsdam.unfolding.marker.MarkerManager;
 import de.fhpotsdam.unfolding.providers.AbstractMapProvider;
 
+@SuppressWarnings("rawtypes")
 public class OpenGLMapDisplay extends P2DMapDisplay implements PConstants {
-
+  protected String renderer;
 	// Inner map (and inner marker) will be drawn on this.
 	protected PGraphics offscreenPG;
 	// Outer marker will be drawn on this
@@ -24,9 +25,23 @@ public class OpenGLMapDisplay extends P2DMapDisplay implements PConstants {
 			float width, float height) {
 		super(papplet, provider, offsetX, offsetY, width, height);
 
-		offscreenPG = papplet.createGraphics((int) width, (int) height, OPENGL);
+		try {
+      Class P2DClass = Class.forName(P2D);
+      Class P3DClass = Class.forName(P3D);
+      if (P2DClass.isInstance(papplet.g)){
+        renderer = P2D;
+      } else if (P3DClass.isInstance(papplet.g)){
+        renderer = P3D;
+      } else {
+        renderer = OPENGL;
+      }
+    } catch (ClassNotFoundException e) {
+      renderer = OPENGL;
+    }
+		
+		offscreenPG = papplet.createGraphics((int) width, (int) height, renderer);
 		offscreenPG.smooth(papplet.g.quality);
-		offscreenCutoffPG = papplet.createGraphics((int) width, (int) height, OPENGL);
+		offscreenCutoffPG = papplet.createGraphics((int) width, (int) height, renderer);
 		offscreenCutoffPG.smooth(papplet.g.quality);
 		
 	}
@@ -43,9 +58,9 @@ public class OpenGLMapDisplay extends P2DMapDisplay implements PConstants {
 	public void resize(float width, float height) {
 		super.resize(width, height);
 		
-		offscreenPG = papplet.createGraphics((int) width, (int) height, OPENGL);
+		offscreenPG = papplet.createGraphics((int) width, (int) height, renderer);
 		offscreenPG.smooth(papplet.g.quality);
-		offscreenCutoffPG = papplet.createGraphics((int) width, (int) height, OPENGL);
+		offscreenCutoffPG = papplet.createGraphics((int) width, (int) height, renderer);
 		offscreenCutoffPG.smooth(papplet.g.quality);
 		
 		if (mapDisplayShader != null) {

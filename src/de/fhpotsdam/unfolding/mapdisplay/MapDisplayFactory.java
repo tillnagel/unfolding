@@ -11,8 +11,6 @@ import de.fhpotsdam.unfolding.providers.OpenStreetMap;
  */
 @SuppressWarnings("rawtypes")
 public class MapDisplayFactory {
-
-	public static final String P2D_CLASSNAME = "processing.opengl.PGraphics2D";
 	public static final String OPEN_GL_CLASSNAME = "processing.opengl.PGraphicsOpenGL";
 
 	public static final boolean DEFAULT_USE_MASK = true;
@@ -44,7 +42,7 @@ public class MapDisplayFactory {
 		    mapDisplay = new P2DMapDisplay(p, provider, x, y, width, height);
 		    PApplet.println("No OpenGL mapDisplay available. Using P2DMapDisplay.");
 		  }
-		} catch (ClassNotFoundException e){
+		} catch (ClassNotFoundException e) {
 		  mapDisplay = new P2DMapDisplay(p, provider, x, y, width, height);
 		}
 
