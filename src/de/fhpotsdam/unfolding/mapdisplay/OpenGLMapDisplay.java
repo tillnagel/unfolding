@@ -112,7 +112,10 @@ public class OpenGLMapDisplay extends P2DMapDisplay implements PConstants {
 		if (mapDisplayShader != null) {
 			mapDisplayShader.shadeWithMarkers(canvasPG);
 		}
+		canvasPG.pushStyle();
+		canvasPG.blendMode(REPLACE);
 		canvasPG.image(offscreenCutoffPG, 0, 0);
+		papplet.popStyle();
 		canvasPG.popMatrix();
 		//canvasPG.resetShader();
 	}
