@@ -62,6 +62,13 @@ public class OpenGLMapDisplay extends P2DMapDisplay implements PConstants {
 	public void resize(float width, float height) {
 		super.resize(width, height);
 		
+		if (offscreenPG != null) {
+		  offscreenPG.dispose();
+		}
+		if (offscreenCutoffPG != null) {
+		  offscreenCutoffPG.dispose();
+		}
+		
 		offscreenPG = papplet.createGraphics((int) width, (int) height, renderer);
 		offscreenPG.smooth(papplet.g.quality);
 		offscreenCutoffPG = papplet.createGraphics((int) width, (int) height, renderer);
