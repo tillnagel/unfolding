@@ -108,7 +108,7 @@ public class UnfoldingMap implements MapEventListener {
 	public UnfoldingMap(PApplet p) {
 		this(p, generateId(), 0, 0, p.width, p.height, true, false, null, null);
 	}
-	
+
 	/**
 	 * Creates a new full canvas map with tiles from the given provider.
 	 * 
@@ -120,7 +120,7 @@ public class UnfoldingMap implements MapEventListener {
 	public UnfoldingMap(PApplet p, AbstractMapProvider provider) {
 		this(p, generateId(), 0, 0, p.width, p.height, true, false, provider, null);
 	}
-	
+
 	/**
 	 * Creates a new full canvas map with given ID, and with tiles from the given provider.
 	 * 
@@ -134,7 +134,7 @@ public class UnfoldingMap implements MapEventListener {
 	public UnfoldingMap(PApplet p, String id, AbstractMapProvider provider) {
 		this(p, id, 0, 0, p.width, p.height, true, false, provider, null);
 	}
-	
+
 	/**
 	 * Creates a new map with specific position and dimension.
 	 * 
@@ -153,10 +153,10 @@ public class UnfoldingMap implements MapEventListener {
 		this(p, generateId(), x, y, width, height, true, false, null, null);
 	}
 
-  public UnfoldingMap(PApplet p, float x, float y, float width, float height, String renderer) {
-    this(p, generateId(), x, y, width, height, true, false, null, renderer);
-  }	
-	
+	public UnfoldingMap(PApplet p, float x, float y, float width, float height, String renderer) {
+		this(p, generateId(), x, y, width, height, true, false, null, renderer);
+	}
+
 	/**
 	 * Creates a new map with specific position and dimension.
 	 * 
@@ -176,19 +176,20 @@ public class UnfoldingMap implements MapEventListener {
 	public UnfoldingMap(PApplet p, String id, float x, float y, float width, float height) {
 		this(p, id, x, y, width, height, true, false, null, null);
 	}
-	
-  public UnfoldingMap(PApplet p, String id, float x, float y, float width, float height, String renderer) {
-    this(p, id, x, y, width, height, true, false, null, renderer);
-  }	
+
+	public UnfoldingMap(PApplet p, String id, float x, float y, float width, float height, String renderer) {
+		this(p, id, x, y, width, height, true, false, null, renderer);
+	}
 
 	public UnfoldingMap(PApplet p, String id, float x, float y, float width, float height, boolean useDistortion) {
 		this(p, id, x, y, width, height, true, useDistortion, null, null);
 	}
 
-	 public UnfoldingMap(PApplet p, String id, float x, float y, float width, float height, boolean useDistortion, String renderer) {
-	    this(p, id, x, y, width, height, true, useDistortion, null, renderer);
-	 }
-	
+	public UnfoldingMap(PApplet p, String id, float x, float y, float width, float height, boolean useDistortion,
+			String renderer) {
+		this(p, id, x, y, width, height, true, useDistortion, null, renderer);
+	}
+
 	/**
 	 * Creates a new map with specific position and dimension.
 	 * 
@@ -209,10 +210,16 @@ public class UnfoldingMap implements MapEventListener {
 		this(p, generateId(), x, y, width, height, true, false, provider, null);
 	}
 
-  public UnfoldingMap(PApplet p, float x, float y, float width, float height, AbstractMapProvider provider, String renderer) {
-    this(p, generateId(), x, y, width, height, true, false, provider, renderer);
-  }	
-	
+	public UnfoldingMap(PApplet p, float x, float y, float width, float height, AbstractMapProvider provider,
+			String renderer) {
+		this(p, generateId(), x, y, width, height, true, false, provider, renderer);
+	}
+
+	public UnfoldingMap(PApplet p, String id, float x, float y, float width, float height, boolean useMask,
+			boolean useDistortion, AbstractMapProvider provider) {
+		this(p, generateId(), x, y, width, height, true, false, provider, null);
+	}
+
 	/**
 	 * Creates a new map with specific position and dimension.
 	 * 
@@ -338,7 +345,7 @@ public class UnfoldingMap implements MapEventListener {
 	public String getId() {
 		return id;
 	}
-	
+
 	/**
 	 * Updates and draws the map. The main method to display this UnfoldingMap.
 	 */
