@@ -7,19 +7,18 @@
  * See MapSnapshot.java and CircularMapSnapshot.java for creating the actual snapshot and storage of metadata.
  */
  
-import processing.opengl.*;
-import codeanticode.glgraphics.*;
 import de.fhpotsdam.unfolding.*;
 import de.fhpotsdam.unfolding.geo.*;
 import de.fhpotsdam.unfolding.utils.*;
 import de.fhpotsdam.unfolding.providers.*;
+import java.util.List;
 
 UnfoldingMap map;
 
 List<MapSnapshot> mapSnapshots = new ArrayList<MapSnapshot>();
 
 void setup() {
-  size(600, 400, GLConstants.GLGRAPHICS);
+  size(600, 400, P2D);
 
   map = new UnfoldingMap(this, 0, 0, 400, 400, new StamenMapProvider.WaterColor());
   map.zoomAndPanTo(new Location(51.507222, -0.1275), 10);

@@ -11,15 +11,12 @@ import de.fhpotsdam.unfolding.geo.*;
 import de.fhpotsdam.unfolding.marker.*;
 import de.fhpotsdam.unfolding.utils.*;
 
-import processing.opengl.*;
-import codeanticode.glgraphics.*;
-
 UnfoldingMap map;
 List<Marker> countryMarkers = new ArrayList<Marker>();
 Location indonesiaLocation = new Location(-6.175, 106.82);
 
 void setup() {
-  size(800, 600, GLConstants.GLGRAPHICS);
+  size(800, 600, P2D);
 
   map = new UnfoldingMap(this);
   map.zoomAndPanTo(indonesiaLocation, 3);

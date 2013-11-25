@@ -4,21 +4,20 @@
  * This example shows how to load data features and create markers manually in order to map specific properties; in this
  * case the colors according to the MBTA schema.
  */
-import processing.opengl.*;
-import codeanticode.glgraphics.*;
 import de.fhpotsdam.unfolding.*;
 import de.fhpotsdam.unfolding.geo.*;
 import de.fhpotsdam.unfolding.utils.*;
 import de.fhpotsdam.unfolding.providers.*;
 import de.fhpotsdam.unfolding.data.*;
 import de.fhpotsdam.unfolding.marker.*;
+import java.util.List;
 
 Location bostonLocation = new Location(42.357778f, -71.061667f);
 
 UnfoldingMap map;
 
 void setup() {
-  size(800, 600, GLConstants.GLGRAPHICS);
+  size(800, 600, OPENGL);
   smooth();
 
   map = new UnfoldingMap(this, new StamenMapProvider.TonerBackground());
