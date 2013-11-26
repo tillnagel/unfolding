@@ -21,7 +21,8 @@ public class MapDisplayFactory {
 
 	public static AbstractMapDisplay getMapDisplay(PApplet p, String id, float x, float y, float width, float height,
 			AbstractMapProvider provider, UnfoldingMap map, String renderer) {
-		return getMapDisplay(p, id, x, y, width, height, DEFAULT_USE_MASK, DEFAULT_USE_DISTORTION, provider, map, renderer);
+		return getMapDisplay(p, id, x, y, width, height, DEFAULT_USE_MASK, DEFAULT_USE_DISTORTION, provider, map,
+				renderer);
 	}
 
 	public static AbstractMapDisplay getMapDisplay(PApplet p, String id, float x, float y, float width, float height,
@@ -34,16 +35,16 @@ public class MapDisplayFactory {
 		}
 
 		try {
-		  Class openGLClass = Class.forName(OPEN_GL_CLASSNAME);
-		  if (openGLClass.isInstance(p.g)){
-        mapDisplay = new OpenGLMapDisplay(p, provider, renderer, x, y, width, height);
-        PApplet.println("Using OpenGLMapDisplay.");        
-		  } else {
-		    mapDisplay = new P2DMapDisplay(p, provider, x, y, width, height);
-		    PApplet.println("No OpenGL mapDisplay available. Using P2DMapDisplay.");
-		  }
+			Class openGLClass = Class.forName(OPEN_GL_CLASSNAME);
+			if (openGLClass.isInstance(p.g)) {
+				mapDisplay = new OpenGLMapDisplay(p, provider, renderer, x, y, width, height);
+				PApplet.println("Using OpenGLMapDisplay.");
+			} else {
+				mapDisplay = new P2DMapDisplay(p, provider, x, y, width, height);
+				PApplet.println("No OpenGL mapDisplay available. Using P2DMapDisplay.");
+			}
 		} catch (ClassNotFoundException e) {
-		  mapDisplay = new P2DMapDisplay(p, provider, x, y, width, height);
+			mapDisplay = new P2DMapDisplay(p, provider, x, y, width, height);
 		}
 
 		mapDisplay.createDefaultMarkerManager(map);
