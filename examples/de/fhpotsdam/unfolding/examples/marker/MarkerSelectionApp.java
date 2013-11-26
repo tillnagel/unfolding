@@ -31,7 +31,7 @@ public class MarkerSelectionApp extends PApplet {
 		map.zoomAndPanTo(indonesiaLocation, 3);
 		MapUtils.createDefaultEventDispatcher(this, map);
 
-		List<Feature> countries = GeoJSONReader.loadData(this, "data/ountries.geo.json");
+		List<Feature> countries = GeoJSONReader.loadData(this, "data/countries.geo.json");
 		List<Marker> countryMarkers = MapUtils.createSimpleMarkers(countries);
 		map.addMarkers(countryMarkers);
 	}

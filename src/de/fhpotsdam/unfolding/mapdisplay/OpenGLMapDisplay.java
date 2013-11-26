@@ -9,8 +9,9 @@ import de.fhpotsdam.unfolding.marker.Marker;
 import de.fhpotsdam.unfolding.marker.MarkerManager;
 import de.fhpotsdam.unfolding.providers.AbstractMapProvider;
 
+@SuppressWarnings("rawtypes")
 public class OpenGLMapDisplay extends P2DMapDisplay implements PConstants {
-
+	protected String renderer;
 	// Inner map (and inner marker) will be drawn on this.
 	protected PGraphics offscreenPG;
 	// Outer marker will be drawn on this
@@ -20,12 +21,33 @@ public class OpenGLMapDisplay extends P2DMapDisplay implements PConstants {
 
 	protected MapDisplayShader mapDisplayShader = null;
 
-	public OpenGLMapDisplay(PApplet papplet, AbstractMapProvider provider, float offsetX, float offsetY,
-			float width, float height) {
+	public OpenGLMapDisplay(PApplet papplet, AbstractMapProvider provider,
+			String renderer, float offsetX, float offsetY, float width, float height) {
 		super(papplet, provider, offsetX, offsetY, width, height);
 
-		offscreenPG = papplet.createGraphics((int) width, (int) height, OPENGL);
-		offscreenCutoffPG = papplet.createGraphics((int) width, (int) height, OPENGL);
+		if (renderer == null || renderer.equals("")) {
+			try {
+				Class P2DClass = Class.forName(P2D);
+				Class P3DClass = Class.forName(P3D);
+				if (P2DClass.isInstance(papplet.g)) {
+					this.renderer = P2D;
+				} else if (P3DClass.isInstance(papplet.g)) {
+					this.renderer = P3D;
+				} else {
+					this.renderer = OPENGL;
+				}
+			} catch (ClassNotFoundException e) {
+				this.renderer = OPENGL;
+			}
+		} else {
+			this.renderer = renderer;
+		}
+
+		offscreenPG = papplet.createGraphics((int) width, (int) height, this.renderer);
+		offscreenPG.smooth(papplet.g.quality);
+		offscreenCutoffPG = papplet.createGraphics((int) width, (int) height, this.renderer);
+		offscreenCutoffPG.smooth(papplet.g.quality);
+
 	}
 
 	public void setMapDisplayShader(MapDisplayShader shader) {
@@ -39,10 +61,19 @@ public class OpenGLMapDisplay extends P2DMapDisplay implements PConstants {
 	@Override
 	public void resize(float width, float height) {
 		super.resize(width, height);
-		
-		offscreenPG = papplet.createGraphics((int) width, (int) height, OPENGL);
-		offscreenCutoffPG = papplet.createGraphics((int) width, (int) height, OPENGL);
-		
+
+		if (offscreenPG != null) {
+			offscreenPG.dispose();
+		}
+		if (offscreenCutoffPG != null) {
+			offscreenCutoffPG.dispose();
+		}
+
+		offscreenPG = papplet.createGraphics((int) width, (int) height, renderer);
+		offscreenPG.smooth(papplet.g.quality);
+		offscreenCutoffPG = papplet.createGraphics((int) width, (int) height, renderer);
+		offscreenCutoffPG.smooth(papplet.g.quality);
+
 		if (mapDisplayShader != null) {
 			mapDisplayShader.resize(width, height);
 		}
@@ -57,7 +88,7 @@ public class OpenGLMapDisplay extends P2DMapDisplay implements PConstants {
 	public PGraphics getOuterPG() {
 		return offscreenCutoffPG;
 	}
-	
+
 	@Override
 	protected void postDraw() {
 		// Draws inner map (with inner marker) and outer marker
@@ -65,7 +96,7 @@ public class OpenGLMapDisplay extends P2DMapDisplay implements PConstants {
 		// REVISIT map background color
 		offscreenCutoffPG.background(0);
 		if (mapDisplayShader != null) {
-			// NB: Uses offscreenPG (and not offscreenCutofPG) to not get 'Shader must be COLOR type' error 
+			// NB: Uses offscreenPG (and not offscreenCutofPG) to not get 'Shader must be COLOR type' error
 			mapDisplayShader.shadeWithoutMarkers(offscreenPG);
 		}
 		offscreenCutoffPG.image(offscreenPG, 0, 0);
@@ -79,12 +110,20 @@ public class OpenGLMapDisplay extends P2DMapDisplay implements PConstants {
 		PGraphics canvasPG = papplet.g;
 		canvasPG.pushMatrix();
 		canvasPG.translate(offsetX, offsetY);
-		canvasPG.applyMatrix(matrix);
+		if (canvasPG.is3D()) {
+			canvasPG.applyMatrix(matrix);
+		} else {
+			canvasPG.applyMatrix(matrix.m00, matrix.m01, matrix.m03,
+					matrix.m10, matrix.m11, matrix.m13);
+		}
 		if (mapDisplayShader != null) {
 			mapDisplayShader.shadeWithMarkers(canvasPG);
 		}
+		canvasPG.pushStyle();
+		canvasPG.blendMode(REPLACE);
 		canvasPG.image(offscreenCutoffPG, 0, 0);
+		papplet.popStyle();
 		canvasPG.popMatrix();
-		//canvasPG.resetShader();
+		// canvasPG.resetShader();
 	}
 }

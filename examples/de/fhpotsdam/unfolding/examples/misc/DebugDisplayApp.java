@@ -16,7 +16,7 @@ public class DebugDisplayApp extends PApplet {
 	DebugDisplay debugDisplay;
 
 	public void setup() {
-		size(1024, 768, OPENGL);
+		size(1024, 768, P2D);
 
 		map = new UnfoldingMap(this, "myMap");
 		map.zoomAndPanTo(new Location(52.5f, 13.4f), 10);

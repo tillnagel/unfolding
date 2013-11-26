@@ -11,8 +11,6 @@ import de.fhpotsdam.unfolding.providers.OpenStreetMap;
  */
 @SuppressWarnings("rawtypes")
 public class MapDisplayFactory {
-
-	public static final String P2D_CLASSNAME = "processing.opengl.PGraphics2D";
 	public static final String OPEN_GL_CLASSNAME = "processing.opengl.PGraphicsOpenGL";
 
 	public static final boolean DEFAULT_USE_MASK = true;
@@ -22,12 +20,13 @@ public class MapDisplayFactory {
 	public static final int OSM_STYLE_ID = 65678; // test: 69960; // original: 998
 
 	public static AbstractMapDisplay getMapDisplay(PApplet p, String id, float x, float y, float width, float height,
-			AbstractMapProvider provider, UnfoldingMap map) {
-		return getMapDisplay(p, id, x, y, width, height, DEFAULT_USE_MASK, DEFAULT_USE_DISTORTION, provider, map);
+			AbstractMapProvider provider, UnfoldingMap map, String renderer) {
+		return getMapDisplay(p, id, x, y, width, height, DEFAULT_USE_MASK, DEFAULT_USE_DISTORTION, provider, map,
+				renderer);
 	}
 
 	public static AbstractMapDisplay getMapDisplay(PApplet p, String id, float x, float y, float width, float height,
-			boolean useMask, boolean useDistortion, AbstractMapProvider provider, UnfoldingMap map) {
+			boolean useMask, boolean useDistortion, AbstractMapProvider provider, UnfoldingMap map, String renderer) {
 
 		AbstractMapDisplay mapDisplay = null;
 
@@ -36,18 +35,15 @@ public class MapDisplayFactory {
 		}
 
 		try {
-			// NB: PGraphics2D subclasses PGraphicsOpenGL thus p.g in both cases is instance.
-			Class p2dClass = Class.forName(P2D_CLASSNAME);
 			Class openGLClass = Class.forName(OPEN_GL_CLASSNAME);
-			if (p2dClass.isInstance(p.g)) {
+			if (openGLClass.isInstance(p.g)) {
+				mapDisplay = new OpenGLMapDisplay(p, provider, renderer, x, y, width, height);
+				PApplet.println("Using OpenGLMapDisplay.");
+			} else {
 				mapDisplay = new P2DMapDisplay(p, provider, x, y, width, height);
 				PApplet.println("No OpenGL mapDisplay available. Using P2DMapDisplay.");
-			}else if (openGLClass.isInstance(p.g)){
-				mapDisplay = new OpenGLMapDisplay(p, provider, x, y, width, height);
-				PApplet.println("Using OpenGLMapDisplay.");
-				
 			}
-		}catch (ClassNotFoundException e){
+		} catch (ClassNotFoundException e) {
 			mapDisplay = new P2DMapDisplay(p, provider, x, y, width, height);
 		}
 

@@ -116,7 +116,7 @@
 		<mkdir dir="${dist.dir}/unfolding_app_template/bin" />
 		<mkdir dir="${dist.dir}/unfolding_app_template/data" />
 		<mkdir dir="${dist.dir}/unfolding_app_template/lib" />
-		<mkdir dir="${dist.dir}/unfolding_app_template/libNative" />
+		<!--<mkdir dir="${dist.dir}/unfolding_app_template/libNative" />-->
 		<mkdir dir="${dist.dir}/unfolding_app_template/src" />
 		<!-- copy all libs -->
 		<copy todir="${dist.dir}/unfolding_app_template/lib/">
@@ -124,9 +124,11 @@
 				<exclude name="*junit*" />
 			</fileset>
 		</copy>
+		<!--
 		<copy todir="${dist.dir}/unfolding_app_template/libNative/">
 			<fileset dir="libNative" />
 		</copy>
+		-->
 		<!-- copy our current unfolding jar -->
 		<copy file="${dist.dir}/${unfolding.jar}" todir="${dist.dir}/unfolding_app_template/lib/" />
 		<!-- copy readme -->
@@ -150,7 +152,7 @@
 		<mkdir dir="${dist.dir}/unfolding_app_template_with_examples/bin" />
 		<mkdir dir="${dist.dir}/unfolding_app_template_with_examples/data" />
 		<mkdir dir="${dist.dir}/unfolding_app_template_with_examples/lib" />
-		<mkdir dir="${dist.dir}/unfolding_app_template_with_examples/libNative" />
+		<!--<mkdir dir="${dist.dir}/unfolding_app_template_with_examples/libNative" />-->
 		<mkdir dir="${dist.dir}/unfolding_app_template_with_examples/src" />
 		<!-- copy all libs -->
 		<copy todir="${dist.dir}/unfolding_app_template_with_examples/lib/">
@@ -158,9 +160,11 @@
 				<exclude name="*junit*" />
 			</fileset>
 		</copy>
+		<!--
 		<copy todir="${dist.dir}/unfolding_app_template_with_examples/libNative/">
 			<fileset dir="libNative" />
 		</copy>
+		-->
 		<!-- copy our current unfolding jar -->
 		<copy file="${dist.dir}/${unfolding.jar}" todir="${dist.dir}/unfolding_app_template_with_examples/lib/" />
 		<!-- copy data files -->

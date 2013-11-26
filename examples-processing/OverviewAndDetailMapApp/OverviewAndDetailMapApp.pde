@@ -7,8 +7,6 @@
  * 
  */
 
-import processing.opengl.*;
-import codeanticode.glgraphics.*;
 import de.fhpotsdam.unfolding.*;
 import de.fhpotsdam.unfolding.geo.*;
 import de.fhpotsdam.unfolding.utils.*;
@@ -19,7 +17,7 @@ UnfoldingMap mapDetail;
 UnfoldingMap mapOverview;
 
 public void setup() {
-  size(800, 600, GLConstants.GLGRAPHICS);
+  size(800, 600, P2D);
 
   mapDetail = new UnfoldingMap(this, "detail", 10, 10, 585, 580);
   mapDetail.setTweening(true);

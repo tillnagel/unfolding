@@ -1,19 +1,17 @@
-import processing.opengl.*;
-import codeanticode.glgraphics.*;
 import de.fhpotsdam.unfolding.*;
 import de.fhpotsdam.unfolding.geo.*;
 import de.fhpotsdam.unfolding.utils.*;
 
-de.fhpotsdam.unfolding.Map map;
+UnfoldingMap map;
 
 Location locationBerlin = new Location(52.5f, 13.4f);
 Location locationLondon = new Location(51.5f, 0f);
 
 public void setup() {
-  size(800, 600, GLConstants.GLGRAPHICS);
+  size(800, 600, P2D);
   noStroke();
 
-  map = new de.fhpotsdam.unfolding.Map(this);
+  map = new UnfoldingMap(this);
   map.setTweening(true);
   map.zoomToLevel(3);
   map.panTo(new Location(40f, 8f));

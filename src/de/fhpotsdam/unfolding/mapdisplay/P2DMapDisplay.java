@@ -349,7 +349,12 @@ public class P2DMapDisplay extends AbstractMapDisplay implements PConstants {
 		// translate and scale, from the middle
 		pg.pushMatrix();
 		pg.translate((float) innerOffsetX, (float) innerOffsetY);
-		pg.applyMatrix(innerMatrix);
+		if (pg.is3D()) {
+		  pg.applyMatrix(innerMatrix);  
+		} else {
+		  pg.applyMatrix(innerMatrix.m00, innerMatrix.m01, innerMatrix.m03,
+		                 innerMatrix.m10, innerMatrix.m11, innerMatrix.m13);		  
+		}
 
 		Vector visibleKeys = getVisibleKeys(pg);
 

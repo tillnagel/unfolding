@@ -1,5 +1,3 @@
-import processing.opengl.*;
-import codeanticode.glgraphics.*;
 import de.fhpotsdam.unfolding.*;
 import de.fhpotsdam.unfolding.geo.*;
 import de.fhpotsdam.unfolding.utils.*;
@@ -12,7 +10,7 @@ UnfoldingMap map;
 DebugDisplay debugDisplay;
 
 void setup() {
-  size(1024, 768, GLConstants.GLGRAPHICS);
+  size(1024, 768, P2D);
 
   map = new UnfoldingMap(this, "myMap");
   map.zoomAndPanTo(new Location(52.5f, 13.4f), 10);

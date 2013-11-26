@@ -20,6 +20,8 @@ ALGORITHMS
 5) Filter and getPos on timer. getPos on interaction.
 6) GLModel. Filter on interaction, getPos each frame.
 7) GLModel. Filter and getPos on interaction.
+8) PShape. Using P2's shape mechanism.
+9) PShapeGroup. Using single group with many shapes.
 
 
 DRAWING
@@ -50,7 +52,8 @@ algorithm with numberOfDots in fps
 7) 		60		60		60		60		60
  i		60		50		40		25		25
  im										45
-
+9)		60		60		60		60
+ i		
 
 ANALYSIS
 - Not much difference between 1) and 2), but large difference between 2) and 3).

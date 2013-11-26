@@ -28,7 +28,7 @@ public class TransitLinesMarkerApp extends PApplet {
 	UnfoldingMap map;
 
 	public void setup() {
-		size(800, 600, OPENGL);
+		size(800, 600, P2D);
 		smooth();
 
 		map = new UnfoldingMap(this, new StamenMapProvider.TonerBackground());

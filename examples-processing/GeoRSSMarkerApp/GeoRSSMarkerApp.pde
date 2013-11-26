@@ -12,16 +12,14 @@ import de.fhpotsdam.unfolding.*;
 import de.fhpotsdam.unfolding.core.*;
 import de.fhpotsdam.unfolding.data.*;
 import de.fhpotsdam.unfolding.geo.*;
-
-import processing.opengl.*;
-import codeanticode.glgraphics.*;
+import java.util.List;
 
 String earthquakesURL = "http://earthquake.usgs.gov/earthquakes/catalogs/eqs7day-M5.xml";
 
 UnfoldingMap map;
 
 public void setup() {
-  size(800, 600, GLConstants.GLGRAPHICS);
+  size(800, 600, P2D);
   smooth();
 
   map = new UnfoldingMap(this);

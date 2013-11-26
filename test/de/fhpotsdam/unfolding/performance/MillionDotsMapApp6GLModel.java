@@ -19,6 +19,8 @@ import de.fhpotsdam.unfolding.utils.MapUtils;
  * 
  * (c) 2012 Till Nagel, unfoldingmaps.org
  * 
+ * SEE unfolding-dots-performance-results.txt!!
+ * 
  * Used for various performance tests.
  * <ul>
  * <li>pure drawing (fps for 10k, 100k, 1000k.)</li>
