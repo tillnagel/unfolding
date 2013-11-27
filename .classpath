@@ -6,7 +6,6 @@
 	<classpathentry excluding="**/.svn|**/.svn/" kind="src" path="config"/>
 	<classpathentry excluding="**/.svn|**/.svn/" kind="src" path="data"/>
 	<classpathentry kind="src" path="examples-extern"/>
-	<classpathentry kind="src" path="notworking"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
 	<classpathentry kind="lib" path="lib/gluegen-rt.jar">
 		<attributes>
@@ -31,6 +30,6 @@
 	</classpathentry>
 	<classpathentry kind="lib" path="lib/gluegen-rt-natives-macosx-universal.jar"/>
 	<classpathentry kind="lib" path="lib/jogl-all-natives-macosx-universal.jar"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/processing-core"/>
+	<classpathentry kind="lib" path="lib/core.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
