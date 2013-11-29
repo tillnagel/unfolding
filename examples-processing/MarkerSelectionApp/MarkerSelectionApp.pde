@@ -1,8 +1,8 @@
 /**
  * Loads country markers, and highlights a polygon when the user hovers over it.
  * 
- * This example starts in Southeast Asia to demonstrate hovering multi-marker polygons such as Indonesia, Phillipines,
- * etc.
+ * This example starts in Southeast Asia to demonstrate hovering multi-marker polygons
+ * such as Indonesia, Phillipines, etc.
  */
 
 import de.fhpotsdam.unfolding.*;
@@ -10,9 +10,10 @@ import de.fhpotsdam.unfolding.data.*;
 import de.fhpotsdam.unfolding.geo.*;
 import de.fhpotsdam.unfolding.marker.*;
 import de.fhpotsdam.unfolding.utils.*;
+import java.util.*;
 
 UnfoldingMap map;
-List<Marker> countryMarkers = new ArrayList<Marker>();
+List countryMarkers = new ArrayList();
 Location indonesiaLocation = new Location(-6.175, 106.82);
 
 void setup() {
@@ -22,8 +23,8 @@ void setup() {
   map.zoomAndPanTo(indonesiaLocation, 3);
   MapUtils.createDefaultEventDispatcher(this, map);
 
-  List<Feature> countries = GeoJSONReader.loadData(this, "countries.geo.json");
-  List<Marker> countryMarkers = MapUtils.createSimpleMarkers(countries);
+  List countries = GeoJSONReader.loadData(this, "countries.geo.json");
+  List countryMarkers = MapUtils.createSimpleMarkers(countries);
   map.addMarkers(countryMarkers);
 }
 
@@ -45,4 +46,3 @@ void mouseMoved() {
     marker.setSelected(true);
   }
 }
-
