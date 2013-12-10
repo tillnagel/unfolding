@@ -15,16 +15,16 @@ public class SimpleMapApp extends PApplet {
 	public void setup() {
 		size(1024, 768, P2D);
 
-		map = new UnfoldingMap(this);		
+		map = new UnfoldingMap(this);
 		map.zoomAndPanTo(new Location(6.316667f, 5.6f), 6);
-		MapUtils.createDefaultEventDispatcher(this, map);	
+		MapUtils.createDefaultEventDispatcher(this, map);
 	}
 
 	public void draw() {
 		map.draw();
 	}
-	
-  public static void main(String args[]) {
-    PApplet.main(new String[] { SimpleMapApp.class.getName() });
-  } 	
+
+	public static void main(String args[]) {
+		PApplet.main(new String[] { SimpleMapApp.class.getName() });
+	}
 }

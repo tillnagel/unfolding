@@ -25,12 +25,13 @@ public class ColoredLinesMarker extends AbstractShapeMarker {
 			UnfoldingMap map) {
 		pg.pushStyle();
 
+		@SuppressWarnings("unchecked")
 		List<Double> speedList = (List<Double>) properties.get("speedList");
 
 		MapPosition oldPos = null;
 		for (int i = 0; i < mapPositions.size(); i++) {
 			MapPosition pos = mapPositions.get(i);
-			if (i > 0) {
+			if (i > 0) {				
 				// Draw a line
 				pg.strokeWeight(4);
 				// Map speed to color of line
