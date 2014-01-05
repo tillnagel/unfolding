@@ -3,10 +3,6 @@ bin/*
 build/
 dist/
 doc/
-
-*.DS_STORE
 .DS_Store
-
 data/splendor-big.png
-
 src/de/fhpotsdam/unfolding/mapdisplay/GLGraphicsMapDisplayTransparentTest.java
