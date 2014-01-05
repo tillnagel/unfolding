@@ -26,9 +26,9 @@ import de.fhpotsdam.unfolding.utils.ScreenPosition;
  * The internal MapDisplay to handle the map display in Processing 2D (and used as super class for 3D) 
  */
 @SuppressWarnings("unchecked")
-public class P2DMapDisplay extends AbstractMapDisplay implements PConstants {
+public class Java2DMapDisplay extends AbstractMapDisplay implements PConstants {
 
-	public static Logger log = Logger.getLogger(P2DMapDisplay.class);
+	public static Logger log = Logger.getLogger(Java2DMapDisplay.class);
 
 	// Used for loadImage and float maths
 	public PApplet papplet;
@@ -49,14 +49,14 @@ public class P2DMapDisplay extends AbstractMapDisplay implements PConstants {
 	/**
 	 * Creates a new MapDisplay with full canvas size, and given provider
 	 */
-	public P2DMapDisplay(PApplet papplet, AbstractMapProvider provider) {
+	public Java2DMapDisplay(PApplet papplet, AbstractMapProvider provider) {
 		this(papplet, provider, 0, 0, papplet.width, papplet.height);
 	}
 
 	/**
 	 * Creates a new MapDisplay.
 	 */
-	public P2DMapDisplay(PApplet papplet, AbstractMapProvider provider, float offsetX, float offsetY,
+	public Java2DMapDisplay(PApplet papplet, AbstractMapProvider provider, float offsetX, float offsetY,
 			float width, float height) {
 		super(provider, width, height);
 		this.papplet = papplet;

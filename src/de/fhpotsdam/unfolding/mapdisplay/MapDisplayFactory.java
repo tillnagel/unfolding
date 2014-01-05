@@ -40,11 +40,11 @@ public class MapDisplayFactory {
 				mapDisplay = new OpenGLMapDisplay(p, provider, renderer, x, y, width, height);
 				PApplet.println("Using OpenGLMapDisplay.");
 			} else {
-				mapDisplay = new P2DMapDisplay(p, provider, x, y, width, height);
-				PApplet.println("No OpenGL mapDisplay available. Using P2DMapDisplay.");
+				mapDisplay = new Java2DMapDisplay(p, provider, x, y, width, height);
+				PApplet.println("No OpenGL/P2D set. Using Java2DMapDisplay.");
 			}
 		} catch (ClassNotFoundException e) {
-			mapDisplay = new P2DMapDisplay(p, provider, x, y, width, height);
+			mapDisplay = new Java2DMapDisplay(p, provider, x, y, width, height);
 		}
 
 		mapDisplay.createDefaultMarkerManager(map);

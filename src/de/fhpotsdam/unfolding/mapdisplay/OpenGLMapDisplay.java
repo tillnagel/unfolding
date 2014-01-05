@@ -10,7 +10,7 @@ import de.fhpotsdam.unfolding.marker.MarkerManager;
 import de.fhpotsdam.unfolding.providers.AbstractMapProvider;
 
 @SuppressWarnings("rawtypes")
-public class OpenGLMapDisplay extends P2DMapDisplay implements PConstants {
+public class OpenGLMapDisplay extends Java2DMapDisplay implements PConstants {
 	protected String renderer;
 	// Inner map (and inner marker) will be drawn on this.
 	protected PGraphics offscreenPG;

@@ -5,7 +5,7 @@ import processing.core.PConstants;
 import processing.core.PImage;
 import de.fhpotsdam.unfolding.core.Coordinate;
 import de.fhpotsdam.unfolding.mapdisplay.AbstractMapDisplay;
-import de.fhpotsdam.unfolding.mapdisplay.P2DMapDisplay;
+import de.fhpotsdam.unfolding.mapdisplay.Java2DMapDisplay;
 import de.fhpotsdam.unfolding.providers.AbstractMapProvider;
 
 /**
@@ -18,7 +18,7 @@ import de.fhpotsdam.unfolding.providers.AbstractMapProvider;
  * </ul>
  * 
  * Tile organization is handled in {@link AbstractMapDisplay} (caching) and
- * {@link P2DMapDisplay} (rendering).
+ * {@link Java2DMapDisplay} (rendering).
  */
 public class TileLoader implements Runnable {
 
