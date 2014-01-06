@@ -248,7 +248,7 @@ public class UnfoldingMap implements MapEventListener {
 		this.id = id;
 
 		if (!greetingMessageDisplayed) {
-			PApplet.println("Unfolding Map v0.9.3");
+			PApplet.println("Unfolding Map v0.9.4 beta");
 			greetingMessageDisplayed = true;
 		}
 

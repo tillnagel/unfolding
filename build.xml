@@ -9,7 +9,7 @@
 		/resources/unfolding_app_template/classpath
 		/resources/unfolding_app_template/classpath_with_examples
 	-->
-	<property name="version" value="0.9.3" />
+	<property name="version" value="0.9.4.beta" />
 	<property name="unfolding.jar" value="unfolding.${version}.jar" />
 
 	<property name="src.dir" location="src" />
