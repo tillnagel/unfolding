@@ -18,7 +18,7 @@ import de.fhpotsdam.unfolding.utils.MapUtils;
  */
 public class GeoRSSMarkerApp extends PApplet {
 
-	String earthquakesURL = "http://earthquake.usgs.gov/earthquakes/catalogs/eqs7day-M5.xml";
+	String earthquakesURL = "http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/4.5_week.atom";
 
 	UnfoldingMap map;
 
@@ -30,7 +30,7 @@ public class GeoRSSMarkerApp extends PApplet {
 		map.zoomToLevel(2);
 		MapUtils.createDefaultEventDispatcher(this, map);
 
-		List<Feature> features = GeoRSSReader.loadData(this, earthquakesURL);
+		List<Feature> features = GeoRSSReader.loadDataGeoRSS(this, earthquakesURL);
 		List<Marker> markers = MapUtils.createSimpleMarkers(features);
 		map.addMarkers(markers);
 	}

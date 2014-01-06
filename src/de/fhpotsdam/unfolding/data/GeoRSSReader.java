@@ -97,7 +97,13 @@ public class GeoRSSReader extends GeoDataReader {
 				for (int c = 0; c < catXML.length; c++) {
 					String label = catXML[c].getString("label");
 					if ("Magnitude".equals(label)) {
-						pointFeature.putProperty("magnitude", catXML[c].getFloat("term"));
+						Float magnitude = 0f;
+						String magnitudeString = catXML[c].getString("term");
+						if (magnitudeString.contains("Magnitude")) {
+							magnitudeString = magnitudeString.replace("Magnitude", "");
+						}
+						magnitude = Float.valueOf(magnitudeString);
+						pointFeature.putProperty("magnitude", magnitude);
 					}
 				}
 				// getChild("category[@label='Magnitude']"); // not supported by XMLElement

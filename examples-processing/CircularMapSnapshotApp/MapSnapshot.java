@@ -1,7 +1,6 @@
 import processing.core.PApplet;
 import processing.core.PGraphics;
 import processing.core.PImage;
-import codeanticode.glgraphics.GLGraphicsOffScreen;
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.geo.Location;
 

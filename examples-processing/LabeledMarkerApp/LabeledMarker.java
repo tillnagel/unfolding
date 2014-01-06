@@ -32,7 +32,7 @@ public class LabeledMarker extends SimplePointMarker {
     pg.pushStyle();
     pg.pushMatrix();
     if (selected) {
-      pg.translate(0, 0, 1);
+      pg.translate(0, 0);
     }
     pg.strokeWeight(strokeWeight);
     if (selected) {

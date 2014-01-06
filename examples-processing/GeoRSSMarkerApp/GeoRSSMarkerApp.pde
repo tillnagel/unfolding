@@ -14,7 +14,7 @@ import de.fhpotsdam.unfolding.data.*;
 import de.fhpotsdam.unfolding.geo.*;
 import java.util.List;
 
-String earthquakesURL = "http://earthquake.usgs.gov/earthquakes/catalogs/eqs7day-M5.xml";
+String earthquakesURL = "http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/4.5_week.atom";
 
 UnfoldingMap map;
 
@@ -26,7 +26,7 @@ public void setup() {
   map.zoomToLevel(2);
   MapUtils.createDefaultEventDispatcher(this, map);
 
-  List<Feature> features = GeoRSSReader.loadData(this, earthquakesURL);
+  List<Feature> features = GeoRSSReader.loadDataGeoRSS(this, earthquakesURL);
   List<Marker> markers = MapUtils.createSimpleMarkers(features);
   map.addMarkers(markers);
 }

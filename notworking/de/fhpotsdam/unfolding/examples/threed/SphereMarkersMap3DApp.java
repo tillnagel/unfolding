@@ -11,7 +11,7 @@ import de.fhpotsdam.unfolding.utils.ScreenPosition;
 
 public class SphereMarkersMap3DApp extends Map3DApp {
 
-	String earthquakesURL = "http://earthquake.usgs.gov/earthquakes/feed/atom/4.5/week";
+	String earthquakesURL = "http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/4.5_week.atom";
 	List<Feature> features;
 	
 	boolean useColorCoding = false;
