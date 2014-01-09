@@ -731,8 +731,7 @@ public class UnfoldingMap implements MapEventListener {
 	 *            Vertical distance in pixel.
 	 */
 	public void panBy(float dx, float dy) {
-		float[] dxy = mapDisplay.getObjectFromScreenPosition(dx, dy);
-		addInnerOffset(dxy[0], dxy[1]);
+		addInnerOffset(dx, dy);
 	}
 
 	/**
