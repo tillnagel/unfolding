@@ -788,6 +788,19 @@ public class UnfoldingMap implements MapEventListener {
 		setOffset(screenPosition.x, screenPosition.y);
 	}
 
+	/**
+	 * Moves the map by the given screen coordinates.
+	 * 
+	 * @param dx
+	 *            The x distance to move by.
+	 * @param dy
+	 *            The y distance to move by.
+	 * 
+	 */
+	public void moveBy(float dx, float dy) {
+		addOffset(dx, dy);
+	}
+
 	// MarkerManagement -----------------------------------------------
 
 	/**
