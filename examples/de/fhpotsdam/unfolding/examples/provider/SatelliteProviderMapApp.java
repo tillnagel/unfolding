@@ -26,6 +26,6 @@ public class SatelliteProviderMapApp extends PApplet {
 	}
 
 	public static void main(String[] args) {
-		PApplet.main(new String[] { "de.fhpotsdam.unfolding.examples.SatelliteProviderMapApp" });
+		PApplet.main(new String[] { "de.fhpotsdam.unfolding.examples.provider.SatelliteProviderMapApp" });
 	}
 }
