@@ -225,7 +225,7 @@
 
 	<!--
 		Copy the javadoc to the gh-pages folder.
-		The assumption is, that there is a gh-gages folder ../gh-pages/.
+		The assumption is, that there is a gh-pages folder ../gh-pages/.
 		This should make it easier to keep the api section on gh-pages up to date.
 	-->
 	<target name="docs2ghpages" depends="docs2ghpages.errormsg, dir.gh-pages.check, docs" if="dir.exists">
