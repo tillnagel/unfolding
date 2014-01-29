@@ -4,13 +4,13 @@ import processing.core.PApplet;
 import processing.core.PConstants;
 import processing.core.PGraphics;
 import de.fhpotsdam.unfolding.mapdisplay.shaders.MapDisplayShader;
-import de.fhpotsdam.unfolding.mapdisplay.shaders.MaskedMapDisplayShader;
 import de.fhpotsdam.unfolding.marker.Marker;
 import de.fhpotsdam.unfolding.marker.MarkerManager;
 import de.fhpotsdam.unfolding.providers.AbstractMapProvider;
 
 @SuppressWarnings("rawtypes")
 public class OpenGLMapDisplay extends Java2DMapDisplay implements PConstants {
+
 	protected String renderer;
 	// Inner map (and inner marker) will be drawn on this.
 	protected PGraphics offscreenPG;
@@ -21,8 +21,8 @@ public class OpenGLMapDisplay extends Java2DMapDisplay implements PConstants {
 
 	protected MapDisplayShader mapDisplayShader = null;
 
-	public OpenGLMapDisplay(PApplet papplet, AbstractMapProvider provider,
-			String renderer, float offsetX, float offsetY, float width, float height) {
+	public OpenGLMapDisplay(PApplet papplet, AbstractMapProvider provider, String renderer, float offsetX,
+			float offsetY, float width, float height) {
 		super(papplet, provider, offsetX, offsetY, width, height);
 
 		if (renderer == null || renderer.equals("")) {
@@ -34,6 +34,7 @@ public class OpenGLMapDisplay extends Java2DMapDisplay implements PConstants {
 				} else if (P3DClass.isInstance(papplet.g)) {
 					this.renderer = P3D;
 				} else {
+					// REVISIT: Never reached as P3D and OPENGL are both PGraphics3D
 					this.renderer = OPENGL;
 				}
 			} catch (ClassNotFoundException e) {
@@ -47,7 +48,6 @@ public class OpenGLMapDisplay extends Java2DMapDisplay implements PConstants {
 		offscreenPG.smooth(papplet.g.quality);
 		offscreenCutoffPG = papplet.createGraphics((int) width, (int) height, this.renderer);
 		offscreenCutoffPG.smooth(papplet.g.quality);
-
 	}
 
 	public void setMapDisplayShader(MapDisplayShader shader) {
@@ -56,6 +56,10 @@ public class OpenGLMapDisplay extends Java2DMapDisplay implements PConstants {
 
 	public MapDisplayShader getMapDisplayShader() {
 		return mapDisplayShader;
+	}
+
+	public String getRenderer() {
+		return renderer;
 	}
 
 	@Override
@@ -93,8 +97,7 @@ public class OpenGLMapDisplay extends Java2DMapDisplay implements PConstants {
 	protected void postDraw() {
 		// Draws inner map (with inner marker) and outer marker
 		offscreenCutoffPG.beginDraw();
-		// REVISIT map background color
-		offscreenCutoffPG.background(0);
+		offscreenCutoffPG.clear();
 		if (mapDisplayShader != null) {
 			// NB: Uses offscreenPG (and not offscreenCutofPG) to not get 'Shader must be COLOR type' error
 			mapDisplayShader.shadeWithoutMarkers(offscreenPG);
@@ -113,16 +116,15 @@ public class OpenGLMapDisplay extends Java2DMapDisplay implements PConstants {
 		if (canvasPG.is3D()) {
 			canvasPG.applyMatrix(matrix);
 		} else {
-			canvasPG.applyMatrix(matrix.m00, matrix.m01, matrix.m03,
-					matrix.m10, matrix.m11, matrix.m13);
+			canvasPG.applyMatrix(matrix.m00, matrix.m01, matrix.m03, matrix.m10, matrix.m11, matrix.m13);
 		}
 		if (mapDisplayShader != null) {
 			mapDisplayShader.shadeWithMarkers(canvasPG);
 		}
 		canvasPG.pushStyle();
-		canvasPG.blendMode(REPLACE);
+		//canvasPG.blendMode(REPLACE);
 		canvasPG.image(offscreenCutoffPG, 0, 0);
-		canvasPG.blendMode(BLEND);
+		//canvasPG.blendMode(BLEND);
 		canvasPG.popStyle();
 		canvasPG.popMatrix();
 		// canvasPG.resetShader();

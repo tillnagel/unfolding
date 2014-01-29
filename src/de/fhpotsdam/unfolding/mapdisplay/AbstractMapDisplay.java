@@ -72,10 +72,10 @@ public abstract class AbstractMapDisplay implements TileLoaderListener {
 	public int max_images_to_keep = 256;
 	// public int max_images_to_keep = 1024;
 	public int grid_padding = 1; // set to 0 for debugging purposes
-	
+
 	/** Check whether all currently visible tiles have been loaded. */
 	protected boolean allTilesLoaded = false;
-	
+
 	protected AbstractMapProvider provider;
 	protected Hashtable<Coordinate, Runnable> pending = new Hashtable<Coordinate, Runnable>();
 	protected Hashtable<Coordinate, Object> images = new Hashtable<Coordinate, Object>();
@@ -98,7 +98,7 @@ public abstract class AbstractMapDisplay implements TileLoaderListener {
 
 		markerManagerList = new ArrayList<MarkerManager<Marker>>();
 	}
-	
+
 	public void resize(float width, float height) {
 		this.width = width;
 		this.height = height;
@@ -127,7 +127,13 @@ public abstract class AbstractMapDisplay implements TileLoaderListener {
 
 	public abstract void draw();
 
-	public abstract void setBackgroundColor(int color);
+	/**
+	 * Sets background color of map.
+	 * 
+	 * @param color
+	 *            Color for the background canvas. Can be semi-transparent. If null it is not used.
+	 */
+	public abstract void setBackgroundColor(Integer color);
 
 	// MarkerManagement -----------------------------------------------
 
@@ -297,7 +303,7 @@ public abstract class AbstractMapDisplay implements TileLoaderListener {
 			new Thread(tileLoader).start();
 		}
 	}
-	
+
 	protected abstract TileLoader createTileLoader(Coordinate coord);
 
 	public void grabTile(Coordinate coord) {
@@ -319,12 +325,11 @@ public abstract class AbstractMapDisplay implements TileLoaderListener {
 		if (pending.size() == 0 && queue.size() == 0) {
 			allTilesLoaded = true;
 			tilesLoaded();
-		}
-		else {
+		} else {
 			allTilesLoaded = false;
 		}
 	}
-	
+
 	/**
 	 * Check whether all currently visible tiles have been loaded.
 	 * 
@@ -351,7 +356,7 @@ public abstract class AbstractMapDisplay implements TileLoaderListener {
 		public int compare(Coordinate c1, Coordinate c2) {
 			if (c1.zoom == center.zoom) {
 				if (c2.zoom == center.zoom) {
-					// only compare squared distances� saves cpu
+					// only compare squared distances, saves cpu
 					float d1 = (float) Math.pow(c1.column - center.column, 2)
 							+ (float) Math.pow(c1.row - center.row, 2);
 					float d2 = (float) Math.pow(c2.column - center.column, 2)

@@ -23,7 +23,7 @@ import de.fhpotsdam.unfolding.tiles.TileLoader;
 import de.fhpotsdam.unfolding.utils.ScreenPosition;
 
 /**
- * The internal MapDisplay to handle the map display in Processing 2D (and used as super class for 3D) 
+ * The internal MapDisplay to handle the map display in Processing 2D (and used as super class for 3D)
  */
 @SuppressWarnings("unchecked")
 public class Java2DMapDisplay extends AbstractMapDisplay implements PConstants {
@@ -40,7 +40,7 @@ public class Java2DMapDisplay extends AbstractMapDisplay implements PConstants {
 	protected PMatrix3D matrix = new PMatrix3D();
 
 	// Background color
-	protected int bgColor = 0;
+	protected Integer bgColor = null;
 
 	// To notify client app when all tiles have been loaded
 	private static final String TILESLOADED_METHOD_NAME = "tilesLoaded";
@@ -56,8 +56,8 @@ public class Java2DMapDisplay extends AbstractMapDisplay implements PConstants {
 	/**
 	 * Creates a new MapDisplay.
 	 */
-	public Java2DMapDisplay(PApplet papplet, AbstractMapProvider provider, float offsetX, float offsetY,
-			float width, float height) {
+	public Java2DMapDisplay(PApplet papplet, AbstractMapProvider provider, float offsetX, float offsetY, float width,
+			float height) {
 		super(provider, width, height);
 		this.papplet = papplet;
 
@@ -342,18 +342,21 @@ public class Java2DMapDisplay extends AbstractMapDisplay implements PConstants {
 		PGraphics pg = getInnerPG();
 		pg.beginDraw();
 
-		// REVISIT For transparency, do not paint bg
-		// But needed to delete panning off the map (in order to not smudge)
-		pg.background(bgColor);
+		// Clears canvas (set to transparency, to not smudge previous map on panning)
+		pg.clear();
+		if (bgColor != null) {
+			// Set background color if given (can also be transparent)
+			pg.background(bgColor);
+		}
 
 		// translate and scale, from the middle
 		pg.pushMatrix();
 		pg.translate((float) innerOffsetX, (float) innerOffsetY);
 		if (pg.is3D()) {
-		  pg.applyMatrix(innerMatrix);  
+			pg.applyMatrix(innerMatrix);
 		} else {
-		  pg.applyMatrix(innerMatrix.m00, innerMatrix.m01, innerMatrix.m03,
-		                 innerMatrix.m10, innerMatrix.m11, innerMatrix.m13);		  
+			pg.applyMatrix(innerMatrix.m00, innerMatrix.m01, innerMatrix.m03, innerMatrix.m10, innerMatrix.m11,
+					innerMatrix.m13);
 		}
 
 		Vector visibleKeys = getVisibleKeys(pg);
@@ -397,7 +400,13 @@ public class Java2DMapDisplay extends AbstractMapDisplay implements PConstants {
 		cleanupImageBuffer();
 	}
 
-	public void setBackgroundColor(int color) {
+	/**
+	 * Sets background color of map.
+	 * 
+	 * @param color
+	 *            Color for the background canvas. Can be semi-transparent. If null it is not used.
+	 */
+	public void setBackgroundColor(Integer color) {
 		this.bgColor = color;
 	}
 

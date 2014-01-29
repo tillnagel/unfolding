@@ -38,7 +38,7 @@ public class MapDisplayFactory {
 			Class openGLClass = Class.forName(OPEN_GL_CLASSNAME);
 			if (openGLClass.isInstance(p.g)) {
 				mapDisplay = new OpenGLMapDisplay(p, provider, renderer, x, y, width, height);
-				PApplet.println("Using OpenGLMapDisplay.");
+				PApplet.println("Using OpenGLMapDisplay with " + ((OpenGLMapDisplay) mapDisplay).getRenderer());
 			} else {
 				mapDisplay = new Java2DMapDisplay(p, provider, x, y, width, height);
 				PApplet.println("No OpenGL/P2D set. Using Java2DMapDisplay.");

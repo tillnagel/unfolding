@@ -1256,9 +1256,9 @@ public class UnfoldingMap implements MapEventListener {
 	 * Sets the background color of this map.
 	 * 
 	 * @param bgColor
-	 *            The color in Processing notation.
+	 *            The color in the current colorMode.
 	 */
-	public void setBackgroundColor(int bgColor) {
+	public void setBackgroundColor(Integer bgColor) {
 		this.mapDisplay.setBackgroundColor(bgColor);
 	}
 
