@@ -5,6 +5,7 @@ de.fhpotsdam.unfolding.events
 de.fhpotsdam.unfolding.geo
 de.fhpotsdam.unfolding.interactions
 de.fhpotsdam.unfolding.mapdisplay
+de.fhpotsdam.unfolding.mapdisplay.shaders
 de.fhpotsdam.unfolding.marker
 de.fhpotsdam.unfolding.providers
 de.fhpotsdam.unfolding.texture
