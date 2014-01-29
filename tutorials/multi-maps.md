@@ -45,12 +45,13 @@ Show two map layers together by displaying two UnfoldingMaps at the same positio
 	UnfoldingMap map2;
 
 	void setup() {
-		size(800, 600, GLConstants.GLGRAPHICS);
+		size(800, 600);
 		
 		Location berlinLocation = new Location(52.439046f, 13.447266f);
 		map1 = new UnfoldingMap(this, "map1", new Microsoft.RoadProvider());
 		map1.zoomAndPanTo(berlinLocation, 8);
-
+		
+		// This heat map provider does not work anymore, but example stays the same
 		map2 = new UnfoldingMap(this, "map2", new ImmoScout.HeatMapProvider());
 		map2.zoomAndPanTo(berlinLocation, 8);
 

@@ -53,7 +53,7 @@ In draw() get the current position of the marker (line 19), and draw some visual
 	SimplePointMarker berlinMarker;
 
 	void setup() {
-	  size(800, 600, GLConstants.GLGRAPHICS);
+	  size(800, 600);
 
 	  map = new UnfoldingMap(this);
 	  MapUtils.createDefaultEventDispatcher(this, map);
@@ -105,7 +105,7 @@ Besides, by creating your own marker class you will have cleaner code, and can m
 
 As example, let's say you want to have concentric markers at specific point locations. In Processing, create a new tab (by clicking on the arrow in the right top corner), and name it EarthquakeMarker.java (don't forget the 'java' suffix!). Now, create your own class and extend Unfolding's `SimplePointMarker`. In the draw() method you can use the PGraphics (same as the one you are drawing on in Processing), and the x and y parameters to draw your stuff to.
 
-	import processing.core.PGraphics;
+	import processing.core.*;
 	import de.fhpotsdam.unfolding.geo.Location;
 	import de.fhpotsdam.unfolding.marker.SimplePointMarker;
 

@@ -20,8 +20,6 @@ First, download and install the [TUIO library for Processing](http://www.tuio.or
 Now, users can drag to pan the map to a new position. They can pinch close to zoom in, and pinch open to zoom out. They can also rotate the map with two fingers, e.g. to align the map towards the user's standing position.
 
 
-	import processing.opengl.*;
-	import codeanticode.glgraphics.GLConstants;
 	import TUIO.*;
 	import de.fhpotsdam.unfolding.*;
 	import de.fhpotsdam.unfolding.events.*;
@@ -31,7 +29,7 @@ Now, users can drag to pan the map to a new position. They can pinch close to zo
 	TuioCursorHandler tuioCursorHandler;
 
 	void setup() {
-		size(800, 600, GLConstants.GLGRAPHICS);
+		size(800, 600);
 
 		map = new UnfoldingMap(this);
 

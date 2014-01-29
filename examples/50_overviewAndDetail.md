@@ -23,7 +23,7 @@ This Overview + Detail example shows how to setup simple connected map views.
 		UnfoldingMap mapOverview;
 		
 		public void setup() {
-			size(800, 600, GLConstants.GLGRAPHICS);
+			size(800, 600);
 
 			mapDetail = new UnfoldingMap(this, "detail", 10, 10, 585, 580);
 			mapOverview = new UnfoldingMap(this, "overview", 605, 10, 185, 185);

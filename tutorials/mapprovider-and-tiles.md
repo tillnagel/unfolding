@@ -86,7 +86,7 @@ For this, you need to add the [SQLlite driver](http://code.google.com/p/sqlite-j
 	UnfoldingMap map;
 
 	void setup() {
-	  size(800, 600, GLConstants.GLGRAPHICS);
+	  size(800, 600);
 
 	  String tilesStr = sketchPath("data/myMapStyle.mbtiles");
 	  map = new UnfoldingMap(this, new MBTilesMapProvider(tilesStr));
@@ -127,7 +127,7 @@ All maps listen to map events themselves, i.e. all interactions affect each map,
 	UnfoldingMap map3;
 
 	void setup() {
-		size(800, 600, GLConstants.GLGRAPHICS);
+		size(800, 600);
 
 		map1 = new UnfoldingMap(this, new Google.GoogleMapProvider());
 		map2 = new UnfoldingMap(this, new Microsoft.AerialProvider());
@@ -163,7 +163,7 @@ This option enables switching between different tile providers for the same map.
 	AbstractMapProvider provider3;
 
 	void setup() {
-		size(800, 600, GLConstants.GLGRAPHICS);
+		size(800, 600);
 
 		provider1 = new Google.GoogleMapProvider();
 		provider2 = new Microsoft.AerialProvider();

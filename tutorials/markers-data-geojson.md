@@ -17,7 +17,7 @@ The following example displays countries of the world as simple polygons. Reads 
 	UnfoldingMap map;
 
 	void setup() {
-		size(800, 600, GLConstants.GLGRAPHICS);
+		size(800, 600);
 	
 		map = new UnfoldingMap(this);
 		MapUtils.createDefaultEventDispatcher(this, map);
@@ -33,8 +33,8 @@ The following example displays countries of the world as simple polygons. Reads 
 
 As easily you can load data from sources in other formats, for instance an online GeoRSS containing the latest earthquakes.
 
-	String rssUrl = "http://earthquake.usgs.gov/earthquakes/catalogs/eqs7day-M5.xml";
-	List<Feature> features = GeoRSSReader.loadData(this, rssUrl);
+	String rssUrl = "http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/4.5_week.atom";
+	List<Feature> features = GeoRSSReader.loadDataGeoRSS(this, rssUrl);
 	List<Marker> markers = MapUtils.createSimpleMarkers(features);
 
 The provided data readers **support basic functionality**, and do not fully implement the respective specifications. The GeoJSON parser supports most features, while the GeoRSS reader supports only Simple and W3C Geo, but not GML, and the GPX reader only enables reading track points. So, either use some other library to parse various data formats with full specification support, or tell us what file you are trying to read in our [issue tracker](https://github.com/tillnagel/unfolding/issues).
