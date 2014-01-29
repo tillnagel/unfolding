@@ -133,6 +133,8 @@
 		<copy file="${dist.dir}/${unfolding.jar}" todir="${dist.dir}/unfolding_app_template/lib/" />
 		<!-- copy readme -->
 		<copy file="resources/unfolding_app_template/README" todir="${dist.dir}/unfolding_app_template/" />
+		<!-- copy license -->
+		<copy file="LICENSE.txt" todir="${dist.dir}/unfolding_app_template/" />
 		<!-- copy main example src -->
 		<copy file="examples/HelloUnfoldingWorld.java" todir="${dist.dir}/unfolding_app_template/src/" />
 		<!-- copy .classpath and .project -->
@@ -173,6 +175,7 @@
 		</copy>
 		<!-- copy readme -->
 		<copy file="resources/unfolding_app_template/README" todir="${dist.dir}/unfolding_app_template_with_examples/" />
+		<copy file="LICENSE.txt" todir="${dist.dir}/unfolding_app_template_with_examples/" />
 		<!-- copy main example src -->
 		<copy file="examples/HelloUnfoldingWorld.java" todir="${dist.dir}/unfolding_app_template/src/" />
 		<!-- copy some examples -->
@@ -196,8 +199,11 @@
 		<mkdir dir="${dist.dir}/Unfolding/library" />
 		<mkdir dir="${dist.dir}/Unfolding/reference" />
 
+		<!-- copy library.properties -->
+		<copy todir="${dist.dir}/Unfolding/" file="resources/library.properties" />
+			
 		<!-- copy libs -->
-		<copy file="${dist.dir}/${unfolding.jar}" tofile="${dist.dir}/Unfolding/library/Unfolding.jar" />
+		<copy tofile="${dist.dir}/Unfolding/library/Unfolding.jar" file="${dist.dir}/${unfolding.jar}" />
 		<copy todir="${dist.dir}/Unfolding/library/" file="${lib.dir}/log4j-1.2.15.jar" />
 		<copy todir="${dist.dir}/Unfolding/library/" file="${lib.dir}/json4processing.jar" />
 
