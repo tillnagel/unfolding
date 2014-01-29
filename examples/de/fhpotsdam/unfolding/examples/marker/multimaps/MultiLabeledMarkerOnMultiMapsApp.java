@@ -2,7 +2,7 @@ package de.fhpotsdam.unfolding.examples.marker.multimaps;
 
 import java.util.List;
 
-import codeanticode.glgraphics.GLConstants;
+
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.data.Feature;
 import de.fhpotsdam.unfolding.data.GeoRSSReader;
@@ -21,7 +21,7 @@ public class MultiLabeledMarkerOnMultiMapsApp extends ManualLabelMarkerApp {
 	UnfoldingMap map2;
 
 	public void setup() {
-		size(800, 600, GLConstants.GLGRAPHICS);
+		size(800, 600, OPENGL);
 
 		map1 = new UnfoldingMap(this, "map", 50, 50, 500, 500);
 		map1.zoomToLevel(2);

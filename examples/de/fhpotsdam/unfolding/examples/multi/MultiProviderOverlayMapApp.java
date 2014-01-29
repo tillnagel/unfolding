@@ -1,7 +1,7 @@
 package de.fhpotsdam.unfolding.examples.multi;
 
 import processing.core.PApplet;
-import codeanticode.glgraphics.GLConstants;
+
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.providers.ImmoScout;
@@ -17,7 +17,7 @@ public class MultiProviderOverlayMapApp extends PApplet {
 	UnfoldingMap map2;
 
 	public void setup() {
-		size(800, 600, GLConstants.GLGRAPHICS);
+		size(800, 600, OPENGL);
 		
 		Location berlinLocation = new Location(52.439046f, 13.447266f);
 		map1 = new UnfoldingMap(this, "map1", new Microsoft.RoadProvider());

@@ -1,12 +1,11 @@
 package de.fhpotsdam.unfolding.interactions;
 
-import java.awt.event.InputEvent;
-import java.awt.event.MouseEvent;
 import java.util.Arrays;
 import java.util.List;
 
 import processing.core.PApplet;
 import processing.core.PConstants;
+import processing.event.MouseEvent;
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.events.MapEventBroadcaster;
 import de.fhpotsdam.unfolding.events.PanMapEvent;
@@ -41,19 +40,13 @@ public class MouseHandler extends MapEventBroadcaster {
 	public MouseHandler(PApplet p, List<UnfoldingMap> maps) {
 		super(maps);
 
-		p.registerMouseEvent(this);
-
-		p.addMouseWheelListener(new java.awt.event.MouseWheelListener() {
-			public void mouseWheelMoved(java.awt.event.MouseWheelEvent evt) {
-				mouseWheel(evt.getWheelRotation());
-			}
-		});
+		p.registerMethod("mouseEvent", this);
 	}
 
 	public void mouseClicked() {
 		for (UnfoldingMap map : maps) {
 			if (map.isHit(mouseX, mouseY)) {
-				if (mouseEvent.getClickCount() == 2) {
+				if (mouseButton == PConstants.LEFT && mouseEvent.getCount() == 2) {
 
 					// Pan + Zoom (order is important)
 					PanMapEvent panMapEvent = new PanMapEvent(this, map.getId());
@@ -95,17 +88,19 @@ public class MouseHandler extends MapEventBroadcaster {
 	public void mouseDragged() {
 		for (UnfoldingMap map : maps) {
 			if (map.isHit(mouseX, mouseY)) {
-				// log.debug("mouse: fire panTo for " + map.getId());
+				if (mouseButton == PConstants.LEFT) {
+					// log.debug("mouse: fire panTo for " + map.getId());
 
-				// Pan between two locations, so other listening maps can pan correctly
+					// Pan between two locations, so other listening maps can pan correctly
 
-				Location oldLocation = map.getLocation(pmouseX, pmouseY);
-				Location newLocation = map.getLocation(mouseX, mouseY);
+					Location oldLocation = map.getLocation(pmouseX, pmouseY);
+					Location newLocation = map.getLocation(mouseX, mouseY);
 
-				PanMapEvent panMapEvent = new PanMapEvent(this, map.getId(), PanMapEvent.PAN_BY);
-				panMapEvent.setFromLocation(oldLocation);
-				panMapEvent.setToLocation(newLocation);
-				eventDispatcher.fireMapEvent(panMapEvent);
+					PanMapEvent panMapEvent = new PanMapEvent(this, map.getId(), PanMapEvent.PAN_BY);
+					panMapEvent.setFromLocation(oldLocation);
+					panMapEvent.setToLocation(newLocation);
+					eventDispatcher.fireMapEvent(panMapEvent);
+				}
 			}
 		}
 	}
@@ -121,62 +116,46 @@ public class MouseHandler extends MapEventBroadcaster {
 	private int mouseX;
 	private int mouseY;
 	private int pmouseX, pmouseY;
-	private int dmouseX, dmouseY;
 	private int emouseX, emouseY;
 	private boolean firstMouse;
 	private int mouseButton;
-	private boolean mousePressed;
 	private MouseEvent mouseEvent;
 
 	public void mouseEvent(MouseEvent event) {
-		int id = event.getID();
+		int action = event.getAction();
 		mouseEvent = event;
 
-		if ((id == MouseEvent.MOUSE_DRAGGED) || (id == MouseEvent.MOUSE_MOVED)) {
+		if ((action == MouseEvent.DRAG) || (action == MouseEvent.MOVE)) {
 			pmouseX = emouseX;
 			pmouseY = emouseY;
 			mouseX = event.getX();
 			mouseY = event.getY();
 		}
 
-		int modifiers = event.getModifiers();
-		if ((modifiers & InputEvent.BUTTON1_MASK) != 0) {
-			mouseButton = PConstants.LEFT;
-		} else if ((modifiers & InputEvent.BUTTON2_MASK) != 0) {
-			mouseButton = PConstants.CENTER;
-		} else if ((modifiers & InputEvent.BUTTON3_MASK) != 0) {
-			mouseButton = PConstants.RIGHT;
-		}
+		mouseButton = event.getButton();
 
 		if (firstMouse) {
 			pmouseX = mouseX;
 			pmouseY = mouseY;
-			dmouseX = mouseX;
-			dmouseY = mouseY;
 			firstMouse = false;
 		}
 
-		switch (id) {
-		case MouseEvent.MOUSE_PRESSED:
-			mousePressed = true;
-			// mousePressed();
-			break;
-		case MouseEvent.MOUSE_RELEASED:
-			mousePressed = false;
-			// mouseReleased();
-			break;
-		case MouseEvent.MOUSE_CLICKED:
+		switch (action) {
+		case MouseEvent.CLICK:
 			mouseClicked();
 			break;
-		case MouseEvent.MOUSE_DRAGGED:
+		case MouseEvent.DRAG:
 			mouseDragged();
 			break;
-		case MouseEvent.MOUSE_MOVED:
+		case MouseEvent.MOVE:
 			mouseMoved();
+			break;
+		case MouseEvent.WHEEL:
+			mouseWheel(event.getCount());
 			break;
 		}
 
-		if ((id == MouseEvent.MOUSE_DRAGGED) || (id == MouseEvent.MOUSE_MOVED)) {
+		if ((action == MouseEvent.DRAG) || (action == MouseEvent.MOVE)) {
 			emouseX = mouseX;
 			emouseY = mouseY;
 		}

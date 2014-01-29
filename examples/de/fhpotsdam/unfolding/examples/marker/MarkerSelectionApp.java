@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import processing.core.PApplet;
-import codeanticode.glgraphics.GLConstants;
+
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.data.Feature;
 import de.fhpotsdam.unfolding.data.GeoJSONReader;
@@ -25,13 +25,13 @@ public class MarkerSelectionApp extends PApplet {
 	Location indonesiaLocation = new Location(-6.175, 106.82);
 
 	public void setup() {
-		size(800, 600, GLConstants.GLGRAPHICS);
+		size(800, 600, OPENGL);
 
 		map = new UnfoldingMap(this);
 		map.zoomAndPanTo(indonesiaLocation, 3);
 		MapUtils.createDefaultEventDispatcher(this, map);
 
-		List<Feature> countries = GeoJSONReader.loadData(this, "data/ountries.geo.json");
+		List<Feature> countries = GeoJSONReader.loadData(this, "data/countries.geo.json");
 		List<Marker> countryMarkers = MapUtils.createSimpleMarkers(countries);
 		map.addMarkers(countryMarkers);
 	}

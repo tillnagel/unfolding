@@ -9,7 +9,7 @@
 		/resources/unfolding_app_template/classpath
 		/resources/unfolding_app_template/classpath_with_examples
 	-->
-	<property name="version" value="0.9.3" />
+	<property name="version" value="0.9.5" />
 	<property name="unfolding.jar" value="unfolding.${version}.jar" />
 
 	<property name="src.dir" location="src" />
@@ -116,7 +116,7 @@
 		<mkdir dir="${dist.dir}/unfolding_app_template/bin" />
 		<mkdir dir="${dist.dir}/unfolding_app_template/data" />
 		<mkdir dir="${dist.dir}/unfolding_app_template/lib" />
-		<mkdir dir="${dist.dir}/unfolding_app_template/libNative" />
+		<!--<mkdir dir="${dist.dir}/unfolding_app_template/libNative" />-->
 		<mkdir dir="${dist.dir}/unfolding_app_template/src" />
 		<!-- copy all libs -->
 		<copy todir="${dist.dir}/unfolding_app_template/lib/">
@@ -124,13 +124,17 @@
 				<exclude name="*junit*" />
 			</fileset>
 		</copy>
+		<!--
 		<copy todir="${dist.dir}/unfolding_app_template/libNative/">
 			<fileset dir="libNative" />
 		</copy>
+		-->
 		<!-- copy our current unfolding jar -->
 		<copy file="${dist.dir}/${unfolding.jar}" todir="${dist.dir}/unfolding_app_template/lib/" />
 		<!-- copy readme -->
 		<copy file="resources/unfolding_app_template/README" todir="${dist.dir}/unfolding_app_template/" />
+		<!-- copy license -->
+		<copy file="LICENSE.txt" todir="${dist.dir}/unfolding_app_template/" />
 		<!-- copy main example src -->
 		<copy file="examples/HelloUnfoldingWorld.java" todir="${dist.dir}/unfolding_app_template/src/" />
 		<!-- copy .classpath and .project -->
@@ -150,7 +154,7 @@
 		<mkdir dir="${dist.dir}/unfolding_app_template_with_examples/bin" />
 		<mkdir dir="${dist.dir}/unfolding_app_template_with_examples/data" />
 		<mkdir dir="${dist.dir}/unfolding_app_template_with_examples/lib" />
-		<mkdir dir="${dist.dir}/unfolding_app_template_with_examples/libNative" />
+		<!--<mkdir dir="${dist.dir}/unfolding_app_template_with_examples/libNative" />-->
 		<mkdir dir="${dist.dir}/unfolding_app_template_with_examples/src" />
 		<!-- copy all libs -->
 		<copy todir="${dist.dir}/unfolding_app_template_with_examples/lib/">
@@ -158,9 +162,11 @@
 				<exclude name="*junit*" />
 			</fileset>
 		</copy>
+		<!--
 		<copy todir="${dist.dir}/unfolding_app_template_with_examples/libNative/">
 			<fileset dir="libNative" />
 		</copy>
+		-->
 		<!-- copy our current unfolding jar -->
 		<copy file="${dist.dir}/${unfolding.jar}" todir="${dist.dir}/unfolding_app_template_with_examples/lib/" />
 		<!-- copy data files -->
@@ -169,6 +175,7 @@
 		</copy>
 		<!-- copy readme -->
 		<copy file="resources/unfolding_app_template/README" todir="${dist.dir}/unfolding_app_template_with_examples/" />
+		<copy file="LICENSE.txt" todir="${dist.dir}/unfolding_app_template_with_examples/" />
 		<!-- copy main example src -->
 		<copy file="examples/HelloUnfoldingWorld.java" todir="${dist.dir}/unfolding_app_template/src/" />
 		<!-- copy some examples -->
@@ -192,8 +199,11 @@
 		<mkdir dir="${dist.dir}/Unfolding/library" />
 		<mkdir dir="${dist.dir}/Unfolding/reference" />
 
+		<!-- copy library.properties -->
+		<copy todir="${dist.dir}/Unfolding/" file="resources/library.properties" />
+			
 		<!-- copy libs -->
-		<copy file="${dist.dir}/${unfolding.jar}" tofile="${dist.dir}/Unfolding/library/Unfolding.jar" />
+		<copy tofile="${dist.dir}/Unfolding/library/Unfolding.jar" file="${dist.dir}/${unfolding.jar}" />
 		<copy todir="${dist.dir}/Unfolding/library/" file="${lib.dir}/log4j-1.2.15.jar" />
 		<copy todir="${dist.dir}/Unfolding/library/" file="${lib.dir}/json4processing.jar" />
 
@@ -215,7 +225,7 @@
 
 	<!--
 		Copy the javadoc to the gh-pages folder.
-		The assumption is, that there is a gh-gages folder ../gh-pages/.
+		The assumption is, that there is a gh-pages folder ../gh-pages/.
 		This should make it easier to keep the api section on gh-pages up to date.
 	-->
 	<target name="docs2ghpages" depends="docs2ghpages.errormsg, dir.gh-pages.check, docs" if="dir.exists">

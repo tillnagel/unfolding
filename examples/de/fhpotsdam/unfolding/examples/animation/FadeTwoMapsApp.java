@@ -12,10 +12,10 @@ import de.fhpotsdam.unfolding.utils.MapUtils;
  * Press key '1' to fade once, and press key '2' to start fading animation.
  */
 public class FadeTwoMapsApp extends PApplet {
-	
+
 	UnfoldingMap map1;
 	UnfoldingMap map2;
-	
+
 	// Create and set variable we need to fade between our two maps.
 	boolean fadeOnce = false;
 	boolean fadeAlways = false;
@@ -23,20 +23,19 @@ public class FadeTwoMapsApp extends PApplet {
 	int fadeDelta = 5;
 	int fadeMin = 0;
 	int fadeMax = 255;
-	
-	
+
 	public void setup() {
-		size(600, 400);
+		size(600, 400, OPENGL);
 		
 		// Set the position and size of our two maps.
 		int mapXposition = 0;
 		int mapYposition = 30;
 		int mapWidth = width;
-		int mapHeight = height-mapYposition;
+		int mapHeight = height - mapYposition;
 		// Set our location of the maps
 		float lon = 52.5f;
 		float lat = 13.4f;
-		
+
 		// Initialize two maps
 		map1 = new UnfoldingMap(this, mapXposition, mapYposition, mapWidth, mapHeight);
 		map1.zoomAndPanTo(new Location(lon, lat), 10);
@@ -44,40 +43,39 @@ public class FadeTwoMapsApp extends PApplet {
 		map2.zoomAndPanTo(new Location(lon, lat), 10);
 		MapUtils.createDefaultEventDispatcher(this, map1, map2);
 	}
-	
-	
+
 	public void draw() {
 		background(0);
-		
+
 		// Calculate Fade Value
-		if(fadeAlways == true){
+		if (fadeAlways == true) {
 			fadeOnce = false;
-			if(fadeVal == 0 || fadeVal == 255)
+			if (fadeVal == 0 || fadeVal == 255)
 				fadeDelta = -fadeDelta;
-			fadeVal+= fadeDelta;
+			fadeVal += fadeDelta;
 		}
-		
-		if(fadeOnce == true){
-			if(fadeVal == 0 || fadeVal == 255){
+
+		if (fadeOnce == true) {
+			if (fadeVal == 0 || fadeVal == 255) {
 				fadeDelta = -fadeDelta;
 				fadeOnce = false;
 			}
-			fadeVal+= fadeDelta;
+			fadeVal += fadeDelta;
 		}
-		
+
 		// Draw maps
 		tint(255);
 		map1.draw();
 		tint(255, fadeVal);
 		map2.draw();
-		
+
 		// Description at the Top
 		fill(255);
 		text("Press key '1' to fade once   |   Press key '2' to fade always", 10, 20);
 	}
-	
-	public void keyPressed(){
-		switch(key){
+
+	public void keyPressed() {
+		switch (key) {
 		case '1':
 			fadeAlways = false;
 			fadeOnce = true;
@@ -88,9 +86,8 @@ public class FadeTwoMapsApp extends PApplet {
 			break;
 		}
 	}
-	
-	
+
 	public static void main(String[] args) {
-		PApplet.main(new String[] {"de.fhpotsdam.unfolding.examples.animation.FadeTwoMapsApp"});
+		PApplet.main(new String[] { "de.fhpotsdam.unfolding.examples.animation.FadeTwoMapsApp" });
 	}
 }

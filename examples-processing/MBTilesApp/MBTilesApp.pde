@@ -9,8 +9,6 @@
  * For testing purposes and to keep the file size small, this example supports only three zoom levels.
  */
  
-import processing.opengl.*;
-import codeanticode.glgraphics.*;
 import de.fhpotsdam.unfolding.*;
 import de.fhpotsdam.unfolding.geo.*;
 import de.fhpotsdam.unfolding.utils.*;
@@ -19,17 +17,16 @@ import de.fhpotsdam.unfolding.providers.*;
 UnfoldingMap map;
 
 void setup() {
-  size(800, 600, GLConstants.GLGRAPHICS);
+  size(800, 600, P2D);
   
-  String mbTilesConnectionString = "jdbc:sqlite:";
-  mbTilesConnectionString += sketchPath("data/blank-1-3.mbtiles");
+  String mbTilesString = sketchPath("data/blank-1-3.mbtiles");
 
-  map = new UnfoldingMap(this, new MBTilesMapProvider(mbTilesConnectionString));
+  map = new UnfoldingMap(this, new MBTilesMapProvider(mbTilesString));
   MapUtils.createDefaultEventDispatcher(this, map);
   map.setZoomRange(1, 3);
 }
 
 void draw() {
+  background(240);
   map.draw();
 }
-

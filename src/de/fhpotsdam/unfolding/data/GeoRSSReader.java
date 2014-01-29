@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import processing.core.PApplet;
-import processing.xml.XMLElement;
+import processing.data.XML;
 import de.fhpotsdam.unfolding.geo.Location;
 
 /**
@@ -14,16 +14,25 @@ import de.fhpotsdam.unfolding.geo.Location;
  */
 public class GeoRSSReader extends GeoDataReader {
 
+	/**
+	 * Loads features from RSS feed in W3C Geo format (geo:lat and geo:long)
+	 * 
+	 * @param p
+	 *            The PApplet.
+	 * @param fileName
+	 *            The name of the GeoRSS file (can be local or remote, i.e. a URI)
+	 * @return A list of geo features.
+	 */
 	public static List<Feature> loadData(PApplet p, String fileName) {
 		List<Feature> features = new ArrayList<Feature>();
 
-		XMLElement rss = new XMLElement(p, fileName);
+		XML rss = p.loadXML(fileName);
 		// Get all items
-		XMLElement[] itemXMLElements = rss.getChildren("channel/item");
-		for (int i = 0; i < itemXMLElements.length; i++) {
+		XML[] itemXML = rss.getChildren("channel/item");
+		for (int i = 0; i < itemXML.length; i++) {
 			// Sets lat,lon as locations for each item
-			XMLElement latXML = itemXMLElements[i].getChild("geo:lat");
-			XMLElement lonXML = itemXMLElements[i].getChild("geo:long");
+			XML latXML = itemXML[i].getChild("geo:lat");
+			XML lonXML = itemXML[i].getChild("geo:long");
 			if (latXML != null && latXML.getContent() != null) {
 				float lat = Float.valueOf(latXML.getContent());
 				float lon = Float.valueOf(lonXML.getContent());
@@ -33,7 +42,7 @@ public class GeoRSSReader extends GeoDataReader {
 				features.add(pointFeature);
 
 				// Sets title if existing
-				XMLElement titleXML = itemXMLElements[i].getChild("title");
+				XML titleXML = itemXML[i].getChild("title");
 				if (titleXML != null && titleXML.getContent() != null) {
 					pointFeature.putProperty("title", titleXML.getContent());
 				}
@@ -43,15 +52,24 @@ public class GeoRSSReader extends GeoDataReader {
 		return features;
 	}
 
+	/**
+	 * Loads features from RSS feed in GeoRSS format (georss:point).
+	 * 
+	 * @param p
+	 *            The PApplet.
+	 * @param fileName
+	 *            The name of the GeoRSS file (can be local or remote, i.e. a URI)
+	 * @return A list of geo features.
+	 */
 	public static List<Feature> loadDataGeoRSS(PApplet p, String fileName) {
 		List<Feature> features = new ArrayList<Feature>();
 
-		XMLElement rss = new XMLElement(p, fileName);
+		XML rss = p.loadXML(fileName);
 		// Get all items
-		XMLElement[] itemXMLElements = rss.getChildren("entry");
-		for (int i = 0; i < itemXMLElements.length; i++) {
+		XML[] itemXML = rss.getChildren("entry");
+		for (int i = 0; i < itemXML.length; i++) {
 			// Sets lat,lon as locations for each item
-			XMLElement pointXML = itemXMLElements[i].getChild("georss:point");
+			XML pointXML = itemXML[i].getChild("georss:point");
 			if (pointXML != null && pointXML.getContent() != null) {
 				String point = pointXML.getContent();
 				String[] latLon = point.split(" ");
@@ -63,26 +81,32 @@ public class GeoRSSReader extends GeoDataReader {
 				features.add(pointFeature);
 
 				// Sets title if existing
-				XMLElement titleXML = itemXMLElements[i].getChild("title");
+				XML titleXML = itemXML[i].getChild("title");
 				if (titleXML != null && titleXML.getContent() != null) {
 					pointFeature.putProperty("title", titleXML.getContent());
 				}
 
 				// Sets date if existing
-				XMLElement dateXML = itemXMLElements[i].getChild("dc:date");
+				XML dateXML = itemXML[i].getChild("dc:date");
 				if (dateXML != null && dateXML.getContent() != null) {
 					pointFeature.putProperty("date", dateXML.getContent());
 				}
 
 				// Sets magnitude if existing
-				XMLElement[] catXMLElements = itemXMLElements[i].getChildren("category");
-				for (int c = 0; c < catXMLElements.length; c++) {
-					String label = catXMLElements[c].getString("label");
+				XML[] catXML = itemXML[i].getChildren("category");
+				for (int c = 0; c < catXML.length; c++) {
+					String label = catXML[c].getString("label");
 					if ("Magnitude".equals(label)) {
-						pointFeature.putProperty("magnitude", catXMLElements[c].getFloat("term"));
+						Float magnitude = 0f;
+						String magnitudeString = catXML[c].getString("term");
+						if (magnitudeString.contains("Magnitude")) {
+							magnitudeString = magnitudeString.replace("Magnitude", "");
+						}
+						magnitude = Float.valueOf(magnitudeString);
+						pointFeature.putProperty("magnitude", magnitude);
 					}
 				}
-				// getChild("category[@label='Magnitude']"); // not supported by XMLELement
+				// getChild("category[@label='Magnitude']"); // not supported by XMLElement
 
 			}
 		}

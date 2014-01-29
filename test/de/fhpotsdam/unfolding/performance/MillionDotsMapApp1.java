@@ -5,7 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import processing.core.PApplet;
-import codeanticode.glgraphics.GLConstants;
+
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.utils.MapUtils;
@@ -28,7 +28,7 @@ public class MillionDotsMapApp1 extends PApplet {
 	boolean useMouseRect = false;
 
 	public void setup() {
-		size(800, 600, GLConstants.GLGRAPHICS);
+		size(800, 600, OPENGL);
 		smooth();
 
 		map = new UnfoldingMap(this);

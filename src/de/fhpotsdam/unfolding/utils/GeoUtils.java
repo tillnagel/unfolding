@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.List;
 
 import processing.core.PVector;
+import de.fhpotsdam.unfolding.core.Coordinate;
 import de.fhpotsdam.unfolding.data.Feature;
 import de.fhpotsdam.unfolding.data.MultiFeature;
 import de.fhpotsdam.unfolding.data.PointFeature;
@@ -223,9 +224,10 @@ public class GeoUtils {
 	protected static float getArea(Feature feature) {
 		return getArea(GeoUtils.getLocations(feature));
 	}
-	
+
 	/**
 	 * Calculates the area of a shape marker.
+	 * 
 	 * @param marker
 	 *            The marker containing location vertices.
 	 * @return The area.
@@ -233,7 +235,7 @@ public class GeoUtils {
 	protected static float getArea(Marker marker) {
 		return getArea(GeoUtils.getLocations(marker));
 	}
-	
+
 	/**
 	 * Gets the overall geometric center of all features.
 	 * 
@@ -308,7 +310,7 @@ public class GeoUtils {
 		}
 		return largestFeature;
 	}
-	
+
 	public static Marker getLargestMarker(MultiMarker multiMarker) {
 		float largestArea = 0;
 		Marker largestMarker = null;
@@ -410,6 +412,27 @@ public class GeoUtils {
 			locations.add(marker.getLocation());
 		}
 		return locations;
+	}
+
+	public static String getQuadKey(Coordinate coord) {
+		return getQuadKey((int) coord.column, (int) coord.row, (int) coord.zoom);
+	}
+
+	public static String getQuadKey(int x, int y, int z) {
+		String quadKey = "";
+		for (int i = z; i > 0; i--) {
+			int digit = 0;
+			int mask = 1 << (i - 1);
+			if ((x & mask) != 0) {
+				digit++;
+			}
+			if ((y & mask) != 0) {
+				digit++;
+				digit++;
+			}
+			quadKey += Integer.toString(digit);
+		}
+		return quadKey;
 	}
 
 }

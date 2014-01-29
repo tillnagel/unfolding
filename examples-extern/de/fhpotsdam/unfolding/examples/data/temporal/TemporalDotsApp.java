@@ -3,11 +3,9 @@ package de.fhpotsdam.unfolding.examples.data.temporal;
 import java.util.List;
 
 import org.joda.time.DateTime;
-import org.joda.time.Hours;
 
 import processing.core.PApplet;
 import processing.core.PVector;
-import codeanticode.glgraphics.GLConstants;
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.data.Feature;
 import de.fhpotsdam.unfolding.data.GeoRSSReader;
@@ -32,7 +30,7 @@ public class TemporalDotsApp extends PApplet {
 	DateTime currentTime;
 
 	public void setup() {
-		size(800, 600, GLConstants.GLGRAPHICS);
+		size(800, 600, OPENGL);
 		smooth();
 
 		map = new UnfoldingMap(this);
@@ -52,7 +50,7 @@ public class TemporalDotsApp extends PApplet {
 	public void draw() {
 		background(0);
 		map.draw();
-		
+
 		for (Marker marker : markers) {
 			DateTime markerTime = new DateTime(marker.getStringProperty("date"));
 			// Check if earthquake has occurred before current time, i.e. visible
@@ -61,24 +59,24 @@ public class TemporalDotsApp extends PApplet {
 				drawEarthquakeMarker(pos);
 			}
 		}
-		
+
 		// Every 10 frames increase current time by 1h
 		if (frameCount % 10 == 0) {
 			currentTime = currentTime.plusHours(1);
-			
+
 			// Loop: If end is reached start at beginning again.
 			if (currentTime.isAfter(endTime)) {
 				currentTime = startTime.plus(0);
 			}
 		}
-		
+
 		noStroke();
 		fill(0, 200);
 		rect(10, 10, 270, 20);
 		fill(255);
 		text("Time: " + currentTime, 13, 24);
 	}
-	
+
 	public void drawEarthquakeMarker(PVector pos) {
 		fill(255, 0, 0, 100);
 		stroke(255, 0, 0, 200);

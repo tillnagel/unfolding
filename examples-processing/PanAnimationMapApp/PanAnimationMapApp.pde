@@ -3,8 +3,6 @@
  * 
  * Press SPACE to switch tweening off (and on again).
  */
-import processing.opengl.*;
-import codeanticode.glgraphics.*;
 import de.fhpotsdam.unfolding.*;
 import de.fhpotsdam.unfolding.geo.*;
 import de.fhpotsdam.unfolding.utils.*;
@@ -17,7 +15,7 @@ Location[] locations = new Location[] {
 int currentLocation = 0;
 
 void setup() {
-  size(800, 600, GLConstants.GLGRAPHICS);
+  size(800, 600, P2D);
 
   map = new UnfoldingMap(this);
   map.setTweening(true);

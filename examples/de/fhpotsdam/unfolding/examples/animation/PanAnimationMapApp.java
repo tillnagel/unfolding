@@ -1,7 +1,7 @@
 package de.fhpotsdam.unfolding.examples.animation;
 
 import processing.core.PApplet;
-import codeanticode.glgraphics.GLConstants;
+
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.examples.interaction.NaviButtonMapApp;
 import de.fhpotsdam.unfolding.geo.Location;
@@ -23,7 +23,7 @@ public class PanAnimationMapApp extends PApplet {
 	int currentLocation = 0;
 
 	public void setup() {
-		size(800, 600, GLConstants.GLGRAPHICS);
+		size(800, 600, OPENGL);
 
 		map = new UnfoldingMap(this);
 		map.setTweening(true);

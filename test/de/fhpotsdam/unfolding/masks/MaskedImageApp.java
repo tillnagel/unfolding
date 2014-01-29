@@ -17,7 +17,7 @@ public class MaskedImageApp extends PApplet {
 	float vx, vy = random(1, 2);
 	
 	public void setup() {
-		size(800, 600);
+		size(800, 600, P2D);
 
 		img = loadImage("test/test800x600.png");
 

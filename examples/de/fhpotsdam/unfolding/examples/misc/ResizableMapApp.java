@@ -1,7 +1,7 @@
 package de.fhpotsdam.unfolding.examples.misc;
 
 import processing.core.PApplet;
-import codeanticode.glgraphics.GLConstants;
+
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.utils.MapUtils;
@@ -18,9 +18,14 @@ public class ResizableMapApp extends PApplet {
 
 	float oldWidth;
 	float oldHeight;
+	
+	public static boolean isApplet = true;
 
 	public void setup() {
-		size(800, 600, GLConstants.GLGRAPHICS);
+		if (isApplet) {
+			println("This only works for Applications!");
+		}
+		size(800, 600, OPENGL);
 		frame.setResizable(true);
 
 		map = new UnfoldingMap(this);
@@ -48,6 +53,7 @@ public class ResizableMapApp extends PApplet {
 	}
 
 	public static void main(String[] args) {
+		isApplet = false;
 		PApplet.main(new String[] { "de.fhpotsdam.unfolding.examples.misc.ResizableMapApp" });
 	}
 }

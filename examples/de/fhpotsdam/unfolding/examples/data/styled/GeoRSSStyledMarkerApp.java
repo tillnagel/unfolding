@@ -3,7 +3,6 @@ package de.fhpotsdam.unfolding.examples.data.styled;
 import java.util.List;
 
 import processing.core.PApplet;
-import codeanticode.glgraphics.GLConstants;
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.data.Feature;
 import de.fhpotsdam.unfolding.data.GeoRSSReader;
@@ -18,19 +17,19 @@ import de.fhpotsdam.unfolding.utils.MapUtils;
  */
 public class GeoRSSStyledMarkerApp extends PApplet {
 
-	String earthquakesURL = "http://earthquake.usgs.gov/earthquakes/catalogs/eqs7day-M5.xml";
+	String earthquakesURL = "http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/4.5_week.atom";
 
 	UnfoldingMap map;
 
 	public void setup() {
-		size(800, 600, GLConstants.GLGRAPHICS);
+		size(800, 600, OPENGL);
 		smooth();
 
 		map = new UnfoldingMap(this);
 		map.zoomToLevel(2);
 		MapUtils.createDefaultEventDispatcher(this, map);
 
-		List<Feature> features = GeoRSSReader.loadData(this, earthquakesURL);
+		List<Feature> features = GeoRSSReader.loadDataGeoRSS(this, earthquakesURL);
 		MarkerFactory markerFactory = new MarkerFactory();
 		markerFactory.setPointClass(EarthquakeMarker.class);
 		List<Marker> markers = markerFactory.createMarkers(features);

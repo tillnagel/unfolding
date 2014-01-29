@@ -1,8 +1,32 @@
 RELEASE NOTES 
 
+0.9.5
+-----------------------------
+
+Bug Fixes
+- Fixed map transparency issues.
 
 
-0.9.3
+Features 
+- Moved core and examples to Processing 2 and its new Java2D/OpenGL renderer.
+- 
+
+Documentation
+- Added more examples (Processing and Eclipse distributions)
+
+
+Other
+- Using Processing's new library installation mechanism
+
+
+
+0.9.4beta
+-----------------------------
+First version using Processing 2 
+
+
+0.9.3 
+-----------------------------
 
 Bug Fixes
 - Fixed tweening (#5). Map now can animate between states, optionally.

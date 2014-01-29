@@ -1,7 +1,7 @@
 package de.fhpotsdam.unfolding.examples.multi;
 
 import processing.core.PApplet;
-import codeanticode.glgraphics.GLConstants;
+
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.providers.MBTilesMapProvider;
@@ -21,7 +21,7 @@ public class DayNightTransitionApp extends PApplet {
 	Integrator blendIntegrator = new Integrator(0);
 
 	public void setup() {
-		size(800, 600, GLConstants.GLGRAPHICS);
+		size(800, 600, OPENGL);
 
 		mapDay = new UnfoldingMap(this);
 		mapNight = new UnfoldingMap(this, new MBTilesMapProvider(JDBC_CONN_STRING_APPLET));

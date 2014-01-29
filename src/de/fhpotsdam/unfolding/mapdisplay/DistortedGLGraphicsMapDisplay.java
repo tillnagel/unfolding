@@ -9,14 +9,14 @@ import de.fhpotsdam.unfolding.texture.Distorter;
 import de.fhpotsdam.unfolding.texture.LinearInterpolationDistorter;
 import de.fhpotsdam.unfolding.texture.TextureDistorter;
 
-public class DistortedGLGraphicsMapDisplay extends GLGraphicsMapDisplay {
+public class DistortedGLGraphicsMapDisplay extends OpenGLMapDisplay {
 
 	public Distorter distorter;
 	public TextureDistorter textureDistorter;
 
 	public DistortedGLGraphicsMapDisplay(PApplet papplet, AbstractMapProvider provider, float offsetX, float offsetY,
 			float width, float height) {
-		super(papplet, provider, offsetX, offsetY, width, height);
+		super(papplet, provider, null, offsetX, offsetY, width, height);
 
 		distorter = new LinearInterpolationDistorter(width / 2, height / 2);
 		textureDistorter = new TextureDistorter(papplet, width, height, 10);
@@ -25,7 +25,7 @@ public class DistortedGLGraphicsMapDisplay extends GLGraphicsMapDisplay {
 
 	public DistortedGLGraphicsMapDisplay(PApplet papplet, AbstractMapProvider provider, float offsetX, float offsetY,
 			float width, float height, Distorter distorter) {
-		super(papplet, provider, offsetX, offsetY, width, height);
+		super(papplet, provider, null, offsetX, offsetY, width, height);
 
 		this.distorter = distorter;
 		textureDistorter = new TextureDistorter(papplet, width, height, 10);
@@ -35,7 +35,7 @@ public class DistortedGLGraphicsMapDisplay extends GLGraphicsMapDisplay {
 	protected void postDraw() {
 		// Draws inner map (with inner marker) and outer marker
 		offscreenCutoffPG.beginDraw();
-		offscreenCutoffPG.image(offscreenPG.getTexture(), 0, 0);
+		offscreenCutoffPG.image(offscreenPG, 0, 0);
 		for (MarkerManager<Marker> mm : markerManagerList) {
 			mm.draw();
 		}
@@ -48,7 +48,7 @@ public class DistortedGLGraphicsMapDisplay extends GLGraphicsMapDisplay {
 		canvasPG.translate(offsetX, offsetY);
 		canvasPG.applyMatrix(matrix);
 		
-		textureDistorter.draw(canvasPG, offscreenPG.getTexture());
+		textureDistorter.draw(canvasPG, offscreenPG);
 		//canvasPG.image(offscreenCutoffPG.getTexture(), 0, 0);
 		canvasPG.popMatrix();
 	}

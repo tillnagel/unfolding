@@ -6,7 +6,6 @@ import java.util.List;
 
 import processing.core.PApplet;
 import processing.core.PVector;
-import codeanticode.glgraphics.GLConstants;
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.events.MapEvent;
 import de.fhpotsdam.unfolding.geo.Location;
@@ -16,6 +15,9 @@ import de.fhpotsdam.unfolding.utils.MapUtils;
  * Displays a million markers on the map.
  * 
  * (c) 2012 Till Nagel, unfoldingmaps.org
+ * 
+ * 
+ * SEE unfolding-dots-performance-results.txt!!
  * 
  * Used for various performance tests.
  * <ul>
@@ -43,7 +45,7 @@ public class MillionDotsMapApp5Timer2 extends PApplet {
 	Location brLoc;
 
 	public void setup() {
-		size(800, 600, GLConstants.GLGRAPHICS);
+		size(800, 600, OPENGL);
 		smooth();
 
 		dots = createRandomDots(20000);

@@ -2,7 +2,7 @@ package de.fhpotsdam.matrix;
 
 import processing.core.PApplet;
 import processing.core.PMatrix3D;
-import codeanticode.glgraphics.GLConstants;
+
 
 public class RotationTest extends PApplet {
 
@@ -16,7 +16,7 @@ public class RotationTest extends PApplet {
 	float zoom;
 
 	public void setup() {
-		size(800, 600, GLConstants.GLGRAPHICS);
+		size(800, 600, OPENGL);
 		smooth();
 		
 		offsetX = 50;

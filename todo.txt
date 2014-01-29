@@ -1,6 +1,65 @@
-- Clean up /test
+
+
+1.0 beta Release (for Processing 2)
+--------------------------
+
+- Re-enable sketches for P2D
+
+
+
+UPDATES to 2.0
+
+- REVISIT ProcessingMapDisplay smooth switching (commented)
+- REVISIT MapUtils event dispatcher registration
+- REVISIT MapDisplayFactory (Instantiation via Class Lookup)
+
+- CHANGED GLGraphics to OpenGL
+
+x CHANGED to Processing events (from awt)
+x MouseWheel not working yet (https://github.com/processing/processing/issues/1461)
+
+
+
+MATRIX / TEXTURE / SHADER
+
+- How to deform / distort a map in a way the location to screen conversion still works
+	(e.g. Fisheye, 3D spikes)
+
+
+x Mask
+x Implement blur shader
+
+- Send to Andres Colubri & ask for feedback
+
+- 3D: 2.5D / Pseudo
+- Distortion grids 
+
+
+OTHER
+- Transparent (real transparency for map tiles)
+	- see offscreenCutoffPG.bg(0)
+
+
+
+EXAMPLES
+
+- Update examples-processing to P2
+
+
+MISC
+
+
+- frameRate seems to be not correct?
+	On FullHD/Fullscreen sketches it still shows 60fps but seems to be lagging.
+- File encoding (all UTF-8)
+
+
+0.9.3 Release
+--------------------------
+
+x Clean up /test
 x Move test apps from /examples to /test
-	- Select fewer example per section (1 best practice!)
+	x Select fewer example per section (1 best practice!)
 x Add javadocs to examples
 x Convert more examples from /examples to /examples-processing
 x Clean up data folder
@@ -17,14 +76,14 @@ x Add tweening (from KUL student fork)
 
 x Merge develop into master
 
-- Publish distributions as 0.9.3
-	- Update ant script: build.xml
+x Publish distributions as 0.9.3
+	x Update ant script: build.xml
 	- Unfolding App Template 
 		- How to handle examples-extern? (/examples-extern, /lib-extern, .classpath)
 		- Test on Linux and Mac
-	- Processing 
-		- Test w/ 1.5
-	- Put zip files to Amazon Cloud
+	x Processing 
+		x Test w/ 1.5
+	x Put zip files to Amazon Cloud
 
 
 UPDATED Processing examples

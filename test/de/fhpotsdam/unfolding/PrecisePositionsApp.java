@@ -2,7 +2,7 @@ package de.fhpotsdam.unfolding;
 
 import processing.core.PApplet;
 import processing.core.PVector;
-import codeanticode.glgraphics.GLConstants;
+
 import de.fhpotsdam.unfolding.core.Coordinate;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.geo.Transformation;
@@ -28,7 +28,7 @@ public class PrecisePositionsApp extends PApplet {
 
 	@Override
 	public void setup() {
-		size(800, 600, GLConstants.GLGRAPHICS);
+		size(800, 600, OPENGL);
 
 		map = new UnfoldingMap(this, new Microsoft.AerialProvider());
 		map.zoomAndPanTo(SINGAPORE_LOCATION, 14);

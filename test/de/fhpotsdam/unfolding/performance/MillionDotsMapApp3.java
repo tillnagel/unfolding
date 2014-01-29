@@ -6,7 +6,7 @@ import java.util.List;
 
 import processing.core.PApplet;
 import processing.core.PVector;
-import codeanticode.glgraphics.GLConstants;
+
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.events.MapEvent;
 import de.fhpotsdam.unfolding.geo.Location;
@@ -31,7 +31,7 @@ public class MillionDotsMapApp3 extends PApplet {
 	Location brLoc;
 
 	public void setup() {
-		size(800, 600, GLConstants.GLGRAPHICS);
+		size(800, 600, OPENGL);
 		smooth();
 
 		dots = createRandomDots(100000);

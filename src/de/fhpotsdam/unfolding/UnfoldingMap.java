@@ -28,7 +28,9 @@ import de.fhpotsdam.utils.Integrator;
  * Acts as facade for the map interactions, e.g. using innerScale for zooming, and outerRotate for rotating.
  */
 public class UnfoldingMap implements MapEventListener {
-
+	
+	public static final String GREETING_MESSAGE = "Unfolding Map v0.9.5";
+	
 	public static final float SCALE_DELTA_IN = 1.05f;
 	public static final float SCALE_DELTA_OUT = 1 / 1.05f;
 
@@ -96,7 +98,7 @@ public class UnfoldingMap implements MapEventListener {
 	 *            The ID of this map.
 	 */
 	public UnfoldingMap(PApplet p, String id) {
-		this(p, id, 0, 0, p.width, p.height, true, false, null);
+		this(p, id, 0, 0, p.width, p.height, true, false, null, null);
 	}
 
 	/**
@@ -106,7 +108,7 @@ public class UnfoldingMap implements MapEventListener {
 	 *            The main applet.
 	 */
 	public UnfoldingMap(PApplet p) {
-		this(p, generateId(), 0, 0, p.width, p.height, true, false, null);
+		this(p, generateId(), 0, 0, p.width, p.height, true, false, null, null);
 	}
 
 	/**
@@ -118,7 +120,7 @@ public class UnfoldingMap implements MapEventListener {
 	 *            The map tiles provider to use.
 	 */
 	public UnfoldingMap(PApplet p, AbstractMapProvider provider) {
-		this(p, generateId(), 0, 0, p.width, p.height, true, false, provider);
+		this(p, generateId(), 0, 0, p.width, p.height, true, false, provider, null);
 	}
 
 	/**
@@ -132,7 +134,7 @@ public class UnfoldingMap implements MapEventListener {
 	 *            The map tiles provider to use.
 	 */
 	public UnfoldingMap(PApplet p, String id, AbstractMapProvider provider) {
-		this(p, id, 0, 0, p.width, p.height, true, false, provider);
+		this(p, id, 0, 0, p.width, p.height, true, false, provider, null);
 	}
 
 	/**
@@ -150,7 +152,11 @@ public class UnfoldingMap implements MapEventListener {
 	 *            The height of this map.
 	 */
 	public UnfoldingMap(PApplet p, float x, float y, float width, float height) {
-		this(p, generateId(), x, y, width, height, true, false, null);
+		this(p, generateId(), x, y, width, height, true, false, null, null);
+	}
+
+	public UnfoldingMap(PApplet p, float x, float y, float width, float height, String renderer) {
+		this(p, generateId(), x, y, width, height, true, false, null, renderer);
 	}
 
 	/**
@@ -170,11 +176,20 @@ public class UnfoldingMap implements MapEventListener {
 	 *            The height of this map.
 	 */
 	public UnfoldingMap(PApplet p, String id, float x, float y, float width, float height) {
-		this(p, id, x, y, width, height, true, false, null);
+		this(p, id, x, y, width, height, true, false, null, null);
+	}
+
+	public UnfoldingMap(PApplet p, String id, float x, float y, float width, float height, String renderer) {
+		this(p, id, x, y, width, height, true, false, null, renderer);
 	}
 
 	public UnfoldingMap(PApplet p, String id, float x, float y, float width, float height, boolean useDistortion) {
-		this(p, id, x, y, width, height, true, useDistortion, null);
+		this(p, id, x, y, width, height, true, useDistortion, null, null);
+	}
+
+	public UnfoldingMap(PApplet p, String id, float x, float y, float width, float height, boolean useDistortion,
+			String renderer) {
+		this(p, id, x, y, width, height, true, useDistortion, null, renderer);
 	}
 
 	/**
@@ -194,7 +209,17 @@ public class UnfoldingMap implements MapEventListener {
 	 *            The map tiles provider to use.
 	 */
 	public UnfoldingMap(PApplet p, float x, float y, float width, float height, AbstractMapProvider provider) {
-		this(p, generateId(), x, y, width, height, true, false, provider);
+		this(p, generateId(), x, y, width, height, true, false, provider, null);
+	}
+
+	public UnfoldingMap(PApplet p, float x, float y, float width, float height, AbstractMapProvider provider,
+			String renderer) {
+		this(p, generateId(), x, y, width, height, true, false, provider, renderer);
+	}
+
+	public UnfoldingMap(PApplet p, String id, float x, float y, float width, float height, boolean useMask,
+			boolean useDistortion, AbstractMapProvider provider) {
+		this(p, generateId(), x, y, width, height, true, false, provider, null);
 	}
 
 	/**
@@ -220,17 +245,17 @@ public class UnfoldingMap implements MapEventListener {
 	 *            The map tiles provider to use.
 	 */
 	public UnfoldingMap(PApplet p, String id, float x, float y, float width, float height, boolean useMask,
-			boolean useDistortion, AbstractMapProvider provider) {
+			boolean useDistortion, AbstractMapProvider provider, String renderer) {
 		this.p = p;
 		this.id = id;
 
 		if (!greetingMessageDisplayed) {
-			PApplet.println("Unfolding Map v0.9.3");
+			PApplet.println(GREETING_MESSAGE);
 			greetingMessageDisplayed = true;
 		}
 
 		this.mapDisplay = MapDisplayFactory.getMapDisplay(p, id, x, y, width, height, useMask, useDistortion, provider,
-				this);
+				this, renderer);
 
 		// panCenterZoomTo(PRIME_MERIDIAN_EQUATOR_LOCATION, DEFAULT_ZOOM_LEVEL);
 
@@ -255,6 +280,15 @@ public class UnfoldingMap implements MapEventListener {
 			} catch (NoSuchMethodException e2) {
 			}
 		}
+	}
+
+	/**
+	 * Check whether all currently visible tiles have been loaded.
+	 * 
+	 * @return True if all tiles have been loaded, false otherwise.
+	 */
+	public boolean allTilesLoaded() {
+		return mapDisplay.allTilesLoaded();
 	}
 
 	protected static String generateId() {
@@ -676,7 +710,9 @@ public class UnfoldingMap implements MapEventListener {
 	 * Pans from one location to another one.
 	 * 
 	 * @param fromLocation
+	 *            Origin location to pan from.
 	 * @param toLocation
+	 *            Destination location to pan to.
 	 */
 	public void pan(Location fromLocation, Location toLocation) {
 		float[] xy1 = mapDisplay.getObjectFromLocation(fromLocation);
@@ -688,23 +724,42 @@ public class UnfoldingMap implements MapEventListener {
 		addInnerOffset(dx, dy);
 	}
 
+	/**
+	 * Pans by distance in screen coordinates.
+	 * 
+	 * @param dx
+	 *            Horizontal distance in pixel.
+	 * @param dy
+	 *            Vertical distance in pixel.
+	 */
 	public void panBy(float dx, float dy) {
-		float[] dxy = mapDisplay.getObjectFromScreenPosition(dx, dy);
-		addInnerOffset(dxy[0], dxy[1]);
+		addInnerOffset(dx, dy);
 	}
 
+	/**
+	 * Pans one tile to the left.
+	 */
 	public void panLeft() {
 		addInnerOffset(PAN_DEFAULT_DELTA, 0);
 	}
 
+	/**
+	 * Pans one tile to the right.
+	 */
 	public void panRight() {
 		addInnerOffset(-PAN_DEFAULT_DELTA, 0);
 	}
 
+	/**
+	 * Pans one tile up.
+	 */
 	public void panUp() {
 		addInnerOffset(0, PAN_DEFAULT_DELTA);
 	}
 
+	/**
+	 * Pans one tile down.
+	 */
 	public void panDown() {
 		addInnerOffset(0, -PAN_DEFAULT_DELTA);
 	}
@@ -733,6 +788,19 @@ public class UnfoldingMap implements MapEventListener {
 	 */
 	public void move(ScreenPosition screenPosition) {
 		setOffset(screenPosition.x, screenPosition.y);
+	}
+
+	/**
+	 * Moves the map by the given screen coordinates.
+	 * 
+	 * @param dx
+	 *            The x distance to move by.
+	 * @param dy
+	 *            The y distance to move by.
+	 * 
+	 */
+	public void moveBy(float dx, float dy) {
+		addOffset(dx, dy);
 	}
 
 	// MarkerManagement -----------------------------------------------
@@ -875,15 +943,13 @@ public class UnfoldingMap implements MapEventListener {
 	public List<Marker> getHitMarkers(float checkX, float checkY) {
 		return mapDisplay.getDefaultMarkerManager().getHitMarkers(checkX, checkY);
 	}
-	
+
 	/**
 	 * @deprecated Use {@link #getHitMarkers(float, float)} instead.
 	 */
 	public List<Marker> getHitMarker(float checkX, float checkY) {
 		return getHitMarkers(checkX, checkY);
 	}
-
-
 
 	// Transformations ------------------------------------
 
@@ -1192,9 +1258,9 @@ public class UnfoldingMap implements MapEventListener {
 	 * Sets the background color of this map.
 	 * 
 	 * @param bgColor
-	 *            The color in Processing notation.
+	 *            The color in the current colorMode.
 	 */
-	public void setBackgroundColor(int bgColor) {
+	public void setBackgroundColor(Integer bgColor) {
 		this.mapDisplay.setBackgroundColor(bgColor);
 	}
 

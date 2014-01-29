@@ -2,7 +2,7 @@ package de.fhpotsdam.unfolding.examples.image;
 
 import processing.core.PApplet;
 import processing.core.PImage;
-import codeanticode.glgraphics.GLConstants;
+
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.providers.Microsoft;
@@ -15,8 +15,8 @@ import de.fhpotsdam.unfolding.utils.ScreenPosition;
  * are used to position and scale the image. (There is no tile mechanism for the overlay image).
  * 
  * In this example, the image shows from where people take pictures of famous sights. The visualization is laid over a
- * satellite map. Below, you can see how people photograph the Hans-Otto-Theater in Potsdam, Germany.
- * See http://schwinki.de/splendor/ for more information.
+ * satellite map. Below, you can see how people photograph the Hans-Otto-Theater in Potsdam, Germany. See
+ * http://schwinki.de/splendor/ for more information.
  * 
  */
 public class ImageOverlayApp extends PApplet {
@@ -28,16 +28,16 @@ public class ImageOverlayApp extends PApplet {
 
 	PImage visImg;
 
-	// Kaiserbahnhof Potsdam, 52.394667¡, 13.013944¡ (west)
-	// Meierei, 52.421944¡, 13.069722¡ (north)
-	// Schloss Babelsberg, 52.407639¡, 13.093289¡ (east)
-	// Potsdam Hauptbahnhof, 52.391667¡, 13.066667¡ (south)
+	// Kaiserbahnhof Potsdam, 52.39466, 13.013944 (west)
+	// Meierei, 52.421944, 13.069722 (north)
+	// Schloss Babelsberg, 52.407639, 13.093289 (east)
+	// Potsdam Hauptbahnhof, 52.391667, 13.066667 (south)
 
 	Location visNorthWest = new Location(52.421944, 13.013944);
 	Location visSouthEast = new Location(52.391667, 13.093289);
 
 	public void setup() {
-		size(1400, 800, GLConstants.GLGRAPHICS);
+		size(1400, 800, OPENGL);
 
 		// Very low quality for file size reasons. Use original from http://schwinki.de/splendor/
 		visImg = loadImage("test/splendor-big.jpg");

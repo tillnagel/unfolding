@@ -5,7 +5,7 @@ import processing.core.PConstants;
 import processing.core.PImage;
 import de.fhpotsdam.unfolding.core.Coordinate;
 import de.fhpotsdam.unfolding.mapdisplay.AbstractMapDisplay;
-import de.fhpotsdam.unfolding.mapdisplay.ProcessingMapDisplay;
+import de.fhpotsdam.unfolding.mapdisplay.Java2DMapDisplay;
 import de.fhpotsdam.unfolding.providers.AbstractMapProvider;
 
 /**
@@ -18,7 +18,7 @@ import de.fhpotsdam.unfolding.providers.AbstractMapProvider;
  * </ul>
  * 
  * Tile organization is handled in {@link AbstractMapDisplay} (caching) and
- * {@link ProcessingMapDisplay} (rendering).
+ * {@link Java2DMapDisplay} (rendering).
  */
 public class TileLoader implements Runnable {
 
@@ -93,12 +93,13 @@ public class TileLoader implements Runnable {
 	protected PImage getTileFromUrl(String[] urls) {
 		// Load image from URL (local file included)
 		// NB: Use 'unknown' as content-type to let loadImage decide
-		PImage img = p.loadImage(urls[0], "unknown");
+		//PImage img = p.loadImage(urls[0], "unknown");
+		PImage img = p.loadImage(urls[0]);
 
 		if (img != null) {
 			// If array contains multiple URLs, load all images and blend them together
 			for (int i = 1; i < urls.length; i++) {
-				PImage img2 = p.loadImage(urls[i], "unknown");
+				PImage img2 = p.loadImage(urls[i]);
 				if (img2 != null) {
 					img.blend(img2, 0, 0, img.width, img.height, 0, 0, img.width, img.height, PApplet.BLEND);
 				}

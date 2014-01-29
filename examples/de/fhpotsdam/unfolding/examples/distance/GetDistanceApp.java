@@ -15,7 +15,7 @@ public class GetDistanceApp extends PApplet {
 	UnfoldingMap map;
 
 	public void setup() {
-		size(600, 600);
+		size(600, 600, OPENGL);
 
 		map = new UnfoldingMap(this);
 		map.zoomAndPanTo(new Location(52.5f, 13.4f), 10);

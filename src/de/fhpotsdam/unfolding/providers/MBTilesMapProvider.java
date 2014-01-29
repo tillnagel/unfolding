@@ -12,6 +12,7 @@ import de.fhpotsdam.unfolding.tiles.MBTilesLoaderUtils;
  */
 public class MBTilesMapProvider extends AbstractMapTileProvider {
 	
+	private static final String JDBC_PREFIX = "jdbc:sqlite:";
 	protected String jdbcConnectionString;
 
 	public MBTilesMapProvider() {
@@ -21,6 +22,9 @@ public class MBTilesMapProvider extends AbstractMapTileProvider {
 
 	public MBTilesMapProvider(String jdbcConnectionString) {
 		this();
+		if (jdbcConnectionString != null && !jdbcConnectionString.startsWith(JDBC_PREFIX)) {
+			jdbcConnectionString = JDBC_PREFIX + jdbcConnectionString;
+		}
 		this.jdbcConnectionString = jdbcConnectionString;
 	}
 

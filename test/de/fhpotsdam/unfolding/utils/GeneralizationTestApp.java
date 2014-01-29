@@ -5,7 +5,7 @@ import java.util.List;
 
 import processing.core.PApplet;
 import processing.core.PVector;
-import codeanticode.glgraphics.GLGraphics;
+
 import de.fhpotsdam.unfolding.UnfoldingMap;
 
 /**
@@ -24,7 +24,7 @@ public class GeneralizationTestApp extends PApplet {
 	float tolerance = 10;
 
 	public void setup() {
-		size(800, 600, GLGraphics.GLGRAPHICS);
+		size(800, 600, OPENGL);
 
 		// map = new UnfoldingMap(this);
 

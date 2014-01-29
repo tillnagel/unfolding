@@ -4,8 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import processing.core.PApplet;
-import processing.xml.XMLElement;
-import codeanticode.glgraphics.GLConstants;
+import processing.data.XML;
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.utils.MapUtils;
@@ -29,7 +28,7 @@ public class ManualGeoRSSApp extends PApplet {
 	List<Location> rssGeoLocations = new ArrayList<Location>();
 
 	public void setup() {
-		size(800, 600, GLConstants.GLGRAPHICS);
+		size(800, 600, OPENGL);
 		smooth();
 
 		map = new UnfoldingMap(this, 50, 50, 700, 500);
@@ -42,17 +41,19 @@ public class ManualGeoRSSApp extends PApplet {
 	public void loadRSSGeoLocations() {
 		// Load RSS feed
 		String url = "http://earthquake.usgs.gov/earthquakes/catalogs/eqs7day-M5.xml";
-		XMLElement rss = new XMLElement(this, url);
+		XML rss = loadXML(url);
 		// Get all items
-		XMLElement[] itemXMLElements = rss.getChildren("channel/item");
-		for (int i = 0; i < itemXMLElements.length; i++) {
+		XML[] itemXML = rss.getChildren("channel/item");
+		for (int i = 0; i < itemXML.length; i++) {
 			// Adds lat,lon as locations for each item
-			XMLElement latXML = itemXMLElements[i].getChild("geo:lat");
-			XMLElement lonXML = itemXMLElements[i].getChild("geo:long");
-			float lat = Float.valueOf(latXML.getContent());
-			float lon = Float.valueOf(lonXML.getContent());
+			XML latXML = itemXML[i].getChild("geo:lat");
+			XML lonXML = itemXML[i].getChild("geo:long");
+			if (latXML != null && latXML.getContent() != null) {
+				float lat = Float.valueOf(latXML.getContent());
+				float lon = Float.valueOf(lonXML.getContent());
 
-			rssGeoLocations.add(new Location(lat, lon));
+				rssGeoLocations.add(new Location(lat, lon));
+			}
 		}
 	}
 

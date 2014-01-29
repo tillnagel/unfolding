@@ -1,17 +1,18 @@
 package de.fhpotsdam.unfolding.examples.geonames;
 
+import org.geonames.Toponym;
+import org.geonames.ToponymSearchCriteria;
+import org.geonames.ToponymSearchResult;
+import org.geonames.WebService;
+
 import processing.core.PApplet;
-import codeanticode.glgraphics.GLConstants;
+import controlP5.ControlEvent;
+import controlP5.ControlP5;
+import controlP5.Textfield;
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.utils.MapUtils;
 import de.fhpotsdam.unfolding.utils.ScreenPosition;
-
-import org.geonames.*;
-
-import controlP5.ControlEvent;
-import controlP5.ControlP5;
-import controlP5.Textfield;
 
 public class GeoNamesDynamicLookup extends PApplet {
 
@@ -33,7 +34,7 @@ public class GeoNamesDynamicLookup extends PApplet {
 
 	public void setup() {
 
-		size(650, 440, GLConstants.GLGRAPHICS);
+		size(650, 440, OPENGL);
 
 		// INIT UNFOLDING
 		map = new UnfoldingMap(this);

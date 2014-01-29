@@ -2,7 +2,7 @@ package de.fhpotsdam.unfolding.examples.interaction;
 
 import processing.core.PApplet;
 import processing.core.PFont;
-import codeanticode.glgraphics.GLConstants;
+
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.utils.MapUtils;
@@ -21,7 +21,7 @@ public class NaviButtonMapApp extends PApplet {
 	PFont font;
 
 	public void setup() {
-		size(800, 600, GLConstants.GLGRAPHICS);
+		size(800, 600, OPENGL);
 		smooth();
 		font = createFont("sans-serif", 14);
 

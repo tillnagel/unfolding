@@ -3,7 +3,6 @@ package de.fhpotsdam.unfolding.examples.interaction.snapshot;
 import processing.core.PApplet;
 import processing.core.PGraphics;
 import processing.core.PImage;
-import codeanticode.glgraphics.GLGraphicsOffScreen;
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.geo.Location;
 
@@ -41,12 +40,7 @@ public class MapSnapshot {
 
 		// Stores image data of the current map
 		PGraphics pg = map.mapDisplay.getOuterPG();
-		if (pg instanceof GLGraphicsOffScreen) {
-			thumbnail = new PImage((int) map.mapDisplay.getWidth(), (int) map.mapDisplay.getHeight());
-			((GLGraphicsOffScreen) pg).getTexture().getImage(thumbnail);
-		} else {
-			thumbnail = pg.get();
-		}
+		thumbnail = pg.get();
 	}
 
 	public void set(float x, float y, float width, float height) {

@@ -2,7 +2,7 @@ package de.fhpotsdam.unfolding.examples.interaction;
 
 import processing.core.PApplet;
 import processing.core.PFont;
-import codeanticode.glgraphics.GLConstants;
+
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.events.EventDispatcher;
 import de.fhpotsdam.unfolding.events.PanMapEvent;
@@ -30,7 +30,7 @@ public class NaviButtonMapEventsApp extends PApplet {
 	EventDispatcher eventDispatcher;
 
 	public void setup() {
-		size(800, 600, GLConstants.GLGRAPHICS);
+		size(800, 600, OPENGL);
 		smooth();
 		font = createFont("sans-serif", 14);
 
