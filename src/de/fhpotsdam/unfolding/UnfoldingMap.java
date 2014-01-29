@@ -28,7 +28,9 @@ import de.fhpotsdam.utils.Integrator;
  * Acts as facade for the map interactions, e.g. using innerScale for zooming, and outerRotate for rotating.
  */
 public class UnfoldingMap implements MapEventListener {
-
+	
+	public static final String GREETING_MESSAGE = "Unfolding Map v0.9.5";
+	
 	public static final float SCALE_DELTA_IN = 1.05f;
 	public static final float SCALE_DELTA_OUT = 1 / 1.05f;
 
@@ -248,7 +250,7 @@ public class UnfoldingMap implements MapEventListener {
 		this.id = id;
 
 		if (!greetingMessageDisplayed) {
-			PApplet.println("Unfolding Map v0.9.4 beta");
+			PApplet.println(GREETING_MESSAGE);
 			greetingMessageDisplayed = true;
 		}
 

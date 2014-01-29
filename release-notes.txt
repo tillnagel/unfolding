@@ -1,5 +1,27 @@
 RELEASE NOTES 
 
+0.9.5
+
+Moved to Processing 2
+
+Bug Fixes
+
+
+Features 
+
+
+Documentation
+
+
+Other
+- Using Processing's new library installation mechanism
+
+
+
+0.9.4 beta
+
+First version using Processing 2 
+
 
 
 0.9.3

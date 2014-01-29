@@ -22,11 +22,12 @@ such as OpenStreetMap or TileMill.
 
 
 ## Download
-Get Unfolding from <http://unfoldingmaps.org/> or directly from here: https://github.com/tillnagel/unfolding/downloads
+Get Unfolding from <http://unfoldingmaps.org/> or directly from here: http://unfoldingmaps.org/downloads
 
 
 ## Credit
-Developed at Interaction Design Lab, FH Potsdam, and the HCI group, KU Leuven.
+Developed at Interaction Design Lab, FH Potsdam, the HCI group, KU Leuven, and MIT Senseable City Labs.
+See http://unfoldingmaps.org/contact.html for the full credits.
 
 
 ## License
@@ -34,7 +35,7 @@ Developed at Interaction Design Lab, FH Potsdam, and the HCI group, KU Leuven.
 You may use Unfolding under the terms of the MIT License. See http://en.wikipedia.org/wiki/MIT_License for more information.
 
 
-Copyright (C) 2013 Till Nagel, and contributors
+Copyright (C) 2014 Till Nagel, and contributors
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
