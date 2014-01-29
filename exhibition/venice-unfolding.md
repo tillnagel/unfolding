@@ -4,7 +4,7 @@ title: Venice Unfolding
 description: Tangible geo-visualization to explore architectural projects in Venice.
 group: exhibition
 author: Interaction Design Lab, FH Potsdam
-released: 2012-12-31 24:59:59
+released: 2012-12-31 23:59:59
 thumbnail: ../assets/images/exhibition/veniceunfolding.png
 link: http://idl.fh-potsdam.de/projects/venice-unfolding/
 ---

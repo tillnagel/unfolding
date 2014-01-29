@@ -4,7 +4,7 @@ title: LiquiData
 description: A tangible multitouch visualization to explore urban movement patterns, and to share engaging places with the help of a smartphone.
 group: exhibition
 author: Pierre La Baume, Luis Grass, Christopher Pietsch, Gunnar Friedrich, David Ikuye
-released: 2012-12-31 24:59:59
+released: 2012-12-31 23:59:59
 thumbnail: ../assets/images/exhibition/liquidata.png
 link: http://liquidata.org/en/
 ---

@@ -4,7 +4,7 @@ title: Muse
 description: An interactive multitouch visualization of relations between geo-positioned locations.
 group: exhibition
 author: Till Nagel
-released: 2012-12-31 24:59:59
+released: 2012-12-31 23:59:59
 thumbnail: ../assets/images/exhibition/muse.png
 link: http://tillnagel.com/2011/10/interactive-exploration-of-geospatial-network-visualization/
 ---

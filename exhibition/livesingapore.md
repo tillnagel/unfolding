@@ -4,7 +4,7 @@ title: Live Singapore
 description: Visual exploration of urban mobility.
 group: exhibition
 author: MIT Senseable City Labs
-released: 2012-12-31 24:59:59
+released: 2012-12-31 23:59:59
 thumbnail: ../assets/images/exhibition/livesingapore.png
 link: http://senseable.mit.edu/visual-explorations-urban-mobility/
 ---

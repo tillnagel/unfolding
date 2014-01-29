@@ -4,7 +4,7 @@ title: Lit
 description: A tool for location based literary research.
 group: exhibition
 author: Jan-Erik Stange and Sebastian Meier
-released: 2012-12-31 24:59:59
+released: 2012-12-31 23:59:59
 thumbnail: ../assets/images/exhibition/lit.png
 link: http://lit.sebastianmeier.eu/
 ---

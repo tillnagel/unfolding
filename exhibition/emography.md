@@ -2,13 +2,12 @@
 layout: page
 title: Emography
 description: Discover patterns on how people feel in the world.
-group: exhibition
+group: "exhibition"
 author: Daniel Palmér and Robin Rundkvist
-released: 2012-12-31 24:59:59
+released: 2012-12-31 23:59:59
 thumbnail: ../assets/images/exhibition/emography.png
 link: http://vmguld.se/emography/
 ---
-
 {% include JB/setup %}
 
 ### Here Could be Content, but we dont need it. The teasers are linking directly to the associated link, if there is one.

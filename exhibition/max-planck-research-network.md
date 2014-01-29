@@ -4,7 +4,7 @@ title: Max Planck Research Network
 description: Multitouch installation showing how Max Planck institutes collaborate.
 group: exhibition
 author: Moritz Stefaner and Onformative
-released: 2012-12-31 24:59:59
+released: 2012-12-31 23:59:59
 thumbnail: ../assets/images/exhibition/maxplanck.png
 link: http://www.max-planck-research-networks.net/
 ---
