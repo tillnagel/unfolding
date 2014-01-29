@@ -19,15 +19,14 @@ UnfoldingMap map;
 void setup() {
   size(800, 600, P2D);
   
-  String mbTilesConnectionString = "jdbc:sqlite:";
-  mbTilesConnectionString += sketchPath("data/blank-1-3.mbtiles");
+  String mbTilesString = sketchPath("data/blank-1-3.mbtiles");
 
-  map = new UnfoldingMap(this, new MBTilesMapProvider(mbTilesConnectionString));
+  map = new UnfoldingMap(this, new MBTilesMapProvider(mbTilesString));
   MapUtils.createDefaultEventDispatcher(this, map);
   map.setZoomRange(1, 3);
 }
 
 void draw() {
+  background(240);
   map.draw();
 }
-

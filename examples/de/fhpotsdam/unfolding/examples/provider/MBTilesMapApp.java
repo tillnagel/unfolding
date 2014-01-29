@@ -1,7 +1,6 @@
 package de.fhpotsdam.unfolding.examples.provider;
 
 import processing.core.PApplet;
-
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.providers.MBTilesMapProvider;
 import de.fhpotsdam.unfolding.utils.MapUtils;
@@ -14,17 +13,17 @@ import de.fhpotsdam.unfolding.utils.MapUtils;
 public class MBTilesMapApp extends PApplet {
 
 	// relative path varies depending on whether this was started as applet or application
-	public static final String JDBC_CONN_STRING_APPLICATION = "jdbc:sqlite:./bin/tiles/blankLight-1-3.mbtiles";
-	public static final String JDBC_CONN_STRING_APPLET = "jdbc:sqlite:./tiles/blankLight-1-3.mbtiles";
+	public static final String TILES_LOCATION_APPLICATION = "./bin/tiles/blankLight-1-3.mbtiles";
+	public static final String TILES_LOCATION_APPLET = "./tiles/blankLight-1-3.mbtiles";
 
-	public static String mbTilesConnectionString = JDBC_CONN_STRING_APPLET;
+	public static String mbTilesString = TILES_LOCATION_APPLET;
 
 	UnfoldingMap map;
 
 	public void setup() {
 		size(800, 600, OPENGL);
 
-		map = new UnfoldingMap(this, new MBTilesMapProvider(mbTilesConnectionString));
+		map = new UnfoldingMap(this, new MBTilesMapProvider(mbTilesString));
 		MapUtils.createDefaultEventDispatcher(this, map);
 		map.setZoomRange(1, 3);
 	}
@@ -35,7 +34,7 @@ public class MBTilesMapApp extends PApplet {
 	}
 
 	public static void main(String[] args) {
-		mbTilesConnectionString = JDBC_CONN_STRING_APPLICATION;
+		mbTilesString = TILES_LOCATION_APPLICATION;
 		PApplet.main(new String[] { "de.fhpotsdam.unfolding.examples.provider.MBTilesMapApp" });
 	}
 }
