@@ -17,14 +17,16 @@ import de.fhpotsdam.unfolding.utils.MapUtils;
 /**
  * Shows two different MapDisplayShader, one shading map and marker (mask), one only map (blur).
  * 
+ * Whether the shader also affects marker depends on the implementation in the Shader class.
+ * 
  * Switch shader by setting the useShaderWithMarker.
  * 
  */
 public class MaskedMarkerAndMapApp extends PApplet {
 
-	boolean useShaderWithMarker = false;
+	boolean useShaderWithMarker = true;
 
-	String earthquakesURL = "http://earthquake.usgs.gov/earthquakes/catalogs/eqs7day-M5.xml";
+	String earthquakesURL = "http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/4.5_week.atom";
 
 	UnfoldingMap map;
 
@@ -35,7 +37,7 @@ public class MaskedMarkerAndMapApp extends PApplet {
 		map = new UnfoldingMap(this, 100, 100, 400, 400);
 		MapUtils.createDefaultEventDispatcher(this, map);
 
-		List<Feature> features = GeoRSSReader.loadData(this, earthquakesURL);
+		List<Feature> features = GeoRSSReader.loadDataGeoRSS(this, earthquakesURL);
 		List<Marker> markers = MapUtils.createSimpleMarkers(features);
 		for (Marker m : markers) {
 			m.setColor(color(255, 0, 0));
@@ -46,8 +48,7 @@ public class MaskedMarkerAndMapApp extends PApplet {
 			// Mask shader also shades markers
 			PImage maskImage = loadImage("test/mask-circular.png");
 			shader = new MaskedMapDisplayShader(this, 400, 400, maskImage);
-		}
-		else {
+		} else {
 			// Blur shader does not shade marker
 			shader = new BlurredMapDisplayShader(this);
 		}

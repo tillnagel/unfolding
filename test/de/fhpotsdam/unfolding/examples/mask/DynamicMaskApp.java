@@ -2,7 +2,6 @@ package de.fhpotsdam.unfolding.examples.mask;
 
 import processing.core.PApplet;
 import processing.core.PGraphics;
-
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.mapdisplay.OpenGLMapDisplay;
 import de.fhpotsdam.unfolding.mapdisplay.shaders.MaskedMapDisplayShader;
@@ -42,6 +41,10 @@ public class DynamicMaskApp extends PApplet {
 		image(mask, 420, 10);
 	}
 
+	public void keyPressed() {
+		resetMask();
+	}
+
 	// draw the grayscale mask on an mask object
 	// 255 = invisible
 	// 0 = visible
@@ -49,11 +52,15 @@ public class DynamicMaskApp extends PApplet {
 		mask.beginDraw();
 		if (mouseX != 0 && mouseY != 0) {
 			mask.noStroke();
-			mask.fill(255, 50);
-			mask.ellipse(mouseX, mouseY, 70, 70);
-			mask.fill(255);
+			mask.fill(255, 127);
 			mask.ellipse(mouseX, mouseY, 50, 50);
 		}
+		mask.endDraw();
+	}
+
+	public void resetMask() {
+		mask.beginDraw();
+		mask.clear();
 		mask.endDraw();
 	}
 
