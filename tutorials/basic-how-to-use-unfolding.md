@@ -16,7 +16,7 @@ Let's begin with our basic Unfolding sketch.
 	UnfoldingMap map;
 	
 	void setup() {
-  		size(800, 600, GLConstants.GLGRAPHICS);
+  		size(800, 600);
   		map = new UnfoldingMap(this);
   		MapUtils.createDefaultEventDispatcher(this, map);
 	}

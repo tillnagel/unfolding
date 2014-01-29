@@ -8,29 +8,23 @@ thumbnail: ../assets/images/tutorials/processing-thumb.png
 
 {% include JB/setup %}
 
-*Unfolding works with Processing 1.5 only!*
-
 ## Download Library
-Download the latest version of the [Unfolding library](http://unfoldingmaps.org/downloads "Download Unfolding") at Github.
+Download the latest version of the [Unfolding library](http://unfoldingmaps.org/downloads "Download Unfolding").
 Unzip the archive and put the extracted Unfolding folder into the libraries folder of your Processing sketches.
 
 To find the Processing sketches location on your computer, open the Preferences window of the
 Processing application and look for the "Sketchbook location" item at the top.
 You will need to create the "libraries" folder if this is your first contributed library.
 
-Unfolding also needs the library GLGraphics to simplify the handling of OpenGL. Download the [GLGraphics library](http://sourceforge.net/projects/glgraphics/ "GLGraphics"), unzip it and put the GLGraphics folder in the libraries folder.
-
 Restart Processing, start a new sketch and create your first simple map.
 
-![Unfolding in Processing](../assets/images/tutorials/processing-ide.png)
+![Unfolding in Processing](../assets/images/tutorials/processing-ide2.png)
 
 ## Hello World
 
-To get started, you need to include the Unfolding, OpenGl and GLGraphics library via
+To get started, you need to include the Unfolding library via
 Sketch » Import Library and put the import statements at the top of your code.
 
-	import processing.opengl.*;
-	import codeanticode.glgraphics.*;
 	import de.fhpotsdam.unfolding.*;
 	import de.fhpotsdam.unfolding.geo.*;
 	import de.fhpotsdam.unfolding.utils.*;  
@@ -41,15 +35,15 @@ Create a reference to a “Map” object, i.e.
 	UnfoldingMap map;
 
 
-In setup() you have to specified the GLGraphics OpenGL renderer as the third parameter of the size() function.
 Initialize a new map object and add the default event function for basic interaction (double-click to zoom  and drag to pan the map).
 
 	void setup() {
-		size(800, 600, GLConstants.GLGRAPHICS);
+		size(800, 600);
 		map = new UnfoldingMap(this);
 		MapUtils.createDefaultEventDispatcher(this, map);
 	}
 
+(You can specify P2D or P3D as renderer as the third parameter of the size() function, and Unfolding will use the appropriate one.)
 
 Once you’ve done this you can begin to draw the map and run the sketch.  
 

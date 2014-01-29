@@ -88,8 +88,8 @@ For this, you need to add the [SQLlite driver](http://code.google.com/p/sqlite-j
 	void setup() {
 	  size(800, 600, GLConstants.GLGRAPHICS);
 
-	  String connStr = "jdbc:sqlite:" + sketchPath("data/myMapStyle.mbtiles");
-	  map = new UnfoldingMap(this, new MBTilesMapProvider(connStr));
+	  String tilesStr = sketchPath("data/myMapStyle.mbtiles");
+	  map = new UnfoldingMap(this, new MBTilesMapProvider(tilesStr));
 	  MapUtils.createDefaultEventDispatcher(this, map);
 	  map.setZoomRange(2, 4);
 	}
@@ -100,8 +100,9 @@ For this, you need to add the [SQLlite driver](http://code.google.com/p/sqlite-j
 
 In Processing you need to specify the absolute file path. In line 6 above, we use Processing's `sketchPath()` method to access the MBTiles file. In Eclipse you should put that database file into your data folder, and reference it relatively.
 
-	String connStr = "jdbc:sqlite:jdbc:sqlite:../data/myMapStyle.mbtiles");
-	
+	String tilesStr = "../data/myMapStyle.mbtiles";
+
+(See examples.MBTilesMapApp in the Eclipse distribution for details.)
 
 	
 ## Switch map provider dynamically
