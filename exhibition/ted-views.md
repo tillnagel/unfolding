@@ -1,12 +1,12 @@
 ---
 layout: page
-title: Ages of Portland
-description: Visualizing the Ages of Portland, Oregon's Extant Buildings.
+title: TED talk views
+description: A visual map showing when and where US viewers watched TED talks.
 group: exhibition
-author: Secret Arts
-released: 2012-02-22 23:59:59
-thumbnail: ../assets/images/exhibition/ages-of-portland.png
-link: http://secret-arts.com/wp/?p=119
+author: Alex Dean, TED
+released: 2012-12-28 23:59:59
+thumbnail: ../assets/images/exhibition/ted-views.png
+link: http://blog.ted.com/2012/09/28/who-else-is-watching-tedtalks-a-visual-map/
 ---
 
 {% include JB/setup %}
