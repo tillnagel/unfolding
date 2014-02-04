@@ -11,6 +11,7 @@ video_caption:
 
 {% assign pages_teasers_template = "grid" %}
 {% assign pages_teasers = site.pages %}
+{% assign sorted_pages = site.pages | sort:"name" %}
 {% assign group = "exhibition" %}
 {% include pages_teasers %}
 

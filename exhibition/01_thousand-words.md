@@ -1,7 +1,7 @@
 ---
 layout: page
 title: A Thousand Words
-description: Visualization for the Humanities. Developed with Massive Pixel Environment, on one of the highest resolution tiled displays in the world.
+description: Developed with Massive Pixel Environment, on one of the highest resolution tiled displays in the world.
 group: exhibition
 author: Rob Turknett, Brandt Westing, Jason Baldridge, and Mike Speriosu. UT Austin
 released: 2012-11-11 23:59:59
