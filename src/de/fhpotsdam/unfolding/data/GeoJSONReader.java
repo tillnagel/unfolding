@@ -149,7 +149,7 @@ public class GeoJSONReader extends GeoDataReader {
 			}
 		}
 
-		if (feature != null && properties != null) {
+		if (feature != null && properties != null && properties.length() > 0) {
 			setProperties(feature, properties);
 		}
 
