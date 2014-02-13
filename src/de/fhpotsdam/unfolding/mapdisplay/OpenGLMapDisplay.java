@@ -34,8 +34,13 @@ public class OpenGLMapDisplay extends Java2DMapDisplay implements PConstants {
 				} else if (P3DClass.isInstance(papplet.g)) {
 					this.renderer = P3D;
 				} else {
-					// REVISIT: Never reached as P3D and OPENGL are both PGraphics3D
-					this.renderer = OPENGL;
+					// Can be reached when a renderer is used which extends PGraphicsOpenGL but not PGraphics3D
+					// Thanks to @codeanticode (Andres Colubri) for suggestion.
+					if (papplet.g.is2D()) {
+						this.renderer = P2D;
+					} else {
+						this.renderer = OPENGL;
+					}
 				}
 			} catch (ClassNotFoundException e) {
 				this.renderer = OPENGL;
@@ -122,9 +127,7 @@ public class OpenGLMapDisplay extends Java2DMapDisplay implements PConstants {
 			mapDisplayShader.shadeWithMarkers(canvasPG);
 		}
 		canvasPG.pushStyle();
-		//canvasPG.blendMode(REPLACE);
 		canvasPG.image(offscreenCutoffPG, 0, 0);
-		//canvasPG.blendMode(BLEND);
 		canvasPG.popStyle();
 		canvasPG.popMatrix();
 		// canvasPG.resetShader();
