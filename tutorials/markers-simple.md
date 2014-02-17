@@ -126,7 +126,7 @@ As example, let's say you want to have concentric markers at specific point loca
 	  }
 	}
 
-You also can extend SimpleLinesMarker or SimplePolygonMarker or create your completely own.
+You also can extend SimpleLinesMarker (<a href="https://github.com/tillnagel/unfolding/blob/master/examples/de/fhpotsdam/unfolding/examples/marker/custom/MyLinesMarkerApp.java">example</a>) or SimplePolygonMarker (<a href="https://github.com/tillnagel/unfolding/blob/master/examples/de/fhpotsdam/unfolding/examples/marker/custom/MyPolygonMarkerApp.java">example</a>) or create your completely own.
 Check out the [Processing tutorial on objects](http://processing.org/learning/objects/) for more information on objects, classes, etc.
 
 How to create your own image marker in Java, as shown in the screenshot above, see the [Image Marker example](../examples/40_image-marker.html) for the source code.
@@ -146,6 +146,8 @@ Let's create a very simple line marker connecting two locations.
 As the names suggest, a `LineMarker` connects two or more locations with a line, a `PolygonMarker` draws a closed polygon. Both are shape markers handling a list of locations, having a centroid, and providing hit test methods.
 
 For more complex markers with many locations it might be useful to load them from a geo-data source. Check out our [Markers & Data tutorial](markers-data-geojson.html) for this.
+
+And to repeat, you can also extend SimpleLinesMarker (<a href="https://github.com/tillnagel/unfolding/blob/master/examples/de/fhpotsdam/unfolding/examples/marker/custom/MyLinesMarkerApp.java">example</a>) or SimplePolygonMarker (<a href="https://github.com/tillnagel/unfolding/blob/master/examples/de/fhpotsdam/unfolding/examples/marker/custom/MyPolygonMarkerApp.java">example</a>) for further customization, or to implement own behaviour.
 
 
 ## Selecting a marker
