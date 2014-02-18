@@ -1,4 +1,4 @@
-package de.fhpotsdam.unfolding.examples.distance;
+package de.fhpotsdam.unfolding.examples.geo;
 
 import processing.core.PApplet;
 import de.fhpotsdam.unfolding.UnfoldingMap;
@@ -42,7 +42,7 @@ public class GetDistanceApp extends PApplet {
 	}
 
 	public static void main(String[] args) {
-		PApplet.main(new String[] { "de.fhpotsdam.unfolding.examples.animation.GetDistanceApp" });
+		PApplet.main(new String[] { "de.fhpotsdam.unfolding.examples.geo.GetDistanceApp" });
 	}
 
 }

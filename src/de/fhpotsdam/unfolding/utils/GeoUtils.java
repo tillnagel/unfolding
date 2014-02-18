@@ -20,7 +20,11 @@ import de.fhpotsdam.unfolding.marker.MultiMarker;
  */
 public class GeoUtils {
 
-	private static final double EARTH_RADIUS_KM = 6371.01;
+	public static final double EARTH_RADIUS_KM = 6371.01;
+	public static final double MIN_LAT = -85.0511d; // top edge in Mercator
+	public static final double MAX_LAT = 85.0511d; // bottom edge in Mercator
+	public static final double MIN_LON = -180;
+	public static final double MAX_LON = 180;
 
 	/**
 	 * Get distance in kilometers between two points on the earth. Using the great-circle distance formula with the
@@ -452,5 +456,40 @@ public class GeoUtils {
 		}
 		return quadKey;
 	}
+
+	/**
+	 * Returns the bounding box for the list of locations.
+	 * 
+	 * Does not return the minimum bounding box, i.e. locations spanning the 180th meridian will result in a very large
+	 * box.
+	 * 
+	 * @param locations
+	 *            List of locations to get the bounding box for.
+	 * @return An array of two locations consisting of the north-west and the south-east bounds.
+	 */
+	public static Location[] getBoundingBox(List<Location> locations) {
+		Location nwLocation = new Location(GeoUtils.MIN_LAT, GeoUtils.MAX_LON);
+		Location seLocation = new Location(GeoUtils.MAX_LAT, GeoUtils.MIN_LON);
+
+		for (Location location : locations) {
+			if (location.getLat() > nwLocation.getLat()) {
+				nwLocation.setLat(location.getLat());
+			}
+			if (location.getLon() < nwLocation.getLon()) {
+				nwLocation.setLon(location.getLon());
+			}
+
+			if (location.getLat() < seLocation.getLat()) {
+				seLocation.setLat(location.getLat());
+			}
+			if (location.getLon() > seLocation.getLon()) {
+				seLocation.setLon(location.getLon());
+			}
+		}
+
+		return new Location[] { nwLocation, seLocation };
+	}
+	
+	
 
 }

@@ -1,5 +1,6 @@
 package de.fhpotsdam.unfolding.geo;
 
+import de.fhpotsdam.unfolding.utils.GeoUtils;
 import processing.core.PApplet;
 import processing.core.PVector;
 
@@ -49,6 +50,10 @@ public class Location extends PVector {
 
 	public String toString() {
 		return "(" + PApplet.nf(x, 1, 3) + ", " + PApplet.nf(y, 1, 3) + ")";
+	}
+	
+	public double getDistance(Location otherLocation) {
+		return GeoUtils.getDistance(this, otherLocation);
 	}
 
 }

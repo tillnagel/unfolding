@@ -1,4 +1,4 @@
-package de.fhpotsdam.unfolding.examples.distance;
+package de.fhpotsdam.unfolding.examples.geo;
 
 import processing.core.PApplet;
 
@@ -74,6 +74,6 @@ public class GreatCircleConnectionApp extends PApplet {
 
 	public static void main(String[] args) {
 		// Here we start the actual Unfolding part
-		PApplet.main(new String[] { "de.fhpotsdam.unfolding.examples.distance.GreatCircleConnectionApp" });
+		PApplet.main(new String[] { "de.fhpotsdam.unfolding.examples.geo.GreatCircleConnectionApp" });
 	}
 }

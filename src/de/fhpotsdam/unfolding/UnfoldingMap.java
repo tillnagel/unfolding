@@ -2,6 +2,7 @@ package de.fhpotsdam.unfolding;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
@@ -624,18 +625,32 @@ public class UnfoldingMap implements MapEventListener {
 	/**
 	 * Zooms in around position, and pans to it.
 	 * 
-	 * After the pan the center still is at the same location. (As innerTransformationCenter is in object coordinates,
-	 * thus stays at same inner position.)
+	 * @deprecated Use {@link #zoomAndPanTo(int, Location)}.
 	 * 
 	 * @param location
 	 *            The Location to zoom around and pan to.
-	 * @param level
+	 * @param zoomLevel
 	 *            Zoom level to zoom to.
 	 */
 	public void zoomAndPanTo(Location location, int level) {
+
+	}
+
+	/**
+	 * Zooms in around position, and pans to it.
+	 * 
+	 * After the pan the center still is at the same location. (As innerTransformationCenter is in object coordinates,
+	 * thus stays at same inner position.)
+	 * 
+	 * @param zoomLevel
+	 *            Zoom level to zoom to.
+	 * @param location
+	 *            The Location to zoom around and pan to.
+	 */
+	public void zoomAndPanTo(int zoomLevel, Location location) {
 		ScreenPosition pos = mapDisplay.getScreenPosition(location);
 		mapDisplay.setInnerTransformationCenter(new PVector(pos.x, pos.y));
-		zoomToLevel(level);
+		zoomToLevel(zoomLevel);
 		panTo(location);
 	}
 
@@ -801,6 +816,28 @@ public class UnfoldingMap implements MapEventListener {
 	 */
 	public void moveBy(float dx, float dy) {
 		addOffset(dx, dy);
+	}
+
+	public void zoomAndPanToFit(List<Location> locations) {
+		Location[] boundingBox = GeoUtils.getBoundingBox(locations);		
+		List<Location> boundingBoxLocations = Arrays.asList(boundingBox);
+		Location centerLocation = GeoUtils.getEuclideanCentroid(boundingBoxLocations);
+		ScreenPosition pos = mapDisplay.getScreenPosition(centerLocation);
+		mapDisplay.setInnerTransformationCenter(new PVector(pos.x, pos.y));
+		zoomToFit(boundingBox);
+		panTo(centerLocation);
+	}
+
+	public void zoomToFit(List<Location> locations) {
+		Location[] boundingBox = GeoUtils.getBoundingBox(locations);
+		zoomToFit(boundingBox);
+	}
+
+	public void zoomToFit(Location[] boundingBox) {
+		ScreenPosition nwPos = getScreenPosition(boundingBox[0]);
+		ScreenPosition sePos = getScreenPosition(boundingBox[1]);
+		float zoomScale = 0.9f / Math.max((sePos.x - nwPos.x) / getWidth(), (sePos.y - nwPos.y) / getHeight());
+		innerScale(zoomScale);
 	}
 
 	// MarkerManagement -----------------------------------------------
@@ -1004,7 +1041,7 @@ public class UnfoldingMap implements MapEventListener {
 		mapDisplay.calculateMatrix();
 	}
 
-	protected void innerScale(float scale) {
+	public void innerScale(float scale) {
 		// TODO Check max,min scale in TileProvider, not here in UnfoldingMap
 		scale = PApplet.constrain(mapDisplay.innerScale * scale, minScale, maxScale);
 		if (tweening) {
@@ -1015,7 +1052,7 @@ public class UnfoldingMap implements MapEventListener {
 		}
 	}
 
-	protected void setInnerScale(float scale) {
+	public void setInnerScale(float scale) {
 		scale = PApplet.constrain(scale, minScale, maxScale);
 		if (tweening) {
 			scaleIntegrator.target(scale);
@@ -1274,6 +1311,24 @@ public class UnfoldingMap implements MapEventListener {
 	 */
 	public void setBackgroundColor(Integer bgColor) {
 		this.mapDisplay.setBackgroundColor(bgColor);
+	}
+
+	/**
+	 * Returns the width of this map.
+	 * 
+	 * @return The width in pixels.
+	 */
+	public float getWidth() {
+		return mapDisplay.getWidth();
+	}
+
+	/**
+	 * Returns the height of this map.
+	 * 
+	 * @return The height in pixels.
+	 */
+	public float getHeight() {
+		return mapDisplay.getHeight();
 	}
 
 }
