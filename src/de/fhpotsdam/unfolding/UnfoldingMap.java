@@ -28,9 +28,9 @@ import de.fhpotsdam.utils.Integrator;
  * Acts as facade for the map interactions, e.g. using innerScale for zooming, and outerRotate for rotating.
  */
 public class UnfoldingMap implements MapEventListener {
-	
+
 	public static final String GREETING_MESSAGE = "Unfolding Map v0.9.5";
-	
+
 	public static final float SCALE_DELTA_IN = 1.05f;
 	public static final float SCALE_DELTA_OUT = 1 / 1.05f;
 
@@ -840,6 +840,18 @@ public class UnfoldingMap implements MapEventListener {
 	 */
 	public MarkerManager<Marker> getDefaultMarkerManager() {
 		return mapDisplay.getDefaultMarkerManager();
+	}
+
+	public List<MarkerManager<Marker>> getMarkerManagerList() {
+		return mapDisplay.getMarkerManagerList();
+	}
+
+	public void removeMarkerManager(MarkerManager<Marker> markerManager) {
+		mapDisplay.getMarkerManagerList().remove(markerManager);
+	}
+
+	public void removeMarkerManager(int i) {
+		mapDisplay.getMarkerManagerList().remove(i);
 	}
 
 	/**
