@@ -176,7 +176,7 @@ public class GeoUtils {
 	 *            List of locations of original polygon.
 	 * @return List of location of closed polygon.
 	 */
-	protected static List<Location> getClosedPolygon(List<Location> originalVertices) {
+	public static List<Location> getClosedPolygon(List<Location> originalVertices) {
 		if (originalVertices.size() < 1
 				|| (originalVertices.get(0).equals(originalVertices.get(originalVertices.size() - 1)))) {
 			// Return unchanged, if only one point, or already closed
@@ -204,7 +204,7 @@ public class GeoUtils {
 	 *            The vertices of the polygon.
 	 * @return The area.
 	 */
-	protected static float getArea(List<Location> vertices) {
+	public static float getArea(List<Location> vertices) {
 		float sum = 0;
 		for (int i = 0; i < vertices.size() - 1; i++) {
 			PVector vi0 = vertices.get(i);
@@ -221,7 +221,7 @@ public class GeoUtils {
 	 *            The feature containing location vertices.
 	 * @return The area.
 	 */
-	protected static float getArea(Feature feature) {
+	public static float getArea(Feature feature) {
 		return getArea(GeoUtils.getLocations(feature));
 	}
 
@@ -232,19 +232,8 @@ public class GeoUtils {
 	 *            The marker containing location vertices.
 	 * @return The area.
 	 */
-	protected static float getArea(Marker marker) {
+	public static float getArea(Marker marker) {
 		return getArea(GeoUtils.getLocations(marker));
-	}
-
-	/**
-	 * Gets the overall geometric center of all features.
-	 * 
-	 * @param features
-	 *            A list of features.
-	 * @return The centroid location.
-	 */
-	public static Location getCentroidFromFeatures(List<Feature> features) {
-		return GeoUtils.getCentroid(GeoUtils.getLocationsFromFeatures(features));
 	}
 
 	/**
@@ -311,6 +300,13 @@ public class GeoUtils {
 		return largestFeature;
 	}
 
+	/**
+	 * Returns the largest marker of a MultiMarker by area size.
+	 * 
+	 * @param multiMarker
+	 *            The MultiMarker consisting of multiple markers.
+	 * @return The largest marker.
+	 */
 	public static Marker getLargestMarker(MultiMarker multiMarker) {
 		float largestArea = 0;
 		Marker largestMarker = null;
@@ -328,6 +324,28 @@ public class GeoUtils {
 	 */
 	public static Location getCentroid(Feature feature) {
 		return getCentroid(feature, false);
+	}
+
+	/**
+	 * Gets the geometric center of the marker.
+	 * 
+	 * @param marker
+	 *            The marker to check.
+	 * @return The centroid location.
+	 */
+	public static Location getCentroid(Marker marker) {
+		return getCentroid(GeoUtils.getLocations(marker));
+	}
+
+	/**
+	 * Gets the overall geometric center of all features.
+	 * 
+	 * @param features
+	 *            A list of features.
+	 * @return The centroid location.
+	 */
+	public static Location getCentroidFromFeatures(List<Feature> features) {
+		return GeoUtils.getCentroid(GeoUtils.getLocationsFromFeatures(features));
 	}
 
 	/**
