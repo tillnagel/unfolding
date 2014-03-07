@@ -5,7 +5,6 @@ import java.util.Collections;
 import java.util.List;
 
 import processing.core.PVector;
-import de.fhpotsdam.unfolding.core.Coordinate;
 import de.fhpotsdam.unfolding.data.Feature;
 import de.fhpotsdam.unfolding.data.MultiFeature;
 import de.fhpotsdam.unfolding.data.PointFeature;
@@ -436,27 +435,6 @@ public class GeoUtils {
 		return locations;
 	}
 
-	public static String getQuadKey(Coordinate coord) {
-		return getQuadKey((int) coord.column, (int) coord.row, (int) coord.zoom);
-	}
-
-	public static String getQuadKey(int x, int y, int z) {
-		String quadKey = "";
-		for (int i = z; i > 0; i--) {
-			int digit = 0;
-			int mask = 1 << (i - 1);
-			if ((x & mask) != 0) {
-				digit++;
-			}
-			if ((y & mask) != 0) {
-				digit++;
-				digit++;
-			}
-			quadKey += Integer.toString(digit);
-		}
-		return quadKey;
-	}
-
 	/**
 	 * Returns the bounding box for the list of locations.
 	 * 
@@ -489,7 +467,5 @@ public class GeoUtils {
 
 		return new Location[] { nwLocation, seLocation };
 	}
-	
-	
 
 }

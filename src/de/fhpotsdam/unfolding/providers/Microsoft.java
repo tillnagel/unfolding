@@ -13,12 +13,12 @@ public class Microsoft {
 	public static abstract class MicrosoftProvider extends AbstractMapTileUrlProvider {
 
 		public MicrosoftProvider() {
-			super(new MercatorProjection(26, new Transformation(1.068070779e7, 0.0, 3.355443185e7, 0.0,
-					-1.068070890e7, 3.355443057e7)));
+			super(new MercatorProjection(26, new Transformation(1.068070779e7, 0.0, 3.355443185e7, 0.0, -1.068070890e7,
+					3.355443057e7)));
 		}
 
 		public String getZoomString(Coordinate coordinate) {
-			return toMicrosoft((int) coordinate.column, (int) coordinate.row, (int) coordinate.zoom);
+			return toQuadKey(coordinate);
 		}
 
 		public int tileWidth() {
@@ -57,7 +57,7 @@ public class Microsoft {
 		}
 	}
 
-	public static Coordinate fromMicrosoft(String s) {
+	public static Coordinate fromQuadKey(String s) {
 		// Return column, row, zoom for Microsoft tile string.
 		String rowS = "";
 		String colS = "";
@@ -70,7 +70,11 @@ public class Microsoft {
 		return new Coordinate(PApplet.unbinary(colS), PApplet.unbinary(rowS), s.length());
 	}
 
-	public static String toMicrosoft(int col, int row, int zoom) {
+	public static String toQuadKey(Coordinate coord) {
+		return toQuadKey((int) coord.column, (int) coord.row, (int) coord.zoom);
+	}
+
+	public static String toQuadKey(int col, int row, int zoom) {
 		// Return string for Microsoft tile column, row, zoom
 		String y = PApplet.binary(row, zoom);
 		String x = PApplet.binary(col, zoom);
@@ -83,22 +87,22 @@ public class Microsoft {
 
 	public static Coordinate fromMicrosoftRoad(String s) {
 		// Return column, row, zoom for Microsoft Road tile string.
-		return fromMicrosoft(s);
+		return fromQuadKey(s);
 	}
 
 	public static String toMicrosoftRoad(int col, int row, int zoom) {
 		// Return x, y, z for Microsoft Road tile column, row, zoom.
-		return toMicrosoft(col, row, zoom);
+		return toQuadKey(col, row, zoom);
 	}
 
 	public static Coordinate fromMicrosoftAerial(String s) {
 		// Return column, row, zoom for Microsoft Aerial tile string.
-		return fromMicrosoft(s);
+		return fromQuadKey(s);
 	}
 
 	public static String toMicrosoftAerial(int col, int row, int zoom) {
 		// Return x, y, z for Microsoft Aerial tile column, row, zoom.
-		return toMicrosoft(col, row, zoom);
+		return toQuadKey(col, row, zoom);
 	}
 
 }
