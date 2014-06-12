@@ -85,6 +85,8 @@ public abstract class AbstractMapDisplay implements TileLoaderListener {
 	protected ZoomComparator zoomComparator = new ZoomComparator();
 	protected QueueSorter queueSorter = new QueueSorter();
 
+	private MarkerManager<Marker> defaultMarkerManager = null;
+
 	protected AbstractMapDisplay(AbstractMapProvider provider, float width, float height) {
 		this.provider = provider;
 
@@ -141,13 +143,17 @@ public abstract class AbstractMapDisplay implements TileLoaderListener {
 	 * You need to set the map of the given MarkerManager before using.
 	 */
 	public void addMarkerManager(MarkerManager<Marker> markerManager) {
-		// Replace default MarkerManager, if only default exists and has no entries
-		if (markerManagerList.size() == 1 && markerManagerList.get(0).getMarkers().size() == 0) {
-			markerManagerList.remove(0);
-		}
+        // Replace default MarkerManager, if only default exists and has no entries
+        if (markerManagerList.size() == 1) {
+            MarkerManager<?> mm = markerManagerList.get(0);
+            if (mm.getMarkers().size() == 0 && mm.equals(this.defaultMarkerManager)) {
+                markerManagerList.remove(0);
+                this.defaultMarkerManager = null;
+            }
+        }
 
-		markerManagerList.add(markerManager);
-	}
+        markerManagerList.add(markerManager);
+    }
 
 	public MarkerManager<Marker> getLastMarkerManager() {
 		return markerManagerList.get(markerManagerList.size() - 1);
@@ -424,9 +430,11 @@ public abstract class AbstractMapDisplay implements TileLoaderListener {
 	}
 
 	protected void createDefaultMarkerManager(UnfoldingMap map) {
-		MarkerManager<Marker> mm = new MarkerManager<Marker>();
-		mm.setMap(map);
-		markerManagerList.add(mm);
+		if (this.defaultMarkerManager == null) {
+			this.defaultMarkerManager = new MarkerManager<Marker>();
+			this.defaultMarkerManager.setMap(map);
+			markerManagerList.add(defaultMarkerManager);
+		}
 	}
 
 	public List<MarkerManager<Marker>> getMarkerManagerList() {
