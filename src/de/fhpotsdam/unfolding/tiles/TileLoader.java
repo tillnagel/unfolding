@@ -94,7 +94,7 @@ public class TileLoader implements Runnable {
 		// Load image from URL (local file included)
 		// NB: Use 'unknown' as content-type to let loadImage decide
 		PImage img = p.loadImage(urls[0], "unknown");
-		//PImage img = p.loadImage(urls[0]);
+		//PImage img = p.loadImage(urls[0]); // test for Android
 
 		if (img != null) {
 			// If array contains multiple URLs, load all images and blend them together
