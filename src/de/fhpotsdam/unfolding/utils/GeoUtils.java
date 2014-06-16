@@ -480,10 +480,9 @@ public class GeoUtils {
 	 * Decodes an encoded polyline string to a list of locations. Polyline format is used by various geo services.
 	 * 
 	 * @see <a
-	 *      href="https://github.com/DennisSchiefer/Project-OSRM-Web/blob/develop/WebContent/routing/OSRM.RoutingGeometry.js">RoutingGeometry.js</a>
-	 *      Adapted algorithm by OSRM (precision: 6 digits)
+	 *      href="https://github.com/DennisSchiefer/Project-OSRM-Web/blob/develop/WebContent/routing/OSRM.RoutingGeometry.js">RoutingGeometry.js - Adapted algorithm by OSRM (precision: 6 digits)</a>
 	 * @see <a href="https://developers.google.com/maps/documentation/utilities/polylinealgorithm">Encoded Polyline
-	 *      Algorithm Format</a> Original algorithm by Google (precision: 5 digits)
+	 *      Algorithm Format - Original algorithm by Google (precision: 5 digits)</a>
 	 * 
 	 * @param encoded
 	 *            The encoded String.

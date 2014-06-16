@@ -648,8 +648,8 @@ public class UnfoldingMap implements MapEventListener {
 	 * @param zoomLevel
 	 *            Zoom level to zoom to.
 	 */
-	public void zoomAndPanTo(Location location, int level) {
-		zoomAndPanTo(level, location);
+	public void zoomAndPanTo(Location location, int zoomLevel) {
+		zoomAndPanTo(zoomLevel, location);
 	}
 
 	/**
