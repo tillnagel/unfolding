@@ -13,10 +13,10 @@ public class SimpleMapApp extends PApplet {
 	UnfoldingMap map;
 
 	public void setup() {
-		size(1024, 768, P2D);
+		size(800, 600, P2D);
 
 		map = new UnfoldingMap(this);
-		map.zoomAndPanTo(6, new Location(6.316667f, 5.6f));
+		map.zoomAndPanTo(10, new Location(52.5f, 13.4f));
 		MapUtils.createDefaultEventDispatcher(this, map);
 	}
 
