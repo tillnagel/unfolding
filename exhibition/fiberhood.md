@@ -3,7 +3,7 @@ layout: page
 title: Google Fiberhood Map
 description: Port of Unfolding to use on Android tablet for Google Fiber campaign
 group: exhibition
-author: Occurent Arts & Wildlife
+author: Occurent Arts and Wildlife
 released: 2014-06-16 23:59:59
 thumbnail: ../assets/images/exhibition/fiberhood.jpg
 link: https://github.com/occurrentarts/unfolding-android
