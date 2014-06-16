@@ -56,7 +56,10 @@ public class Microsoft {
 			return new String[] { url };
 		}
 	}
-
+	
+	/**
+	 * Converts QuadKey string to Coordinates.
+	 */
 	public static Coordinate fromQuadKey(String s) {
 		// Return column, row, zoom for Microsoft tile string.
 		String rowS = "";
@@ -70,6 +73,9 @@ public class Microsoft {
 		return new Coordinate(PApplet.unbinary(colS), PApplet.unbinary(rowS), s.length());
 	}
 
+	/**
+	 * Converts coordinates to QuadKey string.
+	 */
 	public static String toQuadKey(Coordinate coord) {
 		return toQuadKey((int) coord.column, (int) coord.row, (int) coord.zoom);
 	}

@@ -467,5 +467,58 @@ public class GeoUtils {
 
 		return new Location[] { nwLocation, seLocation };
 	}
+	
+	public static List<Location> decodePolyline(String encoded) {
+		return decodePolyline(encoded, 5);
+	}
+
+	public static List<Location> decodeOSRMPolyline(String encoded) {
+		return decodePolyline(encoded, 6);
+	}
+
+	/**
+	 * Decodes an encoded polyline string to a list of locations. Polyline format is used by various geo services.
+	 * 
+	 * @see <a
+	 *      href="https://github.com/DennisSchiefer/Project-OSRM-Web/blob/develop/WebContent/routing/OSRM.RoutingGeometry.js">RoutingGeometry.js</a>
+	 *      Adapted algorithm by OSRM (precision: 6 digits)
+	 * @see <a href="https://developers.google.com/maps/documentation/utilities/polylinealgorithm">Encoded Polyline
+	 *      Algorithm Format</a> Original algorithm by Google (precision: 5 digits)
+	 * 
+	 * @param encoded
+	 *            The encoded String.
+	 * @return An list of locations.
+	 */
+	public static List<Location> decodePolyline(String encoded, int precision) {
+		List<Location> poly = new ArrayList<Location>();
+		
+		double precisionMult = Math.pow(10, -precision);
+		
+		int index = 0, len = encoded.length();
+		int lat = 0, lng = 0;
+		while (index < len) {
+			int b, shift = 0, result = 0;
+			do {
+				b = encoded.charAt(index++) - 63;
+				result |= (b & 0x1f) << shift;
+				shift += 5;
+			} while (b >= 0x20);
+			int dlat = ((result & 1) != 0 ? ~(result >> 1) : (result >> 1));
+			lat += dlat;
+			shift = 0;
+			result = 0;
+			do {
+				b = encoded.charAt(index++) - 63;
+				result |= (b & 0x1f) << shift;
+				shift += 5;
+			} while (b >= 0x20);
+			int dlng = ((result & 1) != 0 ? ~(result >> 1) : (result >> 1));
+			lng += dlng;
+
+			Location p = new Location((double) lat * precisionMult, (double) lng * precisionMult);
+			poly.add(p);
+		}
+		return poly;
+	}
 
 }

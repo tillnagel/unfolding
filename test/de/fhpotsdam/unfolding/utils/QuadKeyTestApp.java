@@ -6,6 +6,9 @@ import de.fhpotsdam.unfolding.core.Coordinate;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.providers.Microsoft;
 
+/**
+ * Tests quad key conversions.
+ */
 public class QuadKeyTestApp extends PApplet {
 
 	UnfoldingMap map;
