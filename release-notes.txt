@@ -1,28 +1,54 @@
 RELEASE NOTES 
 
+0.9.6 - 16 June 2014
+-----------------------------
+
+Bug Fixes
+- Fixed Google Maps provider.
+- Fixed handling empty properties in geo files.
+- Fixed empty MarkerManager handling when not default. Thanks to @antjkennedy.
+
+Features
+- Added Polyline parsing to GeoUtils.
+- Added zoomToFit and zoomAndPanToFit.
+- Added getBoundingBox to GeoUtils.
+- Added tile providers (see #85). Thanks to Jacek Radzikowski.
+
+Other
+- Using Processing's new library installation mechanism.
+- Switched parameters in zoomAndPanTo.
+
+
+
 0.9.5
 -----------------------------
 
 Bug Fixes
 - Fixed map transparency issues.
 
-
 Features 
-- Moved core and examples to Processing 2 and its new Java2D/OpenGL renderer.
-- 
+- Added allTilesLoaded() method.
+- Added moveBy(dx, dy) method
+- Simplified MBTiles map provider
+- Updated to Processing 2.1.1
 
 Documentation
 - Added more examples (Processing and Eclipse distributions)
-
-
-Other
-- Using Processing's new library installation mechanism
-
+- Updated examples
 
 
 0.9.4beta
 -----------------------------
 First version using Processing 2 
+
+- Moved core and examples to Processing 2 and its new Java2D/OpenGL renderer.
+- Cleaned up different MapDisplays and MapDisplayFactory
+- Fixed offscreen buffering
+- Updated libraries to new Processing and JOGL
+- Updated event system to Processing 2 one
+- Modified Shader mechanism and examples
+- Switched to new XML, JSON, CVS libs for data imports
+
 
 
 0.9.3 
