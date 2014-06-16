@@ -1,5 +1,13 @@
 RELEASE NOTES 
 
+
+0.9.7 - xxx
+-----------------------------
+
+
+
+
+
 0.9.6 - 16 June 2014
 -----------------------------
 
@@ -17,7 +25,7 @@ Features
 Other
 - Using Processing's new library installation mechanism.
 - Switched parameters in zoomAndPanTo.
-
+- Added source to distribution zip for Processing (as per Library Guidelines. Find the source also at our repository.) 
 
 
 0.9.5

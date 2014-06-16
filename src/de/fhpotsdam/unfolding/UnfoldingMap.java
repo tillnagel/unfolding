@@ -27,6 +27,9 @@ import de.fhpotsdam.utils.Integrator;
  * panning, zooming, and rotating (with or without tweening).
  * 
  * Acts as facade for the map interactions, e.g. using innerScale for zooming, and outerRotate for rotating.
+ * 
+ * (c) 2014 Till Nagel, and others. See http://unfoldingmaps.org/contact.html for full credits.
+ * Licensed under MIT License.
  */
 public class UnfoldingMap implements MapEventListener {
 

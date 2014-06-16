@@ -12,7 +12,11 @@
 				/resources/unfolding_app_template/classpath
 				/resources/unfolding_app_template/classpath_with_examples
 			
-			Upload new files to Amazon S3 + Update links manually on gh-pages
+			Publish new release at GitHub + Update links manually on gh-pages
+				/index.html > Downloads
+				/downloads.html
+	
+			(Not to Amazon S3, anymore)							
 			
 			Run Ant:update-ghpages
 				To update latest release file for automatic Processing lib mechanism  
@@ -207,6 +211,7 @@
 		<mkdir dir="${dist.dir}/Unfolding/examples" />
 		<mkdir dir="${dist.dir}/Unfolding/library" />
 		<mkdir dir="${dist.dir}/Unfolding/reference" />
+		<mkdir dir="${dist.dir}/Unfolding/src" />
 
 		<!-- copy library.properties -->
 		<copy todir="${dist.dir}/Unfolding/" file="resources/library.properties" />
@@ -226,6 +231,12 @@
 			<fileset dir="${docs.dir}" />
 		</copy>
 
+		<copy todir="${dist.dir}/Unfolding/src">
+			<fileset dir="${src.dir}">
+				<include name="**/*.java" />
+			</fileset>
+		</copy>
+		
 		<!-- create a zip file -->
 		<zip destfile="${dist.dir}/Unfolding.zip" basedir="${dist.dir}/Unfolding/" excludes="*.DS_Store" />
 		<!-- wrap again so users can easily install it by copying the unzipped directory. -->
