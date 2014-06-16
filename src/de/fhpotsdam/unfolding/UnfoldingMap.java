@@ -30,7 +30,7 @@ import de.fhpotsdam.utils.Integrator;
  */
 public class UnfoldingMap implements MapEventListener {
 
-	public static final String GREETING_MESSAGE = "Unfolding Map v0.9.5";
+	public static final String GREETING_MESSAGE = "Unfolding Map v0.9.6";
 
 	public static final float SCALE_DELTA_IN = 1.05f;
 	public static final float SCALE_DELTA_OUT = 1 / 1.05f;
@@ -598,6 +598,8 @@ public class UnfoldingMap implements MapEventListener {
 	 *            Zoom level to zoom to.
 	 */
 	public void zoomAndPanTo(float x, float y, int level) {
+		// NB: Could not be deprecated as switching float/int parameters would be ambiguous!
+
 		// Works only when first zoom around pos, then pan to pos
 		mapDisplay.setInnerTransformationCenter(new PVector(x, y));
 		zoomToLevel(level);
@@ -607,8 +609,7 @@ public class UnfoldingMap implements MapEventListener {
 	/**
 	 * Zooms in around position, and pans to it.
 	 * 
-	 * After the pan the center still is at the same location. (As innerTransformationCenter is in object coordinates,
-	 * thus stays at same inner position.)
+	 * @deprecated Use {@link #zoomAndPanTo(int, ScreenPosition)}.
 	 * 
 	 * @param screenPosition
 	 *            ScreenPosition to zoom around and pan to.
@@ -616,6 +617,21 @@ public class UnfoldingMap implements MapEventListener {
 	 *            Zoom level to zoom to.
 	 */
 	public void zoomAndPanTo(ScreenPosition screenPosition, int level) {
+		zoomAndPanTo(level, screenPosition);
+	}
+
+	/**
+	 * Zooms in around position, and pans to it.
+	 * 
+	 * After the pan the center still is at the same location. (As innerTransformationCenter is in object coordinates,
+	 * thus stays at same inner position.)
+	 * 
+	 * @param level
+	 *            Zoom level to zoom to.
+	 * @param screenPosition
+	 *            ScreenPosition to zoom around and pan to.
+	 */
+	public void zoomAndPanTo(int level, ScreenPosition screenPosition) {
 		// Works only when first zoom around pos, then pan to pos
 		mapDisplay.setInnerTransformationCenter(new PVector(screenPosition.x, screenPosition.y));
 		zoomToLevel(level);
@@ -633,7 +649,7 @@ public class UnfoldingMap implements MapEventListener {
 	 *            Zoom level to zoom to.
 	 */
 	public void zoomAndPanTo(Location location, int level) {
-
+		zoomAndPanTo(level, location);
 	}
 
 	/**
@@ -819,7 +835,7 @@ public class UnfoldingMap implements MapEventListener {
 	}
 
 	public void zoomAndPanToFit(List<Location> locations) {
-		Location[] boundingBox = GeoUtils.getBoundingBox(locations);		
+		Location[] boundingBox = GeoUtils.getBoundingBox(locations);
 		List<Location> boundingBoxLocations = Arrays.asList(boundingBox);
 		Location centerLocation = GeoUtils.getEuclideanCentroid(boundingBoxLocations);
 		ScreenPosition pos = mapDisplay.getScreenPosition(centerLocation);

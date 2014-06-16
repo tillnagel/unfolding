@@ -4,12 +4,21 @@
 		Unfolding
 	</description>
 
-	<!-- NOTE: Version number needs to be updated manually also in
-		/src/de/fhpotsdam/unfolding/UnfoldingMap.java
-		/resources/unfolding_app_template/classpath
-		/resources/unfolding_app_template/classpath_with_examples
+	<!--
+		NOTES
+			
+			Version number needs to be updated manually also in
+				/src/de/fhpotsdam/unfolding/UnfoldingMap.java
+				/resources/unfolding_app_template/classpath
+				/resources/unfolding_app_template/classpath_with_examples
+			
+			Upload new files to Amazon S3 + Update links manually on gh-pages
+			
+			Run Ant:update-ghpages
+				To update latest release file for automatic Processing lib mechanism  
+				(Unfolding.zip + Unfolding.txt)
 	-->
-	<property name="version" value="0.9.5" />
+	<property name="version" value="0.9.6" />
 	<property name="unfolding.jar" value="unfolding.${version}.jar" />
 
 	<property name="src.dir" location="src" />
@@ -223,6 +232,15 @@
 		<zip destfile="${dist.dir}/Unfolding_for_processing_${version}.zip" basedir="${dist.dir}/" includes="Unfolding.zip" excludes="*.DS_Store" />
 	</target>
 
+	
+	<target name="update-ghpages" depends="dir.gh-pages.check" if="dir.exists">
+		<!-- copy and rename library.properties -->
+		<copy tofile="${gh-pages.dir}/Unfolding.txt" file="resources/library.properties" />
+
+		<copy todir="${gh-pages.dir}" file="${dist.dir}/Unfolding.zip" />
+		
+	</target>
+	
 	<!--
 		Copy the javadoc to the gh-pages folder.
 		The assumption is, that there is a gh-pages folder ../gh-pages/.
