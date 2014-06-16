@@ -17,6 +17,8 @@ Workspace', Select this folder, 'Finish')
 
 Set the native libraries for your OS ('Configure Build Path' > 'Libraries' > Set 'native library location' of jogl.jar).
 
+Switch Java Compiler to 1.6 if you get VM problems. (Processing only works with Java 1.6)
+
 
 MANUAL INSTALLATION
 

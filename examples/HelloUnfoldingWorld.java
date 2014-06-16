@@ -1,8 +1,6 @@
 import processing.core.PApplet;
-
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.geo.Location;
-import de.fhpotsdam.unfolding.providers.OpenStreetMap;
 import de.fhpotsdam.unfolding.utils.MapUtils;
 
 /**
@@ -17,8 +15,8 @@ public class HelloUnfoldingWorld extends PApplet {
 	public void setup() {
 		size(800, 600, OPENGL);
 
-		map = new UnfoldingMap(this, new OpenStreetMap.OpenStreetMapProvider());
-		map.zoomAndPanTo(new Location(52.5f, 13.4f), 10);
+		map = new UnfoldingMap(this);
+		map.zoomAndPanTo(10, new Location(52.5f, 13.4f));
 
 		MapUtils.createDefaultEventDispatcher(this, map);
 	}
