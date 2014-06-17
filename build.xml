@@ -238,9 +238,11 @@
 		</copy>
 		
 		<!-- create a zip file -->
-		<zip destfile="${dist.dir}/Unfolding.zip" basedir="${dist.dir}/Unfolding/" excludes="*.DS_Store" />
-		<!-- wrap again so users can easily install it by copying the unzipped directory. -->
-		<zip destfile="${dist.dir}/Unfolding_for_processing_${version}.zip" basedir="${dist.dir}/" includes="Unfolding.zip" excludes="*.DS_Store" />
+		<zip destfile="${dist.dir}/Unfolding.zip" basedir="${dist.dir}/" includes="Unfolding/" excludes="*.DS_Store" />
+		
+		<!-- copy zip file to name without versioning, as Processing's Library Manager always searches for same name. -->
+		<copy tofile="${dist.dir}/Unfolding_for_processing_${version}.zip" file="${dist.dir}/Unfolding.zip" />
+		
 	</target>
 
 	
