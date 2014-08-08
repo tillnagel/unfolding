@@ -22,7 +22,7 @@ public class StamenMapProvider extends OpenStreetMapProvider {
 
 	public static class TonerLite extends GenericOpenStreetMapProvider {
 		public String[] getTileUrls(Coordinate coordinate) {
-			String url = "http://tile.stamen.com/toner-background/" + getZoomString(coordinate) + ".png";
+			String url = "http://tile.stamen.com/toner-lite/" + getZoomString(coordinate) + ".png";
 			return new String[] { url };
 		}
 	}
