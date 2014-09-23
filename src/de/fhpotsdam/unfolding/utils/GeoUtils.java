@@ -119,17 +119,29 @@ public class GeoUtils {
 	/**
 	 * Super simplistic method to convert a geo-position as a Location.
 	 */
-	public static Location getDecimal(Integer latDegrees, Integer latMinutes, Integer latSeconds, String latDirection,
+	public static Location getDecimal(float latDegrees, float latMinutes, float latSeconds, String latDirection,
 			Integer lonDegrees, Integer lonMinutes, Integer lonSeconds, String lonDirection) {
+		float lat = getLatitudeDecimal(latDegrees, latMinutes, latSeconds, latDirection);
+		float lon = getLongitudeDecimal(lonDegrees, lonMinutes, lonSeconds, lonDirection);
+		return new Location(lat, lon);
+	}
+
+	public static float getLatitudeDecimal(float latDegrees, float latMinutes, float latSeconds,
+			String latDirection) {
 		float lat = latDegrees + (latMinutes * 60 + latSeconds) / 3600;
 		if (latDirection.equals("S")) {
 			lat = -lat;
 		}
+		return lat;
+	}
+
+	public static float getLongitudeDecimal(float lonDegrees, float lonMinutes, float lonSeconds,
+			String lonDirection) {
 		float lon = lonDegrees + (lonMinutes * 60 + lonSeconds) / 3600;
 		if (lonDirection.equals("W")) {
 			lon = -lon;
 		}
-		return new Location(lat, lon);
+		return lon;
 	}
 
 	/**
@@ -467,7 +479,7 @@ public class GeoUtils {
 
 		return new Location[] { nwLocation, seLocation };
 	}
-	
+
 	public static List<Location> decodePolyline(String encoded) {
 		return decodePolyline(encoded, 5);
 	}
@@ -480,7 +492,8 @@ public class GeoUtils {
 	 * Decodes an encoded polyline string to a list of locations. Polyline format is used by various geo services.
 	 * 
 	 * @see <a
-	 *      href="https://github.com/DennisSchiefer/Project-OSRM-Web/blob/develop/WebContent/routing/OSRM.RoutingGeometry.js">RoutingGeometry.js - Adapted algorithm by OSRM (precision: 6 digits)</a>
+	 *      href="https://github.com/DennisSchiefer/Project-OSRM-Web/blob/develop/WebContent/routing/OSRM.RoutingGeometry.js">RoutingGeometry.js
+	 *      - Adapted algorithm by OSRM (precision: 6 digits)</a>
 	 * @see <a href="https://developers.google.com/maps/documentation/utilities/polylinealgorithm">Encoded Polyline
 	 *      Algorithm Format - Original algorithm by Google (precision: 5 digits)</a>
 	 * 
@@ -490,9 +503,9 @@ public class GeoUtils {
 	 */
 	public static List<Location> decodePolyline(String encoded, int precision) {
 		List<Location> poly = new ArrayList<Location>();
-		
+
 		double precisionMult = Math.pow(10, -precision);
-		
+
 		int index = 0, len = encoded.length();
 		int lat = 0, lng = 0;
 		while (index < len) {
