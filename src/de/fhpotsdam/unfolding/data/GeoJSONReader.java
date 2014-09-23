@@ -117,8 +117,7 @@ public class GeoJSONReader extends GeoDataReader {
 
 			JSONArray lines = geometry.getJSONArray("coordinates");
 			for (int i = 0; i < lines.length(); i++) {
-				JSONArray coordinates = lines.getJSONArray(i).getJSONArray(0);
-
+				JSONArray coordinates = lines.getJSONArray(i);
 				ShapeFeature linesFeature = new ShapeFeature(FeatureType.LINES);
 				populateLinesFeature(linesFeature, coordinates);
 				multiFeature.addFeature(linesFeature);
