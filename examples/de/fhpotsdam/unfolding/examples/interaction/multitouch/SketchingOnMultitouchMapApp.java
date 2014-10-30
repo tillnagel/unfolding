@@ -48,8 +48,7 @@ public class SketchingOnMultitouchMapApp extends PApplet implements TuioListener
 
 		map = new UnfoldingMap(this);
 		map.setTweening(false);
-		map.zoomAndPanTo(13, new Location(1.283f, 103.833f));
-		map.setPanningRestriction(new Location(1.283f, 103.833f), 30);
+		map.zoomAndPanTo(13, new Location(54.5, 13.4));
 
 		eventDispatcher = new EventDispatcher();
 
@@ -66,8 +65,8 @@ public class SketchingOnMultitouchMapApp extends PApplet implements TuioListener
 	public void draw() {
 		map.draw();
 
-		fill(0, 255, 0, 200);
-		stroke(0, 255, 0, 200);
+		fill(20, 200, 20, 140);
+		stroke(0, 200, 0, 200);
 		strokeWeight(3);
 		beginShape();
 		synchronized (locations) {
@@ -78,11 +77,11 @@ public class SketchingOnMultitouchMapApp extends PApplet implements TuioListener
 		}
 		endShape();
 
-		fill(255, 40, 40, 120);
-		noStroke();
-		for (TuioCursor tcur : tuioClient.getTuioCursors()) {
-			ellipse(tcur.getScreenX(width), tcur.getScreenY(height), 20, 20);
-		}
+//		fill(255, 40, 40, 120);
+//		noStroke();
+//		for (TuioCursor tcur : tuioClient.getTuioCursors()) {
+//			ellipse(tcur.getScreenX(width), tcur.getScreenY(height), 20, 20);
+//		}
 	}
 
 	@Override
@@ -92,11 +91,15 @@ public class SketchingOnMultitouchMapApp extends PApplet implements TuioListener
 		// log.debug("Add " + tuioCursor.getCursorID() + ": " + x + ", " + y);
 
 		if (sketchTuioCursor == null) {
+			// First finger: Use for sketching
 			sketchTuioCursor = tuioCursor;
 			Location location = map.getLocation(x, y);
 			synchronized (locations) {
 				locations.add(location);
 			}
+		} else {
+			// Second finger: remove sketching cursor
+			sketchTuioCursor = null;
 		}
 
 		tuioCursorHandler.addTuioCursor(tuioCursor);
