@@ -1,41 +1,40 @@
 package de.fhpotsdam.unfolding.examples.interaction.multitouch;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.log4j.Logger;
 
 import processing.core.PApplet;
+import processing.core.PVector;
 import TUIO.TuioClient;
 import TUIO.TuioCursor;
 import TUIO.TuioListener;
 import TUIO.TuioObject;
 import TUIO.TuioTime;
-
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.events.EventDispatcher;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.interactions.TuioCursorHandler;
+import de.fhpotsdam.unfolding.utils.ScreenPosition;
 
 /**
- * Multitouch map with a simple button atop. A tap on the button does not affect the map.
- * 
- * Creates a map and a handler for TUIO cursors, with this application acting as TUIO listener, and forwarding the TUIO
- * events to the handler. This allows reacting to other touch interactions in the application (e.g. map markers, or
- * other interface elements), as well.
+ * Multitouch map which uses single touch for sketching on the map.
  * 
  * See simpler {@link MultitouchMapApp} if you want to use multitouch interaction for the map only.
  */
-public class MultitouchMapExternalTuioApp extends PApplet implements TuioListener {
+public class SketchingOnMultitouchMapApp extends PApplet implements TuioListener {
 
-	public static Logger log = Logger.getLogger(MultitouchMapExternalTuioApp.class);
+	public static Logger log = Logger.getLogger(SketchingOnMultitouchMapApp.class);
 
 	UnfoldingMap map;
 	EventDispatcher eventDispatcher;
 	TuioCursorHandler tuioCursorHandler;
 	TuioClient tuioClient;
 
-	boolean activeButton = false;
-	int buttonX = 50;
-	int buttonY = 50;
-	int buttonSize = 40;
+	TuioCursor sketchTuioCursor;
+	// Save sketched points as location so it stays consistent with the interactive map
+	List<Location> locations = new ArrayList<Location>();
 
 	public static void main(String[] args) {
 		String[] params = new String[] { "--present", "--bgcolor=#000000", "--hide-stop",
@@ -56,7 +55,8 @@ public class MultitouchMapExternalTuioApp extends PApplet implements TuioListene
 
 		tuioCursorHandler = new TuioCursorHandler(this, false, map);
 		eventDispatcher.addBroadcaster(tuioCursorHandler);
-		eventDispatcher.register(map, "pan");
+		 // Disable panning for single touch, to be able to handle it independently
+		// eventDispatcher.register(map, "pan");
 		eventDispatcher.register(map, "zoom");
 
 		tuioClient = tuioCursorHandler.getTuioClient();
@@ -66,18 +66,20 @@ public class MultitouchMapExternalTuioApp extends PApplet implements TuioListene
 	public void draw() {
 		map.draw();
 
-		// log.debug("map.center: " + map.getCenter());
-
-		if (activeButton) {
-			fill(255, 0, 0, 150);
-		} else {
-			fill(255, 150);
+		fill(0, 255, 0, 200);
+		stroke(0, 255, 0, 200);
+		strokeWeight(3);
+		beginShape();
+		synchronized (locations) {
+			for (Location location : locations) {
+				ScreenPosition pos = map.getScreenPosition(location);
+				vertex(pos.x, pos.y);
+			}
 		}
-		noStroke();
-		ellipse(buttonX, buttonY, buttonSize, buttonSize);
+		endShape();
 
-		// tuioCursorHandler.drawCursors();
-		fill(255, 100);
+		fill(255, 40, 40, 120);
+		noStroke();
 		for (TuioCursor tcur : tuioClient.getTuioCursors()) {
 			ellipse(tcur.getScreenX(width), tcur.getScreenY(height), 20, 20);
 		}
@@ -87,28 +89,42 @@ public class MultitouchMapExternalTuioApp extends PApplet implements TuioListene
 	public void addTuioCursor(TuioCursor tuioCursor) {
 		int x = tuioCursor.getScreenX(width);
 		int y = tuioCursor.getScreenY(height);
+		// log.debug("Add " + tuioCursor.getCursorID() + ": " + x + ", " + y);
 
-		log.debug("Add " + tuioCursor.getCursorID() + ": " + x + ", " + y);
-
-		if (dist(x, y, buttonX, buttonY) < buttonSize / 2) {
-			activeButton = !activeButton;
-		} else {
-			tuioCursorHandler.addTuioCursor(tuioCursor);
+		if (sketchTuioCursor == null) {
+			sketchTuioCursor = tuioCursor;
+			Location location = map.getLocation(x, y);
+			synchronized (locations) {
+				locations.add(location);
+			}
 		}
+
+		tuioCursorHandler.addTuioCursor(tuioCursor);
 	}
 
 	@Override
 	public void updateTuioCursor(TuioCursor tuioCursor) {
 		int x = tuioCursor.getScreenX(width);
 		int y = tuioCursor.getScreenY(height);
-		log.debug("Update " + tuioCursor.getCursorID() + ": " + x + ", " + y);
+		// log.debug("Update " + tuioCursor.getCursorID() + ": " + x + ", " + y);
+
+		if (sketchTuioCursor != null && sketchTuioCursor.getCursorID() == tuioCursor.getCursorID()) {
+			Location location = map.getLocation(x, y);
+			synchronized (locations) {
+				locations.add(location);
+			}
+		}
 
 		tuioCursorHandler.updateTuioCursor(tuioCursor);
 	}
 
 	@Override
 	public void removeTuioCursor(TuioCursor tuioCursor) {
-		log.debug("Remove " + tuioCursor.getCursorID());
+		// log.debug("Remove " + tuioCursor.getCursorID());
+
+		if (sketchTuioCursor != null && sketchTuioCursor.getCursorID() == tuioCursor.getCursorID()) {
+			sketchTuioCursor = null;
+		}
 
 		tuioCursorHandler.removeTuioCursor(tuioCursor);
 	}
