@@ -9,10 +9,10 @@ import de.fhpotsdam.unfolding.utils.GeoUtils;
 
 /**
  * Implements the getDistanceTo method by checking distances to each polygon vertex, and returns the minimum. Thus,
- * instead of using the centroid, the results are more like expected.
+ * in contrast of using the centroid, the results are more like expected.
  * 
- * TODO Yet, as only existing vertices are used, it might happen that a vertex from another polygon is still closer as
- * to the nearest vertex of the actual nearest polygon
+ * TODO Yet, as only existing vertices are used, it might happen that a vertex from a polygon is still closer as
+ * to the nearest point on an edge of the actual nearest polygon.
  */
 public class DistancePerLocationPolygonMarker extends SimplePolygonMarker {
 

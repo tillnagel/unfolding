@@ -22,7 +22,7 @@ public class ImageMarkerApp extends PApplet {
 		size(800, 600, OPENGL);
 
 		map = new UnfoldingMap(this);
-		map.zoomAndPanTo(new Location(50.26f, 12.1f), 4);
+		map.zoomAndPanTo(4, new Location(50.26f, 12.1f));
 		MapUtils.createDefaultEventDispatcher(this, map);
 
 		ImageMarker imgMarker1 = new ImageMarker(lisbonLocation, loadImage("ui/marker.png"));

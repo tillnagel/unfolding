@@ -12,9 +12,10 @@ import de.fhpotsdam.unfolding.utils.MapUtils;
 import de.fhpotsdam.unfolding.utils.ScreenPosition;
 
 /**
- * Simple interactive grid marker example.
+ * Simple interactive marker grid example.
  * 
- * Counts all markers within a grid region, and colors the rectangle in proportion.
+ * Counts all markers within a grid region, and colors the rectangle in proportion. Grid size is constant, thus number
+ * of markers depend on map area and zoom.
  * 
  */
 public class MarkerGridApp extends PApplet {

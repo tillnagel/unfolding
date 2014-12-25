@@ -1,7 +1,6 @@
 package de.fhpotsdam.unfolding.examples.provider;
 
 import processing.core.PApplet;
-
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.providers.Microsoft;
 import de.fhpotsdam.unfolding.utils.MapUtils;
@@ -28,4 +27,5 @@ public class SatelliteProviderMapApp extends PApplet {
 	public static void main(String[] args) {
 		PApplet.main(new String[] { "de.fhpotsdam.unfolding.examples.provider.SatelliteProviderMapApp" });
 	}
+
 }
