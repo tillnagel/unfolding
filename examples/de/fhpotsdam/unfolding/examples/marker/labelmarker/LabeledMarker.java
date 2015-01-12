@@ -17,12 +17,12 @@ public class LabeledMarker extends SimplePointMarker {
 	private PFont font;
 	private float fontSize = 12;
 
-	public LabeledMarker(Location location) {
-		this.location = location;
+	public LabeledMarker(Location location, String name) {
+		this(location, name, null, 0);
 	}
 
 	public LabeledMarker(Location location, String name, PFont font, float size) {
-		this(location);
+		this.location = location;
 		this.name = name;
 		this.size = size;
 
