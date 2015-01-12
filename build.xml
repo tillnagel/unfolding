@@ -11,6 +11,7 @@
 				/src/de/fhpotsdam/unfolding/UnfoldingMap.java
 				/resources/unfolding_app_template/classpath
 				/resources/unfolding_app_template/classpath_with_examples
+				/resources/library.properties
 			
 			Publish new release at GitHub + Update links manually on gh-pages
 				/index.html > Downloads
@@ -22,7 +23,7 @@
 				To update latest release file for automatic Processing lib mechanism  
 				(Unfolding.zip + Unfolding.txt)
 	-->
-	<property name="version" value="0.9.6" />
+	<property name="version" value="0.9.7beta" />
 	<property name="unfolding.jar" value="unfolding.${version}.jar" />
 
 	<property name="src.dir" location="src" />

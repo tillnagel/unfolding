@@ -1,11 +1,11 @@
 RELEASE NOTES 
 
 
-0.9.7 - xxx
+
+0.9.7beta - 12 January 2015
 -----------------------------
-
-
-
+Bug Fixes
+- Fixed MultiLineString in GeoJSONReader. Thanks to Tutkain.
 
 
 0.9.6 - 16 June 2014
