@@ -52,8 +52,7 @@ public class MarkerManager<E extends Marker> {
 	public void setMarkers(List<E> markers) {
 		if (markers != null) {
 			this.markers = markers;
-		}
-		else {
+		} else {
 			// Convenient method. Users should use clearMarkers() directly.
 			clearMarkers();
 		}
@@ -125,7 +124,25 @@ public class MarkerManager<E extends Marker> {
 		if (this.markers == null) {
 			this.markers = new ArrayList<E>();
 		}
+		// TODO Only add marker if list does not contain it yet
 		this.markers.addAll(markers);
+	}
+
+	/**
+	 * Searches marker with ID.
+	 * 
+	 * @param id
+	 *            The ID of the marker to find.
+	 * @return The found Marker or null if not found.
+	 */
+	public E findMarkerById(String id) {
+		E foundMarker = null;
+		for (E marker : this.markers) {
+			if (marker.getId().equals(id)) {
+				foundMarker = marker;
+			}
+		}
+		return foundMarker;
 	}
 
 	/**
