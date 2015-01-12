@@ -52,6 +52,7 @@ public class MapDisplayFactory {
 	}
 
 	public static AbstractMapProvider getDefaultProvider() {
-		return new OpenStreetMap.OSMGrayProvider();
+		//return new OpenStreetMap.OSMGrayProvider();
+		return new OpenStreetMap.PositronMapProvider();
 	}
 }
