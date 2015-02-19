@@ -371,7 +371,11 @@ public class UnfoldingMap implements MapEventListener {
 		// Forward map event to application via reflection
 		if (mapChangedMethod != null) {
 			try {
-				mapChangedMethod.invoke(p, mapEvent);
+				if (mapChangedMethod.getParameterTypes().length > 0) {
+					mapChangedMethod.invoke(p, mapEvent);
+				} else {
+					mapChangedMethod.invoke(p);
+				}
 			} catch (IllegalArgumentException e) {
 			} catch (IllegalAccessException e) {
 			} catch (InvocationTargetException e) {
