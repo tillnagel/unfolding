@@ -9,7 +9,8 @@ import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.utils.MapPosition;
 
 /**
- * Marker representing multiple locations as lines. Use directly to display as simple lines, or extend it for custom styles.
+ * Marker representing multiple locations as lines. Use directly to display as simple lines, or extend it for custom
+ * styles.
  * 
  * This can be a polyline consisting of multiple locations, or a single line consisting of two locations.
  */
@@ -42,8 +43,8 @@ public class SimpleLinesMarker extends AbstractShapeMarker {
 	}
 
 	/**
-	 * Creates a marker for a single line, with a connection from start to end location. This convenience method adds the given
-	 * start and end locations to the list.
+	 * Creates a marker for a single line, with a connection from start to end location. This convenience method adds
+	 * the given start and end locations to the list.
 	 * 
 	 * @param startLocation
 	 *            The location of the start of this line.

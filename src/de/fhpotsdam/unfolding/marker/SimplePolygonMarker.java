@@ -3,6 +3,7 @@ package de.fhpotsdam.unfolding.marker;
 import java.util.HashMap;
 import java.util.List;
 
+import processing.core.PApplet;
 import processing.core.PConstants;
 import processing.core.PGraphics;
 import de.fhpotsdam.unfolding.geo.Location;
@@ -12,7 +13,8 @@ import de.fhpotsdam.unfolding.utils.MapPosition;
  * Marker representing multiple locations as polygon. Use directly to display as simple colored polygon, or extend it
  * for custom styles.
  * 
- * When in need of multiple connected polygons (e.g. a country and an island) use MultiMarker with Polygons.
+ * This polygon marker handles interior rings, i.e. holes in the main shape. When in need of multiple connected polygons
+ * (e.g. a country and an island) use MultiMarker with Polygons.
  */
 public class SimplePolygonMarker extends AbstractShapeMarker {
 
@@ -61,6 +63,43 @@ public class SimplePolygonMarker extends AbstractShapeMarker {
 		for (MapPosition pos : mapPositions) {
 			pg.vertex(pos.x, pos.y);
 		}
+		pg.endShape(PConstants.CLOSE);
+		pg.popStyle();
+	}
+
+	@Override
+	public void draw(PGraphics pg, List<MapPosition> mapPositions, List<List<MapPosition>> ringMapPositionsArray) {
+		if (mapPositions.isEmpty() || isHidden())
+			return;
+
+		pg.pushStyle();
+		pg.strokeWeight(strokeWeight);
+		if (isSelected()) {
+			pg.fill(highlightColor);
+			pg.stroke(highlightStrokeColor);
+		} else {
+			pg.fill(color);
+			pg.stroke(strokeColor);
+		}
+
+		pg.beginShape();
+
+		// Main shape (outline)
+		pg.beginContour();
+		for (MapPosition pos : mapPositions) {
+			pg.vertex(pos.x, pos.y);
+		}
+		pg.endContour();
+
+		// Interior rings
+		for (List<MapPosition> interiorRing : ringMapPositionsArray) {
+			pg.beginContour();
+			for (MapPosition pos : interiorRing) {
+				pg.vertex(pos.x, pos.y);
+			}
+			pg.endContour();
+		}
+
 		pg.endShape(PConstants.CLOSE);
 		pg.popStyle();
 	}

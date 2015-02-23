@@ -14,7 +14,7 @@ import de.fhpotsdam.unfolding.data.Feature.FeatureType;
 import de.fhpotsdam.unfolding.geo.Location;
 
 /**
- * Reads GeoJSON files and creates Features. 
+ * Reads GeoJSON files and creates Features.
  */
 public class GeoJSONReader extends GeoDataReader {
 
@@ -125,12 +125,23 @@ public class GeoJSONReader extends GeoDataReader {
 		}
 
 		if (featureType.equals("Polygon")) {
+			// Creates a single polygon feature
 			feature = new ShapeFeature(FeatureType.POLYGON);
 			ShapeFeature polygonFeature = (ShapeFeature) feature;
+			JSONArray coordinatesArray = geometry.getJSONArray("coordinates");
 
-			// Creates a single polygon feature
-			JSONArray coordinates = geometry.getJSONArray("coordinates").getJSONArray(0);
-			populatePolygonFeature(polygonFeature, coordinates);
+			// Store main polygon outline (exterior ring)
+			JSONArray mainCoordinates = coordinatesArray.getJSONArray(0);
+			populatePolygonFeature(polygonFeature, mainCoordinates);
+
+			// Store polygon feature (potentially with interior rings)
+			if (coordinatesArray.length() > 1) {
+				for (int i = 1; i < coordinatesArray.length(); i++) {
+					JSONArray interiorRingCoordinates = coordinatesArray.getJSONArray(i);
+					populateInteriorRingsPolygonFeature(polygonFeature, interiorRingCoordinates);
+				}
+			}
+
 		}
 
 		if (featureType.equals("MultiPolygon")) {
@@ -140,6 +151,8 @@ public class GeoJSONReader extends GeoDataReader {
 			// Creates multiple polygon features
 			JSONArray polygons = geometry.getJSONArray("coordinates");
 			for (int i = 0; i < polygons.length(); i++) {
+				
+				// FIXME Handle multi-polygons with holes, too! (see above)
 				JSONArray coordinates = polygons.getJSONArray(i).getJSONArray(0);
 
 				ShapeFeature polygonFeature = new ShapeFeature(FeatureType.POLYGON);
@@ -171,6 +184,19 @@ public class GeoJSONReader extends GeoDataReader {
 			double lat = coordinates.getJSONArray(i).getDouble(1);
 			polygonFeature.addLocation(new Location((float) lat, (float) lon));
 		}
+	}
+
+	private static void populateInteriorRingsPolygonFeature(ShapeFeature polygonFeature, JSONArray coordinates)
+			throws JSONException {
+		List<Location> interiorRingLocations = new ArrayList<Location>();
+		
+		for (int i = 0; i < coordinates.length(); i++) {
+			double lon = coordinates.getJSONArray(i).getDouble(0);
+			double lat = coordinates.getJSONArray(i).getDouble(1);
+			interiorRingLocations.add(new Location((float) lat, (float) lon));
+		}
+		
+		polygonFeature.addInteriorRing(interiorRingLocations);
 	}
 
 	private static void setProperties(Feature feature, JSONObject jsonProperties) {

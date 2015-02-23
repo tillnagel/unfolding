@@ -19,8 +19,11 @@ import de.fhpotsdam.unfolding.utils.ScreenPosition;
  */
 public abstract class AbstractShapeMarker extends AbstractMarker {
 
-	/** All locations defining this shape. */
+	/** All locations defining (the outline of) this shape. */
 	protected List<Location> locations;
+
+	/** Optional interior rings (polygon holes). */
+	protected List<List<Location>> interiorRingLocationArray = null;
 
 	/**
 	 * Creates an empty shape marker with no locations. Locations can be added dynamically after creation.
@@ -159,7 +162,7 @@ public abstract class AbstractShapeMarker extends AbstractMarker {
 	public Location getLocation() {
 		return getCentroid();
 	}
-	
+
 	/**
 	 * Returns the geometric center of this shape.
 	 * 
@@ -169,36 +172,106 @@ public abstract class AbstractShapeMarker extends AbstractMarker {
 		return GeoUtils.getCentroid(locations);
 	}
 
+	/**
+	 * Returns all interior rings of the shape.
+	 * 
+	 * @return A list of rings, i.e. a list of lists of locations, or null if shape has no interior rings.
+	 */
+	public List<List<Location>> getInteriorRings() {
+		return interiorRingLocationArray;
+	}
+
+	/**
+	 * Sets a list of lists of locations as interior rings.
+	 * 
+	 * @param interiorRingLocationArray
+	 *            The array of locations for all interior rings.
+	 */
+	public void setInteriorRings(List<List<Location>> interiorRingLocationArray) {
+		this.interiorRingLocationArray = interiorRingLocationArray;
+	}
+
+	// Drawing and Check methods -----------------------
+
 	@Override
 	public void draw(UnfoldingMap map) {
 		PGraphics pg = map.mapDisplay.getOuterPG();
 
 		List<MapPosition> mapPositions = new ArrayList<MapPosition>();
-
 		for (Location loc : getLocations()) {
 			float[] xy = map.mapDisplay.getObjectFromLocation(loc);
 			mapPositions.add(new MapPosition(xy));
 		}
 
-		draw(pg, mapPositions, properties, map);
+		if (getInteriorRings() == null) {
+			// One shape (standard case)
+			draw(pg, mapPositions, properties, map);
+
+		} else {
+
+			// Handles interior rings of polygons
+			List<List<MapPosition>> ringMapPositionsArray = new ArrayList<List<MapPosition>>();
+			for (List<Location> ringLocations : getInteriorRings()) {
+				List<MapPosition> ringMapPositions = new ArrayList<MapPosition>();
+				for (Location loc : ringLocations) {
+					float[] xy = map.mapDisplay.getObjectFromLocation(loc);
+					ringMapPositions.add(new MapPosition(xy));
+				}
+				ringMapPositionsArray.add(ringMapPositions);
+			}
+
+			// Outline shape and interior rings
+			draw(pg, mapPositions, ringMapPositionsArray);
+		}
 	}
 
+	/**
+	 * Simply calls {@link #draw(PGraphics, List)}.
+	 * 
+	 * To be overwritten by sub-classes if properties and/or map is needed.
+	 * 
+	 * @param pg
+	 *            The PGraphics to draw on.
+	 * @param mapPositions
+	 *            The positions in map (, i.e. outer object) coordinates.
+	 * @param properties
+	 *            The data properties of this marker.
+	 * @param map
+	 *            The Unfolding map this marker belongs to.
+	 */
 	protected void draw(PGraphics pg, List<MapPosition> mapPositions, HashMap<String, Object> properties,
 			UnfoldingMap map) {
 		draw(pg, mapPositions);
 	}
 
 	/**
-	 * Draws these markers in outer object coordinate system.
+	 * Draws marker in outer object coordinate system.
 	 * 
 	 * e.g. for labels oriented to the map
 	 * 
 	 * @param pg
-	 *            The PGraphics to draw on
-	 * @param objectPositions
-	 *            The positions in outer object coordinates.
+	 *            The PGraphics to draw on.
+	 * @param mapPositions
+	 *            The positions in map (, i.e. outer object) coordinates.
 	 */
-	public abstract void draw(PGraphics pg, List<MapPosition> objectPositions);
+	public abstract void draw(PGraphics pg, List<MapPosition> mapPositions);
+
+	/**
+	 * Draws marker in outer object coordinate system including interior rings.
+	 * 
+	 * By default, simply calls {@link #draw(PGraphics, List)} and ignores interior rings!
+	 * Needs to be implemented in sub-class! (See {@link SimplePolygonMarker#draw(PGraphics, List, List)}.) 
+	 * 
+	 * @param pg
+	 *            The PGraphics to draw on.
+	 * @param mapPositions
+	 *            The positions in map (, i.e. outer object) coordinates.
+	 * @param ringMapPositionsArray
+	 *            A list of lists of positions (for interior rings).
+	 */
+	public void draw(PGraphics pg, List<MapPosition> mapPositions, List<List<MapPosition>> ringMapPositionsArray) {
+		draw(pg, mapPositions);
+	}
 
 	@Override
 	public void draw(PGraphics pg, float x, float y) {
@@ -228,8 +301,7 @@ public abstract class AbstractShapeMarker extends AbstractMarker {
 	 *            The vectors of the polygon
 	 * @return True if inside, false otherwise.
 	 */
-	protected boolean isInside(float checkX, float checkY,
-			List<? extends PVector> vectors) {
+	protected boolean isInside(float checkX, float checkY, List<? extends PVector> vectors) {
 		boolean inside = false;
 		for (int i = 0, j = vectors.size() - 1; i < vectors.size(); j = i++) {
 			PVector pi = vectors.get(i);
@@ -263,7 +335,7 @@ public abstract class AbstractShapeMarker extends AbstractMarker {
 	public boolean isInsideByLocation(Location location) {
 		return isInside(location.getLat(), location.getLon(), locations);
 	}
-	
+
 	@Override
 	protected boolean isInside(float checkX, float checkY, float x, float y) {
 		// TODO Simply return false?

@@ -1,6 +1,7 @@
 package de.fhpotsdam.unfolding.data;
 
 import java.lang.reflect.Constructor;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -175,6 +176,16 @@ public class MarkerFactory {
 			marker = (Marker) markerConstructor.newInstance(feature.getLocations());
 			marker.setProperties(feature.getProperties());
 		}
+
+		// Set interior ring locations if existing, and if supported by the markerClass
+		if (feature.getInteriorRings() != null) {
+			try {
+				Method method = markerClass.getMethod("setInteriorRings", List.class);
+				method.invoke(marker, feature.getInteriorRings());
+			} catch (NoSuchMethodException e) {
+			}
+		}
+
 		return marker;
 	}
 
