@@ -85,11 +85,9 @@ public class SimplePolygonMarker extends AbstractShapeMarker {
 		pg.beginShape();
 
 		// Main shape (outline)
-		pg.beginContour();
 		for (MapPosition pos : mapPositions) {
 			pg.vertex(pos.x, pos.y);
 		}
-		pg.endContour();
 
 		// Interior rings
 		for (List<MapPosition> interiorRing : ringMapPositionsArray) {
