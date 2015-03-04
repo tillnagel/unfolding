@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import processing.core.PApplet;
-
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.providers.StamenMapProvider;
@@ -28,7 +27,7 @@ public class CircularMapSnapshotApp extends PApplet {
 		size(600, 400, OPENGL);
 
 		map = new UnfoldingMap(this, 0, 0, 400, 400, new StamenMapProvider.WaterColor());
-		map.zoomAndPanTo(new Location(51.507222, -0.1275), 10);
+		map.zoomAndPanTo(10, new Location(51.507222, -0.1275));
 
 		MapUtils.createDefaultEventDispatcher(this, map);
 	}
@@ -52,7 +51,7 @@ public class CircularMapSnapshotApp extends PApplet {
 	public void mouseClicked() {
 		for (MapSnapshot mapSnapshot : mapSnapshots) {
 			if (mapSnapshot.isInside(mouseX, mouseY)) {
-				map.zoomAndPanTo(mapSnapshot.location, mapSnapshot.zoomLevel);
+				map.zoomAndPanTo(mapSnapshot.zoomLevel, mapSnapshot.location);
 			}
 		}
 	}

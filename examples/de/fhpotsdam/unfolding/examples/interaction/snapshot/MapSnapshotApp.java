@@ -1,7 +1,6 @@
 package de.fhpotsdam.unfolding.examples.interaction.snapshot;
 
 import processing.core.PApplet;
-
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.utils.MapUtils;
@@ -22,23 +21,26 @@ public class MapSnapshotApp extends PApplet {
 		size(800, 600, OPENGL);
 
 		map = new UnfoldingMap(this);
-		map.zoomAndPanTo(new Location(52.5f, 13.4f), 10);
+		map.zoomAndPanTo(10, new Location(52.5f, 13.4f));
 
 		MapUtils.createDefaultEventDispatcher(this, map);
 	}
 
 	public void draw() {
-		background(0);
+		background(255, 0, 0);
 		map.draw();
 
 		if (mapSnapshot != null) {
+			fill(0, 50);
+			noStroke();
+			rect(8, 8, 84, 64);
 			mapSnapshot.draw(10, 10, 80, 60);
 		}
 	}
 
 	public void mouseClicked() {
 		if (mapSnapshot != null && mouseX > 10 && mouseX < 90 && mouseY > 10 && mouseY < 70) {
-			map.zoomAndPanTo(mapSnapshot.location, mapSnapshot.zoomLevel);
+			map.zoomAndPanTo(mapSnapshot.zoomLevel, mapSnapshot.location);
 		}
 	}
 

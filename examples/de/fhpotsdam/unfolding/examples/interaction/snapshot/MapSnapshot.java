@@ -28,6 +28,24 @@ public class MapSnapshot {
 	public float width;
 	public float height;
 
+	/**
+	 * Creates a MapSnapshot.
+	 * 
+	 * @param p
+	 *            The PApplet.
+	 */
+	public MapSnapshot(PApplet p) {
+		this.p = p;
+	}
+
+	/**
+	 * Creates a MapSnapshot and automatically snaps the current map.
+	 * 
+	 * @param p
+	 *            The PApplet.
+	 * @param map
+	 *            The map to take a snapshot from.
+	 */
 	public MapSnapshot(PApplet p, UnfoldingMap map) {
 		this.p = p;
 		snapshot(map);
@@ -41,6 +59,16 @@ public class MapSnapshot {
 		// Stores image data of the current map
 		PGraphics pg = map.mapDisplay.getOuterPG();
 		thumbnail = pg.get();
+	}
+
+	public void snapshot(UnfoldingMap map, int x, int y, int width, int height) {
+		// Stores information of the current state of the map
+		this.location = map.getCenter();
+		this.zoomLevel = map.getZoomLevel();
+
+		// Stores image data of the map area
+		PGraphics pg = map.mapDisplay.getOuterPG();
+		thumbnail = pg.get(x, y, width, height);
 	}
 
 	public void set(float x, float y, float width, float height) {
@@ -60,9 +88,6 @@ public class MapSnapshot {
 
 	public void draw(float x, float y, float width, float height) {
 		set(x, y, width, height);
-		p.fill(0, 100);
-		p.noStroke();
-		p.rect(x + 2, y + 2, width, height);
 		p.image(thumbnail, x, y, width, height);
 	}
 
