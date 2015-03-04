@@ -2,10 +2,21 @@ RELEASE NOTES
 
 
 
-0.9.7beta - 12 January 2015
+0.9.7beta - tba
 -----------------------------
 Bug Fixes
-- Fixed MultiLineString in GeoJSONReader. Thanks to Tutkain.
+- Fixed MultiLineString in GeoJSONReader. Thanks to Tutkain for report.
+- Fixed Polygon with interior rings in GeoJSONReader. #103
+- Fixed mapChanged method.
+
+Features
+- Added vector tile support.
+- Added vector tile examples.
+- Added rectangular panning restriction.
+
+Other
+- Tested with Processing 3.0a5
+- Cleaned up and fixed some examples.
 
 
 0.9.6 - 16 June 2014
