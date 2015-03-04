@@ -8,7 +8,6 @@ import de.fhpotsdam.unfolding.data.Feature;
 import de.fhpotsdam.unfolding.data.GeoJSONReader;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.marker.Marker;
-import de.fhpotsdam.unfolding.utils.GeoUtils;
 import de.fhpotsdam.unfolding.utils.MapUtils;
 
 public class ZoomToFitApp extends PApplet {
@@ -35,7 +34,7 @@ public class ZoomToFitApp extends PApplet {
 	public void mouseClicked() {
 		Marker marker = map.getFirstHitMarker(mouseX, mouseY);
 		if (marker != null) {
-			map.zoomAndPanToFit(GeoUtils.getLocations(marker));
+			map.zoomAndPanToFit(marker);
 		} else {
 			map.zoomAndPanTo(2, new Location(0, 0));
 		}

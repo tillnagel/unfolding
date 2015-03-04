@@ -28,8 +28,8 @@ import de.fhpotsdam.utils.Integrator;
  * 
  * Acts as facade for the map interactions, e.g. using innerScale for zooming, and outerRotate for rotating.
  * 
- * (c) 2014 Till Nagel, and others. See http://unfoldingmaps.org/contact.html for full credits.
- * Licensed under MIT License.
+ * (c) 2015 Till Nagel, and others. See http://unfoldingmaps.org/contact.html for full credits. Licensed under MIT
+ * License.
  */
 public class UnfoldingMap implements MapEventListener {
 
@@ -65,6 +65,11 @@ public class UnfoldingMap implements MapEventListener {
 	protected Location restrictedPanLocation = null;
 	/** The maximum distance to the center location of the restricted pan area. */
 	protected float maxPanningDistance;
+
+	/** Top left location for rectangular panning restriction. */
+	protected Location restrictedRectangularPanningTopLeftLocation = null;
+	/** Bottom right location for rectangular panning restriction. */
+	protected Location restrictedRectangularPanningBottomRightLocation = null;
 
 	public static Logger log = Logger.getLogger(UnfoldingMap.class);
 
@@ -369,6 +374,7 @@ public class UnfoldingMap implements MapEventListener {
 		mapEvent.executeManipulationFor(this);
 
 		// Forward map event to application via reflection
+		// TODO See https://github.com/tillnagel/unfolding/issues/102
 		if (mapChangedMethod != null) {
 			try {
 				if (mapChangedMethod.getParameterTypes().length > 0) {
@@ -841,6 +847,10 @@ public class UnfoldingMap implements MapEventListener {
 		addOffset(dx, dy);
 	}
 
+	public void zoomAndPanToFit(Marker marker) {
+		zoomAndPanToFit(GeoUtils.getLocations(marker));
+	}
+
 	public void zoomAndPanToFit(List<Location> locations) {
 		Location[] boundingBox = GeoUtils.getBoundingBox(locations);
 		List<Location> boundingBoxLocations = Arrays.asList(boundingBox);
@@ -1127,20 +1137,23 @@ public class UnfoldingMap implements MapEventListener {
 		this.maxScale = getScaleFromZoom(maxZoomLevel);
 	}
 
-	// /**
-	// * Sets a bounding box as panning range of the map.
-	// *
-	// * @param location
-	// * topLeft corner of the box.
-	// * @param location2
-	// * bottomRight corner of the box.
-	// */
-	// TODO Implement setPanningBOund
-	// public void setPanningRange(Location topLeftLocation, Location bottomRightLocation) {
-	// }
+	/**
+	 * Restricts the area this map can pan to in a rectangular fashion. When map.setTweening is set to true the map
+	 * animates back to the restricted area.
+	 * 
+	 * @param topLeftLocation
+	 *            The top left corner of the restricted rectangular area.
+	 * @param bottomRightLocation
+	 *            The bottom right corner of the restricted rectangular area.
+	 */
+	public void setRectangularPanningRestriction(Location topLeftLocation, Location bottomRightLocation) {
+		this.restrictedRectangularPanningTopLeftLocation = topLeftLocation;
+		this.restrictedRectangularPanningBottomRightLocation = bottomRightLocation;
+	}
 
 	/**
-	 * Restricts the area this map can pan to in a radial fashion.
+	 * Restricts the area this map can pan to in a radial fashion. When map.setTweening is set to true the map animates
+	 * back to the restricted area.
 	 * 
 	 * @param location
 	 *            The center location of the circular restriction area.
@@ -1154,28 +1167,60 @@ public class UnfoldingMap implements MapEventListener {
 
 	/**
 	 * Frees this map from any panning restriction.
+	 * 
+	 * Both circular as well as rectangular panning restrictions are reset.
 	 */
 	public void resetPanningRestriction() {
 		this.restrictedPanLocation = null;
+		this.restrictedRectangularPanningTopLeftLocation = null;
 	}
 
 	/**
 	 * Method to perform any current map panning restriction.
 	 */
 	private void restrictMapToArea() {
-		if (restrictedPanLocation == null) {
+		if (restrictedPanLocation == null && restrictedRectangularPanningTopLeftLocation == null) {
 			return;
 		}
 
-		Location mapCenter = getCenter();
-		double dist = GeoUtils.getDistance(restrictedPanLocation, mapCenter);
-		if (dist > maxPanningDistance) {
-			float angle = PApplet.degrees((float) GeoUtils.getAngleBetween(restrictedPanLocation, mapCenter));
-			float backDist = maxPanningDistance - (float) dist;
-			// Pan back, with same angle but negative distance
-			Location newLocation = GeoUtils.getDestinationLocation(mapCenter, angle, backDist);
-			panTo(newLocation);
+		if (restrictedPanLocation != null) {
+			// circular
+			Location mapCenter = getCenter();
+			double dist = GeoUtils.getDistance(restrictedPanLocation, mapCenter);
+			if (dist > maxPanningDistance) {
+				float angle = PApplet.degrees((float) GeoUtils.getAngleBetween(restrictedPanLocation, mapCenter));
+				float backDist = maxPanningDistance - (float) dist;
+				// Pan back, with same angle but negative distance
+				Location newLocation = GeoUtils.getDestinationLocation(mapCenter, angle, backDist);
+				panTo(newLocation);
+			}
 		}
+
+		else {
+			// rectangular
+
+			Location mapTopLeft = getTopLeftBorder();
+			Location mapBottomRight = getBottomRightBorder();
+
+			ScreenPosition mapTopLeftPos = getScreenPosition(mapTopLeft);
+			ScreenPosition boundTopLeftPos = getScreenPosition(restrictedRectangularPanningTopLeftLocation);
+			if (restrictedRectangularPanningTopLeftLocation.getLon() > mapTopLeft.getLon()) {
+				panBy(mapTopLeftPos.x - boundTopLeftPos.x, 0);
+			}
+			if (restrictedRectangularPanningTopLeftLocation.getLat() < mapTopLeft.getLat()) {
+				panBy(0, mapTopLeftPos.y - boundTopLeftPos.y);
+			}
+
+			ScreenPosition mapBottomRightPos = getScreenPosition(mapBottomRight);
+			ScreenPosition boundBottomRightPos = getScreenPosition(restrictedRectangularPanningBottomRightLocation);
+			if (restrictedRectangularPanningBottomRightLocation.getLon() < mapBottomRight.getLon()) {
+				panBy(mapBottomRightPos.x - boundBottomRightPos.x, 0);
+			}
+			if (restrictedRectangularPanningBottomRightLocation.getLat() > mapBottomRight.getLat()) {
+				panBy(0, mapBottomRightPos.y - boundBottomRightPos.y);
+			}
+		}
+
 	}
 
 	// Outer and inner offset ---------------------------------------

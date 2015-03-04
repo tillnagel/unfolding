@@ -21,7 +21,7 @@ public class ConstrainedMapApp extends PApplet {
 		size(800, 600, OPENGL);
 
 		map = new UnfoldingMap(this);
-		map.zoomAndPanTo(new Location(centerLocation), 12);
+		map.zoomAndPanTo(12, new Location(centerLocation));
 		map.setPanningRestriction(centerLocation, maxPanningDistance);
 		map.setZoomRange(12, 15);
 
