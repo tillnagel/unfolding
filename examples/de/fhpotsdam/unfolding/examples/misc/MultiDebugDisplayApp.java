@@ -1,7 +1,6 @@
 package de.fhpotsdam.unfolding.examples.misc;
 
 import processing.core.PApplet;
-
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.events.EventDispatcher;
 import de.fhpotsdam.unfolding.geo.Location;
@@ -13,6 +12,9 @@ import de.fhpotsdam.unfolding.utils.MapUtils;
  * Shows basic information about two independent maps from different providers.
  * 
  * The information widget also shows map events, as the eventDispatcher is passed to the DebugDisplay.
+ * 
+ * @see {@link de.fhpotsdam.unfolding.examples.events.ComplexMapEventApp ComplexMapEventApp} for DebugDisplays showing
+ *      complex map events.
  */
 public class MultiDebugDisplayApp extends PApplet {
 
@@ -25,8 +27,9 @@ public class MultiDebugDisplayApp extends PApplet {
 		size(1024, 768, OPENGL);
 
 		map1 = new UnfoldingMap(this, "map1", 0, 0, 512, height);
-		map1.zoomAndPanTo(new Location(52.5f, 13.4f), 10);
+		map1.zoomAndPanTo(10, new Location(52.5f, 13.4f));
 		map2 = new UnfoldingMap(this, "map2", 512, 0, 512, height, true, false, new Microsoft.AerialProvider());
+		map2.zoomTo(4);
 		EventDispatcher eventDispatcher = MapUtils.createDefaultEventDispatcher(this, map1, map2);
 
 		// Create debug displays

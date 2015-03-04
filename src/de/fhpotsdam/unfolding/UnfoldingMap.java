@@ -228,7 +228,7 @@ public class UnfoldingMap implements MapEventListener {
 
 	public UnfoldingMap(PApplet p, String id, float x, float y, float width, float height, boolean useMask,
 			boolean useDistortion, AbstractMapProvider provider) {
-		this(p, generateId(), x, y, width, height, true, false, provider, null);
+		this(p, id, x, y, width, height, true, false, provider, null);
 	}
 
 	/**

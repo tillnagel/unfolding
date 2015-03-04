@@ -27,6 +27,7 @@
 	<property name="unfolding.jar" value="unfolding.${version}.jar" />
 
 	<property name="src.dir" location="src" />
+	<property name="data.dir" location="data" />
 	<property name="example.dir" location="examples" />
 	<property name="example.processing.dir" location="examples-processing" />
 	<property name="build.dir" location="build" />
@@ -110,8 +111,16 @@
 		</junit>
 	</target>
 
+	<target name="copydata">
+		<copy todir="${build.dir}">
+			<fileset dir="${data.dir}">
+				<include name="ui/**" />
+			</fileset>
+		</copy>
+	</target>
+	
 	<!--Creates the deployable jar file  -->
-	<target name="jar" depends="compile">
+	<target name="jar" depends="compile, copydata">
 		<jar destfile="${dist.dir}\${unfolding.jar}" basedir="${build.dir}">
 			<!-- <manifest> -->
 			<!-- 	<attribute name="Main-Class" value="test.Main" /> -->

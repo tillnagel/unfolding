@@ -1,7 +1,6 @@
 package de.fhpotsdam.unfolding.examples.misc;
 
 import processing.core.PApplet;
-
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.utils.DebugDisplay;
@@ -19,7 +18,7 @@ public class DebugDisplayApp extends PApplet {
 		size(1024, 768, P2D);
 
 		map = new UnfoldingMap(this, "myMap");
-		map.zoomAndPanTo(new Location(52.5f, 13.4f), 10);
+		map.zoomAndPanTo(10, new Location(52.5f, 13.4f));
 		MapUtils.createDefaultEventDispatcher(this, map);
 
 		// Create debug display (optional: specify position and size)

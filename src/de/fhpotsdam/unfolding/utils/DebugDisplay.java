@@ -107,8 +107,8 @@ public class DebugDisplay implements MapEventListener {
 
 		this.x = x;
 		this.y = y;
-		
-		// TODO Load resources from jar instead of data-folder (see issue #64)
+
+		// Loads resources either from data folder or from jar (see issue #64)
 		font = p.loadFont("ui/Lato-Regular-11.vlw");
 		titleFont = p.loadFont("ui/Lato-Bold-14.vlw");
 		logo = p.loadImage("ui/unfolding-mini-icon.png");
@@ -210,7 +210,7 @@ public class DebugDisplay implements MapEventListener {
 
 		p.noStroke();
 		p.fill(backgroundColor);
-		p.rect(x, y, width, height);
+		p.rect(x, y, width, height - ((eventDispatcher == null) ? 50 : 0));
 
 		p.image(logo, x + margin, y + margin);
 
@@ -218,8 +218,14 @@ public class DebugDisplay implements MapEventListener {
 		p.textSize(14);
 		p.fill(textColor);
 		String mapName = map.getId();
-		p.text(mapName, (int) (x + margin + logo.width + padding * 2) - 2,
-				(int) (y + margin + logo.height - padding) + 1);
+		int titleX = (int) (x + margin + logo.width + padding * 2) - 2;
+		int titleY = (int) (y + margin + logo.height - padding) + 1;
+		// Cuts of title from the right if too long to fit 
+		while (p.textWidth(mapName) > x + width - titleX - 15) {
+			mapName = mapName.substring(0, mapName.length() - 1);
+		}
+
+		p.text(mapName, titleX, titleY);
 
 		p.textFont(font);
 		p.textSize(11);
