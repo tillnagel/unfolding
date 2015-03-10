@@ -62,8 +62,8 @@ This works well in combination with rendered TileMill tiles, as often you only w
 For simple animations between different zoom levels simply switch on map tweening.
 
 	map.setTweening(true);
-	
-Note: This is only working for panning, and not for zooming at the moment! See [Issue 5](https://github.com/tillnagel/unfolding/issues/5) for updates.
+
+This works for pan and zoom, both for user interactions as well as for programmatic map manipulations.
 
 (More to come soon.)
 
