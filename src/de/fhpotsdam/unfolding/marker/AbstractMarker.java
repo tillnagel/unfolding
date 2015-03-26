@@ -83,6 +83,16 @@ public abstract class AbstractMarker implements Marker {
 		}
 	}
 
+	@Override
+	public Integer getIntegerProperty(String key) {
+		Object value = properties.get(key);
+		if (value != null && value instanceof Integer) {
+			return (Integer) value;
+		} else {
+			return null;
+		}
+	}
+
 	/**
 	 * Draws this marker onto the map. Converts the geo-location to object position, and calls
 	 * {@link #draw(PGraphics, float, float, UnfoldingMap)}.

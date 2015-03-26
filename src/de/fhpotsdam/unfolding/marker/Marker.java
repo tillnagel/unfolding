@@ -97,6 +97,16 @@ public interface Marker {
 	 * @return The property, if found.
 	 */
 	public String getStringProperty(String key);
+	
+	/**
+	 * Gets the property as Integer for given key.
+	 * 
+	 * @param key
+	 *            The key of the property.
+	 * @return The property, if found.
+	 */
+	public Integer getIntegerProperty(String key);
+	
 
 	/**
 	 * Checks whether given position is inside this marker, according to the maps coordinate system. Can be used for
