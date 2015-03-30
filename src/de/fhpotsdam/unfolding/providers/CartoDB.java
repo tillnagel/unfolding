@@ -52,11 +52,4 @@ public class CartoDB {
 		}
 	}
 
-	public static class DarkMatterNoLabels extends GenericCartoDBProvider {
-		public String[] getTileUrls(Coordinate coordinate) {
-			String url = "http://a.basemaps.cartocdn.com/light_nolabels/" + getZoomString(coordinate) + ".png";
-			return new String[] { url };
-		}
-	}
-
 }
