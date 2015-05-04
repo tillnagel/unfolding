@@ -100,6 +100,22 @@ public class Feature {
 	}
 
 	/**
+	 * Returns the value of a Integer property.
+	 * 
+	 * @param key
+	 *            The key of the property.
+	 * @return The value as Integer, or null if not found or if property is not an Integer.
+	 */
+	public Integer getIntegerProperty(String key) {
+		Object value = properties.get(key);
+		if (value != null && value instanceof Integer) {
+			return (Integer) value;
+		} else {
+			return null;
+		}
+	}
+
+	/**
 	 * Sets all properties. All previously existing ones will be removed.
 	 * 
 	 * @param properties
