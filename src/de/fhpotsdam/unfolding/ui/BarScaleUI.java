@@ -144,4 +144,14 @@ public class BarScaleUI {
 		}
 		return closest;
 	}
+
+	public boolean isAutoAlignment() {
+		return autoAlignment;
+	}
+
+	public void setAutoAlignment(boolean autoAlignment) {
+		this.autoAlignment = autoAlignment;
+	}
+
+	
 }
