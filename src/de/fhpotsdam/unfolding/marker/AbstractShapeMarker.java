@@ -331,9 +331,21 @@ public abstract class AbstractShapeMarker extends AbstractMarker {
 	public boolean isInsideByLocation(float latitude, float longitude) {
 		return isInside(latitude, longitude, locations);
 	}
-
+	
+	
+	/** @see #isInsideByLocation(float, float) */
 	public boolean isInsideByLocation(Location location) {
 		return isInside(location.getLat(), location.getLon(), locations);
+	}
+	
+	/** @see #isInsideByLocation(float, float) */
+	public boolean contains(float latitude, float longitude) {
+		return isInsideByLocation(latitude, longitude);
+	}
+
+	/** @see #isInsideByLocation(Location) */
+	public boolean contains(Location location) {
+		return isInsideByLocation(location.getLat(), location.getLon());
 	}
 
 	@Override
