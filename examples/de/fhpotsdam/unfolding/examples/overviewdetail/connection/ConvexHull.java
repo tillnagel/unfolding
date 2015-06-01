@@ -52,7 +52,7 @@ public class ConvexHull {
 
 	// builds a convex hull around the given points
 	// using the Graham scan algorithm
-	protected List<PVector> buildHull(List<PVector> points) {
+	public static List<PVector> buildHull(List<PVector> points) {
 		if (points.size() < 3)
 			return null;
 
