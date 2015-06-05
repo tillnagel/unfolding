@@ -867,8 +867,8 @@ public class UnfoldingMap implements MapEventListener {
 	}
 
 	public void zoomToFit(Location[] boundingBox) {
-		ScreenPosition nwPos = getScreenPosition(boundingBox[0]);
-		ScreenPosition sePos = getScreenPosition(boundingBox[1]);
+		ScreenPosition nwPos = mapDisplay.getScreenPositionFloat(boundingBox[0]);
+		ScreenPosition sePos = mapDisplay.getScreenPositionFloat(boundingBox[1]);
 		float zoomScale = 0.9f / Math.max((sePos.x - nwPos.x) / getWidth(), (sePos.y - nwPos.y) / getHeight());
 		innerScale(zoomScale);
 	}
