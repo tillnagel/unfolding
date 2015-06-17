@@ -17,8 +17,7 @@ import de.fhpotsdam.unfolding.providers.AbstractMapProvider;
  * <li>AbstractMapTileUrlProvider returning an URL from which this TileLoader loads the tile from.</li>
  * </ul>
  * 
- * Tile organization is handled in {@link AbstractMapDisplay} (caching) and
- * {@link Java2DMapDisplay} (rendering).
+ * Tile organization is handled in {@link AbstractMapDisplay} (caching) and {@link Java2DMapDisplay} (rendering).
  */
 public class TileLoader implements Runnable {
 
@@ -26,10 +25,16 @@ public class TileLoader implements Runnable {
 	private static final boolean SHOW_DEBUG_BORDER = false;
 	/** Shows coordinate information for tile. */
 	private static final boolean SHOW_TILE_COORDINATES = false;
+	/**
+	 * Indicates whether to try loading again (repeatedly) for tiles which could not be loaded. Uses transparent tile if
+	 * false.
+	 */
+	private static final boolean TRY_AGAIN_ON_NON_LOADED_TILES = false;
 
 	/** Shows coordinate information for tile, i.e. placed atop original tile image. */
 	public boolean showDebugBorder = SHOW_DEBUG_BORDER;
 	public boolean showTileCoordinates = SHOW_TILE_COORDINATES;
+	public boolean tryAgainOnNonLoadedTiles = TRY_AGAIN_ON_NON_LOADED_TILES;
 
 	/** The parent applet. */
 	protected PApplet p;
@@ -53,8 +58,7 @@ public class TileLoader implements Runnable {
 	}
 
 	/**
-	 * Gets tile from provider, and calls {@link TileLoaderListener#tileLoaded(Coordinate, Object)}
-	 * afterwards.
+	 * Gets tile from provider, and calls {@link TileLoaderListener#tileLoaded(Coordinate, Object)} afterwards.
 	 */
 	public void run() {
 
@@ -69,7 +73,7 @@ public class TileLoader implements Runnable {
 			}
 		}
 
-		if (tileImg == null) {
+		if (tileImg == null && !tryAgainOnNonLoadedTiles) {
 			// If no tile was provided, use transparent image.
 			tileImg = cachedEmpyImage;
 		}
@@ -83,8 +87,8 @@ public class TileLoader implements Runnable {
 	}
 
 	/**
-	 * Loads tile from URL(s) by using Processing's loadImage function. If multiple URLs are
-	 * provided, all tile images are blended into each other.
+	 * Loads tile from URL(s) by using Processing's loadImage function. If multiple URLs are provided, all tile images
+	 * are blended into each other.
 	 * 
 	 * @param urls
 	 *            The URLs (local or remote) to load the tiles from.
@@ -94,7 +98,7 @@ public class TileLoader implements Runnable {
 		// Load image from URL (local file included)
 		// NB: Use 'unknown' as content-type to let loadImage decide
 		PImage img = p.loadImage(urls[0], "unknown");
-		//PImage img = p.loadImage(urls[0]); // test for Android
+		// PImage img = p.loadImage(urls[0]); // test for Android
 
 		if (img != null) {
 			// If array contains multiple URLs, load all images and blend them together

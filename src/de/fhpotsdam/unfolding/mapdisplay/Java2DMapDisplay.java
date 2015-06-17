@@ -303,6 +303,14 @@ public class Java2DMapDisplay extends AbstractMapDisplay implements PConstants {
 			return new ScreenPosition(getScreenFromInnerObjectPosition(innerObjectXY[0], innerObjectXY[1]));
 		}
 	}
+	
+	@Override
+	public ScreenPosition getScreenPositionFloat(Location location) {
+		synchronized (this) {
+			float innerObjectXY[] = getInnerObjectFromLocation(location);
+			return new ScreenPosition(getScreenFromInnerObjectPosition(innerObjectXY[0], innerObjectXY[1]), true);
+		}
+	}
 
 	@Deprecated
 	public float[] getScreenPositionFromLocation(Location location) {

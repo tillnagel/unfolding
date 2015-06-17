@@ -23,4 +23,9 @@ public class ScreenPosition extends PVector{
 		this.x = Math.round(xy[0]);
 		this.y = Math.round(xy[1]);
 	}
+	
+	public ScreenPosition(float[] xy, boolean exact) {
+		this.x = xy[0];
+		this.y = xy[1];
+	}
 }

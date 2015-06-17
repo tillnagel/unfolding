@@ -69,16 +69,20 @@ public abstract class AbstractMapDisplay implements TileLoaderListener {
 
 	// Tiles
 	public int max_pending = 4;
-	public int max_images_to_keep = 256;
-	// public int max_images_to_keep = 1024;
+	//public int max_images_to_keep = 256;
+	 public int max_images_to_keep = 1024;
 	public int grid_padding = 1; // set to 0 for debugging purposes
 
 	/** Check whether all currently visible tiles have been loaded. */
 	protected boolean allTilesLoaded = false;
 
 	protected AbstractMapProvider provider;
+	
+	/** Pending threads to load tiles for coordinate. */
 	protected Hashtable<Coordinate, Runnable> pending = new Hashtable<Coordinate, Runnable>();
+	/** Loaded tiles for coordinate. */
 	protected Hashtable<Coordinate, Object> images = new Hashtable<Coordinate, Object>();
+	/** Queue of coordinates to create threads and load tiles. */
 	protected Vector<Coordinate> queue = new Vector<Coordinate>();
 	protected Vector<Object> recent_images = new Vector<Object>();
 
@@ -263,6 +267,8 @@ public abstract class AbstractMapDisplay implements TileLoaderListener {
 	public abstract float[] getScreenPositionFromLocation(Location location);
 
 	public abstract ScreenPosition getScreenPosition(Location location);
+	
+	public abstract ScreenPosition getScreenPositionFloat(Location location);
 
 	public abstract float[] getObjectFromLocation(Location location);
 
@@ -318,12 +324,12 @@ public abstract class AbstractMapDisplay implements TileLoaderListener {
 	}
 
 	// TODO images & pending thread safe?
-	// TODO Handle null images (if TileLoader/MapProvider returns null tile)
 	public void tileLoaded(Coordinate coord, Object image) {
-		if (pending.containsKey(coord) && coord != null) {
+		if (pending.containsKey(coord) && coord != null && image != null) {
 			images.put(coord, image);
 			pending.remove(coord);
 		} else {
+			// Re-adds to queue
 			queue.add(coord);
 			pending.remove(coord);
 		}
