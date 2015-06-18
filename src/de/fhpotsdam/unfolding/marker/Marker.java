@@ -74,6 +74,17 @@ public interface Marker {
 	public void setProperties(HashMap<String, Object> properties);
 
 	/**
+	 * Sets the property for given key. If properties previously contained a mapping for the key the value is replaced.
+	 * 
+	 * @param key
+	 *            The key of the property.
+	 * @param value
+	 *            The value of the property.
+	 * @return The previous value, or null.
+	 */
+	public Object setProperty(String key, Object value);
+
+	/**
 	 * Gets the optional properties of this marker. The map consist of key,value pairs for each property.
 	 * 
 	 * @return A map of properties.
@@ -97,7 +108,7 @@ public interface Marker {
 	 * @return The property, if found.
 	 */
 	public String getStringProperty(String key);
-	
+
 	/**
 	 * Gets the property as Integer for given key.
 	 * 
@@ -106,7 +117,6 @@ public interface Marker {
 	 * @return The property, if found.
 	 */
 	public Integer getIntegerProperty(String key);
-	
 
 	/**
 	 * Checks whether given position is inside this marker, according to the maps coordinate system. Can be used for

@@ -64,6 +64,11 @@ public abstract class AbstractMarker implements Marker {
 	}
 
 	@Override
+	public Object setProperty(String key, Object value) {
+		return properties.put(key, value);
+	}
+	
+	@Override
 	public HashMap<String, Object> getProperties() {
 		return properties;
 	}
@@ -72,7 +77,7 @@ public abstract class AbstractMarker implements Marker {
 	public Object getProperty(String key) {
 		return properties.get(key);
 	}
-
+	
 	@Override
 	public String getStringProperty(String key) {
 		Object value = properties.get(key);

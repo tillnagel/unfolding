@@ -93,6 +93,11 @@ public class MultiMarker implements Marker {
 	public void setProperties(HashMap<String, Object> properties) {
 		this.properties = properties;
 	}
+	
+	@Override
+	public Object setProperty(String key, Object value) {
+		return properties.put(key, value);
+	}
 
 	@Override
 	public HashMap<String, Object> getProperties() {
