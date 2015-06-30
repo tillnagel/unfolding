@@ -14,7 +14,7 @@ import de.fhpotsdam.unfolding.utils.MapUtils;
 
 public class MillionDotsMapApp8PShape extends PApplet {
 
-	int dotNumber = 1000;
+	int dotNumber = 2000;
 
 	UnfoldingMap map;
 	// Original dots (loc + time)
@@ -38,7 +38,7 @@ public class MillionDotsMapApp8PShape extends PApplet {
 
 	public List<PShape> createShapes() {
 		List<PShape> shapes = new ArrayList<PShape>();
-		for (int i = 0; i < 100; i++) {
+		for (int i = 0; i < dotNumber; i++) {
 			PShape shape = createShape();
 			shape.beginShape(QUAD);
 			shape.noStroke();
@@ -65,7 +65,7 @@ public class MillionDotsMapApp8PShape extends PApplet {
 		fill(255);
 		rect(5, 5, 180, 20);
 		fill(0);
-		text("fps: " + nfs(frameRate, 0, 2) + " (n" + " dots)", 10, 20);
+		text("fps: " + nfs(frameRate, 0, 2) + " (" + dotNumber + " dots)", 10, 20);
 	}
 
 	public void mapChanged(MapEvent mapEvent) {

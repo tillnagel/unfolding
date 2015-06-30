@@ -14,7 +14,7 @@ import de.fhpotsdam.unfolding.utils.MapUtils;
 
 public class MillionDotsMapApp9PShapeGroup extends PApplet {
 
-	int dotNumber = 2000;
+	int dotNumber = 20000;
 
 	UnfoldingMap map;
 	// Original dots (loc + time)
@@ -33,7 +33,7 @@ public class MillionDotsMapApp9PShapeGroup extends PApplet {
 		MapUtils.createDefaultEventDispatcher(this, map);
 
 		shapeGroup = createShapeGroup();
-		mapChanged(null);
+		updateShapeGroup();
 	}
 
 	public PShape createShapeGroup() {
@@ -58,6 +58,8 @@ public class MillionDotsMapApp9PShapeGroup extends PApplet {
 		background(0);
 		map.draw();
 
+		updateShapeGroup();
+
 		shape(shapeGroup);
 
 		fill(255);
@@ -66,9 +68,8 @@ public class MillionDotsMapApp9PShapeGroup extends PApplet {
 		text("fps: " + nfs(frameRate, 0, 2) + " (" + dotNumber + " dots)", 10, 20);
 	}
 
-	public void mapChanged(MapEvent mapEvent) {
-		// Check map area only once after user interaction.
-
+	
+	public void updateShapeGroup() {
 		for (int i = 0; i < shapeGroup.getChildCount(); i++) {
 			PShape shape = shapeGroup.getChild(i);
 			PVector pos = map.getScreenPosition(dots.get(i).location);
