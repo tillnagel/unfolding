@@ -35,7 +35,7 @@ public class VectorTilesUtils {
 		this.p = p;
 		this.map = map;
 	}
-
+	
 	/**
 	 * Loads all markers from a vector tile for the given screen position.
 	 * 
@@ -74,6 +74,22 @@ public class VectorTilesUtils {
 			}
 		}
 		return allMarkers;
+	}
+	
+	public List<Feature> loadFeaturesForScreenPos(String layers, int x, int y) {
+		int[] coord = getCoordinate(x, y);
+		return loadVectorTiles(layers, map.getZoomLevel(), coord[0], coord[1]);
+	}
+
+	public List<Feature> loadFeaturesForCurrentMapView(String layers) {
+		List<Feature> allFeatures = new ArrayList<Feature>();
+		for (int x = 0; x < map.getWidth(); x += UnfoldingMap.TILE_WIDTH) {
+			for (int y = 0; y < map.getHeight(); y += UnfoldingMap.TILE_HEIGHT) {
+				List<Feature> tileFeatures = loadFeaturesForScreenPos(layers, x, y);
+				allFeatures.addAll(tileFeatures);
+			}
+		}
+		return allFeatures;
 	}
 
 	/**
