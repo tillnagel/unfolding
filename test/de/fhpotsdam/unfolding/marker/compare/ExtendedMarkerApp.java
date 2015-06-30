@@ -15,6 +15,8 @@ import de.fhpotsdam.unfolding.utils.MapUtils;
 /**
  * Displays various marker to compare features and behaviors of the different display methods.
  * 
+ * Inner and Outer marker NOT USED ANYMORE!!
+ * 
  */
 @SuppressWarnings("serial")
 public class ExtendedMarkerApp extends PApplet {
@@ -44,6 +46,7 @@ public class ExtendedMarkerApp extends PApplet {
 		mapsWithInner = createMaps(50, 20, 170, 170, 10, 10);
 		mapsWithOuter = createMaps(650, 20, 170, 170, 10, 10);
 		MapUtils.createDefaultEventDispatcher(this, mapsWithInner);
+		MapUtils.createDefaultEventDispatcher(this, mapsWithOuter);
 
 		// inner marker
 		pointMarker = new SimplePointMarker(pointLocation);
