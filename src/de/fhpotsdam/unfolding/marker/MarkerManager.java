@@ -146,6 +146,47 @@ public class MarkerManager<E extends Marker> {
 	}
 
 	/**
+	 * Searches list of markers with IDs.
+	 * 
+	 * @param ids
+	 *            The list of IDs of the markers to find.
+	 * @return The found Markers or an empty list if none found.
+	 */
+	public List<E> findMarkersByIds(List<String> ids) {
+		List<E> foundMarkers = new ArrayList<E>();
+		for (E marker : markers) {
+			if (ids.contains(marker.getId())) {
+				foundMarkers.add(marker);
+			}
+		}
+		return foundMarkers;
+	}
+
+	/**
+	 * Searches marker with a specific property.
+	 * 
+	 * @param key
+	 *            The property key to search for.
+	 * @param value
+	 *            The property value to search for.
+	 * @return The first found Marker or null if not found.
+	 */
+	public E findMarkerByProperty(String key, Object value) {
+		E foundMarker = null;
+		for (E marker : this.markers) {
+			Object foundValue = marker.getProperty(key);
+			if (foundValue != null && foundValue.equals(value)) {
+				foundMarker = marker;
+			}
+		}
+		return foundMarker;
+	}
+
+	public E findMarkerByName(String name) {
+		return findMarkerByProperty("Name", name);
+	}
+
+	/**
 	 * Returns all markers managed by this MarkerManager.
 	 * 
 	 * @return A list of markers.
