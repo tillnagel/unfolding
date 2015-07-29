@@ -44,6 +44,7 @@ public class MarkerFactory {
 		featureMarkerMap.put(FeatureType.POINT, SimplePointMarker.class);
 		featureMarkerMap.put(FeatureType.LINES, SimpleLinesMarker.class);
 		featureMarkerMap.put(FeatureType.POLYGON, SimplePolygonMarker.class);
+		featureMarkerMap.put(FeatureType.MULTI, MultiMarker.class);
 	}
 
 	/**
@@ -137,6 +138,18 @@ public class MarkerFactory {
 		featureMarkerMap.put(FeatureType.POLYGON, polygonMarkerClass);
 	}
 
+	/**
+	 * Sets the marker class for markers to be created for multi-features. This is only for the MultiMarker component
+	 * class, the markers it consists of have independent marker classes.
+	 * 
+	 * @param multiMarkerClass
+	 *            A multi marker class.
+	 */
+	public void setMultiClass(Class multiMarkerClass) {
+		featureMarkerMap.remove(FeatureType.MULTI);
+		featureMarkerMap.put(FeatureType.MULTI, multiMarkerClass);
+	}
+
 	protected Marker createPointMarker(PointFeature feature) throws Exception {
 		Class markerClass = featureMarkerMap.get(feature.getType());
 		Marker marker = null;
@@ -189,8 +202,18 @@ public class MarkerFactory {
 		return marker;
 	}
 
-	private Marker createMultiMarker(MultiFeature multiFeature) throws Exception {
-		MultiMarker multiMarker = new MultiMarker();
+	protected Marker createMultiMarker(MultiFeature multiFeature) throws Exception {
+		Class markerClass = featureMarkerMap.get(multiFeature.getType());
+		MultiMarker multiMarker = null;
+		try {
+			Constructor markerConstructor = markerClass.getDeclaredConstructor(HashMap.class);
+			multiMarker = (MultiMarker) markerConstructor.newInstance(multiFeature.getProperties());
+		} catch (NoSuchMethodException e) {
+			Constructor markerConstructor = markerClass.getDeclaredConstructor();
+			multiMarker = (MultiMarker) markerConstructor.newInstance();
+			multiMarker.setProperties(multiFeature.getProperties());
+		}
+
 		multiMarker.setProperties(multiFeature.getProperties());
 
 		for (Feature feature : multiFeature.getFeatures()) {

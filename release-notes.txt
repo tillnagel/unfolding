@@ -8,11 +8,14 @@ Bug Fixes
 - Fixed MultiLineString in GeoJSONReader. Thanks to Tutkain for report.
 - Fixed Polygon with interior rings in GeoJSONReader. #103
 - Fixed mapChanged method.
+- Fixed DebugDisplay. UI resources in JAR now. #64
 
 Features
 - Added vector tile support.
 - Added vector tile examples.
 - Added rectangular panning restriction.
+- Added setProperty to Marker
+- Added option to set MultiMarker class for MarkerFactory. #115
 
 Other
 - Tested with Processing 3.0a5
