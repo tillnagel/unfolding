@@ -23,7 +23,7 @@
 				To update latest release file for automatic Processing lib mechanism  
 				(Unfolding.zip + Unfolding.txt)
 	-->
-	<property name="version" value="0.9.7beta" />
+	<property name="version" value="0.9.7-uscd" />
 	<property name="unfolding.jar" value="unfolding.${version}.jar" />
 
 	<property name="src.dir" location="src" />
@@ -111,6 +111,7 @@
 		</junit>
 	</target>
 
+	<!-- Copies selected data to JAR -->
 	<target name="copydata">
 		<copy todir="${build.dir}">
 			<fileset dir="${data.dir}">
@@ -147,6 +148,10 @@
 				<exclude name="*junit*" />
 			</fileset>
 		</copy>
+		<copy todir="${dist.dir}/unfolding_app_template/data/">
+			<fileset dir="data/tiles">
+			</fileset>
+		</copy>
 		<!--
 		<copy todir="${dist.dir}/unfolding_app_template/libNative/">
 			<fileset dir="libNative" />
@@ -159,7 +164,8 @@
 		<!-- copy license -->
 		<copy file="LICENSE.txt" todir="${dist.dir}/unfolding_app_template/" />
 		<!-- copy main example src -->
-		<copy file="examples/HelloUnfoldingWorld.java" todir="${dist.dir}/unfolding_app_template/src/" />
+		<copy file="examples/HelloUCSDWorld.java" todir="${dist.dir}/unfolding_app_template/src/" />
+		<copy file="examples/OfflineMapApp.java" todir="${dist.dir}/unfolding_app_template/src/" />
 		<!-- copy .classpath and .project -->
 		<copy file="resources/unfolding_app_template/classpath" tofile="${dist.dir}/unfolding_app_template/.classpath" />
 		<copy file="resources/unfolding_app_template/project" tofile="${dist.dir}/unfolding_app_template/.project" />
