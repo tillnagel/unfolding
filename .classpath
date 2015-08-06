@@ -31,5 +31,6 @@
 	<classpathentry kind="lib" path="lib-extern/controlP5.jar"/>
 	<classpathentry kind="lib" path="lib/sqlite-jdbc-3.7.2.jar"/>
 	<classpathentry kind="lib" path="lib/json4processing.jar"/>
+	<classpathentry kind="lib" path="lib-extern/handy.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
