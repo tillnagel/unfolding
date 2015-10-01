@@ -1,0 +1,186 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>fr.inria</groupId>
+    <artifactId>unfolding</artifactId>
+    <version>1.0</version>
+    <packaging>jar</packaging>
+    <name>unfolding</name>
+
+    <build>
+        <sourceDirectory>src</sourceDirectory>
+        <testSourceDirectory>test</testSourceDirectory>
+        <plugins>
+
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>add-source</goal>
+                        </goals>
+                        <configuration>
+                            <sources>
+                                <source>examples</source>
+                                <source>examples-extern</source>
+                            </sources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>2.3.2</version>
+                <configuration>
+                    <finalName>Unfolding</finalName>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.3.2</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>2.10.1</version>
+                <configuration>
+                    <additionalparam>-Xdoclint:none</additionalparam>
+                    <!--                    <tags>
+                        <tag>
+                            <name>webref</name>
+                            todo tag for all places
+                            <placement>a</placement>
+                            <head>link to website: </head>
+                        </tag>
+                        <tag>
+                            <name>nowebref</name>
+                            todo tag for all places
+                            <placement>a</placement>
+                            <head>no link to website:</head>
+                        </tag>
+                    </tags>-->
+                </configuration>
+            </plugin>
+        </plugins>
+
+    </build>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.processing</groupId>
+            <artifactId>core</artifactId>
+            <version>3.0</version>
+        </dependency>
+
+
+        <dependency>
+            <groupId>gluegen-rt</groupId>
+            <artifactId>gluegen-rt</artifactId>
+            <version>3.0</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/gluegen-rt.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>jogl-all</groupId>
+            <artifactId>jogl-all</artifactId>
+            <version>3.0</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/jogl-all.jar</systemPath>
+        </dependency>
+
+        <dependency>
+            <groupId>json4processing</groupId>
+            <artifactId>json4processing</artifactId>
+            <version>1.0</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/json4processing.jar</systemPath>
+        </dependency>
+
+        <dependency>
+            <groupId>sqlite-jdbc</groupId>
+            <artifactId>sqlite-jdbc</artifactId>
+            <version>1.0</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/sqlite-jdbc-3.7.2.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>1.0</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib-processing/log4j-1.2.15.jar</systemPath>
+        </dependency>
+
+        <dependency>
+            <groupId>libTUIO</groupId>
+            <artifactId>libTUIO</artifactId>
+            <version>1.0</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/libTUIO.jar</systemPath>
+        </dependency>
+
+        <dependency>
+            <groupId>org.processing</groupId>
+            <artifactId>core</artifactId>
+            <version>3.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.10</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>handy</groupId>
+            <artifactId>handy</artifactId>
+            <version>1.0</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib-extern/handy.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>ani</groupId>
+            <artifactId>ani</artifactId>
+            <version>1.0</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib-extern/Ani.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>geonames</groupId>
+            <artifactId>geonames</artifactId>
+            <version>1.0</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib-extern/geonames-1.1.6.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>controlP5</groupId>
+            <artifactId>controlP5</artifactId>
+            <version>1.0</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib-extern/controlP5.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>joda-time</groupId>
+            <artifactId>joda-time</artifactId>
+            <version>2.0</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib-extern/joda-time-2.0.jar</systemPath>
+        </dependency>
+    </dependencies>
+
+    <properties>
+        <netbeans.hint.license>license</netbeans.hint.license>
+    </properties>
+</project>

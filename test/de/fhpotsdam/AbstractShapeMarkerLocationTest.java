@@ -33,7 +33,8 @@ public class AbstractShapeMarkerLocationTest {
 	}
 
 	private void addCountryMarker() {
-		List<Feature> countries = GeoJSONReader.loadData(p, "data/countries.geo.json");
+//                System.out.println("Sketch Path " + p.sketchPath());
+		List<Feature> countries = GeoJSONReader.loadData(p, p.sketchPath() +"/data/data/countries.geo.json");
 		List<Marker> countryMarkers = MapUtils.createSimpleMarkers(countries);
 		map.addMarkers(countryMarkers);
 	}

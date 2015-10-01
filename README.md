@@ -4,6 +4,25 @@ Create interactive thematic maps and geovisualizations.
 * <http://unfoldingmaps.org/>
 * <https://github.com/tillnagel/unfolding>
 
+Compilation :
+
+``` bash
+mvn install
+mvn javadoc:javadoc
+sh createLibrary.sh
+```
+
+Updated version for Processing 3.
+
+Compilation :
+
+``` bash
+mvn install
+mvn javadoc:javadoc
+sh createLibrary.sh
+```
+
+
 ## About
 ### Interaction Events
 Unfolding enables you to rapidly create interactive maps. Basic interactions
@@ -54,5 +73,3 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  THE SOFTWARE.
-
-

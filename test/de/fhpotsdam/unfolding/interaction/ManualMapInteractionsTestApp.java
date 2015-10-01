@@ -37,7 +37,7 @@ public class ManualMapInteractionsTestApp extends PApplet {
 
 		debugDisplay = new DebugDisplay(this, map, 0, 0);
 
-		addMouseWheelListener(new java.awt.event.MouseWheelListener() {
+		frame.addMouseWheelListener(new java.awt.event.MouseWheelListener() {
 			public void mouseWheelMoved(java.awt.event.MouseWheelEvent evt) {
 				mouseWheel(evt.getWheelRotation());
 			}
