@@ -6,7 +6,7 @@ import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.utils.MapUtils;
 
 /**
- * Map will be resized when user drags the resize handle. This only works for Applications, not Applets.
+ * Map will be resized when user drags the resize handle.
  * 
  * Drag the window frame (depending on your OS) to resize, or press SPACE to resize randomly.
  * 
@@ -20,14 +20,14 @@ public class ResizableMapApp extends PApplet {
 	float oldWidth;
 	float oldHeight;
 
-	public static boolean isApplet = true;
+	boolean resizingStressTest = false;
+
+	public void settings() {
+		size(800, 600, P2D);
+	}
 
 	public void setup() {
-		if (isApplet) {
-			println("This only works for Applications!");
-		}
-		size(800, 600, OPENGL);
-		frame.setResizable(true);
+		surface.setResizable(true);
 
 		map = new UnfoldingMap(this);
 		map.zoomAndPanTo(10, new Location(52.5f, 13.4f));
@@ -47,16 +47,23 @@ public class ResizableMapApp extends PApplet {
 
 		background(0);
 		map.draw();
+
+		if (resizingStressTest) {
+			surface.setSize(round(random(500, 900)), round(random(500, 700)));
+		}
 	}
 
-	public static void main(String[] args) {
-		isApplet = false;
-		PApplet.main(new String[] { "de.fhpotsdam.unfolding.examples.misc.ResizableMapApp" });
+	public static void main(String args[]) {
+		PApplet.main(new String[] { ResizableMapApp.class.getName() });
 	}
 
 	public void keyPressed() {
+		// Stress test to verify https://github.com/tillnagel/unfolding/issues/107 is fixed
 		if (key == ' ') {
-			frame.setSize((int) random(displayWidth), (int) random(displayHeight));
+			resizingStressTest = !resizingStressTest;
+		}
+		if (key == 'r') {
+			surface.setSize((int) random(displayWidth), (int) random(displayHeight));
 		}
 	}
 }
