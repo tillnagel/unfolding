@@ -40,7 +40,7 @@ public class MultiTransObjectApp extends PApplet implements TuioListener {
 		transObjects.add(new TuioTransformableObject(this, 500, 200, 300, 300));
 		transObjects.add(new TextThing(this, 600, 50, 340, 70));
 
-		addMouseWheelListener(new java.awt.event.MouseWheelListener() {
+		frame.addMouseWheelListener(new java.awt.event.MouseWheelListener() {
 			public void mouseWheelMoved(java.awt.event.MouseWheelEvent evt) {
 				mouseWheel(evt.getWheelRotation());
 			}

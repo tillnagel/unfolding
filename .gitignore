@@ -7,3 +7,4 @@ doc/
 data/splendor-big.png
 src/de/fhpotsdam/unfolding/mapdisplay/GLGraphicsMapDisplayTransparentTest.java
 /bin/
+/target/

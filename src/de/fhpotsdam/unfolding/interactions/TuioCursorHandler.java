@@ -63,7 +63,7 @@ public class TuioCursorHandler extends MapEventBroadcaster implements TuioListen
 		}
 		tuioClient.connect();
 
-		p.registerDispose(this);
+                p.registerMethod("dispose", this);
 	}
 
 	public TuioCursorHandler(PApplet p, List<UnfoldingMap> maps) {

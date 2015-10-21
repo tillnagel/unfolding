@@ -31,7 +31,7 @@ public class ImageLoadingTestApp extends PApplet {
 			if (bytes == null) {
 			} else {
 				Image awtImage = Toolkit.getDefaultToolkit().createImage(bytes);
-				MediaTracker tracker = new MediaTracker(this);
+				MediaTracker tracker = new MediaTracker(this.frame);
 				tracker.addImage(awtImage, 0);
 				try {
 					tracker.waitForAll();
