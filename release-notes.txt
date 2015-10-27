@@ -1,6 +1,12 @@
 RELEASE NOTES 
 
 
+0.9.8beta - tba
+-----------------------------
+
+Tested with Processing 3.0
+Updated all examples 
+
 
 0.9.7beta - tba
 -----------------------------
@@ -18,7 +24,7 @@ Features
 - Added option to set MultiMarker class for MarkerFactory. #115
 
 Other
-- Tested with Processing 3.0a5
+- Tested with Processing 3.0a
 - Cleaned up and fixed some examples.
 
 
