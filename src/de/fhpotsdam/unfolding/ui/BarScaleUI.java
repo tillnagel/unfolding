@@ -85,6 +85,7 @@ public class BarScaleUI {
 			p.text(PApplet.nfs(distance, 0, 0) + " km", x + dx + 3, y + 4);
 		}
 		p.stroke(color);
+		p.strokeCap(PApplet.SQUARE);
 		p.strokeWeight(barWeight);
 		p.line(x - .5f, y, x + .5f + dx, y);
 		p.strokeWeight(1);

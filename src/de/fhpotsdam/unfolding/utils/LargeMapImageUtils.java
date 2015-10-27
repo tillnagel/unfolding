@@ -65,8 +65,7 @@ public class LargeMapImageUtils {
 	}
 
 	public LargeMapImageUtils(PApplet p, UnfoldingMap map, Location location, int zoomLevel, int xStep, int yStep,
-			int totalWidth,
-			int totalHeight) {
+			int totalWidth, int totalHeight) {
 		this(p, map, xStep, yStep, totalWidth, totalHeight);
 		init(location, zoomLevel);
 	}
@@ -107,7 +106,7 @@ public class LargeMapImageUtils {
 	 *            The zoom level to use.
 	 */
 	public void init(Location location, int zoomLevel) {
-		map.zoomAndPanTo(location, zoomLevel);
+		map.zoomAndPanTo(zoomLevel, location);
 		init();
 	}
 
@@ -125,8 +124,7 @@ public class LargeMapImageUtils {
 				shotY += yStep;
 				// Return back to the right, and go one down
 				map.panBy(totalWidth - xStep, -yStep);
-			}
-			else {
+			} else {
 				// Go left
 				map.panBy(-xStep, 0);
 			}

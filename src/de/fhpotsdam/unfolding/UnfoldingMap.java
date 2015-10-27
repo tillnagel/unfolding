@@ -33,7 +33,7 @@ import de.fhpotsdam.utils.Integrator;
  */
 public class UnfoldingMap implements MapEventListener {
 
-	public static final String GREETING_MESSAGE = "Unfolding Map v0.9.7beta";
+	public static final String GREETING_MESSAGE = "Unfolding Map v0.9.8beta";
 
 	public static final float SCALE_DELTA_IN = 1.05f;
 	public static final float SCALE_DELTA_OUT = 1 / 1.05f;
@@ -44,7 +44,7 @@ public class UnfoldingMap implements MapEventListener {
 	public static final int TILE_HEIGHT = 256;
 	private static final float PAN_DEFAULT_DELTA = TILE_WIDTH / 2;
 
-	/** UnfoldingMap do not use tweened animation by default. Use {@link #setTweening(boolean)} to switch it on. */
+	/** UnfoldingMap does not use tweened animation by default. Use {@link #setTweening(boolean)} to switch it on. */
 	public static final boolean DEFAULT_TWEENING = false;
 
 	public static final Location PRIME_MERIDIAN_EQUATOR_LOCATION = new Location(0, 0);

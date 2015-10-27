@@ -50,9 +50,9 @@ public class OpenGLMapDisplay extends Java2DMapDisplay implements PConstants {
 		}
 
 		offscreenPG = papplet.createGraphics((int) width, (int) height, this.renderer);
-		offscreenPG.smooth(papplet.g.quality);
+		offscreenPG.smooth(papplet.g.smooth);
 		offscreenCutoffPG = papplet.createGraphics((int) width, (int) height, this.renderer);
-		offscreenCutoffPG.smooth(papplet.g.quality);
+		offscreenCutoffPG.smooth(papplet.g.smooth);
 	}
 
 	public void setMapDisplayShader(MapDisplayShader shader) {
@@ -79,9 +79,9 @@ public class OpenGLMapDisplay extends Java2DMapDisplay implements PConstants {
 		}
 
 		offscreenPG = papplet.createGraphics((int) width, (int) height, renderer);
-		offscreenPG.smooth(papplet.g.quality);
+		offscreenPG.smooth(papplet.g.smooth);
 		offscreenCutoffPG = papplet.createGraphics((int) width, (int) height, renderer);
-		offscreenCutoffPG.smooth(papplet.g.quality);
+		offscreenCutoffPG.smooth(papplet.g.smooth);
 
 		if (mapDisplayShader != null) {
 			mapDisplayShader.resize(width, height);

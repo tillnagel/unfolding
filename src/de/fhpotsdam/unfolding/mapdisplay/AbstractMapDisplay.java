@@ -69,15 +69,15 @@ public abstract class AbstractMapDisplay implements TileLoaderListener {
 
 	// Tiles
 	public int max_pending = 4;
-	//public int max_images_to_keep = 256;
-	 public int max_images_to_keep = 1024;
+	// public int max_images_to_keep = 256;
+	public int max_images_to_keep = 1024;
 	public int grid_padding = 1; // set to 0 for debugging purposes
 
 	/** Check whether all currently visible tiles have been loaded. */
 	protected boolean allTilesLoaded = false;
 
 	protected AbstractMapProvider provider;
-	
+
 	/** Pending threads to load tiles for coordinate. */
 	protected Hashtable<Coordinate, Runnable> pending = new Hashtable<Coordinate, Runnable>();
 	/** Loaded tiles for coordinate. */
@@ -147,17 +147,17 @@ public abstract class AbstractMapDisplay implements TileLoaderListener {
 	 * You need to set the map of the given MarkerManager before using.
 	 */
 	public void addMarkerManager(MarkerManager<Marker> markerManager) {
-        // Replace default MarkerManager, if only default exists and has no entries
-        if (markerManagerList.size() == 1) {
-            MarkerManager<?> mm = markerManagerList.get(0);
-            if (mm.getMarkers().size() == 0 && mm.equals(this.defaultMarkerManager)) {
-                markerManagerList.remove(0);
-                this.defaultMarkerManager = null;
-            }
-        }
+		// Replace default MarkerManager, if only default exists and has no entries
+		if (markerManagerList.size() == 1) {
+			MarkerManager<?> mm = markerManagerList.get(0);
+			if (mm.getMarkers().size() == 0 && mm.equals(this.defaultMarkerManager)) {
+				markerManagerList.remove(0);
+				this.defaultMarkerManager = null;
+			}
+		}
 
-        markerManagerList.add(markerManager);
-    }
+		markerManagerList.add(markerManager);
+	}
 
 	public MarkerManager<Marker> getLastMarkerManager() {
 		return markerManagerList.get(markerManagerList.size() - 1);
@@ -267,7 +267,7 @@ public abstract class AbstractMapDisplay implements TileLoaderListener {
 	public abstract float[] getScreenPositionFromLocation(Location location);
 
 	public abstract ScreenPosition getScreenPosition(Location location);
-	
+
 	public abstract ScreenPosition getScreenPositionFloat(Location location);
 
 	public abstract float[] getObjectFromLocation(Location location);
@@ -276,6 +276,11 @@ public abstract class AbstractMapDisplay implements TileLoaderListener {
 		return transformationCenter;
 	}
 
+	/**
+	 * Gets the inner transformation center, in object coordinates.
+	 * 
+	 * @return The PVector of the center in object coordinates.
+	 */
 	public PVector getInnerTransformationCenter() {
 		return innerTransformationCenter;
 	}

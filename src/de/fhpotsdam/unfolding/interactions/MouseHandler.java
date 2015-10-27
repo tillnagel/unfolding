@@ -16,7 +16,7 @@ import de.fhpotsdam.unfolding.geo.Location;
  * Handles mouse input from the user and broadcasts MapEvents such as zoom and pan.
  */
 public class MouseHandler extends MapEventBroadcaster {
-
+	
 	/**
 	 * Creates a MouseHandler for the given maps.
 	 * 
@@ -61,7 +61,11 @@ public class MouseHandler extends MapEventBroadcaster {
 			}
 		}
 	}
-
+	
+	public void mouseWheel(MouseEvent event) {
+		mouseWheel(event.getCount());
+	}
+	
 	public void mouseWheel(float delta) {
 		for (UnfoldingMap map : maps) {
 			if (map.isHit(mouseX, mouseY)) {
@@ -112,7 +116,7 @@ public class MouseHandler extends MapEventBroadcaster {
 	// Shamelessly copied code from Processing PApplet. No other way to hook into
 	// register Processing mouse event and still have the same functionality with pmouseX, etc.
 	// --------------------------------------------------------------
-
+	
 	private int mouseX;
 	private int mouseY;
 	private int pmouseX, pmouseY;
@@ -160,4 +164,5 @@ public class MouseHandler extends MapEventBroadcaster {
 			emouseY = mouseY;
 		}
 	}
+	
 }
