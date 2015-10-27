@@ -1,12 +1,9 @@
 package de.fhpotsdam.unfolding.examples.provider.dynamic;
 
 import processing.core.PApplet;
-
 import de.fhpotsdam.unfolding.UnfoldingMap;
-import de.fhpotsdam.unfolding.mapdisplay.MapDisplayFactory;
 import de.fhpotsdam.unfolding.providers.Google;
 import de.fhpotsdam.unfolding.providers.Microsoft;
-import de.fhpotsdam.unfolding.providers.OpenStreetMap;
 import de.fhpotsdam.unfolding.utils.MapUtils;
 
 /**
@@ -26,12 +23,14 @@ public class DynamicMapSwitch extends PApplet {
 	UnfoldingMap map2;
 	UnfoldingMap map3;
 
-	public void setup() {
-		size(800, 600, OPENGL);
+	public void settings() {
+		size(800, 600, P2D);
+	}
 
+	public void setup() {
 		map1 = new UnfoldingMap(this, new Google.GoogleMapProvider());
 		map2 = new UnfoldingMap(this, new Microsoft.AerialProvider());
-		map3 = new UnfoldingMap(this, new OpenStreetMap.CloudmadeProvider(MapDisplayFactory.OSM_API_KEY, 23058));
+		map3 = new UnfoldingMap(this);
 
 		MapUtils.createDefaultEventDispatcher(this, map1, map2, map3);
 
@@ -52,6 +51,10 @@ public class DynamicMapSwitch extends PApplet {
 		} else if (key == '3') {
 			currentMap = map3;
 		}
+	}
+
+	public static void main(String[] args) {
+		PApplet.main(new String[] { DynamicMapSwitch.class.getName() });
 	}
 
 }

@@ -9,7 +9,8 @@ import de.fhpotsdam.unfolding.events.ZoomMapEvent;
 import de.fhpotsdam.unfolding.interactions.MouseHandler;
 
 /**
- * Interactive map with slider atop. Uses work-around to mute MouseHandler when dragging slider.
+ * Interactive map with slider atop. Uses work-around to mute MouseHandler when dragging slider. Slider always shows
+ * current map zoom level, as app listens to map changed events.
  */
 public class ZoomSliderOnMapApp extends PApplet {
 
@@ -18,9 +19,11 @@ public class ZoomSliderOnMapApp extends PApplet {
 
 	EventDispatcher eventDispatcher;
 
-	public void setup() {
-		size(800, 600);
+	public void settings() {
+		size(800, 600, P2D);
+	}
 
+	public void setup() {
 		map = new UnfoldingMap(this);
 
 		eventDispatcher = new EventDispatcher();
@@ -70,6 +73,10 @@ public class ZoomSliderOnMapApp extends PApplet {
 			slider.endDrag();
 			listen(); // unmute mouse event handling
 		}
+	}
+
+	public static void main(String[] args) {
+		PApplet.main(new String[] { ZoomSliderOnMapApp.class.getName() });
 	}
 
 }

@@ -1,7 +1,6 @@
 package de.fhpotsdam.unfolding.examples.events;
 
 import processing.core.PApplet;
-
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.events.EventDispatcher;
 import de.fhpotsdam.unfolding.events.MapEvent;
@@ -13,7 +12,8 @@ import de.fhpotsdam.unfolding.utils.GeoUtils;
 import de.fhpotsdam.unfolding.utils.MapUtils;
 
 /**
- * Advanced! This example shows the internal way of listening to map events. Look into {@link MapChangedApp} for the standard way.
+ * Advanced! This example shows the internal way of listening to map events. Look into {@link MapChangedApp} for the
+ * standard way.
  * 
  * By implementing MapEventListener and registering this PApplet, it handles events in the same way as the maps
  * themselves.
@@ -24,8 +24,15 @@ public class InternalMapEventListenerApp extends PApplet implements MapEventList
 
 	Location oldLocation = new Location(0, 0);
 
+	public void settings() {
+		size(800, 600, P2D);
+	}
+
+	public static void main(String args[]) {
+		PApplet.main(new String[] { InternalMapEventListenerApp.class.getName() });
+	}
+
 	public void setup() {
-		size(800, 600, OPENGL);
 		map = new UnfoldingMap(this, "myMap");
 
 		EventDispatcher eventDispatcher = MapUtils.createDefaultEventDispatcher(this, map);

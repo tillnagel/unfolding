@@ -2,7 +2,6 @@ package de.fhpotsdam.unfolding.examples.image;
 
 import processing.core.PApplet;
 import processing.core.PImage;
-
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.providers.Microsoft;
@@ -22,7 +21,7 @@ import de.fhpotsdam.unfolding.utils.ScreenPosition;
 public class ImageOverlayApp extends PApplet {
 
 	UnfoldingMap map;
-	Location center = new Location(52.396, 13.058);
+	Location center = new Location(52.407, 13.05);
 
 	DebugDisplay debugDisplay;
 
@@ -36,14 +35,16 @@ public class ImageOverlayApp extends PApplet {
 	Location visNorthWest = new Location(52.421944, 13.013944);
 	Location visSouthEast = new Location(52.391667, 13.093289);
 
-	public void setup() {
-		size(1400, 800, OPENGL);
+	public void settings() {
+		size(1400, 800, P2D);
+	}
 
-		// Very low quality for file size reasons. Use original from http://schwinki.de/splendor/
+	public void setup() {
+		// Image from http://schwinki.de/splendor/
 		visImg = loadImage("test/splendor-big.jpg");
 
 		map = new UnfoldingMap(this, "Satellite Map", new Microsoft.AerialProvider());
-		map.zoomAndPanTo(center, 14);
+		map.zoomAndPanTo(15, center);
 		MapUtils.createDefaultEventDispatcher(this, map);
 
 		debugDisplay = new DebugDisplay(this, map);
@@ -62,5 +63,9 @@ public class ImageOverlayApp extends PApplet {
 		image(visImg, topRight.x, topRight.y, width, height);
 
 		debugDisplay.draw();
+	}
+
+	public static void main(String args[]) {
+		PApplet.main(new String[] { ImageOverlayApp.class.getName() });
 	}
 }

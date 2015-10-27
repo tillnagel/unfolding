@@ -14,9 +14,11 @@ public class DebugDisplayApp extends PApplet {
 	UnfoldingMap map;
 	DebugDisplay debugDisplay;
 
-	public void setup() {
+	public void settings() {
 		size(1024, 768, P2D);
+	}
 
+	public void setup() {
 		map = new UnfoldingMap(this, "myMap");
 		map.zoomAndPanTo(10, new Location(52.5f, 13.4f));
 		MapUtils.createDefaultEventDispatcher(this, map);
@@ -28,5 +30,9 @@ public class DebugDisplayApp extends PApplet {
 	public void draw() {
 		map.draw();
 		debugDisplay.draw();
+	}
+
+	public static void main(String args[]) {
+		PApplet.main(new String[] { DebugDisplayApp.class.getName() });
 	}
 }

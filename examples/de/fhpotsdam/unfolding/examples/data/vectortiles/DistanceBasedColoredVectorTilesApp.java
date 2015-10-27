@@ -24,9 +24,15 @@ public class DistanceBasedColoredVectorTilesApp extends PApplet {
 
 	String featureLayer = "buildings";
 
-	public void setup() {
-		size(800, 600, OPENGL);
+	public void settings() {
+		size(800, 600, P2D);
+	}
 
+	public static void main(String args[]) {
+		PApplet.main(new String[] { DistanceBasedColoredVectorTilesApp.class.getName() });
+	}
+
+	public void setup() {
 		map = new UnfoldingMap(this, "myMap");
 		map.zoomAndPanTo(16, new Location(52.501, 13.395));
 		MapUtils.createDefaultEventDispatcher(this, map);
@@ -45,7 +51,7 @@ public class DistanceBasedColoredVectorTilesApp extends PApplet {
 
 	public void mouseClicked() {
 		map.getDefaultMarkerManager().clearMarkers();
-		//List<Marker> markers = vectorTilesUtils.loadMarkersForScreenPos(featureLayer, mouseX, mouseY);
+		// List<Marker> markers = vectorTilesUtils.loadMarkersForScreenPos(featureLayer, mouseX, mouseY);
 		List<Marker> markers = vectorTilesUtils.loadMarkersForCurrentMapView(featureLayer);
 		map.addMarkers(markers);
 	}
@@ -57,16 +63,18 @@ public class DistanceBasedColoredVectorTilesApp extends PApplet {
 
 			marker.setStrokeColor(color(221, 221, 221));
 
-			// Neither polyMarker.getCentroid() nor GeoUtils.getCentroid(m.locations) return correct centroid. 
-			Location centroid = GeoUtils.getEuclideanCentroid(((AbstractShapeMarker) marker).getLocations());
-			
-			// Shade based on distance
-			float dist = (float) centroid.getDistance(mouseLocation);
-			if (dist < 0.3) {
-				float colorValue = map(dist, 0, 0.3f, 0, 238);
-				marker.setColor(color(238, colorValue, colorValue, 200));
-			} else {
-				marker.setColor(color(238, 238, 235));
+			if (marker instanceof AbstractShapeMarker) {
+				// Neither polyMarker.getCentroid() nor GeoUtils.getCentroid(m.locations) return correct centroid.
+				Location centroid = GeoUtils.getEuclideanCentroid(((AbstractShapeMarker) marker).getLocations());
+
+				// Shade based on distance
+				float dist = (float) centroid.getDistance(mouseLocation);
+				if (dist < 0.3) {
+					float colorValue = map(dist, 0, 0.3f, 0, 238);
+					marker.setColor(color(238, colorValue, colorValue, 200));
+				} else {
+					marker.setColor(color(238, 238, 235));
+				}
 			}
 		}
 	}

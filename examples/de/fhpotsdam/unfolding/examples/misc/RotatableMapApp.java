@@ -23,14 +23,16 @@ public class RotatableMapApp extends PApplet {
 	Location location = new Location(51.50939f, -0.11820f);
 
 	boolean fullRotatable = true;
-
-	public void setup() {
+	
+	public void settings() {
 		if (fullRotatable) {
-			size(800, 600, OPENGL);
+			size(800, 600, P2D);
 		} else {
 			size(800, 600);
 		}
-
+	}
+	
+	public void setup() {
 		map = new UnfoldingMap(this, "map1", 50, 50, 700, 500);
 		map.setTweening(false);
 		map.zoomToLevel(3);

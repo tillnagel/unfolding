@@ -12,6 +12,9 @@ import de.fhpotsdam.unfolding.utils.GeoUtils;
 import de.fhpotsdam.unfolding.utils.MapUtils;
 import de.fhpotsdam.unfolding.utils.ScreenPosition;
 
+/**
+ * Experiment to select building, then zoom+pan to fit and show in thumbnail.
+ */
 public class SelectBuildingsApp extends PApplet {
 
 	UnfoldingMap map;
@@ -22,9 +25,15 @@ public class SelectBuildingsApp extends PApplet {
 	Location[] boundingBox;
 	MapSnapshot mapSnapshot = null;
 
-	public void setup() {
-		size(800, 600, OPENGL);
+	public void settings() {
+		size(800, 600, P2D);
+	}
 
+	public static void main(String args[]) {
+		PApplet.main(new String[] { SelectBuildingsApp.class.getName() });
+	}
+
+	public void setup() {
 		map = new UnfoldingMap(this, 0, 0, 600, 600);
 
 		map.zoomAndPanTo(16, new Location(52.501, 13.395));
@@ -67,11 +76,13 @@ public class SelectBuildingsApp extends PApplet {
 
 			mapSnapshot = new CircularMapSnapshot(this, map, 300, 5);
 			mapSnapshot.snapshot(map, 0, 0, 600, 600);
-			
+
 			mapSnapshot.draw(0, 0, 600, 600);
 
 			hitMarker.setHidden(false);
-			println(hitMarker.getStringProperty("name"));
+			String buildingName = hitMarker.getStringProperty("name");
+			println(buildingName != null ? buildingName : "n/a");
+
 		}
 	}
 

@@ -21,9 +21,17 @@ public class ColoredSelectedVectorTilesApp extends PApplet {
 
 	VectorTilesUtils vectorTilesUtils;
 
-	public void setup() {
-		size(800, 600, OPENGL);
+	String filteredType = "museum";
 
+	public void settings() {
+		size(800, 600, P2D);
+	}
+
+	public static void main(String args[]) {
+		PApplet.main(new String[] { ColoredSelectedVectorTilesApp.class.getName() });
+	}
+
+	public void setup() {
 		map = new UnfoldingMap(this, "myMap");
 		map.zoomAndPanTo(16, new Location(52.501, 13.395));
 		MapUtils.createDefaultEventDispatcher(this, map);
@@ -32,7 +40,7 @@ public class ColoredSelectedVectorTilesApp extends PApplet {
 
 		vectorTilesUtils = new VectorTilesUtils(this, map);
 
-		loadAndAddColoredMarkers(width / 2, height / 2, "museum");
+		loadAndAddColoredMarkers(width / 2, height / 2, filteredType);
 	}
 
 	public void draw() {
@@ -41,14 +49,14 @@ public class ColoredSelectedVectorTilesApp extends PApplet {
 	}
 
 	public void mouseClicked() {
-		loadAndAddColoredMarkers(mouseX, mouseY, "museum");
+		loadAndAddColoredMarkers(mouseX, mouseY, filteredType);
 	}
 
-	public void loadAndAddColoredMarkers(int x, int y, String kindName) {
+	public void loadAndAddColoredMarkers(int x, int y, String filteredType) {
 		List<Marker> markers = vectorTilesUtils.loadMarkersForScreenPos("buildings", x, y);
 		for (Marker marker : markers) {
 			String kind = marker.getStringProperty("kind");
-			if (kindName.equals(kind)) {
+			if (filteredType.equals(kind)) {
 				marker.setColor(color(0, 255, 0, 200));
 			}
 		}

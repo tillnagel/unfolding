@@ -2,7 +2,6 @@ package de.fhpotsdam.unfolding.examples.interaction;
 
 import processing.core.PApplet;
 import processing.core.PFont;
-
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.utils.MapUtils;
@@ -11,7 +10,7 @@ import de.fhpotsdam.unfolding.utils.MapUtils;
  * Simple manual navigation example. Click on one of the two buttons to jump to specific locations.
  */
 public class NaviButtonMapApp extends PApplet {
-	
+
 	Location berlinLocation = new Location(52.51861f, 13.408056f);
 	int berlinZoomLevel = 10;
 	Location universityLocation = new Location(52.411613f, 13.051779f);
@@ -20,9 +19,11 @@ public class NaviButtonMapApp extends PApplet {
 	UnfoldingMap map;
 	PFont font;
 
+	public void settings() {
+		size(800, 600, P2D);
+	}
+
 	public void setup() {
-		size(800, 600, OPENGL);
-		smooth();
 		font = createFont("sans-serif", 14);
 
 		map = new UnfoldingMap(this, "map", 0, 0, 600, 600);
@@ -40,10 +41,10 @@ public class NaviButtonMapApp extends PApplet {
 
 	public void mouseReleased() {
 		if (mouseX > 610 && mouseX < 790 && mouseY > 10 && mouseY < 90) {
-			map.zoomAndPanTo(berlinLocation, berlinZoomLevel);
+			map.zoomAndPanTo(berlinZoomLevel, berlinLocation);
 
 		} else if (mouseX > 610 && mouseX < 790 && mouseY > 110 && mouseY < 190) {
-			map.zoomAndPanTo(universityLocation, universityZoomLevel);
+			map.zoomAndPanTo(universityZoomLevel, universityLocation);
 		}
 	}
 
@@ -64,6 +65,10 @@ public class NaviButtonMapApp extends PApplet {
 		rect(610, 110, 180, 80);
 		fill(0);
 		text("University (zoom 14)", 620, 152);
+	}
+
+	public static void main(String[] args) {
+		PApplet.main(new String[] { NaviButtonMapApp.class.getName() });
 	}
 
 }

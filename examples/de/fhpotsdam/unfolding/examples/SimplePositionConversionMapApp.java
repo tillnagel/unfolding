@@ -1,7 +1,6 @@
 package de.fhpotsdam.unfolding.examples;
 
 import processing.core.PApplet;
-
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.examples.marker.SimpleMarkerManagerApp;
 import de.fhpotsdam.unfolding.geo.Location;
@@ -17,15 +16,18 @@ import de.fhpotsdam.unfolding.utils.ScreenPosition;
 public class SimplePositionConversionMapApp extends PApplet {
 
 	UnfoldingMap map;
-
+	
+	public void settings() {
+		size(800, 600, P2D);
+	}
+	
 	public void setup() {
-		size(800, 600, OPENGL);
-
 		map = new UnfoldingMap(this);
 		MapUtils.createDefaultEventDispatcher(this, map);
 	}
 
 	public void draw() {
+		background(240);
 		map.draw();
 
 		fill(215, 0, 0, 100);
@@ -43,6 +45,6 @@ public class SimplePositionConversionMapApp extends PApplet {
 	}
 
 	public static void main(String[] args) {
-		PApplet.main(new String[] { "de.fhpotsdam.unfolding.examples.SimplePositionConversionMapApp" });
+		PApplet.main(new String[] { SimplePositionConversionMapApp.class.getName() });
 	}
 }

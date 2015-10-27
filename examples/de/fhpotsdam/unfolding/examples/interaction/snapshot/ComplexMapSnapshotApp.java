@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import processing.core.PApplet;
-
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.marker.SimplePointMarker;
@@ -23,11 +22,13 @@ public class ComplexMapSnapshotApp extends PApplet {
 
 	List<MapSnapshot> mapSnapshots = new ArrayList<MapSnapshot>();
 
-	public void setup() {
-		size(800, 600, OPENGL);
+	public void settings() {
+		size(800, 600, P2D);
+	}
 
+	public void setup() {
 		map = new UnfoldingMap(this);
-		map.zoomAndPanTo(new Location(52.5f, 13.4f), 10);
+		map.zoomAndPanTo(10, new Location(52.5f, 13.4f));
 		MapUtils.createDefaultEventDispatcher(this, map);
 
 		addRandomMarkers();
@@ -56,7 +57,7 @@ public class ComplexMapSnapshotApp extends PApplet {
 	public void mouseClicked() {
 		for (MapSnapshot mapSnapshot : mapSnapshots) {
 			if (mapSnapshot.isInside(mouseX, mouseY)) {
-				map.zoomAndPanTo(mapSnapshot.location, mapSnapshot.zoomLevel);
+				map.zoomAndPanTo(mapSnapshot.zoomLevel, mapSnapshot.location);
 			}
 		}
 	}
@@ -67,6 +68,10 @@ public class ComplexMapSnapshotApp extends PApplet {
 			println("Bookmarked map at " + mapSnapshot.location + " with " + mapSnapshot.zoomLevel);
 			mapSnapshots.add(mapSnapshot);
 		}
+	}
+
+	public static void main(String[] args) {
+		PApplet.main(new String[] { ComplexMapSnapshotApp.class.getName() });
 	}
 
 }

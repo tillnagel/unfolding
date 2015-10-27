@@ -6,7 +6,6 @@ import java.util.List;
 import org.apache.log4j.Logger;
 
 import processing.core.PApplet;
-import processing.core.PVector;
 import TUIO.TuioClient;
 import TUIO.TuioCursor;
 import TUIO.TuioListener;
@@ -38,14 +37,16 @@ public class SketchingOnMultitouchMapApp extends PApplet implements TuioListener
 
 	public static void main(String[] args) {
 		String[] params = new String[] { "--present", "--bgcolor=#000000", "--hide-stop",
-				"de.fhpotsdam.unfolding.examples.interaction.multitouch.MultitouchMapExternalTuioApp" };
+				"de.fhpotsdam.unfolding.examples.interaction.multitouch.SketchingOnMultitouchMapApp" };
 		PApplet.main(params);
 	}
 
-	public void setup() {
-		size(800, 600, OPENGL);
-		// size(1920, 1080, OPENGL);
+	public void settings() {
+		size(800, 600, P2D);
+		// size(1920, 1080, P2D);
+	}
 
+	public void setup() {
 		map = new UnfoldingMap(this);
 		map.setTweening(false);
 		map.zoomAndPanTo(13, new Location(54.5, 13.4));
@@ -54,7 +55,7 @@ public class SketchingOnMultitouchMapApp extends PApplet implements TuioListener
 
 		tuioCursorHandler = new TuioCursorHandler(this, false, map);
 		eventDispatcher.addBroadcaster(tuioCursorHandler);
-		 // Disable panning for single touch, to be able to handle it independently
+		// Disable panning for single touch, to be able to handle it independently
 		// eventDispatcher.register(map, "pan");
 		eventDispatcher.register(map, "zoom");
 
@@ -77,11 +78,11 @@ public class SketchingOnMultitouchMapApp extends PApplet implements TuioListener
 		}
 		endShape();
 
-//		fill(255, 40, 40, 120);
-//		noStroke();
-//		for (TuioCursor tcur : tuioClient.getTuioCursors()) {
-//			ellipse(tcur.getScreenX(width), tcur.getScreenY(height), 20, 20);
-//		}
+		// fill(255, 40, 40, 120);
+		// noStroke();
+		// for (TuioCursor tcur : tuioClient.getTuioCursors()) {
+		// ellipse(tcur.getScreenX(width), tcur.getScreenY(height), 20, 20);
+		// }
 	}
 
 	@Override

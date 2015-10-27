@@ -23,9 +23,11 @@ public class CircularMapSnapshotApp extends PApplet {
 
 	List<MapSnapshot> mapSnapshots = new ArrayList<MapSnapshot>();
 
-	public void setup() {
-		size(600, 400, OPENGL);
+	public void settings() {
+		size(800, 600, P2D);
+	}
 
+	public void setup() {
 		map = new UnfoldingMap(this, 0, 0, 400, 400, new StamenMapProvider.WaterColor());
 		map.zoomAndPanTo(10, new Location(51.507222, -0.1275));
 
@@ -62,6 +64,10 @@ public class CircularMapSnapshotApp extends PApplet {
 			println("Bookmarked map at " + mapSnapshot.location + " with " + mapSnapshot.zoomLevel);
 			mapSnapshots.add(mapSnapshot);
 		}
+	}
+
+	public static void main(String[] args) {
+		PApplet.main(new String[] { CircularMapSnapshotApp.class.getName() });
 	}
 
 }

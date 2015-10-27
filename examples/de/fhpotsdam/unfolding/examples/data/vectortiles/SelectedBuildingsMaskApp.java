@@ -14,6 +14,11 @@ import de.fhpotsdam.unfolding.marker.SimplePolygonMarker;
 import de.fhpotsdam.unfolding.utils.MapUtils;
 import de.fhpotsdam.unfolding.utils.ScreenPosition;
 
+/**
+ * Shows a mask for the map with buildings drawn behind the mask. Click to select a building which will be drawn in
+ * green and before the mask.
+ * 
+ */
 public class SelectedBuildingsMaskApp extends PApplet {
 
 	UnfoldingMap map;
@@ -24,9 +29,15 @@ public class SelectedBuildingsMaskApp extends PApplet {
 
 	Marker selectedMarker = null;
 
-	public void setup() {
-		size(400, 400, OPENGL);
+	public void settings() {
+		size(800, 600, P2D);
+	}
 
+	public static void main(String args[]) {
+		PApplet.main(new String[] { SelectedBuildingsMaskApp.class.getName() });
+	}
+
+	public void setup() {
 		map = new UnfoldingMap(this);
 		MapUtils.createDefaultEventDispatcher(this, map);
 		map.zoomAndPanTo(16, new Location(52.501, 13.395));
@@ -49,8 +60,8 @@ public class SelectedBuildingsMaskApp extends PApplet {
 		if (selectedMarker != null) {
 			SimplePolygonMarker polygonMarker = (SimplePolygonMarker) selectedMarker;
 			strokeWeight(1);
-			stroke(28,102,120);
-			fill(116,188,157);
+			stroke(28, 102, 120);
+			fill(116, 188, 157);
 			beginShape();
 			for (Location location : polygonMarker.getLocations()) {
 				ScreenPosition pos = map.getScreenPosition(location);

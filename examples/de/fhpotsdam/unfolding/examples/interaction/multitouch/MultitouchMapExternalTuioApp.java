@@ -43,10 +43,11 @@ public class MultitouchMapExternalTuioApp extends PApplet implements TuioListene
 		PApplet.main(params);
 	}
 
+	public void settings() {
+		size(800, 600, P2D);
+	}
+	
 	public void setup() {
-		size(800, 600, OPENGL);
-		// size(1920, 1080, OPENGL);
-
 		map = new UnfoldingMap(this);
 		map.setTweening(false);
 		map.zoomAndPanTo(13, new Location(1.283f, 103.833f));

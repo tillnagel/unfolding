@@ -1,13 +1,11 @@
 package de.fhpotsdam.unfolding.examples.provider.dynamic;
 
 import processing.core.PApplet;
-
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.mapdisplay.MapDisplayFactory;
 import de.fhpotsdam.unfolding.providers.AbstractMapProvider;
 import de.fhpotsdam.unfolding.providers.Google;
 import de.fhpotsdam.unfolding.providers.Microsoft;
-import de.fhpotsdam.unfolding.providers.OpenStreetMap;
 import de.fhpotsdam.unfolding.utils.MapUtils;
 
 /**
@@ -24,12 +22,14 @@ public class DynamicProviderSwitch extends PApplet {
 	AbstractMapProvider provider2;
 	AbstractMapProvider provider3;
 
-	public void setup() {
-		size(800, 600, OPENGL);
+	public void settings() {
+		size(800, 600, P2D);
+	}
 
+	public void setup() {
 		provider1 = new Google.GoogleMapProvider();
 		provider2 = new Microsoft.AerialProvider();
-		provider3 = new OpenStreetMap.CloudmadeProvider(MapDisplayFactory.OSM_API_KEY, 23058);
+		provider3 = MapDisplayFactory.getDefaultProvider();
 
 		map = new UnfoldingMap(this, provider1);
 		MapUtils.createDefaultEventDispatcher(this, map);

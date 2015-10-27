@@ -11,9 +11,12 @@ import de.fhpotsdam.unfolding.utils.MapUtils;
 public class SatelliteProviderMapApp extends PApplet {
 
 	UnfoldingMap map;
-
+	
+	public void settings() {
+		size(800, 600, P2D);
+	}
+	
 	public void setup() {
-		size(800, 600, OPENGL);
 		map = new UnfoldingMap(this, new Microsoft.AerialProvider());
 		map.zoomToLevel(3);
 		MapUtils.createDefaultEventDispatcher(this, map);
@@ -25,7 +28,7 @@ public class SatelliteProviderMapApp extends PApplet {
 	}
 
 	public static void main(String[] args) {
-		PApplet.main(new String[] { "de.fhpotsdam.unfolding.examples.provider.SatelliteProviderMapApp" });
+		PApplet.main(new String[] { SatelliteProviderMapApp.class.getName() });
 	}
 
 }

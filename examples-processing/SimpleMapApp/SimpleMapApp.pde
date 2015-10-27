@@ -12,7 +12,7 @@ void setup() {
   size(800, 600, P2D);
 
   map = new UnfoldingMap(this);
-  map.zoomAndPanTo(new Location(52.5f, 13.4f), 10);
+  map.zoomAndPanTo(10, new Location(52.5f, 13.4f));
   MapUtils.createDefaultEventDispatcher(this, map);
 }
 

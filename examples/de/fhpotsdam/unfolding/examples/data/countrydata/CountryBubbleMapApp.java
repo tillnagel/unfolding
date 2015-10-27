@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.List;
 
 import processing.core.PApplet;
-
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.data.Feature;
 import de.fhpotsdam.unfolding.data.GeoJSONReader;
@@ -28,10 +27,15 @@ public class CountryBubbleMapApp extends PApplet {
 	HashMap<String, DataEntry> dataEntriesMap;
 	List<Marker> countryMarkers;
 
-	public void setup() {
-		size(800, 600, OPENGL);
-		smooth();
+	public void settings() {
+		size(800, 600, P2D);
+	}
 
+	public static void main(String args[]) {
+		PApplet.main(new String[] { CountryBubbleMapApp.class.getName() });
+	}
+
+	public void setup() {
 		map = new UnfoldingMap(this);
 		map.zoomToLevel(2);
 		map.setBackgroundColor(240);
@@ -53,7 +57,7 @@ public class CountryBubbleMapApp extends PApplet {
 
 				String countryId = country.getId();
 				DataEntry dataEntry = dataEntriesMap.get(countryId);
-				if (dataEntry != null) {
+				if (dataEntry != null && dataEntry.value > 0) {
 					// Map to correct size (linearly to area)
 					float radius = PApplet.sqrt(dataEntry.value / PApplet.PI);
 					// Constrain radius to 100px (20000 is for China's population of 1.3billion)

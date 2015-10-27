@@ -32,9 +32,15 @@ public class VectorTilesApp extends PApplet {
 
 	boolean loadUniqueMarkers = true;
 
-	public void setup() {
-		size(800, 600, OPENGL);
+	public void settings() {
+		size(800, 600, P2D);
+	}
 
+	public static void main(String args[]) {
+		PApplet.main(new String[] { VectorTilesApp.class.getName() });
+	}
+
+	public void setup() {
 		map = new UnfoldingMap(this, "myMap");
 		map.zoomAndPanTo(16, new Location(52.501, 13.395));
 		MapUtils.createDefaultEventDispatcher(this, map);

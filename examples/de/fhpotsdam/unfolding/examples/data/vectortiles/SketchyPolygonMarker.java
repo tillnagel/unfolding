@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.gicentre.handy.HandyRenderer;
 
-import processing.core.PConstants;
 import processing.core.PGraphics;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.marker.SimplePolygonMarker;
@@ -36,7 +35,7 @@ public class SketchyPolygonMarker extends SimplePolygonMarker {
 
 		pg.popStyle();
 	}
-	
+
 	public void draw(PGraphics pg, List<MapPosition> mapPositions, List<List<MapPosition>> ringMapPositionsArray) {
 
 		pg.pushStyle();
@@ -54,13 +53,13 @@ public class SketchyPolygonMarker extends SimplePolygonMarker {
 		}
 
 		// Interior rings
-//		for (List<MapPosition> interiorRing : ringMapPositionsArray) {
-//			handy.beginContour();
-//			for (MapPosition pos : interiorRing) {
-//				handy.vertex(pos.x, pos.y);
-//			}
-//			handy.endContour();
-//		}
+		// for (List<MapPosition> interiorRing : ringMapPositionsArray) {
+		// handy.beginContour();
+		// for (MapPosition pos : interiorRing) {
+		// handy.vertex(pos.x, pos.y);
+		// }
+		// handy.endContour();
+		// }
 
 		handy.endShape();
 

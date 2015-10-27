@@ -14,11 +14,13 @@ public class GetDistanceApp extends PApplet {
 
 	UnfoldingMap map;
 
-	public void setup() {
-		size(600, 600, OPENGL);
+	public void settings() {
+		size(800, 600, P2D);
+	}
 
+	public void setup() {
 		map = new UnfoldingMap(this);
-		map.zoomAndPanTo(new Location(52.5f, 13.4f), 10);
+		map.zoomAndPanTo(10, new Location(52.5f, 13.4f));
 		MapUtils.createDefaultEventDispatcher(this, map);
 	}
 
@@ -41,8 +43,8 @@ public class GetDistanceApp extends PApplet {
 		return dist(pos1.x, pos1.y, pos2.x, pos2.y);
 	}
 
-	public static void main(String[] args) {
-		PApplet.main(new String[] { "de.fhpotsdam.unfolding.examples.geo.GetDistanceApp" });
+	public static void main(String args[]) {
+		PApplet.main(new String[] { GetDistanceApp.class.getName() });
 	}
 
 }

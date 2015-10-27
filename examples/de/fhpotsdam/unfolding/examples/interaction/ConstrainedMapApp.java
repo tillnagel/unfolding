@@ -1,7 +1,6 @@
 package de.fhpotsdam.unfolding.examples.interaction;
 
 import processing.core.PApplet;
-
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.utils.MapUtils;
@@ -17,9 +16,11 @@ public class ConstrainedMapApp extends PApplet {
 	Location centerLocation = new Location(1.359f, 103.816f);
 	float maxPanningDistance = 30;
 
-	public void setup() {
-		size(800, 600, OPENGL);
+	public void settings() {
+		size(800, 600, P2D);
+	}
 
+	public void setup() {
 		map = new UnfoldingMap(this);
 		map.zoomAndPanTo(12, new Location(centerLocation));
 		map.setPanningRestriction(centerLocation, maxPanningDistance);
@@ -31,6 +32,10 @@ public class ConstrainedMapApp extends PApplet {
 	public void draw() {
 		background(0);
 		map.draw();
+	}
+
+	public static void main(String[] args) {
+		PApplet.main(new String[] { ConstrainedMapApp.class.getName() });
 	}
 
 }

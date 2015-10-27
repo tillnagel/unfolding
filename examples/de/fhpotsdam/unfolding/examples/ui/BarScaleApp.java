@@ -16,11 +16,13 @@ public class BarScaleApp extends PApplet {
 	UnfoldingMap map;
 	BarScaleUI barScale;
 
-	public void setup() {
-		size(800, 600, OPENGL);
+	public void settings() {
+		size(800, 600, P2D);
+	}
 
+	public void setup() {
 		map = new UnfoldingMap(this);
-		map.zoomAndPanTo(new Location(52.5f, 13.4f), 10);
+		map.zoomAndPanTo(10, new Location(52.5f, 13.4f));
 		MapUtils.createDefaultEventDispatcher(this, map);
 
 		// add a bar scale to your map
@@ -46,7 +48,7 @@ public class BarScaleApp extends PApplet {
 	}
 
 	public static void main(String[] args) {
-		PApplet.main(new String[] { "de.fhpotsdam.unfolding.examples.ui.BarScaleApp" });
+		PApplet.main(new String[] { BarScaleApp.class.getName() });
 	}
 
 }

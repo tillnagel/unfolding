@@ -1,7 +1,6 @@
 package de.fhpotsdam.unfolding.examples.overviewdetail;
 
 import processing.core.PApplet;
-
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.utils.MapUtils;
@@ -25,12 +24,18 @@ public class OverviewAndDetailWithViewportApp extends PApplet {
 	// Interactive finder box atop the overview map.
 	ViewportRect viewportRect;
 
-	public void setup() {
-		size(800, 600, OPENGL);
+	public void settings() {
+		size(800, 600, P2D);
+	}
 
+	public static void main(String[] args) {
+		PApplet.main(new String[] { OverviewAndDetailWithViewportApp.class.getName() });
+	}
+
+	public void setup() {
 		// Detail map with default mouse and keyboard interactions
 		mapDetail = new UnfoldingMap(this, "detail", 10, 10, 585, 580);
-		//mapDetail.setTweening(true);
+		// mapDetail.setTweening(true);
 		mapDetail.zoomToLevel(4);
 		mapDetail.setZoomRange(4, 10);
 		MapUtils.createDefaultEventDispatcher(this, mapDetail);

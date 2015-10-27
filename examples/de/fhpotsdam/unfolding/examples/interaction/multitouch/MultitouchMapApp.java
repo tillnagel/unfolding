@@ -26,14 +26,16 @@ public class MultitouchMapApp extends PApplet {
 
 	UnfoldingMap map;
 	TuioCursorHandler tuioCursorHandler;
-
-	public void setup() {
+	
+	public void settings() {
 		if (FULLSCREEN) {
-			size(1920, 1080, OPENGL);
+			size(1920, 1080, P2D);
 		} else {
-			size(800, 600, OPENGL);
+			size(800, 600, P2D);
 		}
-
+	}
+	
+	public void setup() {
 		// Init the map
 		map = new UnfoldingMap(this);
 

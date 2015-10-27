@@ -2,7 +2,6 @@ package de.fhpotsdam.unfolding.examples.image;
 
 import processing.core.PApplet;
 import processing.core.PImage;
-
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.providers.Microsoft;
@@ -26,13 +25,15 @@ public class SmallImageOverlayApp extends PApplet {
 	Location visNorthWest = new Location(52.399539, 13.048003);
 	Location visSouthEast = new Location(52.391667, 13.066667);
 
-	public void setup() {
-		size(1400, 800, OPENGL);
+	public void settings() {
+		size(1400, 800, P2D);
+	}
 
+	public void setup() {
 		visImg = loadImage("test/splendor-cutout.png");
 
 		map = new UnfoldingMap(this, "Satellite Map", new Microsoft.AerialProvider());
-		map.zoomAndPanTo(center, 14);
+		map.zoomAndPanTo(16, center);
 		MapUtils.createDefaultEventDispatcher(this, map);
 
 		debugDisplay = new DebugDisplay(this, map);
@@ -51,6 +52,9 @@ public class SmallImageOverlayApp extends PApplet {
 		image(visImg, topRight.x, topRight.y, width, height);
 
 		debugDisplay.draw();
+	}
 
+	public static void main(String args[]) {
+		PApplet.main(new String[] { SmallImageOverlayApp.class.getName() });
 	}
 }

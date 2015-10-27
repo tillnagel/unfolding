@@ -17,9 +17,11 @@ public class ConstrainedBoxMapApp extends PApplet {
 	Location boundTopLeft = new Location(52.8, 12.6);
 	Location boundBottomRight = new Location(52.0, 14.5);
 
-	public void setup() {
-		size(800, 600, OPENGL);
+	public void settings() {
+		size(800, 600, P2D);
+	}
 
+	public void setup() {
 		map = new UnfoldingMap(this);
 		map.zoomAndPanTo(10, new Location(52.5, 13.4f));
 		map.setZoomRange(10, 12);
@@ -39,4 +41,7 @@ public class ConstrainedBoxMapApp extends PApplet {
 		}
 	}
 
+	public static void main(String[] args) {
+		PApplet.main(new String[] { ConstrainedBoxMapApp.class.getName() });
+	}
 }

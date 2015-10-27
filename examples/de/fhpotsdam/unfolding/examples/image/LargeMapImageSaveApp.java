@@ -20,11 +20,13 @@ public class LargeMapImageSaveApp extends PApplet {
 
 	LargeMapImageUtils lmiUtils;
 
-	public void setup() {
-		size(500, 500, OPENGL);
+	public void settings() {
+		size(500, 500, P2D);
+	}
 
+	public void setup() {
 		map = new UnfoldingMap(this);
-		map.zoomAndPanTo(location, zoomLevel);
+		map.zoomAndPanTo(zoomLevel, location);
 		MapUtils.createDefaultEventDispatcher(this, map);
 
 		println("Init large map image.");
@@ -46,5 +48,9 @@ public class LargeMapImageSaveApp extends PApplet {
 			// Around set center and zoom level (pans there before screenshoting)
 			lmiUtils.init(location, zoomLevel);
 		}
+	}
+	
+	public static void main(String args[]) {
+		PApplet.main(new String[] { LargeMapImageSaveApp.class.getName() });
 	}
 }

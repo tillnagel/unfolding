@@ -1,14 +1,13 @@
 package de.fhpotsdam.unfolding.examples.overviewdetail;
 
 import processing.core.PApplet;
-
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.events.EventDispatcher;
 import de.fhpotsdam.unfolding.interactions.MouseHandler;
 
 /**
- * Shows an overview, and a detail map. The overview is a small-scale map, and shows the same area as the
- * large-scale detail map.
+ * Shows an overview, and a detail map. The overview is a small-scale map, and shows the same area as the large-scale
+ * detail map.
  * 
  * Both maps are interactive, and can be navigated. Each interaction is reflected in both maps. This Overview + Detail
  * example shows how to setup simple connected map views.
@@ -19,8 +18,15 @@ public class OverviewAndDetailMapApp extends PApplet {
 	UnfoldingMap mapDetail;
 	UnfoldingMap mapOverview;
 
+	public void settings() {
+		size(800, 600, P2D);
+	}
+
+	public static void main(String[] args) {
+		PApplet.main(new String[] { OverviewAndDetailMapApp.class.getName() });
+	}
+
 	public void setup() {
-		size(800, 600, OPENGL);
 
 		mapDetail = new UnfoldingMap(this, "detail", 10, 10, 585, 580);
 		mapDetail.setTweening(true);

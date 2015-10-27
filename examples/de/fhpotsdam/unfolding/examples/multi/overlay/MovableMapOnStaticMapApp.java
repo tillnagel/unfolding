@@ -1,7 +1,6 @@
 package de.fhpotsdam.unfolding.examples.multi.overlay;
 
 import processing.core.PApplet;
-
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.geo.Location;
 
@@ -17,9 +16,11 @@ public class MovableMapOnStaticMapApp extends PApplet {
 	float mapZoomX = 100;
 	float mapZoomY = 100;
 
-	public void setup() {
-		size(750, 600, OPENGL);
+	public void settings() {
+		size(750, 600, P2D);
+	}
 
+	public void setup() {
 		mapStatic = new UnfoldingMap(this, "static", 0, 0, 750, 600);
 		mapZoom = new UnfoldingMap(this, "zoom", 400, 300, 150, 150);
 		mapZoom.setTweening(false);
@@ -49,6 +50,10 @@ public class MovableMapOnStaticMapApp extends PApplet {
 		Location locationOnStaticMap = mapStatic.getLocation(mouseX, mouseY);
 		// Pan the small map toward that location
 		mapZoom.panTo(locationOnStaticMap);
+	}
+
+	public static void main(String args[]) {
+		PApplet.main(new String[] { MovableMapOnStaticMapApp.class.getName() });
 	}
 
 }

@@ -1,7 +1,6 @@
 package de.fhpotsdam.unfolding.examples.geo;
 
 import processing.core.PApplet;
-
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.utils.GeoUtils;
@@ -24,9 +23,11 @@ public class GreatCircleConnectionApp extends PApplet {
 	Location sourceLocation = washingtonLocation;
 	Location targetLocation = moscowLocation;
 
-	public void setup() {
-		size(800, 600, OPENGL);
+	public void settings() {
+		size(800, 600, P2D);
+	}
 
+	public void setup() {
 		map = new UnfoldingMap(this);
 		map.zoomTo(2);
 		MapUtils.createDefaultEventDispatcher(this, map);
@@ -73,7 +74,6 @@ public class GreatCircleConnectionApp extends PApplet {
 	}
 
 	public static void main(String[] args) {
-		// Here we start the actual Unfolding part
-		PApplet.main(new String[] { "de.fhpotsdam.unfolding.examples.geo.GreatCircleConnectionApp" });
+		PApplet.main(new String[] { GreatCircleConnectionApp.class.getName() });
 	}
 }

@@ -24,9 +24,11 @@ public class FadeTwoMapsApp extends PApplet {
 	int fadeMin = 0;
 	int fadeMax = 255;
 
+	public void settings() {
+		size(600, 400, P2D);
+	}
+
 	public void setup() {
-		size(600, 400, OPENGL);
-		
 		// Set the position and size of our two maps.
 		int mapXposition = 0;
 		int mapYposition = 30;
@@ -38,9 +40,9 @@ public class FadeTwoMapsApp extends PApplet {
 
 		// Initialize two maps
 		map1 = new UnfoldingMap(this, mapXposition, mapYposition, mapWidth, mapHeight);
-		map1.zoomAndPanTo(new Location(lon, lat), 10);
+		map1.zoomAndPanTo(10, new Location(lon, lat));
 		map2 = new UnfoldingMap(this, mapXposition, mapYposition, mapWidth, mapHeight, new Microsoft.AerialProvider());
-		map2.zoomAndPanTo(new Location(lon, lat), 10);
+		map2.zoomAndPanTo(10, new Location(lon, lat));
 		MapUtils.createDefaultEventDispatcher(this, map1, map2);
 	}
 

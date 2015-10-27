@@ -1,7 +1,6 @@
 package de.fhpotsdam.unfolding.examples.events;
 
 import processing.core.PApplet;
-
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.events.MapEvent;
 import de.fhpotsdam.unfolding.events.ZoomMapEvent;
@@ -21,9 +20,15 @@ public class MapChangedApp extends PApplet {
 	float rectSize = 50;
 	float rectSizeDiff;
 
-	public void setup() {
-		size(800, 600, OPENGL);
+	public void settings() {
+		size(800, 600, P2D);
+	}
 
+	public static void main(String args[]) {
+		PApplet.main(new String[] { MapChangedApp.class.getName() });
+	}
+
+	public void setup() {
 		map = new UnfoldingMap(this);
 		map.setTweening(true);
 		MapUtils.createDefaultEventDispatcher(this, map);
@@ -31,7 +36,7 @@ public class MapChangedApp extends PApplet {
 
 	public void draw() {
 		map.draw();
-		
+
 		if (lastZoomLocation != null) {
 			// Animates a rectangle to indicate where the zoom happened
 			ScreenPosition pos = map.getScreenPosition(lastZoomLocation);

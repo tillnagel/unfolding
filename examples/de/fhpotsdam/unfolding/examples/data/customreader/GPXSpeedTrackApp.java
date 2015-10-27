@@ -22,13 +22,15 @@ public class GPXSpeedTrackApp extends PApplet {
 	UnfoldingMap map;
 
 	Location startLocation = new Location(52.49f, 13.44f);
-
+	
+	public void settings() {
+		size(800, 600, P2D);
+	}
+	
 	public void setup() {
-		size(800, 600, OPENGL);
-
 		map = new UnfoldingMap(this);
 		MapUtils.createDefaultEventDispatcher(this, map);
-		map.zoomAndPanTo(startLocation, 14);
+		map.zoomAndPanTo(14, startLocation);
 
 		List<Feature> features = GPXSpeedReader.loadData(this, "data/bike-tour.gpx");
 		MarkerFactory markerFactory = new MarkerFactory();
@@ -42,6 +44,6 @@ public class GPXSpeedTrackApp extends PApplet {
 	}
 
 	public static void main(String[] args) {
-		PApplet.main(new String[] { "de.fhpotsdam.unfolding.examples.data.GPXTrackApp" });
+		PApplet.main(new String[] { GPXSpeedTrackApp.class.getName() });
 	}
 }

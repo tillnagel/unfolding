@@ -1,7 +1,6 @@
 package de.fhpotsdam.unfolding.examples.animation;
 
 import processing.core.PApplet;
-
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.examples.interaction.NaviButtonMapApp;
 import de.fhpotsdam.unfolding.geo.Location;
@@ -22,12 +21,14 @@ public class PanAnimationMapApp extends PApplet {
 			new Location(51.34, 12.37) };
 	int currentLocation = 0;
 
-	public void setup() {
-		size(800, 600, OPENGL);
+	public void settings() {
+		size(800, 600, P2D);
+	}
 
+	public void setup() {
 		map = new UnfoldingMap(this);
 		map.setTweening(true);
-		map.zoomAndPanTo(locations[currentLocation], 8);
+		map.zoomAndPanTo(8, locations[currentLocation]);
 
 		MapUtils.createDefaultEventDispatcher(this, map);
 	}

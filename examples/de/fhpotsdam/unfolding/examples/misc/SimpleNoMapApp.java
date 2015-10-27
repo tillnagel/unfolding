@@ -1,7 +1,6 @@
 package de.fhpotsdam.unfolding.examples.misc;
 
 import processing.core.PApplet;
-
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.examples.marker.multimarker.MultiMarkerApp;
 import de.fhpotsdam.unfolding.geo.Location;
@@ -15,11 +14,13 @@ public class SimpleNoMapApp extends PApplet {
 
 	UnfoldingMap map;
 
-	public void setup() {
-		size(800, 600, OPENGL);
+	public void settings() {
+		size(800, 600, P2D);
+	}
 
+	public void setup() {
 		map = new UnfoldingMap(this);
-		map.zoomAndPanTo(new Location(50f, 12f), 4);
+		map.zoomAndPanTo(4, new Location(50f, 12f));
 		MapUtils.createDefaultEventDispatcher(this, map);
 	}
 
@@ -36,6 +37,6 @@ public class SimpleNoMapApp extends PApplet {
 	}
 
 	public static void main(String[] args) {
-		PApplet.main(new String[] { "de.fhpotsdam.unfolding.examples.SimpleNoMapApp" });
+		PApplet.main(new String[] { SimpleNoMapApp.class.getName() });
 	}
 }

@@ -2,7 +2,7 @@ package de.fhpotsdam.unfolding.examples.ui;
 
 import processing.core.PApplet;
 import processing.core.PImage;
-
+import processing.core.PVector;
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.ui.CompassUI;
@@ -20,11 +20,14 @@ public class StyledCompassApp extends PApplet {
 	CompassUI compass;
 	PImage compassImg;
 
-	public void setup() {
-		size(800, 600, OPENGL);
+	public void settings() {
+		size(800, 600, P2D);
+	}
 
+	public void setup() {
 		map = new UnfoldingMap(this);
-		map.zoomAndPanTo(new Location(52.5f, 13.4f), 10);
+		map.zoomAndPanTo(10, new Location(52.5f, 13.4f));
+		map.mapDisplay.setInnerTransformationCenter(new PVector(width / 2, height / 2));
 		MapUtils.createDefaultEventDispatcher(this, map);
 
 		compassImg = loadImage("ui/compass_grey.png");
@@ -49,7 +52,7 @@ public class StyledCompassApp extends PApplet {
 	}
 
 	public static void main(String[] args) {
-		PApplet.main(new String[] { "de.fhpotsdam.unfolding.examples.ui.StyledCompassApp" });
+		PApplet.main(new String[] { StyledCompassApp.class.getName() });
 	}
 
 }

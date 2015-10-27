@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.List;
 
 import processing.core.PApplet;
-
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.data.Feature;
 import de.fhpotsdam.unfolding.data.GeoJSONReader;
@@ -26,10 +25,15 @@ public class ChoroplethMapApp extends PApplet {
 	HashMap<String, DataEntry> dataEntriesMap;
 	List<Marker> countryMarkers;
 
-	public void setup() {
-		size(800, 600, OPENGL);
-		smooth();
+	public void settings() {
+		size(800, 600, P2D);
+	}
 
+	public static void main(String args[]) {
+		PApplet.main(new String[] { ChoroplethMapApp.class.getName() });
+	}
+
+	public void setup() {
 		map = new UnfoldingMap(this, 50, 50, 700, 500);
 		map.zoomToLevel(2);
 		map.setBackgroundColor(240);

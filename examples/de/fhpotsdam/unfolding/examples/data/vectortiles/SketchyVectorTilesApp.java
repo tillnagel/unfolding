@@ -32,9 +32,15 @@ public class SketchyVectorTilesApp extends PApplet {
 
 	HandyRenderer handy;
 
-	public void setup() {
+	public void settings() {
 		size(1920, 1080, JAVA2D);
+	}
 
+	public static void main(String args[]) {
+		PApplet.main(new String[] { SketchyVectorTilesApp.class.getName() });
+	}
+
+	public void setup() {
 		handy = new HandyRenderer(this);
 
 		map = new UnfoldingMap(this, "myMap");
@@ -72,6 +78,7 @@ public class SketchyVectorTilesApp extends PApplet {
 	}
 
 	public void draw() {
+		background(240);
 		map.draw(); 
 		// debugDisplay.draw();
 	}

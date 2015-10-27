@@ -22,9 +22,15 @@ public class SimpleVectorTilesApp extends PApplet {
 
 	String featureLayer = "buildings";
 
-	public void setup() {
-		size(800, 600, OPENGL);
+	public void settings() {
+		size(800, 600, P2D);
+	}
 
+	public static void main(String args[]) {
+		PApplet.main(new String[] { SimpleVectorTilesApp.class.getName() });
+	}
+
+	public void setup() {
 		map = new UnfoldingMap(this, "myMap");
 		map.zoomAndPanTo(16, new Location(52.501, 13.395));
 		MapUtils.createDefaultEventDispatcher(this, map);

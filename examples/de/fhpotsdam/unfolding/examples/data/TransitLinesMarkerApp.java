@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import processing.core.PApplet;
-
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.data.Feature;
 import de.fhpotsdam.unfolding.data.GeoJSONReader;
@@ -27,10 +26,16 @@ public class TransitLinesMarkerApp extends PApplet {
 
 	UnfoldingMap map;
 
-	public void setup() {
+	public void settings() {
 		size(800, 600, P2D);
 		smooth();
+	}
 
+	public static void main(String args[]) {
+		PApplet.main(new String[] { TransitLinesMarkerApp.class.getName() });
+	}
+
+	public void setup() {
 		map = new UnfoldingMap(this, new StamenMapProvider.TonerBackground());
 		map.zoomToLevel(11);
 		map.panTo(bostonLocation);

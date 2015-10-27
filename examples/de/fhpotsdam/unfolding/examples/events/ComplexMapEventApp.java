@@ -6,7 +6,6 @@ import java.util.List;
 import org.apache.log4j.Logger;
 
 import processing.core.PApplet;
-
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.events.EventDispatcher;
 import de.fhpotsdam.unfolding.events.MapEventListener;
@@ -50,10 +49,11 @@ public class ComplexMapEventApp extends PApplet {
 	DebugDisplay debugDisplay2;
 	DebugDisplay debugDisplay3;
 
-	public void setup() {
-		size(1240, 420, OPENGL);
-		smooth();
+	public void settings() {
+		size(1240, 420, P2D);
+	}
 
+	public void setup() {
 		// Creates non-default dispatcher to register own broadcasters and listeners.
 		eventDispatcher = new EventDispatcher();
 
@@ -86,8 +86,7 @@ public class ComplexMapEventApp extends PApplet {
 
 		// Prints all listeners
 		printEventDispatcher();
-		
-		
+
 		debugDisplay1 = new DebugDisplay(this, map1, eventDispatcher, 15, 165);
 		debugDisplay2 = new DebugDisplay(this, map2, eventDispatcher, 425, 165);
 		debugDisplay3 = new DebugDisplay(this, map3, eventDispatcher, 835, 165);
@@ -119,21 +118,20 @@ public class ComplexMapEventApp extends PApplet {
 		}
 	}
 
-
 	public void printEventDispatcher() {
 		for (String eventType : eventDispatcher.typedScopedListeners.keySet()) {
 			List<ScopedListeners> scopedListenersList = eventDispatcher.typedScopedListeners.get(eventType);
 			for (ScopedListeners scopedListeners : scopedListenersList) {
 				for (MapEventListener listener : scopedListeners.listeners) {
 					UnfoldingMap map = (UnfoldingMap) listener;
-					log.debug(map.getId() +" listens to " + eventType + " of " + scopedListeners.scopeIds);
+					log.debug(map.getId() + " listens to " + eventType + " of " + scopedListeners.scopeIds);
 				}
 			}
 		}
 
 	}
-	
+
 	public static void main(String[] args) {
-		PApplet.main(new String[] { "de.fhpotsdam.unfolding.examples.ComplexMapEventApp" });
+		PApplet.main(new String[] { ComplexMapEventApp.class.getName() });
 	}
 }

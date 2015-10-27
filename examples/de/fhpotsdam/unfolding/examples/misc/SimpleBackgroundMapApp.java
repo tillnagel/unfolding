@@ -1,7 +1,6 @@
 package de.fhpotsdam.unfolding.examples.misc;
 
 import processing.core.PApplet;
-
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.utils.MapUtils;
@@ -15,10 +14,13 @@ public class SimpleBackgroundMapApp extends PApplet {
 
 	UnfoldingMap map;
 
+	public void settings() {
+		size(800, 600, P2D);
+	}
+
 	public void setup() {
-		size(800, 600, OPENGL);
 		map = new UnfoldingMap(this, 50, 50, 700, 500);
-		map.zoomAndPanTo(new Location(52.5f, 13.4f), 10);
+		map.zoomAndPanTo(3, new Location(52.5f, 13.4f));
 		MapUtils.createDefaultEventDispatcher(this, map);
 
 		// background color of the map
@@ -32,6 +34,6 @@ public class SimpleBackgroundMapApp extends PApplet {
 	}
 
 	public static void main(String[] args) {
-		PApplet.main(new String[] { "de.fhpotsdam.unfolding.examples.SimpleBackgroundMapApp" });
+		PApplet.main(new String[] { SimpleBackgroundMapApp.class.getName() });
 	}
 }

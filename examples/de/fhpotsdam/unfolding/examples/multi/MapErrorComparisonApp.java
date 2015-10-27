@@ -21,16 +21,18 @@ public class MapErrorComparisonApp extends PApplet {
 	UnfoldingMap map1;
 	UnfoldingMap map2;
 	float fadeValue = 100;
-
+	
+	public void settings() {
+		size(800, 600, P2D);
+	}
+	
 	public void setup() {
-		size(800, 600, OPENGL);
-
 		map1 = new UnfoldingMap(this, "map1", new Microsoft.AerialProvider());
 		map2 = new UnfoldingMap(this, "map2", new Microsoft.AerialProvider());
 		MapUtils.createDefaultEventDispatcher(this, map1, map2);
 
-		map1.zoomAndPanTo(new Location(56.27415, 130.97737), 13);
-		map2.zoomAndPanTo(new Location(55.99591, 131.3102), 13);
+		map1.zoomAndPanTo(13, new Location(56.27415, 130.97737));
+		map2.zoomAndPanTo(13, new Location(55.99591, 131.3102));
 	}
 
 	public void draw() {

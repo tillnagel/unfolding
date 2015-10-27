@@ -10,13 +10,20 @@ import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.marker.Marker;
 import de.fhpotsdam.unfolding.utils.MapUtils;
 
+/**
+ * Automatically zoom and pans to the selected country marker. Click on any country to see it in action.
+ * 
+ * Uses {@link UnfoldingMap#zoomAndPanToFit(Marker)}.
+ */
 public class ZoomToFitApp extends PApplet {
 
 	UnfoldingMap map;
 
-	public void setup() {
-		size(800, 800, OPENGL);
+	public void settings() {
+		size(800, 600, P2D);
+	}
 
+	public void setup() {
 		map = new UnfoldingMap(this);
 		MapUtils.createDefaultEventDispatcher(this, map);
 		map.setTweening(true);
@@ -38,6 +45,10 @@ public class ZoomToFitApp extends PApplet {
 		} else {
 			map.zoomAndPanTo(2, new Location(0, 0));
 		}
+	}
+
+	public static void main(String args[]) {
+		PApplet.main(new String[] { ZoomToFitApp.class.getName() });
 	}
 
 }

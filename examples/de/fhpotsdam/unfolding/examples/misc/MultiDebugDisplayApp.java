@@ -23,9 +23,11 @@ public class MultiDebugDisplayApp extends PApplet {
 	DebugDisplay debugDisplay1;
 	DebugDisplay debugDisplay2;
 
-	public void setup() {
-		size(1024, 768, OPENGL);
+	public void settings() {
+		size(1024, 768, P2D);
+	}
 
+	public void setup() {
 		map1 = new UnfoldingMap(this, "map1", 0, 0, 512, height);
 		map1.zoomAndPanTo(10, new Location(52.5f, 13.4f));
 		map2 = new UnfoldingMap(this, "map2", 512, 0, 512, height, true, false, new Microsoft.AerialProvider());
@@ -43,5 +45,9 @@ public class MultiDebugDisplayApp extends PApplet {
 
 		map2.draw();
 		debugDisplay2.draw();
+	}
+
+	public static void main(String args[]) {
+		PApplet.main(new String[] { MultiDebugDisplayApp.class.getName() });
 	}
 }
