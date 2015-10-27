@@ -1,5 +1,7 @@
 package de.fhpotsdam.unfolding.tiles;
 
+import java.util.Base64;
+
 import processing.core.PApplet;
 import processing.core.PConstants;
 import processing.core.PImage;
@@ -68,9 +70,15 @@ public class TileLoader implements Runnable {
 		if (tileImg == null) {
 			// Loads images via the tile URLs from provider (e.g. from a web map service)
 			String[] urls = provider.getTileUrls(coordinate);
-			if (urls != null) {
+			if (urls == null)
+				return;
+
+			if (provider.enableCache) {
+				tileImg = getTileFromCacheOrUrl(urls);
+			} else {
 				tileImg = getTileFromUrl(urls);
 			}
+
 		}
 
 		if (tileImg == null && !tryAgainOnNonLoadedTiles) {
@@ -84,6 +92,25 @@ public class TileLoader implements Runnable {
 		}
 
 		listener.tileLoaded(coordinate, tileImg);
+	}
+
+	protected PImage getTileFromCacheOrUrl(String[] urls) {
+
+		String url = urls[0];
+
+		String path = p.savePath("data/unfolding/cache/" + url);
+		PImage img = p.loadImage(path);
+
+		if (img == null) {
+			try {
+				img = p.loadImage(url);
+				img.save(path);
+			} catch (Exception e) {
+				PApplet.println("Error: Could not load Tile from " + url);
+			}
+		}
+
+		return img;
 	}
 
 	/**

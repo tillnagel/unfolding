@@ -12,11 +12,13 @@ import de.fhpotsdam.unfolding.geo.Location;
 public abstract class AbstractMapProvider {
 
 	public AbstractProjection projection;
+	
+	public boolean enableCache = false;
 
 	public AbstractMapProvider(AbstractProjection projection) {
 		this.projection = projection;
 	}
-
+	
 	/**
 	 * Gets tiles for coordinate.
 	 * 
@@ -42,6 +44,7 @@ public abstract class AbstractMapProvider {
 	public abstract int tileWidth();
 
 	public abstract int tileHeight();
+	
 
 	public Coordinate locationCoordinate(Location location) {
 		return projection.locationCoordinate(location);
