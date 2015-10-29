@@ -1,7 +1,5 @@
 package de.fhpotsdam.unfolding.tiles;
 
-import java.util.Base64;
-
 import processing.core.PApplet;
 import processing.core.PConstants;
 import processing.core.PImage;
