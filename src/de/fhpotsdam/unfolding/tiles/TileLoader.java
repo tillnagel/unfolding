@@ -68,15 +68,13 @@ public class TileLoader implements Runnable {
 		if (tileImg == null) {
 			// Loads images via the tile URLs from provider (e.g. from a web map service)
 			String[] urls = provider.getTileUrls(coordinate);
-			if (urls == null)
-				return;
-
-			if (provider.enableCache) {
-				tileImg = getTileFromCacheOrUrl(urls);
-			} else {
-				tileImg = getTileFromUrl(urls);
+			if (urls != null) {
+				if (provider.enableCache) {
+					tileImg = getTileFromCacheOrUrl(urls);
+				} else {
+					tileImg = getTileFromUrl(urls);
+				}
 			}
-
 		}
 
 		if (tileImg == null && !tryAgainOnNonLoadedTiles) {
