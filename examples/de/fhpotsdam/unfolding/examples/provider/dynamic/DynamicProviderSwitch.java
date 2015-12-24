@@ -52,7 +52,7 @@ public class DynamicProviderSwitch extends PApplet {
 	}
 	
 	public static void main(String[] args) {
-		PApplet.main(new String[] { DynamicMapSwitch.class.getName() });
+		PApplet.main(new String[] { DynamicProviderSwitch.class.getName() });
 	}
 
 }
