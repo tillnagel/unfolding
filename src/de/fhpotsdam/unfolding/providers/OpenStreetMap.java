@@ -32,14 +32,14 @@ public class OpenStreetMap {
 
 	public static class OpenStreetMapProvider extends GenericOpenStreetMapProvider {
 		public String[] getTileUrls(Coordinate coordinate) {
-			String url = "http://tile.openstreetmap.org/" + getZoomString(coordinate) + ".png";
+			String url = "http://a.tile.openstreetmap.org/" + getZoomString(coordinate) + ".png";
 			return new String[] { url };
 		}
 	}
 
 	public static class OSMGrayProvider extends GenericOpenStreetMapProvider {
 		public String[] getTileUrls(Coordinate coordinate) {
-			String url = "http://a.www.toolserver.org/tiles/bw-mapnik/" + getZoomString(coordinate) + ".png";
+			String url = "http://a.tiles.wmflabs.org/bw-mapnik2/" + getZoomString(coordinate) + ".png";
 			return new String[] { url };
 		}
 	}
@@ -47,6 +47,13 @@ public class OpenStreetMap {
 	public static class PositronMapProvider extends GenericOpenStreetMapProvider {
 		public String[] getTileUrls(Coordinate coordinate) {
 			String url = "http://a.basemaps.cartocdn.com/light_all/" + getZoomString(coordinate) + ".png";
+			return new String[] { url };
+		}
+	}
+	
+	public static class DarkMatterMapProvider extends GenericOpenStreetMapProvider {
+		public String[] getTileUrls(Coordinate coordinate) {
+			String url = "http://a.basemaps.cartocdn.com/dark_all/" + getZoomString(coordinate) + ".png";
 			return new String[] { url };
 		}
 	}
