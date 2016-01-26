@@ -33,7 +33,7 @@ public class AbstractShapeMarkerLocationTest {
 	}
 
 	private void addCountryMarker() {
-		List<Feature> countries = GeoJSONReader.loadData(p, "data/countries.geo.json");
+		List<Feature> countries = GeoJSONReader.loadData(p, p.sketchPath("data/data/countries.geo.json"));
 		List<Marker> countryMarkers = MapUtils.createSimpleMarkers(countries);
 		map.addMarkers(countryMarkers);
 	}
@@ -51,8 +51,7 @@ public class AbstractShapeMarkerLocationTest {
 	public void testSquareMarker() {
 		addSquareMarker();
 
-		assertTrue(squareMarker.isInsideByLocation(squareWidth / 2.0f,
-				squareWidth / 2.0f));
+		assertTrue(squareMarker.isInsideByLocation(squareWidth / 2.0f, squareWidth / 2.0f));
 		assertFalse(squareMarker.isInsideByLocation(-1, -1));
 		assertFalse(squareMarker.isInsideByLocation(squareWidth + 1, squareWidth + 1));
 	}
