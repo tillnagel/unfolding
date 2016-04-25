@@ -10,13 +10,15 @@ import de.fhpotsdam.unfolding.utils.ScreenPosition;
 public class WrapAroundMapApp extends PApplet {
 
 	UnfoldingMap map;
-	
+
 	UnfoldingMap leftMap;
 	UnfoldingMap rightMap;
 
-	public void setup() {
+	public void settings() {
 		size(800, 600, P2D);
+	}
 
+	public void setup() {
 		map = new UnfoldingMap(this);
 		map.zoomToLevel(2);
 		EventDispatcher eventDispatcher = MapUtils.createDefaultEventDispatcher(this, map);
@@ -63,6 +65,10 @@ public class WrapAroundMapApp extends PApplet {
 		// Ensure next map is always over main map (push 1px)
 		float fixLastPixel = (left) ? 1 : -1;
 		nextMap.panBy(fixLastPixel, 0);
+	}
+
+	public static void main(String args[]) {
+		PApplet.main(new String[] { WrapAroundMapApp.class.getName() });
 	}
 
 }
