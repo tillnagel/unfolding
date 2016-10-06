@@ -93,7 +93,7 @@ public class MultiMarker implements Marker {
 	public void setProperties(HashMap<String, Object> properties) {
 		this.properties = properties;
 	}
-	
+
 	@Override
 	public Object setProperty(String key, Object value) {
 		return properties.put(key, value);
@@ -118,7 +118,7 @@ public class MultiMarker implements Marker {
 			return null;
 		}
 	}
-	
+
 	@Override
 	public Integer getIntegerProperty(String key) {
 		Object value = properties.get(key);
@@ -138,6 +138,26 @@ public class MultiMarker implements Marker {
 
 		for (Marker marker : markers) {
 			inside |= marker.isInside(map, checkX, checkY);
+		}
+
+		return inside;
+	}
+
+	/**
+	 * Returns true if at least one marker is hit. Checks only AbstractShapeMarkers, as only those implement
+	 * {@link AbstractShapeMarker#isInsideByLocation(float, float)}.
+	 */
+	public boolean isInsideByLocation(float latitude, float longitude) {
+		boolean inside = false;
+
+		for (Marker marker : markers) {
+			if (marker instanceof MultiMarker) {
+				MultiMarker multiMarker = (MultiMarker) marker;
+				inside |= multiMarker.isInsideByLocation(latitude, longitude);
+			} else if (marker instanceof AbstractShapeMarker) {
+				AbstractShapeMarker shapeMarker = (AbstractShapeMarker) marker;
+				inside |= shapeMarker.isInsideByLocation(latitude, longitude);
+			}
 		}
 
 		return inside;
