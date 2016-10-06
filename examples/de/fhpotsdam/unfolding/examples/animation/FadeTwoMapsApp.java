@@ -13,21 +13,23 @@ import de.fhpotsdam.unfolding.utils.MapUtils;
  */
 public class FadeTwoMapsApp extends PApplet {
 
-	UnfoldingMap map1;
-	UnfoldingMap map2;
+	private UnfoldingMap map1;
+	private UnfoldingMap map2;
 
 	// Create and set variable we need to fade between our two maps.
-	boolean fadeOnce = false;
-	boolean fadeAlways = false;
-	int fadeVal = 255;
-	int fadeDelta = 5;
-	int fadeMin = 0;
-	int fadeMax = 255;
+	private static boolean FADE_ONCE = false;
+	private static boolean FADE_ALWAYS = false;
+	private static int FADE_VAL = 255;
+	private static int FADE_DELTA = 5;
+	private static int FADE_MIN = 0;
+	private static int FADE_MAX = 255;
 
+	@Override
 	public void settings() {
 		size(600, 400, P2D);
 	}
 
+	@Override
 	public void setup() {
 		// Set the position and size of our two maps.
 		int mapXposition = 0;
@@ -46,29 +48,30 @@ public class FadeTwoMapsApp extends PApplet {
 		MapUtils.createDefaultEventDispatcher(this, map1, map2);
 	}
 
+	@Override
 	public void draw() {
 		background(0);
 
 		// Calculate Fade Value
-		if (fadeAlways == true) {
-			fadeOnce = false;
-			if (fadeVal == 0 || fadeVal == 255)
-				fadeDelta = -fadeDelta;
-			fadeVal += fadeDelta;
+		if (FADE_ALWAYS) {
+			FADE_ONCE = false;
+			if (FADE_VAL == FADE_MIN || FADE_VAL == FADE_MAX)
+				FADE_DELTA = -FADE_DELTA;
+			FADE_VAL += FADE_DELTA;
 		}
 
-		if (fadeOnce == true) {
-			if (fadeVal == 0 || fadeVal == 255) {
-				fadeDelta = -fadeDelta;
-				fadeOnce = false;
+		if (FADE_ONCE) {
+			if (FADE_VAL == FADE_MIN || FADE_VAL == FADE_MAX) {
+				FADE_DELTA = -FADE_DELTA;
+				FADE_ONCE = false;
 			}
-			fadeVal += fadeDelta;
+			FADE_VAL += FADE_DELTA;
 		}
 
 		// Draw maps
 		tint(255);
 		map1.draw();
-		tint(255, fadeVal);
+		tint(255, FADE_VAL);
 		map2.draw();
 
 		// Description at the Top
@@ -76,20 +79,21 @@ public class FadeTwoMapsApp extends PApplet {
 		text("Press key '1' to fade once   |   Press key '2' to fade always", 10, 20);
 	}
 
+	@Override
 	public void keyPressed() {
 		switch (key) {
 		case '1':
-			fadeAlways = false;
-			fadeOnce = true;
+			FADE_ALWAYS = false;
+			FADE_ONCE = true;
 			break;
 		case '2':
-			fadeAlways = true;
-			fadeOnce = false;
+			FADE_ALWAYS = true;
+			FADE_ONCE = false;
 			break;
 		}
 	}
 
 	public static void main(String[] args) {
-		PApplet.main(new String[] { "de.fhpotsdam.unfolding.examples.animation.FadeTwoMapsApp" });
+		PApplet.main(new String[] { FadeTwoMapsApp.class.getName() });
 	}
 }
