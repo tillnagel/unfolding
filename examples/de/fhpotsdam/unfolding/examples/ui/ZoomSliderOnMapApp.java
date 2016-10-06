@@ -14,69 +14,71 @@ import de.fhpotsdam.unfolding.interactions.MouseHandler;
  */
 public class ZoomSliderOnMapApp extends PApplet {
 
-	UnfoldingMap map;
-	ZoomSlider slider;
+    private UnfoldingMap map;
+    private ZoomSlider slider;
+    private EventDispatcher eventDispatcher;
 
-	EventDispatcher eventDispatcher;
+    @Override
+    public void settings() {
+        size(800, 600, P2D);
+    }
 
-	public void settings() {
-		size(800, 600, P2D);
-	}
+    @Override
+    public void setup() {
+        map = new UnfoldingMap(this);
+        eventDispatcher = new EventDispatcher();
+        final MouseHandler mouseHandler = new MouseHandler(this, map);
+        eventDispatcher.addBroadcaster(mouseHandler);
+        listen();
+        slider = new ZoomSlider(this, map, 50, 30);
+    }
 
-	public void setup() {
-		map = new UnfoldingMap(this);
+    private void listen() {
+        eventDispatcher.register(map, PanMapEvent.TYPE_PAN, map.getId());
+        eventDispatcher.register(map, ZoomMapEvent.TYPE_ZOOM, map.getId());
+    }
 
-		eventDispatcher = new EventDispatcher();
-		MouseHandler mouseHandler = new MouseHandler(this, map);
-		eventDispatcher.addBroadcaster(mouseHandler);
-		listen();
+    private void mute() {
+        eventDispatcher.unregister(map, PanMapEvent.TYPE_PAN, map.getId());
+        eventDispatcher.unregister(map, ZoomMapEvent.TYPE_ZOOM, map.getId());
+    }
 
-		slider = new ZoomSlider(this, map, 50, 30);
-	}
+    @Override
+    public void draw() {
+        map.draw();
+        slider.draw();
+    }
 
-	public void listen() {
-		eventDispatcher.register(map, PanMapEvent.TYPE_PAN, map.getId());
-		eventDispatcher.register(map, ZoomMapEvent.TYPE_ZOOM, map.getId());
-	}
+    public void mapChanged(MapEvent mapEvent) {
+        // Updates slider based on current map zoom
+        slider.setZoomLevel(map.getZoomLevel());
+    }
 
-	public void mute() {
-		eventDispatcher.unregister(map, PanMapEvent.TYPE_PAN, map.getId());
-		eventDispatcher.unregister(map, ZoomMapEvent.TYPE_ZOOM, map.getId());
-	}
+    @Override
+    public void mousePressed() {
+        if (slider.contains(mouseX, mouseY)) {
+            slider.startDrag(mouseX, mouseY);
+            mute(); // mute mouse event handling
+        }
+    }
 
-	public void draw() {
-		map.draw();
+    @Override
+    public void mouseDragged() {
+        if (slider.isDragging()) {
+            slider.drag(mouseX, mouseY);
+        }
+    }
 
-		slider.draw();
-	}
+    @Override
+    public void mouseReleased() {
+        if (slider.isDragging()) {
+            slider.endDrag();
+            listen(); // unmute mouse event handling
+        }
+    }
 
-	public void mapChanged(MapEvent mapEvent) {
-		// Updates slider based on current map zoom
-		slider.setZoomLevel(map.getZoomLevel());
-	}
-
-	public void mousePressed() {
-		if (slider.contains(mouseX, mouseY)) {
-			slider.startDrag(mouseX, mouseY);
-			mute(); // mute mouse event handling
-		}
-	}
-
-	public void mouseDragged() {
-		if (slider.isDragging()) {
-			slider.drag(mouseX, mouseY);
-		}
-	}
-
-	public void mouseReleased() {
-		if (slider.isDragging()) {
-			slider.endDrag();
-			listen(); // unmute mouse event handling
-		}
-	}
-
-	public static void main(String[] args) {
-		PApplet.main(new String[] { ZoomSliderOnMapApp.class.getName() });
-	}
+    public static void main(String[] args) {
+        PApplet.main(new String[]{ZoomSliderOnMapApp.class.getName()});
+    }
 
 }
