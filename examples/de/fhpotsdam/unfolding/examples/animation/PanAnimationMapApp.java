@@ -9,7 +9,7 @@ import de.fhpotsdam.unfolding.utils.MapUtils;
 /**
  * Pans smoothly between three locations, in an endless loop.
  * 
- * Press SPACE to switch twining off (and on again).
+ * Press SPACE to switch tweening off (and on again).
  * 
  * See {@link NaviButtonMapApp} for an interactive example on how to animate between two locations.
  */
