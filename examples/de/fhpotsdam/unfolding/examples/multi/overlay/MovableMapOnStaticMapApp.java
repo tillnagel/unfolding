@@ -10,16 +10,18 @@ import de.fhpotsdam.unfolding.geo.Location;
  */
 public class MovableMapOnStaticMapApp extends PApplet {
 
-	UnfoldingMap mapStatic;
-	UnfoldingMap mapZoom;
+	private UnfoldingMap mapStatic;
+	private UnfoldingMap mapZoom;
 
-	float mapZoomX = 100;
-	float mapZoomY = 100;
+	private static float mapZoomX = 100;
+	private static float mapZoomY = 100;
 
+	@Override
 	public void settings() {
 		size(750, 600, P2D);
 	}
 
+	@Override
 	public void setup() {
 		mapStatic = new UnfoldingMap(this, "static", 0, 0, 750, 600);
 		mapZoom = new UnfoldingMap(this, "zoom", 400, 300, 150, 150);
@@ -27,6 +29,7 @@ public class MovableMapOnStaticMapApp extends PApplet {
 		mapZoom.zoomToLevel(6);
 	}
 
+	@Override
 	public void draw() {
 		background(0);
 
@@ -40,6 +43,7 @@ public class MovableMapOnStaticMapApp extends PApplet {
 		rect(mapZoomX, mapZoomY, 150, 150);
 	}
 
+	@Override
 	public void mouseMoved() {
 		// Move the small map to mouse position, but center it around it
 		mapZoomX = mouseX - mapZoom.mapDisplay.getWidth() / 2;

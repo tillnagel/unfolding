@@ -15,16 +15,18 @@ import de.fhpotsdam.unfolding.utils.MapUtils;
  */
 public class SatelliteOverlayApp extends PApplet {
 
-	UnfoldingMap mapOverview;
-	UnfoldingMap mapOverlay;
+	private UnfoldingMap mapOverview;
+	private UnfoldingMap mapOverlay;
 
-	float mapZoomX = 100;
-	float mapZoomY = 100;
+	private static float mapZoomX = 100;
+	private static float mapZoomY = 100;
 
+	@Override
 	public void settings() {
 		size(750, 600, P2D);
 	}
 
+	@Override
 	public void setup() {
 		mapOverview = new UnfoldingMap(this, "static", 0, 0, 750, 600);
 		mapOverview.zoomToLevel(2);
@@ -34,6 +36,7 @@ public class SatelliteOverlayApp extends PApplet {
 		MapUtils.createDefaultEventDispatcher(this, mapOverview, mapOverlay);
 	}
 
+	@Override
 	public void draw() {
 		background(0);
 
@@ -47,10 +50,12 @@ public class SatelliteOverlayApp extends PApplet {
 		rect(mapZoomX, mapZoomY, 150, 150);
 	}
 
+	@Override
 	public void mouseDragged() {
 		moveOverlay(mouseX, mouseY);
 	}
 
+	@Override
 	public void mouseMoved() {
 		moveOverlay(mouseX, mouseY);
 	}
@@ -62,7 +67,7 @@ public class SatelliteOverlayApp extends PApplet {
 		mapOverlay.move(mapZoomX, mapZoomY);
 
 		// Read geo location of the mouse position from the background map
-		Location locationOnOverviewMap = mapOverview.getLocation(x, y);
+		final Location locationOnOverviewMap = mapOverview.getLocation(x, y);
 		// Pan the small map toward that location
 		mapOverlay.panTo(locationOnOverviewMap);
 	}
