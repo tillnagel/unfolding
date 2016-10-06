@@ -7,6 +7,9 @@ import de.fhpotsdam.unfolding.utils.MapUtils;
  * Hello Unfolding World.
  * 
  * Download the distribution with examples for many more examples and features.
+ * <p>
+ * Works correctly under Processing 2.2.1. If you want to use Processing 3.1.2 or later version 
+ * you should see {@link de.fhpotsdam.unfolding.examples.SimpleMapApp}
  */
 public class HelloUnfoldingWorld extends PApplet {
 

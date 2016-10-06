@@ -7,6 +7,8 @@ import de.fhpotsdam.unfolding.utils.MapUtils;
 
 /**
  * An application with a basic interactive map. You can zoom and pan the map.
+ * <p>
+ * Works correctly under Processing 3.1.2 or later version
  */
 public class SimpleMapApp extends PApplet {
 

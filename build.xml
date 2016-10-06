@@ -29,6 +29,7 @@
 	<property name="src.dir" location="src" />
 	<property name="data.dir" location="data" />
 	<property name="example.dir" location="examples" />
+	<property name="examplesDocs.dir" location="examplesDocs" />
 	<property name="example.processing.dir" location="examples-processing" />
 	<property name="build.dir" location="build" />
 	<property name="dist.dir" location="dist" />
@@ -59,6 +60,7 @@
 	<target name="clean">
 		<delete dir="${build.dir}" />
 		<delete dir="${docs.dir}" />
+		<delete dir="${examplesDocs.dir}" />
 		<delete dir="${dist.dir}" />
 		<delete dir="${test.report.dir}" />
 	</target>
@@ -67,6 +69,7 @@
 	<target name="makedir">
 		<mkdir dir="${build.dir}" />
 		<mkdir dir="${docs.dir}" />
+		<mkdir dir="${examplesDocs.dir}" />
 		<mkdir dir="${dist.dir}" />
 		<mkdir dir="${test.report.dir}" />
 	</target>
@@ -80,6 +83,16 @@
 			</fileset>
 		</javadoc>
 	</target>
+	
+	<!-- Creates JavadocForExamples -->
+		<target name="docsExamples">
+			<javadoc packagenames="examples" sourcepath="${examples.dir}" destdir="${examplesDocs.dir}" classpathref="build.classpath">
+				<!-- Define which files / directory should get included, we include all -->
+				<fileset dir="${example.dir}">
+					<include name="**/*.java" />
+				</fileset>
+			</javadoc>
+		</target>
 
 	<!-- Compiles the java code (including the usage of library for JUnit -->
 	<target name="compile" depends="clean, makedir">
