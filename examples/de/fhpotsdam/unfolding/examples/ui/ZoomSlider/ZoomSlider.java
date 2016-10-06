@@ -1,4 +1,4 @@
-package de.fhpotsdam.unfolding.examples.ui;
+package de.fhpotsdam.unfolding.examples.ui.ZoomSlider;
 
 import processing.core.PApplet;
 import de.fhpotsdam.unfolding.UnfoldingMap;
