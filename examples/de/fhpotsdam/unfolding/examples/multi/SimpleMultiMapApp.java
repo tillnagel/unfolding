@@ -12,8 +12,8 @@ import de.fhpotsdam.unfolding.utils.MapUtils;
  */
 public class SimpleMultiMapApp extends PApplet {
 
-	UnfoldingMap map1;
-	UnfoldingMap map2;
+	private UnfoldingMap map1;
+	private UnfoldingMap map2;
 
 	public void setup() {
 		size(620, 300, OPENGL);

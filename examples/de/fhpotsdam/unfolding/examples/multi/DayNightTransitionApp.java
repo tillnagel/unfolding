@@ -13,46 +13,54 @@ import de.fhpotsdam.utils.Integrator;
  */
 public class DayNightTransitionApp extends PApplet {
 
-	public static final String JDBC_CONN_STRING_APPLET = "jdbc:sqlite:../data/tiles/blankDark-1-3.mbtiles";
+    private static final String PATH_TO_MBTILES = "data/tiles/blankDark-1-3.mbtiles";
 
-	UnfoldingMap mapDay;
-	UnfoldingMap mapNight;
+    private UnfoldingMap mapDay;
+    private UnfoldingMap mapNight;
+    private Integrator blendIntegrator = new Integrator(0);
 
-	Integrator blendIntegrator = new Integrator(0);
+    @Override
+    public void settings() {
+        size(800, 600, P2D);
+    }
 
-	public void setup() {
-		size(800, 600, OPENGL);
+    @Override
+    public void setup() {
+        mapDay = new UnfoldingMap(this);
+        mapNight = new UnfoldingMap(this, new MBTilesMapProvider(PATH_TO_MBTILES));
 
-		mapDay = new UnfoldingMap(this);
-		mapNight = new UnfoldingMap(this, new MBTilesMapProvider(JDBC_CONN_STRING_APPLET));
+        mapDay.setZoomRange(1, 3);
+        mapDay.zoomToLevel(3);
+        mapDay.panTo(new Location(49.6f, 9.4f));
+        mapNight.setZoomRange(1, 3);
+        mapNight.zoomToLevel(3);
+        mapNight.panTo(new Location(49.6f, 9.4f));
 
-		mapDay.setZoomRange(1, 3);
-		mapDay.zoomToLevel(3);
-		mapDay.panTo(new Location(49.6f, 9.4f));
-		mapNight.setZoomRange(1, 3);
-		mapNight.zoomToLevel(3);
-		mapNight.panTo(new Location(49.6f, 9.4f));
+        MapUtils.createDefaultEventDispatcher(this, mapDay, mapNight);
+    }
 
-		MapUtils.createDefaultEventDispatcher(this, mapDay, mapNight);
-	}
+    @Override
+    public void draw() {
+        background(0);
+        blendIntegrator.update();
 
-	public void draw() {
-		background(0);
+        tint(255, 255);
+        mapDay.draw();
+        tint(255, blendIntegrator.value);
+        mapNight.draw();
+    }
 
-		blendIntegrator.update();
+    @Override
+    public void keyPressed() {
+        if (key == 'd') {
+            blendIntegrator.target(0);
+        }
+        if (key == 'n') {
+            blendIntegrator.target(255);
+        }
+    }
 
-		tint(255, 255);
-		mapDay.draw();
-		tint(255, blendIntegrator.value);
-		mapNight.draw();
-	}
-
-	public void keyPressed() {
-		if (key == 'd') {
-			blendIntegrator.target(0);
-		}
-		if (key == 'n') {
-			blendIntegrator.target(255);
-		}
-	}
+    public static void main(String[] args) {
+        PApplet.main(new String[]{DayNightTransitionApp.class.getName()});
+    }
 }
