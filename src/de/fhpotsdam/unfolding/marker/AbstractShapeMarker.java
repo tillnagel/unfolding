@@ -259,8 +259,8 @@ public abstract class AbstractShapeMarker extends AbstractMarker {
 	/**
 	 * Draws marker in outer object coordinate system including interior rings.
 	 * 
-	 * By default, simply calls {@link #draw(PGraphics, List)} and ignores interior rings!
-	 * Needs to be implemented in sub-class! (See {@link SimplePolygonMarker#draw(PGraphics, List, List)}.) 
+	 * By default, simply calls {@link #draw(PGraphics, List)} and ignores interior rings! Needs to be implemented in
+	 * sub-class! (See {@link SimplePolygonMarker#draw(PGraphics, List, List)}.)
 	 * 
 	 * @param pg
 	 *            The PGraphics to draw on.
@@ -317,10 +317,13 @@ public abstract class AbstractShapeMarker extends AbstractMarker {
 	/**
 	 * Checks whether given position is inside this marker, according to the shape defined by the marker's locations.
 	 * 
+	 * <br/>
 	 * Note: This is only in AbstractShapeMarker and not in AbstractMarker (nor Marker) as only shape markers have an
 	 * area to test whether a point is inside. All others (Point and Lines) have no area, and thus an inside check
-	 * always have to return false. (The screen-pos inside tests check whether a point is inside the visual
-	 * representation, which has an area.)
+	 * always have to return false.
+	 * 
+	 * The screen position based {@link #isInside(UnfoldingMap, float, float)} may check whether a point is inside the
+	 * visual representation, which has an area.
 	 * 
 	 * @param longitude
 	 *            The longitude.
@@ -331,13 +334,12 @@ public abstract class AbstractShapeMarker extends AbstractMarker {
 	public boolean isInsideByLocation(float latitude, float longitude) {
 		return isInside(latitude, longitude, locations);
 	}
-	
-	
+
 	/** @see #isInsideByLocation(float, float) */
 	public boolean isInsideByLocation(Location location) {
 		return isInside(location.getLat(), location.getLon(), locations);
 	}
-	
+
 	/** @see #isInsideByLocation(float, float) */
 	public boolean contains(float latitude, float longitude) {
 		return isInsideByLocation(latitude, longitude);
@@ -351,7 +353,7 @@ public abstract class AbstractShapeMarker extends AbstractMarker {
 	@Override
 	protected boolean isInside(float checkX, float checkY, float x, float y) {
 		// TODO Simply return false?
-		throw new RuntimeException("Check for a single positon is not implemented for polygons.");
+		throw new RuntimeException("Check for a single position is not implemented for polygons.");
 	}
 
 }

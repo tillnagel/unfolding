@@ -3,7 +3,6 @@ package de.fhpotsdam.unfolding.marker;
 import java.util.HashMap;
 import java.util.List;
 
-import processing.core.PApplet;
 import processing.core.PConstants;
 import processing.core.PGraphics;
 import de.fhpotsdam.unfolding.geo.Location;
