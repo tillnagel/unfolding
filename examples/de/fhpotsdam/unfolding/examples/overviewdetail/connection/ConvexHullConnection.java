@@ -33,7 +33,7 @@ public class ConvexHullConnection extends ConvexHull implements OverviewPlusDeta
 	
 	public ConvexHullConnection(PApplet p) {
 		super(p);
-		
+
 		points.add(detailtl);
 		points.add(detailtr);
 		points.add(detailbl);
@@ -48,7 +48,6 @@ public class ConvexHullConnection extends ConvexHull implements OverviewPlusDeta
 	@Override
 	public void draw() {
 		super.draw();
-		
 		p.noFill();
 		p.stroke(50, 200);
 		p.strokeWeight(1);

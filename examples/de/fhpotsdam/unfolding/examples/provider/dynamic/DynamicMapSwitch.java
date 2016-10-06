@@ -32,9 +32,7 @@ public class DynamicMapSwitch extends PApplet {
         map1 = new UnfoldingMap(this, new Google.GoogleMapProvider());
         map2 = new UnfoldingMap(this, new Microsoft.AerialProvider());
         map3 = new UnfoldingMap(this);
-
         MapUtils.createDefaultEventDispatcher(this, map1, map2, map3);
-
         currentMap = map1;
     }
 

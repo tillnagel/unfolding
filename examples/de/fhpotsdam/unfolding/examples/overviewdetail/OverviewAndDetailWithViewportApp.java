@@ -16,14 +16,15 @@ import de.fhpotsdam.unfolding.utils.ScreenPosition;
 public class OverviewAndDetailWithViewportApp extends PApplet {
 
 	// Big map showing a detailed area
-	UnfoldingMap mapDetail;
+	private UnfoldingMap mapDetail;
 
 	// Small map showing the overview, i.e. the world
-	UnfoldingMap mapOverviewStatic;
+	private UnfoldingMap mapOverviewStatic;
 
 	// Interactive finder box atop the overview map.
-	ViewportRect viewportRect;
+	private ViewportRect viewportRect;
 
+	@Override
 	public void settings() {
 		size(800, 600, P2D);
 	}
@@ -32,6 +33,7 @@ public class OverviewAndDetailWithViewportApp extends PApplet {
 		PApplet.main(new String[] { OverviewAndDetailWithViewportApp.class.getName() });
 	}
 
+	@Override
 	public void setup() {
 		// Detail map with default mouse and keyboard interactions
 		mapDetail = new UnfoldingMap(this, "detail", 10, 10, 585, 580);
@@ -42,13 +44,11 @@ public class OverviewAndDetailWithViewportApp extends PApplet {
 
 		// Static overview map
 		mapOverviewStatic = new UnfoldingMap(this, "overviewStatic", 605, 10, 185, 185);
-
 		viewportRect = new ViewportRect();
 	}
 
 	public void draw() {
 		background(0);
-
 		mapDetail.draw();
 		mapOverviewStatic.draw();
 
@@ -59,25 +59,25 @@ public class OverviewAndDetailWithViewportApp extends PApplet {
 		viewportRect.draw();
 	}
 
-	public void panViewportOnDetailMap() {
+	private void panViewportOnDetailMap() {
 		float x = viewportRect.x + viewportRect.w / 2;
 		float y = viewportRect.y + viewportRect.h / 2;
 		Location newLocation = mapOverviewStatic.mapDisplay.getLocation(x, y);
 		mapDetail.panTo(newLocation);
 	}
 
-	class ViewportRect {
+	private class ViewportRect {
 		float x;
 		float y;
 		float w;
 		float h;
 		boolean dragged = false;
 
-		public boolean isOver(float checkX, float checkY) {
+		boolean isOver(float checkX, float checkY) {
 			return checkX > x && checkY > y && checkX < x + w && checkY < y + h;
 		}
 
-		public void setDimension(ScreenPosition tl, ScreenPosition br) {
+		void setDimension(ScreenPosition tl, ScreenPosition br) {
 			this.x = tl.x;
 			this.y = tl.y;
 			this.w = br.x - tl.x;
@@ -92,9 +92,10 @@ public class OverviewAndDetailWithViewportApp extends PApplet {
 
 	}
 
-	float oldX;
-	float oldY;
+	private float oldX;
+	private float oldY;
 
+	@Override
 	public void mousePressed() {
 		if (viewportRect.isOver(mouseX, mouseY)) {
 			viewportRect.dragged = true;
@@ -103,15 +104,16 @@ public class OverviewAndDetailWithViewportApp extends PApplet {
 		}
 	}
 
+	@Override
 	public void mouseReleased() {
 		viewportRect.dragged = false;
 	}
 
+	@Override
 	public void mouseDragged() {
 		if (viewportRect.dragged) {
 			viewportRect.x = mouseX - oldX;
 			viewportRect.y = mouseY - oldY;
-
 			panViewportOnDetailMap();
 		}
 	}

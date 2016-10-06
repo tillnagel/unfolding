@@ -16,10 +16,11 @@ import de.fhpotsdam.unfolding.utils.ScreenPosition;
  */
 public class OverviewAndDetailFinderBoxMapApp extends PApplet {
 
-	UnfoldingMap mapDetail;
-	UnfoldingMap mapOverview;
-	UnfoldingMap mapOverviewStatic;
+	private UnfoldingMap mapDetail;
+	private UnfoldingMap mapOverview;
+	private UnfoldingMap mapOverviewStatic;
 
+	@Override
 	public void settings() {
 		size(800, 600, P2D);
 	}
@@ -28,6 +29,7 @@ public class OverviewAndDetailFinderBoxMapApp extends PApplet {
 		PApplet.main(new String[] { OverviewAndDetailFinderBoxMapApp.class.getName() });
 	}
 
+	@Override
 	public void setup() {
 
 		// Detail map with default mouse and keyboard interactions
@@ -35,7 +37,7 @@ public class OverviewAndDetailFinderBoxMapApp extends PApplet {
 		mapDetail.zoomToLevel(4);
 		mapDetail.setZoomRange(4, 10);
 		mapDetail.setTweening(true);
-		EventDispatcher eventDispatcher = MapUtils.createDefaultEventDispatcher(this, mapDetail);
+		final EventDispatcher eventDispatcher = MapUtils.createDefaultEventDispatcher(this, mapDetail);
 
 		// Overview map listens to interaction events from the detail map
 		mapOverview = new UnfoldingMap(this, "overview", 605, 10, 185, 185);
@@ -49,9 +51,9 @@ public class OverviewAndDetailFinderBoxMapApp extends PApplet {
 		mapOverviewStatic = new UnfoldingMap(this, "overviewStatic", 605, 205, 185, 185);
 	}
 
+	@Override
 	public void draw() {
 		background(0);
-
 		mapDetail.draw();
 		mapOverview.draw();
 		mapOverviewStatic.draw();
@@ -67,7 +69,7 @@ public class OverviewAndDetailFinderBoxMapApp extends PApplet {
 		drawDetailSelectionBox(tl2, br2);
 	}
 
-	public void drawDetailSelectionBox(ScreenPosition tl, ScreenPosition br) {
+	private void drawDetailSelectionBox(ScreenPosition tl, ScreenPosition br) {
 		noFill();
 		stroke(251, 114, 0, 240);
 		float w = br.x - tl.x;
