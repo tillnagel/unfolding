@@ -179,7 +179,7 @@ public interface Marker {
 	public void setColor(int color);
 
 	/**
-	 * Sets the color of the border.
+	 * Sets the color of this marker's border.
 	 * 
 	 * @param color
 	 *            The color (in Processing's color type)
@@ -193,5 +193,23 @@ public interface Marker {
 	 *            Thickness in pixel.
 	 */
 	public void setStrokeWeight(int weight);
+
+	/**
+	 * Sets the highlight color of this marker. In the default implementations (SimpleXxMarker), this color is used if
+	 * the marker is selected.
+	 * 
+	 * @param highlightColor
+	 *            The color (in Processing's color type)
+	 */
+	public void setHighlightColor(int highlightColor);
+
+	/**
+	 * Sets the highlight color of this marker's border. In the default implementations (SimpleXxMarker), this color is
+	 * used if the marker is selected.
+	 * 
+	 * @param highlightColor
+	 *            The color (in Processing's color type)
+	 */
+	public void setHighlightStrokeColor(int highlightStrokeColor);
 
 }

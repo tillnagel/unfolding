@@ -225,4 +225,19 @@ public class MultiMarker implements Marker {
 		}
 	}
 
+	@Override
+	public void setHighlightColor(int color) {
+		for (Marker marker : markers) {
+			marker.setHighlightColor(color);
+		}
+	}
+	
+	@Override
+	public void setHighlightStrokeColor(int color) {
+		for (Marker marker : markers) {
+			marker.setHighlightStrokeColor(color);
+		}
+	}
+
+	
 }
