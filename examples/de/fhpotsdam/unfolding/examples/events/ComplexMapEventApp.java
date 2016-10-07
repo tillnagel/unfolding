@@ -20,9 +20,9 @@ import de.fhpotsdam.unfolding.utils.DebugDisplay;
 /**
  * Multiple maps with various interaction connections between the maps, i.e. panning one map does also pan another
  * (listening) one.
- * 
+ * <p>
  * Press SPACE to set zoom and location programmatically, i.e. w/o interaction.
- * 
+ * <p>
  * This example shows a more complex event registration pattern:
  * <ul>
  * <li>mouse-drag on map1: pan map1 (and pan map2 + map3 via listener)</li>
@@ -33,105 +33,106 @@ import de.fhpotsdam.unfolding.utils.DebugDisplay;
  * <li>key-zoom on map2: zoom map2 (is active) (and zoom map3 via listener)</li>
  * <li>mouse-drag on map3: nothing (own default listener was overwritten)</li>
  * </ul>
- * 
+ * <p>
  * Press SPACE to set zoom and location programmatically, i.e. w/o interaction.
- * 
  */
 public class ComplexMapEventApp extends PApplet {
 
-	public static Logger log = Logger.getLogger(ComplexMapEventApp.class);
+    private static final Logger LOGGER = Logger.getLogger(ComplexMapEventApp.class);
 
-	List<UnfoldingMap> maps = new ArrayList<UnfoldingMap>();
+    private List<UnfoldingMap> maps = new ArrayList<UnfoldingMap>();
+    private EventDispatcher eventDispatcher;
+    private DebugDisplay debugDisplay1;
+    private DebugDisplay debugDisplay2;
+    private DebugDisplay debugDisplay3;
 
-	EventDispatcher eventDispatcher;
+    @Override
+    public void settings() {
+        size(1240, 420, P2D);
+    }
 
-	DebugDisplay debugDisplay1;
-	DebugDisplay debugDisplay2;
-	DebugDisplay debugDisplay3;
+    @Override
+    public void setup() {
+        // Creates non-default dispatcher to register own broadcasters and listeners.
+        eventDispatcher = new EventDispatcher();
 
-	public void settings() {
-		size(1240, 420, P2D);
-	}
+        // Creates default mapDisplay
+        final UnfoldingMap map1 = new UnfoldingMap(this, "map1", 10, 10, 400, 400);
+        map1.setTweening(false);
+        map1.setActive(false);
+        maps.add(map1);
+        final UnfoldingMap map2 = new UnfoldingMap(this, "map2", 420, 10, 400, 400);
+        map2.setTweening(false);
+        maps.add(map2);
+        final UnfoldingMap map3 = new UnfoldingMap(this, "map3", 830, 10, 400, 400);
+        map3.setTweening(false);
+        map3.setActive(false);
+        maps.add(map3);
 
-	public void setup() {
-		// Creates non-default dispatcher to register own broadcasters and listeners.
-		eventDispatcher = new EventDispatcher();
+        final MouseHandler mouseHandler = new MouseHandler(this, maps);
+        eventDispatcher.addBroadcaster(mouseHandler);
+        final KeyboardHandler keyboardHandler = new KeyboardHandler(this, maps);
+        eventDispatcher.addBroadcaster(keyboardHandler);
 
-		// Creates default mapDisplay
-		UnfoldingMap map1 = new UnfoldingMap(this, "map1", 10, 10, 400, 400);
-		map1.setTweening(false);
-		map1.setActive(false);
-		maps.add(map1);
-		UnfoldingMap map2 = new UnfoldingMap(this, "map2", 420, 10, 400, 400);
-		map2.setTweening(false);
-		maps.add(map2);
-		UnfoldingMap map3 = new UnfoldingMap(this, "map3", 830, 10, 400, 400);
-		map3.setTweening(false);
-		map3.setActive(false);
-		maps.add(map3);
+        // See class description for detailed explanation of these registrations.
+        eventDispatcher.register(map1, "pan");
+        eventDispatcher.register(map1, "zoom");
+        eventDispatcher.register(map2, "pan", map1.getId(), map2.getId());
+        eventDispatcher.register(map2, "zoom", map1.getId(), map2.getId());
+        map2.setActive(true); // only map2 gets keyboard (non hit test) events
+        eventDispatcher.register(map3, "pan", map1.getId(), map2.getId());
+        eventDispatcher.register(map3, "zoom", map2.getId());
 
-		MouseHandler mouseHandler = new MouseHandler(this, maps);
-		eventDispatcher.addBroadcaster(mouseHandler);
-		KeyboardHandler keyboardHandler = new KeyboardHandler(this, maps);
-		eventDispatcher.addBroadcaster(keyboardHandler);
+        // Prints all listeners
+        printEventDispatcher();
 
-		// See class description for detailed explanation of these registrations.
-		eventDispatcher.register(map1, "pan");
-		eventDispatcher.register(map1, "zoom");
-		eventDispatcher.register(map2, "pan", map1.getId(), map2.getId());
-		eventDispatcher.register(map2, "zoom", map1.getId(), map2.getId());
-		map2.setActive(true); // only map2 gets keyboard (non hit test) events
-		eventDispatcher.register(map3, "pan", map1.getId(), map2.getId());
-		eventDispatcher.register(map3, "zoom", map2.getId());
+        debugDisplay1 = new DebugDisplay(this, map1, eventDispatcher, 15, 165);
+        debugDisplay2 = new DebugDisplay(this, map2, eventDispatcher, 425, 165);
+        debugDisplay3 = new DebugDisplay(this, map3, eventDispatcher, 835, 165);
+    }
 
-		// Prints all listeners
-		printEventDispatcher();
+    @Override
+    public void draw() {
+        background(0);
 
-		debugDisplay1 = new DebugDisplay(this, map1, eventDispatcher, 15, 165);
-		debugDisplay2 = new DebugDisplay(this, map2, eventDispatcher, 425, 165);
-		debugDisplay3 = new DebugDisplay(this, map3, eventDispatcher, 835, 165);
-	}
+        for (UnfoldingMap map : maps) {
+            map.draw();
+        }
 
-	public void draw() {
-		background(0);
+        debugDisplay1.draw();
+        debugDisplay2.draw();
+        debugDisplay3.draw();
+    }
 
-		for (UnfoldingMap map : maps) {
-			map.draw();
-		}
+    @Override
+    public void keyPressed() {
+        if (key == ' ') {
+            LOGGER.debug("programmed: fire panTo + zoomTo");
+            PanMapEvent panMapEvent = new PanMapEvent(this, maps.get(0).getId());
+            Location location = new Location(52.4115f, 13.0516f);
+            panMapEvent.setToLocation(location);
+            eventDispatcher.fireMapEvent(panMapEvent);
+            ZoomMapEvent zoomMapEvent = new ZoomMapEvent(this, maps.get(0).getId());
+            zoomMapEvent.setSubType("zoomTo");
+            zoomMapEvent.setZoomLevel(14);
+            eventDispatcher.fireMapEvent(zoomMapEvent);
+        }
+    }
 
-		debugDisplay1.draw();
-		debugDisplay2.draw();
-		debugDisplay3.draw();
-	}
+    protected void printEventDispatcher() {
+        for (String eventType : eventDispatcher.typedScopedListeners.keySet()) {
+            final List<ScopedListeners> scopedListenersList = eventDispatcher.typedScopedListeners.get(eventType);
+            for (ScopedListeners scopedListeners : scopedListenersList) {
+                for (MapEventListener listener : scopedListeners.listeners) {
+                    final UnfoldingMap map = (UnfoldingMap) listener;
+                    LOGGER.debug(map.getId() + " listens to " + eventType + " of " + scopedListeners.scopeIds);
+                }
+            }
+        }
 
-	public void keyPressed() {
-		if (key == ' ') {
-			log.debug("programmed: fire panTo + zoomTo");
-			PanMapEvent panMapEvent = new PanMapEvent(this, maps.get(0).getId());
-			Location location = new Location(52.4115f, 13.0516f);
-			panMapEvent.setToLocation(location);
-			eventDispatcher.fireMapEvent(panMapEvent);
-			ZoomMapEvent zoomMapEvent = new ZoomMapEvent(this, maps.get(0).getId());
-			zoomMapEvent.setSubType("zoomTo");
-			zoomMapEvent.setZoomLevel(14);
-			eventDispatcher.fireMapEvent(zoomMapEvent);
-		}
-	}
+    }
 
-	public void printEventDispatcher() {
-		for (String eventType : eventDispatcher.typedScopedListeners.keySet()) {
-			List<ScopedListeners> scopedListenersList = eventDispatcher.typedScopedListeners.get(eventType);
-			for (ScopedListeners scopedListeners : scopedListenersList) {
-				for (MapEventListener listener : scopedListeners.listeners) {
-					UnfoldingMap map = (UnfoldingMap) listener;
-					log.debug(map.getId() + " listens to " + eventType + " of " + scopedListeners.scopeIds);
-				}
-			}
-		}
-
-	}
-
-	public static void main(String[] args) {
-		PApplet.main(new String[] { ComplexMapEventApp.class.getName() });
-	}
+    public static void main(String[] args) {
+        PApplet.main(new String[]{ComplexMapEventApp.class.getName()});
+    }
 }

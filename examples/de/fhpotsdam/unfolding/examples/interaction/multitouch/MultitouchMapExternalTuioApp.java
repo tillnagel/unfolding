@@ -67,7 +67,7 @@ public class MultitouchMapExternalTuioApp extends PApplet implements TuioListene
 	public void draw() {
 		map.draw();
 
-		// log.debug("map.center: " + map.getCenter());
+		// LOGGER.debug("map.center: " + map.getCenter());
 
 		if (activeButton) {
 			fill(255, 0, 0, 150);

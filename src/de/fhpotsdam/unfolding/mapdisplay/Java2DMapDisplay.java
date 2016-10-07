@@ -292,7 +292,7 @@ public class Java2DMapDisplay extends AbstractMapDisplay implements PConstants {
 		// Coordinate coord = provider.locationCoordinate(location).zoomTo(0);
 		// float[] out = new float[3];
 		// m.mult(new float[] { coord.column * TILE_WIDTH, coord.row * TILE_HEIGHT, 0 }, out);
-		// log.debug("getInnerObjectFromLocation. " + (coord.column * TILE_WIDTH) + ", " + out[0]);
+		// LOGGER.debug("getInnerObjectFromLocation. " + (coord.column * TILE_WIDTH) + ", " + out[0]);
 		// return out;
 	}
 
@@ -458,7 +458,7 @@ public class Java2DMapDisplay extends AbstractMapDisplay implements PConstants {
 		maxCol += grid_padding;
 		maxRow += grid_padding;
 
-		// log.debug("getVisibleKeys: " + minCol + "," + maxCol + "; " + minRow + "," + maxRow);
+		// LOGGER.debug("getVisibleKeys: " + minCol + "," + maxCol + "; " + minRow + "," + maxRow);
 		// PApplet.println("getVisibleKeys: " + minCol + "," + maxCol + "; " + minRow + "," + maxRow);
 
 		// we don't wrap around the world yet, so:

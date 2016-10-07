@@ -69,7 +69,7 @@ public class MouseHandler extends MapEventBroadcaster {
 	public void mouseWheel(float delta) {
 		for (UnfoldingMap map : maps) {
 			if (map.isHit(mouseX, mouseY)) {
-				// log.debug("mouse: fire zoomBy for " + map.getId());
+				// LOGGER.debug("mouse: fire zoomBy for " + map.getId());
 
 				ZoomMapEvent zoomMapEvent = new ZoomMapEvent(this, map.getId(), ZoomMapEvent.ZOOM_BY_LEVEL);
 
@@ -93,7 +93,7 @@ public class MouseHandler extends MapEventBroadcaster {
 		for (UnfoldingMap map : maps) {
 			if (map.isHit(mouseX, mouseY)) {
 				if (mouseButton == PConstants.LEFT) {
-					// log.debug("mouse: fire panTo for " + map.getId());
+					// LOGGER.debug("mouse: fire panTo for " + map.getId());
 
 					// Pan between two locations, so other listening maps can pan correctly
 
