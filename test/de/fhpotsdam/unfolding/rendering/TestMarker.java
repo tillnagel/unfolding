@@ -9,7 +9,7 @@ public class TestMarker extends SimplePointMarker {
 
 	public TestMarker(Location location) {
 		super(location);
-		radius = 20;
+		diameter = 20;
 	}
 
 	@Override
@@ -25,7 +25,7 @@ public class TestMarker extends SimplePointMarker {
 		pg.strokeWeight(strokeWeight);
 		pg.fill(color);
 		pg.stroke(strokeColor);
-		pg.ellipse(xi, yi, radius, radius);
+		pg.ellipse(xi, yi, diameter, diameter);
 
 		pg.fill(0);
 		pg.text("Xylophon", xi + 20, yi);

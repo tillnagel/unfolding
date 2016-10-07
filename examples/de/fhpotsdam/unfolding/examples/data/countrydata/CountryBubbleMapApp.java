@@ -58,12 +58,12 @@ public class CountryBubbleMapApp extends PApplet {
 				String countryId = country.getId();
 				DataEntry dataEntry = dataEntriesMap.get(countryId);
 				if (dataEntry != null && dataEntry.value > 0) {
-					// Map population (up to China's 1.3 billion) to area of circle with a max radius of 100px 
-					float normPop = map(dataEntry.value, 0, 1300000000, 0, pow(100, 2) * PI);
-					float radius = sqrt(normPop / PI);
+					// Map population (up to China's 1.3 billion) to area of circle with a max diameter of 50px 
+					float normPop = map(dataEntry.value, 0, 1300000000, 0, pow(50, 2) * PI);
+					float diameter = sqrt(normPop / PI);
 
 					// Set size of marker
-					marker.setRadius(radius);
+					marker.setDiameter(diameter);
 					map.addMarkers(marker);
 				}
 			}

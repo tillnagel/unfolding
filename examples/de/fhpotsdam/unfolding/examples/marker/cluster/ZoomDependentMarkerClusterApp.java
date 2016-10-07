@@ -1,7 +1,6 @@
-package de.fhpotsdam.unfolding.examples.marker.advanced;
+package de.fhpotsdam.unfolding.examples.marker.cluster;
 
 import processing.core.PApplet;
-
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.marker.Marker;
@@ -19,7 +18,7 @@ import de.fhpotsdam.unfolding.utils.MapUtils;
  * This is one way of handling this, via different MarkerManager. You could also simply switch visibility of the markers
  * and use only the default MarkerManager. Which to prefer depends on your use case, and your markers.
  */
-public class ZoomDependentMarkerApp extends PApplet {
+public class ZoomDependentMarkerClusterApp extends PApplet {
 
 	UnfoldingMap map;
 	MarkerManager<Marker> markerManager;
@@ -27,12 +26,14 @@ public class ZoomDependentMarkerApp extends PApplet {
 
 	float oldZoomLevel = 0;
 
-	public void setup() {
-		size(800, 600, OPENGL);
+	public void settings() {
+		size(800, 600, P2D);
+	}
 
+	public void setup() {
 		map = new UnfoldingMap(this);
-		map.zoomAndPanTo(new Location(41.50, -72.38), 5);
-		
+		map.zoomAndPanTo(5, new Location(41.50, -72.38));
+
 		MapUtils.createDefaultEventDispatcher(this, map);
 
 		markerManager = populateMarkerManager();
@@ -65,11 +66,11 @@ public class ZoomDependentMarkerApp extends PApplet {
 		MarkerManager<Marker> markerManager = new MarkerManager<Marker>();
 
 		SimplePointMarker nycMarker = new SimplePointMarker(new Location(40.71, -73.99));
-		nycMarker.setRadius(20);
+		nycMarker.setDiameter(20);
 		markerManager.addMarker(nycMarker);
 
 		SimplePointMarker bostonMarker = new SimplePointMarker(new Location(42.35, -71.04));
-		bostonMarker.setRadius(20);
+		bostonMarker.setDiameter(20);
 		markerManager.addMarker(bostonMarker);
 
 		return markerManager;
@@ -93,6 +94,10 @@ public class ZoomDependentMarkerApp extends PApplet {
 		markerManager.addMarker(bostonMarker2);
 
 		return markerManager;
+	}
+
+	public static void main(String args[]) {
+		PApplet.main(new String[] { ZoomDependentMarkerClusterApp.class.getName() });
 	}
 
 }
