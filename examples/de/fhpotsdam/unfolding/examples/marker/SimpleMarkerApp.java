@@ -10,13 +10,13 @@ import de.fhpotsdam.unfolding.utils.ScreenPosition;
 
 /**
  * Simple custom marker display, without the use of MarkerManager.
- * 
+ * <p>
  * <p>
  * <em>Use only if you want to customize more than colors AND are not familiar with writing own classes.</em><br/>
  * If you want to only customize colors, use Unfolding's marker manager (see {@link SimpleMarkerManagerApp}).<br/>
  * If you want to have complete control, but also want to use the marker manager, write your own marker class (see {@link }).
- * </p> 
- * 
+ * </p>
+ * <p>
  * <p>
  * Here, conversion between geo-location and screen position is done via the marker, but drawing the markers is done by this
  * application itself. This is the easiest way of drawing own styled markers. A more advanced way is to create an own
@@ -27,57 +27,65 @@ import de.fhpotsdam.unfolding.utils.ScreenPosition;
 @SuppressWarnings("serial")
 public class SimpleMarkerApp extends PApplet {
 
-	UnfoldingMap map;
+    private UnfoldingMap map;
+    private SimplePointMarker markerBerlin;
+    private SimplePointMarker markerLondon;
 
-	SimplePointMarker markerBerlin;
-	SimplePointMarker markerLondon;
+    @Override
+    public void settings() {
+        size(800, 400);
+    }
 
-	public void setup() {
-		size(800, 400);
-		smooth();
+    @Override
+    public void setup() {
+        smooth();
+        map = new UnfoldingMap(this);
+        // map.setTweening(true);
+        map.zoomToLevel(3);
+        map.panTo(new Location(40f, 8f));
+        MapUtils.createDefaultEventDispatcher(this, map);
 
-		map = new UnfoldingMap(this);
-		// map.setTweening(true);
-		map.zoomToLevel(3);
-		map.panTo(new Location(40f, 8f));
-		MapUtils.createDefaultEventDispatcher(this, map);
+        // Create Markers from Locations
+        final Location locationBerlin = new Location(52.5f, 13.4f);
+        final Location locationLondon = new Location(51.5f, 0f);
 
-		// Create Markers from Locations
-		Location locationBerlin = new Location(52.5f, 13.4f);
-		Location locationLondon = new Location(51.5f, 0f);
+        markerBerlin = new SimplePointMarker(locationBerlin);
+        markerLondon = new SimplePointMarker(locationLondon);
 
-		markerBerlin = new SimplePointMarker(locationBerlin);
-		markerLondon = new SimplePointMarker(locationLondon);
+        final PFont font = createFont("serif-bold", 12);
+        textFont(font);
+    }
 
-		PFont font = createFont("serif-bold", 12);
-		textFont(font);
-	}
+    @Override
+    public void draw() {
+        background(70);
 
-	public void draw() {
-		background(70);
+        map.draw();
 
-		map.draw();
+        // Draws Markers on screen positions according to their geo-locations.
 
-		// Draws Markers on screen positions according to their geo-locations.
+        // Fixed-size marker
+        final ScreenPosition posBerlin = markerBerlin.getScreenPosition(map);
+        strokeWeight(1);
+        stroke(0, 100);
+        fill(0, 200, 0, 100);
+        ellipse(posBerlin.x, posBerlin.y, 20, 20);
 
-		// Fixed-size marker
-		ScreenPosition posBerlin = markerBerlin.getScreenPosition(map);
-		strokeWeight(1);
-		stroke(0, 100);
-		fill(0, 200, 0, 100);
-		ellipse(posBerlin.x, posBerlin.y, 20, 20);
+        final ScreenPosition posLondon = markerLondon.getScreenPosition(map);
+        strokeWeight(12);
+        stroke(200, 0, 0, 200);
+        strokeCap(SQUARE);
+        noFill();
+        // Zoom dependent marker size
+        // float s = map.getZoom();
+        float s = 44;
+        arc(posLondon.x, posLondon.y, s, s, -PI * 0.9f, -PI * 0.1f);
+        arc(posLondon.x, posLondon.y, s, s, PI * 0.1f, PI * 0.9f);
+        fill(0);
+        text("London", posLondon.x - textWidth("London") / 2, posLondon.y + 4);
+    }
 
-		ScreenPosition posLondon = markerLondon.getScreenPosition(map);
-		strokeWeight(12);
-		stroke(200, 0, 0, 200);
-		strokeCap(SQUARE);
-		noFill();
-		// Zoom dependent marker size
-		// float s = map.getZoom();
-		float s = 44;
-		arc(posLondon.x, posLondon.y, s, s, -PI * 0.9f, -PI * 0.1f);
-		arc(posLondon.x, posLondon.y, s, s, PI * 0.1f, PI * 0.9f);
-		fill(0);
-		text("London", posLondon.x - textWidth("London") / 2, posLondon.y + 4);
-	}
+    public static void main(String args[]) {
+        PApplet.main(new String[]{SimpleMarkerApp.class.getName()});
+    }
 }

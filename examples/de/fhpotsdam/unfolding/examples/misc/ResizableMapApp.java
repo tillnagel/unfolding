@@ -7,63 +7,64 @@ import de.fhpotsdam.unfolding.utils.MapUtils;
 
 /**
  * Map will be resized when user drags the resize handle.
- * 
+ * <p>
  * Drag the window frame (depending on your OS) to resize, or press SPACE to resize randomly.
- * 
+ * <p>
  * The map will be resized, but everything else stays the same, i.e. even the current transformation center will be
  * consistent. If the frame size was increased, the missing tiles will be loaded, and added automatically.
  */
 public class ResizableMapApp extends PApplet {
 
-	UnfoldingMap map;
+    private UnfoldingMap map;
+    private float oldWidth;
+    private float oldHeight;
+    private static boolean resizingStressTest = false;
 
-	float oldWidth;
-	float oldHeight;
+    @Override
+    public void settings() {
+        size(800, 600, P2D);
+    }
 
-	boolean resizingStressTest = false;
+    @Override
+    public void setup() {
+        surface.setResizable(true);
+        map = new UnfoldingMap(this);
+        map.zoomAndPanTo(10, new Location(52.5f, 13.4f));
+        MapUtils.createDefaultEventDispatcher(this, map);
 
-	public void settings() {
-		size(800, 600, P2D);
-	}
+        oldWidth = width;
+        oldHeight = height;
+    }
 
-	public void setup() {
-		surface.setResizable(true);
+    @Override
+    public void draw() {
+        if (width != oldWidth || height != oldHeight) {
+            map.mapDisplay.resize(width, height);
 
-		map = new UnfoldingMap(this);
-		map.zoomAndPanTo(10, new Location(52.5f, 13.4f));
-		MapUtils.createDefaultEventDispatcher(this, map);
+            oldWidth = width;
+            oldHeight = height;
+        }
 
-		oldWidth = width;
-		oldHeight = height;
-	}
+        background(0);
+        map.draw();
 
-	public void draw() {
-		if (width != oldWidth || height != oldHeight) {
-			map.mapDisplay.resize(width, height);
+        if (resizingStressTest) {
+            surface.setSize(round(random(500, 900)), round(random(500, 700)));
+        }
+    }
 
-			oldWidth = width;
-			oldHeight = height;
-		}
+    @Override
+    public void keyPressed() {
+        // Stress test to verify https://github.com/tillnagel/unfolding/issues/107 is fixed
+        if (key == ' ') {
+            resizingStressTest = !resizingStressTest;
+        }
+        if (key == 'r') {
+            surface.setSize((int) random(displayWidth), (int) random(displayHeight));
+        }
+    }
 
-		background(0);
-		map.draw();
-
-		if (resizingStressTest) {
-			surface.setSize(round(random(500, 900)), round(random(500, 700)));
-		}
-	}
-
-	public static void main(String args[]) {
-		PApplet.main(new String[] { ResizableMapApp.class.getName() });
-	}
-
-	public void keyPressed() {
-		// Stress test to verify https://github.com/tillnagel/unfolding/issues/107 is fixed
-		if (key == ' ') {
-			resizingStressTest = !resizingStressTest;
-		}
-		if (key == 'r') {
-			surface.setSize((int) random(displayWidth), (int) random(displayHeight));
-		}
-	}
+    public static void main(String args[]) {
+        PApplet.main(new String[]{ResizableMapApp.class.getName()});
+    }
 }

@@ -10,70 +10,70 @@ import de.fhpotsdam.unfolding.utils.MapUtils;
  * A small map is laid atop the interactive background map. The overlay map shows the satellite view, while the
  * background map shows a simplified map. Interaction is reflected in both maps, so the overlay map acts as an
  * interactive window to another map layer.
- * 
+ * <p>
  * Demonstrates how to position a second map according to its position on the background map.
  */
 public class SatelliteOverlayApp extends PApplet {
 
-	private UnfoldingMap mapOverview;
-	private UnfoldingMap mapOverlay;
+    private UnfoldingMap mapOverview;
+    private UnfoldingMap mapOverlay;
 
-	private static float mapZoomX = 100;
-	private static float mapZoomY = 100;
+    private static float mapZoomX = 100;
+    private static float mapZoomY = 100;
 
-	@Override
-	public void settings() {
-		size(750, 600, P2D);
-	}
+    @Override
+    public void settings() {
+        size(750, 600, P2D);
+    }
 
-	@Override
-	public void setup() {
-		mapOverview = new UnfoldingMap(this, "static", 0, 0, 750, 600);
-		mapOverview.zoomToLevel(2);
-		mapOverlay = new UnfoldingMap(this, "zoom", 400, 300, 150, 150, true, false, new Microsoft.AerialProvider());
-		mapOverlay.zoomToLevel(2);
+    @Override
+    public void setup() {
+        mapOverview = new UnfoldingMap(this, "static", 0, 0, 750, 600);
+        mapOverview.zoomToLevel(2);
+        mapOverlay = new UnfoldingMap(this, "zoom", 400, 300, 150, 150, true, false, new Microsoft.AerialProvider());
+        mapOverlay.zoomToLevel(2);
 
-		MapUtils.createDefaultEventDispatcher(this, mapOverview, mapOverlay);
-	}
+        MapUtils.createDefaultEventDispatcher(this, mapOverview, mapOverlay);
+    }
 
-	@Override
-	public void draw() {
-		background(0);
+    @Override
+    public void draw() {
+        background(0);
 
-		mapOverview.draw();
-		mapOverlay.draw();
+        mapOverview.draw();
+        mapOverlay.draw();
 
-		noFill();
-		strokeWeight(5);
-		strokeJoin(MITER);
-		stroke(40, 50);
-		rect(mapZoomX, mapZoomY, 150, 150);
-	}
+        noFill();
+        strokeWeight(5);
+        strokeJoin(MITER);
+        stroke(40, 50);
+        rect(mapZoomX, mapZoomY, 150, 150);
+    }
 
-	@Override
-	public void mouseDragged() {
-		moveOverlay(mouseX, mouseY);
-	}
+    @Override
+    public void mouseDragged() {
+        moveOverlay(mouseX, mouseY);
+    }
 
-	@Override
-	public void mouseMoved() {
-		moveOverlay(mouseX, mouseY);
-	}
+    @Override
+    public void mouseMoved() {
+        moveOverlay(mouseX, mouseY);
+    }
 
-	private void moveOverlay(int x, int y) {
-		// Move the small map to mouse position, but center it around it
-		mapZoomX = x - mapOverlay.mapDisplay.getWidth() / 2;
-		mapZoomY = y - mapOverlay.mapDisplay.getHeight() / 2;
-		mapOverlay.move(mapZoomX, mapZoomY);
+    private void moveOverlay(int x, int y) {
+        // Move the small map to mouse position, but center it around it
+        mapZoomX = x - mapOverlay.mapDisplay.getWidth() / 2;
+        mapZoomY = y - mapOverlay.mapDisplay.getHeight() / 2;
+        mapOverlay.move(mapZoomX, mapZoomY);
 
-		// Read geo location of the mouse position from the background map
-		final Location locationOnOverviewMap = mapOverview.getLocation(x, y);
-		// Pan the small map toward that location
-		mapOverlay.panTo(locationOnOverviewMap);
-	}
+        // Read geo location of the mouse position from the background map
+        final Location locationOnOverviewMap = mapOverview.getLocation(x, y);
+        // Pan the small map toward that location
+        mapOverlay.panTo(locationOnOverviewMap);
+    }
 
-	public static void main(String args[]) {
-		PApplet.main(new String[] { SatelliteOverlayApp.class.getName() });
-	}
+    public static void main(String args[]) {
+        PApplet.main(new String[]{SatelliteOverlayApp.class.getName()});
+    }
 
 }
