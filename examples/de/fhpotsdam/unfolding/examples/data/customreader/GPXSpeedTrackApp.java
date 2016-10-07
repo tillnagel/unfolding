@@ -13,37 +13,39 @@ import de.fhpotsdam.unfolding.utils.MapUtils;
 
 /**
  * Loads a GPX file containing a bike tour in Berlin, and displays each segment with speed mapped to color.
- * 
+ * <p>
  * This example shows a more complex usage of own data loading and special markers.
  * See @{link GPXSpeedReader} for how to create your own data reader creating geo-data Features.
  */
 public class GPXSpeedTrackApp extends PApplet {
 
-	UnfoldingMap map;
+    private UnfoldingMap map;
+    private Location startLocation = new Location(52.49f, 13.44f);
 
-	Location startLocation = new Location(52.49f, 13.44f);
-	
-	public void settings() {
-		size(800, 600, P2D);
-	}
-	
-	public void setup() {
-		map = new UnfoldingMap(this);
-		MapUtils.createDefaultEventDispatcher(this, map);
-		map.zoomAndPanTo(14, startLocation);
+    @Override
+    public void settings() {
+        size(800, 600, P2D);
+    }
 
-		List<Feature> features = GPXSpeedReader.loadData(this, "data/bike-tour.gpx");
-		MarkerFactory markerFactory = new MarkerFactory();
-		markerFactory.setLineClass(ColoredLinesMarker.class);
-		List<Marker> markers = markerFactory.createMarkers(features);
-		map.addMarkers(markers);
-	}
+    @Override
+    public void setup() {
+        map = new UnfoldingMap(this);
+        MapUtils.createDefaultEventDispatcher(this, map);
+        map.zoomAndPanTo(14, startLocation);
 
-	public void draw() {
-		map.draw();
-	}
+        final List<Feature> features = GPXSpeedReader.loadData(this, "data/bike-tour.gpx");
+        final MarkerFactory markerFactory = new MarkerFactory();
+        markerFactory.setLineClass(ColoredLinesMarker.class);
+        final List<Marker> markers = markerFactory.createMarkers(features);
+        map.addMarkers(markers);
+    }
 
-	public static void main(String[] args) {
-		PApplet.main(new String[] { GPXSpeedTrackApp.class.getName() });
-	}
+    @Override
+    public void draw() {
+        map.draw();
+    }
+
+    public static void main(String[] args) {
+        PApplet.main(new String[]{GPXSpeedTrackApp.class.getName()});
+    }
 }

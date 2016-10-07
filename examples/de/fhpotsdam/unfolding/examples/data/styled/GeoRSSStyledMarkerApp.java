@@ -12,38 +12,40 @@ import de.fhpotsdam.unfolding.utils.MapUtils;
 
 /**
  * Displays earthquake markers from an RSS feed, but with own markers.
- * 
+ * <p>
  * Uses MarkerFactory (as in the default marker creation way), but uses own styled EarthquakeMarker.
  */
 public class GeoRSSStyledMarkerApp extends PApplet {
 
-	String earthquakesURL = "http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/4.5_week.atom";
+    private static final String EARTHQUAKES_URL = "http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/4.5_week.atom";
+    private UnfoldingMap map;
 
-	UnfoldingMap map;
+    @Override
+    public void settings() {
+        size(800, 600, P2D);
+    }
 
-	public void settings() {
-		size(800, 600, P2D);
-	}
+    public static void main(String args[]) {
+        PApplet.main(new String[]{GeoRSSStyledMarkerApp.class.getName()});
+    }
 
-	public static void main(String args[]) {
-		PApplet.main(new String[] { GeoRSSStyledMarkerApp.class.getName() });
-	}
+    @Override
+    public void setup() {
+        map = new UnfoldingMap(this);
+        map.zoomToLevel(2);
+        MapUtils.createDefaultEventDispatcher(this, map);
 
-	public void setup() {
-		map = new UnfoldingMap(this);
-		map.zoomToLevel(2);
-		MapUtils.createDefaultEventDispatcher(this, map);
+        final List<Feature> features = GeoRSSReader.loadDataGeoRSS(this, EARTHQUAKES_URL);
+        final MarkerFactory markerFactory = new MarkerFactory();
+        markerFactory.setPointClass(EarthquakeMarker.class);
+        final List<Marker> markers = markerFactory.createMarkers(features);
+        map.addMarkers(markers);
+    }
 
-		List<Feature> features = GeoRSSReader.loadDataGeoRSS(this, earthquakesURL);
-		MarkerFactory markerFactory = new MarkerFactory();
-		markerFactory.setPointClass(EarthquakeMarker.class);
-		List<Marker> markers = markerFactory.createMarkers(features);
-		map.addMarkers(markers);
-	}
-
-	public void draw() {
-		background(240);
-		map.draw();
-	}
+    @Override
+    public void draw() {
+        background(240);
+        map.draw();
+    }
 
 }

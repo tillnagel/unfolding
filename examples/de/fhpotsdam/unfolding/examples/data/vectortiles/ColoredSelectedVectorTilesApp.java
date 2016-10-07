@@ -11,56 +11,58 @@ import de.fhpotsdam.unfolding.utils.MapUtils;
 
 /**
  * Loads vector tiles, and displays museums in a different color.
- * 
+ * <p>
  * Click on the map to load its vector tiles.
  */
 public class ColoredSelectedVectorTilesApp extends PApplet {
 
-	UnfoldingMap map;
-	DebugDisplay debugDisplay;
+    private UnfoldingMap map;
+    private DebugDisplay debugDisplay;
+    private VectorTilesUtils vectorTilesUtils;
+    private static final String FILTERED_TYPE = "museum";
 
-	VectorTilesUtils vectorTilesUtils;
+    @Override
+    public void settings() {
+        size(800, 600, P2D);
+    }
 
-	String filteredType = "museum";
+    public static void main(String args[]) {
+        PApplet.main(new String[]{ColoredSelectedVectorTilesApp.class.getName()});
+    }
 
-	public void settings() {
-		size(800, 600, P2D);
-	}
+    @Override
+    public void setup() {
+        map = new UnfoldingMap(this, "myMap");
+        map.zoomAndPanTo(16, new Location(52.501, 13.395));
+        MapUtils.createDefaultEventDispatcher(this, map);
 
-	public static void main(String args[]) {
-		PApplet.main(new String[] { ColoredSelectedVectorTilesApp.class.getName() });
-	}
+        debugDisplay = new DebugDisplay(this, map);
 
-	public void setup() {
-		map = new UnfoldingMap(this, "myMap");
-		map.zoomAndPanTo(16, new Location(52.501, 13.395));
-		MapUtils.createDefaultEventDispatcher(this, map);
+        vectorTilesUtils = new VectorTilesUtils(this, map);
 
-		debugDisplay = new DebugDisplay(this, map);
+        loadAndAddColoredMarkers(width / 2, height / 2, FILTERED_TYPE);
+    }
 
-		vectorTilesUtils = new VectorTilesUtils(this, map);
+    @Override
+    public void draw() {
+        map.draw();
+        debugDisplay.draw();
+    }
 
-		loadAndAddColoredMarkers(width / 2, height / 2, filteredType);
-	}
+    @Override
+    public void mouseClicked() {
+        loadAndAddColoredMarkers(mouseX, mouseY, FILTERED_TYPE);
+    }
 
-	public void draw() {
-		map.draw();
-		debugDisplay.draw();
-	}
-
-	public void mouseClicked() {
-		loadAndAddColoredMarkers(mouseX, mouseY, filteredType);
-	}
-
-	public void loadAndAddColoredMarkers(int x, int y, String filteredType) {
-		List<Marker> markers = vectorTilesUtils.loadMarkersForScreenPos("buildings", x, y);
-		for (Marker marker : markers) {
-			String kind = marker.getStringProperty("kind");
-			if (filteredType.equals(kind)) {
-				marker.setColor(color(0, 255, 0, 200));
-			}
-		}
-		map.addMarkers(markers);
-	}
+    private void loadAndAddColoredMarkers(final int x, final int y, final String filteredType) {
+        final List<Marker> markers = vectorTilesUtils.loadMarkersForScreenPos("buildings", x, y);
+        for (Marker marker : markers) {
+            final String kind = marker.getStringProperty("kind");
+            if (filteredType.equals(kind)) {
+                marker.setColor(color(0, 255, 0, 200));
+            }
+        }
+        map.addMarkers(markers);
+    }
 
 }
