@@ -21,48 +21,58 @@ import de.fhpotsdam.unfolding.utils.MapUtils;
  */
 public class ManualLabelMarkerApp extends PApplet {
 
-	UnfoldingMap map;
+    private UnfoldingMap map;
 
-	public void setup() {
-		size(800, 600, OPENGL);
+    @Override
+    public void settings() {
+        size(800, 600, P3D);
+    }
 
-		map = new UnfoldingMap(this, "map", 50, 50, 700, 500);
-		map.zoomToLevel(2);
-		MapUtils.createDefaultEventDispatcher(this, map);
+    @Override
+    public void setup() {
+        map = new UnfoldingMap(this, "map", 50, 50, 700, 500);
+        map.zoomToLevel(2);
+        MapUtils.createDefaultEventDispatcher(this, map);
 
-		List<Feature> features = GeoRSSReader.loadData(this, "data/bbc-georss-test.xml");
-		List<Marker> markers = createLabeledMarkers(features);
-		map.addMarkers(markers);
-	}
+        final List<Feature> features = GeoRSSReader.loadData(this, "data/bbc-georss-test.xml");
+        final List<Marker> markers = createLabeledMarkers(features);
+        map.addMarkers(markers);
+    }
 
-	public void draw() {
-		background(240);
-		map.draw();
-	}
+    @Override
+    public void draw() {
+        background(240);
+        map.draw();
+    }
 
-	public void mouseMoved() {
-		// Deselect all marker
-		for (Marker marker : map.getMarkers()) {
-			marker.setSelected(false);
-		}
+    @Override
+    public void mouseMoved() {
+        // Deselect all marker
+        for (Marker marker : map.getMarkers()) {
+            marker.setSelected(false);
+        }
 
-		// Select hit marker
-		Marker marker = map.getFirstHitMarker(mouseX, mouseY);
-		// NB: Use mm.getHitMarkers(x, y) for multi-selection.
-		if (marker != null) {
-			marker.setSelected(true);
-		}
-	}
+        // Select hit marker
+        Marker marker = map.getFirstHitMarker(mouseX, mouseY);
+        // NB: Use mm.getHitMarkers(x, y) for multi-selection.
+        if (marker != null) {
+            marker.setSelected(true);
+        }
+    }
 
-	public List<Marker> createLabeledMarkers(List<Feature> features) {
-		PFont font = loadFont("ui/OpenSans-12.vlw");
-		List<Marker> markers = new ArrayList<Marker>();
-		for (Feature feature : features) {
-			String label = feature.getStringProperty("title");
-			PointFeature pointFeature = (PointFeature) feature;
-			Marker marker = new LabeledMarker(pointFeature.getLocation(), label, font, 15);
-			markers.add(marker);
-		}
-		return markers;
-	}
+    protected List<Marker> createLabeledMarkers(final List<Feature> features) {
+        final PFont font = loadFont("ui/OpenSans-12.vlw");
+        final List<Marker> markers = new ArrayList<Marker>();
+        for (Feature feature : features) {
+            final String label = feature.getStringProperty("title");
+            final PointFeature pointFeature = (PointFeature) feature;
+            final Marker marker = new LabeledMarker(pointFeature.getLocation(), label, font, 15);
+            markers.add(marker);
+        }
+        return markers;
+    }
+
+    public static void main(String args[]) {
+        PApplet.main(new String[]{ManualLabelMarkerApp.class.getName()});
+    }
 }

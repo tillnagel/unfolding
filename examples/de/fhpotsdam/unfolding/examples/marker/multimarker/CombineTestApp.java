@@ -14,41 +14,50 @@ import de.fhpotsdam.unfolding.marker.MultiMarker;
 import de.fhpotsdam.unfolding.utils.MapUtils;
 
 /**
- * Combines different markers in one MultiMarker. Only that MultiMarker then is displayed. 
- * 
+ * Combines different markers in one MultiMarker. Only that MultiMarker then is displayed.
+ * <p>
  * Note how France is a MultiMarker by itself (France and Corsica).
  */
 public class CombineTestApp extends PApplet {
 
-	UnfoldingMap map;
-	String[] ids = { "DEU", "FRA", "IRL" };
-	List<String> specialIDs = new ArrayList<String>(Arrays.asList(ids));
+    private UnfoldingMap map;
+    private String[] ids = {"DEU", "FRA", "IRL"};
+    private List<String> specialIDs = new ArrayList<String>(Arrays.asList(ids));
 
-	public void setup() {
-		size(800, 600, OPENGL);
+    @Override
+    public void settings() {
+        size(800, 600, P2D);
+    }
 
-		map = new UnfoldingMap(this);
-		
-		// Load all countries
-		List<Feature> countries = GeoJSONReader.loadData(this, "data/countries.geo.json");
-		List<Marker> countryMarkers = MapUtils.createSimpleMarkers(countries);
+    @Override
+    public void setup() {
+        map = new UnfoldingMap(this);
 
-		// But only combine Germany, France, and Ireland
-		MultiMarker multiMarker = new MultiMarker();
-		for (Marker marker : countryMarkers) {
-			if (specialIDs.contains(marker.getId())) {
-				multiMarker.addMarkers(marker);
-			}
-		}
-		map.addMarkers(multiMarker);
-		
-		// Zoom in, and center around MultiMarker
-		map.zoomToLevel(4);
-		map.panTo(multiMarker.getLocation());
-	}
+        // Load all countries
+        final List<Feature> countries = GeoJSONReader.loadData(this, "data/countries.geo.json");
+        final List<Marker> countryMarkers = MapUtils.createSimpleMarkers(countries);
 
-	public void draw() {
-		map.draw();
-	}
+        // But only combine Germany, France, and Ireland
+        final MultiMarker multiMarker = new MultiMarker();
+        for (Marker marker : countryMarkers) {
+            if (specialIDs.contains(marker.getId())) {
+                multiMarker.addMarkers(marker);
+            }
+        }
+        map.addMarkers(multiMarker);
+
+        // Zoom in, and center around MultiMarker
+        map.zoomToLevel(4);
+        map.panTo(multiMarker.getLocation());
+    }
+
+    @Override
+    public void draw() {
+        map.draw();
+    }
+
+    public static void main(String args[]) {
+        PApplet.main(new String[]{CombineTestApp.class.getName()});
+    }
 
 }
