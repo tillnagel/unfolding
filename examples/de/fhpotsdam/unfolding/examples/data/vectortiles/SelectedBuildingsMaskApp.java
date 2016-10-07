@@ -1,9 +1,5 @@
 package de.fhpotsdam.unfolding.examples.data.vectortiles;
 
-import java.util.List;
-
-import processing.core.PApplet;
-import processing.core.PImage;
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.mapdisplay.OpenGLMapDisplay;
@@ -13,77 +9,84 @@ import de.fhpotsdam.unfolding.marker.Marker;
 import de.fhpotsdam.unfolding.marker.SimplePolygonMarker;
 import de.fhpotsdam.unfolding.utils.MapUtils;
 import de.fhpotsdam.unfolding.utils.ScreenPosition;
+import processing.core.PApplet;
+import processing.core.PImage;
+
+import java.util.List;
+
+import static de.fhpotsdam.unfolding.examples.data.vectortiles.SelectBuildingsApp.FEATURE_LAYER;
 
 /**
  * Shows a mask for the map with buildings drawn behind the mask. Click to select a building which will be drawn in
  * green and before the mask.
- * 
  */
 public class SelectedBuildingsMaskApp extends PApplet {
 
-	UnfoldingMap map;
-	MapDisplayShader mapDisplayShader;
+    private Marker selectedMarker = null;
+    private UnfoldingMap map;
+    private MapDisplayShader mapDisplayShader;
+    private VectorTilesUtils vectorTilesUtils;
 
-	VectorTilesUtils vectorTilesUtils;
-	String featureLayer = "buildings";
+    @Override
+    public void settings() {
+        size(800, 600, P2D);
+    }
 
-	Marker selectedMarker = null;
+    public static void main(String args[]) {
+        PApplet.main(new String[]{SelectedBuildingsMaskApp.class.getName()});
+    }
 
-	public void settings() {
-		size(800, 600, P2D);
-	}
+    @Override
+    public void setup() {
+        map = new UnfoldingMap(this);
+        MapUtils.createDefaultEventDispatcher(this, map);
+        map.zoomAndPanTo(16, new Location(52.501, 13.395));
+        map.setZoomRange(10, 19);
 
-	public static void main(String args[]) {
-		PApplet.main(new String[] { SelectedBuildingsMaskApp.class.getName() });
-	}
+        vectorTilesUtils = new VectorTilesUtils(this, map);
+        final List<Marker> markers = vectorTilesUtils.loadMarkersForScreenPos(FEATURE_LAYER, width / 2, height / 2);
+        map.addMarkers(markers);
 
-	public void setup() {
-		map = new UnfoldingMap(this);
-		MapUtils.createDefaultEventDispatcher(this, map);
-		map.zoomAndPanTo(16, new Location(52.501, 13.395));
-		map.setZoomRange(10, 19);
+        final PImage maskImage = loadImage("test/mask-circular.png");
+        mapDisplayShader = new MaskedMapDisplayShader(this, 400, 400, maskImage);
+        ((OpenGLMapDisplay) map.mapDisplay).setMapDisplayShader(mapDisplayShader);
+    }
 
-		vectorTilesUtils = new VectorTilesUtils(this, map);
-		List<Marker> markers = vectorTilesUtils.loadMarkersForScreenPos(featureLayer, width / 2, height / 2);
-		map.addMarkers(markers);
+    @Override
+    public void draw() {
+        background(0);
+        map.draw();
+        g.resetShader();
 
-		PImage maskImage = loadImage("test/mask-circular.png");
-		mapDisplayShader = new MaskedMapDisplayShader(this, 400, 400, maskImage);
-		((OpenGLMapDisplay) map.mapDisplay).setMapDisplayShader(mapDisplayShader);
-	}
+        if (selectedMarker != null) {
+            final SimplePolygonMarker polygonMarker = (SimplePolygonMarker) selectedMarker;
+            strokeWeight(1);
+            stroke(28, 102, 120);
+            fill(116, 188, 157);
+            beginShape();
+            for (final Location location : polygonMarker.getLocations()) {
+                final ScreenPosition pos = map.getScreenPosition(location);
+                vertex(pos.x, pos.y);
+            }
+            endShape();
+        }
+    }
 
-	public void draw() {
-		background(0);
-		map.draw();
-		g.resetShader();
+    @Override
+    public void keyPressed() {
+        if (key == 'l') {
+            final List<Marker> markers = vectorTilesUtils.loadMarkersForScreenPos(FEATURE_LAYER, mouseX, mouseY);
+            map.addMarkers(markers);
+        }
+    }
 
-		if (selectedMarker != null) {
-			SimplePolygonMarker polygonMarker = (SimplePolygonMarker) selectedMarker;
-			strokeWeight(1);
-			stroke(28, 102, 120);
-			fill(116, 188, 157);
-			beginShape();
-			for (Location location : polygonMarker.getLocations()) {
-				ScreenPosition pos = map.getScreenPosition(location);
-				vertex(pos.x, pos.y);
-			}
-			endShape();
-		}
-	}
+    @Override
+    public void mouseClicked() {
+        final List<Marker> markers = map.getMarkers();
+        for (final Marker marker : markers)
+            marker.setHidden(true);
 
-	public void keyPressed() {
-		if (key == 'l') {
-			List<Marker> markers = vectorTilesUtils.loadMarkersForScreenPos(featureLayer, mouseX, mouseY);
-			map.addMarkers(markers);
-		}
-	}
-
-	public void mouseClicked() {
-		List<Marker> markers = map.getMarkers();
-		for (Marker marker : markers)
-			marker.setHidden(true);
-
-		selectedMarker = map.getFirstHitMarker(mouseX, mouseY);
-	}
+        selectedMarker = map.getFirstHitMarker(mouseX, mouseY);
+    }
 
 }

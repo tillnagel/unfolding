@@ -11,62 +11,63 @@ import de.fhpotsdam.unfolding.utils.MapPosition;
 
 public class SketchyPolygonMarker extends SimplePolygonMarker {
 
-	HandyRenderer handy = null;
+    private HandyRenderer handy = null;
 
-	public SketchyPolygonMarker(List<Location> locations) {
-		super(locations);
-	}
+    public SketchyPolygonMarker(List<Location> locations) {
+        super(locations);
+    }
 
-	public void draw(PGraphics pg, List<MapPosition> mapPositions) {
-		handy.setGraphics(pg);
+    public void draw(PGraphics pg, List<MapPosition> mapPositions) {
+        handy.setGraphics(pg);
 
-		pg.pushStyle();
+        pg.pushStyle();
 
-		// Here you should do your custom drawing
-		pg.strokeWeight(2);
-		pg.stroke(209, 89, 237);
-		pg.fill(180, 127);
+        // Here you should do your custom drawing
+        pg.strokeWeight(2);
+        pg.stroke(209, 89, 237);
+        pg.fill(180, 127);
 
-		handy.beginShape();
-		for (MapPosition pos : mapPositions) {
-			handy.vertex(pos.x, pos.y);
-		}
-		handy.endShape();
+        handy.beginShape();
+        for (final MapPosition pos : mapPositions) {
+            handy.vertex(pos.x, pos.y);
+        }
+        handy.endShape();
 
-		pg.popStyle();
-	}
+        pg.popStyle();
+    }
 
-	public void draw(PGraphics pg, List<MapPosition> mapPositions, List<List<MapPosition>> ringMapPositionsArray) {
+    @Override
+    public void draw(PGraphics pg, List<MapPosition> mapPositions, List<List<MapPosition>> ringMapPositionsArray) {
 
-		pg.pushStyle();
+        pg.pushStyle();
 
-		// Here you should do your custom drawing
-		pg.strokeWeight(2);
-		pg.stroke(209, 89, 237);
-		pg.fill(180, 127);
+        // Here you should do your custom drawing
+        pg.strokeWeight(2);
+        pg.stroke(209, 89, 237);
+        pg.fill(180, 127);
 
-		handy.beginShape();
+        handy.beginShape();
 
-		// Main shape (outline)
-		for (MapPosition pos : mapPositions) {
-			handy.vertex(pos.x, pos.y);
-		}
+        // Main shape (outline)
+        for (final MapPosition pos : mapPositions) {
+            handy.vertex(pos.x, pos.y);
+        }
 
-		// Interior rings
-		// for (List<MapPosition> interiorRing : ringMapPositionsArray) {
-		// handy.beginContour();
-		// for (MapPosition pos : interiorRing) {
-		// handy.vertex(pos.x, pos.y);
-		// }
-		// handy.endContour();
-		// }
+        // Interior rings
+        // for (List<MapPosition> interiorRing : ringMapPositionsArray) {
+        // handy.beginContour();
+        // for (MapPosition pos : interiorRing) {
+        // handy.vertex(pos.x, pos.y);
+        // }
+        // handy.endContour();
+        // }
 
-		handy.endShape();
+        handy.endShape();
 
-		pg.popStyle();
-	}
+        pg.popStyle();
+    }
 
-	public void setHandyRenderer(HandyRenderer handy) {
-		this.handy = handy;
-	}
+    public void setHandyRenderer(HandyRenderer handy) {
+        this.handy = handy;
+    }
 }

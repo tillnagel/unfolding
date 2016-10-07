@@ -56,7 +56,7 @@ public class ColoredSelectedVectorTilesApp extends PApplet {
 
     private void loadAndAddColoredMarkers(final int x, final int y, final String filteredType) {
         final List<Marker> markers = vectorTilesUtils.loadMarkersForScreenPos("buildings", x, y);
-        for (Marker marker : markers) {
+        for (final Marker marker : markers) {
             final String kind = marker.getStringProperty("kind");
             if (filteredType.equals(kind)) {
                 marker.setColor(color(0, 255, 0, 200));
