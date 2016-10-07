@@ -87,28 +87,11 @@ public class VectorTilesApp extends PApplet {
     public void addMarkers(List<Marker> markers, boolean unique) {
         if (unique) {
             // Add only new markers
-            addUniqueMarkers(markers);
+            map.addUniqueMarkers(markers);
         } else {
             // Add all markers
             map.addMarkers(markers);
         }
-    }
-
-    // TODO Move addUniqueMarkers to UnfoldingMap.
-    public void addUniqueMarkers(List<Marker> markers) {
-        final MarkerManager<Marker> markerManager = map.getDefaultMarkerManager();
-        int newMarkerCount = 0;
-        int oldMarkerCount = 0;
-        for (final Marker marker : markers) {
-            if (markerManager.findMarkerById(marker.getId()) == null) {
-                markerManager.addMarker(marker);
-                newMarkerCount++;
-            } else {
-                oldMarkerCount++;
-            }
-        }
-        LOGGER.info("Added " + newMarkerCount + " new markers, and omitted " + oldMarkerCount
-                + " previously loaded markers.");
     }
 
 }

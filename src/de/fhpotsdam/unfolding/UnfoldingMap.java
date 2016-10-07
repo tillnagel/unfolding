@@ -1399,4 +1399,23 @@ public class UnfoldingMap implements MapEventListener {
 		return mapDisplay.getHeight();
 	}
 
+    /**
+     *
+     * @param markers
+     */
+	public void addUniqueMarkers(List<Marker> markers) {
+		final MarkerManager<Marker> markerManager = getDefaultMarkerManager();
+		int newMarkerCount = 0;
+		int oldMarkerCount = 0;
+		for (final Marker marker : markers) {
+			if (markerManager.findMarkerById(marker.getId()) == null) {
+				markerManager.addMarker(marker);
+				newMarkerCount++;
+			} else {
+				oldMarkerCount++;
+			}
+		}
+		log.info("Added " + newMarkerCount + " new markers, and omitted " + oldMarkerCount
+				+ " previously loaded markers.");
+	}
 }
