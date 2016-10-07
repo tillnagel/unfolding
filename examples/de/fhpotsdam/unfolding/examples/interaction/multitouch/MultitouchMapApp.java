@@ -9,61 +9,62 @@ import de.fhpotsdam.unfolding.interactions.TuioCursorHandler;
 
 /**
  * An interactive map which users can zoom, pan, and rotate with finger gestures.
- * 
+ * <p>
  * You'll need a TUIO-capable touch device to run this example! See http://www.tuio.org/?software for more information.
  * Start as application for full-screen.
- * 
+ * <p>
  * See {@link MultitouchMapExternalTuioApp} for how to handle multitouch input for both your app and the map.
- * 
  */
 public class MultitouchMapApp extends PApplet {
 
-	public static Logger log = Logger.getLogger(MultitouchMapApp.class);
+    private static final boolean DISABLE_ROTATING = false;
+    private static boolean FULLSCREEN = false;
+    private UnfoldingMap map;
+    private TuioCursorHandler tuioCursorHandler;
 
-	public static final boolean DISABLE_ROTATING = false;
+    @Override
+    public void settings() {
+        if (FULLSCREEN) {
+            size(1920, 1080, P2D);
+        } else {
+            size(800, 600, P2D);
+        }
+    }
 
-	public static boolean FULLSCREEN = false;
+    @Override
+    public void setup() {
+        // Init the map
+        map = new UnfoldingMap(this);
 
-	UnfoldingMap map;
-	TuioCursorHandler tuioCursorHandler;
-	
-	public void settings() {
-		if (FULLSCREEN) {
-			size(1920, 1080, P2D);
-		} else {
-			size(800, 600, P2D);
-		}
-	}
-	
-	public void setup() {
-		// Init the map
-		map = new UnfoldingMap(this);
+        final EventDispatcher eventDispatcher = new EventDispatcher();
+        // Create multitouch input handler, and register map to listen to pan and zoom events.
+        tuioCursorHandler = new TuioCursorHandler(this, map);
+        eventDispatcher.addBroadcaster(tuioCursorHandler);
+        eventDispatcher.register(map, "pan");
+        eventDispatcher.register(map, "zoom");
+    }
 
-		EventDispatcher eventDispatcher = new EventDispatcher();
-		// Create multitouch input handler, and register map to listen to pan and zoom events.
-		tuioCursorHandler = new TuioCursorHandler(this, map);
-		eventDispatcher.addBroadcaster(tuioCursorHandler);
-		eventDispatcher.register(map, "pan");
-		eventDispatcher.register(map, "zoom");
-	}
+    @Override
+    public void draw() {
+        background(0);
 
-	public void draw() {
-		background(0);
+        if (DISABLE_ROTATING) {
+            map.rotateTo(0);
+        }
+        map.draw();
 
-		if (DISABLE_ROTATING) {
-			map.rotateTo(0);
-		}
-		map.draw();
+        // Shows position of fingers for debugging.
+        tuioCursorHandler.drawCursors();
+    }
 
-		// Shows position of fingers for debugging.
-		tuioCursorHandler.drawCursors();
-	}
-
-	public static void main(String[] args) {
-		String[] params = new String[] { "--present", "--bgcolor=#000000", "--hide-stop",
-				"de.fhpotsdam.unfolding.examples.interaction.multitouch.MultitouchMapApp" };
-		FULLSCREEN = true;
-		PApplet.main(params);
-	}
+    public static void main(String[] args) {
+        String[] params = new String[]{
+                "--present",
+                "--bgcolor=#000000",
+                "--hide-stop",
+                MultitouchMapApp.class.getName()};
+        FULLSCREEN = true;
+        PApplet.main(params);
+    }
 
 }

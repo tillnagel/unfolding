@@ -1,5 +1,6 @@
 package de.fhpotsdam.unfolding.examples.image;
 
+import org.apache.log4j.Logger;
 import processing.core.PApplet;
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.geo.Location;
@@ -11,46 +12,48 @@ import de.fhpotsdam.unfolding.utils.MapUtils;
  */
 public class LargeMapImageSaveApp extends PApplet {
 
-	// Set to the center location you want to grab the map for.
-	Location location = new Location(52.5f, 13.4f);
-	// Set to zoom level you want to grab.
-	int zoomLevel = 9;
+    private static final Logger LOGGER = Logger.getLogger(LargeMapImageSaveApp.class);
+    // Set to the center LOCATION you want to grab the map for.
+    private static final Location LOCATION = new Location(52.5f, 13.4f);
+    // Set to zoom level you want to grab.
+    private static final int ZOOM_LEVEL = 9;
+    private UnfoldingMap map;
+    private LargeMapImageUtils lmiUtils;
 
-	UnfoldingMap map;
+    @Override
+    public void settings() {
+        size(500, 500, P2D);
+    }
 
-	LargeMapImageUtils lmiUtils;
+    @Override
+    public void setup() {
+        map = new UnfoldingMap(this);
+        map.zoomAndPanTo(ZOOM_LEVEL, LOCATION);
+        MapUtils.createDefaultEventDispatcher(this, map);
 
-	public void settings() {
-		size(500, 500, P2D);
-	}
+        LOGGER.info("Init large map image.");
+        lmiUtils = new LargeMapImageUtils(this, map);
+    }
 
-	public void setup() {
-		map = new UnfoldingMap(this);
-		map.zoomAndPanTo(zoomLevel, location);
-		MapUtils.createDefaultEventDispatcher(this, map);
+    @Override
+    public void draw() {
+        map.draw();
+        lmiUtils.run();
+    }
 
-		println("Init large map image.");
-		lmiUtils = new LargeMapImageUtils(this, map);
-	}
+    @Override
+    public void keyPressed() {
+        if (key == 's') {
+            // Around current center and with current zoom level
+            lmiUtils.init();
+        }
+        if (key == 'b') {
+            // Around set center and zoom level (pans there before screenshoting)
+            lmiUtils.init(LOCATION, ZOOM_LEVEL);
+        }
+    }
 
-	public void draw() {
-		map.draw();
-
-		lmiUtils.run();
-	}
-
-	public void keyPressed() {
-		if (key == 's') {
-			// Around current center and with current zoom level
-			lmiUtils.init();
-		}
-		if (key == 'b') {
-			// Around set center and zoom level (pans there before screenshoting)
-			lmiUtils.init(location, zoomLevel);
-		}
-	}
-	
-	public static void main(String args[]) {
-		PApplet.main(new String[] { LargeMapImageSaveApp.class.getName() });
-	}
+    public static void main(String args[]) {
+        PApplet.main(new String[]{LargeMapImageSaveApp.class.getName()});
+    }
 }

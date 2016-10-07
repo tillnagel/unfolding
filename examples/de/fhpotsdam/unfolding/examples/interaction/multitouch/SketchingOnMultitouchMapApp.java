@@ -89,7 +89,7 @@ public class SketchingOnMultitouchMapApp extends PApplet implements TuioListener
 	public void addTuioCursor(TuioCursor tuioCursor) {
 		int x = tuioCursor.getScreenX(width);
 		int y = tuioCursor.getScreenY(height);
-		// log.debug("Add " + tuioCursor.getCursorID() + ": " + x + ", " + y);
+		// LOGGER.debug("Add " + tuioCursor.getCursorID() + ": " + x + ", " + y);
 
 		if (sketchTuioCursor == null) {
 			// First finger: Use for sketching
@@ -110,7 +110,7 @@ public class SketchingOnMultitouchMapApp extends PApplet implements TuioListener
 	public void updateTuioCursor(TuioCursor tuioCursor) {
 		int x = tuioCursor.getScreenX(width);
 		int y = tuioCursor.getScreenY(height);
-		// log.debug("Update " + tuioCursor.getCursorID() + ": " + x + ", " + y);
+		// LOGGER.debug("Update " + tuioCursor.getCursorID() + ": " + x + ", " + y);
 
 		if (sketchTuioCursor != null && sketchTuioCursor.getCursorID() == tuioCursor.getCursorID()) {
 			Location location = map.getLocation(x, y);
@@ -124,7 +124,7 @@ public class SketchingOnMultitouchMapApp extends PApplet implements TuioListener
 
 	@Override
 	public void removeTuioCursor(TuioCursor tuioCursor) {
-		// log.debug("Remove " + tuioCursor.getCursorID());
+		// LOGGER.debug("Remove " + tuioCursor.getCursorID());
 
 		if (sketchTuioCursor != null && sketchTuioCursor.getCursorID() == tuioCursor.getCursorID()) {
 			sketchTuioCursor = null;

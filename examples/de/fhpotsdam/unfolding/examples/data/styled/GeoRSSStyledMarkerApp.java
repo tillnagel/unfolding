@@ -17,7 +17,7 @@ import de.fhpotsdam.unfolding.utils.MapUtils;
  */
 public class GeoRSSStyledMarkerApp extends PApplet {
 
-    private static final String EARTHQUAKES_URL = "http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/4.5_week.atom";
+    public static final String EARTHQUAKES_URL = "http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/4.5_week.atom";
     private UnfoldingMap map;
 
     @Override

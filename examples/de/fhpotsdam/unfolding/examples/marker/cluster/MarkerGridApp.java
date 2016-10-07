@@ -11,6 +11,8 @@ import de.fhpotsdam.unfolding.marker.MarkerManager;
 import de.fhpotsdam.unfolding.utils.MapUtils;
 import de.fhpotsdam.unfolding.utils.ScreenPosition;
 
+import static de.fhpotsdam.unfolding.examples.data.styled.GeoRSSStyledMarkerApp.EARTHQUAKES_URL;
+
 /**
  * Simple interactive marker grid example.
  * <p>
@@ -19,7 +21,6 @@ import de.fhpotsdam.unfolding.utils.ScreenPosition;
  */
 public class MarkerGridApp extends PApplet {
 
-    private static final String EARTHQUAKES_URL = "http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/4.5_week.atom";
     private UnfoldingMap map;
 
     @Override

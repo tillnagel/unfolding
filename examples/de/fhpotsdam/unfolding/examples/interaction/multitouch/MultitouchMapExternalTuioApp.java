@@ -16,122 +16,125 @@ import de.fhpotsdam.unfolding.interactions.TuioCursorHandler;
 
 /**
  * Multitouch map with a simple button atop. A tap on the button does not affect the map.
- * 
+ * <p>
  * Creates a map and a handler for TUIO cursors, with this application acting as TUIO listener, and forwarding the TUIO
  * events to the handler. This allows reacting to other touch interactions in the application (e.g. map markers, or
  * other interface elements), as well.
- * 
+ * <p>
  * See simpler {@link MultitouchMapApp} if you want to use multitouch interaction for the map only.
  */
 public class MultitouchMapExternalTuioApp extends PApplet implements TuioListener {
 
-	public static Logger log = Logger.getLogger(MultitouchMapExternalTuioApp.class);
+    public static final Logger LOGGER = Logger.getLogger(MultitouchMapExternalTuioApp.class);
 
-	UnfoldingMap map;
-	EventDispatcher eventDispatcher;
-	TuioCursorHandler tuioCursorHandler;
-	TuioClient tuioClient;
+    private UnfoldingMap map;
+    private EventDispatcher eventDispatcher;
+    private TuioCursorHandler tuioCursorHandler;
+    private TuioClient tuioClient;
 
-	boolean activeButton = false;
-	int buttonX = 50;
-	int buttonY = 50;
-	int buttonSize = 40;
+    private static boolean activeButton = false;
+    private static final int buttonX = 50;
+    private static final int buttonY = 50;
+    private static final int buttonSize = 40;
 
-	public static void main(String[] args) {
-		String[] params = new String[] { "--present", "--bgcolor=#000000", "--hide-stop",
-				"de.fhpotsdam.unfolding.examples.interaction.multitouch.MultitouchMapExternalTuioApp" };
-		PApplet.main(params);
-	}
+    public static void main(String[] args) {
+        String[] params = new String[]{"--present", "--bgcolor=#000000", "--hide-stop",
+                MultitouchMapExternalTuioApp.class.getName()};
+        PApplet.main(params);
+    }
 
-	public void settings() {
-		size(800, 600, P2D);
-	}
-	
-	public void setup() {
-		map = new UnfoldingMap(this);
-		map.setTweening(false);
-		map.zoomAndPanTo(13, new Location(1.283f, 103.833f));
-		map.setPanningRestriction(new Location(1.283f, 103.833f), 30);
+    @Override
+    public void settings() {
+        size(800, 600, P2D);
+    }
 
-		eventDispatcher = new EventDispatcher();
+    @Override
+    public void setup() {
+        map = new UnfoldingMap(this);
+        map.setTweening(false);
+        map.zoomAndPanTo(13, new Location(1.283f, 103.833f));
+        map.setPanningRestriction(new Location(1.283f, 103.833f), 30);
 
-		tuioCursorHandler = new TuioCursorHandler(this, false, map);
-		eventDispatcher.addBroadcaster(tuioCursorHandler);
-		eventDispatcher.register(map, "pan");
-		eventDispatcher.register(map, "zoom");
+        eventDispatcher = new EventDispatcher();
 
-		tuioClient = tuioCursorHandler.getTuioClient();
-		tuioClient.addTuioListener(this);
-	}
+        tuioCursorHandler = new TuioCursorHandler(this, false, map);
+        eventDispatcher.addBroadcaster(tuioCursorHandler);
+        eventDispatcher.register(map, "pan");
+        eventDispatcher.register(map, "zoom");
 
-	public void draw() {
-		map.draw();
+        tuioClient = tuioCursorHandler.getTuioClient();
+        tuioClient.addTuioListener(this);
+    }
 
-		// LOGGER.debug("map.center: " + map.getCenter());
+    @Override
+    public void draw() {
+        map.draw();
 
-		if (activeButton) {
-			fill(255, 0, 0, 150);
-		} else {
-			fill(255, 150);
-		}
-		noStroke();
-		ellipse(buttonX, buttonY, buttonSize, buttonSize);
+        // LOGGER.debug("map.center: " + map.getCenter());
 
-		// tuioCursorHandler.drawCursors();
-		fill(255, 100);
-		for (TuioCursor tcur : tuioClient.getTuioCursors()) {
-			ellipse(tcur.getScreenX(width), tcur.getScreenY(height), 20, 20);
-		}
-	}
+        if (activeButton) {
+            fill(255, 0, 0, 150);
+        } else {
+            fill(255, 150);
+        }
+        noStroke();
+        ellipse(buttonX, buttonY, buttonSize, buttonSize);
 
-	@Override
-	public void addTuioCursor(TuioCursor tuioCursor) {
-		int x = tuioCursor.getScreenX(width);
-		int y = tuioCursor.getScreenY(height);
+        // tuioCursorHandler.drawCursors();
+        fill(255, 100);
+        for (final TuioCursor tcur : tuioClient.getTuioCursors()) {
+            ellipse(tcur.getScreenX(width), tcur.getScreenY(height), 20, 20);
+        }
+    }
 
-		log.debug("Add " + tuioCursor.getCursorID() + ": " + x + ", " + y);
+    @Override
+    public void addTuioCursor(final TuioCursor tuioCursor) {
+        int x = tuioCursor.getScreenX(width);
+        int y = tuioCursor.getScreenY(height);
 
-		if (dist(x, y, buttonX, buttonY) < buttonSize / 2) {
-			activeButton = !activeButton;
-		} else {
-			tuioCursorHandler.addTuioCursor(tuioCursor);
-		}
-	}
+        LOGGER.debug("Add " + tuioCursor.getCursorID() + ": " + x + ", " + y);
 
-	@Override
-	public void updateTuioCursor(TuioCursor tuioCursor) {
-		int x = tuioCursor.getScreenX(width);
-		int y = tuioCursor.getScreenY(height);
-		log.debug("Update " + tuioCursor.getCursorID() + ": " + x + ", " + y);
+        if (dist(x, y, buttonX, buttonY) < buttonSize / 2) {
+            activeButton = !activeButton;
+        } else {
+            tuioCursorHandler.addTuioCursor(tuioCursor);
+        }
+    }
 
-		tuioCursorHandler.updateTuioCursor(tuioCursor);
-	}
+    @Override
+    public void updateTuioCursor(final TuioCursor tuioCursor) {
+        int x = tuioCursor.getScreenX(width);
+        int y = tuioCursor.getScreenY(height);
+        LOGGER.debug("Update " + tuioCursor.getCursorID() + ": " + x + ", " + y);
 
-	@Override
-	public void removeTuioCursor(TuioCursor tuioCursor) {
-		log.debug("Remove " + tuioCursor.getCursorID());
+        tuioCursorHandler.updateTuioCursor(tuioCursor);
+    }
 
-		tuioCursorHandler.removeTuioCursor(tuioCursor);
-	}
+    @Override
+    public void removeTuioCursor(final TuioCursor tuioCursor) {
+        LOGGER.debug("Remove " + tuioCursor.getCursorID());
 
-	@Override
-	public void addTuioObject(TuioObject arg0) {
-		// No objects used
-	}
+        tuioCursorHandler.removeTuioCursor(tuioCursor);
+    }
 
-	@Override
-	public void refresh(TuioTime arg0) {
-		// Not used
-	}
+    @Override
+    public void addTuioObject(final TuioObject arg0) {
+        // No objects used
+    }
 
-	@Override
-	public void removeTuioObject(TuioObject arg0) {
-		// No objects used
-	}
+    @Override
+    public void refresh(final TuioTime arg0) {
+        // Not used
+    }
 
-	@Override
-	public void updateTuioObject(TuioObject arg0) {
-		// No objects used
-	}
+    @Override
+    public void removeTuioObject(final TuioObject arg0) {
+        // No objects used
+    }
+
+    @Override
+    public void updateTuioObject(final TuioObject arg0) {
+        // No objects used
+    }
 
 }
