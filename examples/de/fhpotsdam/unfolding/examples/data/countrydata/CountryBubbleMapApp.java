@@ -28,7 +28,7 @@ public class CountryBubbleMapApp extends PApplet {
 	List<Marker> countryMarkers;
 
 	public void settings() {
-		size(800, 600, P2D);
+		size(900, 600, P2D);
 	}
 
 	public static void main(String args[]) {
@@ -58,12 +58,12 @@ public class CountryBubbleMapApp extends PApplet {
 				String countryId = country.getId();
 				DataEntry dataEntry = dataEntriesMap.get(countryId);
 				if (dataEntry != null && dataEntry.value > 0) {
-					// Map to correct size (linearly to area)
-					float radius = PApplet.sqrt(dataEntry.value / PApplet.PI);
-					// Constrain radius to 100px (20000 is for China's population of 1.3billion)
-					float s = map(radius, 0, 20000, 0, 100);
+					// Map population (up to China's 1.3 billion) to area of circle with a max radius of 100px 
+					float normPop = map(dataEntry.value, 0, 1300000000, 0, pow(100, 2) * PI);
+					float radius = sqrt(normPop / PI);
+
 					// Set size of marker
-					marker.setRadius(s);
+					marker.setRadius(radius);
 					map.addMarkers(marker);
 				}
 			}
@@ -76,7 +76,8 @@ public class CountryBubbleMapApp extends PApplet {
 		// Draw map tiles and country markers
 		map.draw();
 	}
-
+	
+	// Loads population
 	public HashMap<String, DataEntry> loadPopulationFromCSV(String fileName) {
 		HashMap<String, DataEntry> dataEntriesMap = new HashMap<String, DataEntry>();
 
@@ -100,7 +101,9 @@ public class CountryBubbleMapApp extends PApplet {
 
 		return dataEntriesMap;
 	}
-
+	
+	// Simple class to store data values for each country.
+	// country ID must match the IDs from the GeoJSON file (See https://en.wikipedia.org/wiki/ISO_3166-1)
 	public class DataEntry {
 		String countryName;
 		String id;
