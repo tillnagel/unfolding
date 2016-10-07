@@ -19,12 +19,9 @@ public class LabeledMarker extends SimplePointMarker {
     private PFont font;
     private float fontSize = 12;
 
-    //this field and constructor need when we use MarkerFactory and populate markers from list features
-    private HashMap<String, Object> properties = new HashMap<String, Object>();
-
+    //this constructor need when we use MarkerFactory and populate markers from list features
     public LabeledMarker(Location location, HashMap<String, Object> properties) {
         super(location, properties);
-        this.properties = properties;
     }
 
     public LabeledMarker(Location location, String name) {
