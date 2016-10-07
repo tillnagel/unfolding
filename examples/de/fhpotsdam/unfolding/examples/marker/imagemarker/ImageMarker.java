@@ -11,7 +11,7 @@ import de.fhpotsdam.unfolding.marker.AbstractMarker;
  */
 public class ImageMarker extends AbstractMarker {
 
-	PImage img;
+	private PImage img;
 
 	public ImageMarker(Location location, PImage img) {
 		super(location);

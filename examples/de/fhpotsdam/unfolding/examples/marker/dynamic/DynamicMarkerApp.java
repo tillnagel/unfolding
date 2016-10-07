@@ -18,14 +18,17 @@ import de.fhpotsdam.unfolding.utils.MapUtils;
 @SuppressWarnings("serial")
 public class DynamicMarkerApp extends PApplet {
 
-	UnfoldingMap map;
+	private UnfoldingMap map;
+	private MarkerManager<Marker> markerManager;
+	private SimplePointMarker berlinMarker;
 
-	MarkerManager<Marker> markerManager;
-	SimplePointMarker berlinMarker;
+	@Override
+	public void settings() {
+		size(800, 600, P2D);
+	}
 
+	@Override
 	public void setup() {
-		size(800, 600, OPENGL);
-
 		map = new UnfoldingMap(this);
 
 		map.zoomToLevel(3);
@@ -36,27 +39,28 @@ public class DynamicMarkerApp extends PApplet {
 		markerManager = map.getDefaultMarkerManager();
 
 		// Create Markers from Locations
-		Location berlinLocation = new Location(52.5f, 13.4f);
-		Location mexicoCityLocation = new Location(19.4f, -99.1f);
+		final Location berlinLocation = new Location(52.5f, 13.4f);
+		final Location mexicoCityLocation = new Location(19.4f, -99.1f);
 
 		// Point Markers
 		berlinMarker = new SimplePointMarker(berlinLocation);
-		SimplePointMarker mexicoCityMarker = new SimplePointMarker(mexicoCityLocation);
+		final SimplePointMarker mexicoCityMarker = new SimplePointMarker(mexicoCityLocation);
 		// Line Marker
-		SimpleLinesMarker connectionMarker = new SimpleLinesMarker(berlinLocation, mexicoCityLocation);
+		final SimpleLinesMarker connectionMarker = new SimpleLinesMarker(berlinLocation, mexicoCityLocation);
 
 		markerManager.addMarker(berlinMarker);
 		markerManager.addMarker(mexicoCityMarker);
 		markerManager.addMarker(connectionMarker);
 	}
 
+	@Override
 	public void draw() {
 		background(240);
-
 		// Drawing Markers in handled internally
 		map.draw();
 	}
 
+	@Override
 	public void keyPressed() {
 		if (key == 'r') {
 			markerManager.removeMarker(berlinMarker);
@@ -68,5 +72,9 @@ public class DynamicMarkerApp extends PApplet {
 			markerManager.clearMarkers();
 		}
 	}
+
+    public static void main(String args[]) {
+        PApplet.main(new String[]{DynamicMarkerApp.class.getName()});
+    }
 
 }

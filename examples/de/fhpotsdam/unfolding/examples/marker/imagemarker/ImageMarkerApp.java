@@ -12,27 +12,37 @@ import de.fhpotsdam.unfolding.utils.MapUtils;
  */
 public class ImageMarkerApp extends PApplet {
 
-	Location berlinLocation = new Location(52.5f, 13.4f);
-	Location veniceLocation = new Location(45.44f, 12.34f);
-	Location lisbonLocation = new Location(38.71f, -9.14f);
+	private static final Location BERLIN_LOCATION = new Location(52.5f, 13.4f);
+	private static final Location VENICE_LOCATION = new Location(45.44f, 12.34f);
+	private static final Location LISBON_LOCATION = new Location(38.71f, -9.14f);
 
-	UnfoldingMap map;
+	private UnfoldingMap map;
 
-	public void setup() {
-		size(800, 600, OPENGL);
+	@Override
+	public void settings() {
+		size(800, 600, P2D);
+	}
 
+	@Override
+    public void setup() {
 		map = new UnfoldingMap(this);
 		map.zoomAndPanTo(4, new Location(50.26f, 12.1f));
 		MapUtils.createDefaultEventDispatcher(this, map);
 
-		ImageMarker imgMarker1 = new ImageMarker(lisbonLocation, loadImage("ui/marker.png"));
-		ImageMarker imgMarker2 = new ImageMarker(veniceLocation, loadImage("ui/marker_red.png"));
-		ImageMarker imgMarker3 = new ImageMarker(berlinLocation, loadImage("ui/marker_gray.png"));
+		final ImageMarker imgMarker1 = new ImageMarker(LISBON_LOCATION, loadImage("ui/marker.png"));
+		final ImageMarker imgMarker2 = new ImageMarker(VENICE_LOCATION, loadImage("ui/marker_red.png"));
+		final ImageMarker imgMarker3 = new ImageMarker(BERLIN_LOCATION, loadImage("ui/marker_gray.png"));
 		map.addMarkers(imgMarker1, imgMarker2, imgMarker3);
 	}
 
-	public void draw() {
-		map.draw();
+	@Override
+    public void draw() {
+        background(0);
+        map.draw();
 	}
+
+    public static void main(String args[]) {
+        PApplet.main(new String[]{ImageMarkerApp.class.getName()});
+    }
 
 }

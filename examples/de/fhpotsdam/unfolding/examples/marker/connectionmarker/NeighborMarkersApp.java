@@ -19,11 +19,15 @@ import de.fhpotsdam.unfolding.utils.MapUtils;
 @SuppressWarnings("serial")
 public class NeighborMarkersApp extends PApplet {
 
-	UnfoldingMap map;
+	private UnfoldingMap map;
 
+	@Override
+	public void settings() {
+		size(800, 600, P2D);
+	}
+
+	@Override
 	public void setup() {
-		size(800, 600, OPENGL);
-
 		map = new UnfoldingMap(this);
 		map.zoomToLevel(11);
 		map.panTo(new Location(52.53f, 13.4f));
@@ -32,12 +36,12 @@ public class NeighborMarkersApp extends PApplet {
 		initMarkers();
 	}
 
-	public void initMarkers() {
+	protected void initMarkers() {
 		map.getDefaultMarkerManager().clearMarkers();
 
 		// Create Markers from random Locations
-		List<Marker> markers = new ArrayList<Marker>();
-		List<Marker> connectionMarkers = new ArrayList<Marker>();
+		final List<Marker> markers = new ArrayList<Marker>();
+		final List<Marker> connectionMarkers = new ArrayList<Marker>();
 
 		for (int i = 0; i < 30; i++) {
 			markers.add(new SimplePointMarker(new Location(random(52.46f, 52.61f), random(13.23f, 13.54f))));
@@ -59,17 +63,23 @@ public class NeighborMarkersApp extends PApplet {
 		map.addMarkers(connectionMarkers);
 	}
 
-	public void draw() {
+	@Override
+    public void draw() {
 		background(240);
 
 		// Drawing Markers in handled internally
 		map.draw();
 	}
 
-	public void keyPressed() {
+	@Override
+    public void keyPressed() {
 		if (key == ' ') {
 			initMarkers();
 		}
 	}
+
+    public static void main(String args[]) {
+        PApplet.main(new String[]{NeighborMarkersApp.class.getName()});
+    }
 
 }
