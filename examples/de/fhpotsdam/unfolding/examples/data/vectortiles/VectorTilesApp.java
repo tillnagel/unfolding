@@ -25,7 +25,6 @@ import static de.fhpotsdam.unfolding.examples.data.vectortiles.SelectBuildingsAp
  */
 public class VectorTilesApp extends PApplet {
 
-    private static final Logger LOGGER = Logger.getLogger(VectorTilesApp.class);
     private UnfoldingMap map;
     private DebugDisplay debugDisplay;
     private VectorTilesUtils vectorTilesUtils;
