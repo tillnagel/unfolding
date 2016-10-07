@@ -23,11 +23,15 @@ public class MarkerGridApp extends PApplet {
 	String earthquakesURL = "http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/4.5_week.atom";
 
 	UnfoldingMap map;
+	int gridWidth = 100;
+	int gridHeight = 100;
 
-	public void setup() {
+	public void settings() {
 		size(800, 600, P2D);
 		smooth();
+	}
 
+	public void setup() {
 		map = new UnfoldingMap(this);
 		map.zoomToLevel(2);
 		MapUtils.createDefaultEventDispatcher(this, map);
@@ -41,8 +45,6 @@ public class MarkerGridApp extends PApplet {
 		background(0);
 		map.draw();
 
-		int gridWidth = 100;
-		int gridHeight = 100;
 		for (int x = 0; x < width; x += gridWidth) {
 			for (int y = 0; y < height; y += gridHeight) {
 				int insideMarkerNumber = 0;
@@ -56,7 +58,7 @@ public class MarkerGridApp extends PApplet {
 					}
 				}
 
-				// Map number to color
+				// Map number to color (NB: max value set to 10)
 				float alpha = map(insideMarkerNumber, 0, 10, 0, 255);
 
 				// Draw current grid rectangle
@@ -65,6 +67,10 @@ public class MarkerGridApp extends PApplet {
 
 			}
 		}
+	}
+
+	public static void main(String args[]) {
+		PApplet.main(new String[] { MarkerGridApp.class.getName() });
 	}
 
 }
