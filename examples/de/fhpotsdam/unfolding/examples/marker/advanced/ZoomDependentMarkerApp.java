@@ -11,88 +11,97 @@ import de.fhpotsdam.unfolding.utils.MapUtils;
 
 /**
  * Shows different set of markers depending on the zoom level.
- * 
+ * <p>
  * <p>
  * Zoom in twice to see the detail markers.
  * </p>
- * 
+ * <p>
  * This is one way of handling this, via different MarkerManager. You could also simply switch visibility of the markers
  * and use only the default MarkerManager. Which to prefer depends on your use case, and your markers.
  */
 public class ZoomDependentMarkerApp extends PApplet {
 
-	UnfoldingMap map;
-	MarkerManager<Marker> markerManager;
-	MarkerManager<Marker> detailsMarkerManager;
+    private UnfoldingMap map;
+    private MarkerManager<Marker> markerManager;
+    private MarkerManager<Marker> detailsMarkerManager;
 
-	float oldZoomLevel = 0;
+    private float oldZoomLevel = 0;
 
-	public void setup() {
-		size(800, 600, OPENGL);
+    @Override
+    public void settings() {
+        size(800, 600, P2D);
+    }
 
-		map = new UnfoldingMap(this);
-		map.zoomAndPanTo(new Location(41.50, -72.38), 5);
-		
-		MapUtils.createDefaultEventDispatcher(this, map);
+    @Override
+    public void setup() {
+        map = new UnfoldingMap(this);
+        map.zoomAndPanTo(5, new Location(41.50, -72.38));
 
-		markerManager = populateMarkerManager();
-		detailsMarkerManager = populateDetailsMarkerManager();
+        MapUtils.createDefaultEventDispatcher(this, map);
 
-		map.addMarkerManager(markerManager);
-		map.addMarkerManager(detailsMarkerManager);
-	}
+        markerManager = populateMarkerManager();
+        detailsMarkerManager = populateDetailsMarkerManager();
 
-	public void draw() {
-		background(0);
+        map.addMarkerManager(markerManager);
+        map.addMarkerManager(detailsMarkerManager);
+    }
 
-		float zoomLevel = map.getZoomLevel();
-		if (oldZoomLevel != zoomLevel) {
-			if (zoomLevel >= 7) {
-				markerManager.disableDrawing();
-				detailsMarkerManager.enableDrawing();
-			} else {
-				markerManager.enableDrawing();
-				detailsMarkerManager.disableDrawing();
-			}
+    @Override
+    public void draw() {
+        background(0);
 
-			oldZoomLevel = zoomLevel;
-		}
+        float zoomLevel = map.getZoomLevel();
+        if (oldZoomLevel != zoomLevel) {
+            if (zoomLevel >= 7) {
+                markerManager.disableDrawing();
+                detailsMarkerManager.enableDrawing();
+            } else {
+                markerManager.enableDrawing();
+                detailsMarkerManager.disableDrawing();
+            }
 
-		map.draw();
-	}
+            oldZoomLevel = zoomLevel;
+        }
 
-	private MarkerManager<Marker> populateMarkerManager() {
-		MarkerManager<Marker> markerManager = new MarkerManager<Marker>();
+        map.draw();
+    }
 
-		SimplePointMarker nycMarker = new SimplePointMarker(new Location(40.71, -73.99));
-		nycMarker.setRadius(20);
-		markerManager.addMarker(nycMarker);
+    private static MarkerManager<Marker> populateMarkerManager() {
+        final MarkerManager<Marker> markerManager = new MarkerManager<Marker>();
 
-		SimplePointMarker bostonMarker = new SimplePointMarker(new Location(42.35, -71.04));
-		bostonMarker.setRadius(20);
-		markerManager.addMarker(bostonMarker);
+        final SimplePointMarker nycMarker = new SimplePointMarker(new Location(40.71, -73.99));
+        nycMarker.setRadius(20);
+        markerManager.addMarker(nycMarker);
 
-		return markerManager;
-	}
+        final SimplePointMarker bostonMarker = new SimplePointMarker(new Location(42.35, -71.04));
+        bostonMarker.setRadius(20);
+        markerManager.addMarker(bostonMarker);
 
-	private MarkerManager<Marker> populateDetailsMarkerManager() {
-		MarkerManager<Marker> markerManager = new MarkerManager<Marker>();
+        return markerManager;
+    }
 
-		Marker nycMarker1 = new SimplePointMarker(new Location(40.763, -73.979));
-		markerManager.addMarker(nycMarker1);
-		Marker nycMarker2 = new SimplePointMarker(new Location(40.852, -73.882));
-		markerManager.addMarker(nycMarker2);
-		Marker nycMarker3 = new SimplePointMarker(new Location(40.656, -73.944));
-		markerManager.addMarker(nycMarker3);
-		Marker nycMarker4 = new SimplePointMarker(new Location(40.739, -73.802));
-		markerManager.addMarker(nycMarker4);
+    private static MarkerManager<Marker> populateDetailsMarkerManager() {
+        final MarkerManager<Marker> markerManager = new MarkerManager<Marker>();
 
-		Marker bostonMarker1 = new SimplePointMarker(new Location(42.3603, -71.060));
-		markerManager.addMarker(bostonMarker1);
-		Marker bostonMarker2 = new SimplePointMarker(new Location(42.3689, -71.097));
-		markerManager.addMarker(bostonMarker2);
+        final Marker nycMarker1 = new SimplePointMarker(new Location(40.763, -73.979));
+        markerManager.addMarker(nycMarker1);
+        final Marker nycMarker2 = new SimplePointMarker(new Location(40.852, -73.882));
+        markerManager.addMarker(nycMarker2);
+        final Marker nycMarker3 = new SimplePointMarker(new Location(40.656, -73.944));
+        markerManager.addMarker(nycMarker3);
+        final Marker nycMarker4 = new SimplePointMarker(new Location(40.739, -73.802));
+        markerManager.addMarker(nycMarker4);
 
-		return markerManager;
-	}
+        final Marker bostonMarker1 = new SimplePointMarker(new Location(42.3603, -71.060));
+        markerManager.addMarker(bostonMarker1);
+        final Marker bostonMarker2 = new SimplePointMarker(new Location(42.3689, -71.097));
+        markerManager.addMarker(bostonMarker2);
+
+        return markerManager;
+    }
+
+    public static void main(String args[]) {
+        PApplet.main(new String[]{ZoomDependentMarkerApp.class.getName()});
+    }
 
 }

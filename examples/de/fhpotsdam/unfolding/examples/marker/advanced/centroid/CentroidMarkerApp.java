@@ -13,33 +13,40 @@ import de.fhpotsdam.unfolding.utils.MapUtils;
 
 /**
  * Example using own marker class to create markers from features via the MarkerFactory.
- * 
+ * <p>
  * The markers display labels at the center of the polygons, additionally to the polygons (by using
  * SimplePolygonMarker's draw method) themselves.
  */
 public class CentroidMarkerApp extends PApplet {
 
-	UnfoldingMap map;
+    private UnfoldingMap map;
 
-	public void setup() {
-		size(800, 600, OPENGL);
+    @Override
+    public void settings() {
+        size(800, 600, P2D);
+    }
 
-		map = new UnfoldingMap(this, 50, 50, 700, 500);
-		map.zoomToLevel(2);
-		MapUtils.createDefaultEventDispatcher(this, map);
+    @Override
+    public void setup() {
+        map = new UnfoldingMap(this, 50, 50, 700, 500);
+        map.zoomToLevel(2);
+        MapUtils.createDefaultEventDispatcher(this, map);
 
-		List<Feature> countries = GeoJSONReader.loadData(this, "data/countries.geo.json");
+        final List<Feature> countries = GeoJSONReader.loadData(this, "data/countries.geo.json");
+        final MarkerFactory markerFactory = new MarkerFactory();
+        markerFactory.setPolygonClass(CentroidLabelMarker.class);
+        final List<Marker> countryMarkers = markerFactory.createMarkers(countries);
+        map.addMarkers(countryMarkers);
+    }
 
-		MarkerFactory markerFactory = new MarkerFactory();
-		markerFactory.setPolygonClass(CentroidLabelMarker.class);
-		List<Marker> countryMarkers = markerFactory.createMarkers(countries);
+    @Override
+    public void draw() {
+        background(160);
+        map.draw();
+    }
 
-		map.addMarkers(countryMarkers);
-	}
-
-	public void draw() {
-		background(160);
-		map.draw();
-	}
+    public static void main(String args[]) {
+        PApplet.main(new String[]{CentroidMarkerApp.class.getName()});
+    }
 
 }
