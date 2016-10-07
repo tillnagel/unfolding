@@ -38,15 +38,19 @@ public class MultiLabeledMarkerApp extends PApplet {
 
         // Load from GeoRSS file
         final List<Feature> features = GeoRSSReader.loadData(this, "data/bbc-georss-test.xml");
+
+        // System.out.println(features.get(0).getType());
+
         // Create (display) markers from (data) features
         final MarkerFactory markerFactory = new MarkerFactory();
-        markerFactory.setPointClass(LabeledMarker.class);
-        final List<Marker> markers = markerFactory.createMarkers(features);
-        // Add markers to map
-        map.addMarkers(markers);
 
+        markerFactory.setPointClass(LabeledMarker.class);
+
+        final List<Marker> markers = markerFactory.createMarkers(features);
         // Use property 'title' as label
         populateMarkerLabels(markers);
+        // Add markers to map
+        map.addMarkers(markers);
     }
 
     @Override
@@ -70,13 +74,16 @@ public class MultiLabeledMarkerApp extends PApplet {
         }
     }
 
-    private void populateMarkerLabels(List<Marker> markers) {
+    private void populateMarkerLabels(final List<Marker> markers) {
         // TODO Add convenience method: markerFactory.addPropertyRule("title", "name");
-
         for (Marker marker : markers) {
             LabeledMarker labeledMarker = (LabeledMarker) marker;
             labeledMarker.name = marker.getStringProperty("title");
         }
+    }
+
+    public static void main(String args[]) {
+        PApplet.main(new String[]{MultiLabeledMarkerApp.class.getName()});
     }
 
 }

@@ -1,9 +1,11 @@
 package de.fhpotsdam.unfolding.examples.marker.labelmarker;
 
-import processing.core.PFont;
-import processing.core.PGraphics;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.marker.SimplePointMarker;
+import processing.core.PFont;
+import processing.core.PGraphics;
+
+import java.util.HashMap;
 
 /**
  * A point marker which can show a label containing the marker's name.
@@ -16,6 +18,14 @@ public class LabeledMarker extends SimplePointMarker {
 
     private PFont font;
     private float fontSize = 12;
+
+    //this field and constructor need when we use MarkerFactory and populate markers from list features
+    private HashMap<String, Object> properties = new HashMap<String, Object>();
+
+    public LabeledMarker(Location location, HashMap<String, Object> properties) {
+        super(location, properties);
+        this.properties = properties;
+    }
 
     public LabeledMarker(Location location, String name) {
         this(location, name, null, 0);
