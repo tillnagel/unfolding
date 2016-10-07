@@ -3,6 +3,7 @@ package de.fhpotsdam.unfolding.examples.interaction.snapshot;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import processing.core.PApplet;
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.geo.Location;
@@ -12,62 +13,67 @@ import de.fhpotsdam.unfolding.utils.MapUtils;
 /**
  * Users can save snapshots of the current map, which are then shown as radial thumbnails. By clicking on one of those
  * thumbnails the map pans and zooms to the stored location.
- * 
+ * <p>
  * Press 's' to take a snapshot of the current map. Click on its thumbnail to restore.
- * 
+ * <p>
  * See {@link MapSnapshot} and {@link CircularMapSnapshot} for creating the actual snapshot and storage of metadata.
  */
 public class CircularMapSnapshotApp extends PApplet {
 
-	UnfoldingMap map;
+    public static final Logger LOGGER = Logger.getLogger(CircularMapSnapshotApp.class);
+    private UnfoldingMap map;
+    private List<MapSnapshot> mapSnapshots = new ArrayList<MapSnapshot>();
 
-	List<MapSnapshot> mapSnapshots = new ArrayList<MapSnapshot>();
+    @Override
+    public void settings() {
+        size(800, 600, P2D);
+    }
 
-	public void settings() {
-		size(800, 600, P2D);
-	}
+    @Override
+    public void setup() {
+        map = new UnfoldingMap(this, 0, 0, 400, 400, new StamenMapProvider.WaterColor());
+        map.zoomAndPanTo(10, new Location(51.507222, -0.1275));
 
-	public void setup() {
-		map = new UnfoldingMap(this, 0, 0, 400, 400, new StamenMapProvider.WaterColor());
-		map.zoomAndPanTo(10, new Location(51.507222, -0.1275));
+        MapUtils.createDefaultEventDispatcher(this, map);
+    }
 
-		MapUtils.createDefaultEventDispatcher(this, map);
-	}
+    @Override
+    public void draw() {
+        background(0);
+        map.draw();
 
-	public void draw() {
-		background(0);
-		map.draw();
+        int x = 415;
+        int y = 20;
+        for (final MapSnapshot mapSnapshot : mapSnapshots) {
+            mapSnapshot.draw(x, y, 80, 80);
+            x += 90;
+            if (x > width - 90) {
+                x = 415;
+                y += 90;
+            }
+        }
+    }
 
-		int x = 415;
-		int y = 20;
-		for (MapSnapshot mapSnapshot : mapSnapshots) {
-			mapSnapshot.draw(x, y, 80, 80);
-			x += 90;
-			if (x > width - 90) {
-				x = 415;
-				y += 90;
-			}
-		}
-	}
+    @Override
+    public void mouseClicked() {
+        for (final MapSnapshot mapSnapshot : mapSnapshots) {
+            if (mapSnapshot.isInside(mouseX, mouseY)) {
+                map.zoomAndPanTo(mapSnapshot.zoomLevel, mapSnapshot.location);
+            }
+        }
+    }
 
-	public void mouseClicked() {
-		for (MapSnapshot mapSnapshot : mapSnapshots) {
-			if (mapSnapshot.isInside(mouseX, mouseY)) {
-				map.zoomAndPanTo(mapSnapshot.zoomLevel, mapSnapshot.location);
-			}
-		}
-	}
+    @Override
+    public void keyPressed() {
+        if (key == 's') {
+            final MapSnapshot mapSnapshot = new CircularMapSnapshot(this, map);
+            LOGGER.info("Bookmarked map at " + mapSnapshot.location + " with " + mapSnapshot.zoomLevel);
+            mapSnapshots.add(mapSnapshot);
+        }
+    }
 
-	public void keyPressed() {
-		if (key == 's') {
-			MapSnapshot mapSnapshot = new CircularMapSnapshot(this, map);
-			println("Bookmarked map at " + mapSnapshot.location + " with " + mapSnapshot.zoomLevel);
-			mapSnapshots.add(mapSnapshot);
-		}
-	}
-
-	public static void main(String[] args) {
-		PApplet.main(new String[] { CircularMapSnapshotApp.class.getName() });
-	}
+    public static void main(String[] args) {
+        PApplet.main(new String[]{CircularMapSnapshotApp.class.getName()});
+    }
 
 }

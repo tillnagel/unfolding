@@ -11,64 +11,67 @@ import de.fhpotsdam.unfolding.utils.MapUtils;
  */
 public class NaviButtonMapApp extends PApplet {
 
-	Location berlinLocation = new Location(52.51861f, 13.408056f);
-	int berlinZoomLevel = 10;
-	Location universityLocation = new Location(52.411613f, 13.051779f);
-	int universityZoomLevel = 14;
+    private static final Location BERLIN_LOCATION = new Location(52.51861f, 13.408056f);
+    private static final int BERLIN_ZOOM_LEVEL = 10;
+    private static final Location UNIVERSITY_LOCATION = new Location(52.411613f, 13.051779f);
+    private static final int UNIVERSITY_ZOOM_LEVEL = 14;
 
-	UnfoldingMap map;
-	PFont font;
+    private UnfoldingMap map;
+    private PFont font;
 
-	public void settings() {
-		size(800, 600, P2D);
-	}
+    @Override
+    public void settings() {
+        size(800, 600, P2D);
+    }
 
-	public void setup() {
-		font = createFont("sans-serif", 14);
+    @Override
+    public void setup() {
+        font = createFont("sans-serif", 14);
+        map = new UnfoldingMap(this, "map", 0, 0, 600, 600);
+        map.setTweening(true);
+        map.zoomToLevel(3);
+        MapUtils.createDefaultEventDispatcher(this, map);
+    }
 
-		map = new UnfoldingMap(this, "map", 0, 0, 600, 600);
-		map.setTweening(true);
-		map.zoomToLevel(3);
-		MapUtils.createDefaultEventDispatcher(this, map);
-	}
+    @Override
+    public void draw() {
+        background(0);
+        map.draw();
 
-	public void draw() {
-		background(0);
-		map.draw();
+        drawButtons();
+    }
 
-		drawButtons();
-	}
+    @Override
+    public void mouseReleased() {
+        if (mouseX > 610 && mouseX < 790 && mouseY > 10 && mouseY < 90) {
+            map.zoomAndPanTo(BERLIN_ZOOM_LEVEL, BERLIN_LOCATION);
 
-	public void mouseReleased() {
-		if (mouseX > 610 && mouseX < 790 && mouseY > 10 && mouseY < 90) {
-			map.zoomAndPanTo(berlinZoomLevel, berlinLocation);
+        } else if (mouseX > 610 && mouseX < 790 && mouseY > 110 && mouseY < 190) {
+            map.zoomAndPanTo(UNIVERSITY_ZOOM_LEVEL, UNIVERSITY_LOCATION);
+        }
+    }
 
-		} else if (mouseX > 610 && mouseX < 790 && mouseY > 110 && mouseY < 190) {
-			map.zoomAndPanTo(universityZoomLevel, universityLocation);
-		}
-	}
+    protected void drawButtons() {
+        textFont(font);
+        textSize(14);
 
-	public void drawButtons() {
-		textFont(font);
-		textSize(14);
+        // Simple Berlin button
+        fill(127);
+        stroke(200);
+        strokeWeight(2);
+        rect(610, 10, 180, 80);
+        fill(0);
+        text("Berlin (zoom 10)", 620, 52);
 
-		// Simple Berlin button
-		fill(127);
-		stroke(200);
-		strokeWeight(2);
-		rect(610, 10, 180, 80);
-		fill(0);
-		text("Berlin (zoom 10)", 620, 52);
+        // FHP button
+        fill(127);
+        rect(610, 110, 180, 80);
+        fill(0);
+        text("University (zoom 14)", 620, 152);
+    }
 
-		// FHP button
-		fill(127);
-		rect(610, 110, 180, 80);
-		fill(0);
-		text("University (zoom 14)", 620, 152);
-	}
-
-	public static void main(String[] args) {
-		PApplet.main(new String[] { NaviButtonMapApp.class.getName() });
-	}
+    public static void main(String[] args) {
+        PApplet.main(new String[]{NaviButtonMapApp.class.getName()});
+    }
 
 }
