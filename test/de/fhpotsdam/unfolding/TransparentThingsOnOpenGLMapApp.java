@@ -10,14 +10,17 @@ public class TransparentThingsOnOpenGLMapApp extends PApplet {
 	UnfoldingMap map;
 	SimplePointMarker marker;
 
+	public void settings() {
+		size(600, 600, P2D);
+	}
+
 	public void setup() {
-		size(600, 600, OPENGL);
 		map = new UnfoldingMap(this, new Microsoft.AerialProvider());
 
 		marker = new SimplePointMarker(new Location(-15, -40));
 		marker.setColor(color(0, 0, 255, 127));
-		marker.setRadius(50);
-		
+		marker.setDiameter(50);
+
 		map.addMarker(marker);
 	}
 
@@ -42,4 +45,7 @@ public class TransparentThingsOnOpenGLMapApp extends PApplet {
 		// //blendMode(BLEND);
 	}
 
+	public static void main(String args[]) {
+		PApplet.main(new String[] { TransparentThingsOnOpenGLMapApp.class.getName() });
+	}
 }
