@@ -2,7 +2,6 @@ package de.fhpotsdam.unfolding.examples.marker.labelmarker;
 
 import processing.core.PApplet;
 import processing.core.PFont;
-
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.utils.MapUtils;
@@ -20,9 +19,11 @@ public class LabeledMarkerApp extends PApplet {
 	LabeledMarker berlinMarker;
 	PFont font;
 
-	public void setup() {
-		size(800, 600, OPENGL);
+	public void settings() {
+		size(800, 600, P2D);
+	}
 
+	public void setup() {
 		map = new UnfoldingMap(this, "map", 50, 50, 700, 500);
 		map.zoomToLevel(3);
 		map.panTo(berlinLocation);
@@ -49,6 +50,10 @@ public class LabeledMarkerApp extends PApplet {
 		} else {
 			berlinMarker.setSelected(false);
 		}
+	}
+
+	public static void main(String args[]) {
+		PApplet.main(new String[] { LabeledMarkerApp.class.getName() });
 	}
 
 }
