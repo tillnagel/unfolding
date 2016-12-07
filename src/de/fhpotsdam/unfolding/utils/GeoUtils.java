@@ -171,14 +171,14 @@ public class GeoUtils {
 	 */
 	public static Location getCentroid(List<Location> originalVertices) {
 		List<Location> vertices = getClosedPolygon(originalVertices);
-		float cx = 0f, cy = 0f;
+		double cx = 0f, cy = 0f;
 		for (int i = 0; i < vertices.size() - 1; i++) {
 			PVector vi0 = vertices.get(i);
 			PVector vi1 = vertices.get(i + 1);
 			cx = cx + (vi0.x + vi1.x) * (vi0.x * vi1.y - vi0.y * vi1.x);
 			cy = cy + (vi0.y + vi1.y) * (vi0.x * vi1.y - vi0.y * vi1.x);
 		}
-		float area = getArea(vertices);
+		double area = getArea(vertices);
 		cx /= (6f * area);
 		cy /= (6f * area);
 		return new Location(cx, cy);
