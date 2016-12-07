@@ -46,7 +46,11 @@ public class MarkerFactory {
 		featureMarkerMap.put(FeatureType.POLYGON, SimplePolygonMarker.class);
 		featureMarkerMap.put(FeatureType.MULTI, MultiMarker.class);
 	}
+	
 
+	// TODO Add convenience method: markerFactory.addPropertyRule("title", "name");
+	// See MultiLabledMarker example app. populateMarkerLabels(..)
+	
 	/**
 	 * Creates markers for each feature. Marker depends on feature type.
 	 * 
