@@ -36,8 +36,8 @@ public class GetDistanceApp extends PApplet {
 		ellipse(pos.x, pos.y, distanceInKm, distanceInKm);
 	}
 
-	public float getDistance(Location mainLocation, float size) {
-		Location tempLocation = GeoUtils.getDestinationLocation(mainLocation, 90, size);
+	public float getDistance(Location mainLocation, float kmLength) {
+		Location tempLocation = GeoUtils.getDestinationLocation(mainLocation, 90, kmLength);
 		ScreenPosition pos1 = map.getScreenPosition(mainLocation);
 		ScreenPosition pos2 = map.getScreenPosition(tempLocation);
 		return dist(pos1.x, pos1.y, pos2.x, pos2.y);
