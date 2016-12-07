@@ -23,7 +23,7 @@
 				To update latest release file for automatic Processing lib mechanism  
 				(Unfolding.zip + Unfolding.txt)
 	-->
-	<property name="version" value="0.9.8beta" />
+	<property name="version" value="0.9.9beta" />
 	<property name="unfolding.jar" value="unfolding.${version}.jar" />
 
 	<property name="src.dir" location="src" />

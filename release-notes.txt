@@ -1,11 +1,20 @@
 RELEASE NOTES 
 
 
+0.9.9
+-----------------------------
+
+Bug fixes
+- Fixed SimplePointMarker size display and hit test. Now radius parameter is used correctly as radius.
+  NB: This breaks previous behavior and might modify the visual result of your existing code! #137
+
+
+
 0.9.8beta - tba
 -----------------------------
 
 Tested with Processing 3.0
-Updated all examples 
+Updated most examples 
 
 
 0.9.7beta - tba

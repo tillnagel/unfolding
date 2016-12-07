@@ -33,7 +33,7 @@ import de.fhpotsdam.utils.Integrator;
  */
 public class UnfoldingMap implements MapEventListener {
 
-	public static final String GREETING_MESSAGE = "Unfolding Map v0.9.8beta";
+	public static final String GREETING_MESSAGE = "Unfolding Map v0.9.9beta";
 
 	public static final float SCALE_DELTA_IN = 1.05f;
 	public static final float SCALE_DELTA_OUT = 1 / 1.05f;
