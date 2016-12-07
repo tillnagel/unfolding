@@ -17,7 +17,7 @@ import de.fhpotsdam.unfolding.utils.MapUtils;
  */
 public class VectorTilesUtils {
 
-	private static final String VECTOR_TILE_API = "http://vector.mapzen.com/osm/";
+	private static final String VECTOR_TILE_API = "http://tile.mapzen.com/mapzen/vector/v1/";
 
 	protected PApplet p;
 	private UnfoldingMap map;
