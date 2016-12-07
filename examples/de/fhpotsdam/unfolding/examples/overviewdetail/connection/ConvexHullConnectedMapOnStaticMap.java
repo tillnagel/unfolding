@@ -1,15 +1,12 @@
 package de.fhpotsdam.unfolding.examples.overviewdetail.connection;
 
 import processing.core.PApplet;
-
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.utils.MapUtils;
 import de.fhpotsdam.unfolding.utils.ScreenPosition;
 
 /**
- * 
- * 
- * @author tillnagel
+ * Simple example of using convex hull to show overview+detail maps.
  */
 public class ConvexHullConnectedMapOnStaticMap extends PApplet {
 
@@ -23,9 +20,15 @@ public class ConvexHullConnectedMapOnStaticMap extends PApplet {
 
 	OverviewPlusDetailConnection connection;
 
-	public void setup() {
-		size(800, 600, OPENGL);
+	public void settings() {
+		size(800, 600, P2D);
+	}
 
+	public static void main(String[] args) {
+		PApplet.main(new String[] { ConvexHullConnectedMapOnStaticMap.class.getName() });
+	}
+
+	public void setup() {
 		mapOverview = new UnfoldingMap(this, "overview", 10, 10, 585, 580);
 		mapOverview.zoomToLevel(1);
 		mapOverview.setZoomRange(1, 7);
@@ -57,10 +60,8 @@ public class ConvexHullConnectedMapOnStaticMap extends PApplet {
 
 	public void updateConnection() {
 		// Finder box for overview map
-		ScreenPosition tl = mapOverview.mapDisplay.getScreenPosition(mapDetail
-				.getTopLeftBorder());
-		ScreenPosition br = mapOverview.mapDisplay.getScreenPosition(mapDetail
-				.getBottomRightBorder());
+		ScreenPosition tl = mapOverview.mapDisplay.getScreenPosition(mapDetail.getTopLeftBorder());
+		ScreenPosition br = mapOverview.mapDisplay.getScreenPosition(mapDetail.getBottomRightBorder());
 		float w = br.x - tl.x;
 		float h = br.y - tl.y;
 		connection.setOverviewSize(w, h);

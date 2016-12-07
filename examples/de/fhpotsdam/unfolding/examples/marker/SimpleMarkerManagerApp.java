@@ -1,7 +1,6 @@
 package de.fhpotsdam.unfolding.examples.marker;
 
 import processing.core.PApplet;
-
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.marker.SimpleLinesMarker;
@@ -21,8 +20,15 @@ public class SimpleMarkerManagerApp extends PApplet {
 
 	UnfoldingMap map;
 
+	public void settings() {
+		size(800, 600, P2D);
+	}
+
+	public static void main(String[] args) {
+		PApplet.main(new String[] { SimpleMarkerManagerApp.class.getName() });
+	}
+
 	public void setup() {
-		size(800, 600, OPENGL);
 
 		map = new UnfoldingMap(this, new Google.GoogleMapProvider());
 
@@ -42,7 +48,7 @@ public class SimpleMarkerManagerApp extends PApplet {
 
 		// Add Markers to the maps default MarkerManager
 		map.addMarkers(berlinMarker, mexicoCityMarker, connectionMarker);
-		
+
 		// Adapt style
 		berlinMarker.setColor(color(255, 0, 0, 100));
 		berlinMarker.setStrokeColor(color(255, 0, 0));

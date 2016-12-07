@@ -1,7 +1,6 @@
 package de.fhpotsdam.unfolding.examples.marker;
 
 import processing.core.PApplet;
-
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.utils.MapUtils;
@@ -24,12 +23,18 @@ public class SimpleNonMarkerApp extends PApplet {
 	Location locationBerlin = new Location(52.5f, 13.4f);
 	Location locationLondon = new Location(51.5f, 0f);
 
+	public void settings() {
+		size(400, 400, P2D);
+	}
+
+	public static void main(String[] args) {
+		PApplet.main(new String[] { SimpleNonMarkerApp.class.getName() });
+	}
+
 	public void setup() {
-		size(400, 400, OPENGL);
 		noStroke();
 
 		map = new UnfoldingMap(this);
-		map.setTweening(true);
 		map.zoomToLevel(3);
 		map.panTo(new Location(40f, 8f));
 		MapUtils.createDefaultEventDispatcher(this, map);

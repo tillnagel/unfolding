@@ -5,7 +5,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import processing.core.PApplet;
-
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.data.Feature;
 import de.fhpotsdam.unfolding.data.GeoJSONReader;
@@ -14,7 +13,7 @@ import de.fhpotsdam.unfolding.marker.MultiMarker;
 import de.fhpotsdam.unfolding.utils.MapUtils;
 
 /**
- * Combines different markers in one MultiMarker. Only that MultiMarker then is displayed. 
+ * Combines different markers in one MultiMarker. Only that MultiMarker then is displayed.
  * 
  * Note how France is a MultiMarker by itself (France and Corsica).
  */
@@ -24,11 +23,17 @@ public class CombineTestApp extends PApplet {
 	String[] ids = { "DEU", "FRA", "IRL" };
 	List<String> specialIDs = new ArrayList<String>(Arrays.asList(ids));
 
-	public void setup() {
-		size(800, 600, OPENGL);
+	public void settings() {
+		size(800, 600, P2D);
+	}
 
+	public static void main(String[] args) {
+		PApplet.main(new String[] { CombineTestApp.class.getName() });
+	}
+
+	public void setup() {
 		map = new UnfoldingMap(this);
-		
+
 		// Load all countries
 		List<Feature> countries = GeoJSONReader.loadData(this, "data/countries.geo.json");
 		List<Marker> countryMarkers = MapUtils.createSimpleMarkers(countries);
@@ -41,7 +46,7 @@ public class CombineTestApp extends PApplet {
 			}
 		}
 		map.addMarkers(multiMarker);
-		
+
 		// Zoom in, and center around MultiMarker
 		map.zoomToLevel(4);
 		map.panTo(multiMarker.getLocation());

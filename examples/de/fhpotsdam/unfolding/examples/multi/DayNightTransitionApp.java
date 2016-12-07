@@ -1,10 +1,9 @@
 package de.fhpotsdam.unfolding.examples.multi;
 
 import processing.core.PApplet;
-
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.geo.Location;
-import de.fhpotsdam.unfolding.providers.MBTilesMapProvider;
+import de.fhpotsdam.unfolding.providers.CartoDB.DarkMatter;
 import de.fhpotsdam.unfolding.utils.MapUtils;
 import de.fhpotsdam.utils.Integrator;
 
@@ -13,18 +12,23 @@ import de.fhpotsdam.utils.Integrator;
  */
 public class DayNightTransitionApp extends PApplet {
 
-	public static final String JDBC_CONN_STRING_APPLET = "jdbc:sqlite:../data/tiles/blankDark-1-3.mbtiles";
-
 	UnfoldingMap mapDay;
 	UnfoldingMap mapNight;
 
 	Integrator blendIntegrator = new Integrator(0);
 
+	public void settings() {
+		size(800, 600, P2D);
+	}
+
+	public static void main(String[] args) {
+		PApplet.main(new String[] { DayNightTransitionApp.class.getName() });
+	}
+
 	public void setup() {
-		size(800, 600, OPENGL);
 
 		mapDay = new UnfoldingMap(this);
-		mapNight = new UnfoldingMap(this, new MBTilesMapProvider(JDBC_CONN_STRING_APPLET));
+		mapNight = new UnfoldingMap(this, new DarkMatter());
 
 		mapDay.setZoomRange(1, 3);
 		mapDay.zoomToLevel(3);

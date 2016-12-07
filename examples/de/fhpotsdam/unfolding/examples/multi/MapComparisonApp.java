@@ -6,7 +6,6 @@ import java.util.List;
 import org.apache.log4j.Logger;
 
 import processing.core.PApplet;
-
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.events.EventDispatcher;
 import de.fhpotsdam.unfolding.events.MapEventListener;
@@ -44,8 +43,15 @@ public class MapComparisonApp extends PApplet {
 	UnfoldingMap mapGoogleSmallGoogleBlend;
 	UnfoldingMap mapGoogleSmallSat;
 
+	public void settings() {
+		size(1230, 700, P2D);
+	}
+
+	public static void main(String[] args) {
+		PApplet.main(new String[] { MapComparisonApp.class.getName() });
+	}
+
 	public void setup() {
-		size(1230, 700, OPENGL);
 		smooth();
 
 		eventDispatcher = new EventDispatcher();
@@ -65,17 +71,16 @@ public class MapComparisonApp extends PApplet {
 				new Microsoft.AerialProvider());
 
 		// Google -----------------------------------------
-		mapGoogle = new UnfoldingMap(this, "maoGoogle", 10, 355, 400, 335, true, false,
-				new Google.GoogleMapProvider());
+		mapGoogle = new UnfoldingMap(this, "maoGoogle", 10, 355, 400, 335, true, false, new Google.GoogleMapProvider());
 
 		// Google to Satellite
 		mapGoogleSmall = new UnfoldingMap(this, "mapGoogleSmall", 420, 355, 260, 335, true, false,
 				new Google.GoogleMapProvider());
 
-		mapGoogleSmallSatBlend = new UnfoldingMap(this, "mapGoogleSmallSatBlend", 690, 355, 260, 335, true,
-				false, new Microsoft.AerialProvider());
-		mapGoogleSmallGoogleBlend = new UnfoldingMap(this, "mapGoogleSmallGoogleBlend", 690, 355, 260, 335,
-				true, false, new Google.GoogleMapProvider());
+		mapGoogleSmallSatBlend = new UnfoldingMap(this, "mapGoogleSmallSatBlend", 690, 355, 260, 335, true, false,
+				new Microsoft.AerialProvider());
+		mapGoogleSmallGoogleBlend = new UnfoldingMap(this, "mapGoogleSmallGoogleBlend", 690, 355, 260, 335, true,
+				false, new Google.GoogleMapProvider());
 
 		mapGoogleSmallSat = new UnfoldingMap(this, "mapGoogleSmallSat", 960, 355, 260, 335, true, false,
 				new Microsoft.AerialProvider());

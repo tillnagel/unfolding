@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import processing.core.PApplet;
-
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.marker.Marker;
@@ -21,9 +20,15 @@ public class NeighborMarkersApp extends PApplet {
 
 	UnfoldingMap map;
 
-	public void setup() {
-		size(800, 600, OPENGL);
+	public void settings() {
+		size(800, 600, P2D);
+	}
 
+	public static void main(String[] args) {
+		PApplet.main(new String[] { NeighborMarkersApp.class.getName() });
+	}
+
+	public void setup() {
 		map = new UnfoldingMap(this);
 		map.zoomToLevel(11);
 		map.panTo(new Location(52.53f, 13.4f));

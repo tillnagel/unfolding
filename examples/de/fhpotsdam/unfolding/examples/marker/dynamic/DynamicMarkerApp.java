@@ -1,7 +1,6 @@
 package de.fhpotsdam.unfolding.examples.marker.dynamic;
 
 import processing.core.PApplet;
-
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.marker.Marker;
@@ -23,9 +22,15 @@ public class DynamicMarkerApp extends PApplet {
 	MarkerManager<Marker> markerManager;
 	SimplePointMarker berlinMarker;
 
-	public void setup() {
-		size(800, 600, OPENGL);
+	public void settings() {
+		size(800, 600, P2D);
+	}
 
+	public static void main(String[] args) {
+		PApplet.main(new String[] { DynamicMarkerApp.class.getName() });
+	}
+
+	public void setup() {
 		map = new UnfoldingMap(this);
 
 		map.zoomToLevel(3);

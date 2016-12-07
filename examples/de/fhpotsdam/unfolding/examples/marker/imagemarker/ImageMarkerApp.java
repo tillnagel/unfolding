@@ -1,7 +1,6 @@
 package de.fhpotsdam.unfolding.examples.marker.imagemarker;
 
 import processing.core.PApplet;
-
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.utils.MapUtils;
@@ -18,9 +17,15 @@ public class ImageMarkerApp extends PApplet {
 
 	UnfoldingMap map;
 
-	public void setup() {
-		size(800, 600, OPENGL);
+	public void settings() {
+		size(800, 600, P2D);
+	}
 
+	public static void main(String[] args) {
+		PApplet.main(new String[] { ImageMarkerApp.class.getName() });
+	}
+
+	public void setup() {
 		map = new UnfoldingMap(this);
 		map.zoomAndPanTo(4, new Location(50.26f, 12.1f));
 		MapUtils.createDefaultEventDispatcher(this, map);

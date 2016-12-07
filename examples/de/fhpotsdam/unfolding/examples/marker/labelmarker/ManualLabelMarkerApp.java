@@ -5,13 +5,10 @@ import java.util.List;
 
 import processing.core.PApplet;
 import processing.core.PFont;
-
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.data.Feature;
 import de.fhpotsdam.unfolding.data.GeoRSSReader;
 import de.fhpotsdam.unfolding.data.PointFeature;
-import de.fhpotsdam.unfolding.examples.marker.labelmarker.LabeledMarker;
-import de.fhpotsdam.unfolding.examples.marker.labelmarker.MultiLabeledMarkerApp;
 import de.fhpotsdam.unfolding.marker.Marker;
 import de.fhpotsdam.unfolding.utils.MapUtils;
 
@@ -23,9 +20,15 @@ public class ManualLabelMarkerApp extends PApplet {
 
 	UnfoldingMap map;
 
-	public void setup() {
-		size(800, 600, OPENGL);
+	public void settings() {
+		size(800, 600, P2D);
+	}
 
+	public static void main(String[] args) {
+		PApplet.main(new String[] { ManualLabelMarkerApp.class.getName() });
+	}
+
+	public void setup() {
 		map = new UnfoldingMap(this, "map", 50, 50, 700, 500);
 		map.zoomToLevel(2);
 		MapUtils.createDefaultEventDispatcher(this, map);

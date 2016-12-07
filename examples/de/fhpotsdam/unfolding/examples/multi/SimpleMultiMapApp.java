@@ -1,7 +1,6 @@
 package de.fhpotsdam.unfolding.examples.multi;
 
 import processing.core.PApplet;
-
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.utils.MapUtils;
 
@@ -14,10 +13,12 @@ public class SimpleMultiMapApp extends PApplet {
 
 	UnfoldingMap map1;
 	UnfoldingMap map2;
-
+	
+	public void settings() {
+		size(620, 300, P2D);
+	}
+	
 	public void setup() {
-		size(620, 300, OPENGL);
-
 		map1 = new UnfoldingMap(this, "map1", 0, 0, 305, 300);
 		map2 = new UnfoldingMap(this, "map2", 315, 0, 305, 300);
 		MapUtils.createDefaultEventDispatcher(this, map1, map2);
@@ -48,4 +49,7 @@ public class SimpleMultiMapApp extends PApplet {
 		}
 	}
 
+	public static void main(String[] args) {
+		PApplet.main(new String[] { SimpleMultiMapApp.class.getName() });
+	}
 }

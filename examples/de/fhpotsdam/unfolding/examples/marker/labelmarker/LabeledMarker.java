@@ -17,6 +17,13 @@ public class LabeledMarker extends SimplePointMarker {
 	private PFont font;
 	private float fontSize = 12;
 
+	/**
+	 * Basic constructor. Used in MarkerFactory when created on data loading, label will be set afterwards.
+	 */
+	public LabeledMarker(Location location) {
+		this(location, null, null, 0);
+	}
+
 	public LabeledMarker(Location location, String name) {
 		this(location, name, null, 0);
 	}

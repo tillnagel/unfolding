@@ -5,9 +5,16 @@ import processing.core.PApplet;
 public class ConvexHullConnectionApp extends PApplet {
 
 	OverviewPlusDetailConnection convexHullConnection;
+	
+	public void settings() {
+		size(500, 500, P2D);
+	}
 
+	public static void main(String[] args) {
+		PApplet.main(new String[] { ConvexHullConnectionApp.class.getName() });
+	}
+	
 	public void setup() {
-		size(500, 500);
 		background(255);
 		smooth();
 

@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import processing.core.PApplet;
-
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.marker.Marker;
@@ -16,8 +15,8 @@ import de.fhpotsdam.unfolding.utils.MapUtils;
  * Manual multi-marker example showing two polygons for France and Corsica to demonstrate a multi marker. By hovering
  * over one of the two areas the whole MultiMarker gets selected, thus both areas are highlighted.
  * 
- * <p><em>Note, that loading Unfolding's DataReader automatically create and handle multi-marker. Check e.g.
- * {@link MarkerSelectionApp}.</em>
+ * <p>
+ * <em>Note, that loading Unfolding's DataReader automatically creates and handles multi-marker.</em>
  * </p>
  * 
  * Set the boolean useMultiMarker to false to see the same areas as independent markers.
@@ -28,9 +27,11 @@ public class MultiMarkerApp extends PApplet {
 
 	UnfoldingMap map;
 
-	public void setup() {
-		size(800, 600, OPENGL);
+	public void settings() {
+		size(800, 600, P2D);
+	}
 
+	public void setup() {
 		map = new UnfoldingMap(this, "map");
 		map.zoomToLevel(4);
 		map.panTo(new Location(50f, 12f));
@@ -95,6 +96,10 @@ public class MultiMarkerApp extends PApplet {
 		corsicaLocations.add(new Location(42.991791f, 9.404297f));
 		corsicaLocations.add(new Location(42.052556f, 9.558105f));
 		return corsicaLocations;
+	}
+
+	public static void main(String args[]) {
+		PApplet.main(new String[] { MultiMarkerApp.class.getName() });
 	}
 
 }
