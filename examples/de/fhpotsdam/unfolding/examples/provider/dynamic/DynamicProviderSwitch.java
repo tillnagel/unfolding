@@ -50,5 +50,9 @@ public class DynamicProviderSwitch extends PApplet {
 			map.mapDisplay.setProvider(provider3);
 		}
 	}
+	
+	public static void main(String[] args) {
+		PApplet.main(new String[] { DynamicProviderSwitch.class.getName() });
+	}
 
 }
