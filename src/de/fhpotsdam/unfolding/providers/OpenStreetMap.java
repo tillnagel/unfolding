@@ -39,7 +39,7 @@ public class OpenStreetMap {
 
 	public static class OSMGrayProvider extends GenericOpenStreetMapProvider {
 		public String[] getTileUrls(Coordinate coordinate) {
-			String url = "http://a.www.toolserver.org/tiles/bw-mapnik/" + getZoomString(coordinate) + ".png";
+			String url = "https://tiles.wmflabs.org/bw-mapnik/" + getZoomString(coordinate) + ".png";
 			return new String[] { url };
 		}
 	}
