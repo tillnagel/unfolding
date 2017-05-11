@@ -8,8 +8,6 @@ import java.util.UUID;
 
 import org.apache.log4j.Logger;
 
-import processing.core.PApplet;
-import processing.core.PVector;
 import de.fhpotsdam.unfolding.events.MapEvent;
 import de.fhpotsdam.unfolding.events.MapEventListener;
 import de.fhpotsdam.unfolding.geo.Location;
@@ -21,6 +19,8 @@ import de.fhpotsdam.unfolding.providers.AbstractMapProvider;
 import de.fhpotsdam.unfolding.utils.GeoUtils;
 import de.fhpotsdam.unfolding.utils.ScreenPosition;
 import de.fhpotsdam.utils.Integrator;
+import processing.core.PApplet;
+import processing.core.PVector;
 
 /**
  * An interactive map. Uses the MapDisplay, and handles hit test, active status, as well as all interactions such as
@@ -846,11 +846,37 @@ public class UnfoldingMap implements MapEventListener {
 	public void moveBy(float dx, float dy) {
 		addOffset(dx, dy);
 	}
+	
+	public void zoomAndPanToFitAllMarkers() {
+		zoomAndPanToFitMarkers(getMarkers());
+	}
+	
+	/**
+	 * Zooms and pans the map so that all markers are within the view.
+	 * 
+	 * @param markers
+	 *            The markers to fit.
+	 */
+	public void zoomAndPanToFitMarkers(List<Marker> markers) {
+		zoomAndPanToFit(GeoUtils.getLocationsFromMarkers(markers));
+	}
 
+	/**
+	 * Zooms and pans the map so that the marker is within the view.
+	 * 
+	 * @param marker
+	 *            The marker to fit.
+	 */
 	public void zoomAndPanToFit(Marker marker) {
 		zoomAndPanToFit(GeoUtils.getLocations(marker));
 	}
 
+	/**
+	 * Zooms and pans the map so that all locations are within the view.
+	 * 
+	 * @param locations
+	 *            A list of locations to fit.
+	 */
 	public void zoomAndPanToFit(List<Location> locations) {
 		Location[] boundingBox = GeoUtils.getBoundingBox(locations);
 		List<Location> boundingBoxLocations = Arrays.asList(boundingBox);
