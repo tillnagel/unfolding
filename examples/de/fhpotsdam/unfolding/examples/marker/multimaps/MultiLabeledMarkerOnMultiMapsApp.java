@@ -2,13 +2,13 @@ package de.fhpotsdam.unfolding.examples.marker.multimaps;
 
 import java.util.List;
 
-
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.data.Feature;
 import de.fhpotsdam.unfolding.data.GeoRSSReader;
 import de.fhpotsdam.unfolding.examples.marker.labelmarker.ManualLabelMarkerApp;
 import de.fhpotsdam.unfolding.marker.Marker;
 import de.fhpotsdam.unfolding.utils.MapUtils;
+import processing.core.PApplet;
 
 /**
  * Similar to {@link ManualLabelMarkerApp}, but marker appear on two maps.
@@ -20,9 +20,11 @@ public class MultiLabeledMarkerOnMultiMapsApp extends ManualLabelMarkerApp {
 	UnfoldingMap map1;
 	UnfoldingMap map2;
 
-	public void setup() {
-		size(800, 600, OPENGL);
+	public void settings() {
+		size(800, 600, P2D);
+	}
 
+	public void setup() {
 		map1 = new UnfoldingMap(this, "map", 50, 50, 500, 500);
 		map1.zoomToLevel(2);
 		MapUtils.createDefaultEventDispatcher(this, map1);
@@ -60,6 +62,10 @@ public class MultiLabeledMarkerOnMultiMapsApp extends ManualLabelMarkerApp {
 				marker.setSelected(true);
 			}
 		}
+	}
+
+	public static void main(String[] args) {
+		PApplet.main(new String[] { MultiLabeledMarkerOnMultiMapsApp.class.getName() });
 	}
 
 }

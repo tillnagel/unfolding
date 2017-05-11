@@ -3,8 +3,6 @@ package de.fhpotsdam.unfolding.examples.marker.advanced;
 import java.util.ArrayList;
 import java.util.List;
 
-import processing.core.PApplet;
-
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.data.Feature;
 import de.fhpotsdam.unfolding.data.GeoJSONReader;
@@ -12,6 +10,7 @@ import de.fhpotsdam.unfolding.data.MarkerFactory;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.marker.Marker;
 import de.fhpotsdam.unfolding.utils.MapUtils;
+import processing.core.PApplet;
 
 /**
  * Advanced example to demonstrate custom nearest marker test.
@@ -26,9 +25,11 @@ public class GetNearestMultiMarkerApp extends PApplet {
 	UnfoldingMap map;
 	List<Marker> countryMarkers = new ArrayList<Marker>();
 
-	public void setup() {
-		size(800, 600, OPENGL);
+	public void settings() {
+		size(800, 600, P2D);
+	}
 
+	public void setup() {
 		map = new UnfoldingMap(this);
 		map.zoomToLevel(2);
 		map.panTo(new Location(58.631217f, -101.601562f));
@@ -63,6 +64,10 @@ public class GetNearestMultiMarkerApp extends PApplet {
 		markerFactory.setPolygonClass(DistancePerLocationPolygonMarker.class);
 		countryMarkers = markerFactory.createMarkers(selectedCountries);
 		map.addMarkers(countryMarkers);
+	}
+
+	public static void main(String[] args) {
+		PApplet.main(new String[] { GetNearestMultiMarkerApp.class.getName() });
 	}
 
 }
