@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import processing.core.PVector;
 import de.fhpotsdam.unfolding.data.Feature;
 import de.fhpotsdam.unfolding.data.MultiFeature;
 import de.fhpotsdam.unfolding.data.PointFeature;
@@ -13,6 +12,7 @@ import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.marker.AbstractShapeMarker;
 import de.fhpotsdam.unfolding.marker.Marker;
 import de.fhpotsdam.unfolding.marker.MultiMarker;
+import processing.core.PVector;
 
 /**
  * Basic geo-spatial utility methods.
@@ -46,9 +46,8 @@ public class GeoUtils {
 		double lon2Rad = Math.toRadians(lon2);
 
 		double r = EARTH_RADIUS_KM;
-		return r
-				* Math.acos(Math.sin(lat1Rad) * Math.sin(lat2Rad) + Math.cos(lat1Rad) * Math.cos(lat2Rad)
-						* Math.cos(lon2Rad - lon1Rad));
+		return r * Math.acos(Math.sin(lat1Rad) * Math.sin(lat2Rad)
+				+ Math.cos(lat1Rad) * Math.cos(lat2Rad) * Math.cos(lon2Rad - lon1Rad));
 	}
 
 	/**
@@ -82,11 +81,10 @@ public class GeoUtils {
 		double r = EARTH_RADIUS_KM;
 		double b = Math.toRadians(bearing);
 
-		double lat2 = Math.asin(Math.sin(lat1) * Math.cos(distance / r) + Math.cos(lat1) * Math.sin(distance / r)
-				* Math.cos(b));
-		double lon2 = lon1
-				+ Math.atan2(Math.sin(b) * Math.sin(distance / r) * Math.cos(lat1),
-						Math.cos(distance / r) - Math.sin(lat1) * Math.sin(lat2));
+		double lat2 = Math
+				.asin(Math.sin(lat1) * Math.cos(distance / r) + Math.cos(lat1) * Math.sin(distance / r) * Math.cos(b));
+		double lon2 = lon1 + Math.atan2(Math.sin(b) * Math.sin(distance / r) * Math.cos(lat1),
+				Math.cos(distance / r) - Math.sin(lat1) * Math.sin(lat2));
 		lon2 = (lon2 + 3 * Math.PI) % (2 * Math.PI) - Math.PI;
 
 		float lat2d = (float) Math.toDegrees(lat2);
@@ -111,7 +109,8 @@ public class GeoUtils {
 		double rlon2 = Math.toRadians(location2.getLon());
 
 		double angle = (Math.atan2(Math.sin(rlon2 - rlon1) * Math.cos(rlat2),
-				Math.cos(rlat1) * Math.sin(rlat2) - Math.sin(rlat1) * Math.cos(rlat2) * Math.cos(rlon2 - rlon1)) % (2 * Math.PI));
+				Math.cos(rlat1) * Math.sin(rlat2) - Math.sin(rlat1) * Math.cos(rlat2) * Math.cos(rlon2 - rlon1))
+				% (2 * Math.PI));
 
 		return angle;
 	}
@@ -126,8 +125,7 @@ public class GeoUtils {
 		return new Location(lat, lon);
 	}
 
-	public static float getLatitudeDecimal(float latDegrees, float latMinutes, float latSeconds,
-			String latDirection) {
+	public static float getLatitudeDecimal(float latDegrees, float latMinutes, float latSeconds, String latDirection) {
 		float lat = latDegrees + (latMinutes * 60 + latSeconds) / 3600;
 		if (latDirection.equals("S")) {
 			lat = -lat;
@@ -135,8 +133,7 @@ public class GeoUtils {
 		return lat;
 	}
 
-	public static float getLongitudeDecimal(float lonDegrees, float lonMinutes, float lonSeconds,
-			String lonDirection) {
+	public static float getLongitudeDecimal(float lonDegrees, float lonMinutes, float lonSeconds, String lonDirection) {
 		float lon = lonDegrees + (lonMinutes * 60 + lonSeconds) / 3600;
 		if (lonDirection.equals("W")) {
 			lon = -lon;
@@ -178,7 +175,7 @@ public class GeoUtils {
 			cx = cx + (vi0.x + vi1.x) * (vi0.x * vi1.y - vi0.y * vi1.x);
 			cy = cy + (vi0.y + vi1.y) * (vi0.x * vi1.y - vi0.y * vi1.x);
 		}
-		double area = getArea(vertices);
+		double area = getVertexPolygonArea(vertices);
 		cx /= (6f * area);
 		cy /= (6f * area);
 		return new Location(cx, cy);
@@ -215,11 +212,24 @@ public class GeoUtils {
 	/**
 	 * Calculates the area of a polygon.
 	 * 
-	 * @param vertices
-	 *            The vertices of the polygon.
-	 * @return The area.
+	 * @param locations
+	 *            The locations of the polygon.
+	 * @return The area in square km.
 	 */
-	public static float getArea(List<Location> vertices) {
+	public static double getArea(List<Location> locations) {
+		double area = 0;
+		for (int i = 0; i < locations.size() - 1; i++) {
+			Location p1 = locations.get(i);
+			Location p2 = locations.get(i + 1);
+
+			area += Math.toRadians(p2.getLon() - p1.getLon())
+					* (2 + Math.sin(Math.toRadians(p1.getLat())) + Math.sin(Math.toRadians(p2.getLat())));
+		}
+		area = area * EARTH_RADIUS_KM * EARTH_RADIUS_KM / 2;
+		return Math.abs(area);
+	}
+
+	private static float getVertexPolygonArea(List<Location> vertices) {
 		float sum = 0;
 		for (int i = 0; i < vertices.size() - 1; i++) {
 			PVector vi0 = vertices.get(i);
@@ -234,9 +244,9 @@ public class GeoUtils {
 	 * 
 	 * @param feature
 	 *            The feature containing location vertices.
-	 * @return The area.
+	 * @return The area in square km.
 	 */
-	public static float getArea(Feature feature) {
+	public static double getArea(Feature feature) {
 		return getArea(GeoUtils.getLocations(feature));
 	}
 
@@ -245,9 +255,9 @@ public class GeoUtils {
 	 * 
 	 * @param marker
 	 *            The marker containing location vertices.
-	 * @return The area.
+	 * @return The area in square km.
 	 */
-	public static float getArea(Marker marker) {
+	public static double getArea(Marker marker) {
 		return getArea(GeoUtils.getLocations(marker));
 	}
 
@@ -304,12 +314,13 @@ public class GeoUtils {
 	 * @return The largest feature.
 	 */
 	public static Feature getLargestFeature(MultiFeature multiFeature) {
-		float largestArea = 0;
+		double largestArea = 0;
 		Feature largestFeature = null;
 		for (Feature f : multiFeature.getFeatures()) {
-			if (largestArea < getArea(f)) {
+			double currentArea = getArea(f);
+			if (largestArea < currentArea) {
 				largestFeature = f;
-				largestArea = getArea(f);
+				largestArea = currentArea;
 			}
 		}
 		return largestFeature;
@@ -323,12 +334,13 @@ public class GeoUtils {
 	 * @return The largest marker.
 	 */
 	public static Marker getLargestMarker(MultiMarker multiMarker) {
-		float largestArea = 0;
+		double largestArea = 0;
 		Marker largestMarker = null;
 		for (Marker f : multiMarker.getMarkers()) {
-			if (largestArea < getArea(f)) {
+			double currentArea = getArea(f);
+			if (largestArea < currentArea) {
 				largestMarker = f;
-				largestArea = getArea(f);
+				largestArea = currentArea;
 			}
 		}
 		return largestMarker;
@@ -491,8 +503,8 @@ public class GeoUtils {
 	/**
 	 * Decodes an encoded polyline string to a list of locations. Polyline format is used by various geo services.
 	 * 
-	 * @see <a
-	 *      href="https://github.com/DennisSchiefer/Project-OSRM-Web/blob/develop/WebContent/routing/OSRM.RoutingGeometry.js">RoutingGeometry.js
+	 * @see <a href=
+	 *      "https://github.com/DennisSchiefer/Project-OSRM-Web/blob/develop/WebContent/routing/OSRM.RoutingGeometry.js">RoutingGeometry.js
 	 *      - Adapted algorithm by OSRM (precision: 6 digits)</a>
 	 * @see <a href="https://developers.google.com/maps/documentation/utilities/polylinealgorithm">Encoded Polyline
 	 *      Algorithm Format - Original algorithm by Google (precision: 5 digits)</a>
