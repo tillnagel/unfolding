@@ -12,9 +12,11 @@ public class HelloUnfoldingWorld extends PApplet {
 
 	UnfoldingMap map;
 
-	public void setup() {
-		size(800, 600, OPENGL);
+	public void settings() {
+		size(800, 600, P2D);
+	}
 
+	public void setup() {
 		map = new UnfoldingMap(this);
 		map.zoomAndPanTo(10, new Location(52.5f, 13.4f));
 
@@ -24,6 +26,10 @@ public class HelloUnfoldingWorld extends PApplet {
 	public void draw() {
 		background(0);
 		map.draw();
+	}
+
+	public static void main(String[] args) {
+		PApplet.main(new String[] { HelloUnfoldingWorld.class.getName() });
 	}
 
 }
