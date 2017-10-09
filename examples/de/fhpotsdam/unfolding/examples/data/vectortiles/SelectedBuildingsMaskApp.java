@@ -2,8 +2,6 @@ package de.fhpotsdam.unfolding.examples.data.vectortiles;
 
 import java.util.List;
 
-import processing.core.PApplet;
-import processing.core.PImage;
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.mapdisplay.OpenGLMapDisplay;
@@ -13,6 +11,8 @@ import de.fhpotsdam.unfolding.marker.Marker;
 import de.fhpotsdam.unfolding.marker.SimplePolygonMarker;
 import de.fhpotsdam.unfolding.utils.MapUtils;
 import de.fhpotsdam.unfolding.utils.ScreenPosition;
+import processing.core.PApplet;
+import processing.core.PImage;
 
 /**
  * Shows a mask for the map with buildings drawn behind the mask. Click to select a building which will be drawn in
@@ -43,7 +43,7 @@ public class SelectedBuildingsMaskApp extends PApplet {
 		map.zoomAndPanTo(16, new Location(52.501, 13.395));
 		map.setZoomRange(10, 19);
 
-		vectorTilesUtils = new VectorTilesUtils(this, map);
+		vectorTilesUtils = new VectorTilesUtils(this, map, VectorTilesApp.MAPZEN_API_KEY);
 		List<Marker> markers = vectorTilesUtils.loadMarkersForScreenPos(featureLayer, width / 2, height / 2);
 		map.addMarkers(markers);
 

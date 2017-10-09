@@ -40,7 +40,7 @@ public class SelectBuildingsApp extends PApplet {
 		MapUtils.createDefaultEventDispatcher(this, map);
 		map.setZoomRange(10, 19);
 
-		vectorTilesUtils = new VectorTilesUtils(this, map);
+		vectorTilesUtils = new VectorTilesUtils(this, map, VectorTilesApp.MAPZEN_API_KEY);
 		List<Marker> markers = vectorTilesUtils.loadMarkersForScreenPos(featureLayer, width / 2, height / 2);
 		map.addMarkers(markers);
 	}

@@ -39,7 +39,7 @@ public class DistanceBasedColoredVectorTilesApp extends PApplet {
 
 		debugDisplay = new DebugDisplay(this, map);
 
-		vectorTilesUtils = new VectorTilesUtils(this, map);
+		vectorTilesUtils = new VectorTilesUtils(this, map, VectorTilesApp.MAPZEN_API_KEY);
 		List<Marker> markers = vectorTilesUtils.loadMarkersForScreenPos(featureLayer, width / 2, height / 2);
 		map.addMarkers(markers);
 	}

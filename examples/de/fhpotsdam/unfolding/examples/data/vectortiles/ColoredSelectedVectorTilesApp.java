@@ -38,7 +38,7 @@ public class ColoredSelectedVectorTilesApp extends PApplet {
 
 		debugDisplay = new DebugDisplay(this, map);
 
-		vectorTilesUtils = new VectorTilesUtils(this, map);
+		vectorTilesUtils = new VectorTilesUtils(this, map, VectorTilesApp.MAPZEN_API_KEY);
 
 		loadAndAddColoredMarkers(width / 2, height / 2, filteredType);
 	}

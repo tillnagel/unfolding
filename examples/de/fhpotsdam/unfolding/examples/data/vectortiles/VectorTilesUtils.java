@@ -3,14 +3,14 @@ package de.fhpotsdam.unfolding.examples.data.vectortiles;
 import java.util.ArrayList;
 import java.util.List;
 
-import processing.core.PApplet;
-import processing.core.PMatrix3D;
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.core.Coordinate;
 import de.fhpotsdam.unfolding.data.Feature;
 import de.fhpotsdam.unfolding.data.GeoJSONReader;
 import de.fhpotsdam.unfolding.marker.Marker;
 import de.fhpotsdam.unfolding.utils.MapUtils;
+import processing.core.PApplet;
+import processing.core.PMatrix3D;
 
 /**
  * Helper class to load and parse vector tiles. Loads features and markers for a single vector tile.
@@ -21,6 +21,7 @@ public class VectorTilesUtils {
 
 	protected PApplet p;
 	private UnfoldingMap map;
+	protected String mapzenAPIKey = "YOUR_KEY_HERE";
 
 	/**
 	 * Creates this VectorTilesUtils for the given applet and the given map. Uses Mapzen's Vector Tiles server.
@@ -30,12 +31,13 @@ public class VectorTilesUtils {
 	 * @param map
 	 *            The UnfoldingMap.
 	 */
-	public VectorTilesUtils(PApplet p, UnfoldingMap map) {
+	public VectorTilesUtils(PApplet p, UnfoldingMap map, String apiKey) {
 		super();
 		this.p = p;
 		this.map = map;
+		this.mapzenAPIKey = apiKey;
 	}
-	
+
 	/**
 	 * Loads all markers from a vector tile for the given screen position.
 	 * 
@@ -75,7 +77,7 @@ public class VectorTilesUtils {
 		}
 		return allMarkers;
 	}
-	
+
 	public List<Feature> loadFeaturesForScreenPos(String layers, int x, int y) {
 		int[] coord = getCoordinate(x, y);
 		return loadVectorTiles(layers, map.getZoomLevel(), coord[0], coord[1]);
@@ -107,6 +109,7 @@ public class VectorTilesUtils {
 	 */
 	public List<Feature> loadVectorTiles(String layers, int zoomLevel, int x, int y) {
 		String vectorTileUrl = VECTOR_TILE_API + layers + "/" + zoomLevel + "/" + x + "/" + y + ".json";
+		vectorTileUrl += "?api_key=" + mapzenAPIKey;
 		PApplet.println("Loading vector tile from " + vectorTileUrl);
 		return GeoJSONReader.loadData(p, vectorTileUrl);
 	}

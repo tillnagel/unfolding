@@ -22,7 +22,9 @@ import de.fhpotsdam.unfolding.utils.MapUtils;
  * 
  */
 public class VectorTilesApp extends PApplet {
-
+	
+	public static final String MAPZEN_API_KEY = "YOUR_API_KEY";
+	
 	UnfoldingMap map;
 	DebugDisplay debugDisplay;
 
@@ -47,7 +49,7 @@ public class VectorTilesApp extends PApplet {
 
 		debugDisplay = new DebugDisplay(this, map);
 
-		vectorTilesUtils = new VectorTilesUtils(this, map);
+		vectorTilesUtils = new VectorTilesUtils(this, map, MAPZEN_API_KEY);
 
 		List<Marker> markers = vectorTilesUtils.loadMarkersForScreenPos(buildingsLayer, width / 2, height / 2);
 		map.addMarkers(markers);
