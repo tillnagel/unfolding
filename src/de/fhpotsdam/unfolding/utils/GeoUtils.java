@@ -167,6 +167,11 @@ public class GeoUtils {
 	 * @return The centroid location.
 	 */
 	public static Location getCentroid(List<Location> originalVertices) {
+		if (originalVertices.size() <= 2) {
+			// Special case for lines
+			return getEuclideanCentroid(originalVertices);
+		}
+		
 		List<Location> vertices = getClosedPolygon(originalVertices);
 		double cx = 0f, cy = 0f;
 		for (int i = 0; i < vertices.size() - 1; i++) {
