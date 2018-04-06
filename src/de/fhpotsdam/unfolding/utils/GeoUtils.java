@@ -96,6 +96,9 @@ public class GeoUtils {
 	/**
 	 * Gets the angle between two locations.
 	 * 
+	 * Note that this returns the angle as azimuth, i.e. with 0 degrees at north. This differs from the angle used in
+	 * Processing, where the unit circle starts with 0 degrees at right.
+	 * 
 	 * @param location1
 	 *            First location.
 	 * @param location2
