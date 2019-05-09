@@ -12,12 +12,15 @@ public class MaskedImageApp extends PApplet {
 
 	PImage img;
 	PGraphics mask;
-	
+
 	float tx, ty;
 	float vx, vy = random(1, 2);
-	
-	public void setup() {
+
+	public void settings() {
 		size(800, 600, P2D);
+	}
+
+	public void setup() {
 
 		img = loadImage("test/test800x600.png");
 
@@ -25,16 +28,16 @@ public class MaskedImageApp extends PApplet {
 		mask.beginDraw();
 		mask.background(0);
 		mask.endDraw();
-		
-		tx = width/2;
-		ty = height/2;
+
+		tx = width / 2;
+		ty = height / 2;
 		vx = random(-2, 2);
 		vy = random(-2, 2);
 	}
 
 	public void draw() {
 		background(0);
-		
+
 		mask.beginDraw();
 		mask.smooth();
 		mask.background(0);
@@ -43,11 +46,11 @@ public class MaskedImageApp extends PApplet {
 		animateCircles();
 		drawHole(mouseX, mouseY, 120);
 		mask.endDraw();
-		
+
 		img.mask(mask);
 		image(img, 0, 0);
 	}
-	
+
 	public void animateCircles() {
 		tx += vx;
 		ty += vy;
@@ -59,7 +62,7 @@ public class MaskedImageApp extends PApplet {
 		}
 		drawHole(tx, ty, 50);
 	}
-	
+
 	public void drawHole(float x, float y, float size) {
 		mask.noStroke();
 		mask.fill(255, 50);
@@ -67,9 +70,13 @@ public class MaskedImageApp extends PApplet {
 		mask.fill(255);
 		mask.ellipse(x, y, size - 20, size - 20);
 	}
-	
+
 	public void keyPressed() {
 		println(frameRate);
+	}
+
+	public static void main(String[] args) {
+		PApplet.main(new String[] { MaskedImageApp.class.getName() });
 	}
 
 }

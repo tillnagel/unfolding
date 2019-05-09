@@ -1,14 +1,16 @@
 package de.fhpotsdam.unfolding.examples.mask;
 
-import processing.core.PApplet;
-import processing.core.PGraphics;
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.mapdisplay.OpenGLMapDisplay;
 import de.fhpotsdam.unfolding.mapdisplay.shaders.MaskedMapDisplayShader;
 import de.fhpotsdam.unfolding.utils.MapUtils;
+import processing.core.PApplet;
+import processing.core.PGraphics;
 
 /**
- * This example shows the use of an gray-scale mask applied to the map.
+ * This example shows the use of dynamically generated mask applied to the map.
+ * 
+ * Move the mouse cursor over the left canvas area. Press any key to reset mask.
  */
 public class DynamicMaskApp extends PApplet {
 
@@ -17,8 +19,11 @@ public class DynamicMaskApp extends PApplet {
 	PGraphics mask;
 	MaskedMapDisplayShader mapDisplayShader;
 
+	public void settings() {
+		size(830, 420, P3D);
+	}
+
 	public void setup() {
-		size(830, 420, OPENGL);
 		map = new UnfoldingMap(this, "map1", 10, 10, 400, 400, true, false, null);
 		MapUtils.createDefaultEventDispatcher(this, map);
 
@@ -62,6 +67,10 @@ public class DynamicMaskApp extends PApplet {
 		mask.beginDraw();
 		mask.clear();
 		mask.endDraw();
+	}
+
+	public static void main(String args[]) {
+		PApplet.main(new String[] { DynamicMaskApp.class.getName() });
 	}
 
 }
