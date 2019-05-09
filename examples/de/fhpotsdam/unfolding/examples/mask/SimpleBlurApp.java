@@ -7,7 +7,7 @@ import de.fhpotsdam.unfolding.utils.MapUtils;
 import processing.core.PApplet;
 
 /**
- * Map is shown inside a fuzzy circle. Uses an gray-scale image as map mask.
+ * Map is used with a (non-mask) shader. This blurs the map.
  */
 public class SimpleBlurApp extends PApplet {
 

@@ -1,4 +1,4 @@
-package de.fhpotsdam.unfolding.examples.image;
+package de.fhpotsdam.unfolding.examples.mask;
 
 import processing.core.PApplet;
 import processing.core.PGraphics;
@@ -12,7 +12,7 @@ import de.fhpotsdam.unfolding.utils.MapUtils;
 /**
  * Shows how to draw on an offscreen canvas and use this as a map mask.
  */
-public class DynamicMaskMapApp extends PApplet {
+public class GeneratedMaskApp extends PApplet {
 
 	UnfoldingMap map;
 	MapDisplayShader mapDisplayShader;
@@ -66,6 +66,6 @@ public class DynamicMaskMapApp extends PApplet {
 	}
 
 	public static void main(String args[]) {
-		PApplet.main(new String[] { DynamicMaskMapApp.class.getName() });
+		PApplet.main(new String[] { GeneratedMaskApp.class.getName() });
 	}
 }

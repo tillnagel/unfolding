@@ -8,7 +8,7 @@ import processing.core.PApplet;
 import processing.core.PImage;
 
 /**
- * Map is shown inside a fuzzy circle. Uses an gray-scale image as map mask.
+ * Map is shown with a mask. Uses an gray-scale image as map mask, to show map inside a fuzzy circle. 
  */
 public class SimpleImageMaskApp extends PApplet {
 
