@@ -30,7 +30,7 @@ public class MaskedMapDisplayShader extends MapDisplayShader {
 		mask = p.createGraphics((int) width, (int) height, PApplet.P2D);
 		mask.noSmooth();
 
-		shader = p.loadShader("test/mask.glsl");
+		shader = p.loadShader("shader/mask.glsl");
 		shader.set("mask", mask);
 	}
 

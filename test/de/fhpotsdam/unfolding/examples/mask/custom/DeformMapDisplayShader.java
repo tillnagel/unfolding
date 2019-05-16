@@ -14,7 +14,7 @@ public class DeformMapDisplayShader extends MapDisplayShader {
 	
 	public DeformMapDisplayShader(PApplet p, float width, float height) {
 		super(p);
-		shader = p.loadShader("test/deform.glsl");
+		shader = p.loadShader("shader/deform.glsl");
 		shader.set("resolution", width, height);
 	}
 

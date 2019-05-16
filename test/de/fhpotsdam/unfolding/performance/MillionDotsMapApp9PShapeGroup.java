@@ -8,13 +8,12 @@ import processing.core.PApplet;
 import processing.core.PShape;
 import processing.core.PVector;
 import de.fhpotsdam.unfolding.UnfoldingMap;
-import de.fhpotsdam.unfolding.events.MapEvent;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.utils.MapUtils;
 
 public class MillionDotsMapApp9PShapeGroup extends PApplet {
 
-	int dotNumber = 20000;
+	int dotNumber = 60000;
 
 	UnfoldingMap map;
 	// Original dots (loc + time)
@@ -22,8 +21,12 @@ public class MillionDotsMapApp9PShapeGroup extends PApplet {
 
 	PShape shapeGroup;
 
-	public void setup() {
+	public void settings() {
 		size(800, 600, P2D);
+
+	}
+
+	public void setup() {
 		// smooth();
 
 		dots = createRandomDots(dotNumber);
@@ -68,7 +71,6 @@ public class MillionDotsMapApp9PShapeGroup extends PApplet {
 		text("fps: " + nfs(frameRate, 0, 2) + " (" + dotNumber + " dots)", 10, 20);
 	}
 
-	
 	public void updateShapeGroup() {
 		for (int i = 0; i < shapeGroup.getChildCount(); i++) {
 			PShape shape = shapeGroup.getChild(i);
@@ -87,5 +89,9 @@ public class MillionDotsMapApp9PShapeGroup extends PApplet {
 			dots.add(dot);
 		}
 		return dots;
+	}
+
+	public static void main(String args[]) {
+		PApplet.main(new String[] { MillionDotsMapApp9PShapeGroup.class.getName() });
 	}
 }

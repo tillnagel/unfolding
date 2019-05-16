@@ -48,7 +48,7 @@ public class MaskedMarkerAndMapApp extends PApplet {
 		map.addMarkers(markers);
 
 		// Mask shader also shades markers, i.e. markers will be masked, too
-		PImage maskImage = loadImage("test/mask-circular.png");
+		PImage maskImage = loadImage("shader/mask-circular.png");
 		shaderWithMarker = new MaskedMapDisplayShader(this, 400, 400, maskImage);
 		
 		// Blur shader does not shade marker, i.e. markers stay sharp

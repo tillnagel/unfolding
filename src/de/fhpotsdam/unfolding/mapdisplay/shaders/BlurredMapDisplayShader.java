@@ -17,7 +17,7 @@ public class BlurredMapDisplayShader extends MapDisplayShader {
 
 	public BlurredMapDisplayShader(PApplet p, int blurSize, float sigma) {
 		super(p);
-		shader = p.loadShader("test/blur.glsl");
+		shader = p.loadShader("shader/blur.glsl");
 		shader.set("blurSize", blurSize);
 		shader.set("sigma", sigma);
 	}

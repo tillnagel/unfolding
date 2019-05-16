@@ -24,7 +24,7 @@ public class SimpleImageMaskApp extends PApplet {
 		map = new UnfoldingMap(this);
 		MapUtils.createDefaultEventDispatcher(this, map);
 
-		PImage maskImage = loadImage("test/mask-circular.png");
+		PImage maskImage = loadImage("shader/mask-circular.png");
 		mapDisplayShader = new MaskedMapDisplayShader(this, 400, 400, maskImage);
 		((OpenGLMapDisplay) map.mapDisplay).setMapDisplayShader(mapDisplayShader);
 	}

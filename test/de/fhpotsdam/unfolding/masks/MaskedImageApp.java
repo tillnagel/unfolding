@@ -22,7 +22,7 @@ public class MaskedImageApp extends PApplet {
 
 	public void setup() {
 
-		img = loadImage("test/test800x600.png");
+		img = loadImage("shader/test800x600.png");
 
 		mask = createGraphics(800, 600, P2D);
 		mask.beginDraw();

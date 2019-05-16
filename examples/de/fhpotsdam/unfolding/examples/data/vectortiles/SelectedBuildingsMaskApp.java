@@ -47,7 +47,7 @@ public class SelectedBuildingsMaskApp extends PApplet {
 		List<Marker> markers = vectorTilesUtils.loadMarkersForScreenPos(featureLayer, width / 2, height / 2);
 		map.addMarkers(markers);
 
-		PImage maskImage = loadImage("test/mask-circular.png");
+		PImage maskImage = loadImage("shader/mask-circular.png");
 		mapDisplayShader = new MaskedMapDisplayShader(this, 400, 400, maskImage);
 		((OpenGLMapDisplay) map.mapDisplay).setMapDisplayShader(mapDisplayShader);
 	}

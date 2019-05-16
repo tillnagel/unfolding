@@ -115,6 +115,7 @@
 		<copy todir="${build.dir}">
 			<fileset dir="${data.dir}">
 				<include name="ui/**" />
+				<include name="shader/**" />
 			</fileset>
 		</copy>
 	</target>

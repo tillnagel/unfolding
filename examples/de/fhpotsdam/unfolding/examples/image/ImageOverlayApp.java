@@ -41,7 +41,7 @@ public class ImageOverlayApp extends PApplet {
 
 	public void setup() {
 		// Image from http://schwinki.de/splendor/
-		visImg = loadImage("test/splendor-big.jpg");
+		visImg = loadImage("shader/splendor-big.jpg");
 
 		map = new UnfoldingMap(this, "Satellite Map", new Microsoft.AerialProvider());
 		map.zoomAndPanTo(15, center);
