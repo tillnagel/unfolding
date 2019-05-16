@@ -33,7 +33,7 @@ public class PanMapEvent extends MapEvent {
 		setSubType(subType);
 	}
 
-	protected Location getFromLocation() {
+	public Location getFromLocation() {
 		return fromLocation;
 	}
 
@@ -41,7 +41,7 @@ public class PanMapEvent extends MapEvent {
 		this.fromLocation = fromLocation;
 	}
 
-	protected Location getToLocation() {
+	public Location getToLocation() {
 		return toLocation;
 	}
 
