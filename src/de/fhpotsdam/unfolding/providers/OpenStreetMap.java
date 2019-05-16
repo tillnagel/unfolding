@@ -50,6 +50,13 @@ public class OpenStreetMap {
 			return new String[] { url };
 		}
 	}
+	
+	public static class DarkMatterMapProvider extends GenericOpenStreetMapProvider {
+		public String[] getTileUrls(Coordinate coordinate) {
+			String url = "http://a.basemaps.cartocdn.com/dark_all/" + getZoomString(coordinate) + ".png";
+			return new String[] { url };
+		}
+	}
 
 	/**
 	 * Map tiles with custom styled maps via CloudMade with OpenStreetMap data.
