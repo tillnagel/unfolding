@@ -29,8 +29,8 @@
 	<classpathentry kind="lib" path="lib/jogl-all-natives-macosx-universal.jar"/>
 	<classpathentry kind="lib" path="lib/core.jar"/>
 	<classpathentry kind="lib" path="lib-extern/controlP5.jar"/>
-	<classpathentry kind="lib" path="lib/sqlite-jdbc-3.7.2.jar"/>
 	<classpathentry kind="lib" path="lib/json4processing.jar"/>
 	<classpathentry kind="lib" path="lib-extern/handy.jar"/>
+	<classpathentry kind="lib" path="lib/sqlite-jdbc-3.8.7.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
