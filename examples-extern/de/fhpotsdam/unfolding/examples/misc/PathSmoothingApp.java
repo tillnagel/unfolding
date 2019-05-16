@@ -3,8 +3,6 @@ package de.fhpotsdam.unfolding.examples.misc;
 import java.util.ArrayList;
 import java.util.List;
 
-import processing.core.PApplet;
-import processing.core.PVector;
 import controlP5.ControlEvent;
 import controlP5.ControlP5;
 import controlP5.Label;
@@ -13,11 +11,12 @@ import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.data.Feature;
 import de.fhpotsdam.unfolding.data.GPXReader;
 import de.fhpotsdam.unfolding.geo.Location;
-import de.fhpotsdam.unfolding.providers.StamenMapProvider;
 import de.fhpotsdam.unfolding.utils.GeneralizationUtils;
 import de.fhpotsdam.unfolding.utils.GeoUtils;
 import de.fhpotsdam.unfolding.utils.MapUtils;
 import de.fhpotsdam.unfolding.utils.ScreenPosition;
+import processing.core.PApplet;
+import processing.core.PVector;
 
 /**
  * Smoothes the lines of a bike trail. The original, the simplified and the moving-averaged lines are shown. You can
@@ -43,12 +42,14 @@ public class PathSmoothingApp extends PApplet {
 	Textlabel numAverageTL;
 	Textlabel numCombinedTL;
 
-	public void setup() {
-		size(800, 600, P2D);
+	public void settings() {
+		size(1200, 800, P2D);
+	}
 
+	public void setup() {
 		// map = new UnfoldingMap(this, 0, 60, 800, 540, new MBTilesMapProvider("jdbc:sqlite:./berlin-dark.mbtiles"));
-		map = new UnfoldingMap(this, 0, 60, 800, 540, new StamenMapProvider.TonerLite());
-		map.zoomAndPanTo(new Location(52.5f, 13.4f), 15);
+		map = new UnfoldingMap(this, 0, 60, 1200, 640);
+		map.zoomAndPanTo(15, new Location(52.5f, 13.4f));
 		map.setZoomRange(10, 17);
 		MapUtils.createDefaultEventDispatcher(this, map);
 
@@ -202,6 +203,10 @@ public class PathSmoothingApp extends PApplet {
 				ellipse(p.x, p.y, strokeWeight, strokeWeight);
 			}
 		}
+	}
+
+	public static void main(String args[]) {
+		PApplet.main(new String[] { PathSmoothingApp.class.getName() });
 	}
 
 }
