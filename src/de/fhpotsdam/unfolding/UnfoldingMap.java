@@ -33,7 +33,7 @@ import processing.core.PVector;
  */
 public class UnfoldingMap implements MapEventListener {
 
-	public static final String GREETING_MESSAGE = "Unfolding Map v0.9.9beta";
+	public static final String GREETING_MESSAGE = "Unfolding Map v0.9.93";
 
 	public static final float SCALE_DELTA_IN = 1.05f;
 	public static final float SCALE_DELTA_OUT = 1 / 1.05f;
@@ -846,11 +846,11 @@ public class UnfoldingMap implements MapEventListener {
 	public void moveBy(float dx, float dy) {
 		addOffset(dx, dy);
 	}
-	
+
 	public void zoomAndPanToFitAllMarkers() {
 		zoomAndPanToFitMarkers(getMarkers());
 	}
-	
+
 	/**
 	 * Zooms and pans the map so that all markers are within the view.
 	 * 
@@ -948,6 +948,27 @@ public class UnfoldingMap implements MapEventListener {
 
 	public void removeMarkerManager(int i) {
 		mapDisplay.getMarkerManagerList().remove(i);
+	}
+
+	/**
+	 * Clears all markers from the map. (Removes markers from default and all other MarkerManagers.)
+	 */
+	public void clearAllMarkers() {
+		mapDisplay.clearAllMarkers();
+	}
+
+	/**
+	 * Removes one marker from the map.
+	 * 
+	 * The marker is removed only from the default MarkerManager. If using multiple MarkerManagers, you need to remove
+	 * the marker on your own.
+	 * 
+	 * @param marker
+	 *            The marker to remove.
+	 * @return Whether the default MarkerManager contained the given marker.
+	 */
+	public boolean removeMarker(Marker marker) {
+		return mapDisplay.getDefaultMarkerManager().removeMarker(marker);
 	}
 
 	/**
