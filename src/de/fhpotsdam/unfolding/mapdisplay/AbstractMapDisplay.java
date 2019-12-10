@@ -459,5 +459,11 @@ public abstract class AbstractMapDisplay implements TileLoaderListener {
 	public void removeMarkerManager(int i) {
 		markerManagerList.remove(i);
 	}
+	
+	public void clearAllMarkers() {
+		for (MarkerManager<Marker> mm : markerManagerList) {
+			mm.clearMarkers();
+		}
+	}
 
 }
