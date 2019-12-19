@@ -14,9 +14,9 @@ import de.fhpotsdam.unfolding.utils.MapUtils;
 
 /**
  * Displays a million markers on the map.
- * 
+ *
  * (c) 2012 Till Nagel, unfoldingmaps.org
- * 
+ *
  * Used for various performance tests.
  * <ul>
  * <li>pure drawing (fps for 10k, 100k, 1000k.)</li>
@@ -28,102 +28,103 @@ import de.fhpotsdam.unfolding.utils.MapUtils;
  * <li>Use GLModel (see ltavis)</li>
  * <li>...</li>
  * </ul>
- * 
+ *
  * Outcomes - rect is faster than ellipse (20k. rect: 24fps, ellipse: 7fps)
- * 
+ *
  */
 public class MillionDotsMapApp4Timer extends PApplet {
 
-	UnfoldingMap map;
-	List<Dot> dots = new ArrayList<Dot>();
-	List<PVector> visibleDotVertices = new ArrayList<PVector>();
+    UnfoldingMap map;
+    List<Dot> dots = new ArrayList<Dot>();
+    List<PVector> visibleDotVertices = new ArrayList<PVector>();
 
-	Location tlLoc;
-	Location brLoc;
+    Location tlLoc;
+    Location brLoc;
 
-	public void setup() {
-		size(800, 600, OPENGL);
-		smooth();
+    public void setup() {
+        size(800, 600, OPENGL);
+        smooth();
 
-		dots = createRandomDots(10000);
+        dots = createRandomDots(10000);
 
-		map = new UnfoldingMap(this);
-		map.zoomToLevel(3);
-		MapUtils.createDefaultEventDispatcher(this, map);
+        map = new UnfoldingMap(this);
+        map.zoomToLevel(3);
+        MapUtils.createDefaultEventDispatcher(this, map);
 
-		mapChanged(null);
-	}
+        mapChanged(null);
+    }
 
-	public void draw() {
-		map.draw();
-		
-		callTimer();
+    public void draw() {
+        map.draw();
 
-		fill(0, 180);
-		noStroke();
+        callTimer();
 
-		int zoomLevel = map.getZoomLevel();
-		synchronized (visibleDotVertices) {
-			for (PVector pos : visibleDotVertices) {
-				if (zoomLevel <= 4) {
-					rect(pos.x, pos.y, 4, 4);
-				} else {
-					// Draw more expensive representations on higher zoom levels (i.e. when fewer dots)
-					ellipse(pos.x, pos.y, 8, 8);
-				}
-			}
-		}
+        fill(0, 180);
+        noStroke();
 
-		fill(255);
-		rect(5, 5, 180, 20);
-		fill(0);
-		text("fps: " + nfs(frameRate, 0, 2) + " (" + visibleDotVertices.size() + " dots)", 10, 20);
-	}
+        int zoomLevel = map.getZoomLevel();
+        synchronized (visibleDotVertices) {
+            for (PVector pos : visibleDotVertices) {
+                if (zoomLevel <= 4) {
+                    rect(pos.x, pos.y, 4, 4);
+                } else {
+                    // Draw more expensive representations on higher zoom levels (i.e. when fewer dots)
+                    ellipse(pos.x, pos.y, 8, 8);
+                }
+            }
+        }
 
-	public void mapChanged(MapEvent mapEvent) {
-		//println("mapChanged. lastTime:" + lastTime);
-		resetCallTimer();
-		//callTimer();
-	}
+        fill(255);
+        rect(5, 5, 180, 20);
+        fill(0);
+        text("fps: " + nfs(frameRate, 0, 2) + " (" + visibleDotVertices.size() + " dots)", 10, 20);
+    }
 
-	int lastTime = 0;
-	int interval = 1000;
-	
-	void resetCallTimer() {
-		lastTime = millis();
-	}
-	void callTimer() {
-		if (millis() - lastTime >= interval) {
-			//println("next call!");
-			updateDots();
-			lastTime = millis();
-		}
-	}
+    public void mapChanged(MapEvent mapEvent) {
+        //println("mapChanged. lastTime:" + lastTime);
+        resetCallTimer();
+        //callTimer();
+    }
 
-	public void updateDots() {
-		// Check map area only once after user interaction.
-		// Additionally, instead of calculating the screen position each frame, store it in new list.
-		brLoc = map.getBottomRightBorder();
-		tlLoc = map.getTopLeftBorder();
-		synchronized (visibleDotVertices) {
-			visibleDotVertices.clear();
-			for (Dot dot : dots) {
-				if (dot.location.getLat() > brLoc.getLat() && dot.location.getLat() < tlLoc.getLat()
-						&& dot.location.getLon() > tlLoc.getLon() && dot.location.getLon() < brLoc.getLon()) {
-					PVector pos = map.getScreenPosition(dot.location);
-					visibleDotVertices.add(pos);
-				}
-			}
-		}
-	}
+    int lastTime = 0;
+    int interval = 1000;
 
-	public List<Dot> createRandomDots(int dotNumbers) {
-		List<Dot> dots = new ArrayList<Dot>();
-		for (int i = 0; i < dotNumbers; i++) {
-			Dot dot = new Dot(new Location(random(-85, 85), random(-180, 180)), new Date());
-			dots.add(dot);
-		}
-		return dots;
-	}
+    void resetCallTimer() {
+        lastTime = millis();
+    }
+
+    void callTimer() {
+        if (millis() - lastTime >= interval) {
+            //println("next call!");
+            updateDots();
+            lastTime = millis();
+        }
+    }
+
+    public void updateDots() {
+        // Check map area only once after user interaction.
+        // Additionally, instead of calculating the screen position each frame, store it in new list.
+        brLoc = map.getBottomRightBorder();
+        tlLoc = map.getTopLeftBorder();
+        synchronized (visibleDotVertices) {
+            visibleDotVertices.clear();
+            for (Dot dot : dots) {
+                if (dot.location.getLat() > brLoc.getLat() && dot.location.getLat() < tlLoc.getLat()
+                        && dot.location.getLon() > tlLoc.getLon() && dot.location.getLon() < brLoc.getLon()) {
+                    PVector pos = map.getScreenPosition(dot.location);
+                    visibleDotVertices.add(pos);
+                }
+            }
+        }
+    }
+
+    public List<Dot> createRandomDots(int dotNumbers) {
+        List<Dot> dots = new ArrayList<Dot>();
+        for (int i = 0; i < dotNumbers; i++) {
+            Dot dot = new Dot(new Location(random(-85, 85), random(-180, 180)), new Date());
+            dots.add(dot);
+        }
+        return dots;
+    }
 
 }

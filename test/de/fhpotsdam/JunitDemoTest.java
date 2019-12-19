@@ -6,9 +6,9 @@ import org.junit.Test;
 
 public class JunitDemoTest {
 
-	@Test
-	public void testIfJunitWorks() {
-		// just make sure JUnit works :)
-		assertTrue(true);
-	}
+    @Test
+    public void testIfJunitWorks() {
+        // just make sure JUnit works :)
+        assertTrue(true);
+    }
 }

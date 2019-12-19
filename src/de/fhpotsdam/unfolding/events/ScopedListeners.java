@@ -7,16 +7,16 @@ import java.util.Set;
 
 public class ScopedListeners {
 
-	public Set<String> scopeIds;
-	public List<MapEventListener> listeners;
+    public Set<String> scopeIds;
+    public List<MapEventListener> listeners;
 
-	public ScopedListeners() {
-		scopeIds = new HashSet<String>();
-		listeners = new ArrayList<MapEventListener>();
-	}
+    public ScopedListeners() {
+        scopeIds = new HashSet<String>();
+        listeners = new ArrayList<MapEventListener>();
+    }
 
-	public boolean isInScope(MapEvent event) {
-		return scopeIds.contains(event.getScopeId());
-	}
+    public boolean isInScope(MapEvent event) {
+        return scopeIds.contains(event.getScopeId());
+    }
 
 }

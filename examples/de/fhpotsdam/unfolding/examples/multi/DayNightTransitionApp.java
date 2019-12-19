@@ -12,51 +12,51 @@ import de.fhpotsdam.utils.Integrator;
  */
 public class DayNightTransitionApp extends PApplet {
 
-	UnfoldingMap mapDay;
-	UnfoldingMap mapNight;
+    UnfoldingMap mapDay;
+    UnfoldingMap mapNight;
 
-	Integrator blendIntegrator = new Integrator(0);
+    Integrator blendIntegrator = new Integrator(0);
 
-	public void settings() {
-		size(800, 600, P2D);
-	}
+    public void settings() {
+        size(800, 600, P2D);
+    }
 
-	public static void main(String[] args) {
-		PApplet.main(new String[] { DayNightTransitionApp.class.getName() });
-	}
+    public static void main(String[] args) {
+        PApplet.main(new String[]{DayNightTransitionApp.class.getName()});
+    }
 
-	public void setup() {
+    public void setup() {
 
-		mapDay = new UnfoldingMap(this);
-		mapNight = new UnfoldingMap(this, new DarkMatter());
+        mapDay = new UnfoldingMap(this);
+        mapNight = new UnfoldingMap(this, new DarkMatter());
 
-		mapDay.setZoomRange(1, 3);
-		mapDay.zoomToLevel(3);
-		mapDay.panTo(new Location(49.6f, 9.4f));
-		mapNight.setZoomRange(1, 3);
-		mapNight.zoomToLevel(3);
-		mapNight.panTo(new Location(49.6f, 9.4f));
+        mapDay.setZoomRange(1, 3);
+        mapDay.zoomToLevel(3);
+        mapDay.panTo(new Location(49.6f, 9.4f));
+        mapNight.setZoomRange(1, 3);
+        mapNight.zoomToLevel(3);
+        mapNight.panTo(new Location(49.6f, 9.4f));
 
-		MapUtils.createDefaultEventDispatcher(this, mapDay, mapNight);
-	}
+        MapUtils.createDefaultEventDispatcher(this, mapDay, mapNight);
+    }
 
-	public void draw() {
-		background(0);
+    public void draw() {
+        background(0);
 
-		blendIntegrator.update();
+        blendIntegrator.update();
 
-		tint(255, 255);
-		mapDay.draw();
-		tint(255, blendIntegrator.value);
-		mapNight.draw();
-	}
+        tint(255, 255);
+        mapDay.draw();
+        tint(255, blendIntegrator.value);
+        mapNight.draw();
+    }
 
-	public void keyPressed() {
-		if (key == 'd') {
-			blendIntegrator.target(0);
-		}
-		if (key == 'n') {
-			blendIntegrator.target(255);
-		}
-	}
+    public void keyPressed() {
+        if (key == 'd') {
+            blendIntegrator.target(0);
+        }
+        if (key == 'n') {
+            blendIntegrator.target(255);
+        }
+    }
 }

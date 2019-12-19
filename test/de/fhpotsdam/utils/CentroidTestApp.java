@@ -12,48 +12,44 @@ import de.fhpotsdam.unfolding.utils.ScreenPosition;
 
 public class CentroidTestApp extends PApplet {
 
-	UnfoldingMap map;
-	List<Location> locations = new ArrayList<Location>();
+    UnfoldingMap map;
+    List<Location> locations = new ArrayList<Location>();
 
-	public void setup() {
-		size(800, 600);
-		smooth();
+    public void setup() {
+        size(800, 600);
+        smooth();
 
-		map = new UnfoldingMap(this);
-		MapUtils.createDefaultEventDispatcher(this, map);
-		
-		
-		
-		// centroid of all locations
-		
-		
-		// centroid of centroids
-	}
+        map = new UnfoldingMap(this);
+        MapUtils.createDefaultEventDispatcher(this, map);
 
-	public void draw() {
-		background(0);
-		map.draw();
+        // centroid of all locations
+        // centroid of centroids
+    }
 
-		fill(0);
-		for (Location location : locations) {
-			ScreenPosition pos = map.getScreenPosition(location);
-			ellipse(pos.x, pos.y, 10, 10);
-		}
-		
-		Location centroid = GeoUtils.getCentroid(locations);
-		ScreenPosition centroidPos = map.getScreenPosition(centroid);
-		fill(255, 0, 0);
-		ellipse(centroidPos.x, centroidPos.y, 10, 10);
-		
-	}
+    public void draw() {
+        background(0);
+        map.draw();
 
-	public void mouseClicked() {
-		Location location = map.getLocation(mouseX, mouseY);
-		locations.add(location);
-	}
-	
-	public void keyPressed() {
-		println(locations);
-	}
+        fill(0);
+        for (Location location : locations) {
+            ScreenPosition pos = map.getScreenPosition(location);
+            ellipse(pos.x, pos.y, 10, 10);
+        }
+
+        Location centroid = GeoUtils.getCentroid(locations);
+        ScreenPosition centroidPos = map.getScreenPosition(centroid);
+        fill(255, 0, 0);
+        ellipse(centroidPos.x, centroidPos.y, 10, 10);
+
+    }
+
+    public void mouseClicked() {
+        Location location = map.getLocation(mouseX, mouseY);
+        locations.add(location);
+    }
+
+    public void keyPressed() {
+        println(locations);
+    }
 
 }

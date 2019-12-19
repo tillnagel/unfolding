@@ -5,22 +5,22 @@ import de.fhpotsdam.unfolding.marker.SimplePointMarker;
 
 public class MarkerTestApp extends PApplet {
 
-	ClassHavingMarkerManager classHavingMarkerManager;
+    ClassHavingMarkerManager classHavingMarkerManager;
 
-	MarkerManager<SimplePointMarker> markerManager;
+    MarkerManager<SimplePointMarker> markerManager;
 
-	public void setup() {
-		classHavingMarkerManager = new ClassHavingMarkerManager();
-		classHavingMarkerManager.markerManager = new MarkerManager<SimplePointMarker>();
+    public void setup() {
+        classHavingMarkerManager = new ClassHavingMarkerManager();
+        classHavingMarkerManager.markerManager = new MarkerManager<SimplePointMarker>();
 
-		SimplePointMarker marker = new SimplePointMarker();
-		markerManager.addMarker(marker);
-	}
+        SimplePointMarker marker = new SimplePointMarker();
+        markerManager.addMarker(marker);
+    }
 
-	public void draw() {
-		for (SimplePointMarker marker : markerManager.getMarkers()) {
-			marker.getId();
-		}
-	}
+    public void draw() {
+        for (SimplePointMarker marker : markerManager.getMarkers()) {
+            marker.getId();
+        }
+    }
 
 }

@@ -11,30 +11,30 @@ import processing.core.PApplet;
  */
 public class SimpleBlurApp extends PApplet {
 
-	UnfoldingMap map;
+    UnfoldingMap map;
 
-	BlurredMapDisplayShader mapDisplayShader;
+    BlurredMapDisplayShader mapDisplayShader;
 
-	public void settings() {
-		size(800, 600, P3D);
-	}
+    public void settings() {
+        size(800, 600, P3D);
+    }
 
-	public void setup() {
-		size(800, 600, P3D);
-		map = new UnfoldingMap(this, 100, 100, 600, 400);
-		MapUtils.createDefaultEventDispatcher(this, map);
+    public void setup() {
+        size(800, 600, P3D);
+        map = new UnfoldingMap(this, 100, 100, 600, 400);
+        MapUtils.createDefaultEventDispatcher(this, map);
 
-		mapDisplayShader = new BlurredMapDisplayShader(this);
-		((OpenGLMapDisplay) map.mapDisplay).setMapDisplayShader(mapDisplayShader);
-	}
+        mapDisplayShader = new BlurredMapDisplayShader(this);
+        ((OpenGLMapDisplay) map.mapDisplay).setMapDisplayShader(mapDisplayShader);
+    }
 
-	public void draw() {
-		background(0);
-		map.draw();
-	}
+    public void draw() {
+        background(0);
+        map.draw();
+    }
 
-	public static void main(String args[]) {
-		PApplet.main(new String[] { SimpleBlurApp.class.getName() });
-	}
+    public static void main(String args[]) {
+        PApplet.main(new String[]{SimpleBlurApp.class.getName()});
+    }
 
 }

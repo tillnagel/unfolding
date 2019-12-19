@@ -11,19 +11,19 @@ import de.fhpotsdam.unfolding.utils.MapUtils;
  */
 public class SimpleMapP2DApp extends PApplet {
 
-	UnfoldingMap map;
+    UnfoldingMap map;
 
-	public void setup() {
-		size(1024, 768, P2D);
-		
-		println(g);
+    public void setup() {
+        size(1024, 768, P2D);
 
-		map = new UnfoldingMap(this);
-		map.zoomAndPanTo(new Location(52.5f, 13.4f), 10);
-		MapUtils.createDefaultEventDispatcher(this, map);
-	}
+        println(g);
 
-	public void draw() {
-		map.draw();
-	}
+        map = new UnfoldingMap(this);
+        map.zoomAndPanTo(new Location(52.5f, 13.4f), 10);
+        MapUtils.createDefaultEventDispatcher(this, map);
+    }
+
+    public void draw() {
+        map.draw();
+    }
 }

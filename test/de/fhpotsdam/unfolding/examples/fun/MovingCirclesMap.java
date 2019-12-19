@@ -14,154 +14,155 @@ import de.fhpotsdam.unfolding.utils.MapUtils;
  */
 public class MovingCirclesMap extends PApplet {
 
-	UnfoldingMap map1;
+    UnfoldingMap map1;
 
-	ArrayList circles = new ArrayList();
-	int circleNumber = 1200;
+    ArrayList circles = new ArrayList();
+    int circleNumber = 1200;
 
-	int reInitCounter = 0;
-	boolean reInit = false;
-	
-	public void setup() {
-		size(800, 600, OPENGL);
+    int reInitCounter = 0;
+    boolean reInit = false;
 
-		map1 = new UnfoldingMap(this, "map1", 0, 0, 800, 600, true, false, new Microsoft.AerialProvider());
-		MapUtils.createDefaultEventDispatcher(this, map1);
+    public void setup() {
+        size(800, 600, OPENGL);
 
-		initCircles(circles);
-	}
+        map1 = new UnfoldingMap(this, "map1", 0, 0, 800, 600, true, false, new Microsoft.AerialProvider());
+        MapUtils.createDefaultEventDispatcher(this, map1);
 
-	public void draw() {
-		background(0, 0, 30);
+        initCircles(circles);
+    }
 
-		// draw all circles
-		drawCircles(0, circles.size());
-		// move all circles
-		updateCircles(0, circles.size());
+    public void draw() {
+        background(0, 0, 30);
 
-		// if not interacted with the map restart after a while
-		reInitCounter++;
-		if (reInitCounter > 100 || reInit) {
-			reInitCircles();
-			reInit = false;
-			reInitCounter = 0;
-		}
-	}
+        // draw all circles
+        drawCircles(0, circles.size());
+        // move all circles
+        updateCircles(0, circles.size());
 
-	public void mapChanged(MapEvent mapEvent) {
-		println("mapevent " + mapEvent.getScopeId());
-		reInit = true;
-	}
+        // if not interacted with the map restart after a while
+        reInitCounter++;
+        if (reInitCounter > 100 || reInit) {
+            reInitCircles();
+            reInit = false;
+            reInitCounter = 0;
+        }
+    }
 
-	void initCircles(ArrayList circles) {
-		map1.draw();
-		loadPixels();
-		background(0);
+    public void mapChanged(MapEvent mapEvent) {
+        println("mapevent " + mapEvent.getScopeId());
+        reInit = true;
+    }
 
-		float start = millis();
-		while (circles.size() < circleNumber) {
-			// The more circles already drawn the smaller the maxSize is,
-			// to fasten the filling towards the end.
-			int maxSize = max(10, 35 - (circles.size() / 8));
+    void initCircles(ArrayList circles) {
+        map1.draw();
+        loadPixels();
+        background(0);
 
-			// A new circle is only added if it does not intersect with any other circle
-			Circle newCircle = new Circle(this, random(width), random(height), random(4, maxSize));
-			if (isFree(newCircle, circles)) {
-				circles.add(newCircle);
-			}
-		}
-		// println("init=" + (millis() - start));
-	}
+        float start = millis();
+        while (circles.size() < circleNumber) {
+            // The more circles already drawn the smaller the maxSize is,
+            // to fasten the filling towards the end.
+            int maxSize = max(10, 35 - (circles.size() / 8));
 
-	void reInitCircles() {
+            // A new circle is only added if it does not intersect with any other circle
+            Circle newCircle = new Circle(this, random(width), random(height), random(4, maxSize));
+            if (isFree(newCircle, circles)) {
+                circles.add(newCircle);
+            }
+        }
+        // println("init=" + (millis() - start));
+    }
 
-		ArrayList newCircles = new ArrayList();
-		initCircles(newCircles);
+    void reInitCircles() {
 
-		// Set all circles to non-moved
-		for (int i = 0; i < circles.size(); i++) {
-			Circle circle = (Circle) circles.get(i);
-			circle.moved = false;
-		}
+        ArrayList newCircles = new ArrayList();
+        initCircles(newCircles);
 
-		float start = millis();
-		// For each new circle move nearest old circle to new circle's position
-		for (int i = 0; i < circles.size(); i++) {
-			Circle newCircle = (Circle) newCircles.get(i);
-			int col = getVideoColor(newCircle.x, newCircle.y);
+        // Set all circles to non-moved
+        for (int i = 0; i < circles.size(); i++) {
+            Circle circle = (Circle) circles.get(i);
+            circle.moved = false;
+        }
 
-			Circle circle = foundNearestCircle(circles, newCircle.x + random(-50, 50), newCircle.y + random(-50, 50));
-			circle.moveTo(newCircle.x, newCircle.y, newCircle.radius, col);
-		}
-		// println("moveTo=" + (millis() - start));
+        float start = millis();
+        // For each new circle move nearest old circle to new circle's position
+        for (int i = 0; i < circles.size(); i++) {
+            Circle newCircle = (Circle) newCircles.get(i);
+            int col = getVideoColor(newCircle.x, newCircle.y);
 
-		newCircles = null;
-	}
+            Circle circle = foundNearestCircle(circles, newCircle.x + random(-50, 50), newCircle.y + random(-50, 50));
+            circle.moveTo(newCircle.x, newCircle.y, newCircle.radius, col);
+        }
+        // println("moveTo=" + (millis() - start));
 
-	/**
-	 * Returns a nearest not already moved circle. Does not return always the nearest, but one which is in proximity of
-	 * the position (x,y) and not moved. (As more circles are already moved the farer "nearest" could be)
-	 */
-	Circle foundNearestCircle(ArrayList circles, float x, float y) {
-		float minDist = width + height;
-		Circle foundCircle = null;
+        newCircles = null;
+    }
 
-		for (int i = 0; i < circles.size(); i++) {
-			Circle circle = (Circle) circles.get(i);
-			float d = dist(x, y, circle.x, circle.y);
-			if (minDist > d && !circle.isMoved()) {
-				minDist = d;
-				foundCircle = circle;
-			}
-		}
+    /**
+     * Returns a nearest not already moved circle. Does not return always the
+     * nearest, but one which is in proximity of the position (x,y) and not
+     * moved. (As more circles are already moved the farer "nearest" could be)
+     */
+    Circle foundNearestCircle(ArrayList circles, float x, float y) {
+        float minDist = width + height;
+        Circle foundCircle = null;
 
-		return foundCircle;
-	}
+        for (int i = 0; i < circles.size(); i++) {
+            Circle circle = (Circle) circles.get(i);
+            float d = dist(x, y, circle.x, circle.y);
+            if (minDist > d && !circle.isMoved()) {
+                minDist = d;
+                foundCircle = circle;
+            }
+        }
 
-	void drawCircles(int start, int end) {
-		for (int i = start; i < end; i++) {
-			Circle circle = (Circle) circles.get(i);
-			circle.draw();
-		}
-	}
+        return foundCircle;
+    }
 
-	void updateCircles(int start, int end) {
-		for (int i = start; i < end; i++) {
-			Circle circle = (Circle) circles.get(i);
-			circle.update();
-		}
-	}
+    void drawCircles(int start, int end) {
+        for (int i = start; i < end; i++) {
+            Circle circle = (Circle) circles.get(i);
+            circle.draw();
+        }
+    }
 
-	int getVideoColor(float x, float y) {
-		return pixels[(int) x + (int) y * width];
-	}
+    void updateCircles(int start, int end) {
+        for (int i = start; i < end; i++) {
+            Circle circle = (Circle) circles.get(i);
+            circle.update();
+        }
+    }
 
-	/**
-	 * Checks whether the given circle is not intersecting with any other.
-	 */
-	boolean isFree(Circle aCircle, ArrayList circles) {
-		boolean intersect = false;
-		int i = 0;
-		while (i < circles.size() && !intersect) {
-			Circle circle = (Circle) circles.get(i);
-			intersect = circle.intersect(aCircle);
-			i++;
-		}
-		return !intersect;
-	}
+    int getVideoColor(float x, float y) {
+        return pixels[(int) x + (int) y * width];
+    }
 
-	public void keyPressed() {
-		println("fps:" + frameRate);
-	}
+    /**
+     * Checks whether the given circle is not intersecting with any other.
+     */
+    boolean isFree(Circle aCircle, ArrayList circles) {
+        boolean intersect = false;
+        int i = 0;
+        while (i < circles.size() && !intersect) {
+            Circle circle = (Circle) circles.get(i);
+            intersect = circle.intersect(aCircle);
+            i++;
+        }
+        return !intersect;
+    }
 
-	public void drawPoint() {
-		float pSize = 2.0f + (mouseX / (float) width) * 16.0f;
-		int x = (int) random(width);
-		int y = (int) random(height);
-		int c = pixels[x + y * width];
-		fill(pixels[x + y * width], 127);
-		noStroke();
-		ellipse(x, y, pSize, pSize);
-	}
+    public void keyPressed() {
+        println("fps:" + frameRate);
+    }
+
+    public void drawPoint() {
+        float pSize = 2.0f + (mouseX / (float) width) * 16.0f;
+        int x = (int) random(width);
+        int y = (int) random(height);
+        int c = pixels[x + y * width];
+        fill(pixels[x + y * width], 127);
+        noStroke();
+        ellipse(x, y, pSize, pSize);
+    }
 
 }

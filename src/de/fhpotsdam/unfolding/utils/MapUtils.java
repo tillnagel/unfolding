@@ -18,86 +18,81 @@ import de.fhpotsdam.unfolding.marker.Marker;
  */
 public class MapUtils {
 
-	private static MarkerFactory markerFactory;
+    private static MarkerFactory markerFactory;
 
-	/**
-	 * Initializes default events, i.e. all given maps handle mouse and keyboard interactions. No cross-listening
-	 * between maps.
-	 * 
-	 * @param p
-	 *            The PApplet needed for mouse and key user interactions.
-	 * @param maps
-	 *            One or many maps.
-	 * @return The EventDispatcher to use for additional event handling.
-	 */
-	public static EventDispatcher createDefaultEventDispatcher(PApplet p, UnfoldingMap... maps) {
-		EventDispatcher eventDispatcher = new EventDispatcher();
+    /**
+     * Initializes default events, i.e. all given maps handle mouse and keyboard
+     * interactions. No cross-listening between maps.
+     *
+     * @param p The PApplet needed for mouse and key user interactions.
+     * @param maps One or many maps.
+     * @return The EventDispatcher to use for additional event handling.
+     */
+    public static EventDispatcher createDefaultEventDispatcher(PApplet p, UnfoldingMap... maps) {
+        EventDispatcher eventDispatcher = new EventDispatcher();
 
-		MouseHandler mouseHandler = new MouseHandler(p, maps);
-		KeyboardHandler keyboardHandler = new KeyboardHandler(p, maps);
+        MouseHandler mouseHandler = new MouseHandler(p, maps);
+        KeyboardHandler keyboardHandler = new KeyboardHandler(p, maps);
 
-		eventDispatcher.addBroadcaster(mouseHandler);
-		eventDispatcher.addBroadcaster(keyboardHandler);
+        eventDispatcher.addBroadcaster(mouseHandler);
+        eventDispatcher.addBroadcaster(keyboardHandler);
 
-		for (UnfoldingMap map : maps) {
-			eventDispatcher.register(map, PanMapEvent.TYPE_PAN, map.getId());
-			eventDispatcher.register(map, ZoomMapEvent.TYPE_ZOOM, map.getId());
-		}
+        for (UnfoldingMap map : maps) {
+            eventDispatcher.register(map, PanMapEvent.TYPE_PAN, map.getId());
+            eventDispatcher.register(map, ZoomMapEvent.TYPE_ZOOM, map.getId());
+        }
 
-		return eventDispatcher;
-	}
+        return eventDispatcher;
+    }
 
-	/**
-	 * Initializes default events, i.e. all given maps handle mouse interactions. No cross-listening between maps.
-	 * 
-	 * @param p
-	 *            The PApplet needed for mouse user interactions.
-	 * @param maps
-	 *            One or many maps.
-	 * @return The EventDispatcher to use for additional event handling.
-	 */
-	public static EventDispatcher createMouseEventDispatcher(PApplet p, UnfoldingMap... maps) {
-		EventDispatcher eventDispatcher = new EventDispatcher();
+    /**
+     * Initializes default events, i.e. all given maps handle mouse
+     * interactions. No cross-listening between maps.
+     *
+     * @param p The PApplet needed for mouse user interactions.
+     * @param maps One or many maps.
+     * @return The EventDispatcher to use for additional event handling.
+     */
+    public static EventDispatcher createMouseEventDispatcher(PApplet p, UnfoldingMap... maps) {
+        EventDispatcher eventDispatcher = new EventDispatcher();
 
-		MouseHandler mouseHandler = new MouseHandler(p, maps);
+        MouseHandler mouseHandler = new MouseHandler(p, maps);
 
-		eventDispatcher.addBroadcaster(mouseHandler);
+        eventDispatcher.addBroadcaster(mouseHandler);
 
-		for (UnfoldingMap map : maps) {
-			eventDispatcher.register(map, PanMapEvent.TYPE_PAN, map.getId());
-			eventDispatcher.register(map, ZoomMapEvent.TYPE_ZOOM, map.getId());
-		}
+        for (UnfoldingMap map : maps) {
+            eventDispatcher.register(map, PanMapEvent.TYPE_PAN, map.getId());
+            eventDispatcher.register(map, ZoomMapEvent.TYPE_ZOOM, map.getId());
+        }
 
-		return eventDispatcher;
-	}
+        return eventDispatcher;
+    }
 
-	/**
-	 * Initializes default events, i.e. all given maps handle mouse and keyboard interactions. No cross-listening
-	 * between maps.
-	 * 
-	 * @param p
-	 *            The PApplet needed for mouse and key user interactions.
-	 * @param maps
-	 *            One or many maps.
-	 * @return The EventDispatcher to use for additional event handling.
-	 */
-	public static EventDispatcher createDefaultEventDispatcher(PApplet p, List<UnfoldingMap> maps) {
-		UnfoldingMap[] mapsArray = (maps != null) ? maps.toArray(new UnfoldingMap[0]) : new UnfoldingMap[0];
-		return createDefaultEventDispatcher(p, mapsArray);
-	}
+    /**
+     * Initializes default events, i.e. all given maps handle mouse and keyboard
+     * interactions. No cross-listening between maps.
+     *
+     * @param p The PApplet needed for mouse and key user interactions.
+     * @param maps One or many maps.
+     * @return The EventDispatcher to use for additional event handling.
+     */
+    public static EventDispatcher createDefaultEventDispatcher(PApplet p, List<UnfoldingMap> maps) {
+        UnfoldingMap[] mapsArray = (maps != null) ? maps.toArray(new UnfoldingMap[0]) : new UnfoldingMap[0];
+        return createDefaultEventDispatcher(p, mapsArray);
+    }
 
-	/**
-	 * Creates Unfolding's simple markers from features. (without the need to create a MarkerFactory)
-	 * 
-	 * @param features
-	 *            The features to get markers for.
-	 * @return A list of markers.
-	 */
-	public static List<Marker> createSimpleMarkers(List<Feature> features) {
-		if (markerFactory == null) {
-			markerFactory = new MarkerFactory();
-		}
-		return markerFactory.createMarkers(features);
-	}
+    /**
+     * Creates Unfolding's simple markers from features. (without the need to
+     * create a MarkerFactory)
+     *
+     * @param features The features to get markers for.
+     * @return A list of markers.
+     */
+    public static List<Marker> createSimpleMarkers(List<Feature> features) {
+        if (markerFactory == null) {
+            markerFactory = new MarkerFactory();
+        }
+        return markerFactory.createMarkers(features);
+    }
 
 }

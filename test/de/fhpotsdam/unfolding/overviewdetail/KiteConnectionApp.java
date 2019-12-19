@@ -6,27 +6,27 @@ import de.fhpotsdam.unfolding.examples.overviewdetail.connection.OverviewPlusDet
 
 public class KiteConnectionApp extends PApplet {
 
-	OverviewPlusDetailConnection connection;
+    OverviewPlusDetailConnection connection;
 
-	public void setup() {
-		size(800, 600, OPENGL);
+    public void setup() {
+        size(800, 600, OPENGL);
 
-		connection = new KiteConnection(this);
-	}
+        connection = new KiteConnection(this);
+    }
 
-	public void draw() {
-		background(255);
+    public void draw() {
+        background(255);
 
-		connection.draw();
-		//kiteConnection.drawDebug();
-	}
+        connection.draw();
+        //kiteConnection.drawDebug();
+    }
 
-	public void mouseMoved() {
-		connection.setOverviewPosition(mouseX, mouseY);
-	}
+    public void mouseMoved() {
+        connection.setOverviewPosition(mouseX, mouseY);
+    }
 
-	public void mouseDragged() {
-		connection.setDetailPosition(mouseX, mouseY);
-	}
+    public void mouseDragged() {
+        connection.setDetailPosition(mouseX, mouseY);
+    }
 
 }

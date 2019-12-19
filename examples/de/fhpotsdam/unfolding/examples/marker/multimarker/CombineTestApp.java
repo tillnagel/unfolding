@@ -13,47 +13,48 @@ import de.fhpotsdam.unfolding.marker.MultiMarker;
 import de.fhpotsdam.unfolding.utils.MapUtils;
 
 /**
- * Combines different markers in one MultiMarker. Only that MultiMarker then is displayed.
- * 
+ * Combines different markers in one MultiMarker. Only that MultiMarker then is
+ * displayed.
+ *
  * Note how France is a MultiMarker by itself (France and Corsica).
  */
 public class CombineTestApp extends PApplet {
 
-	UnfoldingMap map;
-	String[] ids = { "DEU", "FRA", "IRL" };
-	List<String> specialIDs = new ArrayList<String>(Arrays.asList(ids));
+    UnfoldingMap map;
+    String[] ids = {"DEU", "FRA", "IRL"};
+    List<String> specialIDs = new ArrayList<String>(Arrays.asList(ids));
 
-	public void settings() {
-		size(800, 600, P2D);
-	}
+    public void settings() {
+        size(800, 600, P2D);
+    }
 
-	public static void main(String[] args) {
-		PApplet.main(new String[] { CombineTestApp.class.getName() });
-	}
+    public static void main(String[] args) {
+        PApplet.main(new String[]{CombineTestApp.class.getName()});
+    }
 
-	public void setup() {
-		map = new UnfoldingMap(this);
+    public void setup() {
+        map = new UnfoldingMap(this);
 
-		// Load all countries
-		List<Feature> countries = GeoJSONReader.loadData(this, "data/countries.geo.json");
-		List<Marker> countryMarkers = MapUtils.createSimpleMarkers(countries);
+        // Load all countries
+        List<Feature> countries = GeoJSONReader.loadData(this, "data/countries.geo.json");
+        List<Marker> countryMarkers = MapUtils.createSimpleMarkers(countries);
 
-		// But only combine Germany, France, and Ireland
-		MultiMarker multiMarker = new MultiMarker();
-		for (Marker marker : countryMarkers) {
-			if (specialIDs.contains(marker.getId())) {
-				multiMarker.addMarkers(marker);
-			}
-		}
-		map.addMarkers(multiMarker);
+        // But only combine Germany, France, and Ireland
+        MultiMarker multiMarker = new MultiMarker();
+        for (Marker marker : countryMarkers) {
+            if (specialIDs.contains(marker.getId())) {
+                multiMarker.addMarkers(marker);
+            }
+        }
+        map.addMarkers(multiMarker);
 
-		// Zoom in, and center around MultiMarker
-		map.zoomToLevel(4);
-		map.panTo(multiMarker.getLocation());
-	}
+        // Zoom in, and center around MultiMarker
+        map.zoomToLevel(4);
+        map.panTo(multiMarker.getLocation());
+    }
 
-	public void draw() {
-		map.draw();
-	}
+    public void draw() {
+        map.draw();
+    }
 
 }

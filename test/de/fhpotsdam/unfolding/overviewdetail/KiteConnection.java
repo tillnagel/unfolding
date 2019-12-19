@@ -6,168 +6,167 @@ import processing.core.PVector;
 
 public class KiteConnection implements OverviewPlusDetailConnection {
 
-	private PApplet p;
+    private PApplet p;
 
-	protected float width = 150;
-	protected float height = 150;
+    protected float width = 150;
+    protected float height = 150;
 
-	protected float padding = 6;
+    protected float padding = 6;
 
-	// Destination this connection points to (detail pos)
-	protected PVector dest = new PVector();
-	// Position of the rectangle (zoom map)
-	protected PVector pos = new PVector();
+    // Destination this connection points to (detail pos)
+    protected PVector dest = new PVector();
+    // Position of the rectangle (zoom map)
+    protected PVector pos = new PVector();
 
-	// Corners of the background rectangle
-	protected PVector tl = new PVector();
-	protected PVector tr = new PVector();
-	protected PVector bl = new PVector();
-	protected PVector br = new PVector();
+    // Corners of the background rectangle
+    protected PVector tl = new PVector();
+    protected PVector tr = new PVector();
+    protected PVector bl = new PVector();
+    protected PVector br = new PVector();
 
-	public KiteConnection(PApplet p) {
-		this.p = p;
-	}
+    public KiteConnection(PApplet p) {
+        this.p = p;
+    }
 
-	@Override
-	public void setDetailSize(float width, float height) {
-		this.width = width;
-		this.height = height;
-	}
-	
-	public void setOverviewSize(float width, float height) {
-		PApplet.println("KiteConnection only allows single overview/destination points.");
-	}
+    @Override
+    public void setDetailSize(float width, float height) {
+        this.width = width;
+        this.height = height;
+    }
 
-	@Override
-	public void setPadding(float padding) {
-		this.padding = padding;
-	}
+    public void setOverviewSize(float width, float height) {
+        PApplet.println("KiteConnection only allows single overview/destination points.");
+    }
 
-	@Override
-	public void setDetailPosition(float x, float y) {
-		setDestination(x, y);
-	}
+    @Override
+    public void setPadding(float padding) {
+        this.padding = padding;
+    }
 
-	@Override
-	public void setOverviewPosition(float x, float y) {
-		setPosition(x, y);
-	}
-	
-	public void setPosition(float x, float y) {
-		pos.x = x - width / 2;
-		pos.y = y - height / 2;
+    @Override
+    public void setDetailPosition(float x, float y) {
+        setDestination(x, y);
+    }
 
-		tl.x = pos.x - padding;
-		tl.y = pos.y - padding;
+    @Override
+    public void setOverviewPosition(float x, float y) {
+        setPosition(x, y);
+    }
 
-		tr.x = pos.x + width + padding;
-		tr.y = pos.y - padding;
+    public void setPosition(float x, float y) {
+        pos.x = x - width / 2;
+        pos.y = y - height / 2;
 
-		bl.x = pos.x - padding;
-		bl.y = pos.y + height + padding;
+        tl.x = pos.x - padding;
+        tl.y = pos.y - padding;
 
-		br.x = pos.x + width + padding;
-		br.y = pos.y + height + padding;
-	}
+        tr.x = pos.x + width + padding;
+        tr.y = pos.y - padding;
 
-	public void setDestination(float x, float y) {
-		dest.x = x;
-		dest.y = y;
-	}
+        bl.x = pos.x - padding;
+        bl.y = pos.y + height + padding;
 
-	public void drawDebug() {
-		p.fill(240);
-		p.rect(pos.x, pos.y, width, height);
+        br.x = pos.x + width + padding;
+        br.y = pos.y + height + padding;
+    }
 
-		p.fill(255, 0, 0, 100);
-		p.ellipse(tr.x, tr.y, 10, 10);
-		p.ellipse(tl.x, tl.y, 10, 10);
-	}
+    public void setDestination(float x, float y) {
+        dest.x = x;
+        dest.y = y;
+    }
 
-	public void draw() {
-		p.fill(100, 100);
-		p.noStroke();
-		p.beginShape();
+    public void drawDebug() {
+        p.fill(240);
+        p.rect(pos.x, pos.y, width, height);
 
-		// Start point (only if dest not in center middle (5) )
-		if (!(dest.y > tr.y && dest.y < br.y && dest.x >= tl.x && dest.x < tr.x)) {
-			vertex(dest);
-		}
+        p.fill(255, 0, 0, 100);
+        p.ellipse(tr.x, tr.y, 10, 10);
+        p.ellipse(tl.x, tl.y, 10, 10);
+    }
 
-		if (dest.y <= tr.y) {
-			// 1: top left
-			if (dest.x < tl.x) {
-				vertex(tr);
-				vertex(br);
-				vertex(bl);
-			}
-			// 2: top middle
-			if (dest.x >= tl.x && dest.x < tr.x) {
-				vertex(tr);
-				vertex(br);
-				vertex(bl);
-				vertex(tl);
-			}
-			// 3: top right
-			if (dest.x >= tr.x) {
-				vertex(br);
-				vertex(bl);
-				vertex(tl);
-			}
-		}
+    public void draw() {
+        p.fill(100, 100);
+        p.noStroke();
+        p.beginShape();
 
-		if (dest.y > tr.y && dest.y < br.y) {
-			// 4: center left
-			if (dest.x < tl.x) {
-				vertex(tl);
-				vertex(tr);
-				vertex(br);
-				vertex(bl);
-			}
-			// 5: center middle
-			if (dest.x >= tl.x && dest.x < tr.x) {
-				vertex(tl);
-				vertex(tr);
-				vertex(br);
-				vertex(bl);
-			}
-			// 6: center right
-			if (dest.x > tr.x) {
-				vertex(br);
-				vertex(bl);
-				vertex(tl);
-				vertex(tr);
-			}
-		}
+        // Start point (only if dest not in center middle (5) )
+        if (!(dest.y > tr.y && dest.y < br.y && dest.x >= tl.x && dest.x < tr.x)) {
+            vertex(dest);
+        }
 
-		if (dest.y >= br.y) {
-			// 7: bottom left
-			if (dest.x < tl.x) {
-				vertex(br);
-				vertex(tr);
-				vertex(tl);
-			}
-			// 8: bottom middle
-			if (dest.x >= tl.x && dest.x < tr.x) {
-				vertex(br);
-				vertex(tr);
-				vertex(tl);
-				vertex(bl);
-			}
-			// 9: bottom right
-			if (dest.x >= tr.x) {
-				vertex(tr);
-				vertex(tl);
-				vertex(bl);
-			}
-		}
+        if (dest.y <= tr.y) {
+            // 1: top left
+            if (dest.x < tl.x) {
+                vertex(tr);
+                vertex(br);
+                vertex(bl);
+            }
+            // 2: top middle
+            if (dest.x >= tl.x && dest.x < tr.x) {
+                vertex(tr);
+                vertex(br);
+                vertex(bl);
+                vertex(tl);
+            }
+            // 3: top right
+            if (dest.x >= tr.x) {
+                vertex(br);
+                vertex(bl);
+                vertex(tl);
+            }
+        }
 
-		p.endShape(PApplet.CLOSE);
-	}
+        if (dest.y > tr.y && dest.y < br.y) {
+            // 4: center left
+            if (dest.x < tl.x) {
+                vertex(tl);
+                vertex(tr);
+                vertex(br);
+                vertex(bl);
+            }
+            // 5: center middle
+            if (dest.x >= tl.x && dest.x < tr.x) {
+                vertex(tl);
+                vertex(tr);
+                vertex(br);
+                vertex(bl);
+            }
+            // 6: center right
+            if (dest.x > tr.x) {
+                vertex(br);
+                vertex(bl);
+                vertex(tl);
+                vertex(tr);
+            }
+        }
 
-	private void vertex(PVector v) {
-		p.vertex(v.x, v.y);
-	}
+        if (dest.y >= br.y) {
+            // 7: bottom left
+            if (dest.x < tl.x) {
+                vertex(br);
+                vertex(tr);
+                vertex(tl);
+            }
+            // 8: bottom middle
+            if (dest.x >= tl.x && dest.x < tr.x) {
+                vertex(br);
+                vertex(tr);
+                vertex(tl);
+                vertex(bl);
+            }
+            // 9: bottom right
+            if (dest.x >= tr.x) {
+                vertex(tr);
+                vertex(tl);
+                vertex(bl);
+            }
+        }
 
-	
+        p.endShape(PApplet.CLOSE);
+    }
+
+    private void vertex(PVector v) {
+        p.vertex(v.x, v.y);
+    }
+
 }

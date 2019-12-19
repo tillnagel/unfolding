@@ -8,15 +8,15 @@ import processing.core.PVector;
  */
 public class RippleDistorter implements Distorter {
 
-	@Override
-	public void distort(PVector origCoord, PVector distCoord, int value) {
-		distCoord.x = origCoord.x;
-		distCoord.y = origCoord.y;
+    @Override
+    public void distort(PVector origCoord, PVector distCoord, int value) {
+        distCoord.x = origCoord.x;
+        distCoord.y = origCoord.y;
 
-		PApplet p = PAppletFactory.getInstance();
+        PApplet p = PAppletFactory.getInstance();
 
-		// Wave / Ripple
-		distCoord.z = (float) Math.sin(distCoord.x * 1.1f) * 5f;
-	}
+        // Wave / Ripple
+        distCoord.z = (float) Math.sin(distCoord.x * 1.1f) * 5f;
+    }
 
 }
