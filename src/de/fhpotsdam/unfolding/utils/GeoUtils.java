@@ -113,9 +113,19 @@ public class GeoUtils {
 
     /**
      * Super simplistic method to convert a geo-position as a Location.
+     * 
+     * @param latDegrees
+     * @param latMinutes
+     * @param latSeconds
+     * @param latDirection
+     * @param lonDegrees
+     * @param lonMinutes
+     * @param lonSeconds
+     * @param lonDirection
+     * @return 
      */
-    public static Location getDecimal(float latDegrees, float latMinutes, float latSeconds, String latDirection,
-            Integer lonDegrees, Integer lonMinutes, Integer lonSeconds, String lonDirection) {
+    public static Location getDecimal(float latDegrees, float latMinutes, float latSeconds, 
+            String latDirection, Integer lonDegrees, Integer lonMinutes, Integer lonSeconds, String lonDirection) {
         float lat = getLatitudeDecimal(latDegrees, latMinutes, latSeconds, latDirection);
         float lon = getLongitudeDecimal(lonDegrees, lonMinutes, lonSeconds, lonDirection);
         return new Location(lat, lon);
@@ -143,6 +153,7 @@ public class GeoUtils {
      * The returned location minimizes the sum of squared Euclidean distances
      * between itself and each location in the list.
      *
+     * @param locations
      * @return The centroid location.
      */
     public static Location getEuclideanCentroid(List<Location> locations) {
@@ -161,6 +172,7 @@ public class GeoUtils {
      * vertices. (You probably want to use this algorithm, but check out
      * {@link #getEuclideanCentroid(List)} for an alternative.)
      *
+     * @param originalVertices
      * @return The centroid location.
      */
     public static Location getCentroid(List<Location> originalVertices) {
@@ -196,7 +208,7 @@ public class GeoUtils {
             return originalVertices;
         }
 
-        List<Location> vertices = new ArrayList<Location>(originalVertices.size() + 1);
+        List<Location> vertices = new ArrayList<>(originalVertices.size() + 1);
         for (int i = 0; i < originalVertices.size(); i++) {
             vertices.add(new Location(0f, 0f));
         }
@@ -292,7 +304,7 @@ public class GeoUtils {
                 } else {
 
                     // Return centroid of all features
-                    List<Location> locations = new ArrayList<Location>();
+                    List<Location> locations = new ArrayList<>();
                     for (Feature f : multiFeature.getFeatures()) {
                         Location l = getCentroid(f);
                         locations.add(l);
@@ -345,6 +357,9 @@ public class GeoUtils {
 
     /**
      * Convenience method for {@link #getCentroid(Feature, boolean)}.
+     * 
+     * @param feature
+     * @return 
      */
     public static Location getCentroid(Feature feature) {
         return getCentroid(feature, false);
@@ -377,7 +392,7 @@ public class GeoUtils {
      * @return A list of locations.
      */
     public static List<Location> getLocationsFromFeatures(List<Feature> features) {
-        List<Location> locations = new ArrayList<Location>();
+        List<Location> locations = new ArrayList<>();
         for (Feature feature : features) {
             locations.addAll(getLocations(feature));
         }
@@ -393,7 +408,7 @@ public class GeoUtils {
      * @return A list of locations.
      */
     public static List<Location> getLocations(Feature feature) {
-        List<Location> locations = new ArrayList<Location>();
+        List<Location> locations = new ArrayList<>();
         if (feature.getType() == Feature.FeatureType.POINT) {
             PointFeature pf = (PointFeature) feature;
             locations.add(pf.getLocation());
@@ -418,7 +433,7 @@ public class GeoUtils {
      * @return A list of locations.
      */
     public static List<Location> getLocationsFromMarkers(List<Marker> markers) {
-        List<Location> locations = new ArrayList<Location>();
+        List<Location> locations = new ArrayList<>();
         for (Marker marker : markers) {
             locations.addAll(getLocations(marker));
         }
@@ -434,7 +449,7 @@ public class GeoUtils {
      * @return A list of locations.
      */
     public static List<Location> getLocations(Marker marker) {
-        List<Location> locations = new ArrayList<Location>();
+        List<Location> locations = new ArrayList<>();
         if (marker instanceof MultiMarker) {
             // recursive for multi
             MultiMarker mm = (MultiMarker) marker;
@@ -497,6 +512,7 @@ public class GeoUtils {
      * Decodes an encoded polyline string to a list of locations. Polyline
      * format is used by various geo services.
      *
+     * @param precision
      * @see <a href=
      *      "https://github.com/DennisSchiefer/Project-OSRM-Web/blob/develop/WebContent/routing/OSRM.RoutingGeometry.js">RoutingGeometry.js
      * - Adapted algorithm by OSRM (precision: 6 digits)</a>
@@ -509,7 +525,7 @@ public class GeoUtils {
      * @return An list of locations.
      */
     public static List<Location> decodePolyline(String encoded, int precision) {
-        List<Location> poly = new ArrayList<Location>();
+        List<Location> poly = new ArrayList<>();
 
         double precisionMult = Math.pow(10, -precision);
 
@@ -539,5 +555,4 @@ public class GeoUtils {
         }
         return poly;
     }
-
 }

@@ -54,5 +54,4 @@ public abstract class AbstractProjection {
         point = this.unproject(point);
         return new Location(180.0f * point.y / PApplet.PI, 180.0f * point.x / PApplet.PI);
     }
-
 }

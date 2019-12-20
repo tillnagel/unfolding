@@ -28,10 +28,12 @@ public class MBTilesMapProvider extends AbstractMapTileProvider {
         this.jdbcConnectionString = jdbcConnectionString;
     }
 
+    @Override
     public int tileWidth() {
         return 256;
     }
 
+    @Override
     public int tileHeight() {
         return 256;
     }
@@ -43,5 +45,4 @@ public class MBTilesMapProvider extends AbstractMapTileProvider {
 
         return MBTilesLoaderUtils.getMBTile((int) coord.column, (int) negativeRow, (int) coord.zoom, jdbcConnectionString);
     }
-
 }

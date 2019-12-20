@@ -18,10 +18,12 @@ public class MapSnapshotApp extends PApplet {
 
     MapSnapshot mapSnapshot;
 
+    @Override
     public void settings() {
         size(800, 600, P2D);
     }
 
+    @Override
     public void setup() {
         map = new UnfoldingMap(this);
         map.zoomAndPanTo(10, new Location(52.5f, 13.4f));
@@ -29,6 +31,7 @@ public class MapSnapshotApp extends PApplet {
         MapUtils.createDefaultEventDispatcher(this, map);
     }
 
+    @Override
     public void draw() {
         background(255, 0, 0);
         map.draw();
@@ -41,12 +44,14 @@ public class MapSnapshotApp extends PApplet {
         }
     }
 
+    @Override
     public void mouseClicked() {
         if (mapSnapshot != null && mouseX > 10 && mouseX < 90 && mouseY > 10 && mouseY < 70) {
             map.zoomAndPanTo(mapSnapshot.zoomLevel, mapSnapshot.location);
         }
     }
 
+    @Override
     public void keyPressed() {
         if (key == 's') {
             mapSnapshot = new MapSnapshot(this, map);
@@ -57,5 +62,4 @@ public class MapSnapshotApp extends PApplet {
     public static void main(String[] args) {
         PApplet.main(new String[]{MapSnapshotApp.class.getName()});
     }
-
 }

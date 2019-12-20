@@ -49,6 +49,8 @@ public class Integrator {
     /**
      * Update for next time step. Returns true if actually updated, false if no
      * longer changing.
+     * 
+     * @return 
      */
     public boolean update() {
         if (targeting) {

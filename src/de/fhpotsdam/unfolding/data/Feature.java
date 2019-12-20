@@ -12,14 +12,14 @@ public class Feature {
         POINT, LINES, POLYGON, MULTI
     }
 
-    private FeatureType type;
+    private final FeatureType type;
     private String id;
 
     /**
      * Stores data properties. A feature does not know about the semantics
      * though, this has to be done in the display.
      */
-    public HashMap<String, Object> properties = new HashMap<String, Object>();
+    public HashMap<String, Object> properties = new HashMap<>();
 
     /**
      * Creates a feature for a specific type.
@@ -63,6 +63,7 @@ public class Feature {
      *
      * @param key The key of this property.
      * @param value The value of this property.
+     * @return 
      */
     public Object addProperty(String key, Object value) {
         return properties.put(key, value);
@@ -140,5 +141,4 @@ public class Feature {
     public void setId(String id) {
         this.id = id;
     }
-
 }

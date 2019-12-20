@@ -5,6 +5,7 @@ import processing.core.PVector;
 
 public class ExtrusionDistorter implements Distorter {
 
+    @Override
     public void distort(PVector origCoord, PVector distCoord, int col) {
         distCoord.x = origCoord.x;
         distCoord.y = origCoord.y;
@@ -23,5 +24,4 @@ public class ExtrusionDistorter implements Distorter {
         // PApplet.println(col + ". " + brightness + "," + z);
         distCoord.z = z * PApplet.sin(p.frameCount / 20f) * 50;
     }
-
 }

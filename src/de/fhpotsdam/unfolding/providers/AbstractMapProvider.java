@@ -71,9 +71,12 @@ public abstract class AbstractMapProvider {
 
     /**
      * since we're often given four tile servers to pick from
+     * 
+     * @param lower
+     * @param higher
+     * @return 
      */
     public static float random(int lower, int higher) {
         return (float) ((double) lower + Math.random() * (double) (higher - lower));
     }
-
 }

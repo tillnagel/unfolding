@@ -29,7 +29,7 @@ public class ConvexHull {
 
     public ConvexHull(PApplet p) {
         this.p = p;
-        points = new ArrayList<PVector>();
+        points = new ArrayList<>();
     }
 
     public void draw() {
@@ -68,8 +68,7 @@ public class ConvexHull {
 
         // Sort the points by angle around p0
         class PointAngleComparator implements Comparator<PVector> {
-
-            private PVector p0;
+            private final PVector p0;
 
             public PointAngleComparator(PVector p0) {
                 this.p0 = p0;
@@ -79,6 +78,7 @@ public class ConvexHull {
                 return PApplet.atan2(pt.y - p0.y, pt.x - p0.x);
             }
 
+            @Override
             public int compare(PVector p1, PVector p2) {
                 float a1 = angle(p1), a2 = angle(p2);
                 if (a1 > a2) {
@@ -94,7 +94,7 @@ public class ConvexHull {
         Collections.sort(points, new PointAngleComparator(p0));
 
         // build the hull
-        Stack<PVector> hull = new Stack<PVector>();
+        Stack<PVector> hull = new Stack<>();
         hull.push(points.get(0));
         hull.push(points.get(1));
         hull.add(points.get(2));
@@ -138,5 +138,4 @@ public class ConvexHull {
         }
         p.endShape(PConstants.CLOSE);
     }
-
 }

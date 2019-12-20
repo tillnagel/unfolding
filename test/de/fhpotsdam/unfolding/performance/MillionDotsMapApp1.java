@@ -21,17 +21,21 @@ import de.fhpotsdam.unfolding.utils.ScreenPosition;
 public class MillionDotsMapApp1 extends PApplet {
 
     UnfoldingMap map;
-    List<Dot> dots = new ArrayList<Dot>();
+    List<Dot> dots = new ArrayList<>();
 
     Location tlLoc;
     Location brLoc;
 
     boolean useMouseRect = false;
 
-    public void setup() {
+    @Override
+    public void settings() {
         size(800, 600, OPENGL);
         smooth();
-
+    }
+    
+    @Override
+    public void setup() {
         map = new UnfoldingMap(this);
         map.zoomToLevel(3);
         MapUtils.createDefaultEventDispatcher(this, map);
@@ -41,6 +45,7 @@ public class MillionDotsMapApp1 extends PApplet {
         tlLoc = map.getTopLeftBorder();
     }
 
+    @Override
     public void draw() {
         map.draw();
 
@@ -75,6 +80,7 @@ public class MillionDotsMapApp1 extends PApplet {
         text("fps: " + nfs(frameRate, 0, 2) + " (" + visibleDotNumber + " dots)", 10, 20);
     }
 
+    @Override
     public void mouseClicked() {
         if (mouseButton == LEFT) {
             tlLoc = map.getLocation(mouseX, mouseY);
@@ -86,7 +92,7 @@ public class MillionDotsMapApp1 extends PApplet {
     }
 
     private List<Dot> createRandomDots(int dotNumbers) {
-        List<Dot> dots = new ArrayList<Dot>();
+        List<Dot> dots = new ArrayList<>();
         for (int i = 0; i < dotNumbers; i++) {
             Dot dot = new Dot(new Location(random(-85, 85), random(-180, 180)), new Date());
             dots.add(dot);
@@ -94,4 +100,7 @@ public class MillionDotsMapApp1 extends PApplet {
         return dots;
     }
 
+    public static void main(String args[]) {
+        PApplet.main(new String[]{MillionDotsMapApp1.class.getName()});
+    }
 }

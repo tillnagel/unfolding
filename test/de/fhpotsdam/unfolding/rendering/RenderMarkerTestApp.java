@@ -15,11 +15,14 @@ public class RenderMarkerTestApp extends PApplet {
     UnfoldingMap map;
     SimplePointMarker berlinMarker;
 
-    public void setup() {
+    @Override
+    public void settings() {
         size(800, 600, OPENGL);
-        //size(800, 600);
         smooth();
-
+    }
+    
+    @Override
+    public void setup() {
         map = new UnfoldingMap(this);
         map.zoomToLevel(3);
         map.panTo(new Location(40f, -98f));
@@ -33,6 +36,7 @@ public class RenderMarkerTestApp extends PApplet {
         map.addMarkers(berlinMarker);
     }
 
+    @Override
     public void draw() {
         background(240);
         map.draw();
@@ -47,4 +51,7 @@ public class RenderMarkerTestApp extends PApplet {
         text("Xylophon", pos.x + 20, pos.y + 30);
     }
 
+    public static void main(String args[]) {
+        PApplet.main(new String[]{RenderMarkerTestApp.class.getName()});
+    }
 }

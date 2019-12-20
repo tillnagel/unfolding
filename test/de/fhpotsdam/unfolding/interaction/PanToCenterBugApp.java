@@ -21,7 +21,7 @@ import de.fhpotsdam.unfolding.utils.ScreenPosition;
 @SuppressWarnings("serial")
 public class PanToCenterBugApp extends PApplet {
 
-    public static Logger log = Logger.getLogger(PanToCenterBugApp.class);
+    public static Logger LOGGER = Logger.getLogger(PanToCenterBugApp.class);
 
     DebugDisplay debugDisplay;
 
@@ -33,11 +33,15 @@ public class PanToCenterBugApp extends PApplet {
     Location locLondon = new Location(51.50939f, 0f);
     // Quito, Equador
     Location locQuito = new Location(0f, -78f);
-
-    public void setup() {
+    
+    @Override
+    public void settings() {
         size(800, 600, OPENGL);
         smooth();
-
+    }
+    
+    @Override
+    public void setup() {
         textFont(loadFont("Miso-Light-12.vlw"));
 
         // Creates default mapDisplay
@@ -50,6 +54,7 @@ public class PanToCenterBugApp extends PApplet {
         eventDispatcher = MapUtils.createDefaultEventDispatcher(this, map);
     }
 
+    @Override
     public void draw() {
         background(0);
         map.draw();
@@ -68,6 +73,7 @@ public class PanToCenterBugApp extends PApplet {
         ellipse(pQuito.x, pQuito.y, 12, 12);
     }
 
+    @Override
     public void keyPressed() {
         if (key == '1') {
             println("panCenterTo London");
@@ -76,5 +82,9 @@ public class PanToCenterBugApp extends PApplet {
             println("panCenterTo Quito");
             map.panTo(locQuito);
         }
+    }
+        
+    public static void main(String args[]) {
+        PApplet.main(new String[]{PanToCenterBugApp.class.getName()});
     }
 }

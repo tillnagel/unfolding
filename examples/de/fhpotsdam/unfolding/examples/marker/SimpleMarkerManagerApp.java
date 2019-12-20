@@ -23,16 +23,13 @@ public class SimpleMarkerManagerApp extends PApplet {
 
     UnfoldingMap map;
 
+    @Override
     public void settings() {
         size(800, 600, P2D);
     }
 
-    public static void main(String[] args) {
-        PApplet.main(new String[]{SimpleMarkerManagerApp.class.getName()});
-    }
-
+    @Override
     public void setup() {
-
         map = new UnfoldingMap(this, new Google.GoogleMapProvider());
 
         map.zoomToLevel(3);
@@ -58,6 +55,7 @@ public class SimpleMarkerManagerApp extends PApplet {
         berlinMarker.setStrokeWeight(2);
     }
 
+    @Override
     public void draw() {
         background(240);
 
@@ -65,4 +63,7 @@ public class SimpleMarkerManagerApp extends PApplet {
         map.draw();
     }
 
+    public static void main(String[] args) {
+        PApplet.main(new String[]{SimpleMarkerManagerApp.class.getName()});
+    }
 }

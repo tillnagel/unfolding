@@ -8,6 +8,7 @@ public class DisplacedDistorter implements Distorter {
     public float offsetX;
     public float offsetY;
 
+    @Override
     public void distort(PVector origCoord, PVector distCoord, int value) {
         if (value == 0) {
             distCoord.x = origCoord.x;
@@ -18,5 +19,4 @@ public class DisplacedDistorter implements Distorter {
             PApplet.println("x,y: " + distCoord.x + "," + distCoord.y + " - ox,oy:" + offsetX + ", " + offsetY);
         }
     }
-
 }

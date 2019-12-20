@@ -24,14 +24,12 @@ public class DistanceBasedColoredVectorTilesApp extends PApplet {
 
     String featureLayer = "buildings";
 
+    @Override
     public void settings() {
         size(800, 600, P2D);
     }
 
-    public static void main(String args[]) {
-        PApplet.main(new String[]{DistanceBasedColoredVectorTilesApp.class.getName()});
-    }
-
+    @Override
     public void setup() {
         map = new UnfoldingMap(this, "myMap");
         map.zoomAndPanTo(16, new Location(52.501, 13.395));
@@ -44,11 +42,13 @@ public class DistanceBasedColoredVectorTilesApp extends PApplet {
         map.addMarkers(markers);
     }
 
+    @Override
     public void draw() {
         map.draw();
         debugDisplay.draw();
     }
 
+    @Override
     public void mouseClicked() {
         map.getDefaultMarkerManager().clearMarkers();
         // List<Marker> markers = vectorTilesUtils.loadMarkersForScreenPos(featureLayer, mouseX, mouseY);
@@ -56,6 +56,7 @@ public class DistanceBasedColoredVectorTilesApp extends PApplet {
         map.addMarkers(markers);
     }
 
+    @Override
     public void mouseMoved() {
         Location mouseLocation = map.getLocation(mouseX, mouseY);
         List<Marker> markers = map.getMarkers();
@@ -79,4 +80,7 @@ public class DistanceBasedColoredVectorTilesApp extends PApplet {
         }
     }
 
+    public static void main(String args[]) {
+        PApplet.main(new String[]{DistanceBasedColoredVectorTilesApp.class.getName()});
+    }
 }

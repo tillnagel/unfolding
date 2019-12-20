@@ -20,11 +20,13 @@ public class Coordinate {
         this.zoom = zoom;
     }
 
+    @Override
     public String toString() {
         return "(" + PApplet.nf(row, 1, 3) + ", " + PApplet.nf(column, 1, 3) + " @"
                 + PApplet.nf(zoom, 1, 3) + ")";
     }
 
+    @Override
     public boolean equals(Object o) {
         Coordinate c = (Coordinate) o;
         // return PApplet.abs(c.row - row) < PApplet.EPSILON && PApplet.abs(c.column - column) <
@@ -32,6 +34,7 @@ public class Coordinate {
         return c.row == row && c.column == column && c.zoom == zoom;
     }
 
+    @Override
     public int hashCode() {
         return toString().hashCode();
     }
@@ -102,5 +105,4 @@ public class Coordinate {
         column = PApplet.round(column);
         zoom = PApplet.round(zoom);
     }
-
 }

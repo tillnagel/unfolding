@@ -20,14 +20,18 @@ public class GeneralizationTestApp extends PApplet {
 
     UnfoldingMap map;
 
-    List<PVector> points = new ArrayList<PVector>();
-    List<PVector> simplifiedPoints = new ArrayList<PVector>();
+    List<PVector> points = new ArrayList<>();
+    List<PVector> simplifiedPoints = new ArrayList<>();
 
     float tolerance = 10;
 
-    public void setup() {
+    @Override
+    public void settings() {
         size(800, 600, OPENGL);
-
+    }
+    
+    @Override
+    public void setup() {
         // map = new UnfoldingMap(this);
         points.add(new PVector(random(width), random(height)));
         for (int i = 1; i < 10; i++) {
@@ -36,6 +40,7 @@ public class GeneralizationTestApp extends PApplet {
         simplifiedPoints = GeneralizationUtils.simplify(points, tolerance, true);
     }
 
+    @Override
     public void draw() {
         background(250);
 
@@ -45,7 +50,23 @@ public class GeneralizationTestApp extends PApplet {
         drawLine(simplifiedPoints, color(0), color(255, 0, 0, 100));
     }
 
-    public void drawLine(List<PVector> points, int strokeColor, int color) {
+    @Override
+    public void keyPressed() {
+        if (key == '+') {
+            tolerance++;
+        }
+        if (key == '-') {
+            tolerance--;
+        }
+        println(tolerance);
+    }
+
+    @Override
+    public void mouseClicked() {
+        points.add(new PVector(mouseX, mouseY));
+    }
+
+    private void drawLine(List<PVector> points, int strokeColor, int color) {
         stroke(strokeColor);
         noFill();
         beginShape();
@@ -60,18 +81,8 @@ public class GeneralizationTestApp extends PApplet {
             ellipse(p.x, p.y, 5, 5);
         }
     }
-
-    public void keyPressed() {
-        if (key == '+') {
-            tolerance++;
-        }
-        if (key == '-') {
-            tolerance--;
-        }
-        println(tolerance);
-    }
-
-    public void mouseClicked() {
-        points.add(new PVector(mouseX, mouseY));
+    
+    public static void main(String args[]) {
+        PApplet.main(new String[]{GeneralizationTestApp.class.getName()});
     }
 }

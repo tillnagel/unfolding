@@ -17,10 +17,12 @@ public class ConstrainedMapApp extends PApplet {
     Location centerLocation = new Location(1.359f, 103.816f);
     float maxPanningDistance = 30;
 
+    @Override
     public void settings() {
         size(800, 600, P2D);
     }
 
+    @Override
     public void setup() {
         map = new UnfoldingMap(this);
         map.zoomAndPanTo(12, new Location(centerLocation));
@@ -30,6 +32,7 @@ public class ConstrainedMapApp extends PApplet {
         MapUtils.createDefaultEventDispatcher(this, map);
     }
 
+    @Override
     public void draw() {
         background(0);
         map.draw();
@@ -38,5 +41,4 @@ public class ConstrainedMapApp extends PApplet {
     public static void main(String[] args) {
         PApplet.main(new String[]{ConstrainedMapApp.class.getName()});
     }
-
 }

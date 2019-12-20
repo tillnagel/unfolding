@@ -28,7 +28,7 @@ import de.fhpotsdam.unfolding.interactions.TuioCursorHandler;
  */
 public class MultitouchMapExternalTuioApp extends PApplet implements TuioListener {
 
-    public static Logger log = Logger.getLogger(MultitouchMapExternalTuioApp.class);
+    public static Logger LOGGER = Logger.getLogger(MultitouchMapExternalTuioApp.class);
 
     UnfoldingMap map;
     EventDispatcher eventDispatcher;
@@ -40,16 +40,12 @@ public class MultitouchMapExternalTuioApp extends PApplet implements TuioListene
     int buttonY = 50;
     int buttonSize = 40;
 
-    public static void main(String[] args) {
-        String[] params = new String[]{"--present", "--bgcolor=#000000", "--hide-stop",
-            "de.fhpotsdam.unfolding.examples.interaction.multitouch.MultitouchMapExternalTuioApp"};
-        PApplet.main(params);
-    }
-
+    @Override
     public void settings() {
         size(800, 600, P2D);
     }
 
+    @Override
     public void setup() {
         map = new UnfoldingMap(this);
         map.setTweening(false);
@@ -67,6 +63,7 @@ public class MultitouchMapExternalTuioApp extends PApplet implements TuioListene
         tuioClient.addTuioListener(this);
     }
 
+    @Override
     public void draw() {
         map.draw();
 
@@ -91,7 +88,7 @@ public class MultitouchMapExternalTuioApp extends PApplet implements TuioListene
         int x = tuioCursor.getScreenX(width);
         int y = tuioCursor.getScreenY(height);
 
-        log.debug("Add " + tuioCursor.getCursorID() + ": " + x + ", " + y);
+        LOGGER.debug("Add " + tuioCursor.getCursorID() + ": " + x + ", " + y);
 
         if (dist(x, y, buttonX, buttonY) < buttonSize / 2) {
             activeButton = !activeButton;
@@ -104,14 +101,14 @@ public class MultitouchMapExternalTuioApp extends PApplet implements TuioListene
     public void updateTuioCursor(TuioCursor tuioCursor) {
         int x = tuioCursor.getScreenX(width);
         int y = tuioCursor.getScreenY(height);
-        log.debug("Update " + tuioCursor.getCursorID() + ": " + x + ", " + y);
+        LOGGER.debug("Update " + tuioCursor.getCursorID() + ": " + x + ", " + y);
 
         tuioCursorHandler.updateTuioCursor(tuioCursor);
     }
 
     @Override
     public void removeTuioCursor(TuioCursor tuioCursor) {
-        log.debug("Remove " + tuioCursor.getCursorID());
+        LOGGER.debug("Remove " + tuioCursor.getCursorID());
 
         tuioCursorHandler.removeTuioCursor(tuioCursor);
     }
@@ -136,4 +133,9 @@ public class MultitouchMapExternalTuioApp extends PApplet implements TuioListene
         // No objects used
     }
 
+    public static void main(String[] args) {
+        String[] params = new String[]{"--present", "--bgcolor=#000000", "--hide-stop",
+            "de.fhpotsdam.unfolding.examples.interaction.multitouch.MultitouchMapExternalTuioApp"};
+        PApplet.main(params);
+    }
 }

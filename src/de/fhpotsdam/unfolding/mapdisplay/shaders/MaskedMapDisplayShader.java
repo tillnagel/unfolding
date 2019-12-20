@@ -6,8 +6,6 @@ import processing.core.PImage;
 
 /**
  * This shader masks a map. The offscreen graphic canvas as mask
- *
- *
  */
 public class MaskedMapDisplayShader extends MapDisplayShader {
 
@@ -48,6 +46,7 @@ public class MaskedMapDisplayShader extends MapDisplayShader {
         mask.endDraw();
     }
 
+    @Override
     public void resize(float width, float height) {
         mask.resize((int) width, (int) height);
     }

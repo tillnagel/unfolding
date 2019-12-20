@@ -62,8 +62,8 @@ public class BarScaleUI {
         float distance = MAX_DISPLAY_DISTANCE / map.getZoom();
         distance = getClosestDistance(distance);
 
-        Location startLocation = null;
-        Location destLocation = null;
+        Location startLocation;
+        Location destLocation;
         if (showDistanceAtEquator) {
             // Get destLocation (world center, on equator, with calculated distance)
             startLocation = new Location(0, 0);
@@ -98,7 +98,6 @@ public class BarScaleUI {
 
         p.line(x, y - capHeightUp, x, y + capHeightDown);
         p.line(x + dx, y - capHeightUp, x + dx, y + capHeightDown);
-
     }
 
     /**
@@ -149,5 +148,4 @@ public class BarScaleUI {
     public void setAutoAlignment(boolean autoAlignment) {
         this.autoAlignment = autoAlignment;
     }
-
 }

@@ -30,12 +30,11 @@ public class MapDisplayFactory {
     public static AbstractMapDisplay getMapDisplay(PApplet p, String id, float x, float y, float width, float height,
             boolean useMask, boolean useDistortion, AbstractMapProvider provider, UnfoldingMap map, String renderer) {
 
-        AbstractMapDisplay mapDisplay = null;
-
         if (provider == null) {
             provider = getDefaultProvider();
         }
 
+        AbstractMapDisplay mapDisplay;
         try {
             Class openGLClass = Class.forName(OPEN_GL_CLASSNAME);
             if (openGLClass.isInstance(p.g)) {

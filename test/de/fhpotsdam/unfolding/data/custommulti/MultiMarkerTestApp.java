@@ -17,11 +17,15 @@ public class MultiMarkerTestApp extends PApplet {
 
     UnfoldingMap map;
     String[] ids = {"NLD", "FRA", "IRL", "AUT", "GBR"};
-    List<String> specialIDs = new ArrayList<String>(Arrays.asList(ids));
+    List<String> specialIDs = new ArrayList<>(Arrays.asList(ids));
 
-    public void setup() {
+    @Override
+    public void settings() {
         size(800, 600, P2D);
-
+    }
+    
+    @Override
+    public void setup() {
         List<Feature> countryFeatures = GeoJSONReader.loadData(this, "data/countries.geo.json");
         // List<Marker> countryMarkers = MapUtils.createSimpleMarkers(countryFeatures);
 
@@ -35,10 +39,12 @@ public class MultiMarkerTestApp extends PApplet {
         map.addMarkers(filterMarkers(countryMarkers));
     }
 
+    @Override
     public void draw() {
         map.draw();
     }
 
+    @Override
     public void mouseMoved() {
         for (Marker marker : map.getMarkers()) {
             marker.setSelected(false);
@@ -49,8 +55,8 @@ public class MultiMarkerTestApp extends PApplet {
         }
     }
 
-    public List<Marker> filterMarkers(List<Marker> markers) {
-        List<Marker> filteredMarkers = new ArrayList<Marker>();
+    private List<Marker> filterMarkers(List<Marker> markers) {
+        List<Marker> filteredMarkers = new ArrayList<>();
         for (Marker marker : markers) {
             if (specialIDs.contains(marker.getId())) {
                 filteredMarkers.add(marker);
@@ -59,4 +65,7 @@ public class MultiMarkerTestApp extends PApplet {
         return filteredMarkers;
     }
 
+    public static void main(String args[]) {
+        PApplet.main(new String[]{MultiMarkerTestApp.class.getName()});
+    }
 }

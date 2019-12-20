@@ -24,16 +24,20 @@ import de.fhpotsdam.unfolding.utils.MapUtils;
 public class MillionDotsMapApp3 extends PApplet {
 
     UnfoldingMap map;
-    List<Dot> dots = new ArrayList<Dot>();
-    List<PVector> visibleDotVertices = new ArrayList<PVector>();
+    List<Dot> dots = new ArrayList<>();
+    final List<PVector> visibleDotVertices = new ArrayList<>();
 
     Location tlLoc;
     Location brLoc;
 
-    public void setup() {
+    @Override
+    public void settings() {
         size(800, 600, OPENGL);
         smooth();
-
+    }
+    
+    @Override
+    public void setup() {
         dots = createRandomDots(100000);
 
         map = new UnfoldingMap(this);
@@ -43,6 +47,7 @@ public class MillionDotsMapApp3 extends PApplet {
         mapChanged(null);
     }
 
+    @Override
     public void draw() {
         map.draw();
 
@@ -85,7 +90,7 @@ public class MillionDotsMapApp3 extends PApplet {
     }
 
     private List<Dot> createRandomDots(int dotNumbers) {
-        List<Dot> dots = new ArrayList<Dot>();
+        List<Dot> dots = new ArrayList<>();
         for (int i = 0; i < dotNumbers; i++) {
             Dot dot = new Dot(new Location(random(-85, 85), random(-180, 180)), new Date());
             dots.add(dot);
@@ -93,4 +98,7 @@ public class MillionDotsMapApp3 extends PApplet {
         return dots;
     }
 
+    public static void main(String args[]) {
+        PApplet.main(new String[]{MillionDotsMapApp3.class.getName()});
+    }
 }

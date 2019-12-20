@@ -25,10 +25,12 @@ public class SmallImageOverlayApp extends PApplet {
     Location visNorthWest = new Location(52.399539, 13.048003);
     Location visSouthEast = new Location(52.391667, 13.066667);
 
+    @Override
     public void settings() {
         size(1400, 800, P2D);
     }
 
+    @Override
     public void setup() {
         visImg = loadImage("shader/splendor-cutout.png");
 
@@ -39,6 +41,7 @@ public class SmallImageOverlayApp extends PApplet {
         debugDisplay = new DebugDisplay(this, map);
     }
 
+    @Override
     public void draw() {
         map.draw();
 

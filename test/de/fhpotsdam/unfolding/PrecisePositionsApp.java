@@ -27,9 +27,12 @@ public class PrecisePositionsApp extends PApplet {
     Location location3 = new Location(1.283014, 103.833012);
 
     @Override
-    public void setup() {
+    public void settings() {
         size(800, 600, OPENGL);
-
+    }
+    
+    @Override
+    public void setup() {
         map = new UnfoldingMap(this, new Microsoft.AerialProvider());
         map.zoomAndPanTo(SINGAPORE_LOCATION, 14);
         map.setZoomRange(14, 22);
@@ -101,5 +104,9 @@ public class PrecisePositionsApp extends PApplet {
         System.out.printf("\tpoint3b : x = %.9f y = %.9f \n", x, y);
         PVector point3b = new PVector((float) x, (float) y);
         System.out.printf("\tpoint3b : x = %.9f y = %.9f \n", point3b.x, point3b.y);
+    }
+    
+    public static void main(String args[]) {
+        PApplet.main(new String[]{PrecisePositionsApp.class.getName()});
     }
 }

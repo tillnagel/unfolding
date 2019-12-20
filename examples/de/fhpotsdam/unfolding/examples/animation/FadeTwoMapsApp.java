@@ -24,10 +24,12 @@ public class FadeTwoMapsApp extends PApplet {
     int fadeMin = 0;
     int fadeMax = 255;
 
+    @Override
     public void settings() {
         size(600, 400, P2D);
     }
 
+    @Override
     public void setup() {
         // Set the position and size of our two maps.
         int mapXposition = 0;
@@ -46,6 +48,7 @@ public class FadeTwoMapsApp extends PApplet {
         MapUtils.createDefaultEventDispatcher(this, map1, map2);
     }
 
+    @Override
     public void draw() {
         background(0);
 
@@ -77,6 +80,7 @@ public class FadeTwoMapsApp extends PApplet {
         text("Press key '1' to fade once   |   Press key '2' to fade always", 10, 20);
     }
 
+    @Override
     public void keyPressed() {
         switch (key) {
             case '1':

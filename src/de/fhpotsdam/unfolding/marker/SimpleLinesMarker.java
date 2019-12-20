@@ -80,5 +80,4 @@ public class SimpleLinesMarker extends AbstractShapeMarker {
         pg.endShape();
         pg.popStyle();
     }
-
 }

@@ -9,7 +9,6 @@ import TUIO.TuioTime;
 
 /**
  * Simple test to calculate angle between fingers.
- *
  */
 public class FingerAngleTest extends PApplet implements TuioListener {
 
@@ -19,10 +18,14 @@ public class FingerAngleTest extends PApplet implements TuioListener {
 
     float oldAngle;
 
-    public void setup() {
+    @Override
+    public void settings() {
         size(1000, 800);
         smooth();
+    }
 
+    @Override
+    public void setup() {
         textFont(loadFont("Miso-Light-12.vlw"), 24);
 
         tuioClient = new TuioClient();
@@ -30,6 +33,7 @@ public class FingerAngleTest extends PApplet implements TuioListener {
         tuioClient.connect();
     }
 
+    @Override
     public void draw() {
         background(240);
 
@@ -47,6 +51,7 @@ public class FingerAngleTest extends PApplet implements TuioListener {
         }
     }
 
+    @Override
     public void addTuioCursor(TuioCursor tcur) {
         if (tuioCursor1 == null) {
             tuioCursor1 = tcur;
@@ -56,24 +61,13 @@ public class FingerAngleTest extends PApplet implements TuioListener {
         }
     }
 
+    @Override
     public void updateTuioCursor(TuioCursor tcur) {
         if (tuioCursor1 != null && tuioCursor2 != null) {
             float newAngle = getAngleBetween(tuioCursor1, tuioCursor2);
             float angle = newAngle - oldAngle;
             oldAngle = newAngle;
         }
-    }
-
-    private float getAngleBetween(float x1, float y1, float x2, float y2) {
-        float difY = y1 - y2;
-        float difX = x1 - x2;
-        float angle = atan2(difY, difX);
-        return angle;
-    }
-
-    private float getAngleBetween(TuioCursor tuioCursor1, TuioCursor tuioCursor2) {
-        return getAngleBetween(tuioCursor1.getScreenX(width), tuioCursor1.getScreenY(height), tuioCursor2
-                .getScreenX(width), tuioCursor2.getScreenY(height));
     }
 
     @Override
@@ -96,4 +90,19 @@ public class FingerAngleTest extends PApplet implements TuioListener {
     public void updateTuioObject(TuioObject arg0) {
     }
 
+    private float getAngleBetween(float x1, float y1, float x2, float y2) {
+        float difY = y1 - y2;
+        float difX = x1 - x2;
+        float angle = atan2(difY, difX);
+        return angle;
+    }
+
+    private float getAngleBetween(TuioCursor tuioCursor1, TuioCursor tuioCursor2) {
+        return getAngleBetween(tuioCursor1.getScreenX(width), tuioCursor1.getScreenY(height), tuioCursor2
+                .getScreenX(width), tuioCursor2.getScreenY(height));
+    }
+
+    public static void main(String args[]) {
+        PApplet.main(new String[]{FingerAngleTest.class.getName()});
+    }
 }

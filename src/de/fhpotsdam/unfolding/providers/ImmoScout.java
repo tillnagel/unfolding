@@ -11,14 +11,17 @@ public class ImmoScout {
             super();
         }
 
+        @Override
         public String getZoomString(Coordinate coordinate) {
             return "&z=" + (int) coordinate.zoom + "&x=" + (int) coordinate.column + "&y=" + (int) coordinate.row;
         }
 
+        @Override
         public int tileWidth() {
             return 256;
         }
 
+        @Override
         public int tileHeight() {
             return 256;
         }
@@ -26,6 +29,7 @@ public class ImmoScout {
 
     public static class HeatMapProvider extends ImmoScoutProvider {
 
+        @Override
         public String[] getTileUrls(Coordinate coordinate) {
             // old:
             // "http://heatmaps.immobilienscout24.de/geoserver/wmsproxy/KGS22_2009_whg_miete_gg/"
@@ -34,5 +38,4 @@ public class ImmoScout {
             return new String[]{url};
         }
     }
-
 }

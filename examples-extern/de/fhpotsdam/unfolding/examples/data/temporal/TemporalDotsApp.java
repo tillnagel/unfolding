@@ -30,6 +30,7 @@ public class TemporalDotsApp extends PApplet {
     DateTime endTime;
     DateTime currentTime;
 
+    @Override
     public void setup() {
         size(800, 600, OPENGL);
         smooth();
@@ -48,6 +49,7 @@ public class TemporalDotsApp extends PApplet {
         println("Dates of earthquakes ranges from " + startTime + " to " + endTime);
     }
 
+    @Override
     public void draw() {
         background(0);
         map.draw();
@@ -84,5 +86,4 @@ public class TemporalDotsApp extends PApplet {
         strokeWeight(1);
         ellipse(pos.x, pos.y, 15, 15);
     }
-
 }

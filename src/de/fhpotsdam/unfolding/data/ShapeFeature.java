@@ -15,7 +15,7 @@ public class ShapeFeature extends Feature {
     /**
      * The list of locations (exterior ring).
      */
-    public List<Location> locations = new ArrayList<Location>();
+    public List<Location> locations = new ArrayList<>();
 
     /**
      * Optional interior rings (polygon holes).
@@ -73,5 +73,4 @@ public class ShapeFeature extends Feature {
     public List<List<Location>> getInteriorRings() {
         return interiorRingLocationArray;
     }
-
 }

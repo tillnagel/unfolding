@@ -29,14 +29,12 @@ public class SelectedBuildingsMaskApp extends PApplet {
 
     Marker selectedMarker = null;
 
+    @Override
     public void settings() {
         size(800, 600, P2D);
     }
 
-    public static void main(String args[]) {
-        PApplet.main(new String[]{SelectedBuildingsMaskApp.class.getName()});
-    }
-
+    @Override
     public void setup() {
         map = new UnfoldingMap(this);
         MapUtils.createDefaultEventDispatcher(this, map);
@@ -52,6 +50,7 @@ public class SelectedBuildingsMaskApp extends PApplet {
         ((OpenGLMapDisplay) map.mapDisplay).setMapDisplayShader(mapDisplayShader);
     }
 
+    @Override
     public void draw() {
         background(0);
         map.draw();
@@ -71,6 +70,7 @@ public class SelectedBuildingsMaskApp extends PApplet {
         }
     }
 
+    @Override
     public void keyPressed() {
         if (key == 'l') {
             List<Marker> markers = vectorTilesUtils.loadMarkersForScreenPos(featureLayer, mouseX, mouseY);
@@ -78,6 +78,7 @@ public class SelectedBuildingsMaskApp extends PApplet {
         }
     }
 
+    @Override
     public void mouseClicked() {
         List<Marker> markers = map.getMarkers();
         for (Marker marker : markers) {
@@ -87,4 +88,7 @@ public class SelectedBuildingsMaskApp extends PApplet {
         selectedMarker = map.getFirstHitMarker(mouseX, mouseY);
     }
 
+    public static void main(String args[]) {
+        PApplet.main(new String[]{SelectedBuildingsMaskApp.class.getName()});
+    }
 }

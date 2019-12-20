@@ -159,5 +159,4 @@ public class MouseHandler extends MapEventBroadcaster {
             emouseY = mouseY;
         }
     }
-
 }

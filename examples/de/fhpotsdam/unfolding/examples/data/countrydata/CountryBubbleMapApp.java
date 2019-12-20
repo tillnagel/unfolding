@@ -30,14 +30,12 @@ public class CountryBubbleMapApp extends PApplet {
     HashMap<String, DataEntry> dataEntriesMap;
     List<Marker> countryMarkers;
 
+    @Override
     public void settings() {
         size(900, 600, P2D);
     }
 
-    public static void main(String args[]) {
-        PApplet.main(new String[]{CountryBubbleMapApp.class.getName()});
-    }
-
+    @Override
     public void setup() {
         map = new UnfoldingMap(this);
         map.zoomToLevel(2);
@@ -73,6 +71,7 @@ public class CountryBubbleMapApp extends PApplet {
         }
     }
 
+    @Override
     public void draw() {
         background(240);
 
@@ -81,8 +80,8 @@ public class CountryBubbleMapApp extends PApplet {
     }
 
     // Loads population
-    public HashMap<String, DataEntry> loadPopulationFromCSV(String fileName) {
-        HashMap<String, DataEntry> dataEntriesMap = new HashMap<String, DataEntry>();
+    private HashMap<String, DataEntry> loadPopulationFromCSV(String fileName) {
+        HashMap<String, DataEntry> dataEntriesMap = new HashMap<>();
 
         String[] rows = loadStrings(fileName);
         int i = 0;
@@ -115,4 +114,7 @@ public class CountryBubbleMapApp extends PApplet {
         Float value;
     }
 
+    public static void main(String args[]) {
+        PApplet.main(new String[]{CountryBubbleMapApp.class.getName()});
+    }
 }

@@ -15,20 +15,19 @@ public class MultiProviderMultiMapApp extends PApplet {
     UnfoldingMap map1;
     UnfoldingMap map2;
 
+    @Override
     public void settings() {
         size(800, 600, P2D);
     }
 
-    public static void main(String[] args) {
-        PApplet.main(new String[]{MultiProviderMultiMapApp.class.getName()});
-    }
-
+    @Override
     public void setup() {
         map1 = new UnfoldingMap(this, "map1", 10, 10, 385, 580, true, false, new Microsoft.AerialProvider());
         map2 = new UnfoldingMap(this, "map2", 405, 10, 385, 580, true, false, new CartoDB.Positron());
         MapUtils.createDefaultEventDispatcher(this, map1, map2);
     }
 
+    @Override
     public void draw() {
         background(0);
 
@@ -36,4 +35,7 @@ public class MultiProviderMultiMapApp extends PApplet {
         map2.draw();
     }
 
+    public static void main(String[] args) {
+        PApplet.main(new String[]{MultiProviderMultiMapApp.class.getName()});
+    }
 }

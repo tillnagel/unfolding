@@ -37,10 +37,14 @@ public class SimpleMarkerApp extends PApplet {
     SimplePointMarker markerBerlin;
     SimplePointMarker markerLondon;
 
-    public void setup() {
-        size(800, 400);
+    @Override
+    public void settings() {
+        size(800, 600, P2D);
         smooth();
-
+    }
+    
+    @Override
+    public void setup() {
         map = new UnfoldingMap(this);
         // map.setTweening(true);
         map.zoomToLevel(3);
@@ -58,6 +62,7 @@ public class SimpleMarkerApp extends PApplet {
         textFont(font);
     }
 
+    @Override
     public void draw() {
         background(70);
 
@@ -83,5 +88,9 @@ public class SimpleMarkerApp extends PApplet {
         arc(posLondon.x, posLondon.y, s, s, PI * 0.1f, PI * 0.9f);
         fill(0);
         text("London", posLondon.x - textWidth("London") / 2, posLondon.y + 4);
+    }
+    
+    public static void main(String[] args) {
+        PApplet.main(new String[]{SimpleMarkerApp.class.getName()});
     }
 }

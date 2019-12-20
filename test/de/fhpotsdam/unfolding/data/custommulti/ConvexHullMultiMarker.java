@@ -29,12 +29,12 @@ public class ConvexHullMultiMarker extends MultiMarker {
     }
 
     protected void createConvexHull() {
-        List<PVector> points = new ArrayList<PVector>();
+        List<PVector> points = new ArrayList<>();
         for (PVector v : GeoUtils.getLocations(this)) {
             points.add(v);
         }
         List<PVector> convexHullPoints = ConvexHull.buildHull(points);
-        List<Location> convexHullLocations = new ArrayList<Location>();
+        List<Location> convexHullLocations = new ArrayList<>();
         for (PVector p : convexHullPoints) {
             convexHullLocations.add((Location) p);
         }
@@ -58,5 +58,4 @@ public class ConvexHullMultiMarker extends MultiMarker {
     public boolean isInside(UnfoldingMap map, float checkX, float checkY) {
         return convexHullMarker.isInside(map, checkX, checkY);
     }
-
 }

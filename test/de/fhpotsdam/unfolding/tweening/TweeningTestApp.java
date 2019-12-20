@@ -16,9 +16,13 @@ public class TweeningTestApp extends PApplet {
     UnfoldingMap map;
     DebugDisplay debugDisplay;
 
-    public void setup() {
+    @Override
+    public void settings() {
         size(1024, 768, OPENGL);
-
+    }
+    
+    @Override
+    public void setup() {
         map = new UnfoldingMap(this);
         map.setTweening(true);
         MapUtils.createDefaultEventDispatcher(this, map);
@@ -26,11 +30,13 @@ public class TweeningTestApp extends PApplet {
         debugDisplay = new DebugDisplay(this, map);
     }
 
+    @Override
     public void draw() {
         map.draw();
         debugDisplay.draw();
     }
 
+    @Override
     public void keyPressed() {
         if (key == ' ') {
             println("tweening is " + map.isTweening());
@@ -48,5 +54,9 @@ public class TweeningTestApp extends PApplet {
 
             // map.zoomAndPanTo(new Location(52.2f, 13.2f), 10);
         }
+    }
+    
+    public static void main(String args[]) {
+        PApplet.main(new String[]{TweeningTestApp.class.getName()});
     }
 }

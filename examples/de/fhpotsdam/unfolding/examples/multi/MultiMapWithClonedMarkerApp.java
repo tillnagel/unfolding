@@ -22,16 +22,16 @@ public class MultiMapWithClonedMarkerApp extends PApplet {
 
     UnfoldingMap map;
     UnfoldingMap map2;
+    
+    Marker selectedMarker = null;
 
+    @Override
     public void settings() {
         size(800, 600, P2D);
         smooth();
     }
 
-    public static void main(String args[]) {
-        PApplet.main(new String[]{MultiMapWithClonedMarkerApp.class.getName()});
-    }
-
+    @Override
     public void setup() {
         map = new UnfoldingMap(this, 50, 50, 500, 500);
         map.zoomToLevel(2);
@@ -44,30 +44,33 @@ public class MultiMapWithClonedMarkerApp extends PApplet {
         map.addMarkers(countryMarkers);
     }
 
+    @Override
     public void draw() {
         background(160);
         map.draw();
         map2.draw();
     }
 
-    Marker selectedMarker = null;
-
+    @Override
     public void mouseClicked() {
         if (selectedMarker != null) {
             selectedMarker.setColor(color(100));
         }
+        
         selectedMarker = map.getFirstHitMarker(mouseX, mouseY);
-        selectedMarker.setColor(color(255, 0, 0));
+        if (selectedMarker != null) {
+            selectedMarker.setColor(color(255, 0, 0));
 
-        Marker clonedMarker = clone(selectedMarker);
-        if (clonedMarker != null) {
-            clonedMarker.setColor(color(0, 255, 0));
-            map2.getDefaultMarkerManager().clearMarkers();
-            map2.addMarker(clonedMarker);
+            Marker clonedMarker = clone(selectedMarker);
+            if (clonedMarker != null) {
+                clonedMarker.setColor(color(0, 255, 0));
+                map2.getDefaultMarkerManager().clearMarkers();
+                map2.addMarker(clonedMarker);
+            }
         }
     }
 
-    public Marker clone(Marker marker) {
+    private Marker clone(Marker marker) {
         Marker clonedMarker = null;
 
         if (marker instanceof SimplePolygonMarker) {
@@ -80,4 +83,7 @@ public class MultiMapWithClonedMarkerApp extends PApplet {
         return clonedMarker;
     }
 
+    public static void main(String args[]) {
+        PApplet.main(new String[]{MultiMapWithClonedMarkerApp.class.getName()});
+    }
 }

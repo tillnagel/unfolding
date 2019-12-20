@@ -11,15 +11,18 @@ public class Unfolding3DMapApp extends PApplet {
     float rotateZ = (float) 0;
     float rotateVelocityZ = 0.003f;
 
+    @Override
     public void settings() {
         size(800, 600, P3D);
     }
 
+    @Override
     public void setup() {
         map = new UnfoldingMap(this);
         map.zoomAndPanTo(4, new Location(51.5, 0));
     }
 
+    @Override
     public void draw() {
         background(40);
 
@@ -35,5 +38,4 @@ public class Unfolding3DMapApp extends PApplet {
     public static void main(String args[]) {
         PApplet.main(new String[]{Unfolding3DMapApp.class.getName()});
     }
-
 }

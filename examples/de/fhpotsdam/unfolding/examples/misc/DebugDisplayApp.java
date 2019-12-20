@@ -14,10 +14,12 @@ public class DebugDisplayApp extends PApplet {
     UnfoldingMap map;
     DebugDisplay debugDisplay;
 
+    @Override
     public void settings() {
         size(1024, 768, P2D);
     }
 
+    @Override
     public void setup() {
         map = new UnfoldingMap(this, "myMap");
         map.zoomAndPanTo(10, new Location(52.5f, 13.4f));
@@ -27,6 +29,7 @@ public class DebugDisplayApp extends PApplet {
         debugDisplay = new DebugDisplay(this, map);
     }
 
+    @Override
     public void draw() {
         map.draw();
         debugDisplay.draw();

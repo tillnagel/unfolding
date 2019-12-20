@@ -16,19 +16,18 @@ public class AllTilesLoadedApp extends PApplet {
 
     UnfoldingMap map;
 
+    @Override
     public void settings() {
         size(800, 600, P2D);
     }
 
-    public static void main(String args[]) {
-        PApplet.main(new String[]{AllTilesLoadedApp.class.getName()});
-    }
-
+    @Override
     public void setup() {
         map = new UnfoldingMap(this);
         MapUtils.createDefaultEventDispatcher(this, map);
     }
 
+    @Override
     public void draw() {
         map.draw();
     }
@@ -40,4 +39,7 @@ public class AllTilesLoadedApp extends PApplet {
         println("All tiles loaded.");
     }
 
+    public static void main(String args[]) {
+        PApplet.main(new String[]{AllTilesLoadedApp.class.getName()});
+    }
 }

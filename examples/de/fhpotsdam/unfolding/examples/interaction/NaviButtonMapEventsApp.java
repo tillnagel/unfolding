@@ -29,11 +29,13 @@ public class NaviButtonMapEventsApp extends PApplet {
 
     EventDispatcher eventDispatcher;
 
+    @Override
     public void settings() {
         size(800, 600, P2D);
         smooth();
     }
 
+    @Override
     public void setup() {
         font = createFont("sans-serif", 14);
 
@@ -47,6 +49,7 @@ public class NaviButtonMapEventsApp extends PApplet {
         eventDispatcher.register(mapOverview, "zoom", mapDetail.getId(), mapOverview.getId());
     }
 
+    @Override
     public void draw() {
         background(0);
         mapDetail.draw();
@@ -55,6 +58,7 @@ public class NaviButtonMapEventsApp extends PApplet {
         drawButtons();
     }
 
+    @Override
     public void mouseReleased() {
         if (mouseX > 610 && mouseX < 790 && mouseY > 210 && mouseY < 290) {
             // mapDetail.zoomAndPanTo() would not update mapOverview
@@ -105,5 +109,4 @@ public class NaviButtonMapEventsApp extends PApplet {
     public static void main(String[] args) {
         PApplet.main(new String[]{NaviButtonMapEventsApp.class.getName()});
     }
-
 }

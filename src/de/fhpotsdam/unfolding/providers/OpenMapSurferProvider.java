@@ -1,6 +1,5 @@
 package de.fhpotsdam.unfolding.providers;
 
-import de.fhpotsdam.unfolding.providers.AbstractMapTileUrlProvider;
 import de.fhpotsdam.unfolding.core.Coordinate;
 import de.fhpotsdam.unfolding.geo.MercatorProjection;
 import de.fhpotsdam.unfolding.geo.Transformation;
@@ -24,19 +23,23 @@ public class OpenMapSurferProvider {
             return "x=" + (int) coordinate.column + "&y=" + (int) coordinate.row + "&z=" + (int) coordinate.zoom;
         }
 
+        @Override
         public int tileWidth() {
             return 256;
         }
 
+        @Override
         public int tileHeight() {
             return 256;
         }
 
+        @Override
         public abstract String[] getTileUrls(Coordinate coordinate);
     }
 
     public static class Roads extends GenericOpenMapSurferProvider {
 
+        @Override
         public String[] getTileUrls(Coordinate coordinate) {
             String url = "http://openmapsurfer.uni-hd.de/tiles/roads/" + getZoomString(coordinate);
             return new String[]{url};
@@ -45,10 +48,10 @@ public class OpenMapSurferProvider {
 
     public static class Grayscale extends GenericOpenMapSurferProvider {
 
+        @Override
         public String[] getTileUrls(Coordinate coordinate) {
             String url = "http://openmapsurfer.uni-hd.de/tiles/roadsg/" + getZoomString(coordinate);
             return new String[]{url};
         }
     }
-
 }

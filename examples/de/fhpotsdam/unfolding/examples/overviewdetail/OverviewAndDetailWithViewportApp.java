@@ -25,14 +25,15 @@ public class OverviewAndDetailWithViewportApp extends PApplet {
     // Interactive finder box atop the overview map.
     ViewportRect viewportRect;
 
+    float oldX;
+    float oldY;
+
+    @Override
     public void settings() {
         size(800, 600, P2D);
     }
 
-    public static void main(String[] args) {
-        PApplet.main(new String[]{OverviewAndDetailWithViewportApp.class.getName()});
-    }
-
+    @Override
     public void setup() {
         // Detail map with default mouse and keyboard interactions
         mapDetail = new UnfoldingMap(this, "detail", 10, 10, 585, 580);
@@ -47,6 +48,7 @@ public class OverviewAndDetailWithViewportApp extends PApplet {
         viewportRect = new ViewportRect();
     }
 
+    @Override
     public void draw() {
         background(0);
 
@@ -60,14 +62,38 @@ public class OverviewAndDetailWithViewportApp extends PApplet {
         viewportRect.draw();
     }
 
-    public void panViewportOnDetailMap() {
+    @Override
+    public void mousePressed() {
+        if (viewportRect.isOver(mouseX, mouseY)) {
+            viewportRect.dragged = true;
+            oldX = mouseX - viewportRect.x;
+            oldY = mouseY - viewportRect.y;
+        }
+    }
+
+    @Override
+    public void mouseReleased() {
+        viewportRect.dragged = false;
+    }
+
+    @Override
+    public void mouseDragged() {
+        if (viewportRect.dragged) {
+            viewportRect.x = mouseX - oldX;
+            viewportRect.y = mouseY - oldY;
+
+            panViewportOnDetailMap();
+        }
+    }
+
+    private void panViewportOnDetailMap() {
         float x = viewportRect.x + viewportRect.w / 2;
         float y = viewportRect.y + viewportRect.h / 2;
         Location newLocation = mapOverviewStatic.mapDisplay.getLocation(x, y);
         mapDetail.panTo(newLocation);
     }
 
-    class ViewportRect {
+    public class ViewportRect {
 
         float x;
         float y;
@@ -91,31 +117,9 @@ public class OverviewAndDetailWithViewportApp extends PApplet {
             stroke(251, 114, 0, 240);
             rect(x, y, w, h);
         }
-
     }
 
-    float oldX;
-    float oldY;
-
-    public void mousePressed() {
-        if (viewportRect.isOver(mouseX, mouseY)) {
-            viewportRect.dragged = true;
-            oldX = mouseX - viewportRect.x;
-            oldY = mouseY - viewportRect.y;
-        }
+    public static void main(String[] args) {
+        PApplet.main(new String[]{OverviewAndDetailWithViewportApp.class.getName()});
     }
-
-    public void mouseReleased() {
-        viewportRect.dragged = false;
-    }
-
-    public void mouseDragged() {
-        if (viewportRect.dragged) {
-            viewportRect.x = mouseX - oldX;
-            viewportRect.y = mouseY - oldY;
-
-            panViewportOnDetailMap();
-        }
-    }
-
 }

@@ -32,5 +32,4 @@ public class TestMarker extends SimplePointMarker {
 
         pg.popStyle();
     }
-
 }

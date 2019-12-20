@@ -30,5 +30,4 @@ public class DeformMapDisplayShader extends MapDisplayShader {
         this.posX = posX;
         this.posY = posY;
     }
-
 }

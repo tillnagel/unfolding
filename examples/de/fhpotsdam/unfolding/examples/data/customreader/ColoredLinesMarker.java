@@ -48,12 +48,11 @@ public class ColoredLinesMarker extends AbstractShapeMarker {
     }
 
     @Override
-    public void draw(PGraphics pg, List<MapPosition> objectPositions) {
+    public void draw(PGraphics pg, List<MapPosition> mapPositions) {
     }
 
     @Override
     protected boolean isInside(float checkX, float checkY, float x, float y) {
         return false;
     }
-
 }

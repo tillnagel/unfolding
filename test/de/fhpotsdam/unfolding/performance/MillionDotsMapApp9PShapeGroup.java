@@ -17,18 +17,18 @@ public class MillionDotsMapApp9PShapeGroup extends PApplet {
 
     UnfoldingMap map;
     // Original dots (loc + time)
-    List<Dot> dots = new ArrayList<Dot>();
+    List<Dot> dots = new ArrayList<>();
 
     PShape shapeGroup;
 
+    @Override
     public void settings() {
         size(800, 600, P2D);
-
+        smooth();
     }
 
+    @Override
     public void setup() {
-        // smooth();
-
         dots = createRandomDots(dotNumber);
 
         map = new UnfoldingMap(this);
@@ -39,7 +39,22 @@ public class MillionDotsMapApp9PShapeGroup extends PApplet {
         updateShapeGroup();
     }
 
-    public PShape createShapeGroup() {
+    @Override
+    public void draw() {
+        background(0);
+        map.draw();
+
+        updateShapeGroup();
+
+        shape(shapeGroup);
+
+        fill(255);
+        rect(5, 5, 180, 20);
+        fill(0);
+        text("fps: " + nfs(frameRate, 0, 2) + " (" + dotNumber + " dots)", 10, 20);
+    }
+
+    private PShape createShapeGroup() {
         shapeGroup = createShape(PShape.GROUP);
         for (int i = 0; i < dotNumber; i++) {
             PShape shape = createShape();
@@ -57,21 +72,7 @@ public class MillionDotsMapApp9PShapeGroup extends PApplet {
         return shapeGroup;
     }
 
-    public void draw() {
-        background(0);
-        map.draw();
-
-        updateShapeGroup();
-
-        shape(shapeGroup);
-
-        fill(255);
-        rect(5, 5, 180, 20);
-        fill(0);
-        text("fps: " + nfs(frameRate, 0, 2) + " (" + dotNumber + " dots)", 10, 20);
-    }
-
-    public void updateShapeGroup() {
+    private void updateShapeGroup() {
         for (int i = 0; i < shapeGroup.getChildCount(); i++) {
             PShape shape = shapeGroup.getChild(i);
             PVector pos = map.getScreenPosition(dots.get(i).location);
@@ -83,7 +84,7 @@ public class MillionDotsMapApp9PShapeGroup extends PApplet {
     }
 
     private List<Dot> createRandomDots(int dotNumbers) {
-        List<Dot> dots = new ArrayList<Dot>();
+        List<Dot> dots = new ArrayList<>();
         for (int i = 0; i < dotNumbers; i++) {
             Dot dot = new Dot(new Location(random(-85, 85), random(-180, 180)), new Date());
             dots.add(dot);

@@ -35,16 +35,20 @@ import de.fhpotsdam.unfolding.utils.MapUtils;
 public class MillionDotsMapApp4Timer extends PApplet {
 
     UnfoldingMap map;
-    List<Dot> dots = new ArrayList<Dot>();
-    List<PVector> visibleDotVertices = new ArrayList<PVector>();
+    List<Dot> dots = new ArrayList<>();
+    final List<PVector> visibleDotVertices = new ArrayList<>();
 
     Location tlLoc;
     Location brLoc;
 
-    public void setup() {
+    @Override
+    public void settings() {
         size(800, 600, OPENGL);
         smooth();
-
+    }
+    
+    @Override
+    public void setup() {
         dots = createRandomDots(10000);
 
         map = new UnfoldingMap(this);
@@ -54,6 +58,7 @@ public class MillionDotsMapApp4Timer extends PApplet {
         mapChanged(null);
     }
 
+    @Override
     public void draw() {
         map.draw();
 
@@ -80,7 +85,7 @@ public class MillionDotsMapApp4Timer extends PApplet {
         text("fps: " + nfs(frameRate, 0, 2) + " (" + visibleDotVertices.size() + " dots)", 10, 20);
     }
 
-    public void mapChanged(MapEvent mapEvent) {
+    private void mapChanged(MapEvent mapEvent) {
         //println("mapChanged. lastTime:" + lastTime);
         resetCallTimer();
         //callTimer();
@@ -89,11 +94,11 @@ public class MillionDotsMapApp4Timer extends PApplet {
     int lastTime = 0;
     int interval = 1000;
 
-    void resetCallTimer() {
+    private void resetCallTimer() {
         lastTime = millis();
     }
 
-    void callTimer() {
+    private void callTimer() {
         if (millis() - lastTime >= interval) {
             //println("next call!");
             updateDots();
@@ -101,7 +106,7 @@ public class MillionDotsMapApp4Timer extends PApplet {
         }
     }
 
-    public void updateDots() {
+    private void updateDots() {
         // Check map area only once after user interaction.
         // Additionally, instead of calculating the screen position each frame, store it in new list.
         brLoc = map.getBottomRightBorder();
@@ -118,8 +123,8 @@ public class MillionDotsMapApp4Timer extends PApplet {
         }
     }
 
-    public List<Dot> createRandomDots(int dotNumbers) {
-        List<Dot> dots = new ArrayList<Dot>();
+    private List<Dot> createRandomDots(int dotNumbers) {
+        List<Dot> dots = new ArrayList<>();
         for (int i = 0; i < dotNumbers; i++) {
             Dot dot = new Dot(new Location(random(-85, 85), random(-180, 180)), new Date());
             dots.add(dot);
@@ -127,4 +132,7 @@ public class MillionDotsMapApp4Timer extends PApplet {
         return dots;
     }
 
+    public static void main(String args[]) {
+        PApplet.main(new String[]{MillionDotsMapApp4Timer.class.getName()});
+    }
 }

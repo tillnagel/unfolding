@@ -22,10 +22,12 @@ public class PanAnimationMapApp extends PApplet {
         new Location(51.34, 12.37)};
     int currentLocation = 0;
 
+    @Override
     public void settings() {
         size(800, 600, P2D);
     }
 
+    @Override
     public void setup() {
         map = new UnfoldingMap(this);
         map.setTweening(true);
@@ -34,6 +36,7 @@ public class PanAnimationMapApp extends PApplet {
         MapUtils.createDefaultEventDispatcher(this, map);
     }
 
+    @Override
     public void draw() {
         background(0);
         map.draw();
@@ -47,6 +50,7 @@ public class PanAnimationMapApp extends PApplet {
         }
     }
 
+    @Override
     public void keyPressed() {
         if (key == ' ') {
             map.switchTweening();
@@ -56,5 +60,4 @@ public class PanAnimationMapApp extends PApplet {
     public static void main(String[] args) {
         PApplet.main(new String[]{"de.fhpotsdam.unfolding.examples.animation.PanAnimationMapApp"});
     }
-
 }

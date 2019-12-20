@@ -12,16 +12,21 @@ import de.fhpotsdam.unfolding.utils.ScreenPosition;
 public class AddMarkerInteractivelyApp extends PApplet {
 
     UnfoldingMap map;
-    List<Location> locations = new ArrayList<Location>();
+    List<Location> locations = new ArrayList<>();
 
-    public void setup() {
+    @Override
+    public void settings() {
         size(800, 600);
         smooth();
-
+    }
+    
+    @Override
+    public void setup() {
         map = new UnfoldingMap(this);
         MapUtils.createDefaultEventDispatcher(this, map);
     }
 
+    @Override
     public void draw() {
         background(0);
         map.draw();
@@ -32,13 +37,18 @@ public class AddMarkerInteractivelyApp extends PApplet {
         }
     }
 
+    @Override
     public void mouseClicked() {
         Location location = map.getLocation(mouseX, mouseY);
         locations.add(location);
     }
 
+    @Override
     public void keyPressed() {
         println(locations);
     }
 
+    public static void main(String args[]) {
+        PApplet.main(new String[]{AddMarkerInteractivelyApp.class.getName()});
+    }
 }

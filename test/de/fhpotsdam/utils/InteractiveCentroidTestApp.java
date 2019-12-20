@@ -15,22 +15,27 @@ import de.fhpotsdam.unfolding.utils.ScreenPosition;
 public class InteractiveCentroidTestApp extends PApplet {
 
     UnfoldingMap map;
-    List<Location> locations = new ArrayList<Location>();
+    List<Location> locations = new ArrayList<>();
 
-    public void setup() {
+    @Override
+    public void settings() {
         size(800, 600);
         smooth();
-
+    }
+    
+    @Override
+    public void setup() {
         map = new UnfoldingMap(this);
         MapUtils.createDefaultEventDispatcher(this, map);
     }
 
+    @Override
     public void draw() {
         background(0);
         map.draw();
 
         fill(0);
-        List<PVector> vertices = new ArrayList<PVector>();
+        List<PVector> vertices = new ArrayList<>();
         for (Location location : locations) {
             ScreenPosition pos = map.getScreenPosition(location);
             ellipse(pos.x, pos.y, 10, 10);
@@ -54,16 +59,18 @@ public class InteractiveCentroidTestApp extends PApplet {
         ellipse(centroidPos1.x, centroidPos1.y, 10, 10);
     }
 
+    @Override
     public void mouseClicked() {
         Location location = map.getLocation(mouseX, mouseY);
         locations.add(location);
     }
 
+    @Override
     public void keyPressed() {
         println(locations);
     }
 
-    public static PVector getCentroidOfPolygon(List<PVector> originalVertices) {
+    private static PVector getCentroidOfPolygon(List<PVector> originalVertices) {
         List<PVector> vertices = getClosedPolygon(originalVertices);
         float cx = 0f, cy = 0f;
         for (int i = 0; i < vertices.size() - 1; i++) {
@@ -78,14 +85,14 @@ public class InteractiveCentroidTestApp extends PApplet {
         return new PVector(cx, cy);
     }
 
-    public static List<PVector> getClosedPolygon(List<PVector> originalVertices) {
+    private static List<PVector> getClosedPolygon(List<PVector> originalVertices) {
         if (originalVertices.size() < 1
                 || (originalVertices.get(0).equals(originalVertices.get(originalVertices.size() - 1)))) {
             // Return unchanged, if only one point, or already closed
             return originalVertices;
         }
 
-        List<PVector> vertices = new ArrayList<PVector>(originalVertices.size() + 1);
+        List<PVector> vertices = new ArrayList<>(originalVertices.size() + 1);
         for (int i = 0; i < originalVertices.size(); i++) {
             vertices.add(new PVector());
         }
@@ -99,7 +106,7 @@ public class InteractiveCentroidTestApp extends PApplet {
         return vertices;
     }
 
-    public static float getArea(List<PVector> vertices) {
+    private static float getArea(List<PVector> vertices) {
         float sum = 0;
         for (int i = 0; i < vertices.size() - 1; i++) {
             PVector vi0 = vertices.get(i);
@@ -109,4 +116,7 @@ public class InteractiveCentroidTestApp extends PApplet {
         return sum * 0.5f;
     }
 
+    public static void main(String args[]) {
+        PApplet.main(new String[]{InteractiveCentroidTestApp.class.getName()});
+    }
 }

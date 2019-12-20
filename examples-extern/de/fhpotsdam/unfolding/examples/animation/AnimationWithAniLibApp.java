@@ -23,6 +23,7 @@ public class AnimationWithAniLibApp extends PApplet {
     float currentZoom = 10;
     float targetZoom = currentZoom;
 
+    @Override
     public void setup() {
         size(1200, 600, P2D);
 
@@ -32,6 +33,7 @@ public class AnimationWithAniLibApp extends PApplet {
         Ani.init(this);
     }
 
+    @Override
     public void draw() {
         // NB Zoom before pan
 
@@ -44,6 +46,7 @@ public class AnimationWithAniLibApp extends PApplet {
         map.draw();
     }
 
+    @Override
     public void keyPressed() {
         if (key == 'z' || key == 'Z') {
             if (key == 'z') {
@@ -56,11 +59,11 @@ public class AnimationWithAniLibApp extends PApplet {
         }
     }
 
+    @Override
     public void mouseReleased() {
         Location targetLocation = map.getLocation(mouseX, mouseY);
 
         Ani.to(this, 1.5f, "lat", targetLocation.getLat(), Ani.ELASTIC_OUT);
         Ani.to(this, 1.5f, "lon", targetLocation.getLon(), Ani.ELASTIC_OUT);
     }
-
 }

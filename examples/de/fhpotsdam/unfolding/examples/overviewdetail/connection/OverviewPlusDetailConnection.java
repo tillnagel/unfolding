@@ -13,5 +13,4 @@ public interface OverviewPlusDetailConnection {
     public void setOverviewSize(float width, float height);
 
     public void draw();
-
 }

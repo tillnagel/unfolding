@@ -25,7 +25,7 @@ import de.fhpotsdam.unfolding.providers.Microsoft;
  */
 public class MapComparisonApp extends PApplet {
 
-    public static Logger log = Logger.getLogger(MapComparisonApp.class);
+    public static Logger LOGGER = Logger.getLogger(MapComparisonApp.class);
 
     // Natural park in Oldenburg, Germany
     public Location location = new Location(53.015f, 8.2f);
@@ -44,17 +44,14 @@ public class MapComparisonApp extends PApplet {
     UnfoldingMap mapGoogleSmallGoogleBlend;
     UnfoldingMap mapGoogleSmallSat;
 
+    @Override
     public void settings() {
         size(1230, 700, P2D);
-    }
-
-    public static void main(String[] args) {
-        PApplet.main(new String[]{MapComparisonApp.class.getName()});
-    }
-
-    public void setup() {
         smooth();
+    }
 
+    @Override
+    public void setup() {
         eventDispatcher = new EventDispatcher();
 
         // OSM --------------------------------------------
@@ -91,7 +88,7 @@ public class MapComparisonApp extends PApplet {
         eventDispatcher.addBroadcaster(mouseHandler);
 
         // All maps listen to events from both broadcasters
-        List<MapEventListener> maps = new ArrayList<MapEventListener>();
+        List<MapEventListener> maps = new ArrayList<>();
         maps.add(mapOSM);
         maps.add(mapOSMSmall);
         maps.add(mapOSMSmallOSMBlend);
@@ -108,6 +105,7 @@ public class MapComparisonApp extends PApplet {
         zoomAndPanTo(location);
     }
 
+    @Override
     public void draw() {
         background(0);
 
@@ -130,7 +128,7 @@ public class MapComparisonApp extends PApplet {
         mapGoogleSmallSat.draw();
     }
 
-    public void zoomAndPanTo(Location location) {
+    private void zoomAndPanTo(Location location) {
         PanMapEvent panMapEvent = new PanMapEvent(this, mapOSM.getId());
         panMapEvent.setToLocation(location);
         eventDispatcher.fireMapEvent(panMapEvent);
@@ -140,4 +138,7 @@ public class MapComparisonApp extends PApplet {
         eventDispatcher.fireMapEvent(zoomMapEvent);
     }
 
+    public static void main(String[] args) {
+        PApplet.main(new String[]{MapComparisonApp.class.getName()});
+    }
 }

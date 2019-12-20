@@ -48,5 +48,4 @@ public class DebugTileUtils {
 
     public static void drawTileBorder(PGraphics pg) {
     }
-
 }

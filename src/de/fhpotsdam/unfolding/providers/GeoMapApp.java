@@ -18,22 +18,26 @@ public class GeoMapApp {
             return toMicrosoft((int) coordinate.column, (int) coordinate.row, (int) coordinate.zoom);
         }
 
+        @Override
         public int tileWidth() {
             return 336;
             // return 320;
         }
 
+        @Override
         public int tileHeight() {
             return 336;
             // return 320;
         }
 
+        @Override
         public abstract String[] getTileUrls(Coordinate coordinate);
 
     }
 
     public static class TopologicalGeoMapProvider extends GeoMapAppProvider {
 
+        @Override
         public String[] getTileUrls(Coordinate coordinate) {
             String path = getPath(coordinate);
             // String url = "http://dev.geomapapp.org/MapApp/merc_320_1024/" +
@@ -133,5 +137,4 @@ public class GeoMapApp {
         // Return x, y, z for Microsoft Aerial tile column, row, zoom.
         return toMicrosoft(col, row, zoom);
     }
-
 }

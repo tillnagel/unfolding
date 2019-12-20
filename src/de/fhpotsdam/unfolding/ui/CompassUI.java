@@ -79,5 +79,4 @@ public class CompassUI {
     public void setScale(float scale) {
         this.scale = scale;
     }
-
 }

@@ -21,7 +21,7 @@ import de.fhpotsdam.unfolding.interactions.TuioCursorHandler;
  */
 public class MultitouchMapApp extends PApplet {
 
-    public static Logger log = Logger.getLogger(MultitouchMapApp.class);
+    public static Logger LOGGER = Logger.getLogger(MultitouchMapApp.class);
 
     public static final boolean DISABLE_ROTATING = false;
 
@@ -30,6 +30,7 @@ public class MultitouchMapApp extends PApplet {
     UnfoldingMap map;
     TuioCursorHandler tuioCursorHandler;
 
+    @Override
     public void settings() {
         if (FULLSCREEN) {
             size(1920, 1080, P2D);
@@ -38,6 +39,7 @@ public class MultitouchMapApp extends PApplet {
         }
     }
 
+    @Override
     public void setup() {
         // Init the map
         map = new UnfoldingMap(this);
@@ -50,6 +52,7 @@ public class MultitouchMapApp extends PApplet {
         eventDispatcher.register(map, "zoom");
     }
 
+    @Override
     public void draw() {
         background(0);
 
@@ -68,5 +71,4 @@ public class MultitouchMapApp extends PApplet {
         FULLSCREEN = true;
         PApplet.main(params);
     }
-
 }

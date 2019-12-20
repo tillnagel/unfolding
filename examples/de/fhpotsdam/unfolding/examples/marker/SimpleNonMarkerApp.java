@@ -25,14 +25,12 @@ public class SimpleNonMarkerApp extends PApplet {
     Location locationBerlin = new Location(52.5f, 13.4f);
     Location locationLondon = new Location(51.5f, 0f);
 
+    @Override
     public void settings() {
         size(400, 400, P2D);
     }
 
-    public static void main(String[] args) {
-        PApplet.main(new String[]{SimpleNonMarkerApp.class.getName()});
-    }
-
+    @Override
     public void setup() {
         noStroke();
 
@@ -42,6 +40,7 @@ public class SimpleNonMarkerApp extends PApplet {
         MapUtils.createDefaultEventDispatcher(this, map);
     }
 
+    @Override
     public void draw() {
         background(0);
         map.draw();
@@ -59,4 +58,7 @@ public class SimpleNonMarkerApp extends PApplet {
         ellipse(xyLondon.x, xyLondon.y, s, s);
     }
 
+    public static void main(String[] args) {
+        PApplet.main(new String[]{SimpleNonMarkerApp.class.getName()});
+    }
 }

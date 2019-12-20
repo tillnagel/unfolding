@@ -35,6 +35,7 @@ public class AnimatedTemporalDotsApp extends PApplet {
     DateTime currentTime;
     boolean animating = true;
 
+    @Override
     public void setup() {
         size(900, 600, OPENGL);
         smooth();
@@ -55,6 +56,7 @@ public class AnimatedTemporalDotsApp extends PApplet {
         println("Dates of earthquakes ranges from " + startTime + " to " + endTime);
     }
 
+    @Override
     public void draw() {
         background(0);
         map.draw();
@@ -117,6 +119,7 @@ public class AnimatedTemporalDotsApp extends PApplet {
         ellipse(pos.x, pos.y, 4, 4);
     }
 
+    @Override
     public void keyPressed() {
         if (key == ' ') {
             animating = !animating;
@@ -130,5 +133,4 @@ public class AnimatedTemporalDotsApp extends PApplet {
             }
         }
     }
-
 }

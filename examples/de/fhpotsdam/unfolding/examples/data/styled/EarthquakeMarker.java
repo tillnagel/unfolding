@@ -13,6 +13,7 @@ public class EarthquakeMarker extends SimplePointMarker {
         super(location);
     }
 
+    @Override
     public void draw(PGraphics pg, float x, float y) {
         pg.pushStyle();
         pg.noStroke();

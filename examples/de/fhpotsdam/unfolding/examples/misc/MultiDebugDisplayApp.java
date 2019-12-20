@@ -25,10 +25,12 @@ public class MultiDebugDisplayApp extends PApplet {
     DebugDisplay debugDisplay1;
     DebugDisplay debugDisplay2;
 
+    @Override
     public void settings() {
         size(1024, 768, P2D);
     }
 
+    @Override
     public void setup() {
         map1 = new UnfoldingMap(this, "map1", 0, 0, 512, height);
         map1.zoomAndPanTo(10, new Location(52.5f, 13.4f));
@@ -41,6 +43,7 @@ public class MultiDebugDisplayApp extends PApplet {
         debugDisplay2 = new DebugDisplay(this, map2, eventDispatcher, 522, 10);
     }
 
+    @Override
     public void draw() {
         map1.draw();
         debugDisplay1.draw();

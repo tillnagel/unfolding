@@ -100,5 +100,4 @@ public class SimplePolygonMarker extends AbstractShapeMarker {
         pg.endShape(PConstants.CLOSE);
         pg.popStyle();
     }
-
 }

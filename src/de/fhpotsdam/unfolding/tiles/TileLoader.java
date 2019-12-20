@@ -65,7 +65,7 @@ public class TileLoader implements Runnable {
     /**
      * Empty image in tile dimension to be used as place holder.
      */
-    private PImage cachedEmpyImage;
+    private final PImage cachedEmpyImage;
 
     public TileLoader(PApplet p, AbstractMapProvider provider, TileLoaderListener listener, Coordinate coordinate) {
         this.p = p;
@@ -80,6 +80,7 @@ public class TileLoader implements Runnable {
      * Gets tile from provider, and calls
      * {@link TileLoaderListener#tileLoaded(Coordinate, Object)} afterwards.
      */
+    @Override
     public void run() {
 
         // Gets tile as image directly from provider (e.g. loaded from a database)
@@ -164,5 +165,4 @@ public class TileLoader implements Runnable {
     public void showTileCoordinates() {
         this.showTileCoordinates = true;
     }
-
 }

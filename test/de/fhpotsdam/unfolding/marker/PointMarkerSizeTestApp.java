@@ -11,10 +11,12 @@ public class PointMarkerSizeTestApp extends PApplet {
 
     UnfoldingMap map;
 
+    @Override
     public void settings() {
         size(600, 600, P2D);
     }
 
+    @Override
     public void setup() {
         map = new UnfoldingMap(this);
         Location moscow = new Location(55.75f, 37.61f);
@@ -28,6 +30,7 @@ public class PointMarkerSizeTestApp extends PApplet {
         map.addMarker(m);
     }
 
+    @Override
     public void draw() {
         background(240);
 
@@ -40,6 +43,7 @@ public class PointMarkerSizeTestApp extends PApplet {
 
     }
 
+    @Override
     public void mouseClicked() {
         List<Marker> hits = map.getHitMarkers(mouseX, mouseY);
         if (hits.size() > 0) {
@@ -52,5 +56,4 @@ public class PointMarkerSizeTestApp extends PApplet {
     public static void main(String args[]) {
         PApplet.main(new String[]{PointMarkerSizeTestApp.class.getName()});
     }
-
 }

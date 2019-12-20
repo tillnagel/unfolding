@@ -13,15 +13,20 @@ import de.fhpotsdam.unfolding.utils.ScreenPosition;
 public class FindCentroidApp extends PApplet {
 
     UnfoldingMap map;
-    List<Location> locations = new ArrayList<Location>();
+    List<Location> locations = new ArrayList<>();
 
-    public void setup() {
+    @Override
+    public void settings() {
         size(800, 600, OPENGL);
-
+    }
+    
+    @Override
+    public void setup() {
         map = new UnfoldingMap(this);
         MapUtils.createDefaultEventDispatcher(this, map);
     }
 
+    @Override
     public void draw() {
         map.draw();
 
@@ -52,7 +57,20 @@ public class FindCentroidApp extends PApplet {
         }
     }
 
-    public Location getNearestLocationTo(Location location) {
+    @Override
+    public void mouseClicked() {
+        Location location = map.getLocation(mouseX, mouseY);
+        locations.add(location);
+    }
+
+    @Override
+    public void keyPressed() {
+        if (key == 'c') {
+            locations.clear();
+        }
+    }
+
+    private Location getNearestLocationTo(Location location) {
         double minDistance = Double.MAX_VALUE;
         Location nearestLocation = null;
         for (Location loc : locations) {
@@ -65,15 +83,7 @@ public class FindCentroidApp extends PApplet {
         return nearestLocation;
     }
 
-    public void mouseClicked() {
-        Location location = map.getLocation(mouseX, mouseY);
-        locations.add(location);
+    public static void main(String args[]) {
+        PApplet.main(new String[]{FindCentroidApp.class.getName()});
     }
-
-    public void keyPressed() {
-        if (key == 'c') {
-            locations.clear();
-        }
-    }
-
 }

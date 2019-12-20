@@ -8,6 +8,8 @@ import de.fhpotsdam.unfolding.UnfoldingMap;
 /**
  * Manages markers of different types. Is always connected to one map (for
  * location to screen coordinate conversion).
+ * 
+ * @param <E>
  */
 public class MarkerManager<E extends Marker> {
 
@@ -19,7 +21,7 @@ public class MarkerManager<E extends Marker> {
      * Creates a MarkerManager with an empty markers list.
      */
     public MarkerManager() {
-        markers = new ArrayList<E>();
+        markers = new ArrayList<>();
         bEnableDrawing = true;
     }
 
@@ -102,7 +104,7 @@ public class MarkerManager<E extends Marker> {
      */
     public boolean addMarker(E marker) {
         if (markers == null) {
-            this.markers = new ArrayList<E>();
+            this.markers = new ArrayList<>();
         }
 
         if (markers.contains(marker)) {
@@ -120,7 +122,7 @@ public class MarkerManager<E extends Marker> {
      */
     public void addMarkers(List<E> markers) {
         if (this.markers == null) {
-            this.markers = new ArrayList<E>();
+            this.markers = new ArrayList<>();
         }
         // TODO Only add marker if list does not contain it yet
         this.markers.addAll(markers);
@@ -149,7 +151,7 @@ public class MarkerManager<E extends Marker> {
      * @return The found Markers or an empty list if none found.
      */
     public List<E> findMarkersByIds(List<String> ids) {
-        List<E> foundMarkers = new ArrayList<E>();
+        List<E> foundMarkers = new ArrayList<>();
         for (E marker : markers) {
             if (ids.contains(marker.getId())) {
                 foundMarkers.add(marker);
@@ -190,6 +192,9 @@ public class MarkerManager<E extends Marker> {
     }
 
     /**
+     * @param checkX
+     * @param checkY
+     * @return 
      * @deprecated Replaced by {@link #getFirstHitMarker(float, float)}
      */
     @Deprecated
@@ -254,7 +259,7 @@ public class MarkerManager<E extends Marker> {
      * @return All hit markers, or an empty list if no marker was hit.
      */
     public List<E> getHitMarkers(float checkX, float checkY) {
-        List<E> hitMarkers = new ArrayList<E>();
+        List<E> hitMarkers = new ArrayList<>();
         for (E marker : markers) {
             if (marker.isInside(map, checkX, checkY)) {
                 hitMarkers.add(marker);
@@ -275,5 +280,4 @@ public class MarkerManager<E extends Marker> {
             marker.draw(map);
         }
     }
-
 }

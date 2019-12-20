@@ -13,10 +13,12 @@ public class OffscreenTestApp extends PApplet {
     PGraphics pg;
     PGraphics pg2;
 
+    @Override
     public void settings() {
         size(800, 600, P3D);
     }
 
+    @Override
     public void setup() {
         testTile = loadImage("http://a.basemaps.cartocdn.com/light_all/1/1/1.png");
         pg = createGraphics((int) width, (int) height, P3D);
@@ -24,6 +26,7 @@ public class OffscreenTestApp extends PApplet {
         pg2 = createGraphics((int) width, (int) height, P3D);
     }
 
+    @Override
     public void draw() {
         pg.beginDraw();
         pg.clear();

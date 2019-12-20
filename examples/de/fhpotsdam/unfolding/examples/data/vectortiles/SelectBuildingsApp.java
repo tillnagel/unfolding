@@ -25,14 +25,12 @@ public class SelectBuildingsApp extends PApplet {
     Location[] boundingBox;
     MapSnapshot mapSnapshot = null;
 
+    @Override
     public void settings() {
         size(800, 600, P2D);
     }
 
-    public static void main(String args[]) {
-        PApplet.main(new String[]{SelectBuildingsApp.class.getName()});
-    }
-
+    @Override
     public void setup() {
         map = new UnfoldingMap(this, 0, 0, 600, 600);
 
@@ -45,6 +43,7 @@ public class SelectBuildingsApp extends PApplet {
         map.addMarkers(markers);
     }
 
+    @Override
     public void draw() {
         background(0);
         map.draw();
@@ -62,6 +61,7 @@ public class SelectBuildingsApp extends PApplet {
         }
     }
 
+    @Override
     public void mouseClicked() {
         List<Marker> markers = map.getMarkers();
         for (Marker marker : markers) {
@@ -88,6 +88,7 @@ public class SelectBuildingsApp extends PApplet {
         }
     }
 
+    @Override
     public void keyPressed() {
         if (key == 't') {
             List<Marker> markers = map.getMarkers();
@@ -102,4 +103,7 @@ public class SelectBuildingsApp extends PApplet {
         }
     }
 
+    public static void main(String args[]) {
+        PApplet.main(new String[]{SelectBuildingsApp.class.getName()});
+    }
 }

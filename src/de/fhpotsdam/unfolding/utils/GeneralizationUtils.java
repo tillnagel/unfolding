@@ -40,7 +40,7 @@ public class GeneralizationUtils {
         float[] yAvgValues = computeMovingAverage(yValues, np);
 
         // Combine averaged x and y back to vertices
-        List<PVector> averageVertices = new ArrayList<PVector>();
+        List<PVector> averageVertices = new ArrayList<>();
         for (int i = 0; i < xAvgValues.length; i++) {
             averageVertices.add(new PVector(xAvgValues[i], yAvgValues[i]));
         }
@@ -51,6 +51,7 @@ public class GeneralizationUtils {
     /**
      * Calculates the np-point moving average for some values.
      *
+     * @param values
      * @param np number of points to average over.
      * @return The smoothened values.
      */
@@ -105,6 +106,10 @@ public class GeneralizationUtils {
 
     /**
      * Square distance between 2 points.
+     * 
+     * @param p1
+     * @param p2
+     * @return 
      */
     protected static float getSquareDistance(PVector p1, PVector p2) {
         float dx = p1.x - p2.x;
@@ -115,6 +120,11 @@ public class GeneralizationUtils {
 
     /**
      * Square distance from a point to a segment.
+     * 
+     * @param p
+     * @param p1
+     * @param p2
+     * @return 
      */
     protected static float getSquareSegmentDistance(PVector p, PVector p1, PVector p2) {
         float x = p1.x;
@@ -158,7 +168,7 @@ public class GeneralizationUtils {
         float len = points.size();
         PVector point = null;
         PVector prevPoint = points.get(0);
-        List<PVector> newPoints = new ArrayList<PVector>();
+        List<PVector> newPoints = new ArrayList<>();
         newPoints.add(prevPoint);
 
         for (i = 1; i < len; i++) {
@@ -189,7 +199,7 @@ public class GeneralizationUtils {
 
         int len = points.size();
 
-        List<Integer> markers = new ArrayList<Integer>(len);
+        List<Integer> markers = new ArrayList<>(len);
         for (int i = 0; i < len; i++) {
             markers.add(i, 0);
         }
@@ -202,10 +212,10 @@ public class GeneralizationUtils {
         float sqDist;
         int index = 0;
 
-        Stack<Integer> firstStack = new Stack<Integer>();
-        Stack<Integer> lastStack = new Stack<Integer>();
+        Stack<Integer> firstStack = new Stack<>();
+        Stack<Integer> lastStack = new Stack<>();
 
-        List<PVector> newPoints = new ArrayList<PVector>();
+        List<PVector> newPoints = new ArrayList<>();
 
         markers.set(first, 1);
         markers.set(last, 1);
@@ -253,5 +263,4 @@ public class GeneralizationUtils {
 
         return newPoints;
     }
-
 }

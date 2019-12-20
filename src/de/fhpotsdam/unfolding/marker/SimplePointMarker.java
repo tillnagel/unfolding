@@ -90,5 +90,4 @@ public class SimplePointMarker extends AbstractMarker {
     public void setDiameter(float diameter) {
         this.diameter = diameter;
     }
-
 }

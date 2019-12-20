@@ -17,5 +17,4 @@ public abstract class AbstractMapTileProvider extends AbstractMapProvider {
     public String[] getTileUrls(Coordinate coordinate) {
         return null;
     }
-
 }

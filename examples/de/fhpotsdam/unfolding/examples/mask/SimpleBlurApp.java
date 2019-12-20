@@ -15,10 +15,12 @@ public class SimpleBlurApp extends PApplet {
 
     BlurredMapDisplayShader mapDisplayShader;
 
+    @Override
     public void settings() {
         size(800, 600, P3D);
     }
 
+    @Override
     public void setup() {
         size(800, 600, P3D);
         map = new UnfoldingMap(this, 100, 100, 600, 400);
@@ -28,6 +30,7 @@ public class SimpleBlurApp extends PApplet {
         ((OpenGLMapDisplay) map.mapDisplay).setMapDisplayShader(mapDisplayShader);
     }
 
+    @Override
     public void draw() {
         background(0);
         map.draw();
@@ -36,5 +39,4 @@ public class SimpleBlurApp extends PApplet {
     public static void main(String args[]) {
         PApplet.main(new String[]{SimpleBlurApp.class.getName()});
     }
-
 }

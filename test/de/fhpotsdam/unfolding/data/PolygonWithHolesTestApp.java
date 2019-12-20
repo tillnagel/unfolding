@@ -16,10 +16,14 @@ public class PolygonWithHolesTestApp extends PApplet {
     List<Feature> features;
 
     UnfoldingMap map;
-
-    public void setup() {
+    
+    @Override
+    public void settings() {
         size(800, 600);
-
+    }
+    
+    @Override
+    public void setup() {
         features = GeoJSONReader.loadDataFromJSON(this, jsonString);
         for (Feature feature : features) {
             ShapeFeature shapeFeature = (ShapeFeature) feature;
@@ -31,19 +35,7 @@ public class PolygonWithHolesTestApp extends PApplet {
         MapUtils.createDefaultEventDispatcher(this, map);
     }
 
-    public static void debugRingFeature(ShapeFeature shapeFeature) {
-        println("locations #: " + shapeFeature.getLocations().size());
-        println("has rings: " + (shapeFeature.getInteriorRings() != null));
-        if (shapeFeature.getInteriorRings() != null) {
-            println("rings #: " + shapeFeature.getInteriorRings().size());
-
-            for (List<Location> interiorRing : shapeFeature.getInteriorRings()) {
-                println("ring.locations #: " + interiorRing.size());
-            }
-        }
-
-    }
-
+    @Override
     public void draw() {
         map.draw();
 
@@ -78,7 +70,19 @@ public class PolygonWithHolesTestApp extends PApplet {
         drawTest();
     }
 
-    public void drawTest() {
+    private void debugRingFeature(ShapeFeature shapeFeature) {
+        println("locations #: " + shapeFeature.getLocations().size());
+        println("has rings: " + (shapeFeature.getInteriorRings() != null));
+        if (shapeFeature.getInteriorRings() != null) {
+            println("rings #: " + shapeFeature.getInteriorRings().size());
+
+            for (List<Location> interiorRing : shapeFeature.getInteriorRings()) {
+                println("ring.locations #: " + interiorRing.size());
+            }
+        }
+    }
+
+    private void drawTest() {
         fill(0);
         for (Feature feature : features) {
             ShapeFeature shapeFeature = (ShapeFeature) feature;
@@ -107,5 +111,8 @@ public class PolygonWithHolesTestApp extends PApplet {
             // See https://github.com/processing/processing/issues/3122
         }
     }
-
+    
+    public static void main(String args[]) {
+        PApplet.main(new String[]{PolygonWithHolesTestApp.class.getName()});
+    }
 }

@@ -25,10 +25,12 @@ public class GPXSpeedTrackApp extends PApplet {
 
     Location startLocation = new Location(52.49f, 13.44f);
 
+    @Override
     public void settings() {
         size(800, 600, P2D);
     }
 
+    @Override
     public void setup() {
         map = new UnfoldingMap(this);
         MapUtils.createDefaultEventDispatcher(this, map);
@@ -41,6 +43,7 @@ public class GPXSpeedTrackApp extends PApplet {
         map.addMarkers(markers);
     }
 
+    @Override
     public void draw() {
         map.draw();
     }

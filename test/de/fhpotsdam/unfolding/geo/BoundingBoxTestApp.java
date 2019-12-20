@@ -7,7 +7,6 @@ import processing.core.PApplet;
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.data.Feature;
 import de.fhpotsdam.unfolding.data.GeoJSONReader;
-import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.marker.Marker;
 import de.fhpotsdam.unfolding.utils.GeoUtils;
 import de.fhpotsdam.unfolding.utils.MapUtils;
@@ -21,10 +20,14 @@ public class BoundingBoxTestApp extends PApplet {
     Location center = null;
     Location centerEuclidean = null;
     Location centerBoundingBox = null;
-
-    public void setup() {
+   
+    @Override
+    public void settings() {
         size(800, 800, OPENGL);
-
+    }
+    
+    @Override
+    public void setup() {
         map = new UnfoldingMap(this);
         MapUtils.createDefaultEventDispatcher(this, map);
 
@@ -33,6 +36,7 @@ public class BoundingBoxTestApp extends PApplet {
         map.addMarkers(countryMarkers);
     }
 
+    @Override
     public void draw() {
         background(240);
         map.draw();
@@ -64,6 +68,7 @@ public class BoundingBoxTestApp extends PApplet {
         }
     }
 
+    @Override
     public void mouseMoved() {
         Marker marker = map.getFirstHitMarker(mouseX, mouseY);
         if (marker != null) {
@@ -75,6 +80,7 @@ public class BoundingBoxTestApp extends PApplet {
         }
     }
 
+    @Override
     public void mouseClicked() {
         Marker marker = map.getFirstHitMarker(mouseX, mouseY);
         if (marker != null) {
@@ -85,5 +91,8 @@ public class BoundingBoxTestApp extends PApplet {
             map.zoomAndPanTo(2, new Location(0, 0));
         }
     }
-
+    
+    public static void main(String args[]) {
+        PApplet.main(new String[]{BoundingBoxTestApp.class.getName()});
+    }
 }

@@ -19,10 +19,12 @@ public class StyledCompassApp extends PApplet {
     CompassUI compass;
     PImage compassImg;
 
+    @Override
     public void settings() {
         size(800, 600, P2D);
     }
 
+    @Override
     public void setup() {
         map = new UnfoldingMap(this);
         map.zoomAndPanTo(10, new Location(52.5f, 13.4f));
@@ -33,12 +35,14 @@ public class StyledCompassApp extends PApplet {
         compass = new CompassUI(this, map, compassImg, 700, 100);
     }
 
+    @Override
     public void draw() {
         background(0);
         map.draw();
         compass.draw();
     }
 
+    @Override
     public void keyPressed() {
         if (key == 'r') {
             map.rotate(0.1f);
@@ -57,5 +61,4 @@ public class StyledCompassApp extends PApplet {
     public static void main(String[] args) {
         PApplet.main(new String[]{StyledCompassApp.class.getName()});
     }
-
 }

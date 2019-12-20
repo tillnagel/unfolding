@@ -21,14 +21,12 @@ public class OverviewAndDetailFinderBoxMapApp extends PApplet {
     UnfoldingMap mapOverview;
     UnfoldingMap mapOverviewStatic;
 
+    @Override
     public void settings() {
         size(800, 600, P2D);
     }
 
-    public static void main(String[] args) {
-        PApplet.main(new String[]{OverviewAndDetailFinderBoxMapApp.class.getName()});
-    }
-
+    @Override
     public void setup() {
 
         // Detail map with default mouse and keyboard interactions
@@ -50,6 +48,7 @@ public class OverviewAndDetailFinderBoxMapApp extends PApplet {
         mapOverviewStatic = new UnfoldingMap(this, "overviewStatic", 605, 205, 185, 185);
     }
 
+    @Override
     public void draw() {
         background(0);
 
@@ -68,11 +67,15 @@ public class OverviewAndDetailFinderBoxMapApp extends PApplet {
         drawDetailSelectionBox(tl2, br2);
     }
 
-    public void drawDetailSelectionBox(ScreenPosition tl, ScreenPosition br) {
+    private void drawDetailSelectionBox(ScreenPosition tl, ScreenPosition br) {
         noFill();
         stroke(251, 114, 0, 240);
         float w = br.x - tl.x;
         float h = br.y - tl.y;
         rect(tl.x, tl.y, w, h);
+    }
+
+    public static void main(String[] args) {
+        PApplet.main(new String[]{OverviewAndDetailFinderBoxMapApp.class.getName()});
     }
 }

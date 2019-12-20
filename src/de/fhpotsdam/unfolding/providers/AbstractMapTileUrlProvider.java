@@ -17,5 +17,4 @@ public abstract class AbstractMapTileUrlProvider extends AbstractMapProvider {
     public PImage getTile(Coordinate coordinate) {
         return null;
     }
-
 }

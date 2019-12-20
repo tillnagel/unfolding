@@ -27,15 +27,13 @@ public class TransitLinesMarkerApp extends PApplet {
 
     UnfoldingMap map;
 
+    @Override
     public void settings() {
         size(800, 600, P2D);
         smooth();
     }
 
-    public static void main(String args[]) {
-        PApplet.main(new String[]{TransitLinesMarkerApp.class.getName()});
-    }
-
+    @Override
     public void setup() {
         map = new UnfoldingMap(this, new StamenMapProvider.TonerBackground());
         map.zoomToLevel(11);
@@ -78,8 +76,12 @@ public class TransitLinesMarkerApp extends PApplet {
         map.addMarkers(transitMarkers);
     }
 
+    @Override
     public void draw() {
         map.draw();
     }
 
+    public static void main(String args[]) {
+        PApplet.main(new String[]{TransitLinesMarkerApp.class.getName()});
+    }
 }

@@ -1,6 +1,5 @@
 package de.fhpotsdam.unfolding.providers;
 
-import de.fhpotsdam.unfolding.providers.AbstractMapTileUrlProvider;
 import de.fhpotsdam.unfolding.core.Coordinate;
 import de.fhpotsdam.unfolding.geo.MercatorProjection;
 import de.fhpotsdam.unfolding.geo.Transformation;
@@ -24,19 +23,23 @@ public class CartoDB {
             return (int) coordinate.zoom + "/" + (int) coordinate.column + "/" + (int) coordinate.row;
         }
 
+        @Override
         public int tileWidth() {
             return 256;
         }
 
+        @Override
         public int tileHeight() {
             return 256;
         }
 
+        @Override
         public abstract String[] getTileUrls(Coordinate coordinate);
     }
 
     public static class Positron extends GenericCartoDBProvider {
 
+        @Override
         public String[] getTileUrls(Coordinate coordinate) {
             String url = "http://a.basemaps.cartocdn.com/light_all/" + getZoomString(coordinate) + ".png";
             return new String[]{url};
@@ -45,6 +48,7 @@ public class CartoDB {
 
     public static class DarkMatter extends GenericCartoDBProvider {
 
+        @Override
         public String[] getTileUrls(Coordinate coordinate) {
             String url = "http://a.basemaps.cartocdn.com/dark_all/" + getZoomString(coordinate) + ".png";
             return new String[]{url};
@@ -53,10 +57,10 @@ public class CartoDB {
 
     public static class DarkMatterNoLabels extends GenericCartoDBProvider {
 
+        @Override
         public String[] getTileUrls(Coordinate coordinate) {
             String url = "http://a.basemaps.cartocdn.com/dark_nolabels/" + getZoomString(coordinate) + ".png";
             return new String[]{url};
         }
     }
-
 }

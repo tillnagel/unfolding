@@ -20,14 +20,12 @@ public class ManualLabelMarkerApp extends PApplet {
 
     UnfoldingMap map;
 
+    @Override
     public void settings() {
         size(800, 600, P2D);
     }
 
-    public static void main(String[] args) {
-        PApplet.main(new String[]{ManualLabelMarkerApp.class.getName()});
-    }
-
+    @Override
     public void setup() {
         map = new UnfoldingMap(this, "map", 50, 50, 700, 500);
         map.zoomToLevel(2);
@@ -38,11 +36,13 @@ public class ManualLabelMarkerApp extends PApplet {
         map.addMarkers(markers);
     }
 
+    @Override
     public void draw() {
         background(240);
         map.draw();
     }
 
+    @Override
     public void mouseMoved() {
         // Deselect all marker
         for (Marker marker : map.getMarkers()) {
@@ -59,7 +59,7 @@ public class ManualLabelMarkerApp extends PApplet {
 
     public List<Marker> createLabeledMarkers(List<Feature> features) {
         PFont font = loadFont("ui/OpenSans-12.vlw");
-        List<Marker> markers = new ArrayList<Marker>();
+        List<Marker> markers = new ArrayList<>();
         for (Feature feature : features) {
             String label = feature.getStringProperty("title");
             PointFeature pointFeature = (PointFeature) feature;
@@ -67,5 +67,9 @@ public class ManualLabelMarkerApp extends PApplet {
             markers.add(marker);
         }
         return markers;
+    }
+
+    public static void main(String[] args) {
+        PApplet.main(new String[]{ManualLabelMarkerApp.class.getName()});
     }
 }

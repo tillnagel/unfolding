@@ -15,9 +15,11 @@ import de.fhpotsdam.unfolding.marker.SimplePointMarker;
 import de.fhpotsdam.unfolding.marker.SimplePolygonMarker;
 
 /**
+ * <p>
  * A factory to create markers from features. The factory creates appropriate
  * markers the each feature type, e.g. a polygon marker for a polygon feature,
- * and handle multi-marker from multi-feature, as well.</p>
+ * and handle multi-marker from multi-feature, as well.
+ * </p>
  * <p>
  * See the following example on how to use this factory to create your own
  * custom markers. For this, set the marker class for each feature type with the
@@ -43,7 +45,7 @@ public class MarkerFactory {
      * Creates a new MarkerFactory.
      */
     public MarkerFactory() {
-        featureMarkerMap = new HashMap<Feature.FeatureType, Class>();
+        featureMarkerMap = new HashMap<>();
         featureMarkerMap.put(FeatureType.POINT, SimplePointMarker.class);
         featureMarkerMap.put(FeatureType.LINES, SimpleLinesMarker.class);
         featureMarkerMap.put(FeatureType.POLYGON, SimplePolygonMarker.class);
@@ -59,7 +61,7 @@ public class MarkerFactory {
      * @return A list of markers.
      */
     public List<Marker> createMarkers(List<Feature> features) {
-        List<Marker> markers = new ArrayList<Marker>();
+        List<Marker> markers = new ArrayList<>();
 
         try {
             for (Feature feature : features) {
@@ -80,6 +82,7 @@ public class MarkerFactory {
      *
      * @param feature The feature.
      * @return A marker of the appropriate type with ID and properties.
+     * @throws java.lang.Exception
      */
     public Marker createMarker(Feature feature) throws Exception {
         Marker marker = null;
@@ -97,13 +100,19 @@ public class MarkerFactory {
             case MULTI:
                 marker = createMultiMarker((MultiFeature) feature);
                 break;
+            default:
+                marker = null;
+                break;
         }
 
-        // Set id
-        marker.setId(feature.getId());
+        if (marker != null) {
+            
+            // Set id
+            marker.setId(feature.getId());
 
-        // Copy properties
-        marker.setProperties(feature.getProperties());
+            // Copy properties
+            marker.setProperties(feature.getProperties());
+        }
 
         return marker;
     }
@@ -152,7 +161,7 @@ public class MarkerFactory {
 
     protected Marker createPointMarker(PointFeature feature) throws Exception {
         Class markerClass = featureMarkerMap.get(feature.getType());
-        Marker marker = null;
+        Marker marker;
         try {
             Constructor markerConstructor = markerClass.getDeclaredConstructor(Location.class, HashMap.class);
             marker = (Marker) markerConstructor.newInstance(feature.getLocation(), feature.getProperties());
@@ -166,7 +175,7 @@ public class MarkerFactory {
 
     protected Marker createLinesMarker(ShapeFeature feature) throws Exception {
         Class markerClass = featureMarkerMap.get(feature.getType());
-        Marker marker = null;
+        Marker marker;
         try {
             Constructor markerConstructor = markerClass.getDeclaredConstructor(List.class, HashMap.class);
             marker = (Marker) markerConstructor.newInstance(feature.getLocations(), feature.getProperties());
@@ -180,7 +189,7 @@ public class MarkerFactory {
 
     protected Marker createPolygonMarker(ShapeFeature feature) throws Exception {
         Class markerClass = featureMarkerMap.get(feature.getType());
-        Marker marker = null;
+        Marker marker;
         try {
             Constructor markerConstructor = markerClass.getDeclaredConstructor(List.class, HashMap.class);
             marker = (Marker) markerConstructor.newInstance(feature.getLocations(), feature.getProperties());
@@ -204,7 +213,7 @@ public class MarkerFactory {
 
     protected Marker createMultiMarker(MultiFeature multiFeature) throws Exception {
         Class markerClass = featureMarkerMap.get(multiFeature.getType());
-        MultiMarker multiMarker = null;
+        MultiMarker multiMarker;
         try {
             Constructor markerConstructor = markerClass.getDeclaredConstructor(HashMap.class);
             multiMarker = (MultiMarker) markerConstructor.newInstance(multiFeature.getProperties());

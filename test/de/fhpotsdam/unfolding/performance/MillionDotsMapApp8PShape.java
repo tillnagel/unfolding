@@ -17,15 +17,19 @@ public class MillionDotsMapApp8PShape extends PApplet {
     int dotNumber = 2000;
 
     UnfoldingMap map;
+    
     // Original dots (loc + time)
-    List<Dot> dots = new ArrayList<Dot>();
+    List<Dot> dots = new ArrayList<>();
+    List<PShape> shapes = new ArrayList<>();
 
-    List<PShape> shapes = new ArrayList<PShape>();
-
-    public void setup() {
+    @Override
+    public void settings() {
         size(800, 600, P2D);
-        // smooth();
-
+        smooth();
+    }
+    
+    @Override
+    public void setup() {
         dots = createRandomDots(dotNumber);
 
         map = new UnfoldingMap(this);
@@ -33,11 +37,25 @@ public class MillionDotsMapApp8PShape extends PApplet {
         MapUtils.createDefaultEventDispatcher(this, map);
 
         shapes = createShapes();
-
     }
 
-    public List<PShape> createShapes() {
-        List<PShape> shapes = new ArrayList<PShape>();
+    @Override
+    public void draw() {
+        background(0);
+        map.draw();
+
+        for (PShape shape : shapes) {
+            shape(shape);
+        }
+
+        fill(255);
+        rect(5, 5, 180, 20);
+        fill(0);
+        text("fps: " + nfs(frameRate, 0, 2) + " (" + dotNumber + " dots)", 10, 20);
+    }
+
+    private List<PShape> createShapes() {
+        List<PShape> shapes = new ArrayList<>();
         for (int i = 0; i < dotNumber; i++) {
             PShape shape = createShape();
             shape.beginShape(QUAD);
@@ -54,23 +72,8 @@ public class MillionDotsMapApp8PShape extends PApplet {
         return shapes;
     }
 
-    public void draw() {
-        background(0);
-        map.draw();
-
-        for (PShape shape : shapes) {
-            shape(shape);
-        }
-
-        fill(255);
-        rect(5, 5, 180, 20);
-        fill(0);
-        text("fps: " + nfs(frameRate, 0, 2) + " (" + dotNumber + " dots)", 10, 20);
-    }
-
-    public void mapChanged(MapEvent mapEvent) {
+    private void mapChanged(MapEvent mapEvent) {
         // Check map area only once after user interaction.
-
         int i = 0;
         for (PShape shape : shapes) {
             PVector pos = map.getScreenPosition(dots.get(i).location);
@@ -84,11 +87,15 @@ public class MillionDotsMapApp8PShape extends PApplet {
     }
 
     private List<Dot> createRandomDots(int dotNumbers) {
-        List<Dot> dots = new ArrayList<Dot>();
+        List<Dot> dots = new ArrayList<>();
         for (int i = 0; i < dotNumbers; i++) {
             Dot dot = new Dot(new Location(random(-85, 85), random(-180, 180)), new Date());
             dots.add(dot);
         }
         return dots;
+    }
+    
+    public static void main(String args[]) {
+        PApplet.main(new String[]{MillionDotsMapApp8PShape.class.getName()});
     }
 }

@@ -23,18 +23,20 @@ public class Yahoo {
             return "x=" + (int) coordinate.column + "&y=" + (int) coordinate.row + "&z=" + (int) coordinate.zoom;
         }
 
+        @Override
         public int tileWidth() {
             return 256;
         }
 
+        @Override
         public int tileHeight() {
             return 256;
         }
-
     }
 
     public static class RoadProvider extends YahooProvider {
 
+        @Override
         public String[] getTileUrls(Coordinate coordinate) {
             return new String[]{"http://us.maps2.yimg.com/us.png.maps.yimg.com/png?v=" + ROAD_VERSION + "&t=m&"
                 + getZoomString(sourceCoordinate(coordinate))};
@@ -43,6 +45,7 @@ public class Yahoo {
 
     public static class AerialProvider extends YahooProvider {
 
+        @Override
         public String[] getTileUrls(Coordinate coordinate) {
             return new String[]{"http://us.maps3.yimg.com/aerial.maps.yimg.com/tile?v=" + AERIAL_VERSION + "&t=a&"
                 + getZoomString(sourceCoordinate(coordinate))};
@@ -51,6 +54,7 @@ public class Yahoo {
 
     public static class HybridProvider extends YahooProvider {
 
+        @Override
         public String[] getTileUrls(Coordinate coordinate) {
             String under = new AerialProvider().getTileUrls(coordinate)[0];
             String over = "http://us.maps3.yimg.com/aerial.maps.yimg.com/png?v=" + HYBRID_VERSION + "&t=h&"
@@ -88,5 +92,4 @@ public class Yahoo {
         // Return x, y, z for Yahoo Aerial tile column, row, zoom.
         return toYahoo(coord);
     }
-
 }

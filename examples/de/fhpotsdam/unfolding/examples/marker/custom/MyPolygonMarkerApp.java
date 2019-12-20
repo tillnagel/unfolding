@@ -16,11 +16,15 @@ import de.fhpotsdam.unfolding.utils.MapUtils;
 public class MyPolygonMarkerApp extends PApplet {
 
     UnfoldingMap map;
-
-    public void setup() {
-        size(800, 600);
+    
+    @Override
+    public void settings() {
+        size(800, 600, P2D);
         smooth();
+    }
 
+    @Override
+    public void setup() {
         map = new UnfoldingMap(this);
         map.zoomTo(3);
         MapUtils.createDefaultEventDispatcher(this, map);
@@ -33,6 +37,7 @@ public class MyPolygonMarkerApp extends PApplet {
         map.addMarkers(polygonMarker);
     }
 
+    @Override
     public void draw() {
         map.draw();
     }
@@ -40,6 +45,7 @@ public class MyPolygonMarkerApp extends PApplet {
     // Very simple custom PolygonMarker. Extends Unfolding's SimplePolygonMarker to create own drawing methods.
     class MyPolygonMarker extends SimplePolygonMarker {
 
+        @Override
         public void draw(PGraphics pg, List<MapPosition> mapPositions) {
             pg.pushStyle();
 
@@ -55,6 +61,9 @@ public class MyPolygonMarkerApp extends PApplet {
 
             pg.popStyle();
         }
-
+    }
+    
+    public static void main(String args[]) {
+        PApplet.main(new String[]{MyPolygonMarkerApp.class.getName()});
     }
 }

@@ -38,14 +38,12 @@ public class VectorTilesApp extends PApplet {
 
     boolean loadUniqueMarkers = true;
 
+    @Override
     public void settings() {
         size(800, 600, P2D);
     }
 
-    public static void main(String args[]) {
-        PApplet.main(new String[]{VectorTilesApp.class.getName()});
-    }
-
+    @Override
     public void setup() {
         map = new UnfoldingMap(this, "myMap");
         map.zoomAndPanTo(16, new Location(52.501, 13.395));
@@ -59,16 +57,19 @@ public class VectorTilesApp extends PApplet {
         map.addMarkers(markers);
     }
 
+    @Override
     public void draw() {
         map.draw();
         debugDisplay.draw();
     }
 
+    @Override
     public void mouseClicked() {
         List<Marker> markers = vectorTilesUtils.loadMarkersForScreenPos(buildingsLayer, mouseX, mouseY);
         addMarkers(markers, loadUniqueMarkers);
     }
 
+    @Override
     public void keyPressed() {
         if (key == 'u') {
             loadUniqueMarkers = !loadUniqueMarkers;
@@ -113,4 +114,7 @@ public class VectorTilesApp extends PApplet {
                 + " previously loaded markers.");
     }
 
+    public static void main(String args[]) {
+        PApplet.main(new String[]{VectorTilesApp.class.getName()});
+    }
 }

@@ -23,19 +23,23 @@ public class ThunderforestProvider {
             return (int) coordinate.zoom + "/" + (int) coordinate.column + "/" + (int) coordinate.row;
         }
 
+        @Override
         public int tileWidth() {
             return 256;
         }
 
+        @Override
         public int tileHeight() {
             return 256;
         }
 
+        @Override
         public abstract String[] getTileUrls(Coordinate coordinate);
     }
 
     public static class OpenCycleMap extends GenericThunderforestProvider {
 
+        @Override
         public String[] getTileUrls(Coordinate coordinate) {
             String url = "http://tile.thunderforest.com/cycle/" + getZoomString(coordinate) + ".png";
             return new String[]{url};
@@ -44,6 +48,7 @@ public class ThunderforestProvider {
 
     public static class Transport extends GenericThunderforestProvider {
 
+        @Override
         public String[] getTileUrls(Coordinate coordinate) {
             String url = "http://tile.thunderforest.com/transport/" + getZoomString(coordinate) + ".png";
             return new String[]{url};
@@ -52,6 +57,7 @@ public class ThunderforestProvider {
 
     public static class Landscape extends GenericThunderforestProvider {
 
+        @Override
         public String[] getTileUrls(Coordinate coordinate) {
             String url = "http://tile.thunderforest.com/landscape/" + getZoomString(coordinate) + ".png";
             return new String[]{url};
@@ -60,10 +66,10 @@ public class ThunderforestProvider {
 
     public static class Outdoors extends GenericThunderforestProvider {
 
+        @Override
         public String[] getTileUrls(Coordinate coordinate) {
             String url = "http://tile.thunderforest.com/outdoors/" + getZoomString(coordinate) + ".png";
             return new String[]{url};
         }
     }
-
 }

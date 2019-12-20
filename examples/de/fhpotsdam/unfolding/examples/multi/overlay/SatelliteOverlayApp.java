@@ -23,10 +23,12 @@ public class SatelliteOverlayApp extends PApplet {
     float mapZoomX = 100;
     float mapZoomY = 100;
 
+    @Override
     public void settings() {
         size(750, 600, P2D);
     }
 
+    @Override
     public void setup() {
         mapOverview = new UnfoldingMap(this, "static", 0, 0, 750, 600);
         mapOverview.zoomToLevel(2);
@@ -36,6 +38,7 @@ public class SatelliteOverlayApp extends PApplet {
         MapUtils.createDefaultEventDispatcher(this, mapOverview, mapOverlay);
     }
 
+    @Override
     public void draw() {
         background(0);
 
@@ -49,10 +52,12 @@ public class SatelliteOverlayApp extends PApplet {
         rect(mapZoomX, mapZoomY, 150, 150);
     }
 
+    @Override
     public void mouseDragged() {
         moveOverlay(mouseX, mouseY);
     }
 
+    @Override
     public void mouseMoved() {
         moveOverlay(mouseX, mouseY);
     }
@@ -72,5 +77,4 @@ public class SatelliteOverlayApp extends PApplet {
     public static void main(String args[]) {
         PApplet.main(new String[]{SatelliteOverlayApp.class.getName()});
     }
-
 }

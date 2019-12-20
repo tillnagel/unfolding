@@ -37,17 +37,21 @@ import de.fhpotsdam.unfolding.utils.MapUtils;
 public class MillionDotsMapApp5Timer2 extends PApplet {
 
     UnfoldingMap map;
-    List<Dot> dots = new ArrayList<Dot>();
-    List<Dot> visibleDots = new ArrayList<Dot>();
-    List<PVector> visibleDotVertices = new ArrayList<PVector>();
+    List<Dot> dots = new ArrayList<>();
+    List<Dot> visibleDots = new ArrayList<>();
+    final List<PVector> visibleDotVertices = new ArrayList<>();
 
     Location tlLoc;
     Location brLoc;
 
-    public void setup() {
+    @Override
+    public void settings() {
         size(800, 600, OPENGL);
         smooth();
-
+    }
+    
+    @Override
+    public void setup() {
         dots = createRandomDots(20000);
 
         map = new UnfoldingMap(this);
@@ -58,6 +62,7 @@ public class MillionDotsMapApp5Timer2 extends PApplet {
         updateDots();
     }
 
+    @Override
     public void draw() {
         map.draw();
 
@@ -84,7 +89,7 @@ public class MillionDotsMapApp5Timer2 extends PApplet {
         text("fps: " + nfs(frameRate, 0, 2) + " (" + visibleDotVertices.size() + " dots)", 10, 20);
     }
 
-    public void mapChanged(MapEvent mapEvent) {
+    private void mapChanged(MapEvent mapEvent) {
         updateDots();
 
         resetCallTimer();
@@ -93,11 +98,11 @@ public class MillionDotsMapApp5Timer2 extends PApplet {
     int lastTime = 0;
     int interval = 1000;
 
-    void resetCallTimer() {
+    private void resetCallTimer() {
         lastTime = millis();
     }
 
-    void checkTimer() {
+    private void checkTimer() {
         if (millis() - lastTime >= interval) {
             // println("next call!");
             filterDots();
@@ -107,7 +112,7 @@ public class MillionDotsMapApp5Timer2 extends PApplet {
         }
     }
 
-    public void filterDots() {
+    private void filterDots() {
         // Check map area only once after user interaction.
         brLoc = map.getBottomRightBorder();
         tlLoc = map.getTopLeftBorder();
@@ -120,7 +125,7 @@ public class MillionDotsMapApp5Timer2 extends PApplet {
         }
     }
 
-    public void updateDots() {
+    private void updateDots() {
         // Instead of calculating the screen position each frame, store it in new list.
         synchronized (visibleDotVertices) {
             visibleDotVertices.clear();
@@ -131,8 +136,8 @@ public class MillionDotsMapApp5Timer2 extends PApplet {
         }
     }
 
-    public List<Dot> createRandomDots(int dotNumbers) {
-        List<Dot> dots = new ArrayList<Dot>();
+    private List<Dot> createRandomDots(int dotNumbers) {
+        List<Dot> dots = new ArrayList<>();
         for (int i = 0; i < dotNumbers; i++) {
             Dot dot = new Dot(new Location(random(-85, 85), random(-180, 180)), new Date());
             dots.add(dot);
@@ -140,4 +145,7 @@ public class MillionDotsMapApp5Timer2 extends PApplet {
         return dots;
     }
 
+    public static void main(String args[]) {
+        PApplet.main(new String[]{MillionDotsMapApp5Timer2.class.getName()});
+    }
 }

@@ -21,12 +21,14 @@ public class ComplexMapSnapshotApp extends PApplet {
 
     UnfoldingMap map;
 
-    List<MapSnapshot> mapSnapshots = new ArrayList<MapSnapshot>();
+    List<MapSnapshot> mapSnapshots = new ArrayList<>();
 
+    @Override
     public void settings() {
         size(800, 600, P2D);
     }
 
+    @Override
     public void setup() {
         map = new UnfoldingMap(this);
         map.zoomAndPanTo(10, new Location(52.5f, 13.4f));
@@ -35,15 +37,7 @@ public class ComplexMapSnapshotApp extends PApplet {
         addRandomMarkers();
     }
 
-    public void addRandomMarkers() {
-        // Add some markers to demonstrate they are visible in thumbnail, too.
-        for (int i = 0; i < 100; i++) {
-            SimplePointMarker marker = new SimplePointMarker();
-            marker.setLocation(random(30, 60), random(-10, 30));
-            map.addMarker(marker);
-        }
-    }
-
+    @Override
     public void draw() {
         background(0);
         map.draw();
@@ -55,6 +49,7 @@ public class ComplexMapSnapshotApp extends PApplet {
         }
     }
 
+    @Override
     public void mouseClicked() {
         for (MapSnapshot mapSnapshot : mapSnapshots) {
             if (mapSnapshot.isInside(mouseX, mouseY)) {
@@ -63,6 +58,7 @@ public class ComplexMapSnapshotApp extends PApplet {
         }
     }
 
+    @Override
     public void keyPressed() {
         if (key == 's') {
             MapSnapshot mapSnapshot = new MapSnapshot(this, map);
@@ -71,8 +67,16 @@ public class ComplexMapSnapshotApp extends PApplet {
         }
     }
 
+    private void addRandomMarkers() {
+        // Add some markers to demonstrate they are visible in thumbnail, too.
+        for (int i = 0; i < 100; i++) {
+            SimplePointMarker marker = new SimplePointMarker();
+            marker.setLocation(random(30, 60), random(-10, 30));
+            map.addMarker(marker);
+        }
+    }
+
     public static void main(String[] args) {
         PApplet.main(new String[]{ComplexMapSnapshotApp.class.getName()});
     }
-
 }

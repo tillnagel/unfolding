@@ -21,15 +21,13 @@ public class GeoJSONMarkerApp extends PApplet {
 
     UnfoldingMap map;
 
+    @Override
     public void settings() {
         size(800, 600, P2D);
         smooth();
     }
 
-    public static void main(String args[]) {
-        PApplet.main(new String[]{GeoJSONMarkerApp.class.getName()});
-    }
-
+    @Override
     public void setup() {
         map = new UnfoldingMap(this, 50, 50, 700, 500);
         map.zoomToLevel(2);
@@ -40,15 +38,20 @@ public class GeoJSONMarkerApp extends PApplet {
         map.addMarkers(countryMarkers);
     }
 
+    @Override
     public void draw() {
         background(160);
         map.draw();
     }
 
+    @Override
     public void keyPressed() {
         if (key == ' ') {
             map.getDefaultMarkerManager().toggleDrawing();
         }
     }
 
+    public static void main(String args[]) {
+        PApplet.main(new String[]{GeoJSONMarkerApp.class.getName()});
+    }
 }

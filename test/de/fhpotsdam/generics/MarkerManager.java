@@ -15,5 +15,4 @@ public class MarkerManager<E extends Marker> {
     public List<E> getMarkers() {
         return markers;
     }
-
 }

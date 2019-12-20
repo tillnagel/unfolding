@@ -22,14 +22,17 @@ public class Google {
             return toGoogle((int) coordinate.column, (int) coordinate.row, (int) coordinate.zoom);
         }
 
+        @Override
         public int tileWidth() {
             return 256;
         }
 
+        @Override
         public int tileHeight() {
             return 256;
         }
 
+        @Override
         public abstract String[] getTileUrls(Coordinate coordinate);
     }
 
@@ -41,6 +44,7 @@ public class Google {
         public GoogleTerrainProvider() {
         }
 
+        @Override
         public String[] getTileUrls(Coordinate coordinate) {
             String url = "http://mt1.google.com/vt/v=w2p.116&hl=de&x=" + (int) coordinate.column + "&y="
                     + (int) coordinate.row + "&z=" + (int) coordinate.zoom + "&s=Galileo";
@@ -56,6 +60,7 @@ public class Google {
         public GoogleMapProvider() {
         }
 
+        @Override
         public String[] getTileUrls(Coordinate coordinate) {
             String url = "http://mt1.google.com/vt/lyrs=m@116&hl=de&x=" + (int) coordinate.column + "&y="
                     + (int) coordinate.row + "&z=" + (int) coordinate.zoom + "&s=Galileo";
@@ -71,6 +76,7 @@ public class Google {
         public GoogleSimplifiedProvider() {
         }
 
+        @Override
         public String[] getTileUrls(Coordinate coordinate) {
             String url = "http://mt1.googleapis.com/vt?&x=" + (int) coordinate.column + "&y=" + (int) coordinate.row
                     + "&z=" + (int) coordinate.zoom
@@ -84,6 +90,7 @@ public class Google {
         public GoogleSimplified2Provider() {
         }
 
+        @Override
         public String[] getTileUrls(Coordinate coordinate) {
             String url = "http://mt1.googleapis.com/vt?&x=" + (int) coordinate.column
                     + "&y="

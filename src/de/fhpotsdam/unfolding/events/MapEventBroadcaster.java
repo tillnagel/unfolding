@@ -37,5 +37,4 @@ public class MapEventBroadcaster {
     public void setEventDispatcher(EventDispatcher eventDispatcher) {
         this.eventDispatcher = eventDispatcher;
     }
-
 }

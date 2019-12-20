@@ -18,18 +18,22 @@ import TUIO.TuioTime;
  */
 public class MultiTransObjectApp extends PApplet implements TuioListener {
 
-    List<TuioTransformableObject> transObjects = new ArrayList<TuioTransformableObject>();
+    List<TuioTransformableObject> transObjects = new ArrayList<>();
 
     TuioClient tuioClient;
 
+    @Override
+    public void settings() {
+        size(1024, 768, OPENGL);
+        // size(1920, 1080, OPENGL);
+        smooth();
+    }
+    
     // public static void main(String[] args) {
     // PApplet.main(new String[] { "--present", "de.fhpotsdam.transmatrix.MultiTransObjectApp" });
     // }
+    @Override
     public void setup() {
-        size(1024, 768, OPENGL);
-        // size(1920, 1080, OPENGL);
-
-        smooth();
         textFont(loadFont("Miso-Light-12.vlw"), 12);
 
         tuioClient = new TuioClient();
@@ -41,6 +45,7 @@ public class MultiTransObjectApp extends PApplet implements TuioListener {
         transObjects.add(new TextThing(this, 600, 50, 340, 70));
     }
 
+    @Override
     public void draw() {
         background(240);
 
@@ -52,89 +57,7 @@ public class MultiTransObjectApp extends PApplet implements TuioListener {
         drawCursors();
     }
 
-    public void addTuioCursor(TuioCursor tcur) {
-        // Hit test for all objects: first gets the hit, ordered by creation.
-        // TODO Order by z-index, updated by last activation/usage
-        for (TuioTransformableObject ttObj : transObjects) {
-            if (ttObj.isHit(tcur.getScreenX(width), tcur.getScreenY(height))) {
-                ttObj.addTuioCursor(tcur);
-                break;
-            }
-        }
-    }
-
-    public void removeTuioCursor(TuioCursor tcur) {
-        for (TuioTransformableObject ttObj : transObjects) {
-            // Pass trough remove-event to all objects, to allow fingerUp also out of boundaries,
-            // as objects decide themselves (via cursor-id) whether cursor belongs to it.
-
-            ttObj.removeTuioCursor(tcur);
-        }
-    }
-
-    public void updateTuioCursor(TuioCursor tcur) {
-        for (TuioTransformableObject ttObj : transObjects) {
-            if (ttObj.isHit(tcur.getScreenX(width), tcur.getScreenY(height))) {
-                ttObj.updateTuioCursor(tcur);
-                break;
-            }
-        }
-    }
-
-    public void drawCursors() {
-        for (TuioCursor tuioCursor : tuioClient.getTuioCursors()) {
-            drawCursor(tuioCursor);
-        }
-    }
-
-    public void drawCursor(TuioCursor tc) {
-        if (tc == null) {
-            return;
-        }
-
-        stroke(50, 100);
-        fill(230, 150);
-        ellipse(tc.getScreenX(width), tc.getScreenY(height), 15, 15);
-        fill(10);
-        textSize(12);
-        text(tc.getCursorID(), tc.getScreenX(width) - 3, tc.getScreenY(height) + 4);
-    }
-
     @Override
-    public void addTuioObject(TuioObject arg0) {
-    }
-
-    @Override
-    public void refresh(TuioTime arg0) {
-    }
-
-    @Override
-    public void removeTuioObject(TuioObject arg0) {
-    }
-
-    @Override
-    public void updateTuioObject(TuioObject arg0) {
-    }
-
-    // Test interactions ----------------------------------
-    public void mouseWheel(float delta) {
-        TransformableObject to = null;
-        for (TuioTransformableObject ttObj : transObjects) {
-            if (ttObj.isHit(mouseX, mouseY)) {
-                to = ttObj;
-                break;
-            }
-        }
-        if (to != null) {
-            to.setTransformationCenter(mouseX, mouseY);
-            if (delta < 0) {
-                to.scale(0.9f);
-            } else {
-                to.scale(1.1f);
-            }
-        }
-    }
-
     public void mouseMoved() {
         // TransformableObject to = transObjects.get(0);
         // if (to.isHit(mouseX, mouseY)) {
@@ -144,6 +67,7 @@ public class MultiTransObjectApp extends PApplet implements TuioListener {
         // }
     }
 
+    @Override
     public void keyPressed() {
         TransformableObject to = transObjects.get(0);
 
@@ -201,11 +125,101 @@ public class MultiTransObjectApp extends PApplet implements TuioListener {
         }
     }
 
+    @Override
+    public void addTuioCursor(TuioCursor tcur) {
+        // Hit test for all objects: first gets the hit, ordered by creation.
+        // TODO Order by z-index, updated by last activation/usage
+        for (TuioTransformableObject ttObj : transObjects) {
+            if (ttObj.isHit(tcur.getScreenX(width), tcur.getScreenY(height))) {
+                ttObj.addTuioCursor(tcur);
+                break;
+            }
+        }
+    }
+
+    @Override
+    public void removeTuioCursor(TuioCursor tcur) {
+        for (TuioTransformableObject ttObj : transObjects) {
+            // Pass trough remove-event to all objects, to allow fingerUp also out of boundaries,
+            // as objects decide themselves (via cursor-id) whether cursor belongs to it.
+
+            ttObj.removeTuioCursor(tcur);
+        }
+    }
+
+    @Override
+    public void updateTuioCursor(TuioCursor tcur) {
+        for (TuioTransformableObject ttObj : transObjects) {
+            if (ttObj.isHit(tcur.getScreenX(width), tcur.getScreenY(height))) {
+                ttObj.updateTuioCursor(tcur);
+                break;
+            }
+        }
+    }
+
+    @Override
+    public void addTuioObject(TuioObject arg0) {
+    }
+
+    @Override
+    public void refresh(TuioTime arg0) {
+    }
+
+    @Override
+    public void removeTuioObject(TuioObject arg0) {
+    }
+
+    @Override
+    public void updateTuioObject(TuioObject arg0) {
+    }
+
+    @Override
     public void mouseDragged() {
         float dx = mouseX - pmouseX;
         float dy = mouseY - pmouseY;
         transObjects.get(0).addOffset(dx, dy);
 
         // transObjects.get(0).setOffset(mouseX, mouseY);
+    }
+
+    private void mouseWheel(float delta) {
+        TransformableObject to = null;
+        for (TuioTransformableObject ttObj : transObjects) {
+            if (ttObj.isHit(mouseX, mouseY)) {
+                to = ttObj;
+                break;
+            }
+        }
+        if (to != null) {
+            to.setTransformationCenter(mouseX, mouseY);
+            if (delta < 0) {
+                to.scale(0.9f);
+            } else {
+                to.scale(1.1f);
+            }
+        }
+    }
+
+    private void drawCursors() {
+        for (TuioCursor tuioCursor : tuioClient.getTuioCursors()) {
+            drawCursor(tuioCursor);
+        }
+    }
+
+    private void drawCursor(TuioCursor tc) {
+        if (tc == null) {
+            return;
+        }
+
+        stroke(50, 100);
+        fill(230, 150);
+        ellipse(tc.getScreenX(width), tc.getScreenY(height), 15, 15);
+        fill(10);
+        textSize(12);
+        text(tc.getCursorID(), tc.getScreenX(width) - 3, tc.getScreenY(height) + 4);
+    }
+    
+    public static void main(String args[]) {
+        PApplet.main(new String[]{MultiTransObjectApp.class.getName()});
     }
 }

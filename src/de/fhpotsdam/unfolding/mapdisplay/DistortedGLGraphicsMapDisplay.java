@@ -32,6 +32,7 @@ public class DistortedGLGraphicsMapDisplay extends OpenGLMapDisplay {
         textureDistorter.setDistorter(distorter);
     }
 
+    @Override
     protected void postDraw() {
         // Draws inner map (with inner marker) and outer marker
         offscreenCutoffPG.beginDraw();
@@ -52,5 +53,4 @@ public class DistortedGLGraphicsMapDisplay extends OpenGLMapDisplay {
         //canvasPG.image(offscreenCutoffPG.getTexture(), 0, 0);
         canvasPG.popMatrix();
     }
-
 }

@@ -22,6 +22,7 @@ public class GeoRSSStyledMarkerApp extends PApplet {
 
     UnfoldingMap map;
 
+    @Override
     public void settings() {
         size(800, 600, P2D);
     }
@@ -30,6 +31,7 @@ public class GeoRSSStyledMarkerApp extends PApplet {
         PApplet.main(new String[]{GeoRSSStyledMarkerApp.class.getName()});
     }
 
+    @Override
     public void setup() {
         map = new UnfoldingMap(this);
         map.zoomToLevel(2);
@@ -42,9 +44,9 @@ public class GeoRSSStyledMarkerApp extends PApplet {
         map.addMarkers(markers);
     }
 
+    @Override
     public void draw() {
         background(240);
         map.draw();
     }
-
 }

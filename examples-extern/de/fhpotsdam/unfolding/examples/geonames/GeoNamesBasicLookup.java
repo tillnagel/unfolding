@@ -22,6 +22,7 @@ public class GeoNamesBasicLookup extends PApplet {
     boolean searchEvent = true;
     boolean typeName = false;
 
+    @Override
     public void setup() {
 
         size(650, 440, OPENGL);
@@ -34,9 +35,9 @@ public class GeoNamesBasicLookup extends PApplet {
         // INIT GEONAMES
         WebService.setUserName("username"); // add your username here
         searchCriteria.setMaxRows(1);
-
     }
 
+    @Override
     public void draw() {
         background(0);
         map.updateMap();
@@ -69,23 +70,19 @@ public class GeoNamesBasicLookup extends PApplet {
         fill(0, 150);
         noStroke();
         ellipse(pos.x, pos.y, 20, 20);
-        // println(map.getZoomLevel());
-
     }
 
+    @Override
     public void keyPressed() {
-
         switch (key) {
             case 'a':
                 searchName = "berlin";
                 searchEvent = true;
                 break;
-
             case 's':
                 searchName = "monaco";
                 searchEvent = true;
                 break;
-
         }
     }
 

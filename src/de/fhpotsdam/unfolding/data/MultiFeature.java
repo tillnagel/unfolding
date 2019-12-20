@@ -11,7 +11,7 @@ import java.util.List;
  */
 public class MultiFeature extends Feature {
 
-    List<Feature> features = new ArrayList<Feature>();
+    List<Feature> features = new ArrayList<>();
 
     /**
      * Creates a new MultiFeature.
@@ -47,5 +47,4 @@ public class MultiFeature extends Feature {
     public void addFeature(Feature feature) {
         this.features.add(feature);
     }
-
 }

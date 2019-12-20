@@ -21,20 +21,19 @@ public class MapChangedApp extends PApplet {
     float rectSize = 50;
     float rectSizeDiff;
 
+    @Override
     public void settings() {
         size(800, 600, P2D);
     }
 
-    public static void main(String args[]) {
-        PApplet.main(new String[]{MapChangedApp.class.getName()});
-    }
-
+    @Override
     public void setup() {
         map = new UnfoldingMap(this);
         map.setTweening(true);
         MapUtils.createDefaultEventDispatcher(this, map);
     }
 
+    @Override
     public void draw() {
         map.draw();
 
@@ -69,4 +68,7 @@ public class MapChangedApp extends PApplet {
         }
     }
 
+    public static void main(String args[]) {
+        PApplet.main(new String[]{MapChangedApp.class.getName()});
+    }
 }

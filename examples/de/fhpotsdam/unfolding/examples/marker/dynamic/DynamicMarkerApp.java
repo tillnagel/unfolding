@@ -24,14 +24,12 @@ public class DynamicMarkerApp extends PApplet {
     MarkerManager<Marker> markerManager;
     SimplePointMarker berlinMarker;
 
+    @Override
     public void settings() {
         size(800, 600, P2D);
     }
 
-    public static void main(String[] args) {
-        PApplet.main(new String[]{DynamicMarkerApp.class.getName()});
-    }
-
+    @Override
     public void setup() {
         map = new UnfoldingMap(this);
 
@@ -57,6 +55,7 @@ public class DynamicMarkerApp extends PApplet {
         markerManager.addMarker(connectionMarker);
     }
 
+    @Override
     public void draw() {
         background(240);
 
@@ -64,6 +63,7 @@ public class DynamicMarkerApp extends PApplet {
         map.draw();
     }
 
+    @Override
     public void keyPressed() {
         if (key == 'r') {
             markerManager.removeMarker(berlinMarker);
@@ -76,4 +76,7 @@ public class DynamicMarkerApp extends PApplet {
         }
     }
 
+    public static void main(String[] args) {
+        PApplet.main(new String[]{DynamicMarkerApp.class.getName()});
+    }
 }

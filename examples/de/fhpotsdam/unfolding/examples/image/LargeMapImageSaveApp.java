@@ -21,10 +21,12 @@ public class LargeMapImageSaveApp extends PApplet {
 
     LargeMapImageUtils lmiUtils;
 
+    @Override
     public void settings() {
         size(500, 500, P2D);
     }
 
+    @Override
     public void setup() {
         map = new UnfoldingMap(this);
         map.zoomAndPanTo(zoomLevel, location);
@@ -34,12 +36,14 @@ public class LargeMapImageSaveApp extends PApplet {
         lmiUtils = new LargeMapImageUtils(this, map);
     }
 
+    @Override
     public void draw() {
         map.draw();
 
         lmiUtils.run();
     }
 
+    @Override
     public void keyPressed() {
         if (key == 's') {
             // Around current center and with current zoom level

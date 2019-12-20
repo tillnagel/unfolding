@@ -15,5 +15,4 @@ public abstract class GeoDataReader {
     public static List<Feature> loadData(PApplet p, String fileName) {
         return null;
     }
-
 }

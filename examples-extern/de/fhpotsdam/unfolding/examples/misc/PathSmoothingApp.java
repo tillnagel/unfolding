@@ -43,10 +43,12 @@ public class PathSmoothingApp extends PApplet {
     Textlabel numAverageTL;
     Textlabel numCombinedTL;
 
+    @Override
     public void settings() {
         size(1200, 800, P2D);
     }
 
+    @Override
     public void setup() {
         // map = new UnfoldingMap(this, 0, 60, 800, 540, new MBTilesMapProvider("jdbc:sqlite:./berlin-dark.mbtiles"));
         map = new UnfoldingMap(this, 0, 60, 1200, 640);
@@ -90,28 +92,7 @@ public class PathSmoothingApp extends PApplet {
         numCombinedTL = cp5.addTextlabel("numCombined").setPosition(300, 57).setColorValue(color(200));
     }
 
-    public void controlEvent(ControlEvent theEvent) {
-        if (theEvent.isFrom(cp5.getController("simplificationTolerance"))) {
-            simplificationTolerance = theEvent.getController().getValue();
-        }
-        if (theEvent.isFrom(cp5.getController("averageNumber"))) {
-            averageNumber = Math.round(theEvent.getController().getValue());
-        }
-        if (theEvent.isFrom(cp5.getController("showSimplified"))) {
-            showSimplified = (theEvent.getController().getValue() > 0);
-        }
-        if (theEvent.isFrom(cp5.getController("showAveraged"))) {
-            showAveraged = (theEvent.getController().getValue() > 0);
-        }
-        if (theEvent.isFrom(cp5.getController("showOriginal"))) {
-            showOriginal = (theEvent.getController().getValue() > 0);
-        }
-        if (theEvent.isFrom(cp5.getController("showCombined"))) {
-            showCombined = (theEvent.getController().getValue() > 0);
-        }
-
-    }
-
+    @Override
     public void draw() {
         map.draw();
         noStroke();
@@ -119,7 +100,7 @@ public class PathSmoothingApp extends PApplet {
         rect(0, 0, width, height);
 
         // Update list of points
-        List<PVector> points = new ArrayList<PVector>();
+        List<PVector> points = new ArrayList<>();
         for (Location location : locations) {
             ScreenPosition pos = map.getScreenPosition(location);
             points.add(pos);
@@ -158,6 +139,27 @@ public class PathSmoothingApp extends PApplet {
 
         drawUIBackground();
         // Actual UI will be drawn in postDraw() by ControlP5
+    }
+
+    public void controlEvent(ControlEvent theEvent) {
+        if (theEvent.isFrom(cp5.getController("simplificationTolerance"))) {
+            simplificationTolerance = theEvent.getController().getValue();
+        }
+        if (theEvent.isFrom(cp5.getController("averageNumber"))) {
+            averageNumber = Math.round(theEvent.getController().getValue());
+        }
+        if (theEvent.isFrom(cp5.getController("showSimplified"))) {
+            showSimplified = (theEvent.getController().getValue() > 0);
+        }
+        if (theEvent.isFrom(cp5.getController("showAveraged"))) {
+            showAveraged = (theEvent.getController().getValue() > 0);
+        }
+        if (theEvent.isFrom(cp5.getController("showOriginal"))) {
+            showOriginal = (theEvent.getController().getValue() > 0);
+        }
+        if (theEvent.isFrom(cp5.getController("showCombined"))) {
+            showCombined = (theEvent.getController().getValue() > 0);
+        }
     }
 
     public void drawUIBackground() {
@@ -209,5 +211,4 @@ public class PathSmoothingApp extends PApplet {
     public static void main(String args[]) {
         PApplet.main(new String[]{PathSmoothingApp.class.getName()});
     }
-
 }

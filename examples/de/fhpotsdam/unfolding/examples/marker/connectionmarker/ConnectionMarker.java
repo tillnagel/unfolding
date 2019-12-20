@@ -24,5 +24,4 @@ public class ConnectionMarker extends AbstractShapeMarker {
         MapPosition to = mapPositions.get(1);
         pg.line(from.x, from.y, to.x, to.y);
     }
-
 }

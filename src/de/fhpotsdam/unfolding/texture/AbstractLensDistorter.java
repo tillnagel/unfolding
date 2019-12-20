@@ -34,5 +34,4 @@ public abstract class AbstractLensDistorter implements Distorter {
     }
 
     protected abstract float interpolateRadius(float radius);
-
 }

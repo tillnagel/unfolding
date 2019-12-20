@@ -24,10 +24,12 @@ public class DynamicProviderSwitch extends PApplet {
     AbstractMapProvider provider2;
     AbstractMapProvider provider3;
 
+    @Override
     public void settings() {
         size(800, 600, P2D);
     }
 
+    @Override
     public void setup() {
         provider1 = new Google.GoogleMapProvider();
         provider2 = new Microsoft.AerialProvider();
@@ -37,12 +39,14 @@ public class DynamicProviderSwitch extends PApplet {
         MapUtils.createDefaultEventDispatcher(this, map);
     }
 
+    @Override
     public void draw() {
         background(0);
 
         map.draw();
     }
 
+    @Override
     public void keyPressed() {
         if (key == '1') {
             map.mapDisplay.setProvider(provider1);
@@ -52,5 +56,8 @@ public class DynamicProviderSwitch extends PApplet {
             map.mapDisplay.setProvider(provider3);
         }
     }
-
+    
+    public static void main(String[] args) {
+        PApplet.main(new String[]{DynamicProviderSwitch.class.getName()});
+    }
 }

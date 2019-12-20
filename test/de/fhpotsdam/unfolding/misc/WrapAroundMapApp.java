@@ -14,10 +14,12 @@ public class WrapAroundMapApp extends PApplet {
     UnfoldingMap leftMap;
     UnfoldingMap rightMap;
 
+    @Override
     public void settings() {
         size(800, 600, P2D);
     }
 
+    @Override
     public void setup() {
         map = new UnfoldingMap(this);
         map.zoomToLevel(2);
@@ -27,13 +29,7 @@ public class WrapAroundMapApp extends PApplet {
         rightMap = createWrappedMap(map, eventDispatcher, false);
     }
 
-    public UnfoldingMap createWrappedMap(UnfoldingMap mainMap, EventDispatcher eventDispatcher, boolean left) {
-        UnfoldingMap wrappedMap = new UnfoldingMap(this);
-        wrappedMap.zoomToLevel(mainMap.getZoomLevel());
-        eventDispatcher.register(wrappedMap, "zoom", mainMap.getId());
-        return wrappedMap;
-    }
-
+    @Override
     public void draw() {
         background(0, 255, 0);
 
@@ -45,7 +41,14 @@ public class WrapAroundMapApp extends PApplet {
         rightMap.draw();
     }
 
-    public void updateMap(UnfoldingMap mainMap, UnfoldingMap nextMap, boolean left) {
+    private UnfoldingMap createWrappedMap(UnfoldingMap mainMap, EventDispatcher eventDispatcher, boolean left) {
+        UnfoldingMap wrappedMap = new UnfoldingMap(this);
+        wrappedMap.zoomToLevel(mainMap.getZoomLevel());
+        eventDispatcher.register(wrappedMap, "zoom", mainMap.getId());
+        return wrappedMap;
+    }
+
+    private void updateMap(UnfoldingMap mainMap, UnfoldingMap nextMap, boolean left) {
         float degree = (left) ? -180 : 180;
 
         // Move next map
@@ -70,5 +73,4 @@ public class WrapAroundMapApp extends PApplet {
     public static void main(String args[]) {
         PApplet.main(new String[]{WrapAroundMapApp.class.getName()});
     }
-
 }

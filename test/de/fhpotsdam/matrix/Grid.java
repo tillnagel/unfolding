@@ -90,5 +90,4 @@ public class Grid {
         matrix.rotate(angle);
         matrix.translate(-origX, -origY);
     }
-
 }

@@ -21,9 +21,13 @@ public class KiteConnectedMapOnStaticMap extends PApplet {
 
     OverviewPlusDetailConnection kiteConnection;
 
-    public void setup() {
+    @Override
+    public void settings() {
         size(800, 600, OPENGL);
-
+    }
+    
+    @Override
+    public void setup() {
         mapStatic = new UnfoldingMap(this, "static", 0, 0, 800, 600);
         // MapUtils.createDefaultEventDispatcher(this, mapStatic);
 
@@ -34,6 +38,7 @@ public class KiteConnectedMapOnStaticMap extends PApplet {
         kiteConnection = new KiteConnection(this);
     }
 
+    @Override
     public void draw() {
         background(0);
 
@@ -44,6 +49,7 @@ public class KiteConnectedMapOnStaticMap extends PApplet {
         mapZoom.draw();
     }
 
+    @Override
     public void mouseDragged() {
         // Move the small map to mouse position, but center it around it
         mapZoomX = mouseX - mapZoom.mapDisplay.getWidth() / 2;
@@ -53,6 +59,7 @@ public class KiteConnectedMapOnStaticMap extends PApplet {
         kiteConnection.setOverviewPosition(mouseX, mouseY);
     }
 
+    @Override
     public void mouseClicked() {
         kiteConnection.setDetailPosition(mouseX, mouseY);
 
@@ -62,4 +69,7 @@ public class KiteConnectedMapOnStaticMap extends PApplet {
         mapZoom.panTo(locationOnStaticMap);
     }
 
+    public static void main(String args[]) {
+        PApplet.main(new String[]{KiteConnectedMapOnStaticMap.class.getName()});
+    }
 }

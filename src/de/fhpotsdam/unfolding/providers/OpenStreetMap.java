@@ -20,19 +20,23 @@ public class OpenStreetMap {
             return (int) coordinate.zoom + "/" + (int) coordinate.column + "/" + (int) coordinate.row;
         }
 
+        @Override
         public int tileWidth() {
             return 256;
         }
 
+        @Override
         public int tileHeight() {
             return 256;
         }
 
+        @Override
         public abstract String[] getTileUrls(Coordinate coordinate);
     }
 
     public static class OpenStreetMapProvider extends GenericOpenStreetMapProvider {
 
+        @Override
         public String[] getTileUrls(Coordinate coordinate) {
             String url = "http://tile.openstreetmap.org/" + getZoomString(coordinate) + ".png";
             return new String[]{url};
@@ -41,6 +45,7 @@ public class OpenStreetMap {
 
     public static class OSMGrayProvider extends GenericOpenStreetMapProvider {
 
+        @Override
         public String[] getTileUrls(Coordinate coordinate) {
             String url = "http://a.www.toolserver.org/tiles/bw-mapnik/" + getZoomString(coordinate) + ".png";
             return new String[]{url};
@@ -49,6 +54,7 @@ public class OpenStreetMap {
 
     public static class PositronMapProvider extends GenericOpenStreetMapProvider {
 
+        @Override
         public String[] getTileUrls(Coordinate coordinate) {
             String url = "http://a.basemaps.cartocdn.com/light_all/" + getZoomString(coordinate) + ".png";
             return new String[]{url};
@@ -57,6 +63,7 @@ public class OpenStreetMap {
 
     public static class DarkMatterMapProvider extends GenericOpenStreetMapProvider {
 
+        @Override
         public String[] getTileUrls(Coordinate coordinate) {
             String url = "http://a.basemaps.cartocdn.com/dark_all/" + getZoomString(coordinate) + ".png";
             return new String[]{url};
@@ -68,19 +75,19 @@ public class OpenStreetMap {
      */
     public static class CloudmadeProvider extends GenericOpenStreetMapProvider {
 
-        private String api_key;
-        private int style_id;
+        private final String api_key;
+        private final int style_id;
 
         public CloudmadeProvider(String _api_key, int _style_id) {
             api_key = _api_key;
             style_id = _style_id;
         }
 
+        @Override
         public String[] getTileUrls(Coordinate coordinate) {
             String url = "http://a.tile.cloudmade.com/" + api_key + "/" + style_id + "/256/"
                     + getZoomString(coordinate) + ".png";
             return new String[]{url};
         }
     }
-
 }

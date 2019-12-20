@@ -20,10 +20,12 @@ public class ZoomSliderOnMapApp extends PApplet {
 
     EventDispatcher eventDispatcher;
 
+    @Override
     public void settings() {
         size(800, 600, P2D);
     }
 
+    @Override
     public void setup() {
         map = new UnfoldingMap(this);
 
@@ -35,16 +37,7 @@ public class ZoomSliderOnMapApp extends PApplet {
         slider = new ZoomSlider(this, map, 50, 30);
     }
 
-    public void listen() {
-        eventDispatcher.register(map, PanMapEvent.TYPE_PAN, map.getId());
-        eventDispatcher.register(map, ZoomMapEvent.TYPE_ZOOM, map.getId());
-    }
-
-    public void mute() {
-        eventDispatcher.unregister(map, PanMapEvent.TYPE_PAN, map.getId());
-        eventDispatcher.unregister(map, ZoomMapEvent.TYPE_ZOOM, map.getId());
-    }
-
+    @Override
     public void draw() {
         map.draw();
 
@@ -56,6 +49,7 @@ public class ZoomSliderOnMapApp extends PApplet {
         slider.setZoomLevel(map.getZoomLevel());
     }
 
+    @Override
     public void mousePressed() {
         if (slider.contains(mouseX, mouseY)) {
             slider.startDrag(mouseX, mouseY);
@@ -63,12 +57,14 @@ public class ZoomSliderOnMapApp extends PApplet {
         }
     }
 
+    @Override
     public void mouseDragged() {
         if (slider.isDragging()) {
             slider.drag(mouseX, mouseY);
         }
     }
 
+    @Override
     public void mouseReleased() {
         if (slider.isDragging()) {
             slider.endDrag();
@@ -76,8 +72,17 @@ public class ZoomSliderOnMapApp extends PApplet {
         }
     }
 
+    private void listen() {
+        eventDispatcher.register(map, PanMapEvent.TYPE_PAN, map.getId());
+        eventDispatcher.register(map, ZoomMapEvent.TYPE_ZOOM, map.getId());
+    }
+
+    private void mute() {
+        eventDispatcher.unregister(map, PanMapEvent.TYPE_PAN, map.getId());
+        eventDispatcher.unregister(map, ZoomMapEvent.TYPE_ZOOM, map.getId());
+    }
+
     public static void main(String[] args) {
         PApplet.main(new String[]{ZoomSliderOnMapApp.class.getName()});
     }
-
 }

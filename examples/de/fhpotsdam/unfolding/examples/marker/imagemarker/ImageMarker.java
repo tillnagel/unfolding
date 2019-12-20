@@ -31,5 +31,4 @@ public class ImageMarker extends AbstractMarker {
     protected boolean isInside(float checkX, float checkY, float x, float y) {
         return checkX > x && checkX < x + img.width && checkY > y && checkY < y + img.height;
     }
-
 }

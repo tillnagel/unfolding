@@ -26,14 +26,12 @@ public class ChoroplethMapApp extends PApplet {
     HashMap<String, DataEntry> dataEntriesMap;
     List<Marker> countryMarkers;
 
+    @Override
     public void settings() {
         size(800, 600, P2D);
     }
 
-    public static void main(String args[]) {
-        PApplet.main(new String[]{ChoroplethMapApp.class.getName()});
-    }
-
+    @Override
     public void setup() {
         map = new UnfoldingMap(this, 50, 50, 700, 500);
         map.zoomToLevel(2);
@@ -53,6 +51,7 @@ public class ChoroplethMapApp extends PApplet {
         shadeCountries();
     }
 
+    @Override
     public void draw() {
         background(240);
 
@@ -77,8 +76,8 @@ public class ChoroplethMapApp extends PApplet {
         }
     }
 
-    public HashMap<String, DataEntry> loadPopulationDensityFromCSV(String fileName) {
-        HashMap<String, DataEntry> dataEntriesMap = new HashMap<String, DataEntry>();
+    private HashMap<String, DataEntry> loadPopulationDensityFromCSV(String fileName) {
+        HashMap<String, DataEntry> dataEntriesMap = new HashMap<>();
 
         String[] rows = loadStrings(fileName);
         for (String row : rows) {
@@ -104,4 +103,7 @@ public class ChoroplethMapApp extends PApplet {
         Float value;
     }
 
+    public static void main(String args[]) {
+        PApplet.main(new String[]{ChoroplethMapApp.class.getName()});
+    }
 }

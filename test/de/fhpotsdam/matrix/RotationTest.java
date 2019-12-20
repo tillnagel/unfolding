@@ -13,22 +13,27 @@ public class RotationTest extends PApplet {
 
     float angle;
     float zoom;
-
-    public void setup() {
+    
+    @Override
+    public void settings() {
         size(800, 600, OPENGL);
         smooth();
+    }
 
+    @Override
+    public void setup() {
         offsetX = 50;
         offsetY = 50;
     }
 
+    @Override
     public void draw() {
         background(240);
 
         if (mousePressed) {
             if (mouseButton == LEFT) {
                 angle += 0.01f;
-            } else {
+            } else if (mouseButton == RIGHT) {
                 angle -= 0.01f;
             }
             rotateX = mouseX;
@@ -40,7 +45,6 @@ public class RotationTest extends PApplet {
             } else if (key == '-') {
                 zoom -= 0.01f;
             }
-
         }
 
         pushMatrix();
@@ -83,5 +87,8 @@ public class RotationTest extends PApplet {
             }
         }
     }
-
+    
+    public static void main(String args[]) {
+        PApplet.main(new String[]{RotationTest.class.getName()});
+    }
 }

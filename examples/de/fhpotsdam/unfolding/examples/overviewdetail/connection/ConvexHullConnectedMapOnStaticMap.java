@@ -20,14 +20,12 @@ public class ConvexHullConnectedMapOnStaticMap extends PApplet {
 
     OverviewPlusDetailConnection connection;
 
+    @Override
     public void settings() {
         size(800, 600, P2D);
     }
 
-    public static void main(String[] args) {
-        PApplet.main(new String[]{ConvexHullConnectedMapOnStaticMap.class.getName()});
-    }
-
+    @Override
     public void setup() {
         mapOverview = new UnfoldingMap(this, "overview", 10, 10, 585, 580);
         mapOverview.zoomToLevel(1);
@@ -47,6 +45,7 @@ public class ConvexHullConnectedMapOnStaticMap extends PApplet {
         ((ConvexHullConnection) connection).hullStrokeColor = color(100, 0);
     }
 
+    @Override
     public void draw() {
         background(0);
 
@@ -58,7 +57,7 @@ public class ConvexHullConnectedMapOnStaticMap extends PApplet {
         mapDetail.draw();
     }
 
-    public void updateConnection() {
+    private void updateConnection() {
         // Finder box for overview map
         ScreenPosition tl = mapOverview.mapDisplay.getScreenPosition(mapDetail.getTopLeftBorder());
         ScreenPosition br = mapOverview.mapDisplay.getScreenPosition(mapDetail.getBottomRightBorder());
@@ -68,4 +67,7 @@ public class ConvexHullConnectedMapOnStaticMap extends PApplet {
         connection.setOverviewPosition(tl.x, tl.y);
     }
 
+    public static void main(String[] args) {
+        PApplet.main(new String[]{ConvexHullConnectedMapOnStaticMap.class.getName()});
+    }
 }

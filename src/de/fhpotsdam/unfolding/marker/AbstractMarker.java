@@ -234,10 +234,12 @@ public abstract class AbstractMarker implements Marker {
         this.strokeWeight = strokeWeight;
     }
 
+    @Override
     public void setHighlightColor(int highlightColor) {
         this.highlightColor = highlightColor;
     }
 
+    @Override
     public void setHighlightStrokeColor(int highlightStrokeColor) {
         this.highlightStrokeColor = highlightStrokeColor;
     }
@@ -246,5 +248,4 @@ public abstract class AbstractMarker implements Marker {
     public void setStrokeColor(int color) {
         this.strokeColor = color;
     }
-
 }

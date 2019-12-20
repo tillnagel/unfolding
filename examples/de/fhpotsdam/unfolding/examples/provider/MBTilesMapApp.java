@@ -22,16 +22,19 @@ public class MBTilesMapApp extends PApplet {
 
     UnfoldingMap map;
 
+    @Override
     public void settings() {
         size(800, 600, P2D);
     }
 
+    @Override
     public void setup() {
         map = new UnfoldingMap(this, new MBTilesMapProvider(mbTilesString));
         MapUtils.createDefaultEventDispatcher(this, map);
         map.setZoomRange(1, 3);
     }
 
+    @Override
     public void draw() {
         background(0);
         map.draw();

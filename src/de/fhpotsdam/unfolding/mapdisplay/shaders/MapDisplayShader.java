@@ -40,5 +40,4 @@ public class MapDisplayShader {
     public void shadeWithMarkers(PGraphics innerCanvas) {
 
     }
-
 }

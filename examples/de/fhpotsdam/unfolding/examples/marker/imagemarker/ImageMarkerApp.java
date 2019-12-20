@@ -18,14 +18,12 @@ public class ImageMarkerApp extends PApplet {
 
     UnfoldingMap map;
 
+    @Override
     public void settings() {
         size(800, 600, P2D);
     }
 
-    public static void main(String[] args) {
-        PApplet.main(new String[]{ImageMarkerApp.class.getName()});
-    }
-
+    @Override
     public void setup() {
         map = new UnfoldingMap(this);
         map.zoomAndPanTo(4, new Location(50.26f, 12.1f));
@@ -37,8 +35,12 @@ public class ImageMarkerApp extends PApplet {
         map.addMarkers(imgMarker1, imgMarker2, imgMarker3);
     }
 
+    @Override
     public void draw() {
         map.draw();
     }
 
+    public static void main(String[] args) {
+        PApplet.main(new String[]{ImageMarkerApp.class.getName()});
+    }
 }

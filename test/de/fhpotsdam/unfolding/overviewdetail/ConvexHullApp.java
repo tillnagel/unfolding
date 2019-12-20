@@ -13,11 +13,16 @@ import processing.core.PVector;
 public class ConvexHullApp extends PApplet {
 
     ConvexHull convexHull;
-
-    public void setup() {
+    
+    @Override
+    public void settings() {
         size(500, 500);
-        background(255);
         smooth();
+    }
+
+    @Override
+    public void setup() {
+        background(255);
 
         convexHull = new ConvexHull(this);
         convexHull.showDebugPoints = true;
@@ -26,19 +31,25 @@ public class ConvexHullApp extends PApplet {
         convexHull.addPoint(new PVector(random(width), random(height)));
     }
 
+    @Override
     public void draw() {
         background(255);
         convexHull.draw();
     }
 
+    @Override
     public void mousePressed() {
         convexHull.addPoint(new PVector(mouseX, mouseY));
     }
 
+    @Override
     public void keyPressed() {
         if (key == BACKSPACE) {
             convexHull.clearPoints();
         }
     }
 
+    public static void main(String args[]) {
+        PApplet.main(new String[]{ConvexHullApp.class.getName()});
+    }
 }

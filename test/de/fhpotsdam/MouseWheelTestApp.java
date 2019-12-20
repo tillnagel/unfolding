@@ -11,17 +11,21 @@ import processing.event.MouseEvent;
  */
 public class MouseWheelTestApp extends PApplet {
 
+    @Override
     public void settings() {
         size(400, 400, JAVA2D); // P2D
     }
 
+    @Override
     public void setup() {
         registerMethod("mouseEvent", this);
     }
 
+    @Override
     public void draw() {
     }
 
+    @Override
     public void mouseWheel(MouseEvent e) {
         println("mouseWheel.c:" + e.getCount());
     }

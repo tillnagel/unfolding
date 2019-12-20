@@ -27,11 +27,13 @@ public class MarkerGridApp extends PApplet {
     int gridWidth = 100;
     int gridHeight = 100;
 
+    @Override
     public void settings() {
         size(800, 600, P2D);
         smooth();
     }
 
+    @Override
     public void setup() {
         map = new UnfoldingMap(this);
         map.zoomToLevel(2);
@@ -42,6 +44,7 @@ public class MarkerGridApp extends PApplet {
         map.addMarkers(markers);
     }
 
+    @Override
     public void draw() {
         background(0);
         map.draw();
@@ -65,7 +68,6 @@ public class MarkerGridApp extends PApplet {
                 // Draw current grid rectangle
                 fill(255, 0, 0, alpha);
                 rect(x, y, gridWidth, gridHeight);
-
             }
         }
     }
@@ -73,5 +75,4 @@ public class MarkerGridApp extends PApplet {
     public static void main(String args[]) {
         PApplet.main(new String[]{MarkerGridApp.class.getName()});
     }
-
 }

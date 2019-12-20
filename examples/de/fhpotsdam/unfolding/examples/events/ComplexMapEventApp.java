@@ -39,9 +39,9 @@ import de.fhpotsdam.unfolding.utils.DebugDisplay;
  */
 public class ComplexMapEventApp extends PApplet {
 
-    public static Logger log = Logger.getLogger(ComplexMapEventApp.class);
+    public static Logger LOGGER = Logger.getLogger(ComplexMapEventApp.class);
 
-    List<UnfoldingMap> maps = new ArrayList<UnfoldingMap>();
+    List<UnfoldingMap> maps = new ArrayList<>();
 
     EventDispatcher eventDispatcher;
 
@@ -49,10 +49,12 @@ public class ComplexMapEventApp extends PApplet {
     DebugDisplay debugDisplay2;
     DebugDisplay debugDisplay3;
 
+    @Override
     public void settings() {
         size(1240, 420, P2D);
     }
 
+    @Override
     public void setup() {
         // Creates non-default dispatcher to register own broadcasters and listeners.
         eventDispatcher = new EventDispatcher();
@@ -92,6 +94,7 @@ public class ComplexMapEventApp extends PApplet {
         debugDisplay3 = new DebugDisplay(this, map3, eventDispatcher, 835, 165);
     }
 
+    @Override
     public void draw() {
         background(0);
 
@@ -104,9 +107,10 @@ public class ComplexMapEventApp extends PApplet {
         debugDisplay3.draw();
     }
 
+    @Override
     public void keyPressed() {
         if (key == ' ') {
-            log.debug("programmed: fire panTo + zoomTo");
+            LOGGER.debug("programmed: fire panTo + zoomTo");
             PanMapEvent panMapEvent = new PanMapEvent(this, maps.get(0).getId());
             Location location = new Location(52.4115f, 13.0516f);
             panMapEvent.setToLocation(location);
@@ -124,11 +128,10 @@ public class ComplexMapEventApp extends PApplet {
             for (ScopedListeners scopedListeners : scopedListenersList) {
                 for (MapEventListener listener : scopedListeners.listeners) {
                     UnfoldingMap map = (UnfoldingMap) listener;
-                    log.debug(map.getId() + " listens to " + eventType + " of " + scopedListeners.scopeIds);
+                    LOGGER.debug(map.getId() + " listens to " + eventType + " of " + scopedListeners.scopeIds);
                 }
             }
         }
-
     }
 
     public static void main(String[] args) {

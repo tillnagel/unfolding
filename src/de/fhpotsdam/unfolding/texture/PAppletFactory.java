@@ -13,5 +13,4 @@ public class PAppletFactory {
     public static PApplet getInstance() {
         return p;
     }
-
 }

@@ -6,13 +6,18 @@ public class GridTest extends PApplet {
 
     Grid grid;
 
-    public void setup() {
+    @Override
+    public void settings() {
         size(800, 600, OPENGL);
         smooth();
-
+    }
+    
+    @Override
+    public void setup() {
         grid = new Grid(this, 50, 50, 300, 200);
     }
 
+    @Override
     public void draw() {
         background(240);
 
@@ -34,15 +39,18 @@ public class GridTest extends PApplet {
         grid.draw();
     }
 
+    @Override
     public void mouseMoved() {
         grid.centerX = mouseX;
         grid.centerY = mouseY;
     }
 
+    @Override
     public void mouseDragged() {
         mouseMoved();
     }
 
+    @Override
     public void keyPressed() {
         if (key == ' ') {
 
@@ -64,5 +72,9 @@ public class GridTest extends PApplet {
             grid.centerX = 350;
             grid.rotate(radians(-10));
         }
+    }
+    
+    public static void main(String args[]) {
+        PApplet.main(new String[]{GridTest.class.getName()});
     }
 }

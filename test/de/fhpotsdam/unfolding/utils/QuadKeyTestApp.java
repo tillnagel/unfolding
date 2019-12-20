@@ -13,9 +13,12 @@ public class QuadKeyTestApp extends PApplet {
 
     UnfoldingMap map;
 
-    public void setup() {
+    @Override
+    public void settings() {
         size(800, 600);
-
+    }
+    
+    public void setup() {
         map = new UnfoldingMap(this);
         Location location = new Location(52.52, 13.38);
 
@@ -32,8 +35,12 @@ public class QuadKeyTestApp extends PApplet {
         }
     }
 
+    @Override
     public void draw() {
         // map.draw();
     }
 
+    public static void main(String args[]) {
+        PApplet.main(new String[]{QuadKeyTestApp.class.getName()});
+    }
 }

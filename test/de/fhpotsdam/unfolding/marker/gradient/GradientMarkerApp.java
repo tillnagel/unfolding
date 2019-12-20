@@ -19,10 +19,14 @@ public class GradientMarkerApp extends PApplet {
     UnfoldingMap map;
     MyPolygonMarker polygonMarker = new MyPolygonMarker();
 
-    public void setup() {
+    @Override
+    public void settings() {
         size(800, 600, P2D);
         smooth();
-
+    }
+    
+    @Override
+    public void setup() {
         map = new UnfoldingMap(this);
         map.zoomToLevel(4);
         MapUtils.createDefaultEventDispatcher(this, map);
@@ -33,6 +37,7 @@ public class GradientMarkerApp extends PApplet {
         map.addMarkers(polygonMarker);
     }
 
+    @Override
     public void draw() {
         map.draw();
     }
@@ -40,7 +45,7 @@ public class GradientMarkerApp extends PApplet {
     // Very simple custom PolygonMarker. Extends Unfolding's SimplePolygonMarker to create own drawing methods.
     class MyPolygonMarker extends SimplePolygonMarker {
 
-        List<Integer> colors = new ArrayList<Integer>();
+        List<Integer> colors = new ArrayList<>();
 
         public void initColors() {
             colors.clear();
@@ -49,6 +54,7 @@ public class GradientMarkerApp extends PApplet {
             }
         }
 
+        @Override
         public void draw(PGraphics pg, List<MapPosition> mapPositions) {
             pg.pushStyle();
 
@@ -65,6 +71,9 @@ public class GradientMarkerApp extends PApplet {
 
             pg.popStyle();
         }
-
+    }
+    
+    public static void main(String args[]) {
+        PApplet.main(new String[]{GradientMarkerApp.class.getName()});
     }
 }

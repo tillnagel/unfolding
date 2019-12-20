@@ -16,10 +16,12 @@ public class CompassApp extends PApplet {
     UnfoldingMap map;
     CompassUI compass;
 
+    @Override
     public void settings() {
         size(800, 600, P3D);
     }
 
+    @Override
     public void setup() {
         map = new UnfoldingMap(this);
         map.zoomAndPanTo(10, new Location(52.5f, 13.4f));
@@ -29,12 +31,14 @@ public class CompassApp extends PApplet {
         compass = new CompassUI(this, map);
     }
 
+    @Override
     public void draw() {
         background(0);
         map.draw();
         compass.draw();
     }
 
+    @Override
     public void keyPressed() {
         if (key == 'r') {
             map.rotate(0.1f);

@@ -21,16 +21,21 @@ public class MovingCirclesMap extends PApplet {
 
     int reInitCounter = 0;
     boolean reInit = false;
-
-    public void setup() {
+    
+    @Override
+    public void settings() {
         size(800, 600, OPENGL);
-
+    }
+    
+    @Override
+    public void setup() {
         map1 = new UnfoldingMap(this, "map1", 0, 0, 800, 600, true, false, new Microsoft.AerialProvider());
         MapUtils.createDefaultEventDispatcher(this, map1);
 
         initCircles(circles);
     }
 
+    @Override
     public void draw() {
         background(0, 0, 30);
 
@@ -48,12 +53,17 @@ public class MovingCirclesMap extends PApplet {
         }
     }
 
-    public void mapChanged(MapEvent mapEvent) {
+    @Override
+    public void keyPressed() {
+        println("fps:" + frameRate);
+    }
+
+    private void mapChanged(MapEvent mapEvent) {
         println("mapevent " + mapEvent.getScopeId());
         reInit = true;
     }
 
-    void initCircles(ArrayList circles) {
+    private void initCircles(ArrayList circles) {
         map1.draw();
         loadPixels();
         background(0);
@@ -73,7 +83,7 @@ public class MovingCirclesMap extends PApplet {
         // println("init=" + (millis() - start));
     }
 
-    void reInitCircles() {
+    private void reInitCircles() {
 
         ArrayList newCircles = new ArrayList();
         initCircles(newCircles);
@@ -103,7 +113,7 @@ public class MovingCirclesMap extends PApplet {
      * nearest, but one which is in proximity of the position (x,y) and not
      * moved. (As more circles are already moved the farer "nearest" could be)
      */
-    Circle foundNearestCircle(ArrayList circles, float x, float y) {
+    private Circle foundNearestCircle(ArrayList circles, float x, float y) {
         float minDist = width + height;
         Circle foundCircle = null;
 
@@ -119,28 +129,28 @@ public class MovingCirclesMap extends PApplet {
         return foundCircle;
     }
 
-    void drawCircles(int start, int end) {
+    private void drawCircles(int start, int end) {
         for (int i = start; i < end; i++) {
             Circle circle = (Circle) circles.get(i);
             circle.draw();
         }
     }
 
-    void updateCircles(int start, int end) {
+    private void updateCircles(int start, int end) {
         for (int i = start; i < end; i++) {
             Circle circle = (Circle) circles.get(i);
             circle.update();
         }
     }
 
-    int getVideoColor(float x, float y) {
+    private int getVideoColor(float x, float y) {
         return pixels[(int) x + (int) y * width];
     }
 
     /**
      * Checks whether the given circle is not intersecting with any other.
      */
-    boolean isFree(Circle aCircle, ArrayList circles) {
+    private boolean isFree(Circle aCircle, ArrayList circles) {
         boolean intersect = false;
         int i = 0;
         while (i < circles.size() && !intersect) {
@@ -151,11 +161,7 @@ public class MovingCirclesMap extends PApplet {
         return !intersect;
     }
 
-    public void keyPressed() {
-        println("fps:" + frameRate);
-    }
-
-    public void drawPoint() {
+    private void drawPoint() {
         float pSize = 2.0f + (mouseX / (float) width) * 16.0f;
         int x = (int) random(width);
         int y = (int) random(height);
@@ -164,5 +170,8 @@ public class MovingCirclesMap extends PApplet {
         noStroke();
         ellipse(x, y, pSize, pSize);
     }
-
+    
+    public static void main(String args[]) {
+        PApplet.main(new String[]{MovingCirclesMap.class.getName()});
+    }
 }

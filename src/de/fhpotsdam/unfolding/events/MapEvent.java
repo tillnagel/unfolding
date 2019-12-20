@@ -15,8 +15,8 @@ import de.fhpotsdam.unfolding.UnfoldingMap;
  */
 public abstract class MapEvent extends EventObject {
 
-    private String type;
-    private String scopeId;
+    private final String type;
+    private final String scopeId;
     private String subType;
     private boolean tweening = true;
 
@@ -76,5 +76,4 @@ public abstract class MapEvent extends EventObject {
     }
 
     public abstract void executeManipulationFor(UnfoldingMap map);
-
 }

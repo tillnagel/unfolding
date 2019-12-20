@@ -26,14 +26,12 @@ public class MultiLabeledMarkerApp extends PApplet {
 
     UnfoldingMap map;
 
+    @Override
     public void settings() {
         size(800, 600, P2D);
     }
 
-    public static void main(String[] args) {
-        PApplet.main(new String[]{MultiLabeledMarkerApp.class.getName()});
-    }
-
+    @Override
     public void setup() {
         map = new UnfoldingMap(this, "map", 50, 50, 700, 500);
         map.zoomToLevel(2);
@@ -52,11 +50,13 @@ public class MultiLabeledMarkerApp extends PApplet {
         populateMarkerLabels(markers);
     }
 
+    @Override
     public void draw() {
         background(240);
         map.draw();
     }
 
+    @Override
     public void mouseMoved() {
         // Deselect all marker
         for (Marker marker : map.getMarkers()) {
@@ -81,4 +81,7 @@ public class MultiLabeledMarkerApp extends PApplet {
         }
     }
 
+    public static void main(String[] args) {
+        PApplet.main(new String[]{MultiLabeledMarkerApp.class.getName()});
+    }
 }

@@ -20,7 +20,7 @@ import de.fhpotsdam.unfolding.utils.ScreenPosition;
  */
 public class ManualMapInteractionsTestApp extends PApplet {
 
-    public static Logger log = Logger.getLogger(ManualMapInteractionsTestApp.class);
+    public static Logger LOGGER = Logger.getLogger(ManualMapInteractionsTestApp.class);
 
     /**
      * The interactive map.
@@ -32,10 +32,14 @@ public class ManualMapInteractionsTestApp extends PApplet {
     DebugDisplay debugDisplay;
 
     Location berlinLocation = new Location(52.439046f, 13.447266f);
-
-    public void setup() {
+    
+    @Override
+    public void settings() {
         size(800, 600, OPENGL);
-
+    }
+    
+    @Override
+    public void setup() {
         map = new UnfoldingMap(this, "map1", 50, 50, 700, 500);
         map.setTweening(false);
         // MapUtils.createDefaultEventDispatcher(this, map);
@@ -43,6 +47,7 @@ public class ManualMapInteractionsTestApp extends PApplet {
         debugDisplay = new DebugDisplay(this, map, 0, 0);
     }
 
+    @Override
     public void draw() {
         background(0);
 
@@ -74,6 +79,7 @@ public class ManualMapInteractionsTestApp extends PApplet {
         ellipse(pos.x, pos.y, 10, 10);
     }
 
+    @Override
     public void keyPressed() {
         if (key == '+') {
             // TODO Integrate object center as default innerTransCenter in public methods
@@ -155,7 +161,19 @@ public class ManualMapInteractionsTestApp extends PApplet {
         }
     }
 
-    public void mouseWheel(float delta) {
+    @Override
+    public void mousePressed() {
+        if (mouseEvent.getClickCount() == 2) {
+            map.zoomAndPanTo(1, mouseX, mouseY);
+        }
+    }
+
+    @Override
+    public void mouseDragged() {
+        map.pan(pmouseX, pmouseY, mouseX, mouseY);
+    }
+
+    private void mouseWheel(float delta) {
         PVector itc = new PVector(mouseX, mouseY);
         map.mapDisplay.setInnerTransformationCenter(itc);
 
@@ -165,15 +183,8 @@ public class ManualMapInteractionsTestApp extends PApplet {
             map.zoomOut();
         }
     }
-
-    public void mousePressed() {
-        if (mouseEvent.getClickCount() == 2) {
-            map.zoomAndPanTo(1, mouseX, mouseY);
-        }
+    
+    public static void main(String args[]) {
+        PApplet.main(new String[]{ManualMapInteractionsTestApp.class.getName()});
     }
-
-    public void mouseDragged() {
-        map.pan(pmouseX, pmouseY, mouseX, mouseY);
-    }
-
 }

@@ -8,7 +8,7 @@ import processing.core.PImage;
 
 public class MaskedImageApp extends PApplet {
 
-    public static Logger log = Logger.getLogger(MaskedImageApp.class);
+    public static Logger LOGGER = Logger.getLogger(MaskedImageApp.class);
 
     PImage img;
     PGraphics mask;
@@ -16,12 +16,13 @@ public class MaskedImageApp extends PApplet {
     float tx, ty;
     float vx, vy = random(1, 2);
 
+    @Override
     public void settings() {
         size(800, 600, P2D);
     }
 
+    @Override
     public void setup() {
-
         img = loadImage("shader/test800x600.png");
 
         mask = createGraphics(800, 600, P2D);
@@ -35,6 +36,7 @@ public class MaskedImageApp extends PApplet {
         vy = random(-2, 2);
     }
 
+    @Override
     public void draw() {
         background(0);
 
@@ -51,7 +53,12 @@ public class MaskedImageApp extends PApplet {
         image(img, 0, 0);
     }
 
-    public void animateCircles() {
+    @Override
+    public void keyPressed() {
+        println(frameRate);
+    }
+
+    private void animateCircles() {
         tx += vx;
         ty += vy;
         if (tx > width || tx < 0) {
@@ -63,7 +70,7 @@ public class MaskedImageApp extends PApplet {
         drawHole(tx, ty, 50);
     }
 
-    public void drawHole(float x, float y, float size) {
+    private void drawHole(float x, float y, float size) {
         mask.noStroke();
         mask.fill(255, 50);
         mask.ellipse(x, y, size, size);
@@ -71,12 +78,7 @@ public class MaskedImageApp extends PApplet {
         mask.ellipse(x, y, size - 20, size - 20);
     }
 
-    public void keyPressed() {
-        println(frameRate);
-    }
-
     public static void main(String[] args) {
         PApplet.main(new String[]{MaskedImageApp.class.getName()});
     }
-
 }

@@ -16,11 +16,15 @@ import de.fhpotsdam.unfolding.utils.MapUtils;
 public class MyLinesMarkerApp extends PApplet {
 
     UnfoldingMap map;
-
-    public void setup() {
-        size(800, 600);
+        
+    @Override
+    public void settings() {
+        size(800, 600, P2D);
         smooth();
+    }
 
+    @Override
+    public void setup() {
         map = new UnfoldingMap(this);
         map.zoomTo(3);
         MapUtils.createDefaultEventDispatcher(this, map);
@@ -29,6 +33,7 @@ public class MyLinesMarkerApp extends PApplet {
         map.addMarkers(lineMarker);
     }
 
+    @Override
     public void draw() {
         map.draw();
     }
@@ -40,6 +45,7 @@ public class MyLinesMarkerApp extends PApplet {
             super(start, end);
         }
 
+        @Override
         public void draw(PGraphics pg, List<MapPosition> mapPositions) {
             pg.pushStyle();
 
@@ -54,6 +60,9 @@ public class MyLinesMarkerApp extends PApplet {
 
             pg.popStyle();
         }
-
+    }
+        
+    public static void main(String args[]) {
+        PApplet.main(new String[]{MyLinesMarkerApp.class.getName()});
     }
 }

@@ -84,5 +84,4 @@ public class CircularMapSnapshot extends MapSnapshot {
         saveArea.updatePixels();
         return saveArea;
     }
-
 }

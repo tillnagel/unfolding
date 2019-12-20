@@ -103,5 +103,4 @@ public class TuioTransformableObject extends TransformableObject {
             oldY = y;
         }
     }
-
 }

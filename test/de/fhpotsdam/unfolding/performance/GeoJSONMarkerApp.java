@@ -29,10 +29,14 @@ public class GeoJSONMarkerApp extends PApplet {
     List<Feature> countries;
     PShape shapeGroup;
 
-    public void setup() {
+    @Override
+    public void settings() {
         size(800, 600, OPENGL);
         smooth();
-
+    }
+    
+    @Override
+    public void setup() {
         map = new UnfoldingMap(this, 50, 50, 700, 500);
         map.zoomToLevel(2);
         MapUtils.createDefaultEventDispatcher(this, map);
@@ -41,6 +45,7 @@ public class GeoJSONMarkerApp extends PApplet {
         shapeGroup = createShapeGroup(countries);
     }
 
+    @Override
     public void draw() {
         background(160);
         map.draw();
@@ -53,7 +58,7 @@ public class GeoJSONMarkerApp extends PApplet {
         text("fps: " + nfs(frameRate, 0, 2), 10, 20);
     }
 
-    public PShape createShapeGroup(List<Feature> features) {
+    private PShape createShapeGroup(List<Feature> features) {
         shapeGroup = createShape(PShape.GROUP);
 
         for (int i = 0; i < features.size(); i++) {
@@ -67,7 +72,7 @@ public class GeoJSONMarkerApp extends PApplet {
         return shapeGroup;
     }
 
-    public void updateShape(String shapeName, ShapeFeature shapeFeature, boolean update) {
+    private void updateShape(String shapeName, ShapeFeature shapeFeature, boolean update) {
         if (!update) {
             // Create shape
             PShape shape = createShape();
@@ -90,7 +95,7 @@ public class GeoJSONMarkerApp extends PApplet {
         }
     }
 
-    public void updateShapeVertices(PShape shape, ShapeFeature shapeFeature, boolean update) {
+    private void updateShapeVertices(PShape shape, ShapeFeature shapeFeature, boolean update) {
         List<Location> locations = shapeFeature.getLocations();
         int v = 0;
         for (Location location : locations) {
@@ -103,11 +108,11 @@ public class GeoJSONMarkerApp extends PApplet {
         }
     }
 
-    public void mapChanged(MapEvent mapEvent) {
+    private void mapChanged(MapEvent mapEvent) {
         updateFeatures(countries);
     }
 
-    public void updateFeatures(List<Feature> features) {
+    private void updateFeatures(List<Feature> features) {
         for (int i = 0; i < features.size(); i++) {
             Feature feature = features.get(i);
             if (feature.getType().equals(FeatureType.POLYGON)) {
@@ -116,6 +121,9 @@ public class GeoJSONMarkerApp extends PApplet {
                 updateShape("c" + i, shapeFeature, true);
             }
         }
-
+    }
+    
+    public static void main(String args[]) {
+        PApplet.main(new String[]{GeoJSONMarkerApp.class.getName()});
     }
 }

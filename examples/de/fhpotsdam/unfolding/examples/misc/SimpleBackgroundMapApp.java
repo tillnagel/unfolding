@@ -15,10 +15,12 @@ public class SimpleBackgroundMapApp extends PApplet {
 
     UnfoldingMap map;
 
+    @Override
     public void settings() {
         size(800, 600, P2D);
     }
 
+    @Override
     public void setup() {
         map = new UnfoldingMap(this, 50, 50, 700, 500);
         map.zoomAndPanTo(3, new Location(52.5f, 13.4f));
@@ -28,6 +30,7 @@ public class SimpleBackgroundMapApp extends PApplet {
         map.setBackgroundColor(color(60, 70, 10));
     }
 
+    @Override
     public void draw() {
         // Outer area the map gets a different color
         background(30, 70, 10);

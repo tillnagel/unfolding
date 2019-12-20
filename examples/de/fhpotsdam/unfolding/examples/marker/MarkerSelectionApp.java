@@ -20,13 +20,15 @@ import de.fhpotsdam.unfolding.utils.MapUtils;
 public class MarkerSelectionApp extends PApplet {
 
     UnfoldingMap map;
-    List<Marker> countryMarkers = new ArrayList<Marker>();
+    List<Marker> countryMarkers = new ArrayList<>();
     Location indonesiaLocation = new Location(-6.175, 106.82);
 
+    @Override
     public void settings() {
         size(800, 600, P2D);
     }
 
+    @Override
     public void setup() {
         map = new UnfoldingMap(this);
         map.zoomAndPanTo(3, indonesiaLocation);
@@ -37,11 +39,13 @@ public class MarkerSelectionApp extends PApplet {
         map.addMarkers(countryMarkers);
     }
 
+    @Override
     public void draw() {
         background(240);
         map.draw();
     }
 
+    @Override
     public void mouseMoved() {
         for (Marker marker : map.getMarkers()) {
             marker.setSelected(false);

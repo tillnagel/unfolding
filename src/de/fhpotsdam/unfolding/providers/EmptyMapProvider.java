@@ -34,5 +34,4 @@ public class EmptyMapProvider extends AbstractMapTileProvider {
     public int tileHeight() {
         return 256;
     }
-
 }

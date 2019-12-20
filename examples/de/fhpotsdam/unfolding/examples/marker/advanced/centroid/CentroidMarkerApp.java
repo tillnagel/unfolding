@@ -21,10 +21,12 @@ public class CentroidMarkerApp extends PApplet {
 
     UnfoldingMap map;
 
+    @Override
     public void settings() {
         size(800, 600, P2D);
     }
 
+    @Override
     public void setup() {
         map = new UnfoldingMap(this, 50, 50, 700, 500);
         map.zoomToLevel(2);
@@ -39,6 +41,7 @@ public class CentroidMarkerApp extends PApplet {
         map.addMarkers(countryMarkers);
     }
 
+    @Override
     public void draw() {
         background(160);
         map.draw();
@@ -47,5 +50,4 @@ public class CentroidMarkerApp extends PApplet {
     public static void main(String[] args) {
         PApplet.main(new String[]{CentroidMarkerApp.class.getName()});
     }
-
 }

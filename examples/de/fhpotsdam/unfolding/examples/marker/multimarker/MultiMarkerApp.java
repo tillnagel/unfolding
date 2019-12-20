@@ -30,10 +30,12 @@ public class MultiMarkerApp extends PApplet {
 
     UnfoldingMap map;
 
+    @Override
     public void settings() {
         size(800, 600, P2D);
     }
 
+    @Override
     public void setup() {
         map = new UnfoldingMap(this, "map");
         map.zoomToLevel(4);
@@ -55,11 +57,13 @@ public class MultiMarkerApp extends PApplet {
         }
     }
 
+    @Override
     public void draw() {
         background(240);
         map.draw();
     }
 
+    @Override
     public void mouseMoved() {
         // Not via marker.isInside(...) as this example supports both MultiMarker and two markers.
         // multiMarker.isInside(map, mouseX, mouseY);
@@ -76,7 +80,7 @@ public class MultiMarkerApp extends PApplet {
 
     public static List<Location> getFranceShapeLocations() {
         // Crude shape of France
-        List<Location> franceLocations = new ArrayList<Location>();
+        List<Location> franceLocations = new ArrayList<>();
         franceLocations.add(new Location(48.985985f, 8.173828f));
         franceLocations.add(new Location(51.074539f, 2.460938f));
         franceLocations.add(new Location(49.33085f, -0.043945f));
@@ -93,7 +97,7 @@ public class MultiMarkerApp extends PApplet {
 
     public static List<Location> getCorsicaShapeLocations() {
         // Crude shape of Corsica
-        List<Location> corsicaLocations = new ArrayList<Location>();
+        List<Location> corsicaLocations = new ArrayList<>();
         corsicaLocations.add(new Location(41.380106f, 9.162598f));
         corsicaLocations.add(new Location(42.231771f, 8.547363f));
         corsicaLocations.add(new Location(42.991791f, 9.404297f));
@@ -104,5 +108,4 @@ public class MultiMarkerApp extends PApplet {
     public static void main(String args[]) {
         PApplet.main(new String[]{MultiMarkerApp.class.getName()});
     }
-
 }

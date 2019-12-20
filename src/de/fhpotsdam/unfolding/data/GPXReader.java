@@ -19,9 +19,13 @@ public class GPXReader extends GeoDataReader {
     /**
      * Loads track segments of a GPX file, and returns them as a single line
      * marker.
+     *
+     * @param p
+     * @param gpxFilename
+     * @return
      */
     public static List<Feature> loadData(PApplet p, String gpxFilename) {
-        List<Feature> trackFeatures = new ArrayList<Feature>();
+        List<Feature> trackFeatures = new ArrayList<>();
 
         // Load GPX file
         XML gpx = p.loadXML(gpxFilename);
@@ -29,7 +33,7 @@ public class GPXReader extends GeoDataReader {
         // TODO Handle multiple features in one GPX file
         // Create track with all track points
         ShapeFeature trackFeature = new ShapeFeature(FeatureType.LINES);
-        List<String> trackPointTimes = new ArrayList<String>();
+        List<String> trackPointTimes = new ArrayList<>();
 
         XML[] itemXML = gpx.getChildren("trk/trkseg/trkpt");
         for (int i = 0; i < itemXML.length; i++) {
@@ -65,5 +69,4 @@ public class GPXReader extends GeoDataReader {
         trackFeatures.add(trackFeature);
         return trackFeatures;
     }
-
 }

@@ -20,10 +20,12 @@ public class NaviButtonMapApp extends PApplet {
     UnfoldingMap map;
     PFont font;
 
+    @Override
     public void settings() {
         size(800, 600, P2D);
     }
 
+    @Override
     public void setup() {
         font = createFont("sans-serif", 14);
 
@@ -33,6 +35,7 @@ public class NaviButtonMapApp extends PApplet {
         MapUtils.createDefaultEventDispatcher(this, map);
     }
 
+    @Override
     public void draw() {
         background(0);
         map.draw();
@@ -40,6 +43,7 @@ public class NaviButtonMapApp extends PApplet {
         drawButtons();
     }
 
+    @Override
     public void mouseReleased() {
         if (mouseX > 610 && mouseX < 790 && mouseY > 10 && mouseY < 90) {
             map.zoomAndPanTo(berlinZoomLevel, berlinLocation);
@@ -71,5 +75,4 @@ public class NaviButtonMapApp extends PApplet {
     public static void main(String[] args) {
         PApplet.main(new String[]{NaviButtonMapApp.class.getName()});
     }
-
 }

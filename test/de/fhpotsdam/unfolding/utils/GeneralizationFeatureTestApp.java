@@ -14,7 +14,6 @@ import de.fhpotsdam.unfolding.providers.StamenMapProvider;
 
 /**
  * Multi countries generalization tests
- *
  */
 public class GeneralizationFeatureTestApp extends PApplet {
 
@@ -22,16 +21,21 @@ public class GeneralizationFeatureTestApp extends PApplet {
     List<Feature> countries;
 
     float tolerance = 1;
-
-    public void setup() {
+    
+    @Override
+    public void settings() {
         size(800, 600, OPENGL);
+    }
 
+    @Override
+    public void setup() {
         map = new UnfoldingMap(this, new StamenMapProvider.Toner());
         MapUtils.createDefaultEventDispatcher(this, map);
 
         countries = GeoJSONReader.loadData(this, "data/countries.geo.json");
     }
 
+    @Override
     public void draw() {
         background(250);
 
@@ -44,37 +48,7 @@ public class GeneralizationFeatureTestApp extends PApplet {
 
     }
 
-    public List<PVector> simplifyFeature(Feature feature) {
-        List<PVector> simplifiedPoints = new ArrayList<PVector>();
-        if (feature instanceof ShapeFeature) {
-            ShapeFeature shapeFeature = (ShapeFeature) feature;
-
-            List<PVector> points = getPositions(shapeFeature.getLocations());
-            simplifiedPoints = GeneralizationUtils.simplify(points, tolerance, true);
-        }
-        return simplifiedPoints;
-    }
-
-    public List<PVector> getPositions(List<Location> locations) {
-        List<PVector> points = new ArrayList<PVector>();
-        for (Location location : locations) {
-            ScreenPosition pos = map.getScreenPosition(location);
-            points.add(pos);
-        }
-        return points;
-    }
-
-    public void drawLine(List<PVector> points, int strokeColor) {
-        stroke(strokeColor);
-        strokeWeight(1);
-        noFill();
-        beginShape();
-        for (PVector p : points) {
-            vertex(p.x, p.y);
-        }
-        endShape();
-    }
-
+    @Override
     public void keyPressed() {
         if (key == 'T') {
             tolerance++;
@@ -86,7 +60,43 @@ public class GeneralizationFeatureTestApp extends PApplet {
         println(tolerance);
     }
 
+    @Override
     public void mouseClicked() {
         // locations.add(map.getLocation(mouseX, mouseY));
+    }
+
+    private List<PVector> simplifyFeature(Feature feature) {
+        List<PVector> simplifiedPoints = new ArrayList<>();
+        if (feature instanceof ShapeFeature) {
+            ShapeFeature shapeFeature = (ShapeFeature) feature;
+
+            List<PVector> points = getPositions(shapeFeature.getLocations());
+            simplifiedPoints = GeneralizationUtils.simplify(points, tolerance, true);
+        }
+        return simplifiedPoints;
+    }
+
+    private List<PVector> getPositions(List<Location> locations) {
+        List<PVector> points = new ArrayList<>();
+        for (Location location : locations) {
+            ScreenPosition pos = map.getScreenPosition(location);
+            points.add(pos);
+        }
+        return points;
+    }
+
+    private void drawLine(List<PVector> points, int strokeColor) {
+        stroke(strokeColor);
+        strokeWeight(1);
+        noFill();
+        beginShape();
+        for (PVector p : points) {
+            vertex(p.x, p.y);
+        }
+        endShape();
+    }
+    
+    public static void main(String args[]) {
+        PApplet.main(new String[]{GeneralizationFeatureTestApp.class.getName()});
     }
 }

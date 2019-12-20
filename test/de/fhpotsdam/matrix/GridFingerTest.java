@@ -16,7 +16,7 @@ import TUIO.TuioTime;
  */
 public class GridFingerTest extends PApplet implements TuioListener {
 
-    public static Logger log = Logger.getLogger(GridFingerTest.class);
+    public static Logger LOGGER = Logger.getLogger(GridFingerTest.class);
 
     Grid grid;
 
@@ -28,13 +28,17 @@ public class GridFingerTest extends PApplet implements TuioListener {
     float oldAngle;
     float oldDist;
 
+    @Override
+    public void settings() {
+        size(1024, 768, OPENGL);
+        smooth();
+    }
+
     // public static void main(String[] args) {
     // PApplet.main(new String[] { "--present", "de.fhpotsdam.matrix.GridFingerTest" });
     // }
+    @Override
     public void setup() {
-        size(1024, 768, OPENGL);
-        smooth();
-
         grid = new Grid(this, 100, 100, 300, 300);
         textFont(loadFont("Miso-Light-12.vlw"), 12);
 
@@ -43,6 +47,7 @@ public class GridFingerTest extends PApplet implements TuioListener {
         tuioClient.connect();
     }
 
+    @Override
     public void draw() {
         background(240);
 
@@ -52,6 +57,7 @@ public class GridFingerTest extends PApplet implements TuioListener {
         drawCursor(tuioCursor2);
     }
 
+    @Override
     public void addTuioCursor(TuioCursor tcur) {
         if (tuioCursor1 == null) {
             tuioCursor1 = tcur;
@@ -61,10 +67,11 @@ public class GridFingerTest extends PApplet implements TuioListener {
             oldAngle = getAngleBetween(tuioCursor1, tuioCursor2);
             oldDist = getDistance(tuioCursor1, tuioCursor2);
         } else {
-            log.info("Already 2 cursors in use for rotation");
+            LOGGER.info("Already 2 cursors in use for rotation");
         }
     }
 
+    @Override
     public void updateTuioCursor(TuioCursor tcur) {
         if (tuioCursor1 != null && tuioCursor2 != null) {
             if (tuioCursor2.getCursorID() == tcur.getCursorID()) {
@@ -88,6 +95,7 @@ public class GridFingerTest extends PApplet implements TuioListener {
         }
     }
 
+    @Override
     public void removeTuioCursor(TuioCursor tcur) {
         if (tuioCursor2 != null && tuioCursor2.getCursorID() == tcur.getCursorID()) {
             tuioCursor2 = null;
@@ -100,6 +108,22 @@ public class GridFingerTest extends PApplet implements TuioListener {
                 tuioCursor2 = null;
             }
         }
+    }
+
+    @Override
+    public void addTuioObject(TuioObject arg0) {
+    }
+
+    @Override
+    public void refresh(TuioTime arg0) {
+    }
+
+    @Override
+    public void removeTuioObject(TuioObject arg0) {
+    }
+
+    @Override
+    public void updateTuioObject(TuioObject arg0) {
     }
 
     private float getAngleBetween(float x1, float y1, float x2, float y2) {
@@ -119,7 +143,7 @@ public class GridFingerTest extends PApplet implements TuioListener {
                 tuioCursor2.getScreenX(width), tuioCursor2.getScreenY(height));
     }
 
-    public void drawCursor(TuioCursor tc) {
+    private void drawCursor(TuioCursor tc) {
         if (tc == null) {
             return;
         }
@@ -131,20 +155,7 @@ public class GridFingerTest extends PApplet implements TuioListener {
         text(tc.getCursorID(), tc.getScreenX(width) - 3, tc.getScreenY(height) + 4);
     }
 
-    @Override
-    public void addTuioObject(TuioObject arg0) {
+    public static void main(String args[]) {
+        PApplet.main(new String[]{GridFingerTest.class.getName()});
     }
-
-    @Override
-    public void refresh(TuioTime arg0) {
-    }
-
-    @Override
-    public void removeTuioObject(TuioObject arg0) {
-    }
-
-    @Override
-    public void updateTuioObject(TuioObject arg0) {
-    }
-
 }

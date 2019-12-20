@@ -36,10 +36,12 @@ public class ImageOverlayApp extends PApplet {
     Location visNorthWest = new Location(52.421944, 13.013944);
     Location visSouthEast = new Location(52.391667, 13.093289);
 
+    @Override
     public void settings() {
         size(1400, 800, P2D);
     }
 
+    @Override
     public void setup() {
         // Image from http://schwinki.de/splendor/
         visImg = loadImage("shader/splendor-big.jpg");
@@ -51,6 +53,7 @@ public class ImageOverlayApp extends PApplet {
         debugDisplay = new DebugDisplay(this, map);
     }
 
+    @Override
     public void draw() {
         map.draw();
 

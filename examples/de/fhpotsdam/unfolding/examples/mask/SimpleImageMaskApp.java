@@ -17,10 +17,12 @@ public class SimpleImageMaskApp extends PApplet {
 
     MaskedMapDisplayShader mapDisplayShader;
 
+    @Override
     public void settings() {
         size(800, 800, P2D);
     }
 
+    @Override
     public void setup() {
         map = new UnfoldingMap(this);
         MapUtils.createDefaultEventDispatcher(this, map);
@@ -30,6 +32,7 @@ public class SimpleImageMaskApp extends PApplet {
         ((OpenGLMapDisplay) map.mapDisplay).setMapDisplayShader(mapDisplayShader);
     }
 
+    @Override
     public void draw() {
         background(0);
         map.draw();
@@ -38,5 +41,4 @@ public class SimpleImageMaskApp extends PApplet {
     public static void main(String args[]) {
         PApplet.main(new String[]{SimpleImageMaskApp.class.getName()});
     }
-
 }

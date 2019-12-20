@@ -29,7 +29,7 @@ import de.fhpotsdam.unfolding.utils.ScreenPosition;
 @SuppressWarnings("unchecked")
 public class Java2DMapDisplay extends AbstractMapDisplay implements PConstants {
 
-    public static Logger log = Logger.getLogger(Java2DMapDisplay.class);
+    public static Logger LOGGER = Logger.getLogger(Java2DMapDisplay.class);
 
     // Used for loadImage and float maths
     public PApplet papplet;
@@ -53,6 +53,9 @@ public class Java2DMapDisplay extends AbstractMapDisplay implements PConstants {
 
     /**
      * Creates a new MapDisplay with full canvas size, and given provider
+     * 
+     * @param papplet
+     * @param provider
      */
     public Java2DMapDisplay(PApplet papplet, AbstractMapProvider provider) {
         this(papplet, provider, 0, 0, papplet.width, papplet.height);
@@ -60,9 +63,16 @@ public class Java2DMapDisplay extends AbstractMapDisplay implements PConstants {
 
     /**
      * Creates a new MapDisplay.
+     * 
+     * @param papplet
+     * @param provider
+     * @param offsetX
+     * @param offsetY
+     * @param width
+     * @param height
      */
-    public Java2DMapDisplay(PApplet papplet, AbstractMapProvider provider, float offsetX, float offsetY, float width,
-            float height) {
+    public Java2DMapDisplay(PApplet papplet, AbstractMapProvider provider, 
+            float offsetX, float offsetY, float width, float height) {
         super(provider, width, height);
         this.papplet = papplet;
 
@@ -85,8 +95,7 @@ public class Java2DMapDisplay extends AbstractMapDisplay implements PConstants {
         try {
             Class<? extends PApplet> appletClass = papplet.getClass();
             tilesLoadedMethod = appletClass.getMethod(TILESLOADED_METHOD_NAME);
-        } catch (SecurityException e) {
-        } catch (NoSuchMethodException e) {
+        } catch (SecurityException | NoSuchMethodException e) {
         }
     }
 
@@ -102,9 +111,7 @@ public class Java2DMapDisplay extends AbstractMapDisplay implements PConstants {
         if (tilesLoadedMethod != null) {
             try {
                 tilesLoadedMethod.invoke(papplet);
-            } catch (IllegalArgumentException e) {
-            } catch (IllegalAccessException e) {
-            } catch (InvocationTargetException e) {
+            } catch (IllegalArgumentException | IllegalAccessException | InvocationTargetException e) {
             }
         }
     }
@@ -119,6 +126,7 @@ public class Java2DMapDisplay extends AbstractMapDisplay implements PConstants {
      * current matrix. (As the matrix incorporates that position, it stores
      * every transformation, even though the matrix is created anew.)
      */
+    @Override
     public void calculateMatrix() {
         synchronized (this) {
             PMatrix3D invMatrix = new PMatrix3D();
@@ -136,6 +144,7 @@ public class Java2DMapDisplay extends AbstractMapDisplay implements PConstants {
         }
     }
 
+    @Override
     public void calculateInnerMatrix() {
         // Synchronize on this to not interfere with tile loading (see getVisibleKeys)
         synchronized (this) {
@@ -187,14 +196,17 @@ public class Java2DMapDisplay extends AbstractMapDisplay implements PConstants {
         return xyz;
     }
 
+    @Override
     public float[] getObjectFromInnerObjectPosition(float x, float y) {
         return getInnerTransformedPosition(x, y, false);
     }
 
+    @Override
     public float[] getInnerObjectFromObjectPosition(float x, float y) {
         return getInnerTransformedPosition(x, y, true);
     }
 
+    @Override
     public float[] getScreenFromInnerObjectPosition(float x, float y) {
         float objectXY[] = getObjectFromInnerObjectPosition(x, y);
         float screenXY[] = getScreenFromObjectPosition(objectXY[0], objectXY[1]);
@@ -202,18 +214,21 @@ public class Java2DMapDisplay extends AbstractMapDisplay implements PConstants {
     }
 
     @Deprecated
+    @Override
     public float[] getInnerObjectFromScreenPosition(float x, float y) {
         float objectXY[] = getObjectFromScreenPosition(x, y);
         float innerObjectXY[] = getInnerObjectFromObjectPosition(objectXY[0], objectXY[1]);
         return innerObjectXY;
     }
 
+    @Override
     public float[] getInnerObject(ScreenPosition screenPosition) {
         float objectXY[] = getObjectFromScreenPosition(screenPosition.x, screenPosition.y);
         float innerObjectXY[] = getInnerObjectFromObjectPosition(objectXY[0], objectXY[1]);
         return innerObjectXY;
     }
 
+    @Override
     public float[] getObjectFromLocation(Location location) {
         float[] ixy = getInnerObjectFromLocation(location);
         float[] xy = getObjectFromInnerObjectPosition(ixy[0], ixy[1]);
@@ -243,6 +258,7 @@ public class Java2DMapDisplay extends AbstractMapDisplay implements PConstants {
     }
 
     // Location (instead of innerObj) methods ---------------
+    @Override
     public Location getLocationFromInnerObjectPosition(float x, float y) {
         Coordinate coord = getCoordinateFromInnerPosition(x, y);
         return provider.coordinateLocation(coord);
@@ -291,6 +307,7 @@ public class Java2DMapDisplay extends AbstractMapDisplay implements PConstants {
         }
     }
 
+    @Override
     public float[] getInnerObjectFromLocation(Location location) {
         Coordinate coord = provider.locationCoordinate(location).zoomTo(0);
         return new float[]{coord.column * TILE_WIDTH, coord.row * TILE_HEIGHT, 0};
@@ -320,6 +337,7 @@ public class Java2DMapDisplay extends AbstractMapDisplay implements PConstants {
     }
 
     @Deprecated
+    @Override
     public float[] getScreenPositionFromLocation(Location location) {
         synchronized (this) {
             float innerObjectXY[] = getInnerObjectFromLocation(location);
@@ -328,11 +346,13 @@ public class Java2DMapDisplay extends AbstractMapDisplay implements PConstants {
     }
 
     // DRAWING --------------------------------------------------
+    @Override
     public PGraphics getInnerPG() {
         // NB Always inner graphics, this one not used. Implemented in sub classes.
         return papplet.g;
     }
 
+    @Override
     public PGraphics getOuterPG() {
         return papplet.g;
     }
@@ -353,6 +373,7 @@ public class Java2DMapDisplay extends AbstractMapDisplay implements PConstants {
     /**
      * Draws the on the PGraphics canvas.
      */
+    @Override
     public void draw() {
         PGraphics pg = getInnerPG();
         pg.beginDraw();
@@ -370,8 +391,8 @@ public class Java2DMapDisplay extends AbstractMapDisplay implements PConstants {
         if (pg.is3D()) {
             pg.applyMatrix(innerMatrix);
         } else {
-            pg.applyMatrix(innerMatrix.m00, innerMatrix.m01, innerMatrix.m03, innerMatrix.m10, innerMatrix.m11,
-                    innerMatrix.m13);
+            pg.applyMatrix(innerMatrix.m00, innerMatrix.m01, innerMatrix.m03, 
+                    innerMatrix.m10, innerMatrix.m11, innerMatrix.m13);
         }
 
         Vector visibleKeys = getVisibleKeys(pg);
@@ -421,6 +442,7 @@ public class Java2DMapDisplay extends AbstractMapDisplay implements PConstants {
      * @param color Color for the background canvas. Can be semi-transparent. If
      * null it is not used.
      */
+    @Override
     public void setBackgroundColor(Integer color) {
         this.bgColor = color;
     }
@@ -517,9 +539,7 @@ public class Java2DMapDisplay extends AbstractMapDisplay implements PConstants {
                             }
                         }
                     }
-
                 }
-
             } // rows
         } // columns
 
@@ -542,6 +562,7 @@ public class Java2DMapDisplay extends AbstractMapDisplay implements PConstants {
     }
 
     // TILE LOADING ---------------------------------------
+    @Override
     protected TileLoader createTileLoader(Coordinate coord) {
         return new TileLoader(papplet, provider, this, coord);
 
@@ -551,5 +572,4 @@ public class Java2DMapDisplay extends AbstractMapDisplay implements PConstants {
         // tl.showTileCoordinates();
         // return tl;
     }
-
 }

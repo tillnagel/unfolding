@@ -15,14 +15,19 @@ public class GenerativeGraphicMap extends PApplet {
 
     UnfoldingMap map;
     PGraphics pg;
-
-    public void setup() {
+    
+    @Override
+    public void settings() {
         size(800, 600, OPENGL);
-
+    }
+    
+    @Override
+    public void setup() {
         map = new UnfoldingMap(this, new Microsoft.AerialProvider());
         MapUtils.createDefaultEventDispatcher(this, map);
     }
 
+    @Override
     public void draw() {
         map.draw();
         pg = map.mapDisplay.getInnerPG();
@@ -35,7 +40,7 @@ public class GenerativeGraphicMap extends PApplet {
         // No updatePixels() as points are drawn directly onto the canvas.
     }
 
-    public void drawPoint() {
+    private void drawPoint() {
         float pSize = 2.0f + (mouseX / (float) width) * 16.0f;
         int x = (int) random(width);
         int y = (int) random(height);
@@ -45,5 +50,9 @@ public class GenerativeGraphicMap extends PApplet {
         ellipse(x, y, pSize * 2, pSize * 2);
         fill(c, 255);
         ellipse(x, y, pSize, pSize);
+    }
+        
+    public static void main(String args[]) {
+        PApplet.main(new String[]{GenerativeGraphicMap.class.getName()});
     }
 }

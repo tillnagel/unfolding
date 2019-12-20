@@ -23,19 +23,23 @@ public class MapQuestProvider {
             return (int) coordinate.zoom + "/" + (int) coordinate.column + "/" + (int) coordinate.row;
         }
 
+        @Override
         public int tileWidth() {
             return 256;
         }
 
+        @Override
         public int tileHeight() {
             return 256;
         }
 
+        @Override
         public abstract String[] getTileUrls(Coordinate coordinate);
     }
 
     public static class OSM extends GenericMapQuestProvider {
 
+        @Override
         public String[] getTileUrls(Coordinate coordinate) {
             String url = "http://otile1.mqcdn.com/tiles/1.0.0/map/" + getZoomString(coordinate) + ".jpeg";
             return new String[]{url};
@@ -44,10 +48,10 @@ public class MapQuestProvider {
 
     public static class Aerial extends GenericMapQuestProvider {
 
+        @Override
         public String[] getTileUrls(Coordinate coordinate) {
             String url = "http://otile1.mqcdn.com/tiles/1.0.0/sat/" + getZoomString(coordinate) + ".jpg";
             return new String[]{url};
         }
     }
-
 }

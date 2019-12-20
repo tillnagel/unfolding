@@ -4,7 +4,8 @@ import processing.core.PApplet;
 
 public class RetinaTestApp extends PApplet {
 
-    public void setup() {
+    @Override
+    public void settings() {
         // default: Java2D, low fps, low quality
         //size(1920, 1080);
         //size(1440, 900);
@@ -17,9 +18,14 @@ public class RetinaTestApp extends PApplet {
         // OpenGL, same as P2D
         //size(1920, 1080, OPENGL);
         smooth();
+    }
+
+    @Override
+    public void setup() {
         frameRate(60);
     }
 
+    @Override
     public void draw() {
         background(40);
         noStroke();
@@ -32,4 +38,7 @@ public class RetinaTestApp extends PApplet {
         println(width + ", " + height);
     }
 
+    public static void main(String args[]) {
+        PApplet.main(new String[]{RetinaTestApp.class.getName()});
+    }
 }

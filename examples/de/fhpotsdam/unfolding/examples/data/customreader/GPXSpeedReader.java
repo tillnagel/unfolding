@@ -29,9 +29,12 @@ public class GPXSpeedReader extends GeoDataReader {
      * property.
      *
      * Varies from {@link GPXReader#loadData(PApplet, String)}.
+     * @param p
+     * @param gpxFilename
+     * @return 
      */
     public static List<Feature> loadData(PApplet p, String gpxFilename) {
-        List<Feature> trackFeatures = new ArrayList<Feature>();
+        List<Feature> trackFeatures = new ArrayList<>();
 
         // Load GPX file
         XML gpx = p.loadXML(gpxFilename);
@@ -82,5 +85,4 @@ public class GPXSpeedReader extends GeoDataReader {
 
         return trackFeatures;
     }
-
 }

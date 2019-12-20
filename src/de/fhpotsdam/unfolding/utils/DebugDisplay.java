@@ -366,7 +366,7 @@ public class DebugDisplay implements MapEventListener {
 
         // value label (atop box)
         float textY = y + textSize - 1;
-        float valueX = 0;
+        float valueX;
         if (leftAlign) {
             valueX = x + padding * 2;
         } else {
@@ -389,5 +389,4 @@ public class DebugDisplay implements MapEventListener {
         p.fill(separatorColor);
         p.rect(x + margin, y, width - margin * 2, 1);
     }
-
 }

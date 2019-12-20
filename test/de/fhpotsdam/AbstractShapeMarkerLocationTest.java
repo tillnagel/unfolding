@@ -23,7 +23,7 @@ public class AbstractShapeMarkerLocationTest {
 
     private UnfoldingMap map;
     private SimplePolygonMarker squareMarker;
-    private float squareWidth = 10.f;
+    private final float squareWidth = 10.f;
     private PApplet p;
 
     @Before
@@ -72,7 +72,5 @@ public class AbstractShapeMarkerLocationTest {
                 assertFalse(shapeMarker.isInsideByLocation(pragueLocation));
             }
         }
-
     }
-
 }

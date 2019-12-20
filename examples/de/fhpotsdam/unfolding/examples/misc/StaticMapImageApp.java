@@ -18,11 +18,13 @@ public class StaticMapImageApp extends PApplet {
     UnfoldingMap map;
     PImage mapImage = null;
 
+    @Override
     public void settings() {
         size(2000, 1000, P2D);
 
     }
 
+    @Override
     public void setup() {
         frameRate(120);
 
@@ -31,6 +33,7 @@ public class StaticMapImageApp extends PApplet {
         MapUtils.createDefaultEventDispatcher(this, map);
     }
 
+    @Override
     public void draw() {
         background(240);
 

@@ -22,16 +22,14 @@ public class CombineTestApp extends PApplet {
 
     UnfoldingMap map;
     String[] ids = {"DEU", "FRA", "IRL"};
-    List<String> specialIDs = new ArrayList<String>(Arrays.asList(ids));
+    List<String> specialIDs = new ArrayList<>(Arrays.asList(ids));
 
+    @Override
     public void settings() {
         size(800, 600, P2D);
     }
 
-    public static void main(String[] args) {
-        PApplet.main(new String[]{CombineTestApp.class.getName()});
-    }
-
+    @Override
     public void setup() {
         map = new UnfoldingMap(this);
 
@@ -53,8 +51,12 @@ public class CombineTestApp extends PApplet {
         map.panTo(multiMarker.getLocation());
     }
 
+    @Override
     public void draw() {
         map.draw();
     }
 
+    public static void main(String[] args) {
+        PApplet.main(new String[]{CombineTestApp.class.getName()});
+    }
 }

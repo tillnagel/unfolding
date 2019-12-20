@@ -34,10 +34,12 @@ public class MaskedMarkerAndMapApp extends PApplet {
     MapDisplayShader shaderWithMarker;
     MapDisplayShader shaderWithoutMarker;
 
+    @Override
     public void settings() {
         size(800, 800, P2D);
     }
 
+    @Override
     public void setup() {
         map = new UnfoldingMap(this, 100, 100, 600, 600);
         MapUtils.createDefaultEventDispatcher(this, map);
@@ -63,6 +65,7 @@ public class MaskedMarkerAndMapApp extends PApplet {
         }
     }
 
+    @Override
     public void draw() {
         background(20);
         map.draw();
@@ -71,5 +74,4 @@ public class MaskedMarkerAndMapApp extends PApplet {
     public static void main(String args[]) {
         PApplet.main(new String[]{MaskedMarkerAndMapApp.class.getName()});
     }
-
 }

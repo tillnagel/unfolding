@@ -34,18 +34,15 @@ import de.fhpotsdam.unfolding.interactions.MouseHandler;
  * Your application then can create EventDispatcher to connect broadcasters and
  * listeners, and customize the event handling in an application.
  * </p>
- *
- *
- *
  */
 public class EventDispatcher {
 
-    public static final Logger log = Logger.getLogger(EventDispatcher.class);
+    public static final Logger LOGGER = Logger.getLogger(EventDispatcher.class);
 
     public java.util.Map<String, List<ScopedListeners>> typedScopedListeners;
 
     public EventDispatcher() {
-        typedScopedListeners = new HashMap<String, List<ScopedListeners>>();
+        typedScopedListeners = new HashMap<>();
     }
 
     /**
@@ -91,7 +88,7 @@ public class EventDispatcher {
         List<ScopedListeners> scopedListenersList = typedScopedListeners.get(type);
         if (scopedListenersList == null) {
             // Creates scopedListenersList and adds to typed list.
-            scopedListenersList = new ArrayList<ScopedListeners>();
+            scopedListenersList = new ArrayList<>();
             typedScopedListeners.put(type, scopedListenersList);
         }
 
@@ -111,7 +108,7 @@ public class EventDispatcher {
                 if (!scopedListeners.listeners.contains(listener)) {
                     scopedListeners.listeners.add(listener);
                 } else {
-                    log.info("Listener not registered anew: '" + listener.getId() + "' already listens to type '"
+                    LOGGER.info("Listener not registered anew: '" + listener.getId() + "' already listens to type '"
                             + type + "' in scopes '" + Arrays.toString(scopeIds) + "'");
                 }
                 foundExistingScope = true;
@@ -165,5 +162,4 @@ public class EventDispatcher {
             }
         }
     }
-
 }

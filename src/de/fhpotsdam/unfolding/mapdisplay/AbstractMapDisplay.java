@@ -2,9 +2,7 @@ package de.fhpotsdam.unfolding.mapdisplay;
 
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.Hashtable;
 import java.util.List;
-import java.util.Vector;
 
 import org.apache.log4j.Logger;
 
@@ -19,6 +17,9 @@ import de.fhpotsdam.unfolding.providers.AbstractMapProvider;
 import de.fhpotsdam.unfolding.tiles.TileLoader;
 import de.fhpotsdam.unfolding.tiles.TileLoaderListener;
 import de.fhpotsdam.unfolding.utils.ScreenPosition;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Vector;
 
 /**
  * Handles tiles management and display, and map location and screen position
@@ -38,7 +39,7 @@ public abstract class AbstractMapDisplay implements TileLoaderListener {
     // Number of tile images to delete.
     private static final int MEMORY_THRESHOLD_IMAGES = 25;
 
-    public static Logger log = Logger.getLogger(AbstractMapDisplay.class);
+    public static Logger LOGGER = Logger.getLogger(AbstractMapDisplay.class);
 
     // Dimension of this map display
     protected float width;
@@ -94,16 +95,16 @@ public abstract class AbstractMapDisplay implements TileLoaderListener {
     /**
      * Pending threads to load tiles for coordinate.
      */
-    protected Hashtable<Coordinate, Runnable> pending = new Hashtable<Coordinate, Runnable>();
+    protected Map<Coordinate, Runnable> pending = new HashMap<>();
     /**
      * Loaded tiles for coordinate.
      */
-    protected Hashtable<Coordinate, Object> images = new Hashtable<Coordinate, Object>();
+    protected Map<Coordinate, Object> images = new HashMap<>();
     /**
      * Queue of coordinates to create threads and load tiles.
      */
-    protected Vector<Coordinate> queue = new Vector<Coordinate>();
-    protected Vector<Object> recent_images = new Vector<Object>();
+    protected Vector<Coordinate> queue = new Vector<>();
+    protected Vector<Object> recent_images = new Vector<>();
 
     protected ZoomComparator zoomComparator = new ZoomComparator();
     protected QueueSorter queueSorter = new QueueSorter();
@@ -121,7 +122,7 @@ public abstract class AbstractMapDisplay implements TileLoaderListener {
 
         innerScale = (float) Math.ceil(Math.min(height / (float) TILE_WIDTH, width / (float) TILE_HEIGHT));
 
-        markerManagerList = new ArrayList<MarkerManager<Marker>>();
+        markerManagerList = new ArrayList<>();
     }
 
     public void resize(float width, float height) {
@@ -163,12 +164,13 @@ public abstract class AbstractMapDisplay implements TileLoaderListener {
     // MarkerManagement -----------------------------------------------
     /**
      * You need to set the map of the given MarkerManager before using.
+     * @param markerManager
      */
     public void addMarkerManager(MarkerManager<Marker> markerManager) {
         // Replace default MarkerManager, if only default exists and has no entries
         if (markerManagerList.size() == 1) {
             MarkerManager<?> mm = markerManagerList.get(0);
-            if (mm.getMarkers().size() == 0 && mm.equals(this.defaultMarkerManager)) {
+            if (mm.getMarkers().isEmpty() && mm.equals(this.defaultMarkerManager)) {
                 markerManagerList.remove(0);
                 this.defaultMarkerManager = null;
             }
@@ -343,6 +345,7 @@ public abstract class AbstractMapDisplay implements TileLoaderListener {
     }
 
     // TODO images & pending thread safe?
+    @Override
     public void tileLoaded(Coordinate coord, Object image) {
         if (pending.containsKey(coord) && coord != null && image != null) {
             images.put(coord, image);
@@ -353,7 +356,7 @@ public abstract class AbstractMapDisplay implements TileLoaderListener {
             pending.remove(coord);
         }
 
-        if (pending.size() == 0 && queue.size() == 0) {
+        if (pending.isEmpty() && queue.isEmpty()) {
             allTilesLoaded = true;
             tilesLoaded();
         } else {
@@ -385,6 +388,7 @@ public abstract class AbstractMapDisplay implements TileLoaderListener {
             this.center = center;
         }
 
+        @Override
         public int compare(Coordinate c1, Coordinate c2) {
             if (c1.zoom == center.zoom) {
                 if (c2.zoom == center.zoom) {
@@ -409,6 +413,7 @@ public abstract class AbstractMapDisplay implements TileLoaderListener {
 
     public class ZoomComparator implements Comparator<Coordinate> {
 
+        @Override
         public int compare(Coordinate c1, Coordinate c2) {
             return c1.zoom < c2.zoom ? -1 : c1.zoom > c2.zoom ? 1 : 0;
         }
@@ -424,11 +429,11 @@ public abstract class AbstractMapDisplay implements TileLoaderListener {
      */
     protected void cleanupImageBuffer() {
         if (recent_images.size() > max_images_to_keep) {
-            log.info("Cleaning image buffer due to MAX_IMAGE reached.");
+            LOGGER.info("Cleaning image buffer due to MAX_IMAGE reached.");
             recent_images.subList(0, recent_images.size() - max_images_to_keep).clear();
             images.values().retainAll(recent_images);
         } else if (Runtime.getRuntime().freeMemory() < MEMORY_THRESHOLD_BYTES) {
-            log.info("Cleaning image buffer due to MEMORY_THRESHOLD reached.");
+            LOGGER.info("Cleaning image buffer due to MEMORY_THRESHOLD reached.");
             int imagesToDelete = recent_images.size() > MEMORY_THRESHOLD_IMAGES ? MEMORY_THRESHOLD_IMAGES
                     : recent_images.size();
             recent_images.subList(0, imagesToDelete).clear();
@@ -460,7 +465,7 @@ public abstract class AbstractMapDisplay implements TileLoaderListener {
 
     protected void createDefaultMarkerManager(UnfoldingMap map) {
         if (this.defaultMarkerManager == null) {
-            this.defaultMarkerManager = new MarkerManager<Marker>();
+            this.defaultMarkerManager = new MarkerManager<>();
             this.defaultMarkerManager.setMap(map);
             markerManagerList.add(defaultMarkerManager);
         }
@@ -483,5 +488,4 @@ public abstract class AbstractMapDisplay implements TileLoaderListener {
             mm.clearMarkers();
         }
     }
-
 }

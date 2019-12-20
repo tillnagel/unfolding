@@ -21,6 +21,7 @@ public class LinearInterpolationDistorter extends AbstractLensDistorter {
         }
     }
 
+    @Override
     protected float interpolateRadius(float radius) {
         float s0 = 1;
         radius = radius * zoom;
@@ -54,5 +55,4 @@ public class LinearInterpolationDistorter extends AbstractLensDistorter {
         this.zoom = zoom;
         this.s1 = 1 / zoom;
     }
-
 }

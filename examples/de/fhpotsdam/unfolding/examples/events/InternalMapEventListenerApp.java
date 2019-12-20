@@ -24,14 +24,12 @@ public class InternalMapEventListenerApp extends PApplet implements MapEventList
 
     Location oldLocation = new Location(0, 0);
 
+    @Override
     public void settings() {
         size(800, 600, P2D);
     }
 
-    public static void main(String args[]) {
-        PApplet.main(new String[]{InternalMapEventListenerApp.class.getName()});
-    }
-
+    @Override
     public void setup() {
         map = new UnfoldingMap(this, "myMap");
 
@@ -41,9 +39,9 @@ public class InternalMapEventListenerApp extends PApplet implements MapEventList
         eventDispatcher.register(this, "zoom", map.getId());
     }
 
+    @Override
     public void draw() {
         map.draw();
-
     }
 
     @Override
@@ -67,5 +65,9 @@ public class InternalMapEventListenerApp extends PApplet implements MapEventList
     @Override
     public String getId() {
         return "app";
+    }
+
+    public static void main(String args[]) {
+        PApplet.main(new String[]{InternalMapEventListenerApp.class.getName()});
     }
 }

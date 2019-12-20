@@ -19,10 +19,12 @@ public class LabeledMarkerApp extends PApplet {
     LabeledMarker berlinMarker;
     PFont font;
 
+    @Override
     public void settings() {
         size(800, 600, P2D);
     }
 
+    @Override
     public void setup() {
         map = new UnfoldingMap(this, "map", 50, 50, 700, 500);
         map.zoomToLevel(3);
@@ -34,6 +36,7 @@ public class LabeledMarkerApp extends PApplet {
         map.addMarkers(berlinMarker);
     }
 
+    @Override
     public void draw() {
         background(240);
         map.draw();
@@ -45,6 +48,7 @@ public class LabeledMarkerApp extends PApplet {
      * See {@link MultiLabeledMarkerApp} for using MarkerManager to handling hit
      * tests.
      */
+    @Override
     public void mouseMoved() {
         if (berlinMarker.isInside(map, mouseX, mouseY)) {
             berlinMarker.setSelected(true);
@@ -56,5 +60,4 @@ public class LabeledMarkerApp extends PApplet {
     public static void main(String args[]) {
         PApplet.main(new String[]{LabeledMarkerApp.class.getName()});
     }
-
 }

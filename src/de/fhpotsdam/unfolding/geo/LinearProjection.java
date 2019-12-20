@@ -16,12 +16,13 @@ public class LinearProjection extends AbstractProjection {
         super(zoom, transformation);
     }
 
+    @Override
     public PVector rawProject(PVector point) {
         return new PVector(point.x, point.y);
     }
 
+    @Override
     public PVector rawUnproject(PVector point) {
         return new PVector(point.x, point.y);
     }
-
 }

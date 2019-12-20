@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package de.fhpotsdam.unfolding.providers;
 
 import java.net.URI;
@@ -11,6 +7,7 @@ import org.apache.log4j.Logger;
 import de.fhpotsdam.unfolding.core.Coordinate;
 import de.fhpotsdam.unfolding.geo.MercatorProjection;
 import de.fhpotsdam.unfolding.geo.Transformation;
+import java.net.URISyntaxException;
 
 /**
  *
@@ -22,7 +19,7 @@ public class CartoDBProvider extends AbstractMapTileUrlProvider {
     private String table = null;
     private String sql = null;
     private String carto = null;
-    public static Logger log = Logger.getLogger(CartoDBProvider.class);
+    public static Logger LOGGER = Logger.getLogger(CartoDBProvider.class);
     public AbstractMapProvider masterProvider = null;
 
     public CartoDBProvider(String account, String dbTable) {
@@ -89,16 +86,14 @@ public class CartoDBProvider extends AbstractMapTileUrlProvider {
             String request = uri.toASCIIString();
 
             // This should be our final url
-            log.debug("CartoDB-Tile: " + request);
+            LOGGER.debug("CartoDB-Tile: " + request);
 
             // Now we can optionally blend the cartodb-tiles onto a basemap layer
             if (this.masterProvider != null) {
                 // We use the internal mechanism of the Map-Class, so we just have to provide the additional urls in the String-Array 
                 String[] url = this.masterProvider.getTileUrls(coordinate);
                 String[] blend = new String[url.length + 1];
-                for (int i = 0; i < url.length; i++) {
-                    blend[i] = url[i];
-                }
+                System.arraycopy(url, 0, blend, 0, url.length);
                 blend[blend.length - 1] = request;
                 return blend;
             } else {
@@ -106,9 +101,9 @@ public class CartoDBProvider extends AbstractMapTileUrlProvider {
                 return new String[]{request};
             }
 
-        } catch (Exception e) {
+        } catch (URISyntaxException e) {
             // Problem with url encoding, how to crash properly?
-            log.error("Unable to create CartoDB Urls: " + e.getLocalizedMessage());
+            LOGGER.error("Unable to create CartoDB Urls: " + e.getLocalizedMessage());
             return new String[]{""};
         }
     }

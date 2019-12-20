@@ -8,7 +8,6 @@ import processing.core.PGraphics;
  *
  * Implements shade without markers, i.e. blurs only the map but not the
  * markers. Uses two-pass, i.e. calls PGraphics.shader(blurShader) twice.
- *
  */
 public class BlurredMapDisplayShader extends MapDisplayShader {
 
@@ -35,5 +34,4 @@ public class BlurredMapDisplayShader extends MapDisplayShader {
         shader.set("horizontalPass", 1);
         mapDisplayCanvas.shader(shader);
     }
-
 }

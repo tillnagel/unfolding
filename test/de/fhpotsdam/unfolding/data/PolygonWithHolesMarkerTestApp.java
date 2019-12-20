@@ -15,10 +15,14 @@ public class PolygonWithHolesMarkerTestApp extends PApplet {
     List<Marker> markers;
 
     UnfoldingMap map;
-
-    public void setup() {
+   
+    @Override
+    public void settings() {
         size(800, 600);
-
+    }
+    
+    @Override
+    public void setup() {
         List<Feature> features = GeoJSONReader.loadDataFromJSON(this, jsonString);
         markers = MapUtils.createSimpleMarkers(features);
         for (Marker marker : markers) {
@@ -32,9 +36,12 @@ public class PolygonWithHolesMarkerTestApp extends PApplet {
         map.addMarkers(markers);
     }
 
+    @Override
     public void draw() {
         map.draw();
-
     }
-
+    
+    public static void main(String args[]) {
+        PApplet.main(new String[]{PolygonWithHolesMarkerTestApp.class.getName()});
+    }
 }

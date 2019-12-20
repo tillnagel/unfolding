@@ -24,10 +24,12 @@ public class ResizableMapApp extends PApplet {
 
     boolean resizingStressTest = false;
 
+    @Override
     public void settings() {
         size(800, 600, P2D);
     }
 
+    @Override
     public void setup() {
         surface.setResizable(true);
 
@@ -39,6 +41,7 @@ public class ResizableMapApp extends PApplet {
         oldHeight = height;
     }
 
+    @Override
     public void draw() {
         if (width != oldWidth || height != oldHeight) {
             map.mapDisplay.resize(width, height);
@@ -55,10 +58,7 @@ public class ResizableMapApp extends PApplet {
         }
     }
 
-    public static void main(String args[]) {
-        PApplet.main(new String[]{ResizableMapApp.class.getName()});
-    }
-
+    @Override
     public void keyPressed() {
         // Stress test to verify https://github.com/tillnagel/unfolding/issues/107 is fixed
         if (key == ' ') {
@@ -67,5 +67,9 @@ public class ResizableMapApp extends PApplet {
         if (key == 'r') {
             surface.setSize((int) random(displayWidth), (int) random(displayHeight));
         }
+    }
+
+    public static void main(String args[]) {
+        PApplet.main(new String[]{ResizableMapApp.class.getName()});
     }
 }

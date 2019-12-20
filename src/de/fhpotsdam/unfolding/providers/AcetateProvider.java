@@ -1,6 +1,5 @@
 package de.fhpotsdam.unfolding.providers;
 
-import de.fhpotsdam.unfolding.providers.AbstractMapTileUrlProvider;
 import de.fhpotsdam.unfolding.core.Coordinate;
 import de.fhpotsdam.unfolding.geo.MercatorProjection;
 import de.fhpotsdam.unfolding.geo.Transformation;
@@ -23,19 +22,23 @@ public class AcetateProvider {
             return (int) coordinate.zoom + "/" + (int) coordinate.column + "/" + (int) coordinate.row;
         }
 
+        @Override
         public int tileWidth() {
             return 256;
         }
 
+        @Override
         public int tileHeight() {
             return 256;
         }
 
+        @Override
         public abstract String[] getTileUrls(Coordinate coordinate);
     }
 
     public static class Basemap extends GenericAcetateProvider {
 
+        @Override
         public String[] getTileUrls(Coordinate coordinate) {
             String url = "http://a.acetate.geoiq.com/tiles/acetate-base/" + getZoomString(coordinate) + ".png";
             return new String[]{url};
@@ -44,6 +47,7 @@ public class AcetateProvider {
 
     public static class Terrain extends GenericAcetateProvider {
 
+        @Override
         public String[] getTileUrls(Coordinate coordinate) {
             String url = "http://a.acetate.geoiq.com/tiles/terrain/" + getZoomString(coordinate) + ".png";
             return new String[]{url};
@@ -52,6 +56,7 @@ public class AcetateProvider {
 
     public static class All extends GenericAcetateProvider {
 
+        @Override
         public String[] getTileUrls(Coordinate coordinate) {
             String url = "http://a.acetate.geoiq.com/tiles/acetate-hillshading/" + getZoomString(coordinate) + ".png";
             return new String[]{url};
@@ -60,6 +65,7 @@ public class AcetateProvider {
 
     public static class Hillshading extends GenericAcetateProvider {
 
+        @Override
         public String[] getTileUrls(Coordinate coordinate) {
             String url = "http://a.acetate.geoiq.com/tiles/hillshading/" + getZoomString(coordinate) + ".png";
             return new String[]{url};
@@ -68,6 +74,7 @@ public class AcetateProvider {
 
     public static class Foreground extends GenericAcetateProvider {
 
+        @Override
         public String[] getTileUrls(Coordinate coordinate) {
             String url = "http://a.acetate.geoiq.com/tiles/acetate-fg/" + getZoomString(coordinate) + ".png";
             return new String[]{url};
@@ -76,6 +83,7 @@ public class AcetateProvider {
 
     public static class Roads extends GenericAcetateProvider {
 
+        @Override
         public String[] getTileUrls(Coordinate coordinate) {
             String url = "http://a.acetate.geoiq.com/tiles/acetate-roads/" + getZoomString(coordinate) + ".png";
             return new String[]{url};
@@ -84,10 +92,10 @@ public class AcetateProvider {
 
     public static class Labels extends GenericAcetateProvider {
 
+        @Override
         public String[] getTileUrls(Coordinate coordinate) {
             String url = "http://a.acetate.geoiq.com/tiles/acetate-labels/" + getZoomString(coordinate) + ".png";
             return new String[]{url};
         }
     }
-
 }

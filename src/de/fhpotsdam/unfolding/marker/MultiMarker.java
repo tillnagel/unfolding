@@ -18,16 +18,18 @@ import de.fhpotsdam.unfolding.utils.GeoUtils;
  */
 public class MultiMarker implements Marker {
 
-    protected List<Marker> markers = new ArrayList<Marker>();
+    protected List<Marker> markers = new ArrayList<>();
     public HashMap<String, Object> properties;
     protected boolean selected;
     protected boolean hidden;
     protected String id;
 
+    @Override
     public String getId() {
         return id;
     }
 
+    @Override
     public void setId(String id) {
         this.id = id;
     }
@@ -149,6 +151,10 @@ public class MultiMarker implements Marker {
      * Returns true if at least one marker is hit. Checks only
      * AbstractShapeMarkers, as only those implement
      * {@link AbstractShapeMarker#isInsideByLocation(float, float)}.
+     * 
+     * @param latitude
+     * @param longitude
+     * @return 
      */
     public boolean isInsideByLocation(float latitude, float longitude) {
         boolean inside = false;
@@ -209,6 +215,7 @@ public class MultiMarker implements Marker {
         return hidden;
     }
 
+    @Override
     public void setColor(int color) {
         for (Marker marker : markers) {
             marker.setColor(color);
@@ -242,5 +249,4 @@ public class MultiMarker implements Marker {
             marker.setHighlightStrokeColor(color);
         }
     }
-
 }

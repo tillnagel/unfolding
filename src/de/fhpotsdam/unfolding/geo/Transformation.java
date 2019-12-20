@@ -23,5 +23,4 @@ public class Transformation {
         return new PVector((float) ((point.x * by - point.y * bx - cx * by + cy * bx) / (ax * by - ay * bx)),
                 (float) ((point.x * ay - point.y * ax - cx * ay + cy * ax) / (bx * ay - by * ax)));
     }
-
 }

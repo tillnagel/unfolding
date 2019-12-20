@@ -21,7 +21,7 @@ public class VectorTilesUtils {
     private static final String VECTOR_TILE_API = "http://tile.mapzen.com/mapzen/vector/v1/";
 
     protected PApplet p;
-    private UnfoldingMap map;
+    private final UnfoldingMap map;
     protected String mapzenAPIKey = "YOUR_KEY_HERE";
 
     /**
@@ -30,6 +30,7 @@ public class VectorTilesUtils {
      *
      * @param p The Processing Applet.
      * @param map The UnfoldingMap.
+     * @param apiKey
      */
     public VectorTilesUtils(PApplet p, UnfoldingMap map, String apiKey) {
         super();
@@ -62,9 +63,10 @@ public class VectorTilesUtils {
      * Loads all markers from all vector tiles for the current map view.
      *
      * @param layers The name of layers to load, e.g. "buildings", or "roads".
+     * @return 
      */
     public List<Marker> loadMarkersForCurrentMapView(String layers) {
-        List<Marker> allMarkers = new ArrayList<Marker>();
+        List<Marker> allMarkers = new ArrayList<>();
         for (int x = 0; x < map.getWidth(); x += UnfoldingMap.TILE_WIDTH) {
             for (int y = 0; y < map.getHeight(); y += UnfoldingMap.TILE_HEIGHT) {
                 List<Marker> tileMarkers = loadMarkersForScreenPos(layers, x, y);
@@ -80,7 +82,7 @@ public class VectorTilesUtils {
     }
 
     public List<Feature> loadFeaturesForCurrentMapView(String layers) {
-        List<Feature> allFeatures = new ArrayList<Feature>();
+        List<Feature> allFeatures = new ArrayList<>();
         for (int x = 0; x < map.getWidth(); x += UnfoldingMap.TILE_WIDTH) {
             for (int y = 0; y < map.getHeight(); y += UnfoldingMap.TILE_HEIGHT) {
                 List<Feature> tileFeatures = loadFeaturesForScreenPos(layers, x, y);
@@ -125,5 +127,4 @@ public class VectorTilesUtils {
         Coordinate coord = new Coordinate(row, col, 0);
         return coord;
     }
-
 }

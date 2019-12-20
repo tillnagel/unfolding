@@ -37,7 +37,7 @@ public class GeoJSONReader extends GeoDataReader {
      * @return A list of features.
      */
     public static List<Feature> loadDataFromJSON(PApplet p, String jsonString) {
-        List<Feature> features = new ArrayList<Feature>();
+        List<Feature> features = new ArrayList<>();
 
         try {
             JSONObject geoJson = new JSONObject(jsonString);
@@ -72,7 +72,9 @@ public class GeoJSONReader extends GeoDataReader {
                         }
                     }
 
-                    feature.setId(id);
+                    if (feature != null) {
+                        feature.setId(id);
+                    }
                 }
             }
         } catch (JSONException e) {
@@ -185,7 +187,7 @@ public class GeoJSONReader extends GeoDataReader {
 
     private static void populateInteriorRingsPolygonFeature(ShapeFeature polygonFeature, JSONArray coordinates)
             throws JSONException {
-        List<Location> interiorRingLocations = new ArrayList<Location>();
+        List<Location> interiorRingLocations = new ArrayList<>();
 
         for (int i = 0; i < coordinates.length(); i++) {
             double lon = coordinates.getJSONArray(i).getDouble(0);
@@ -198,7 +200,7 @@ public class GeoJSONReader extends GeoDataReader {
 
     private static void setProperties(Feature feature, JSONObject jsonProperties) {
         JSONArray keys = jsonProperties.names();
-        HashMap<String, Object> properties = new HashMap<String, Object>();
+        HashMap<String, Object> properties = new HashMap<>();
 
         for (int i = 0; i < keys.length(); i++) {
             try {

@@ -32,6 +32,7 @@ public class GeoNamesDynamicLookup extends PApplet {
     Textfield myTextfield;
     controlP5.Label label;
 
+    @Override
     public void setup() {
 
         size(650, 440, OPENGL);
@@ -60,6 +61,7 @@ public class GeoNamesDynamicLookup extends PApplet {
 
     }
 
+    @Override
     public void draw() {
         background(0);
         map.updateMap();

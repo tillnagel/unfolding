@@ -24,12 +24,14 @@ public class CircularMapSnapshotApp extends PApplet {
 
     UnfoldingMap map;
 
-    List<MapSnapshot> mapSnapshots = new ArrayList<MapSnapshot>();
+    List<MapSnapshot> mapSnapshots = new ArrayList<>();
 
+    @Override
     public void settings() {
         size(800, 600, P2D);
     }
 
+    @Override
     public void setup() {
         map = new UnfoldingMap(this, 0, 0, 400, 400, new StamenMapProvider.WaterColor());
         map.zoomAndPanTo(10, new Location(51.507222, -0.1275));
@@ -37,6 +39,7 @@ public class CircularMapSnapshotApp extends PApplet {
         MapUtils.createDefaultEventDispatcher(this, map);
     }
 
+    @Override
     public void draw() {
         background(0);
         map.draw();
@@ -53,6 +56,7 @@ public class CircularMapSnapshotApp extends PApplet {
         }
     }
 
+    @Override
     public void mouseClicked() {
         for (MapSnapshot mapSnapshot : mapSnapshots) {
             if (mapSnapshot.isInside(mouseX, mouseY)) {
@@ -61,6 +65,7 @@ public class CircularMapSnapshotApp extends PApplet {
         }
     }
 
+    @Override
     public void keyPressed() {
         if (key == 's') {
             MapSnapshot mapSnapshot = new CircularMapSnapshot(this, map);
@@ -72,5 +77,4 @@ public class CircularMapSnapshotApp extends PApplet {
     public static void main(String[] args) {
         PApplet.main(new String[]{CircularMapSnapshotApp.class.getName()});
     }
-
 }

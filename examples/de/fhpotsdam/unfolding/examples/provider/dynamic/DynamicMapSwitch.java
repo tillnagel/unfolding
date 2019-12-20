@@ -24,10 +24,12 @@ public class DynamicMapSwitch extends PApplet {
     UnfoldingMap map2;
     UnfoldingMap map3;
 
+    @Override
     public void settings() {
         size(800, 600, P2D);
     }
 
+    @Override
     public void setup() {
         map1 = new UnfoldingMap(this, new Google.GoogleMapProvider());
         map2 = new UnfoldingMap(this, new Microsoft.AerialProvider());
@@ -38,12 +40,14 @@ public class DynamicMapSwitch extends PApplet {
         currentMap = map1;
     }
 
+    @Override
     public void draw() {
         background(0);
 
         currentMap.draw();
     }
 
+    @Override
     public void keyPressed() {
         if (key == '1') {
             currentMap = map1;
@@ -57,5 +61,4 @@ public class DynamicMapSwitch extends PApplet {
     public static void main(String[] args) {
         PApplet.main(new String[]{DynamicMapSwitch.class.getName()});
     }
-
 }

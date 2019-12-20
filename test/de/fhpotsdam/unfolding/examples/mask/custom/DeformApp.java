@@ -13,9 +13,14 @@ public class DeformApp extends PApplet {
     UnfoldingMap map;
 
     DeformMapDisplayShader mapDisplayShader;
-
-    public void setup() {
+    
+    @Override
+    public void settings() {
         size(800, 600, OPENGL);
+    }
+    
+    @Override
+    public void setup() {
         map = new UnfoldingMap(this);
         MapUtils.createDefaultEventDispatcher(this, map);
 
@@ -23,6 +28,7 @@ public class DeformApp extends PApplet {
         ((OpenGLMapDisplay) map.mapDisplay).setMapDisplayShader(mapDisplayShader);
     }
 
+    @Override
     public void draw() {
         background(0);
 
@@ -30,5 +36,8 @@ public class DeformApp extends PApplet {
 
         map.draw();
     }
-
+    
+    public static void main(String args[]) {
+        PApplet.main(new String[]{DeformApp.class.getName()});
+    }
 }

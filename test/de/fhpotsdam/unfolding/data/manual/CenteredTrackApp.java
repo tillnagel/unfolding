@@ -26,15 +26,19 @@ public class CenteredTrackApp extends PApplet {
     Location startLocation = new Location(52.5f, 13.4f);
 
     // track points
-    List<GPXUtils.TrackPoint> trackPoints = new ArrayList<GPXUtils.TrackPoint>();
+    List<GPXUtils.TrackPoint> trackPoints = new ArrayList<>();
 
     boolean animating = false;
     int trackPointIndex = 0;
     int trailNumber = 10;
-
-    public void setup() {
+    
+    @Override
+    public void settings() {
         size(800, 600, OPENGL);
-
+    }
+    
+    @Override
+    public void setup() {
         map = new UnfoldingMap(this);
         MapUtils.createDefaultEventDispatcher(this, map);
         map.zoomAndPanTo(startLocation, 16);
@@ -42,6 +46,7 @@ public class CenteredTrackApp extends PApplet {
         trackPoints = GPXUtils.loadGPXTrack(this, "data/bike-tour.gpx");
     }
 
+    @Override
     public void draw() {
         map.draw();
 
@@ -77,6 +82,7 @@ public class CenteredTrackApp extends PApplet {
 
     }
 
+    @Override
     public void keyPressed() {
         if (key == ' ') {
             animating = !animating;
@@ -84,6 +90,6 @@ public class CenteredTrackApp extends PApplet {
     }
 
     public static void main(String[] args) {
-        PApplet.main(new String[]{"de.fhpotsdam.unfolding.data.manual.CenteredTrackApp"});
+        PApplet.main(new String[]{CenteredTrackApp.class.getName()});
     }
 }

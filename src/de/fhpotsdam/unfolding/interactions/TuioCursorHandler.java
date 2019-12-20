@@ -29,7 +29,7 @@ import de.fhpotsdam.unfolding.geo.Location;
 // REVISIT Check how to use simpletouch's TuioTransformableObject. For use in events, as in here.
 public class TuioCursorHandler extends MapEventBroadcaster implements TuioListener {
 
-    public static Logger log = Logger.getLogger(TuioCursorHandler.class);
+    public static Logger LOGGER = Logger.getLogger(TuioCursorHandler.class);
 
     private PApplet p;
 
@@ -38,7 +38,7 @@ public class TuioCursorHandler extends MapEventBroadcaster implements TuioListen
     TuioCursor tuioCursor1;
     TuioCursor tuioCursor2;
 
-    Stack<TuioCursor> unusedTuioCursorStack = new Stack<TuioCursor>();
+    Stack<TuioCursor> unusedTuioCursorStack = new Stack<>();
 
     float oldAngle;
     float oldDist;
@@ -79,6 +79,7 @@ public class TuioCursorHandler extends MapEventBroadcaster implements TuioListen
         return tuioClient;
     }
 
+    @Override
     public void updateTuioCursor(TuioCursor tcur) {
         int x = tcur.getScreenX(p.width);
         int y = tcur.getScreenY(p.height);
@@ -162,6 +163,7 @@ public class TuioCursorHandler extends MapEventBroadcaster implements TuioListen
         }
     }
 
+    @Override
     public void addTuioCursor(TuioCursor tuioCursor) {
         if (tuioCursor1 == null) {
             tuioCursor1 = tuioCursor;
@@ -176,6 +178,7 @@ public class TuioCursorHandler extends MapEventBroadcaster implements TuioListen
         }
     }
 
+    @Override
     public void removeTuioCursor(TuioCursor tuioCursor) {
         if (tuioCursor2 != null && tuioCursor2.getCursorID() == tuioCursor.getCursorID()) {
             tuioCursor2 = null;
@@ -281,5 +284,4 @@ public class TuioCursorHandler extends MapEventBroadcaster implements TuioListen
         p.textSize(12);
         p.text(tc.getCursorID(), tc.getScreenX(p.width) - 4, tc.getScreenY(p.height) + 4);
     }
-
 }

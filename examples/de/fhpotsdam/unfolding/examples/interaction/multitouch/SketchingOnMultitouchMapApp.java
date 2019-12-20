@@ -25,7 +25,7 @@ import de.fhpotsdam.unfolding.utils.ScreenPosition;
  */
 public class SketchingOnMultitouchMapApp extends PApplet implements TuioListener {
 
-    public static Logger log = Logger.getLogger(SketchingOnMultitouchMapApp.class);
+    public static Logger LOGGER = Logger.getLogger(SketchingOnMultitouchMapApp.class);
 
     UnfoldingMap map;
     EventDispatcher eventDispatcher;
@@ -34,19 +34,15 @@ public class SketchingOnMultitouchMapApp extends PApplet implements TuioListener
 
     TuioCursor sketchTuioCursor;
     // Save sketched points as location so it stays consistent with the interactive map
-    List<Location> locations = new ArrayList<Location>();
+    final List<Location> locations = new ArrayList<>();
 
-    public static void main(String[] args) {
-        String[] params = new String[]{"--present", "--bgcolor=#000000", "--hide-stop",
-            "de.fhpotsdam.unfolding.examples.interaction.multitouch.SketchingOnMultitouchMapApp"};
-        PApplet.main(params);
-    }
-
+    @Override
     public void settings() {
         size(800, 600, P2D);
         // size(1920, 1080, P2D);
     }
 
+    @Override
     public void setup() {
         map = new UnfoldingMap(this);
         map.setTweening(false);
@@ -64,6 +60,7 @@ public class SketchingOnMultitouchMapApp extends PApplet implements TuioListener
         tuioClient.addTuioListener(this);
     }
 
+    @Override
     public void draw() {
         map.draw();
 
@@ -154,4 +151,9 @@ public class SketchingOnMultitouchMapApp extends PApplet implements TuioListener
         // No objects used
     }
 
+    public static void main(String[] args) {
+        String[] params = new String[]{"--present", "--bgcolor=#000000", "--hide-stop",
+            "de.fhpotsdam.unfolding.examples.interaction.multitouch.SketchingOnMultitouchMapApp"};
+        PApplet.main(params);
+    }
 }

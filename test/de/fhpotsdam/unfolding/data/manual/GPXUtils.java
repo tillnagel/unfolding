@@ -17,7 +17,7 @@ import de.fhpotsdam.utils.StringUtils;
 public class GPXUtils {
 
     public static List<TrackPoint> loadGPXTrack(PApplet p, String gpxFilename) {
-        List<TrackPoint> trackPoints = new ArrayList<TrackPoint>();
+        List<TrackPoint> trackPoints = new ArrayList<>();
         Calendar prevTime = null;
         Location prevLocation = null;
 
@@ -69,5 +69,4 @@ public class GPXUtils {
             this.speed = speed;
         }
     }
-
 }

@@ -15,10 +15,12 @@ public class BarScaleApp extends PApplet {
     UnfoldingMap map;
     BarScaleUI barScale;
 
+    @Override
     public void settings() {
         size(800, 600, P2D);
     }
 
+    @Override
     public void setup() {
         map = new UnfoldingMap(this);
         map.zoomAndPanTo(10, new Location(52.5f, 13.4f));
@@ -32,6 +34,7 @@ public class BarScaleApp extends PApplet {
         barScale.setStyle(color(60, 120), 6, -2, myFont);
     }
 
+    @Override
     public void draw() {
         background(0);
         map.draw();
@@ -39,6 +42,7 @@ public class BarScaleApp extends PApplet {
         barScale.draw();
     }
 
+    @Override
     public void keyPressed() {
         if (key == '+') {
             map.zoomIn();
@@ -51,5 +55,4 @@ public class BarScaleApp extends PApplet {
     public static void main(String[] args) {
         PApplet.main(new String[]{BarScaleApp.class.getName()});
     }
-
 }

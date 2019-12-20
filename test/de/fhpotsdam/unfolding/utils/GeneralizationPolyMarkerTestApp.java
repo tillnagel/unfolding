@@ -24,9 +24,13 @@ public class GeneralizationPolyMarkerTestApp extends PApplet {
 
     float tolerance = 1;
 
-    public void setup() {
+    @Override
+    public void settings() {
         size(800, 600, OPENGL);
-
+    }
+    
+    @Override
+    public void setup() {
         map = new UnfoldingMap(this, new StamenMapProvider.Toner());
         MapUtils.createDefaultEventDispatcher(this, map);
 
@@ -38,12 +42,13 @@ public class GeneralizationPolyMarkerTestApp extends PApplet {
         }
     }
 
+    @Override
     public void draw() {
         background(250);
 
         map.draw();
 
-        List<PVector> points = new ArrayList<PVector>();
+        List<PVector> points = new ArrayList<>();
         for (Location location : selectedCountry.getLocations()) {
             ScreenPosition pos = map.getScreenPosition(location);
             points.add(pos);
@@ -54,7 +59,18 @@ public class GeneralizationPolyMarkerTestApp extends PApplet {
         }
     }
 
-    public void drawLine(List<PVector> points, int strokeColor, int color) {
+    @Override
+    public void keyPressed() {
+        if (key == 'T') {
+            tolerance++;
+        }
+        if (key == 't') {
+            tolerance--;
+        }
+        println(tolerance);
+    }
+
+    private void drawLine(List<PVector> points, int strokeColor, int color) {
         stroke(strokeColor);
         strokeWeight(2);
         noFill();
@@ -71,14 +87,7 @@ public class GeneralizationPolyMarkerTestApp extends PApplet {
         }
     }
 
-    public void keyPressed() {
-        if (key == 'T') {
-            tolerance++;
-        }
-        if (key == 't') {
-            tolerance--;
-        }
-        println(tolerance);
+    public static void main(String args[]) {
+        PApplet.main(new String[]{GeneralizationPolyMarkerTestApp.class.getName()});
     }
-
 }

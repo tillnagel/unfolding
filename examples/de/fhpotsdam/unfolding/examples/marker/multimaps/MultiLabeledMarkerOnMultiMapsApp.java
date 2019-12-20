@@ -21,10 +21,12 @@ public class MultiLabeledMarkerOnMultiMapsApp extends ManualLabelMarkerApp {
     UnfoldingMap map1;
     UnfoldingMap map2;
 
+    @Override
     public void settings() {
         size(800, 600, P2D);
     }
 
+    @Override
     public void setup() {
         map1 = new UnfoldingMap(this, "map", 50, 50, 500, 500);
         map1.zoomToLevel(2);
@@ -39,12 +41,14 @@ public class MultiLabeledMarkerOnMultiMapsApp extends ManualLabelMarkerApp {
         map2.addMarkers(markers);
     }
 
+    @Override
     public void draw() {
         background(240);
         map1.draw();
         map2.draw();
     }
 
+    @Override
     public void mouseMoved() {
         checkInsideMarker(map1);
         checkInsideMarker(map2);
@@ -68,5 +72,4 @@ public class MultiLabeledMarkerOnMultiMapsApp extends ManualLabelMarkerApp {
     public static void main(String[] args) {
         PApplet.main(new String[]{MultiLabeledMarkerOnMultiMapsApp.class.getName()});
     }
-
 }

@@ -24,12 +24,14 @@ import processing.core.PApplet;
 public class GetNearestMultiMarkerApp extends PApplet {
 
     UnfoldingMap map;
-    List<Marker> countryMarkers = new ArrayList<Marker>();
+    List<Marker> countryMarkers = new ArrayList<>();
 
+    @Override
     public void settings() {
         size(800, 600, P2D);
     }
 
+    @Override
     public void setup() {
         map = new UnfoldingMap(this);
         map.zoomToLevel(2);
@@ -39,11 +41,13 @@ public class GetNearestMultiMarkerApp extends PApplet {
         initPolygons();
     }
 
+    @Override
     public void draw() {
         background(240);
         map.draw();
     }
 
+    @Override
     public void mouseMoved() {
         Marker marker = map.getDefaultMarkerManager().getNearestMarker(mouseX, mouseY);
         if (marker != null) {
@@ -55,7 +59,7 @@ public class GetNearestMultiMarkerApp extends PApplet {
 
     private void initPolygons() {
         List<Feature> countries = GeoJSONReader.loadData(this, "data/countries.geo.json");
-        List<Feature> selectedCountries = new ArrayList<Feature>();
+        List<Feature> selectedCountries = new ArrayList<>();
         for (Feature feature : countries) {
             if (feature.getId().equalsIgnoreCase("CAN") || feature.getId().equalsIgnoreCase("USA")) {
                 selectedCountries.add(feature);
@@ -70,5 +74,4 @@ public class GetNearestMultiMarkerApp extends PApplet {
     public static void main(String[] args) {
         PApplet.main(new String[]{GetNearestMultiMarkerApp.class.getName()});
     }
-
 }

@@ -12,10 +12,14 @@ public class PanConstrainedMapSelfApp extends PApplet {
     UnfoldingMap map;
 
     Location centerLocation = new Location(1.359f, 103.816f);
-
-    public void setup() {
+    
+    @Override
+    public void settings() {
         size(800, 600, OPENGL);
-
+    }
+    
+    @Override
+    public void setup() {
         map = new UnfoldingMap(this);
         map.zoomAndPanTo(new Location(centerLocation), 12);
         map.setZoomRange(12, 15);
@@ -23,6 +27,7 @@ public class PanConstrainedMapSelfApp extends PApplet {
         MapUtils.createDefaultEventDispatcher(this, map);
     }
 
+    @Override
     public void draw() {
         background(0);
 
@@ -42,7 +47,7 @@ public class PanConstrainedMapSelfApp extends PApplet {
         }
     }
 
-    public static double getAngleBetween(Location location1, Location location2) {
+    private static double getAngleBetween(Location location1, Location location2) {
         double rlat1 = Math.toRadians(location1.getLat());
         double rlat2 = Math.toRadians(location2.getLat());
         double rlon1 = Math.toRadians(location1.getLon());
@@ -53,5 +58,8 @@ public class PanConstrainedMapSelfApp extends PApplet {
 
         return angle;
     }
-
+    
+    public static void main(String args[]) {
+        PApplet.main(new String[]{PanConstrainedMapSelfApp.class.getName()});
+    }
 }

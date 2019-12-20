@@ -8,6 +8,7 @@ public class StamenMapProvider extends OpenStreetMapProvider {
 
     public static class Toner extends GenericOpenStreetMapProvider {
 
+        @Override
         public String[] getTileUrls(Coordinate coordinate) {
             String url = "http://spaceclaw.stamen.com/toner/" + getZoomString(coordinate) + ".png";
             return new String[]{url};
@@ -16,6 +17,7 @@ public class StamenMapProvider extends OpenStreetMapProvider {
 
     public static class TonerBackground extends GenericOpenStreetMapProvider {
 
+        @Override
         public String[] getTileUrls(Coordinate coordinate) {
             String url = "http://tile.stamen.com/toner-background/" + getZoomString(coordinate) + ".png";
             return new String[]{url};
@@ -24,6 +26,7 @@ public class StamenMapProvider extends OpenStreetMapProvider {
 
     public static class TonerLite extends GenericOpenStreetMapProvider {
 
+        @Override
         public String[] getTileUrls(Coordinate coordinate) {
             String url = "http://tile.stamen.com/toner-lite/" + getZoomString(coordinate) + ".png";
             return new String[]{url};
@@ -32,10 +35,10 @@ public class StamenMapProvider extends OpenStreetMapProvider {
 
     public static class WaterColor extends GenericOpenStreetMapProvider {
 
+        @Override
         public String[] getTileUrls(Coordinate coordinate) {
             String url = "http://b.tile.stamen.com/watercolor/" + getZoomString(coordinate) + ".png";
             return new String[]{url};
         }
     }
-
 }

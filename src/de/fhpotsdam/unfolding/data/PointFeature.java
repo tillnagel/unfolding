@@ -46,5 +46,4 @@ public class PointFeature extends Feature {
     public void setLocation(Location location) {
         this.location = location;
     }
-
 }

@@ -151,6 +151,8 @@ public abstract class AbstractShapeMarker extends AbstractMarker {
 
     /**
      * Gets the geometric center location of this marker.
+     * 
+     * @return 
      */
     @Override
     public Location getLocation() {
@@ -191,7 +193,7 @@ public abstract class AbstractShapeMarker extends AbstractMarker {
     public void draw(UnfoldingMap map) {
         PGraphics pg = map.mapDisplay.getOuterPG();
 
-        List<MapPosition> mapPositions = new ArrayList<MapPosition>();
+        List<MapPosition> mapPositions = new ArrayList<>();
         for (Location loc : getLocations()) {
             float[] xy = map.mapDisplay.getObjectFromLocation(loc);
             mapPositions.add(new MapPosition(xy));
@@ -204,9 +206,9 @@ public abstract class AbstractShapeMarker extends AbstractMarker {
         } else {
 
             // Handles interior rings of polygons
-            List<List<MapPosition>> ringMapPositionsArray = new ArrayList<List<MapPosition>>();
+            List<List<MapPosition>> ringMapPositionsArray = new ArrayList<>();
             for (List<Location> ringLocations : getInteriorRings()) {
-                List<MapPosition> ringMapPositions = new ArrayList<MapPosition>();
+                List<MapPosition> ringMapPositions = new ArrayList<>();
                 for (Location loc : ringLocations) {
                     float[] xy = map.mapDisplay.getObjectFromLocation(loc);
                     ringMapPositions.add(new MapPosition(xy));
@@ -270,7 +272,7 @@ public abstract class AbstractShapeMarker extends AbstractMarker {
 
     @Override
     public boolean isInside(UnfoldingMap map, float checkX, float checkY) {
-        List<ScreenPosition> positions = new ArrayList<ScreenPosition>();
+        List<ScreenPosition> positions = new ArrayList<>();
         for (Location location : locations) {
             ScreenPosition pos = map.getScreenPosition(location);
             positions.add(pos);
@@ -325,6 +327,8 @@ public abstract class AbstractShapeMarker extends AbstractMarker {
     }
 
     /**
+     * @param location
+     * @return 
      * @see #isInsideByLocation(float, float)
      */
     public boolean isInsideByLocation(Location location) {
@@ -332,6 +336,9 @@ public abstract class AbstractShapeMarker extends AbstractMarker {
     }
 
     /**
+     * @param latitude
+     * @param longitude
+     * @return 
      * @see #isInsideByLocation(float, float)
      */
     public boolean contains(float latitude, float longitude) {
@@ -339,6 +346,8 @@ public abstract class AbstractShapeMarker extends AbstractMarker {
     }
 
     /**
+     * @param location
+     * @return 
      * @see #isInsideByLocation(Location)
      */
     public boolean contains(Location location) {
@@ -350,5 +359,4 @@ public abstract class AbstractShapeMarker extends AbstractMarker {
         // TODO Simply return false?
         throw new RuntimeException("Check for a single position is not implemented for polygons.");
     }
-
 }

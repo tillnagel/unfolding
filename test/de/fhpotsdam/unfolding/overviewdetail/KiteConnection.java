@@ -6,7 +6,7 @@ import processing.core.PVector;
 
 public class KiteConnection implements OverviewPlusDetailConnection {
 
-    private PApplet p;
+    private final PApplet p;
 
     protected float width = 150;
     protected float height = 150;
@@ -34,6 +34,7 @@ public class KiteConnection implements OverviewPlusDetailConnection {
         this.height = height;
     }
 
+    @Override
     public void setOverviewSize(float width, float height) {
         PApplet.println("KiteConnection only allows single overview/destination points.");
     }
@@ -53,37 +54,7 @@ public class KiteConnection implements OverviewPlusDetailConnection {
         setPosition(x, y);
     }
 
-    public void setPosition(float x, float y) {
-        pos.x = x - width / 2;
-        pos.y = y - height / 2;
-
-        tl.x = pos.x - padding;
-        tl.y = pos.y - padding;
-
-        tr.x = pos.x + width + padding;
-        tr.y = pos.y - padding;
-
-        bl.x = pos.x - padding;
-        bl.y = pos.y + height + padding;
-
-        br.x = pos.x + width + padding;
-        br.y = pos.y + height + padding;
-    }
-
-    public void setDestination(float x, float y) {
-        dest.x = x;
-        dest.y = y;
-    }
-
-    public void drawDebug() {
-        p.fill(240);
-        p.rect(pos.x, pos.y, width, height);
-
-        p.fill(255, 0, 0, 100);
-        p.ellipse(tr.x, tr.y, 10, 10);
-        p.ellipse(tl.x, tl.y, 10, 10);
-    }
-
+    @Override
     public void draw() {
         p.fill(100, 100);
         p.noStroke();
@@ -165,8 +136,38 @@ public class KiteConnection implements OverviewPlusDetailConnection {
         p.endShape(PApplet.CLOSE);
     }
 
+    public void setPosition(float x, float y) {
+        pos.x = x - width / 2;
+        pos.y = y - height / 2;
+
+        tl.x = pos.x - padding;
+        tl.y = pos.y - padding;
+
+        tr.x = pos.x + width + padding;
+        tr.y = pos.y - padding;
+
+        bl.x = pos.x - padding;
+        bl.y = pos.y + height + padding;
+
+        br.x = pos.x + width + padding;
+        br.y = pos.y + height + padding;
+    }
+
+    public void setDestination(float x, float y) {
+        dest.x = x;
+        dest.y = y;
+    }
+
+    public void drawDebug() {
+        p.fill(240);
+        p.rect(pos.x, pos.y, width, height);
+
+        p.fill(255, 0, 0, 100);
+        p.ellipse(tr.x, tr.y, 10, 10);
+        p.ellipse(tl.x, tl.y, 10, 10);
+    }
+
     private void vertex(PVector v) {
         p.vertex(v.x, v.y);
     }
-
 }

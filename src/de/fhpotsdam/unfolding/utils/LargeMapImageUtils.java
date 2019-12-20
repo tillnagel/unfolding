@@ -202,5 +202,4 @@ public class LargeMapImageUtils {
     public void setImageFileName(String imageFileName) {
         this.imageFileName = imageFileName;
     }
-
 }

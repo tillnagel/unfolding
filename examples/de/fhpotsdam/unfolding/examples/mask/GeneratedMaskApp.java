@@ -17,10 +17,12 @@ public class GeneratedMaskApp extends PApplet {
     UnfoldingMap map;
     MapDisplayShader mapDisplayShader;
 
+    @Override
     public void settings() {
         size(800, 600, P2D);
     }
 
+    @Override
     public void setup() {
         map = new UnfoldingMap(this);
         map.zoomAndPanTo(10, new Location(52.5f, 13.4f));
@@ -29,6 +31,7 @@ public class GeneratedMaskApp extends PApplet {
         createDynamicMask();
     }
 
+    @Override
     public void draw() {
         background(240);
         map.draw();

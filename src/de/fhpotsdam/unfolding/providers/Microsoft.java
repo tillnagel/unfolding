@@ -21,20 +21,23 @@ public class Microsoft {
             return toQuadKey(coordinate);
         }
 
+        @Override
         public int tileWidth() {
             return 256;
         }
 
+        @Override
         public int tileHeight() {
             return 256;
         }
 
+        @Override
         public abstract String[] getTileUrls(Coordinate coordinate);
-
     }
 
     public static class RoadProvider extends MicrosoftProvider {
 
+        @Override
         public String[] getTileUrls(Coordinate coordinate) {
             String url = "http://r" + (int) random(0, 4) + ".ortho.tiles.virtualearth.net/tiles/r"
                     + getZoomString(sourceCoordinate(coordinate)) + ".png?g=90&shading=hill";
@@ -44,6 +47,7 @@ public class Microsoft {
 
     public static class AerialProvider extends MicrosoftProvider {
 
+        @Override
         public String[] getTileUrls(Coordinate coordinate) {
             String url = "http://a" + (int) random(0, 4) + ".ortho.tiles.virtualearth.net/tiles/a"
                     + getZoomString(sourceCoordinate(coordinate)) + ".jpeg?g=90";
@@ -53,6 +57,7 @@ public class Microsoft {
 
     public static class HybridProvider extends MicrosoftProvider {
 
+        @Override
         public String[] getTileUrls(Coordinate coordinate) {
             String url = "http://h" + (int) random(0, 4) + ".ortho.tiles.virtualearth.net/tiles/h"
                     + getZoomString(sourceCoordinate(coordinate)) + ".jpeg?g=90";
@@ -62,6 +67,9 @@ public class Microsoft {
 
     /**
      * Converts QuadKey string to Coordinates.
+     * 
+     * @param s
+     * @return 
      */
     public static Coordinate fromQuadKey(String s) {
         // Return column, row, zoom for Microsoft tile string.
@@ -78,6 +86,9 @@ public class Microsoft {
 
     /**
      * Converts coordinates to QuadKey string.
+     * 
+     * @param coord
+     * @return 
      */
     public static String toQuadKey(Coordinate coord) {
         return toQuadKey((int) coord.column, (int) coord.row, (int) coord.zoom);
@@ -113,5 +124,4 @@ public class Microsoft {
         // Return x, y, z for Microsoft Aerial tile column, row, zoom.
         return toQuadKey(col, row, zoom);
     }
-
 }

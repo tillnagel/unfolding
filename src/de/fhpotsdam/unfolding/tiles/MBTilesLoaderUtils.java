@@ -2,6 +2,7 @@ package de.fhpotsdam.unfolding.tiles;
 
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -64,16 +65,17 @@ public class MBTilesLoaderUtils {
      * @param column The column of the tile.
      * @param row The row of the tile.
      * @param zoomLevel The zoom level of the tile.
+     * @param jdbcConnectionString
      * @return The tile as byte array with image information, or an empty array
      * if not found.
+     * @throws java.lang.Exception
      */
-    protected static byte[] getMBTileData(int column, int row, int zoomLevel, String jdbcConnectionString)
-            throws Exception {
+    protected static byte[] getMBTileData(int column, int row, int zoomLevel, String jdbcConnectionString) throws Exception {
         Class.forName(SQLITE_JDBC_DRIVER);
 
-        Connection conn = null;
         byte[] tileData = null;
 
+        Connection conn;
         try {
             conn = connectionsMap.get(jdbcConnectionString);
             if (conn == null) {
@@ -98,13 +100,14 @@ public class MBTilesLoaderUtils {
         } catch (SQLException e) {
             System.err.println(e.getMessage());
         } finally {
-//			try {
-//				if (conn != null)
-//					conn.close();
-//			} catch (SQLException e) {
-//				// connection close failed.
-//				System.err.println(e);
-//			}
+//            try {
+//                if (conn != null) {
+//                    conn.close();
+//                }
+//            } catch (SQLException e) {
+//                // connection close failed.
+//                System.err.println(e);
+//            }
         }
         return tileData;
     }
@@ -130,11 +133,10 @@ public class MBTilesLoaderUtils {
             bimg.getRGB(0, 0, img.width, img.height, img.pixels, 0, img.width);
             img.updatePixels();
             return img;
-        } catch (Exception e) {
+        } catch (IOException e) {
             System.err.println("Can't create image from buffer");
             e.printStackTrace();
             return null;
         }
     }
-
 }

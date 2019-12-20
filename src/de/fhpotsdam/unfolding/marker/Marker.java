@@ -195,8 +195,7 @@ public interface Marker {
      * implementations (SimpleXxMarker), this color is used if the marker is
      * selected.
      *
-     * @param highlightColor The color (in Processing's color type)
+     * @param highlightStrokeColor The color (in Processing's color type)
      */
     public void setHighlightStrokeColor(int highlightStrokeColor);
-
 }

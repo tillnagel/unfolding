@@ -25,16 +25,20 @@ public class GeneralizationTestOnMapApp extends PApplet {
 
     UnfoldingMap map;
 
-    List<Location> locations = new ArrayList<Location>();
+    List<Location> locations = new ArrayList<>();
 
-    List<PVector> points = new ArrayList<PVector>();
-    List<PVector> simplifiedPoints = new ArrayList<PVector>();
+    List<PVector> points = new ArrayList<>();
+    List<PVector> simplifiedPoints = new ArrayList<>();
 
     float tolerance = 4;
 
-    public void setup() {
+    @Override
+    public void settings() {
         size(800, 600, OPENGL);
-
+    }
+    
+    @Override
+    public void setup() {
         map = new UnfoldingMap(this, new StamenMapProvider.Toner());
         // MapUtils.createDefaultEventDispatcher(this, map);
 
@@ -46,12 +50,13 @@ public class GeneralizationTestOnMapApp extends PApplet {
 
     }
 
+    @Override
     public void draw() {
         background(250);
 
         map.draw();
 
-        points = new ArrayList<PVector>();
+        points = new ArrayList<>();
         for (Location location : locations) {
             ScreenPosition pos = map.getScreenPosition(location);
             points.add(pos);
@@ -63,7 +68,24 @@ public class GeneralizationTestOnMapApp extends PApplet {
         }
     }
 
-    public void drawLine(List<PVector> points, int strokeColor, int color) {
+    @Override
+    public void keyPressed() {
+        if (key == '+') {
+            tolerance++;
+        }
+        if (key == '-') {
+            tolerance--;
+        }
+        // simplifiedPoints = GeneralizationUtils.simplify(points, tolerance, true);
+        println(tolerance);
+    }
+
+    @Override
+    public void mouseClicked() {
+        locations.add(map.getLocation(mouseX, mouseY));
+    }
+
+    private void drawLine(List<PVector> points, int strokeColor, int color) {
         stroke(strokeColor);
         strokeWeight(2);
         noFill();
@@ -79,19 +101,8 @@ public class GeneralizationTestOnMapApp extends PApplet {
             ellipse(p.x, p.y, 5, 5);
         }
     }
-
-    public void keyPressed() {
-        if (key == '+') {
-            tolerance++;
-        }
-        if (key == '-') {
-            tolerance--;
-        }
-        // simplifiedPoints = GeneralizationUtils.simplify(points, tolerance, true);
-        println(tolerance);
-    }
-
-    public void mouseClicked() {
-        locations.add(map.getLocation(mouseX, mouseY));
+    
+    public static void main(String args[]) {
+        PApplet.main(new String[]{GeneralizationTestOnMapApp.class.getName()});
     }
 }

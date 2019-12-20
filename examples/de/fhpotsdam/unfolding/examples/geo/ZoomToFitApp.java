@@ -20,10 +20,12 @@ public class ZoomToFitApp extends PApplet {
 
     UnfoldingMap map;
 
+    @Override
     public void settings() {
         size(800, 600, P2D);
     }
 
+    @Override
     public void setup() {
         map = new UnfoldingMap(this);
         MapUtils.createDefaultEventDispatcher(this, map);
@@ -34,11 +36,13 @@ public class ZoomToFitApp extends PApplet {
         map.addMarkers(countryMarkers);
     }
 
+    @Override
     public void draw() {
         background(240);
         map.draw();
     }
 
+    @Override
     public void mouseClicked() {
         Marker marker = map.getFirstHitMarker(mouseX, mouseY);
         if (marker != null) {
@@ -51,5 +55,4 @@ public class ZoomToFitApp extends PApplet {
     public static void main(String args[]) {
         PApplet.main(new String[]{ZoomToFitApp.class.getName()});
     }
-
 }

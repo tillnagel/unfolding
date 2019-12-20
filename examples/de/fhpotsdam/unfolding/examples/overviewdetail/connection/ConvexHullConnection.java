@@ -105,5 +105,4 @@ public class ConvexHullConnection extends ConvexHull implements OverviewPlusDeta
         overviewbr.x = overviewPosition.x + overviewWidth + padding;
         overviewbr.y = overviewPosition.y + overviewHeight + padding;
     }
-
 }

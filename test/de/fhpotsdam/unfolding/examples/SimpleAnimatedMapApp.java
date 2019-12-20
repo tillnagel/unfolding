@@ -37,9 +37,13 @@ public class SimpleAnimatedMapApp extends PApplet {
     boolean animating = false;
     float animationSpeed = 0.05f;
 
-    public void setup() {
+    @Override
+    public void settings() {
         size(800, 600, OPENGL);
-
+    }
+    
+    @Override
+    public void setup() {
         map = new UnfoldingMap(this);
         MapUtils.createDefaultEventDispatcher(this, map);
         map.zoomAndPanTo(startLocation, 8);
@@ -49,6 +53,7 @@ public class SimpleAnimatedMapApp extends PApplet {
         angle = degrees((float) GeoUtils.getAngleBetween(startLocation, endLocation));
     }
 
+    @Override
     public void draw() {
         map.draw();
 
@@ -61,6 +66,7 @@ public class SimpleAnimatedMapApp extends PApplet {
         }
     }
 
+    @Override
     public void keyPressed() {
         if (key == ' ') {
             // Start/Stop animation
@@ -72,6 +78,6 @@ public class SimpleAnimatedMapApp extends PApplet {
     }
 
     public static void main(String[] args) {
-        PApplet.main(new String[]{"de.fhpotsdam.unfolding.examples.animation.SimpleAnimatedMapApp"});
+        PApplet.main(new String[]{SimpleAnimatedMapApp.class.getName()});
     }
 }

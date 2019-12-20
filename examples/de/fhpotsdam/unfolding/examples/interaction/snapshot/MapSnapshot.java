@@ -98,5 +98,4 @@ public class MapSnapshot {
     public boolean isInside(float checkX, float checkY) {
         return checkX > x && checkX < x + width && checkY > y && checkY < y + height;
     }
-
 }

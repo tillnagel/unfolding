@@ -11,7 +11,7 @@ import de.fhpotsdam.unfolding.geo.Location;
  */
 public class PanMapEvent extends MapEvent {
 
-    protected static Logger log = Logger.getLogger(PanMapEvent.class);
+    protected static Logger LOGGER = Logger.getLogger(PanMapEvent.class);
 
     public static final String TYPE_PAN = "pan";
 
@@ -74,5 +74,4 @@ public class PanMapEvent extends MapEvent {
             map.panDown();
         }
     }
-
 }

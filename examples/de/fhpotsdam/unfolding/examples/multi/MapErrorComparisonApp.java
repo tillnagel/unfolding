@@ -23,10 +23,12 @@ public class MapErrorComparisonApp extends PApplet {
     UnfoldingMap map2;
     float fadeValue = 100;
 
+    @Override
     public void settings() {
         size(800, 600, P2D);
     }
 
+    @Override
     public void setup() {
         map1 = new UnfoldingMap(this, "map1", new Microsoft.AerialProvider());
         map2 = new UnfoldingMap(this, "map2", new Microsoft.AerialProvider());
@@ -36,6 +38,7 @@ public class MapErrorComparisonApp extends PApplet {
         map2.zoomAndPanTo(13, new Location(55.99591, 131.3102));
     }
 
+    @Override
     public void draw() {
         background(0);
 
@@ -45,6 +48,7 @@ public class MapErrorComparisonApp extends PApplet {
         map2.draw();
     }
 
+    @Override
     public void mouseMoved() {
         if (keyPressed && key == CODED && keyCode == CONTROL) {
             float d = (float) mouseX / (float) width;
@@ -52,6 +56,7 @@ public class MapErrorComparisonApp extends PApplet {
         }
     }
 
+    @Override
     public void keyPressed() {
         if (key == 'a') {
             map2.rotate(0.02f);
@@ -59,6 +64,9 @@ public class MapErrorComparisonApp extends PApplet {
         if (key == 'd') {
             map2.rotate(-0.02f);
         }
-
+    }
+    
+    public static void main(String[] args) {
+        PApplet.main(new String[]{MapErrorComparisonApp.class.getName()});
     }
 }

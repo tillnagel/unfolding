@@ -13,7 +13,7 @@ import de.fhpotsdam.unfolding.utils.ScreenPosition;
  */
 public class ZoomMapEvent extends MapEvent {
 
-    protected static Logger log = Logger.getLogger(ZoomMapEvent.class);
+    protected static Logger LOGGER = Logger.getLogger(ZoomMapEvent.class);
 
     /**
      * The internal type of this ZoomMapEvent.
@@ -125,5 +125,4 @@ public class ZoomMapEvent extends MapEvent {
             map.zoomTo(zoom);
         }
     }
-
 }

@@ -14,10 +14,12 @@ public class MultiProviderOverlayMapApp extends PApplet {
     UnfoldingMap map1;
     UnfoldingMap map2;
 
+    @Override
     public void settings() {
         size(800, 600, P2D);
     }
 
+    @Override
     public void setup() {
         Location berlinLocation = new Location(52.439046f, 13.447266f);
         map1 = new UnfoldingMap(this, "map1", new Microsoft.RoadProvider());
@@ -29,6 +31,7 @@ public class MultiProviderOverlayMapApp extends PApplet {
         MapUtils.createDefaultEventDispatcher(this, map1, map2);
     }
 
+    @Override
     public void draw() {
         background(0);
 
@@ -40,5 +43,4 @@ public class MultiProviderOverlayMapApp extends PApplet {
     public static void main(String[] args) {
         PApplet.main(new String[]{MultiProviderOverlayMapApp.class.getName()});
     }
-
 }

@@ -13,5 +13,4 @@ public class Dot {
         this.location = location;
         this.timestamp = timestamp;
     }
-
 }

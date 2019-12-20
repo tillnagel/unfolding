@@ -50,6 +50,7 @@ public class Location extends PVector {
         this.y = lon;
     }
 
+    @Override
     public String toString() {
         return "(" + PApplet.nf(x, 1, 3) + ", " + PApplet.nf(y, 1, 3) + ")";
     }
@@ -57,5 +58,4 @@ public class Location extends PVector {
     public double getDistance(Location otherLocation) {
         return GeoUtils.getDistance(this, otherLocation);
     }
-
 }

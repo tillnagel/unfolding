@@ -18,5 +18,4 @@ public class RippleDistorter implements Distorter {
         // Wave / Ripple
         distCoord.z = (float) Math.sin(distCoord.x * 1.1f) * 5f;
     }
-
 }

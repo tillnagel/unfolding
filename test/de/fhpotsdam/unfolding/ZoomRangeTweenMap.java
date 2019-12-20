@@ -20,9 +20,13 @@ public class ZoomRangeTweenMap extends PApplet {
     int minZoomLevel = 8;
     int maxZoomLevel = 11;
 
-    public void setup() {
+    @Override
+    public void settings() {
         size(800, 600, OPENGL);
-
+    }
+    
+    @Override
+    public void setup() {
         map = new UnfoldingMap(this);
         map.zoomAndPanTo(10, new Location(52.5f, 13.4f));
         map.setZoomRange(minZoomLevel, maxZoomLevel);
@@ -32,6 +36,7 @@ public class ZoomRangeTweenMap extends PApplet {
         MapUtils.createDefaultEventDispatcher(this, map);
     }
 
+    @Override
     public void draw() {
         background(0);
 
@@ -45,4 +50,7 @@ public class ZoomRangeTweenMap extends PApplet {
         map.draw();
     }
 
+    public static void main(String args[]) {
+        PApplet.main(new String[]{ZoomRangeTweenMap.class.getName()});
+    }
 }

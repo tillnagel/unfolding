@@ -27,10 +27,12 @@ public class ZoomDependentMarkerClusterApp extends PApplet {
 
     float oldZoomLevel = 0;
 
+    @Override
     public void settings() {
         size(800, 600, P2D);
     }
 
+    @Override
     public void setup() {
         map = new UnfoldingMap(this);
         map.zoomAndPanTo(5, new Location(41.50, -72.38));
@@ -44,6 +46,7 @@ public class ZoomDependentMarkerClusterApp extends PApplet {
         map.addMarkerManager(detailsMarkerManager);
     }
 
+    @Override
     public void draw() {
         background(0);
 
@@ -64,7 +67,7 @@ public class ZoomDependentMarkerClusterApp extends PApplet {
     }
 
     private MarkerManager<Marker> populateMarkerManager() {
-        MarkerManager<Marker> markerManager = new MarkerManager<Marker>();
+        MarkerManager<Marker> markerManager = new MarkerManager<>();
 
         SimplePointMarker nycMarker = new SimplePointMarker(new Location(40.71, -73.99));
         nycMarker.setDiameter(20);
@@ -78,7 +81,7 @@ public class ZoomDependentMarkerClusterApp extends PApplet {
     }
 
     private MarkerManager<Marker> populateDetailsMarkerManager() {
-        MarkerManager<Marker> markerManager = new MarkerManager<Marker>();
+        MarkerManager<Marker> markerManager = new MarkerManager<>();
 
         Marker nycMarker1 = new SimplePointMarker(new Location(40.763, -73.979));
         markerManager.addMarker(nycMarker1);
@@ -100,5 +103,4 @@ public class ZoomDependentMarkerClusterApp extends PApplet {
     public static void main(String args[]) {
         PApplet.main(new String[]{ZoomDependentMarkerClusterApp.class.getName()});
     }
-
 }

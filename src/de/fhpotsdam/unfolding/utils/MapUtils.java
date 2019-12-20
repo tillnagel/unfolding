@@ -94,5 +94,4 @@ public class MapUtils {
         }
         return markerFactory.createMarkers(features);
     }
-
 }

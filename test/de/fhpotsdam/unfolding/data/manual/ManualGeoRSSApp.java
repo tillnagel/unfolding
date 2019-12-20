@@ -26,12 +26,16 @@ public class ManualGeoRSSApp extends PApplet {
 
     UnfoldingMap map;
 
-    List<Location> rssGeoLocations = new ArrayList<Location>();
-
-    public void setup() {
+    List<Location> rssGeoLocations = new ArrayList<>();
+    
+    @Override
+    public void settings() {
         size(800, 600, OPENGL);
         smooth();
-
+    }
+    
+    @Override
+    public void setup() {
         map = new UnfoldingMap(this, 50, 50, 700, 500);
         map.zoomToLevel(2);
         MapUtils.createDefaultEventDispatcher(this, map);
@@ -39,7 +43,18 @@ public class ManualGeoRSSApp extends PApplet {
         loadRSSGeoLocations();
     }
 
-    public void loadRSSGeoLocations() {
+    @Override
+    public void draw() {
+        background(0);
+        map.draw();
+
+        for (Location location : rssGeoLocations) {
+            ScreenPosition pos = map.getScreenPosition(location);
+            drawEarthquakeMarker(pos);
+        }
+    }
+
+    private void loadRSSGeoLocations() {
         // Load RSS feed
         String url = "http://earthquake.usgs.gov/earthquakes/catalogs/eqs7day-M5.xml";
         XML rss = loadXML(url);
@@ -58,17 +73,7 @@ public class ManualGeoRSSApp extends PApplet {
         }
     }
 
-    public void draw() {
-        background(0);
-        map.draw();
-
-        for (Location location : rssGeoLocations) {
-            ScreenPosition pos = map.getScreenPosition(location);
-            drawEarthquakeMarker(pos);
-        }
-    }
-
-    public void drawEarthquakeMarker(ScreenPosition pos) {
+    private void drawEarthquakeMarker(ScreenPosition pos) {
         noStroke();
         fill(200, 200, 0, 100);
         ellipse(pos.x, pos.y, 40, 40);
@@ -79,6 +84,8 @@ public class ManualGeoRSSApp extends PApplet {
         fill(255, 200);
         ellipse(pos.x, pos.y, 10, 10);
     }
-    // map = new Map(this, "map", 50, 50, 700, 500);
-
+    
+    public static void main(String args[]) {
+        PApplet.main(new String[]{ManualGeoRSSApp.class.getName()});
+    }
 }

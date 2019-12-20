@@ -185,5 +185,4 @@ public class TransformableObject {
         float angle = PApplet.atan2(difY, difX);
         return angle;
     }
-
 }

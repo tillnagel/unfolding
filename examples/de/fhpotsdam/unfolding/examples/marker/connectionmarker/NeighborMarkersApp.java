@@ -20,14 +20,12 @@ public class NeighborMarkersApp extends PApplet {
 
     UnfoldingMap map;
 
+    @Override
     public void settings() {
         size(800, 600, P2D);
     }
 
-    public static void main(String[] args) {
-        PApplet.main(new String[]{NeighborMarkersApp.class.getName()});
-    }
-
+    @Override
     public void setup() {
         map = new UnfoldingMap(this);
         map.zoomToLevel(11);
@@ -37,12 +35,27 @@ public class NeighborMarkersApp extends PApplet {
         initMarkers();
     }
 
-    public void initMarkers() {
+    @Override
+    public void draw() {
+        background(240);
+
+        // Drawing Markers in handled internally
+        map.draw();
+    }
+
+    @Override
+    public void keyPressed() {
+        if (key == ' ') {
+            initMarkers();
+        }
+    }
+
+    private void initMarkers() {
         map.getDefaultMarkerManager().clearMarkers();
 
         // Create Markers from random Locations
-        List<Marker> markers = new ArrayList<Marker>();
-        List<Marker> connectionMarkers = new ArrayList<Marker>();
+        List<Marker> markers = new ArrayList<>();
+        List<Marker> connectionMarkers = new ArrayList<>();
 
         for (int i = 0; i < 30; i++) {
             markers.add(new SimplePointMarker(new Location(random(52.46f, 52.61f), random(13.23f, 13.54f))));
@@ -64,17 +77,7 @@ public class NeighborMarkersApp extends PApplet {
         map.addMarkers(connectionMarkers);
     }
 
-    public void draw() {
-        background(240);
-
-        // Drawing Markers in handled internally
-        map.draw();
+    public static void main(String[] args) {
+        PApplet.main(new String[]{NeighborMarkersApp.class.getName()});
     }
-
-    public void keyPressed() {
-        if (key == ' ') {
-            initMarkers();
-        }
-    }
-
 }

@@ -20,6 +20,8 @@ public class LabeledMarker extends SimplePointMarker {
     /**
      * Basic constructor. Used in MarkerFactory when created on data loading,
      * label will be set afterwards.
+     * 
+     * @param location
      */
     public LabeledMarker(Location location) {
         this(location, null, null, 0);
@@ -43,6 +45,7 @@ public class LabeledMarker extends SimplePointMarker {
     /**
      * Displays this marker's name in a box.
      */
+    @Override
     public void draw(PGraphics pg, float x, float y) {
         pg.pushStyle();
         pg.pushMatrix();
@@ -79,5 +82,4 @@ public class LabeledMarker extends SimplePointMarker {
     public String getName() {
         return name;
     }
-
 }

@@ -23,7 +23,7 @@ public class GeoRSSReader extends GeoDataReader {
      * @return A list of geo features.
      */
     public static List<Feature> loadData(PApplet p, String fileName) {
-        List<Feature> features = new ArrayList<Feature>();
+        List<Feature> features = new ArrayList<>();
 
         XML rss = p.loadXML(fileName);
         // Get all items
@@ -35,11 +35,9 @@ public class GeoRSSReader extends GeoDataReader {
             if (latXML != null && latXML.getContent() != null) {
                 float lat = Float.valueOf(latXML.getContent());
                 float lon = Float.valueOf(lonXML.getContent());
-
                 Location location = new Location(lat, lon);
                 PointFeature pointFeature = new PointFeature(location);
                 features.add(pointFeature);
-
                 // Sets title if existing
                 XML titleXML = itemXML[i].getChild("title");
                 if (titleXML != null && titleXML.getContent() != null) {
@@ -60,7 +58,7 @@ public class GeoRSSReader extends GeoDataReader {
      * @return A list of geo features.
      */
     public static List<Feature> loadDataGeoRSS(PApplet p, String fileName) {
-        List<Feature> features = new ArrayList<Feature>();
+        List<Feature> features = new ArrayList<>();
 
         XML rss = p.loadXML(fileName);
         // Get all items
@@ -95,12 +93,11 @@ public class GeoRSSReader extends GeoDataReader {
                 for (int c = 0; c < catXML.length; c++) {
                     String label = catXML[c].getString("label");
                     if ("Magnitude".equals(label)) {
-                        Float magnitude = 0f;
                         String magnitudeString = catXML[c].getString("term");
                         if (magnitudeString.contains("Magnitude")) {
                             magnitudeString = magnitudeString.replace("Magnitude", "");
                         }
-                        magnitude = Float.valueOf(magnitudeString);
+                        Float magnitude = Float.valueOf(magnitudeString);
                         pointFeature.putProperty("magnitude", magnitude);
                     }
                 }
@@ -111,5 +108,4 @@ public class GeoRSSReader extends GeoDataReader {
 
         return features;
     }
-
 }

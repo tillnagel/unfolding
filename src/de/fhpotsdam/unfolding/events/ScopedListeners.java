@@ -11,12 +11,11 @@ public class ScopedListeners {
     public List<MapEventListener> listeners;
 
     public ScopedListeners() {
-        scopeIds = new HashSet<String>();
-        listeners = new ArrayList<MapEventListener>();
+        scopeIds = new HashSet<>();
+        listeners = new ArrayList<>();
     }
 
     public boolean isInScope(MapEvent event) {
         return scopeIds.contains(event.getScopeId());
     }
-
 }

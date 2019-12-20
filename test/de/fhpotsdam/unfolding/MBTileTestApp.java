@@ -13,17 +13,24 @@ public class MBTileTestApp extends PApplet {
 
     PImage tile;
 
-    public void setup() {
+    @Override
+    public void settings() {
         size(600, 600);
-
+    }
+    
+    @Override
+    public void setup() {
         tile = MBTilesLoaderUtils.getMBTile(15, 10, 4, JDBC_CONN_STRING_MAC);
     }
 
+    @Override
     public void draw() {
         background(240);
 
         image(tile, mouseX, mouseY);
-
     }
-
+    
+    public static void main(String args[]) {
+        PApplet.main(new String[]{MBTileTestApp.class.getName()});
+    }
 }

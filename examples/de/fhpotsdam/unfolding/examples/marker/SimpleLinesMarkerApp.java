@@ -1,6 +1,5 @@
 package de.fhpotsdam.unfolding.examples.marker;
 
-import java.util.List;
 
 /**
  * Shows a simple line marker between two locations.
@@ -9,9 +8,7 @@ import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.marker.SimpleLinesMarker;
 import de.fhpotsdam.unfolding.providers.Microsoft;
-import de.fhpotsdam.unfolding.utils.GeoUtils;
 import de.fhpotsdam.unfolding.utils.MapUtils;
-import de.fhpotsdam.unfolding.utils.ScreenPosition;
 import processing.core.PApplet;
 
 public class SimpleLinesMarkerApp extends PApplet {
@@ -21,12 +18,13 @@ public class SimpleLinesMarkerApp extends PApplet {
 
     UnfoldingMap currentMap;
 
+    @Override
     public void settings() {
         size(800, 600, P2D);
     }
 
+    @Override
     public void setup() {
-
         map = new UnfoldingMap(this, new Microsoft.AerialProvider());
         MapUtils.createDefaultEventDispatcher(this, map);
         currentMap = map;
@@ -41,15 +39,14 @@ public class SimpleLinesMarkerApp extends PApplet {
         map.addMarker(connectionMarker);
     }
 
+    @Override
     public void draw() {
         map.draw();
 
         println(connectionMarker.getLocation());
-
     }
 
     public static void main(String args[]) {
         PApplet.main(new String[]{SimpleLinesMarkerApp.class.getName()});
     }
-
 }

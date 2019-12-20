@@ -23,14 +23,12 @@ public class ColoredSelectedVectorTilesApp extends PApplet {
 
     String filteredType = "museum";
 
+    @Override
     public void settings() {
         size(800, 600, P2D);
     }
 
-    public static void main(String args[]) {
-        PApplet.main(new String[]{ColoredSelectedVectorTilesApp.class.getName()});
-    }
-
+    @Override
     public void setup() {
         map = new UnfoldingMap(this, "myMap");
         map.zoomAndPanTo(16, new Location(52.501, 13.395));
@@ -43,11 +41,13 @@ public class ColoredSelectedVectorTilesApp extends PApplet {
         loadAndAddColoredMarkers(width / 2, height / 2, filteredType);
     }
 
+    @Override
     public void draw() {
         map.draw();
         debugDisplay.draw();
     }
 
+    @Override
     public void mouseClicked() {
         loadAndAddColoredMarkers(mouseX, mouseY, filteredType);
     }
@@ -63,4 +63,7 @@ public class ColoredSelectedVectorTilesApp extends PApplet {
         map.addMarkers(markers);
     }
 
+    public static void main(String args[]) {
+        PApplet.main(new String[]{ColoredSelectedVectorTilesApp.class.getName()});
+    }
 }

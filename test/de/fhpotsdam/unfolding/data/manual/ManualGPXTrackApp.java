@@ -22,11 +22,15 @@ public class ManualGPXTrackApp extends PApplet {
     Location startLocation = new Location(52.492f, 13.435f);
 
     // track points
-    List<GPXUtils.TrackPoint> trackPoints = new ArrayList<GPXUtils.TrackPoint>();
-
-    public void setup() {
+    List<GPXUtils.TrackPoint> trackPoints = new ArrayList<>();
+    
+    @Override
+    public void settings() {
         size(800, 600, OPENGL);
-
+    }
+    
+    @Override
+    public void setup() {
         map = new UnfoldingMap(this);
         MapUtils.createDefaultEventDispatcher(this, map);
         map.zoomAndPanTo(startLocation, 15);
@@ -35,6 +39,7 @@ public class ManualGPXTrackApp extends PApplet {
         println("Loaded " + trackPoints.size() + " track points");
     }
 
+    @Override
     public void draw() {
         map.draw();
 
@@ -71,6 +76,6 @@ public class ManualGPXTrackApp extends PApplet {
     }
 
     public static void main(String[] args) {
-        PApplet.main(new String[]{"de.fhpotsdam.unfolding.examples.data.GPXTrackApp"});
+        PApplet.main(new String[]{ManualGPXTrackApp.class.getName()});
     }
 }

@@ -13,5 +13,4 @@ public interface MapEventListener extends EventListener {
     public String getId();
 
     public void onManipulation(MapEvent event);
-
 }

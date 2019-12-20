@@ -96,7 +96,7 @@ public class UnfoldingMap implements MapEventListener {
      */
     protected Location restrictedRectangularPanningBottomRightLocation = null;
 
-    public static Logger log = Logger.getLogger(UnfoldingMap.class);
+    public static Logger LOGGER = Logger.getLogger(UnfoldingMap.class);
 
     /**
      * Whether Unfolding lib showed a greeting message, i.e. the library
@@ -138,8 +138,8 @@ public class UnfoldingMap implements MapEventListener {
     /**
      * Tweens the position.
      */
-    private Integrator txIntegrator = new Integrator(1);
-    private Integrator tyIntegrator = new Integrator(1);
+    private final Integrator txIntegrator = new Integrator(1);
+    private final Integrator tyIntegrator = new Integrator(1);
 
     /**
      * Creates a new full canvas map with the given ID.
@@ -262,6 +262,7 @@ public class UnfoldingMap implements MapEventListener {
      * @param useMask Whether this map enables using masks (test)
      * @param useDistortion Whether this map enables using distortion (test)
      * @param provider The map tiles provider to use.
+     * @param renderer
      */
     public UnfoldingMap(PApplet p, String id, float x, float y, float width, float height, boolean useMask,
             boolean useDistortion, AbstractMapProvider provider, String renderer) {
@@ -295,8 +296,7 @@ public class UnfoldingMap implements MapEventListener {
             try {
                 // If that failed, searches for a method without
                 mapChangedMethod = appletClass.getMethod(MAPCHANGED_METHOD_NAME);
-            } catch (SecurityException e2) {
-            } catch (NoSuchMethodException e2) {
+            } catch (SecurityException | NoSuchMethodException ex) {
             }
         }
     }
@@ -360,6 +360,7 @@ public class UnfoldingMap implements MapEventListener {
      *
      * @return A identifying string for this map.
      */
+    @Override
     public String getId() {
         return id;
     }
@@ -376,6 +377,8 @@ public class UnfoldingMap implements MapEventListener {
     /**
      * Internal method to listens to mapDisplay events. This will call any
      * listening methods in your application.
+     * 
+     * @param mapEvent
      */
     @Override
     public void onManipulation(MapEvent mapEvent) {
@@ -707,6 +710,11 @@ public class UnfoldingMap implements MapEventListener {
 
     /**
      * Pans from point1 to point 2, given in screen coordinates.
+     * 
+     * @param x1
+     * @param y1
+     * @param x2
+     * @param y2
      */
     public void pan(float x1, float y1, float x2, float y2) {
         float[] xy1 = mapDisplay.getObjectFromScreenPosition(x1, y1);
@@ -1023,6 +1031,8 @@ public class UnfoldingMap implements MapEventListener {
      * {@link MarkerManager#getFirstHitMarker(float, float)} instead.
      * </p>
      *
+     * @param checkX
+     * @param checkY
      * @return The hit marker, or null if none was hit.
      */
     public Marker getFirstHitMarker(float checkX, float checkY) {
@@ -1041,6 +1051,8 @@ public class UnfoldingMap implements MapEventListener {
      * {@link MarkerManager#getHitMarkers(float, float)} instead.
      * </p>
      *
+     * @param checkX
+     * @param checkY
      * @return All hit markers, or an empty list if none were hit.
      */
     public List<Marker> getHitMarkers(float checkX, float checkY) {
@@ -1048,6 +1060,9 @@ public class UnfoldingMap implements MapEventListener {
     }
 
     /**
+     * @param checkX
+     * @param checkY
+     * @return 
      * @deprecated Use {@link #getHitMarkers(float, float)} instead.
      */
     public List<Marker> getHitMarker(float checkX, float checkY) {
@@ -1062,6 +1077,8 @@ public class UnfoldingMap implements MapEventListener {
 
     /**
      * Rotates the map container.
+     * 
+     * @param angle
      */
     public void outerRotate(float angle) {
         mapDisplay.angle += angle;
@@ -1140,6 +1157,9 @@ public class UnfoldingMap implements MapEventListener {
 
     /**
      * Sets the range of map scale factors.
+     * 
+     * @param minScale
+     * @param maxScale
      */
     public void setScaleRange(float minScale, float maxScale) {
         this.minScale = minScale;
@@ -1328,6 +1348,9 @@ public class UnfoldingMap implements MapEventListener {
     /**
      * Converts scale to zoom level. Same as {@link #getZoomFromScale(double)}
      * but with integer values.
+     * 
+     * @param scale
+     * @return 
      */
     public static int getZoomLevelFromScale(double scale) {
         return Math.round(getZoomFromScale(scale));
@@ -1411,5 +1434,4 @@ public class UnfoldingMap implements MapEventListener {
     public float getHeight() {
         return mapDisplay.getHeight();
     }
-
 }

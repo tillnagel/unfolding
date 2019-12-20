@@ -21,10 +21,14 @@ public class MapImageOverlayApp extends PApplet {
     PImage visImg;
     Location visNorthWest = new Location(52.687, 13.06);
     Location visSouthEast = new Location(52.328, 13.78);
-
-    public void setup() {
+    
+    @Override
+    public void settings() {
         size(1400, 800, OPENGL);
+    }
 
+    @Override
+    public void setup() {
         visImg = loadImage("http://upload.wikimedia.org/wikipedia/commons/thumb/5/56/Occupied_Berlin.svg/2000px-Occupied_Berlin.svg.png");
 
         map = new UnfoldingMap(this, "Satellite Map", new Microsoft.AerialProvider());
@@ -32,6 +36,7 @@ public class MapImageOverlayApp extends PApplet {
         MapUtils.createDefaultEventDispatcher(this, map);
     }
 
+    @Override
     public void draw() {
         tint(255);
         map.draw();
@@ -44,5 +49,9 @@ public class MapImageOverlayApp extends PApplet {
 
         tint(255, 110);
         image(visImg, topRight.x, topRight.y, width, height);
+    }
+    
+    public static void main(String args[]) {
+        PApplet.main(new String[]{MapImageOverlayApp.class.getName()});
     }
 }

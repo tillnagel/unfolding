@@ -19,16 +19,13 @@ public class OverviewAndDetailMapApp extends PApplet {
     UnfoldingMap mapDetail;
     UnfoldingMap mapOverview;
 
+    @Override
     public void settings() {
         size(800, 600, P2D);
     }
 
-    public static void main(String[] args) {
-        PApplet.main(new String[]{OverviewAndDetailMapApp.class.getName()});
-    }
-
+    @Override
     public void setup() {
-
         mapDetail = new UnfoldingMap(this, "detail", 10, 10, 585, 580);
         mapDetail.setTweening(true);
         mapDetail.zoomToLevel(4);
@@ -48,6 +45,7 @@ public class OverviewAndDetailMapApp extends PApplet {
         eventDispatcher.register(mapOverview, "zoom", mapDetail.getId(), mapOverview.getId());
     }
 
+    @Override
     public void draw() {
         background(0);
 
@@ -55,4 +53,7 @@ public class OverviewAndDetailMapApp extends PApplet {
         mapOverview.draw();
     }
 
+    public static void main(String[] args) {
+        PApplet.main(new String[]{OverviewAndDetailMapApp.class.getName()});
+    }
 }

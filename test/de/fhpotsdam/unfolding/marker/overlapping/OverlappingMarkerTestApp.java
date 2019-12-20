@@ -15,13 +15,17 @@ public class OverlappingMarkerTestApp extends PApplet {
 
     UnfoldingMap map;
 
-    public void setup() {
+    @Override
+    public void settings() {
         size(800, 600, OPENGL);
-
+    }
+    
+    @Override
+    public void setup() {
         map = new UnfoldingMap(this, new Microsoft.AerialProvider());
         MapUtils.createDefaultEventDispatcher(this, map);
 
-        List<Location> locationList1 = new ArrayList<Location>();
+        List<Location> locationList1 = new ArrayList<>();
         locationList1.add(new Location(0, 0));
         locationList1.add(new Location(10, 0));
         locationList1.add(new Location(10, 10));
@@ -29,7 +33,7 @@ public class OverlappingMarkerTestApp extends PApplet {
         Marker marker1 = new SimplePolygonMarker(locationList1);
         marker1.setId("1");
 
-        List<Location> locationList2 = new ArrayList<Location>();
+        List<Location> locationList2 = new ArrayList<>();
         locationList2.add(new Location(20, 0));
         locationList2.add(new Location(30, 0));
         locationList2.add(new Location(30, 10));
@@ -38,7 +42,7 @@ public class OverlappingMarkerTestApp extends PApplet {
         marker2.setId("2");
         map.addMarker(marker2);
 
-        List<Location> locationList3 = new ArrayList<Location>();
+        List<Location> locationList3 = new ArrayList<>();
         locationList3.add(new Location(5, 5));
         locationList3.add(new Location(15, 5));
         locationList3.add(new Location(15, 15));
@@ -54,10 +58,12 @@ public class OverlappingMarkerTestApp extends PApplet {
         }
     }
 
+    @Override
     public void draw() {
         map.draw();
     }
 
+    @Override
     public void mouseMoved() {
         for (Marker marker : map.getMarkers()) {
             marker.setSelected(false);
@@ -68,4 +74,7 @@ public class OverlappingMarkerTestApp extends PApplet {
         }
     }
 
+    public static void main(String args[]) {
+        PApplet.main(new String[]{OverlappingMarkerTestApp.class.getName()});
+    }
 }

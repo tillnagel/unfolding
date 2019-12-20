@@ -26,6 +26,7 @@ public class RotatableMapApp extends PApplet {
 
     boolean fullRotatable = true;
 
+    @Override
     public void settings() {
         if (fullRotatable) {
             size(800, 600, P2D);
@@ -34,6 +35,7 @@ public class RotatableMapApp extends PApplet {
         }
     }
 
+    @Override
     public void setup() {
         map = new UnfoldingMap(this, "map1", 50, 50, 700, 500);
         map.setTweening(false);
@@ -41,6 +43,7 @@ public class RotatableMapApp extends PApplet {
         MapUtils.createDefaultEventDispatcher(this, map);
     }
 
+    @Override
     public void draw() {
         background(0);
 
@@ -52,6 +55,7 @@ public class RotatableMapApp extends PApplet {
         ellipse(pos.x, pos.y, 10, 10);
     }
 
+    @Override
     public void keyPressed() {
         rotateCenter = new PVector(mouseX, mouseY);
 

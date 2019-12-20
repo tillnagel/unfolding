@@ -10,10 +10,12 @@ public class TransparentThingsOnOpenGLMapApp extends PApplet {
     UnfoldingMap map;
     SimplePointMarker marker;
 
+    @Override
     public void settings() {
         size(600, 600, P2D);
     }
 
+    @Override
     public void setup() {
         map = new UnfoldingMap(this, new Microsoft.AerialProvider());
 
@@ -24,6 +26,7 @@ public class TransparentThingsOnOpenGLMapApp extends PApplet {
         map.addMarker(marker);
     }
 
+    @Override
     public void draw() {
         background(0);
         map.draw();

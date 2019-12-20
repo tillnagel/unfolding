@@ -24,16 +24,19 @@ public class GreatCircleConnectionApp extends PApplet {
     Location sourceLocation = washingtonLocation;
     Location targetLocation = moscowLocation;
 
+    @Override
     public void settings() {
         size(800, 600, P2D);
     }
 
+    @Override
     public void setup() {
         map = new UnfoldingMap(this);
         map.zoomTo(2);
         MapUtils.createDefaultEventDispatcher(this, map);
     }
 
+    @Override
     public void draw() {
         background(0);
         map.draw();
@@ -63,6 +66,7 @@ public class GreatCircleConnectionApp extends PApplet {
         endShape();
     }
 
+    @Override
     public void mouseMoved() {
         if (keyPressed && key == CODED) {
             if (keyCode == SHIFT) {

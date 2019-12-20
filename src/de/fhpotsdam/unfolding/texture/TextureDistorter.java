@@ -174,9 +174,9 @@ public class TextureDistorter {
     }
 
     protected void createMesh(PVector[][] grid) {
-        vertices = new ArrayList<PVector>();
-        texCoords = new ArrayList<PVector>();
-        normals = new ArrayList<PVector>();
+        vertices = new ArrayList<>();
+        texCoords = new ArrayList<>();
+        normals = new ArrayList<>();
 
         // create all mesh vectors (triangles)
         for (int v = 0; v < vSteps - 1; v++) {
@@ -225,6 +225,12 @@ public class TextureDistorter {
 
     /**
      * Adds vertex, texture coordinates, and normals.
+     * 
+     * @param x
+     * @param y
+     * @param z
+     * @param u
+     * @param v
      */
     protected void addVertex(float x, float y, float z, float u, float v) {
         PVector vert = new PVector(x, y, z);

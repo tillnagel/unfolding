@@ -8,7 +8,7 @@ import de.fhpotsdam.unfolding.utils.MapUtils;
 import de.fhpotsdam.utils.Integrator;
 
 /**
- * Press'd' and 'n' to animate between day and night!
+ * Press 'd' and 'n' to animate between day and night!
  */
 public class DayNightTransitionApp extends PApplet {
 
@@ -17,14 +17,12 @@ public class DayNightTransitionApp extends PApplet {
 
     Integrator blendIntegrator = new Integrator(0);
 
+    @Override
     public void settings() {
         size(800, 600, P2D);
     }
 
-    public static void main(String[] args) {
-        PApplet.main(new String[]{DayNightTransitionApp.class.getName()});
-    }
-
+    @Override
     public void setup() {
 
         mapDay = new UnfoldingMap(this);
@@ -40,6 +38,7 @@ public class DayNightTransitionApp extends PApplet {
         MapUtils.createDefaultEventDispatcher(this, mapDay, mapNight);
     }
 
+    @Override
     public void draw() {
         background(0);
 
@@ -51,6 +50,7 @@ public class DayNightTransitionApp extends PApplet {
         mapNight.draw();
     }
 
+    @Override
     public void keyPressed() {
         if (key == 'd') {
             blendIntegrator.target(0);
@@ -58,5 +58,9 @@ public class DayNightTransitionApp extends PApplet {
         if (key == 'n') {
             blendIntegrator.target(255);
         }
+    }
+
+    public static void main(String[] args) {
+        PApplet.main(new String[]{DayNightTransitionApp.class.getName()});
     }
 }

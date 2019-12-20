@@ -9,5 +9,4 @@ import de.fhpotsdam.unfolding.core.Coordinate;
 public interface TileLoaderListener {
 
     public void tileLoaded(Coordinate coord, Object image);
-
 }

@@ -14,16 +14,19 @@ public class SimpleMultiMapApp extends PApplet {
     UnfoldingMap map1;
     UnfoldingMap map2;
 
+    @Override
     public void settings() {
         size(620, 300, P2D);
     }
 
+    @Override
     public void setup() {
         map1 = new UnfoldingMap(this, "map1", 0, 0, 305, 300);
         map2 = new UnfoldingMap(this, "map2", 315, 0, 305, 300);
         MapUtils.createDefaultEventDispatcher(this, map1, map2);
     }
 
+    @Override
     public void draw() {
         background(0);
 
@@ -31,6 +34,7 @@ public class SimpleMultiMapApp extends PApplet {
         map2.draw();
     }
 
+    @Override
     public void keyPressed() {
         UnfoldingMap map = null;
         if (map1.isHit(mouseX, mouseY)) {

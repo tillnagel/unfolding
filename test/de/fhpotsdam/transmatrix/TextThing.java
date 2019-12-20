@@ -8,6 +8,7 @@ public class TextThing extends TuioTransformableObject {
         super(p, offsetX, offsetY, width, height);
     }
 
+    @Override
     public void internalDraw() {
         p.stroke(0, 20);
         p.noFill();
@@ -17,5 +18,4 @@ public class TextThing extends TuioTransformableObject {
         p.textSize(70);
         p.text("Kohlrabisuppe", 0, 60);
     }
-
 }
