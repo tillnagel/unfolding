@@ -15,59 +15,63 @@ import processing.core.PApplet;
 import processing.core.PImage;
 
 /**
- * Shows two different MapDisplayShader, one shading map and marker (mask), one only map (blur).
- * 
- * Whether the shader also affects marker depends on the implementation in the Shader class. 
- * 
+ * Shows two different MapDisplayShader, one shading map and marker (mask), one
+ * only map (blur).
+ *
+ * Whether the shader also affects marker depends on the implementation in the
+ * Shader class.
+ *
  * Switch shader by setting the useShaderWithMarker.
  */
 public class MaskedMarkerAndMapApp extends PApplet {
 
-	boolean useShaderWithMarker = true;
+    boolean useShaderWithMarker = true;
 
-	String earthquakesURL = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/4.5_week.atom";
+    String earthquakesURL = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/4.5_week.atom";
 
-	UnfoldingMap map;
+    UnfoldingMap map;
 
-	MapDisplayShader shaderWithMarker;
-	MapDisplayShader shaderWithoutMarker;
+    MapDisplayShader shaderWithMarker;
+    MapDisplayShader shaderWithoutMarker;
 
-	public void settings() {
-		size(800, 800, P2D);
-	}
+    @Override
+    public void settings() {
+        size(800, 800, P2D);
+    }
 
-	public void setup() {
-		map = new UnfoldingMap(this, 100, 100, 600, 600);
-		MapUtils.createDefaultEventDispatcher(this, map);
+    @Override
+    public void setup() {
+        map = new UnfoldingMap(this, 100, 100, 600, 600);
+        MapUtils.createDefaultEventDispatcher(this, map);
 
-		List<Feature> features = GeoRSSReader.loadDataGeoRSS(this, earthquakesURL);
-		List<Marker> markers = MapUtils.createSimpleMarkers(features);
-		for (Marker m : markers) {
-			m.setColor(color(255, 0, 0));
-		}
-		map.addMarkers(markers);
+        List<Feature> features = GeoRSSReader.loadDataGeoRSS(this, earthquakesURL);
+        List<Marker> markers = MapUtils.createSimpleMarkers(features);
+        for (Marker m : markers) {
+            m.setColor(color(255, 0, 0));
+        }
+        map.addMarkers(markers);
 
-		// Mask shader also shades markers, i.e. markers will be masked, too
-		PImage maskImage = loadImage("shader/mask-circular.png");
-		shaderWithMarker = new MaskedMapDisplayShader(this, 400, 400, maskImage);
-		
-		// Blur shader does not shade marker, i.e. markers stay sharp
-		shaderWithoutMarker = new BlurredMapDisplayShader(this);
+        // Mask shader also shades markers, i.e. markers will be masked, too
+        PImage maskImage = loadImage("shader/mask-circular.png");
+        shaderWithMarker = new MaskedMapDisplayShader(this, 400, 400, maskImage);
 
-		if (useShaderWithMarker) {
-			((OpenGLMapDisplay) map.mapDisplay).setMapDisplayShader(shaderWithMarker);
-		} else {
-			((OpenGLMapDisplay) map.mapDisplay).setMapDisplayShader(shaderWithoutMarker);
-		}
-	}
+        // Blur shader does not shade marker, i.e. markers stay sharp
+        shaderWithoutMarker = new BlurredMapDisplayShader(this);
 
-	public void draw() {
-		background(20);
-		map.draw();
-	}
+        if (useShaderWithMarker) {
+            ((OpenGLMapDisplay) map.mapDisplay).setMapDisplayShader(shaderWithMarker);
+        } else {
+            ((OpenGLMapDisplay) map.mapDisplay).setMapDisplayShader(shaderWithoutMarker);
+        }
+    }
 
-	public static void main(String args[]) {
-		PApplet.main(new String[] { MaskedMarkerAndMapApp.class.getName() });
-	}
+    @Override
+    public void draw() {
+        background(20);
+        map.draw();
+    }
 
+    public static void main(String args[]) {
+        PApplet.main(new String[]{MaskedMarkerAndMapApp.class.getName()});
+    }
 }

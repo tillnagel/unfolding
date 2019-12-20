@@ -11,50 +11,53 @@ import de.fhpotsdam.unfolding.utils.ScreenPosition;
 
 /**
  * Shows a static image laid over an interactive background map.
- * 
+ *
  * See {@link ImageOverlayApp} for more information.
  */
 public class SmallImageOverlayApp extends PApplet {
 
-	UnfoldingMap map;
-	Location center = new Location(52.396, 13.058);
+    UnfoldingMap map;
+    Location center = new Location(52.396, 13.058);
 
-	DebugDisplay debugDisplay;
+    DebugDisplay debugDisplay;
 
-	PImage visImg;
-	Location visNorthWest = new Location(52.399539, 13.048003);
-	Location visSouthEast = new Location(52.391667, 13.066667);
+    PImage visImg;
+    Location visNorthWest = new Location(52.399539, 13.048003);
+    Location visSouthEast = new Location(52.391667, 13.066667);
 
-	public void settings() {
-		size(1400, 800, P2D);
-	}
+    @Override
+    public void settings() {
+        size(1400, 800, P2D);
+    }
 
-	public void setup() {
-		visImg = loadImage("shader/splendor-cutout.png");
+    @Override
+    public void setup() {
+        visImg = loadImage("shader/splendor-cutout.png");
 
-		map = new UnfoldingMap(this, "Satellite Map", new Microsoft.AerialProvider());
-		map.zoomAndPanTo(16, center);
-		MapUtils.createDefaultEventDispatcher(this, map);
+        map = new UnfoldingMap(this, "Satellite Map", new Microsoft.AerialProvider());
+        map.zoomAndPanTo(16, center);
+        MapUtils.createDefaultEventDispatcher(this, map);
 
-		debugDisplay = new DebugDisplay(this, map);
-	}
+        debugDisplay = new DebugDisplay(this, map);
+    }
 
-	public void draw() {
-		map.draw();
+    @Override
+    public void draw() {
+        map.draw();
 
-		ScreenPosition topRight = map.getScreenPosition(visNorthWest);
-		ScreenPosition bottomLeft = map.getScreenPosition(visSouthEast);
+        ScreenPosition topRight = map.getScreenPosition(visNorthWest);
+        ScreenPosition bottomLeft = map.getScreenPosition(visSouthEast);
 
-		float width = bottomLeft.x - topRight.x;
-		float height = bottomLeft.y - topRight.y;
+        float width = bottomLeft.x - topRight.x;
+        float height = bottomLeft.y - topRight.y;
 
-		tint(255, 127);
-		image(visImg, topRight.x, topRight.y, width, height);
+        tint(255, 127);
+        image(visImg, topRight.x, topRight.y, width, height);
 
-		debugDisplay.draw();
-	}
+        debugDisplay.draw();
+    }
 
-	public static void main(String args[]) {
-		PApplet.main(new String[] { SmallImageOverlayApp.class.getName() });
-	}
+    public static void main(String args[]) {
+        PApplet.main(new String[]{SmallImageOverlayApp.class.getName()});
+    }
 }

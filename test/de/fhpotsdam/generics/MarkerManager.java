@@ -6,14 +6,13 @@ import de.fhpotsdam.unfolding.marker.Marker;
 
 public class MarkerManager<E extends Marker> {
 
-	protected List<E> markers;
-	
-	public void addMarker(E marker) {
-		markers.add(marker);
-	}
+    protected List<E> markers;
 
-	public List<E> getMarkers() {
-		return markers;
-	}
-	
+    public void addMarker(E marker) {
+        markers.add(marker);
+    }
+
+    public List<E> getMarkers() {
+        return markers;
+    }
 }

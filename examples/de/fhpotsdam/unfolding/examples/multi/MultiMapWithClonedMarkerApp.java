@@ -11,71 +11,79 @@ import de.fhpotsdam.unfolding.utils.MapUtils;
 import processing.core.PApplet;
 
 /**
- * Clones marker to be used in coordinated views, but with different styles and/or functionality.
- * Manual implementation of clone; works for simple polygons only (not for e.g. France). 
- * 
- * Different to normal case: For displaying same markers in multiple maps, simply add it to both maps.
+ * Clones marker to be used in coordinated views, but with different styles
+ * and/or functionality. Manual implementation of clone; works for simple
+ * polygons only (not for e.g. France).
+ *
+ * Different to normal case: For displaying same markers in multiple maps,
+ * simply add it to both maps.
  */
 public class MultiMapWithClonedMarkerApp extends PApplet {
 
-	UnfoldingMap map;
-	UnfoldingMap map2;
+    UnfoldingMap map;
+    UnfoldingMap map2;
+    
+    Marker selectedMarker = null;
 
-	public void settings() {
-		size(800, 600, P2D);
-		smooth();
-	}
+    @Override
+    public void settings() {
+        size(800, 600, P2D);
+        smooth();
+    }
 
-	public static void main(String args[]) {
-		PApplet.main(new String[] { MultiMapWithClonedMarkerApp.class.getName() });
-	}
+    @Override
+    public void setup() {
+        map = new UnfoldingMap(this, 50, 50, 500, 500);
+        map.zoomToLevel(2);
+        MapUtils.createDefaultEventDispatcher(this, map);
 
-	public void setup() {
-		map = new UnfoldingMap(this, 50, 50, 500, 500);
-		map.zoomToLevel(2);
-		MapUtils.createDefaultEventDispatcher(this, map);
+        map2 = new UnfoldingMap(this, 560, 50, 200, 200);
 
-		map2 = new UnfoldingMap(this, 560, 50, 200, 200);
+        List<Feature> countries = GeoJSONReader.loadData(this, "data/countries.geo.json");
+        List<Marker> countryMarkers = MapUtils.createSimpleMarkers(countries);
+        map.addMarkers(countryMarkers);
+    }
 
-		List<Feature> countries = GeoJSONReader.loadData(this, "data/countries.geo.json");
-		List<Marker> countryMarkers = MapUtils.createSimpleMarkers(countries);
-		map.addMarkers(countryMarkers);
-	}
+    @Override
+    public void draw() {
+        background(160);
+        map.draw();
+        map2.draw();
+    }
 
-	public void draw() {
-		background(160);
-		map.draw();
-		map2.draw();
-	}
+    @Override
+    public void mouseClicked() {
+        if (selectedMarker != null) {
+            selectedMarker.setColor(color(100));
+        }
+        
+        selectedMarker = map.getFirstHitMarker(mouseX, mouseY);
+        if (selectedMarker != null) {
+            selectedMarker.setColor(color(255, 0, 0));
 
-	Marker selectedMarker = null;
+            Marker clonedMarker = clone(selectedMarker);
+            if (clonedMarker != null) {
+                clonedMarker.setColor(color(0, 255, 0));
+                map2.getDefaultMarkerManager().clearMarkers();
+                map2.addMarker(clonedMarker);
+            }
+        }
+    }
 
-	public void mouseClicked() {
-		if (selectedMarker != null) {
-			selectedMarker.setColor(color(100));
-		}
-		selectedMarker = map.getFirstHitMarker(mouseX, mouseY);
-		selectedMarker.setColor(color(255, 0, 0));
+    private Marker clone(Marker marker) {
+        Marker clonedMarker = null;
 
-		Marker clonedMarker = clone(selectedMarker);
-		if (clonedMarker != null) {
-			clonedMarker.setColor(color(0, 255, 0));
-			map2.getDefaultMarkerManager().clearMarkers();
-			map2.addMarker(clonedMarker);
-		}
-	}
+        if (marker instanceof SimplePolygonMarker) {
+            SimplePolygonMarker polyMarker = (SimplePolygonMarker) marker;
 
-	public Marker clone(Marker marker) {
-		Marker clonedMarker = null;
+            clonedMarker = new SimplePolygonMarker(polyMarker.getLocations());
+            clonedMarker.setProperties(polyMarker.getProperties());
+        }
 
-		if (marker instanceof SimplePolygonMarker) {
-			SimplePolygonMarker polyMarker = (SimplePolygonMarker) marker;
+        return clonedMarker;
+    }
 
-			clonedMarker = new SimplePolygonMarker(polyMarker.getLocations());
-			clonedMarker.setProperties(polyMarker.getProperties());
-		}
-
-		return clonedMarker;
-	}
-
+    public static void main(String args[]) {
+        PApplet.main(new String[]{MultiMapWithClonedMarkerApp.class.getName()});
+    }
 }

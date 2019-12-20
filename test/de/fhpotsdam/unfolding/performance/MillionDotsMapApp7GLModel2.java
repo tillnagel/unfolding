@@ -7,8 +7,6 @@
 //import processing.core.PApplet;
 //import processing.core.PVector;
 //
-//
-//
 //import de.fhpotsdam.unfolding.UnfoldingMap;
 //import de.fhpotsdam.unfolding.events.MapEvent;
 //import de.fhpotsdam.unfolding.geo.Location;
@@ -16,9 +14,9 @@
 //
 ///**
 // * Displays a million markers on the map.
-// * 
+// *
 // * (c) 2012 Till Nagel, unfoldingmaps.org
-// * 
+// *
 // * Used for various performance tests.
 // * <ul>
 // * <li>pure drawing (fps for 10k, 100k, 1000k.)</li>
@@ -30,124 +28,130 @@
 // * <li>Use GLModel (see ltavis)</li>
 // * <li>...</li>
 // * </ul>
-// * 
+// *
 // * Outcomes - rect is faster than ellipse (20k. rect: 24fps, ellipse: 7fps)
-// * 
+// *
 // */
 //public class MillionDotsMapApp7GLModel2 extends PApplet {
 //
-//	int dotNumber = 500000;
+//    int dotNumber = 500000;
 //
-//	UnfoldingMap map;
-//	// Original dots (loc + time)
-//	List<Dot> dots = new ArrayList<Dot>();
+//    UnfoldingMap map;
+//    List<Dot> dots = new ArrayList<>();
+//    final List<PVector> visibleDotVertices = new ArrayList<>();
+//    
+//    // GLGraphics model containing vertices
+//    GLModel model;
+//    
+//    // Indicates whether model was updated and should be drawn next frame (to circumvent error on updating outside draw())
+//    boolean updateModelOnNextDraw = false;
 //
-//	// Visible points
-//	List<PVector> visibleDotVertices = new ArrayList<PVector>();
-//	// GLGraphics model containing vertices
-//	GLModel model;
-//	// Indicates whether model was updated and should be drawn next frame (to circumvent error on updating outside
-//	// draw())
-//	boolean updateModelOnNextDraw = false;
+//    Location tlLoc;
+//    Location brLoc;
+//    
+//    @Override
+//    public void settings() {
+//        size(800, 600, OPENGL);
+//        smooth();
+//    }
 //
-//	Location tlLoc;
-//	Location brLoc;
+//    @Override
+//    public void setup() {
+//        dots = createRandomDots(dotNumber);
 //
-//	public void setup() {
-//		size(800, 600, OPENGL);
-//		smooth();
+//        map = new UnfoldingMap(this);
+//        map.zoomToLevel(3);
+//        MapUtils.createDefaultEventDispatcher(this, map);
 //
-//		dots = createRandomDots(dotNumber);
+//        model = new GLModel(this, dotNumber * 4, GLModel.QUADS, GLModel.STATIC);
+//        mapChanged(null);
+//    }
 //
-//		map = new UnfoldingMap(this);
-//		map.zoomToLevel(3);
-//		MapUtils.createDefaultEventDispatcher(this, map);
+//    @Override
+//    public void draw() {
+//        background(0);
+//        map.draw();
 //
-//		model = new GLModel(this, dotNumber * 4, GLModel.QUADS, GLModel.STATIC);
-//		mapChanged(null);
-//	}
+//        synchronized (visibleDotVertices) {
+//            if (updateModelOnNextDraw) {
+//                updateModelVertices();
+//                updateModelOnNextDraw = false;
+//            }
+//            drawModel();
+//        }
 //
-//	public void draw() {
-//		background(0);
-//		map.draw();
+//        fill(255);
+//        rect(5, 5, 180, 20);
+//        fill(0);
+//        text("fps: " + nfs(frameRate, 0, 2) + " (" + visibleDotVertices.size() + " dots)", 10, 20);
+//    }
 //
-//		synchronized (visibleDotVertices) {
-//			if (updateModelOnNextDraw) {
-//				updateModelVertices();
-//				updateModelOnNextDraw = false;
-//			}
-//			drawModel();
-//		}
+//    private void drawModel() {
+//        GLGraphics renderer = (GLGraphics) g;
+//        renderer.beginGL();
 //
+//        model.setTint(0, 100);
 //
-//		fill(255);
-//		rect(5, 5, 180, 20);
-//		fill(0);
-//		text("fps: " + nfs(frameRate, 0, 2) + " (" + visibleDotVertices.size() + " dots)", 10, 20);
-//	}
+//        // renderer.model(model);
+//        // Using render(int, int, GLEffect) method, due to bug (see
+//        // https://forum.processing.org/topic/getting-extra-vertices-when-building-a-mesh-with-glmodel#25080000001046326)
+//        int verticesPerSegment = 4;
+//        int numVertices = visibleDotVertices.size() * verticesPerSegment;
+//        model.render(0, numVertices, null);
+//        renderer.endGL();
+//    }
 //
-//	public void drawModel() {
-//		GLGraphics renderer = (GLGraphics) g;
-//		renderer.beginGL();
+//    private void updateModelVertices() {
+//        int verticesPerSegment = 4;
+//        int numVertices = visibleDotVertices.size() * verticesPerSegment;
 //
-//		model.setTint(0, 100);
+//        if (model.getSize() != numVertices) {
+//            // If number of visible dots has changed, create new model with new number of vertices.
+//            model = new GLModel(this, visibleDotVertices.size() * 4, GLModel.QUADS, GLModel.STATIC);
+//        }
 //
-//		// renderer.model(model);
-//		// Using render(int, int, GLEffect) method, due to bug (see
-//		// https://forum.processing.org/topic/getting-extra-vertices-when-building-a-mesh-with-glmodel#25080000001046326)
-//		int verticesPerSegment = 4;
-//		int numVertices = visibleDotVertices.size() * verticesPerSegment;
-//		model.render(0, numVertices, null);
-//		renderer.endGL();
-//	}
+//        model.beginUpdateVertices();
+//        synchronized (visibleDotVertices) {
+//            for (int i = 0; i < numVertices; i += verticesPerSegment) {
+//                PVector pos = visibleDotVertices.get(i / verticesPerSegment);
+//                model.updateVertex(i, pos.x + 4, pos.y + 4);
+//                model.updateVertex(i + 1, pos.x - 4, pos.y + 4);
+//                model.updateVertex(i + 2, pos.x - 4, pos.y - 4);
+//                model.updateVertex(i + 3, pos.x + 4, pos.y - 4);
+//            }
+//        }
+//        model.endUpdateVertices();
+//    }
 //
-//	public void updateModelVertices() {
-//		int verticesPerSegment = 4;
-//		int numVertices = visibleDotVertices.size() * verticesPerSegment;
+//    private void mapChanged(MapEvent mapEvent) {
+//        // Check map area only once after user interaction.
+//        // Additionally, instead of calculating the screen position each frame, store it in new list.
+//        brLoc = map.getBottomRightBorder();
+//        tlLoc = map.getTopLeftBorder();
+//        synchronized (visibleDotVertices) {
+//            visibleDotVertices.clear();
+//            for (Dot dot : dots) {
+//                if (dot.location.getLat() > brLoc.getLat() && dot.location.getLat() < tlLoc.getLat()
+//                        && dot.location.getLon() > tlLoc.getLon() && dot.location.getLon() < brLoc.getLon()) {
+//                    PVector pos = map.getScreenPosition(dot.location);
+//                    visibleDotVertices.add(pos);
+//                }
+//            }
+//        }
 //
-//		if (model.getSize() != numVertices) {
-//			// If number of visible dots has changed, create new model with new number of vertices.
-//			model = new GLModel(this, visibleDotVertices.size() * 4, GLModel.QUADS, GLModel.STATIC);
-//		}
+//        updateModelOnNextDraw = true;
+//    }
 //
-//		model.beginUpdateVertices();
-//		synchronized (visibleDotVertices) {
-//			for (int i = 0; i < numVertices; i += verticesPerSegment) {
-//				PVector pos = visibleDotVertices.get(i / verticesPerSegment);
-//				model.updateVertex(i, pos.x + 4, pos.y + 4);
-//				model.updateVertex(i + 1, pos.x - 4, pos.y + 4);
-//				model.updateVertex(i + 2, pos.x - 4, pos.y - 4);
-//				model.updateVertex(i + 3, pos.x + 4, pos.y - 4);
-//			}
-//		}
-//		model.endUpdateVertices();
-//	}
-//
-//	public void mapChanged(MapEvent mapEvent) {
-//		// Check map area only once after user interaction.
-//		// Additionally, instead of calculating the screen position each frame, store it in new list.
-//		brLoc = map.getBottomRightBorder();
-//		tlLoc = map.getTopLeftBorder();
-//		synchronized (visibleDotVertices) {
-//			visibleDotVertices.clear();
-//			for (Dot dot : dots) {
-//				if (dot.location.getLat() > brLoc.getLat() && dot.location.getLat() < tlLoc.getLat()
-//						&& dot.location.getLon() > tlLoc.getLon() && dot.location.getLon() < brLoc.getLon()) {
-//					PVector pos = map.getScreenPosition(dot.location);
-//					visibleDotVertices.add(pos);
-//				}
-//			}
-//		}
-//
-//		updateModelOnNextDraw = true;
-//	}
-//
-//	private List<Dot> createRandomDots(int dotNumbers) {
-//		List<Dot> dots = new ArrayList<Dot>();
-//		for (int i = 0; i < dotNumbers; i++) {
-//			Dot dot = new Dot(new Location(random(-85, 85), random(-180, 180)), new Date());
-//			dots.add(dot);
-//		}
-//		return dots;
-//	}
+//    private List<Dot> createRandomDots(int dotNumbers) {
+//        List<Dot> dots = new ArrayList<>();
+//        for (int i = 0; i < dotNumbers; i++) {
+//            Dot dot = new Dot(new Location(random(-85, 85), random(-180, 180)), new Date());
+//            dots.add(dot);
+//        }
+//        return dots;
+//    }
+//    
+//    public static void main(String args[]) {
+//        PApplet.main(new String[]{MillionDotsMapApp7GLModel2.class.getName()});
+//    }
 //}

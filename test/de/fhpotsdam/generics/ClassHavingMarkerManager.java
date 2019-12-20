@@ -4,10 +4,9 @@ import de.fhpotsdam.unfolding.marker.Marker;
 
 public class ClassHavingMarkerManager {
 
-	MarkerManager<? extends Marker> markerManager;
-	
-//	public void addMarker(Marker marker) {
-//		markerManager.addMarker(marker);
-//	}
+    MarkerManager<? extends Marker> markerManager;
 
+//    public void addMarker(Marker marker) {
+//        markerManager.addMarker(marker);
+//    }
 }

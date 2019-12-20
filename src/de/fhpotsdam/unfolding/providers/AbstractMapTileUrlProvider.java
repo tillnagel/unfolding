@@ -9,13 +9,12 @@ import de.fhpotsdam.unfolding.geo.AbstractProjection;
  */
 public abstract class AbstractMapTileUrlProvider extends AbstractMapProvider {
 
-	public AbstractMapTileUrlProvider(AbstractProjection projection) {
-		super(projection);
-	}
+    public AbstractMapTileUrlProvider(AbstractProjection projection) {
+        super(projection);
+    }
 
-	@Override
-	public PImage getTile(Coordinate coordinate) {
-		return null;
-	}
-
+    @Override
+    public PImage getTile(Coordinate coordinate) {
+        return null;
+    }
 }

@@ -14,58 +14,61 @@ import de.fhpotsdam.unfolding.utils.MapUtils;
  */
 public class GeneratedMaskApp extends PApplet {
 
-	UnfoldingMap map;
-	MapDisplayShader mapDisplayShader;
+    UnfoldingMap map;
+    MapDisplayShader mapDisplayShader;
 
-	public void settings() {
-		size(800, 600, P2D);
-	}
+    @Override
+    public void settings() {
+        size(800, 600, P2D);
+    }
 
-	public void setup() {
-		map = new UnfoldingMap(this);
-		map.zoomAndPanTo(10, new Location(52.5f, 13.4f));
-		MapUtils.createDefaultEventDispatcher(this, map);
-		
-		createDynamicMask();
-	}
+    @Override
+    public void setup() {
+        map = new UnfoldingMap(this);
+        map.zoomAndPanTo(10, new Location(52.5f, 13.4f));
+        MapUtils.createDefaultEventDispatcher(this, map);
 
-	public void draw() {
-		background(240);
-		map.draw();
-	}
+        createDynamicMask();
+    }
 
-	public void createDynamicMask() {
-		PGraphics maskImage = createGraphics(800, 600);
-		maskImage.beginDraw();
+    @Override
+    public void draw() {
+        background(240);
+        map.draw();
+    }
 
-		maskImage.noFill();
-		maskImage.strokeJoin(ROUND);
+    public void createDynamicMask() {
+        PGraphics maskImage = createGraphics(800, 600);
+        maskImage.beginDraw();
 
-		maskImage.stroke(255, 220);
-		maskImage.strokeWeight(90);
-		maskImage.beginShape();
-		maskImage.vertex(100, 100);
-		maskImage.vertex(100, 200);
-		maskImage.vertex(400, 300);
-		maskImage.vertex(300, 200);
-		maskImage.endShape();
+        maskImage.noFill();
+        maskImage.strokeJoin(ROUND);
 
-		maskImage.stroke(255);
-		maskImage.strokeWeight(70);
-		maskImage.beginShape();
-		maskImage.vertex(100, 100);
-		maskImage.vertex(100, 200);
-		maskImage.vertex(400, 300);
-		maskImage.vertex(300, 200);
-		maskImage.endShape();
+        maskImage.stroke(255, 220);
+        maskImage.strokeWeight(90);
+        maskImage.beginShape();
+        maskImage.vertex(100, 100);
+        maskImage.vertex(100, 200);
+        maskImage.vertex(400, 300);
+        maskImage.vertex(300, 200);
+        maskImage.endShape();
 
-		maskImage.endDraw();
+        maskImage.stroke(255);
+        maskImage.strokeWeight(70);
+        maskImage.beginShape();
+        maskImage.vertex(100, 100);
+        maskImage.vertex(100, 200);
+        maskImage.vertex(400, 300);
+        maskImage.vertex(300, 200);
+        maskImage.endShape();
 
-		mapDisplayShader = new MaskedMapDisplayShader(this, 800, 600, maskImage);
-		((OpenGLMapDisplay) map.mapDisplay).setMapDisplayShader(mapDisplayShader);
-	}
+        maskImage.endDraw();
 
-	public static void main(String args[]) {
-		PApplet.main(new String[] { GeneratedMaskApp.class.getName() });
-	}
+        mapDisplayShader = new MaskedMapDisplayShader(this, 800, 600, maskImage);
+        ((OpenGLMapDisplay) map.mapDisplay).setMapDisplayShader(mapDisplayShader);
+    }
+
+    public static void main(String args[]) {
+        PApplet.main(new String[]{GeneratedMaskApp.class.getName()});
+    }
 }

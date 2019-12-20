@@ -14,99 +14,109 @@ import de.fhpotsdam.unfolding.utils.ScreenPosition;
 
 public class InteractiveCentroidTestApp extends PApplet {
 
-	UnfoldingMap map;
-	List<Location> locations = new ArrayList<Location>();
+    UnfoldingMap map;
+    List<Location> locations = new ArrayList<>();
 
-	public void setup() {
-		size(800, 600);
-		smooth();
+    @Override
+    public void settings() {
+        size(800, 600);
+        smooth();
+    }
+    
+    @Override
+    public void setup() {
+        map = new UnfoldingMap(this);
+        MapUtils.createDefaultEventDispatcher(this, map);
+    }
 
-		map = new UnfoldingMap(this);
-		MapUtils.createDefaultEventDispatcher(this, map);
-	}
+    @Override
+    public void draw() {
+        background(0);
+        map.draw();
 
-	public void draw() {
-		background(0);
-		map.draw();
+        fill(0);
+        List<PVector> vertices = new ArrayList<>();
+        for (Location location : locations) {
+            ScreenPosition pos = map.getScreenPosition(location);
+            ellipse(pos.x, pos.y, 10, 10);
+            vertices.add(pos);
+        }
 
-		fill(0);
-		List<PVector> vertices = new ArrayList<PVector>();
-		for (Location location : locations) {
-			ScreenPosition pos = map.getScreenPosition(location);
-			ellipse(pos.x, pos.y, 10, 10);
-			vertices.add(pos);
-		}
+        fill(0, 100);
+        beginShape();
+        for (PVector pos : vertices) {
+            vertex(pos.x, pos.y);
+        }
+        endShape();
 
-		fill(0, 100);
-		beginShape();
-		for (PVector pos : vertices) {
-			vertex(pos.x, pos.y);
-		}
-		endShape();
+        Location centroid = GeoUtils.getCentroid(locations);
+        ScreenPosition centroidPos = map.getScreenPosition(centroid);
+        fill(255, 0, 0);
+        ellipse(centroidPos.x, centroidPos.y, 10, 10);
 
-		Location centroid = GeoUtils.getCentroid(locations);
-		ScreenPosition centroidPos = map.getScreenPosition(centroid);
-		fill(255, 0, 0);
-		ellipse(centroidPos.x, centroidPos.y, 10, 10);
+        PVector centroidPos1 = getCentroidOfPolygon(vertices);
+        fill(0, 255, 0);
+        ellipse(centroidPos1.x, centroidPos1.y, 10, 10);
+    }
 
-		PVector centroidPos1 = getCentroidOfPolygon(vertices);
-		fill(0, 255, 0);
-		ellipse(centroidPos1.x, centroidPos1.y, 10, 10);
-	}
+    @Override
+    public void mouseClicked() {
+        Location location = map.getLocation(mouseX, mouseY);
+        locations.add(location);
+    }
 
-	public void mouseClicked() {
-		Location location = map.getLocation(mouseX, mouseY);
-		locations.add(location);
-	}
+    @Override
+    public void keyPressed() {
+        println(locations);
+    }
 
-	public void keyPressed() {
-		println(locations);
-	}
+    private static PVector getCentroidOfPolygon(List<PVector> originalVertices) {
+        List<PVector> vertices = getClosedPolygon(originalVertices);
+        float cx = 0f, cy = 0f;
+        for (int i = 0; i < vertices.size() - 1; i++) {
+            PVector vi0 = vertices.get(i);
+            PVector vi1 = vertices.get(i + 1);
+            cx = cx + (vi0.x + vi1.x) * (vi0.x * vi1.y - vi0.y * vi1.x);
+            cy = cy + (vi0.y + vi1.y) * (vi0.x * vi1.y - vi0.y * vi1.x);
+        }
+        float area = getArea(vertices);
+        cx /= (6f * area);
+        cy /= (6f * area);
+        return new PVector(cx, cy);
+    }
 
-	public static PVector getCentroidOfPolygon(List<PVector> originalVertices) {
-		List<PVector> vertices = getClosedPolygon(originalVertices);
-		float cx = 0f, cy = 0f;
-		for (int i = 0; i < vertices.size() - 1; i++) {
-			PVector vi0 = vertices.get(i);
-			PVector vi1 = vertices.get(i + 1);
-			cx = cx + (vi0.x + vi1.x) * (vi0.x * vi1.y - vi0.y * vi1.x);
-			cy = cy + (vi0.y + vi1.y) * (vi0.x * vi1.y - vi0.y * vi1.x);
-		}
-		float area = getArea(vertices);
-		cx /= (6f * area);
-		cy /= (6f * area);
-		return new PVector(cx, cy);
-	}
+    private static List<PVector> getClosedPolygon(List<PVector> originalVertices) {
+        if (originalVertices.size() < 1
+                || (originalVertices.get(0).equals(originalVertices.get(originalVertices.size() - 1)))) {
+            // Return unchanged, if only one point, or already closed
+            return originalVertices;
+        }
 
-	public static List<PVector> getClosedPolygon(List<PVector> originalVertices) {
-		if (originalVertices.size() < 1
-				|| (originalVertices.get(0).equals(originalVertices.get(originalVertices.size() - 1)))) {
-			// Return unchanged, if only one point, or already closed
-			return originalVertices;
-		}
+        List<PVector> vertices = new ArrayList<>(originalVertices.size() + 1);
+        for (int i = 0; i < originalVertices.size(); i++) {
+            vertices.add(new PVector());
+        }
+        Collections.copy(vertices, originalVertices);
+        if (vertices.size() > 1) {
+            if (!vertices.get(0).equals(vertices.get(vertices.size() - 1))) {
+                // Add first vertex on last position to close polygon
+                vertices.add(vertices.get(0));
+            }
+        }
+        return vertices;
+    }
 
-		List<PVector> vertices = new ArrayList<PVector>(originalVertices.size() + 1);
-		for (int i = 0; i < originalVertices.size(); i++) {
-			vertices.add(new PVector());
-		}
-		Collections.copy(vertices, originalVertices);
-		if (vertices.size() > 1) {
-			if (!vertices.get(0).equals(vertices.get(vertices.size() - 1))) {
-				// Add first vertex on last position to close polygon
-				vertices.add(vertices.get(0));
-			}
-		}
-		return vertices;
-	}
+    private static float getArea(List<PVector> vertices) {
+        float sum = 0;
+        for (int i = 0; i < vertices.size() - 1; i++) {
+            PVector vi0 = vertices.get(i);
+            PVector vi1 = vertices.get(i + 1);
+            sum += (vi0.x * vi1.y - vi1.x * vi0.y);
+        }
+        return sum * 0.5f;
+    }
 
-	public static float getArea(List<PVector> vertices) {
-		float sum = 0;
-		for (int i = 0; i < vertices.size() - 1; i++) {
-			PVector vi0 = vertices.get(i);
-			PVector vi1 = vertices.get(i + 1);
-			sum += (vi0.x * vi1.y - vi1.x * vi0.y);
-		}
-		return sum * 0.5f;
-	}
-
+    public static void main(String args[]) {
+        PApplet.main(new String[]{InteractiveCentroidTestApp.class.getName()});
+    }
 }

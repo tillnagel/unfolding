@@ -17,86 +17,93 @@ import de.fhpotsdam.unfolding.utils.ScreenPosition;
  */
 public class SelectBuildingsApp extends PApplet {
 
-	UnfoldingMap map;
+    UnfoldingMap map;
 
-	VectorTilesUtils vectorTilesUtils;
-	String featureLayer = "buildings";
+    VectorTilesUtils vectorTilesUtils;
+    String featureLayer = "buildings";
 
-	Location[] boundingBox;
-	MapSnapshot mapSnapshot = null;
+    Location[] boundingBox;
+    MapSnapshot mapSnapshot = null;
 
-	public void settings() {
-		size(800, 600, P2D);
-	}
+    @Override
+    public void settings() {
+        size(800, 600, P2D);
+    }
 
-	public static void main(String args[]) {
-		PApplet.main(new String[] { SelectBuildingsApp.class.getName() });
-	}
+    @Override
+    public void setup() {
+        map = new UnfoldingMap(this, 0, 0, 600, 600);
 
-	public void setup() {
-		map = new UnfoldingMap(this, 0, 0, 600, 600);
+        map.zoomAndPanTo(16, new Location(52.501, 13.395));
+        MapUtils.createDefaultEventDispatcher(this, map);
+        map.setZoomRange(10, 19);
 
-		map.zoomAndPanTo(16, new Location(52.501, 13.395));
-		MapUtils.createDefaultEventDispatcher(this, map);
-		map.setZoomRange(10, 19);
+        vectorTilesUtils = new VectorTilesUtils(this, map, VectorTilesApp.MAPZEN_API_KEY);
+        List<Marker> markers = vectorTilesUtils.loadMarkersForScreenPos(featureLayer, width / 2, height / 2);
+        map.addMarkers(markers);
+    }
 
-		vectorTilesUtils = new VectorTilesUtils(this, map, VectorTilesApp.MAPZEN_API_KEY);
-		List<Marker> markers = vectorTilesUtils.loadMarkersForScreenPos(featureLayer, width / 2, height / 2);
-		map.addMarkers(markers);
-	}
+    @Override
+    public void draw() {
+        background(0);
+        map.draw();
 
-	public void draw() {
-		background(0);
-		map.draw();
+        if (mapSnapshot != null) {
+            mapSnapshot.draw(620, 20, 200, 200);
+        }
 
-		if (mapSnapshot != null)
-			mapSnapshot.draw(620, 20, 200, 200);
+        if (boundingBox != null) {
+            ScreenPosition nwPos = map.getScreenPosition(boundingBox[0]);
+            ScreenPosition sePos = map.getScreenPosition(boundingBox[1]);
+            stroke(0, 255, 0, 200);
+            noFill();
+            rect(nwPos.x, nwPos.y, sePos.x - nwPos.x, sePos.y - nwPos.y);
+        }
+    }
 
-		if (boundingBox != null) {
-			ScreenPosition nwPos = map.getScreenPosition(boundingBox[0]);
-			ScreenPosition sePos = map.getScreenPosition(boundingBox[1]);
-			stroke(0, 255, 0, 200);
-			noFill();
-			rect(nwPos.x, nwPos.y, sePos.x - nwPos.x, sePos.y - nwPos.y);
-		}
-	}
+    @Override
+    public void mouseClicked() {
+        List<Marker> markers = map.getMarkers();
+        for (Marker marker : markers) {
+            marker.setHidden(true);
+        }
 
-	public void mouseClicked() {
-		List<Marker> markers = map.getMarkers();
-		for (Marker marker : markers)
-			marker.setHidden(true);
+        Marker hitMarker = map.getFirstHitMarker(mouseX, mouseY);
+        if (hitMarker != null) {
 
-		Marker hitMarker = map.getFirstHitMarker(mouseX, mouseY);
-		if (hitMarker != null) {
+            map.zoomAndPanToFit(GeoUtils.getLocations(hitMarker));
+            map.draw();
 
-			map.zoomAndPanToFit(GeoUtils.getLocations(hitMarker));
-			map.draw();
+            boundingBox = GeoUtils.getBoundingBox(GeoUtils.getLocations(hitMarker));
 
-			boundingBox = GeoUtils.getBoundingBox(GeoUtils.getLocations(hitMarker));
+            mapSnapshot = new CircularMapSnapshot(this, map, 300, 5);
+            mapSnapshot.snapshot(map, 0, 0, 600, 600);
 
-			mapSnapshot = new CircularMapSnapshot(this, map, 300, 5);
-			mapSnapshot.snapshot(map, 0, 0, 600, 600);
+            mapSnapshot.draw(0, 0, 600, 600);
 
-			mapSnapshot.draw(0, 0, 600, 600);
+            hitMarker.setHidden(false);
+            String buildingName = hitMarker.getStringProperty("name");
+            println(buildingName != null ? buildingName : "n/a");
 
-			hitMarker.setHidden(false);
-			String buildingName = hitMarker.getStringProperty("name");
-			println(buildingName != null ? buildingName : "n/a");
+        }
+    }
 
-		}
-	}
+    @Override
+    public void keyPressed() {
+        if (key == 't') {
+            List<Marker> markers = map.getMarkers();
+            for (Marker marker : markers) {
+                marker.setHidden(false);
+            }
+        }
 
-	public void keyPressed() {
-		if (key == 't') {
-			List<Marker> markers = map.getMarkers();
-			for (Marker marker : markers)
-				marker.setHidden(false);
-		}
+        if (key == 's') {
+            mapSnapshot = new CircularMapSnapshot(this);
+            mapSnapshot.snapshot(map);
+        }
+    }
 
-		if (key == 's') {
-			mapSnapshot = new CircularMapSnapshot(this);
-			mapSnapshot.snapshot(map);
-		}
-	}
-
+    public static void main(String args[]) {
+        PApplet.main(new String[]{SelectBuildingsApp.class.getName()});
+    }
 }

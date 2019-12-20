@@ -15,46 +15,55 @@ import de.fhpotsdam.unfolding.utils.MapUtils;
  */
 public class MyPolygonMarkerApp extends PApplet {
 
-	UnfoldingMap map;
+    UnfoldingMap map;
+    
+    @Override
+    public void settings() {
+        size(800, 600, P2D);
+        smooth();
+    }
 
-	public void setup() {
-		size(800, 600);
-		smooth();
+    @Override
+    public void setup() {
+        map = new UnfoldingMap(this);
+        map.zoomTo(3);
+        MapUtils.createDefaultEventDispatcher(this, map);
 
-		map = new UnfoldingMap(this);
-		map.zoomTo(3);
-		MapUtils.createDefaultEventDispatcher(this, map);
+        MyPolygonMarker polygonMarker = new MyPolygonMarker();
+        // Either add single location with lat, lng
+        polygonMarker.addLocation(15, 5);
+        // Or add multiple locations
+        polygonMarker.addLocations(new Location(22, 12), new Location(23, 7));
+        map.addMarkers(polygonMarker);
+    }
 
-		MyPolygonMarker polygonMarker = new MyPolygonMarker();
-		// Either add single location with lat, lng
-		polygonMarker.addLocation(15, 5);
-		// Or add multiple locations
-		polygonMarker.addLocations(new Location(22, 12), new Location(23, 7));
-		map.addMarkers(polygonMarker);
-	}
+    @Override
+    public void draw() {
+        map.draw();
+    }
 
-	public void draw() {
-		map.draw();
-	}
+    // Very simple custom PolygonMarker. Extends Unfolding's SimplePolygonMarker to create own drawing methods.
+    class MyPolygonMarker extends SimplePolygonMarker {
 
-	// Very simple custom PolygonMarker. Extends Unfolding's SimplePolygonMarker to create own drawing methods.
-	class MyPolygonMarker extends SimplePolygonMarker {
+        @Override
+        public void draw(PGraphics pg, List<MapPosition> mapPositions) {
+            pg.pushStyle();
 
-		public void draw(PGraphics pg, List<MapPosition> mapPositions) {
-			pg.pushStyle();
+            // Here you should do your custom drawing
+            pg.strokeWeight(2);
+            pg.stroke(255, 255, 0);
+            pg.fill(255, 0, 0, 127);
+            pg.beginShape();
+            for (MapPosition mapPosition : mapPositions) {
+                pg.vertex(mapPosition.x, mapPosition.y);
+            }
+            pg.endShape();
 
-			// Here you should do your custom drawing
-			pg.strokeWeight(2);
-			pg.stroke(255, 255, 0);
-			pg.fill(255, 0, 0, 127);
-			pg.beginShape();
-			for (MapPosition mapPosition : mapPositions) {
-				pg.vertex(mapPosition.x, mapPosition.y);
-			}
-			pg.endShape();
-
-			pg.popStyle();
-		}
-
-	}
+            pg.popStyle();
+        }
+    }
+    
+    public static void main(String args[]) {
+        PApplet.main(new String[]{MyPolygonMarkerApp.class.getName()});
+    }
 }

@@ -14,79 +14,88 @@ import de.fhpotsdam.unfolding.utils.ScreenPosition;
 
 /**
  * Displays many markers on the map.
- * 
- * Filters dots only on map change. Stores visible dots in a separate temp list, and displays those.
- * 
+ *
+ * Filters dots only on map change. Stores visible dots in a separate temp list,
+ * and displays those.
+ *
  */
 public class MillionDotsMapApp2 extends PApplet {
 
-	UnfoldingMap map;
-	List<Dot> dots = new ArrayList<Dot>();
-	List<Dot> visibleDots = new ArrayList<Dot>();
+    UnfoldingMap map;
+    List<Dot> dots = new ArrayList<>();
+    final List<Dot> visibleDots = new ArrayList<>();
 
-	Location tlLoc;
-	Location brLoc;
+    Location tlLoc;
+    Location brLoc;
 
-	public void setup() {
-		size(800, 600, OPENGL);
-		smooth();
+    @Override
+    public void settings() {
+        size(800, 600, OPENGL);
+        smooth();
+    }
+    
+    @Override
+    public void setup() {
+        dots = createRandomDots(50000);
 
-		dots = createRandomDots(50000);
+        map = new UnfoldingMap(this);
+        map.zoomToLevel(3);
+        MapUtils.createDefaultEventDispatcher(this, map);
 
-		map = new UnfoldingMap(this);
-		map.zoomToLevel(3);
-		MapUtils.createDefaultEventDispatcher(this, map);
+        mapChanged(null);
+    }
 
-		mapChanged(null);
-	}
+    @Override
+    public void draw() {
+        map.draw();
 
-	public void draw() {
-		map.draw();
+        fill(0, 180);
+        noStroke();
 
-		fill(0, 180);
-		noStroke();
+        synchronized (visibleDots) {
+            for (Dot dot : visibleDots) {
+                ScreenPosition pos = map.getScreenPosition(dot.location);
+                if (map.getZoomLevel() <= 4) {
+                    rect(pos.x, pos.y, 4, 4);
+                } else {
+                    // Draw more expensive representations on higher zoom levels (i.e. when fewer dots)
+                    ellipse(pos.x, pos.y, 8, 8);
+                }
+            }
+        }
 
-		synchronized (visibleDots) {
-			for (Dot dot : visibleDots) {
-				ScreenPosition pos = map.getScreenPosition(dot.location);
-				if (map.getZoomLevel() <= 4) {
-					rect(pos.x, pos.y, 4, 4);
-				} else {
-					// Draw more expensive representations on higher zoom levels (i.e. when fewer dots)
-					ellipse(pos.x, pos.y, 8, 8);
-				}
-			}
-		}
+        fill(255);
+        rect(5, 5, 180, 20);
+        fill(0);
+        text("fps: " + nfs(frameRate, 0, 2) + " (" + visibleDots.size() + " dots)", 10, 20);
+    }
 
-		fill(255);
-		rect(5, 5, 180, 20);
-		fill(0);
-		text("fps: " + nfs(frameRate, 0, 2) + " (" + visibleDots.size() + " dots)", 10, 20);
-	}
+    private void mapChanged(MapEvent mapEvent) {
+        // println("mapChanged: " + mapEvent);
 
-	public void mapChanged(MapEvent mapEvent) {
-		// println("mapChanged: " + mapEvent);
+        brLoc = map.getBottomRightBorder();
+        tlLoc = map.getTopLeftBorder();
+        synchronized (visibleDots) {
+            visibleDots.clear();
+            for (Dot dot : dots) {
+                if (dot.location.getLat() > brLoc.getLat() && dot.location.getLat() < tlLoc.getLat()
+                        && dot.location.getLon() > tlLoc.getLon() && dot.location.getLon() < brLoc.getLon()) {
+                    visibleDots.add(dot);
+                }
+            }
+        }
+    }
 
-		brLoc = map.getBottomRightBorder();
-		tlLoc = map.getTopLeftBorder();
-		synchronized (visibleDots) {
-			visibleDots.clear();
-			for (Dot dot : dots) {
-				if (dot.location.getLat() > brLoc.getLat() && dot.location.getLat() < tlLoc.getLat()
-						&& dot.location.getLon() > tlLoc.getLon() && dot.location.getLon() < brLoc.getLon()) {
-					visibleDots.add(dot);
-				}
-			}
-		}
-	}
+    private List<Dot> createRandomDots(int dotNumbers) {
+        List<Dot> dots = new ArrayList<>();
+        for (int i = 0; i < dotNumbers; i++) {
+            Dot dot = new Dot(new Location(random(-85, 85), random(-180, 180)), new Date());
+            dots.add(dot);
+        }
+        return dots;
+    }
 
-	private List<Dot> createRandomDots(int dotNumbers) {
-		List<Dot> dots = new ArrayList<Dot>();
-		for (int i = 0; i < dotNumbers; i++) {
-			Dot dot = new Dot(new Location(random(-85, 85), random(-180, 180)), new Date());
-			dots.add(dot);
-		}
-		return dots;
-	}
-
+    public static void main(String args[]) {
+        PApplet.main(new String[]{MillionDotsMapApp2.class.getName()});
+    }
 }

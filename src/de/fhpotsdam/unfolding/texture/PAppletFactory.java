@@ -4,14 +4,13 @@ import processing.core.PApplet;
 
 public class PAppletFactory {
 
-	private static PApplet p;
+    private static PApplet p;
 
-	public PAppletFactory(PApplet p) {
-		PAppletFactory.p = p;
-	}
+    public PAppletFactory(PApplet p) {
+        PAppletFactory.p = p;
+    }
 
-	public static PApplet getInstance() {
-		return p;
-	}
-
+    public static PApplet getInstance() {
+        return p;
+    }
 }

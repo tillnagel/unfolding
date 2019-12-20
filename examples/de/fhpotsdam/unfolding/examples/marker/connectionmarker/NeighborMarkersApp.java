@@ -12,69 +12,72 @@ import de.fhpotsdam.unfolding.utils.GeoUtils;
 import de.fhpotsdam.unfolding.utils.MapUtils;
 
 /**
- * Creates random markers, and checks whether they are in vicinity to each other. If they are neighbors a connection is
- * shown.
+ * Creates random markers, and checks whether they are in vicinity to each
+ * other. If they are neighbors a connection is shown.
  */
 @SuppressWarnings("serial")
 public class NeighborMarkersApp extends PApplet {
 
-	UnfoldingMap map;
+    UnfoldingMap map;
 
-	public void settings() {
-		size(800, 600, P2D);
-	}
+    @Override
+    public void settings() {
+        size(800, 600, P2D);
+    }
 
-	public static void main(String[] args) {
-		PApplet.main(new String[] { NeighborMarkersApp.class.getName() });
-	}
+    @Override
+    public void setup() {
+        map = new UnfoldingMap(this);
+        map.zoomToLevel(11);
+        map.panTo(new Location(52.53f, 13.4f));
+        MapUtils.createDefaultEventDispatcher(this, map);
 
-	public void setup() {
-		map = new UnfoldingMap(this);
-		map.zoomToLevel(11);
-		map.panTo(new Location(52.53f, 13.4f));
-		MapUtils.createDefaultEventDispatcher(this, map);
+        initMarkers();
+    }
 
-		initMarkers();
-	}
+    @Override
+    public void draw() {
+        background(240);
 
-	public void initMarkers() {
-		map.getDefaultMarkerManager().clearMarkers();
+        // Drawing Markers in handled internally
+        map.draw();
+    }
 
-		// Create Markers from random Locations
-		List<Marker> markers = new ArrayList<Marker>();
-		List<Marker> connectionMarkers = new ArrayList<Marker>();
+    @Override
+    public void keyPressed() {
+        if (key == ' ') {
+            initMarkers();
+        }
+    }
 
-		for (int i = 0; i < 30; i++) {
-			markers.add(new SimplePointMarker(new Location(random(52.46f, 52.61f), random(13.23f, 13.54f))));
-		}
+    private void initMarkers() {
+        map.getDefaultMarkerManager().clearMarkers();
 
-		// Create connections between near-by markers
-		for (Marker marker : markers) {
-			for (Marker markerTo : markers) {
-				// Less than 3 km
-				if (GeoUtils.getDistance(marker.getLocation(), markerTo.getLocation()) < 3) {
-					ConnectionMarker cm = new ConnectionMarker(marker, markerTo);
-					connectionMarkers.add(cm);
-				}
-			}
-		}
+        // Create Markers from random Locations
+        List<Marker> markers = new ArrayList<>();
+        List<Marker> connectionMarkers = new ArrayList<>();
 
-		// Add Markers to the maps default MarkerManager
-		map.addMarkers(markers);
-		map.addMarkers(connectionMarkers);
-	}
+        for (int i = 0; i < 30; i++) {
+            markers.add(new SimplePointMarker(new Location(random(52.46f, 52.61f), random(13.23f, 13.54f))));
+        }
 
-	public void draw() {
-		background(240);
+        // Create connections between near-by markers
+        for (Marker marker : markers) {
+            for (Marker markerTo : markers) {
+                // Less than 3 km
+                if (GeoUtils.getDistance(marker.getLocation(), markerTo.getLocation()) < 3) {
+                    ConnectionMarker cm = new ConnectionMarker(marker, markerTo);
+                    connectionMarkers.add(cm);
+                }
+            }
+        }
 
-		// Drawing Markers in handled internally
-		map.draw();
-	}
+        // Add Markers to the maps default MarkerManager
+        map.addMarkers(markers);
+        map.addMarkers(connectionMarkers);
+    }
 
-	public void keyPressed() {
-		if (key == ' ') {
-			initMarkers();
-		}
-	}
-
+    public static void main(String[] args) {
+        PApplet.main(new String[]{NeighborMarkersApp.class.getName()});
+    }
 }

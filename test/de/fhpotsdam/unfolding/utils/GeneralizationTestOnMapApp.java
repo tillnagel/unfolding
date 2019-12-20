@@ -14,82 +14,95 @@ import de.fhpotsdam.unfolding.interactions.MouseHandler;
 import de.fhpotsdam.unfolding.providers.StamenMapProvider;
 
 /**
- * Tests the generalization / simplification method to reduce polylines on a map.
- * 
- * Click to add new points, press + and - to decrease or increase tolerance (generalization factor).
- * 
+ * Tests the generalization / simplification method to reduce polylines on a
+ * map.
+ *
+ * Click to add new points, press + and - to decrease or increase tolerance
+ * (generalization factor).
+ *
  */
 public class GeneralizationTestOnMapApp extends PApplet {
 
-	UnfoldingMap map;
+    UnfoldingMap map;
 
-	List<Location> locations = new ArrayList<Location>();
+    List<Location> locations = new ArrayList<>();
 
-	List<PVector> points = new ArrayList<PVector>();
-	List<PVector> simplifiedPoints = new ArrayList<PVector>();
+    List<PVector> points = new ArrayList<>();
+    List<PVector> simplifiedPoints = new ArrayList<>();
 
-	float tolerance = 4;
+    float tolerance = 4;
 
-	public void setup() {
-		size(800, 600, OPENGL);
+    @Override
+    public void settings() {
+        size(800, 600, OPENGL);
+    }
+    
+    @Override
+    public void setup() {
+        map = new UnfoldingMap(this, new StamenMapProvider.Toner());
+        // MapUtils.createDefaultEventDispatcher(this, map);
 
-		map = new UnfoldingMap(this, new StamenMapProvider.Toner());
-		// MapUtils.createDefaultEventDispatcher(this, map);
+        EventDispatcher eventDispatcher = new EventDispatcher();
+        MouseHandler mouseHandler = new MouseHandler(this, map);
+        eventDispatcher.addBroadcaster(mouseHandler);
+        eventDispatcher.register(map, PanMapEvent.TYPE_PAN, map.getId());
+        eventDispatcher.register(map, ZoomMapEvent.TYPE_ZOOM, map.getId());
 
-		EventDispatcher eventDispatcher = new EventDispatcher();
-		MouseHandler mouseHandler = new MouseHandler(this, map);
-		eventDispatcher.addBroadcaster(mouseHandler);
-		eventDispatcher.register(map, PanMapEvent.TYPE_PAN, map.getId());
-		eventDispatcher.register(map, ZoomMapEvent.TYPE_ZOOM, map.getId());
+    }
 
-	}
+    @Override
+    public void draw() {
+        background(250);
 
-	public void draw() {
-		background(250);
+        map.draw();
 
-		map.draw();
+        points = new ArrayList<>();
+        for (Location location : locations) {
+            ScreenPosition pos = map.getScreenPosition(location);
+            points.add(pos);
+        }
+        if (!points.isEmpty()) {
+            // drawLine(points, color(0, 50), color(255, 0, 0, 20));
+            simplifiedPoints = GeneralizationUtils.simplify(points, tolerance, true);
+            drawLine(simplifiedPoints, color(0, 200), color(255, 0, 0, 200));
+        }
+    }
 
-		points = new ArrayList<PVector>();
-		for (Location location : locations) {
-			ScreenPosition pos = map.getScreenPosition(location);
-			points.add(pos);
-		}
-		if (!points.isEmpty()) {
-			// drawLine(points, color(0, 50), color(255, 0, 0, 20));
-			simplifiedPoints = GeneralizationUtils.simplify(points, tolerance, true);
-			drawLine(simplifiedPoints, color(0, 200), color(255, 0, 0, 200));
-		}
-	}
+    @Override
+    public void keyPressed() {
+        if (key == '+') {
+            tolerance++;
+        }
+        if (key == '-') {
+            tolerance--;
+        }
+        // simplifiedPoints = GeneralizationUtils.simplify(points, tolerance, true);
+        println(tolerance);
+    }
 
-	public void drawLine(List<PVector> points, int strokeColor, int color) {
-		stroke(strokeColor);
-		strokeWeight(2);
-		noFill();
-		beginShape();
-		for (PVector p : points) {
-			vertex(p.x, p.y);
-		}
-		endShape();
+    @Override
+    public void mouseClicked() {
+        locations.add(map.getLocation(mouseX, mouseY));
+    }
 
-		noStroke();
-		fill(color);
-		for (PVector p : points) {
-			ellipse(p.x, p.y, 5, 5);
-		}
-	}
+    private void drawLine(List<PVector> points, int strokeColor, int color) {
+        stroke(strokeColor);
+        strokeWeight(2);
+        noFill();
+        beginShape();
+        for (PVector p : points) {
+            vertex(p.x, p.y);
+        }
+        endShape();
 
-	public void keyPressed() {
-		if (key == '+') {
-			tolerance++;
-		}
-		if (key == '-') {
-			tolerance--;
-		}
-		// simplifiedPoints = GeneralizationUtils.simplify(points, tolerance, true);
-		println(tolerance);
-	}
-
-	public void mouseClicked() {
-		locations.add(map.getLocation(mouseX, mouseY));
-	}
+        noStroke();
+        fill(color);
+        for (PVector p : points) {
+            ellipse(p.x, p.y, 5, 5);
+        }
+    }
+    
+    public static void main(String args[]) {
+        PApplet.main(new String[]{GeneralizationTestOnMapApp.class.getName()});
+    }
 }

@@ -10,25 +10,34 @@ import de.fhpotsdam.unfolding.utils.MapUtils;
  */
 public class DeformApp extends PApplet {
 
-	UnfoldingMap map;
+    UnfoldingMap map;
 
-	DeformMapDisplayShader mapDisplayShader;
+    DeformMapDisplayShader mapDisplayShader;
+    
+    @Override
+    public void settings() {
+        size(800, 600, OPENGL);
+    }
+    
+    @Override
+    public void setup() {
+        map = new UnfoldingMap(this);
+        MapUtils.createDefaultEventDispatcher(this, map);
 
-	public void setup() {
-		size(800, 600, OPENGL);
-		map = new UnfoldingMap(this);
-		MapUtils.createDefaultEventDispatcher(this, map);
+        mapDisplayShader = new DeformMapDisplayShader(this, width, height);
+        ((OpenGLMapDisplay) map.mapDisplay).setMapDisplayShader(mapDisplayShader);
+    }
 
-		mapDisplayShader = new DeformMapDisplayShader(this, width, height);
-		((OpenGLMapDisplay) map.mapDisplay).setMapDisplayShader(mapDisplayShader);
-	}
+    @Override
+    public void draw() {
+        background(0);
 
-	public void draw() {
-		background(0);
-		
-		mapDisplayShader.setPos(mouseX,  mouseY);
-		
-		map.draw();
-	}
+        mapDisplayShader.setPos(mouseX, mouseY);
 
+        map.draw();
+    }
+    
+    public static void main(String args[]) {
+        PApplet.main(new String[]{DeformApp.class.getName()});
+    }
 }

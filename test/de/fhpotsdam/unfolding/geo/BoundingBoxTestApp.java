@@ -7,7 +7,6 @@ import processing.core.PApplet;
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.data.Feature;
 import de.fhpotsdam.unfolding.data.GeoJSONReader;
-import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.marker.Marker;
 import de.fhpotsdam.unfolding.utils.GeoUtils;
 import de.fhpotsdam.unfolding.utils.MapUtils;
@@ -15,75 +14,85 @@ import de.fhpotsdam.unfolding.utils.ScreenPosition;
 
 public class BoundingBoxTestApp extends PApplet {
 
-	UnfoldingMap map;
+    UnfoldingMap map;
 
-	Location[] boundingBox = null;
-	Location center = null;
-	Location centerEuclidean = null;
-	Location centerBoundingBox = null;
+    Location[] boundingBox = null;
+    Location center = null;
+    Location centerEuclidean = null;
+    Location centerBoundingBox = null;
+   
+    @Override
+    public void settings() {
+        size(800, 800, OPENGL);
+    }
+    
+    @Override
+    public void setup() {
+        map = new UnfoldingMap(this);
+        MapUtils.createDefaultEventDispatcher(this, map);
 
-	public void setup() {
-		size(800, 800, OPENGL);
+        List<Feature> countryFeatures = GeoJSONReader.loadData(this, "countries.geo.json");
+        List<Marker> countryMarkers = MapUtils.createSimpleMarkers(countryFeatures);
+        map.addMarkers(countryMarkers);
+    }
 
-		map = new UnfoldingMap(this);
-		MapUtils.createDefaultEventDispatcher(this, map);
+    @Override
+    public void draw() {
+        background(240);
+        map.draw();
 
-		List<Feature> countryFeatures = GeoJSONReader.loadData(this, "countries.geo.json");
-		List<Marker> countryMarkers = MapUtils.createSimpleMarkers(countryFeatures);
-		map.addMarkers(countryMarkers);
-	}
+        if (boundingBox != null) {
+            ScreenPosition nwPos = map.getScreenPosition(boundingBox[0]);
+            ScreenPosition sePos = map.getScreenPosition(boundingBox[1]);
+            stroke(0, 255, 0, 200);
+            noFill();
+            rect(nwPos.x, nwPos.y, sePos.x - nwPos.x, sePos.y - nwPos.y);
+        }
 
-	public void draw() {
-		background(240);
-		map.draw();
+        noStroke();
+        if (center != null) {
+            ScreenPosition posC = map.getScreenPosition(center);
+            fill(0, 0, 255);
+            ellipse(posC.x, posC.y, 6, 6);
+        }
 
-		if (boundingBox != null) {
-			ScreenPosition nwPos = map.getScreenPosition(boundingBox[0]);
-			ScreenPosition sePos = map.getScreenPosition(boundingBox[1]);
-			stroke(0, 255, 0, 200);
-			noFill();
-			rect(nwPos.x, nwPos.y, sePos.x - nwPos.x, sePos.y - nwPos.y);
-		}
+        if (centerEuclidean != null) {
+            ScreenPosition posCE = map.getScreenPosition(centerEuclidean);
+            fill(0, 255, 255);
+            ellipse(posCE.x, posCE.y, 6, 6);
+        }
+        if (centerBoundingBox != null) {
+            ScreenPosition posBB = map.getScreenPosition(centerBoundingBox);
+            fill(0, 255, 0);
+            ellipse(posBB.x, posBB.y, 6, 6);
+        }
+    }
 
-		noStroke();
-		if (center != null) {
-			ScreenPosition posC = map.getScreenPosition(center);
-			fill(0, 0, 255);
-			ellipse(posC.x, posC.y, 6, 6);
-		}
+    @Override
+    public void mouseMoved() {
+        Marker marker = map.getFirstHitMarker(mouseX, mouseY);
+        if (marker != null) {
+            centerEuclidean = GeoUtils.getEuclideanCentroid(GeoUtils.getLocations(marker));
+            center = GeoUtils.getCentroid(marker);
 
-		if (centerEuclidean != null) {
-			ScreenPosition posCE = map.getScreenPosition(centerEuclidean);
-			fill(0, 255, 255);
-			ellipse(posCE.x, posCE.y, 6, 6);
-		}
-		if (centerBoundingBox != null) {
-			ScreenPosition posBB = map.getScreenPosition(centerBoundingBox);
-			fill(0, 255, 0);
-			ellipse(posBB.x, posBB.y, 6, 6);
-		}
-	}
+            List<Location> boundingBoxLocations = Arrays.asList(GeoUtils.getBoundingBox(GeoUtils.getLocations(marker)));
+            centerBoundingBox = GeoUtils.getEuclideanCentroid(boundingBoxLocations);
+        }
+    }
 
-	public void mouseMoved() {
-		Marker marker = map.getFirstHitMarker(mouseX, mouseY);
-		if (marker != null) {
-			centerEuclidean = GeoUtils.getEuclideanCentroid(GeoUtils.getLocations(marker));
-			center = GeoUtils.getCentroid(marker);
-
-			List<Location> boundingBoxLocations = Arrays.asList(GeoUtils.getBoundingBox(GeoUtils.getLocations(marker)));
-			centerBoundingBox = GeoUtils.getEuclideanCentroid(boundingBoxLocations);
-		}
-	}
-
-	public void mouseClicked() {
-		Marker marker = map.getFirstHitMarker(mouseX, mouseY);
-		if (marker != null) {
-			boundingBox = GeoUtils.getBoundingBox(GeoUtils.getLocations(marker));
-			map.zoomAndPanToFit(GeoUtils.getLocations(marker));
-		} else {
-			boundingBox = null;
-			map.zoomAndPanTo(2, new Location(0, 0));
-		}
-	}
-
+    @Override
+    public void mouseClicked() {
+        Marker marker = map.getFirstHitMarker(mouseX, mouseY);
+        if (marker != null) {
+            boundingBox = GeoUtils.getBoundingBox(GeoUtils.getLocations(marker));
+            map.zoomAndPanToFit(GeoUtils.getLocations(marker));
+        } else {
+            boundingBox = null;
+            map.zoomAndPanTo(2, new Location(0, 0));
+        }
+    }
+    
+    public static void main(String args[]) {
+        PApplet.main(new String[]{BoundingBoxTestApp.class.getName()});
+    }
 }

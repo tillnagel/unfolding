@@ -4,36 +4,40 @@ import processing.core.PApplet;
 
 public class ConvexHullConnectionApp extends PApplet {
 
-	OverviewPlusDetailConnection convexHullConnection;
-	
-	public void settings() {
-		size(500, 500, P2D);
-	}
+    OverviewPlusDetailConnection convexHullConnection;
 
-	public static void main(String[] args) {
-		PApplet.main(new String[] { ConvexHullConnectionApp.class.getName() });
-	}
-	
-	public void setup() {
-		background(255);
-		smooth();
+    @Override
+    public void settings() {
+        size(500, 500, P2D);
+        smooth();
+    }
 
-		convexHullConnection = new ConvexHullConnection(this);
-		convexHullConnection.setDetailSize(150, 150);
-		convexHullConnection.setOverviewSize(50, 50);
-	}
+    @Override
+    public void setup() {
+        background(255);
 
-	public void draw() {
-		background(255);
-		convexHullConnection.draw();
-	}
+        convexHullConnection = new ConvexHullConnection(this);
+        convexHullConnection.setDetailSize(150, 150);
+        convexHullConnection.setOverviewSize(50, 50);
+    }
 
-	public void mouseMoved() {
-		convexHullConnection.setOverviewPosition(mouseX, mouseY);
-	}
+    @Override
+    public void draw() {
+        background(255);
+        convexHullConnection.draw();
+    }
 
-	public void mouseDragged() {
-		convexHullConnection.setDetailPosition(mouseX, mouseY);
-	}
+    @Override
+    public void mouseMoved() {
+        convexHullConnection.setOverviewPosition(mouseX, mouseY);
+    }
 
+    @Override
+    public void mouseDragged() {
+        convexHullConnection.setDetailPosition(mouseX, mouseY);
+    }
+
+    public static void main(String[] args) {
+        PApplet.main(new String[]{ConvexHullConnectionApp.class.getName()});
+    }
 }

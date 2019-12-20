@@ -16,101 +16,103 @@ import de.fhpotsdam.unfolding.utils.ScreenPosition;
 
 public class GeoNamesDynamicLookup extends PApplet {
 
-	// UNFOLDING Variables
-	UnfoldingMap map;
-	int theZoomLevel;
+    // UNFOLDING Variables
+    UnfoldingMap map;
+    int theZoomLevel;
 
-	// GEONAMES Variables
-	String searchName = "berlin";
-	ToponymSearchCriteria searchCriteria = new ToponymSearchCriteria();
-	boolean searchEvent = true;
-	boolean typeName = false;
+    // GEONAMES Variables
+    String searchName = "berlin";
+    ToponymSearchCriteria searchCriteria = new ToponymSearchCriteria();
+    boolean searchEvent = true;
+    boolean typeName = false;
 
-	// CONTROLP5 Variables
-	ControlP5 cp5;
-	String textValue = "";
-	Textfield myTextfield;
-	controlP5.Label label;
+    // CONTROLP5 Variables
+    ControlP5 cp5;
+    String textValue = "";
+    Textfield myTextfield;
+    controlP5.Label label;
 
-	public void setup() {
+    @Override
+    public void setup() {
 
-		size(650, 440, OPENGL);
+        size(650, 440, OPENGL);
 
-		// INIT UNFOLDING
-		map = new UnfoldingMap(this);
-		map.zoomAndPanTo(new Location(52.5f, 13.4f), 10);
-		MapUtils.createDefaultEventDispatcher(this, map);
+        // INIT UNFOLDING
+        map = new UnfoldingMap(this);
+        map.zoomAndPanTo(new Location(52.5f, 13.4f), 10);
+        MapUtils.createDefaultEventDispatcher(this, map);
 
-		// INIT GEONAMES
-		WebService.setUserName("username"); // add your username here
-		searchCriteria.setMaxRows(1);
+        // INIT GEONAMES
+        WebService.setUserName("username"); // add your username here
+        searchCriteria.setMaxRows(1);
 
-		// INIT CONTROLP5
-		cp5 = new ControlP5(this);
+        // INIT CONTROLP5
+        cp5 = new ControlP5(this);
 
-		println(cp5);
-		myTextfield = cp5.addTextfield("Search Criteria").setPosition(20, 400).setSize(200, 20).setFocus(true);
+        println(cp5);
+        myTextfield = cp5.addTextfield("Search Criteria").setPosition(20, 400).setSize(200, 20).setFocus(true);
 
-		// use setAutoClear(true/false) to clear a textfield or keep text
-		// displayed in
-		// a textfield after pressing return.
-		myTextfield.setAutoClear(true).keepFocus(true);
-		label = myTextfield.captionLabel();
-		label.setColor(color(0));
+        // use setAutoClear(true/false) to clear a textfield or keep text
+        // displayed in
+        // a textfield after pressing return.
+        myTextfield.setAutoClear(true).keepFocus(true);
+        label = myTextfield.captionLabel();
+        label.setColor(color(0));
 
-	}
+    }
 
-	public void draw() {
-		background(0);
-		map.updateMap();
-		map.draw();
-		Location loc = new Location(52.5f, 13.4f);
+    @Override
+    public void draw() {
+        background(0);
+        map.updateMap();
+        map.draw();
+        Location loc = new Location(52.5f, 13.4f);
 
-		// GEONAMES EVENT
-		if (searchEvent == true) {
-			searchCriteria.setQ(myTextfield.getStringValue());
+        // GEONAMES EVENT
+        if (searchEvent == true) {
+            searchCriteria.setQ(myTextfield.getStringValue());
 
-			try {
-				ToponymSearchResult searchResult = WebService.search(searchCriteria);
+            try {
+                ToponymSearchResult searchResult = WebService.search(searchCriteria);
 
-				for (Toponym toponym : searchResult.getToponyms()) {
-					println(toponym.getName() + " " + toponym.getCountryName() + " " + toponym.getLongitude() + " "
-							+ toponym.getLatitude() + " " + toponym.getFeatureClass());
+                for (Toponym toponym : searchResult.getToponyms()) {
+                    println(toponym.getName() + " " + toponym.getCountryName() + " " + toponym.getLongitude() + " "
+                            + toponym.getLatitude() + " " + toponym.getFeatureClass());
 
-					loc.x = (float) toponym.getLatitude();
-					loc.y = (float) toponym.getLongitude();
-					map.panTo(loc);
-				}
+                    loc.x = (float) toponym.getLatitude();
+                    loc.y = (float) toponym.getLongitude();
+                    map.panTo(loc);
+                }
 
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+            } catch (Exception e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
 
-			searchEvent = false;
+            searchEvent = false;
 
-		}
-		ScreenPosition pos = map.getScreenPosition(loc);
-		fill(0, 150);
-		noStroke();
-		ellipse(pos.x, pos.y, 20, 20);
+        }
+        ScreenPosition pos = map.getScreenPosition(loc);
+        fill(0, 150);
+        noStroke();
+        ellipse(pos.x, pos.y, 20, 20);
 
-	}
+    }
 
-	public void input(String theText) {
-		// automatically receives results from controller input
-		println("a textfield event for controller 'input' : " + theText);
-	}
+    public void input(String theText) {
+        // automatically receives results from controller input
+        println("a textfield event for controller 'input' : " + theText);
+    }
 
-	public void controlEvent(ControlEvent theEvent) {
-		if (theEvent.isAssignableFrom(Textfield.class)) {
-			println("controlEvent: accessing a string from controller '" + theEvent.getName() + "': "
-					+ theEvent.getStringValue());
-			searchEvent = true;
-		}
-	}
+    public void controlEvent(ControlEvent theEvent) {
+        if (theEvent.isAssignableFrom(Textfield.class)) {
+            println("controlEvent: accessing a string from controller '" + theEvent.getName() + "': "
+                    + theEvent.getStringValue());
+            searchEvent = true;
+        }
+    }
 
-	public static void main(String[] args) {
-		PApplet.main(new String[] { "de.fhpotsdam.unfolding.examples.geonames.GeoNamesDynamicLookup" });
-	}
+    public static void main(String[] args) {
+        PApplet.main(new String[]{"de.fhpotsdam.unfolding.examples.geonames.GeoNamesDynamicLookup"});
+    }
 }

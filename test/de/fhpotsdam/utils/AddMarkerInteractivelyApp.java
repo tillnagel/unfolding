@@ -11,34 +11,44 @@ import de.fhpotsdam.unfolding.utils.ScreenPosition;
 
 public class AddMarkerInteractivelyApp extends PApplet {
 
-	UnfoldingMap map;
-	List<Location> locations = new ArrayList<Location>();
+    UnfoldingMap map;
+    List<Location> locations = new ArrayList<>();
 
-	public void setup() {
-		size(800, 600);
-		smooth();
+    @Override
+    public void settings() {
+        size(800, 600);
+        smooth();
+    }
+    
+    @Override
+    public void setup() {
+        map = new UnfoldingMap(this);
+        MapUtils.createDefaultEventDispatcher(this, map);
+    }
 
-		map = new UnfoldingMap(this);
-		MapUtils.createDefaultEventDispatcher(this, map);
-	}
+    @Override
+    public void draw() {
+        background(0);
+        map.draw();
 
-	public void draw() {
-		background(0);
-		map.draw();
+        for (Location location : locations) {
+            ScreenPosition pos = map.getScreenPosition(location);
+            ellipse(pos.x, pos.y, 10, 10);
+        }
+    }
 
-		for (Location location : locations) {
-			ScreenPosition pos = map.getScreenPosition(location);
-			ellipse(pos.x, pos.y, 10, 10);
-		}
-	}
+    @Override
+    public void mouseClicked() {
+        Location location = map.getLocation(mouseX, mouseY);
+        locations.add(location);
+    }
 
-	public void mouseClicked() {
-		Location location = map.getLocation(mouseX, mouseY);
-		locations.add(location);
-	}
-	
-	public void keyPressed() {
-		println(locations);
-	}
+    @Override
+    public void keyPressed() {
+        println(locations);
+    }
 
+    public static void main(String args[]) {
+        PApplet.main(new String[]{AddMarkerInteractivelyApp.class.getName()});
+    }
 }

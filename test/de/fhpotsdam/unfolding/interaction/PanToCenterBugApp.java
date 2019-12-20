@@ -13,69 +13,78 @@ import de.fhpotsdam.unfolding.utils.ScreenPosition;
 
 /**
  * Interactive test app for the current transformation bug.
- * 
- * Zoom in, set trans center (by right clicking), zoom again, set other trans center
- * 
+ *
+ * Zoom in, set trans center (by right clicking), zoom again, set other trans
+ * center
+ *
  */
 @SuppressWarnings("serial")
 public class PanToCenterBugApp extends PApplet {
 
-	public static Logger log = Logger.getLogger(PanToCenterBugApp.class);
+    public static Logger LOGGER = Logger.getLogger(PanToCenterBugApp.class);
 
-	DebugDisplay debugDisplay;
+    DebugDisplay debugDisplay;
 
-	EventDispatcher eventDispatcher;
+    EventDispatcher eventDispatcher;
 
-	UnfoldingMap map;
+    UnfoldingMap map;
 
-	// London, UK
-	Location locLondon = new Location(51.50939f, 0f);
-	// Quito, Equador
-	Location locQuito = new Location(0f, -78f);
+    // London, UK
+    Location locLondon = new Location(51.50939f, 0f);
+    // Quito, Equador
+    Location locQuito = new Location(0f, -78f);
+    
+    @Override
+    public void settings() {
+        size(800, 600, OPENGL);
+        smooth();
+    }
+    
+    @Override
+    public void setup() {
+        textFont(loadFont("Miso-Light-12.vlw"));
 
+        // Creates default mapDisplay
+        map = new UnfoldingMap(this, "map", 0, 0, 800, 600);
+        map.setTweening(false);
 
-	public void setup() {
-		size(800, 600, OPENGL);
-		smooth();
+        debugDisplay = new DebugDisplay(this, map);
 
-		textFont(loadFont("Miso-Light-12.vlw"));
+        // default dispatcher
+        eventDispatcher = MapUtils.createDefaultEventDispatcher(this, map);
+    }
 
-		// Creates default mapDisplay
-		map = new UnfoldingMap(this, "map", 0, 0, 800, 600);
-		map.setTweening(false);
+    @Override
+    public void draw() {
+        background(0);
+        map.draw();
 
-		debugDisplay = new DebugDisplay(this, map);
+        debugDisplay.draw();
 
-		// default dispatcher
-		eventDispatcher = MapUtils.createDefaultEventDispatcher(this, map);
-	}
+        noFill();
+        // red: London
+        ScreenPosition pLondon = map.mapDisplay.getScreenPosition(locLondon);
+        stroke(255, 0, 0);
+        ellipse(pLondon.x, pLondon.y, 12, 12);
 
-	public void draw() {
-		background(0);
-		map.draw();
+        // blue: Quito
+        ScreenPosition pQuito = map.mapDisplay.getScreenPosition(locQuito);
+        stroke(0, 0, 255);
+        ellipse(pQuito.x, pQuito.y, 12, 12);
+    }
 
-		debugDisplay.draw();
-
-		noFill();
-		// red: London
-		ScreenPosition pLondon = map.mapDisplay.getScreenPosition(locLondon);
-		stroke(255, 0, 0);
-		ellipse(pLondon.x, pLondon.y, 12, 12);
-		
-		// blue: Quito
-		ScreenPosition pQuito = map.mapDisplay.getScreenPosition(locQuito);
-		stroke(0, 0, 255);
-		ellipse(pQuito.x, pQuito.y, 12, 12);
-	}
-	
-	public void keyPressed() {
-		if (key == '1') {
-			println("panCenterTo London");
-			map.panTo(locLondon);
-		}
-		else if (key == '2') {
-			println("panCenterTo Quito");
-			map.panTo(locQuito);
-		}
-	}
+    @Override
+    public void keyPressed() {
+        if (key == '1') {
+            println("panCenterTo London");
+            map.panTo(locLondon);
+        } else if (key == '2') {
+            println("panCenterTo Quito");
+            map.panTo(locQuito);
+        }
+    }
+        
+    public static void main(String args[]) {
+        PApplet.main(new String[]{PanToCenterBugApp.class.getName()});
+    }
 }
