@@ -1,4 +1,7 @@
-# Unfolding
+# Unfolding Maps
+
+[![wakatime](https://wakatime.com/badge/github/Verisimilitude11/Unfolding-Maps.svg)](https://wakatime.com/badge/github/Verisimilitude11/Unfolding-Maps)
+
 Create interactive thematic maps and geovisualizations.
 
 * <http://unfoldingmaps.org/>
